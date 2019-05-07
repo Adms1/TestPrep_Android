@@ -7,7 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.testcraftdemo"
+        applicationId "com.testprep"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
@@ -44,4 +44,5 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'com.facebook.android:facebook-android-sdk:4.26.0'
+
 }

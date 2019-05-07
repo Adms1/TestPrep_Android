@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.testcraftdemo">
+          package="com.testprep">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -13,15 +13,15 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
 
-        <activity android:name=".activity.OtpActivity" />
+        <activity android:name="com.testprep.activity.OtpActivity" />
 
-        <activity android:name=".activity.DashboardActivity" />
+        <activity android:name="com.testprep.activity.DashboardActivity" />
 
-        <activity android:name=".activity.SignupActivity" android:windowSoftInputMode="adjustNothing" />
+        <activity android:name="com.testprep.activity.SignupActivity" android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".activity.LoginActivity" android:windowSoftInputMode="adjustNothing" />
+        <activity android:name="com.testprep.activity.LoginActivity" android:windowSoftInputMode="adjustNothing" />
 
-        <activity android:name=".activity.SplashActivity">
+        <activity android:name="com.testprep.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -29,11 +29,11 @@
             </intent-filter>
         </activity> <!-- <activity android:name=".ImageviewPageActivity"> -->
         <!-- </activity> -->
-        <activity android:name=".old.WebviewPageActivity" android:theme="@style/AppTheme2" />
+        <activity android:name="com.testprep.old.WebviewPageActivity" android:theme="@style/AppTheme2" />
 
-        <activity android:name=".old.PageActivity" android:theme="@style/AppTheme2" />
+        <activity android:name="com.testprep.old.PageActivity" android:theme="@style/AppTheme2" />
 
-        <activity android:name=".old.Main2Activity" android:label="@string/title_activity_main2" android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name="com.testprep.old.Main2Activity" android:label="@string/title_activity_main2" android:theme="@style/AppTheme.NoActionBar">
 
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
