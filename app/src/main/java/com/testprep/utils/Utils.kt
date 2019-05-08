@@ -11,7 +11,7 @@ class Utils {
 
     companion object {
 
-        private val APP_PREF = "TesetPrep"
+        private const val APP_PREF = "TesetPrep"
         private var mSharedPreferencesEditor: SharedPreferences.Editor? = null
         private var mSharedPreferences: SharedPreferences? = null
 
@@ -36,7 +36,7 @@ class Utils {
             if (view == null) {
                 view = View(activity)
             }
-            imm!!.hideSoftInputFromWindow(view!!.windowToken, 0)
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
         }
     }
 }

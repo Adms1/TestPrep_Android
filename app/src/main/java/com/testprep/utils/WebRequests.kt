@@ -1,13 +1,23 @@
 package com.testprep.utils
 
-import java.util.HashMap
+import java.util.*
 
 class WebRequests {
 
     companion object{
 
-        fun addSignupParams(id: String, fname: String, lname: String, email: String, pass: String, mobile: String, status: String): HashMap<String, String> {
+        fun addSignupParams(
+            logintype: String,
+            id: String,
+            fname: String,
+            lname: String,
+            email: String,
+            pass: String,
+            mobile: String,
+            status: String
+        ): HashMap<String, String> {
             val map = HashMap<String, String>()
+            map["LoginTypeID"] = logintype
             map["StudentID"] = id
             map["StudentFirstName"] = fname
             map["StudentLastName"] = lname
@@ -24,6 +34,14 @@ class WebRequests {
 
             map["Email"] = email
             map["Password"] = pass
+
+            return map
+        }
+
+        fun checkEmailParams(email: String): HashMap<String, String> {
+            val map = HashMap<String, String>()
+
+            map["Email"] = email
 
             return map
         }

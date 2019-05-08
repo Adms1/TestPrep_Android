@@ -15,13 +15,12 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
 import com.squareup.picasso.Picasso
-import com.testprep.old.PageActivity.Companion.countt
 import com.testprep.R
+import com.testprep.old.PageActivity.Companion.countt
 import com.testprep.old.adapter.SelectImageOptionAdapter
 import com.testprep.old.models.QuestionResponse
 import com.testprep.old.retrofit.ApiClient
 import com.testprep.old.retrofit.ApiInterface
-import com.testprep.old.retrofit.WebInterface
 import kotlinx.android.synthetic.main.fragment_page_view.*
 import kotlinx.android.synthetic.main.fragment_webview.wv_question_list
 import retrofit2.Call

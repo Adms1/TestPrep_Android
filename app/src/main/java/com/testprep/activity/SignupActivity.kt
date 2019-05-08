@@ -1,7 +1,6 @@
 package com.testprep.activity
 
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,14 +12,15 @@ import android.view.Window
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
-import com.testprep.old.retrofit.WebClient
-import com.testprep.old.retrofit.WebInterface
+import com.testprep.retrofit.WebClient
+import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
+import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
 import kotlinx.android.synthetic.main.activity_signup.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class SignupActivity : AppCompatActivity() {
 
@@ -30,19 +30,15 @@ class SignupActivity : AppCompatActivity() {
 
         signup_btnSignup.setOnClickListener {
 
-            //            val intent = Intent(this@SignupActivity, OtpActivity::class.java)
-//            startActivity(intent)
-//           overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             if (isValid()) {
                 callSignupApi()
             }
-
         }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
     fun isValid(): Boolean {
@@ -106,24 +102,88 @@ class SignupActivity : AppCompatActivity() {
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getSignup(WebRequests.addSignupParams("0",
-            signup_etFname.text.toString(),
-            signup_etLname.text.toString(),
-            signup_etEmail.text.toString(),
-            signup_etPassword.text.toString(),
-            signup_etMobile.text.toString(),
-            "1"))
+//        var call: Call<JsonObject>? = null
+
+//        if(intent.getStringExtra("comefrom").equals("profile", true)){
+//            call = apiService.updateProfile(
+//                WebRequests.addSignupParams(
+//                    Utils.getStringValue(this@SignupActivity, AppConstants.USER_LOGIN_TYPE, "")!!,
+//                    Utils.getStringValue(this@SignupActivity, AppConstants.USER_ID, "")!!,
+//                    signup_etFname.text.toString(),
+//                    signup_etLname.text.toString(),
+//                    signup_etEmail.text.toString(),
+//                    signup_etPassword.text.toString(),
+//                    signup_etMobile.text.toString(),
+//                    Utils.getStringValue(this@SignupActivity, AppConstants.USER_STATUSID, "")!!
+//                )
+//            )
+//        }else if(intent.getStringExtra("comefrom").equals("login", true)) {
+        val call = apiService.getSignup(
+            WebRequests.addSignupParams(
+                "1", "0",
+                signup_etFname.text.toString(),
+                signup_etLname.text.toString(),
+                signup_etEmail.text.toString(),
+                signup_etPassword.text.toString(),
+                signup_etMobile.text.toString(),
+                "1"
+            )
+        )
+//        }
+
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
                 if (response.body()!!.get("Status").asString == "true") {
 
                     sortDialog.dismiss()
-                    Toast.makeText(this@SignupActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this@SignupActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG).show()
+
+                    Utils.setStringValue(
+                        this@SignupActivity,
+                        AppConstants.FIRST_NAME,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
+                    )
+                    Utils.setStringValue(
+                        this@SignupActivity,
+                        AppConstants.LAST_NAME,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
+                    )
+                    Utils.setStringValue(
+                        this@SignupActivity,
+                        AppConstants.USER_ID,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
+                    )
+                    Utils.setStringValue(
+                        this@SignupActivity,
+                        AppConstants.USER_EMAIL,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
+                    )
+                    Utils.setStringValue(
+                        this@SignupActivity,
+                        AppConstants.USER_PASSWORD,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
+                    )
+                    Utils.setStringValue(
+                        this@SignupActivity,
+                        AppConstants.USER_MOBILE,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
+                    )
+                    Utils.setStringValue(
+                        this@SignupActivity,
+                        AppConstants.USER_LOGIN_TYPE,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["LoginTypeID"].asString
+                    )
+                    Utils.setStringValue(
+                        this@SignupActivity,
+                        AppConstants.USER_STATUSID,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
+                    )
 
                     val intent = Intent(this@SignupActivity, OtpActivity ::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                    finish()
 
                     Log.d("websize", response.body()!!.get("Msg").asString)
 

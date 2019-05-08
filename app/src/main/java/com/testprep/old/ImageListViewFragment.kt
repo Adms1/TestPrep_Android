@@ -13,7 +13,6 @@ import com.testprep.old.adapter.QuestionImagelistAdapter
 import com.testprep.old.models.QuestionResponse
 import com.testprep.old.retrofit.ApiClient
 import com.testprep.old.retrofit.ApiInterface
-import com.testprep.old.retrofit.WebInterface
 import kotlinx.android.synthetic.main.fragment_list_view.*
 import retrofit2.Call
 import retrofit2.Callback

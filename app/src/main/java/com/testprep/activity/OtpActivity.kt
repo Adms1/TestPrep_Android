@@ -1,10 +1,11 @@
 package com.testprep.activity
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.Toast
 import com.testprep.R
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.activity_otp.*
@@ -16,6 +17,8 @@ class OtpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_otp)
 
         otp_btnSubmit.setOnClickListener {
+
+            Toast.makeText(this@OtpActivity, "Registration Suceessfully...", Toast.LENGTH_LONG).show()
 
             Utils.hideKeyboard(this@OtpActivity)
 
@@ -30,7 +33,8 @@ class OtpActivity : AppCompatActivity() {
 //            startActivity(intent)
 
             Handler().postDelayed(
-                Runnable /*
+
+                /* Runnable
                  * Showing splash screen with a timer. This will be useful when you
                  * want to show case your app logo / company
                  */
@@ -41,7 +45,6 @@ class OtpActivity : AppCompatActivity() {
                     val intent = Intent(this@OtpActivity, DashboardActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-
 
                     // close this activity
                     finish()
@@ -54,7 +57,7 @@ class OtpActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
 

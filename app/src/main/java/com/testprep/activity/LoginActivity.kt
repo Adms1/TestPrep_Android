@@ -1,46 +1,37 @@
 package com.testprep.activity
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import com.facebook.FacebookSdk
-import com.testprep.R
-import kotlinx.android.synthetic.main.activity_login.*
-import android.widget.TextView
-import com.google.android.gms.common.SignInButton
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.common.api.ApiException
-import android.util.Log
-import android.widget.Toast
-import com.google.android.gms.tasks.Task
-import com.google.android.gms.common.util.IOUtils.toByteArray
-import android.provider.SyncStateContract.Helpers.update
 import android.content.pm.PackageManager
-import android.content.pm.PackageInfo
-import android.opengl.ETC1.isValid
-import android.support.v4.app.ActivityCompat.startActivityForResult
-import android.support.v4.content.ContextCompat.startActivity
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Base64
+import android.util.Log
 import android.util.Patterns
 import android.view.Gravity
 import android.view.Window
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
+import android.widget.TextView
+import android.widget.Toast
+import com.facebook.*
 import com.facebook.login.LoginResult
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.SignInButton
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.gson.JsonObject
-import com.testprep.old.retrofit.WebClient
-import com.testprep.old.retrofit.WebInterface
+import com.testprep.R
+import com.testprep.retrofit.WebClient
+import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
-import kotlinx.android.synthetic.main.activity_signup.*
+import kotlinx.android.synthetic.main.activity_login.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
 
     private val EMAIL = "email"
 
+    @SuppressLint("PackageManagerGetSignatures")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -64,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         callbackManager = CallbackManager.Factory.create()
-        login_btnFb.setReadPermissions(Arrays.asList(EMAIL));
+        login_btnFb.setReadPermissions(Arrays.asList(EMAIL))
 
         // Add code to print out the key hash
         try {
@@ -87,30 +79,50 @@ class LoginActivity : AppCompatActivity() {
 
 
         login_btnFb.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-                override fun onSuccess(loginResult: LoginResult) {
-                    setResult(RESULT_OK);
-                    Toast.makeText(this@LoginActivity, "Welcome", Toast.LENGTH_LONG).show()
+            override fun onSuccess(loginResult: LoginResult) {
+                setResult(RESULT_OK)
+//                Toast.makeText(this@LoginActivity, "Welcome" + loginResult.accessToken.userId, Toast.LENGTH_LONG).show()
+
+                val request: GraphRequest = GraphRequest.newMeRequest(
+                    loginResult.accessToken
+                ) { jsonObject: JSONObject, graphResponse: GraphResponse ->
+                    Log.v("LoginActivity", graphResponse.toString())
+
+                    // Application code
+                    val email = jsonObject.getString("email")
+                    val name = jsonObject.getString("name")
+//                    var last_name = jsonObject.getString("last_name");
+//                    var birthday = jsonObject.getString("birthday") // 01/31/1980 format
+
+                    callCheckEmailApi("3", name, "", email, "", "")
+//                    callSignupApi("3", name, "", email, "", "")
+
+                }
+                val parameters = Bundle()
+                parameters.putString("fields", "id,name,email,gender,birthday")
+                request.parameters = parameters
+                request.executeAsync()
 
 //                Log.d("fbsignin", "signInResult:failed code=" + e.statusCode)
-                    finish();
-                }
+//                finish()
+            }
 
-                override fun onCancel() {
-                    setResult(RESULT_CANCELED);
-                    Toast.makeText(this@LoginActivity, "issue", Toast.LENGTH_LONG).show()
+            override fun onCancel() {
+                setResult(RESULT_CANCELED)
+//                Toast.makeText(this@LoginActivity, "issue", Toast.LENGTH_LONG).show()
 
-                    Log.d("fbsignin", "signInResult:failed code=cancel")
+                Log.d("fbsignin", "signInResult:failed code=cancel")
 
-                    finish()
-                }
+                finish()
+            }
 
-                override fun onError(e: FacebookException) {
-                    Toast.makeText(this@LoginActivity, "error", Toast.LENGTH_LONG).show()
+            override fun onError(e: FacebookException) {
+//                Toast.makeText(this@LoginActivity, "error", Toast.LENGTH_LONG).show()
 
-                    Log.d("fbsignin", "signInResult:failed code=" + e.printStackTrace())
-                    // Handle exception
-                }
-            })
+                Log.d("fbsignin", "signInResult:failed code=" + e.printStackTrace())
+                // Handle exception
+            }
+        })
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -121,6 +133,7 @@ class LoginActivity : AppCompatActivity() {
         login_btnSignup.setOnClickListener {
 
             val intent = Intent(this@LoginActivity, SignupActivity::class.java)
+            intent.putExtra("comefrom", "login")
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 
@@ -130,12 +143,12 @@ class LoginActivity : AppCompatActivity() {
 
         login_btnLogin.setOnClickListener {
 
-            if(isValid()) {
+            if (isValid()) {
                 callLoginApi()
             }
         }
 
-        login_btnGoogle.setOnClickListener {   signIn(); }
+        login_btnGoogle.setOnClickListener { signIn(); }
 
 //        login_btnFb.setOnClickListener {    }
 
@@ -162,47 +175,38 @@ class LoginActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-//        if (requestCode == 100) {
-//            // The Task returned from this call is always completed, no need to attach
-//            // a listener.
-//            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-//            handleSignInResult(task)
-//        }
-//        else{
+        if (requestCode == 100) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+        } else {
 
             callbackManager!!.onActivityResult(requestCode, resultCode, data)
-//        }
+        }
     }
+
 
     var account: GoogleSignInAccount? = null
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             account = completedTask.getResult(ApiException::class.java)
 
-            // Signed in successfully, show authenticated UI.
+            callCheckEmailApi(
+                "2",
+                account!!.givenName.toString(),
+                account!!.familyName.toString(),
+                account!!.email.toString(),
+                "",
+                ""
+            )
 
-//            if(Utils.callSignupApi(
-//                this@LoginActivity,
-//                "0",
-//                account!!.givenName.toString(),
-//                account.familyName.toString(),
-//                account.email.toString(),
-//                "",
-//                "",
-//                "1"
-//            )){
-                val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                finish()
-//            }
-
-            Toast.makeText(this@LoginActivity, "Welcome " + account!!.displayName, Toast.LENGTH_LONG).show()
+//            Toast.makeText(this@LoginActivity, "Welcome " + account!!.displayName, Toast.LENGTH_LONG).show()
 //            updateUI(account)
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Toast.makeText(this@LoginActivity, "Login fail", Toast.LENGTH_LONG).show()
+//            Toast.makeText(this@LoginActivity, "Login fail", Toast.LENGTH_LONG).show()
             Log.w("googlesignin", "signInResult:failed code=" + e.statusCode)
 //            updateUI(null)
         }
@@ -227,7 +231,12 @@ class LoginActivity : AppCompatActivity() {
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getLogin(WebRequests.addLoginParams(login_etEmail.text.toString(), login_etPassword.text.toString()))
+        val call = apiService.getLogin(
+            WebRequests.addLoginParams(
+                login_etEmail.text.toString(),
+                login_etPassword.text.toString()
+            )
+        )
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
@@ -240,7 +249,47 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(intent)
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 
-                    Utils.setStringValue(this@LoginActivity, AppConstants.USER_NAME, response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString + " " + response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString)
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.FIRST_NAME,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.LAST_NAME,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_ID,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_EMAIL,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_PASSWORD,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_MOBILE,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_LOGIN_TYPE,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["LoginTypeID"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_STATUSID,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
+                    )
+
 
 //                    Log.d("loginresponse", response.body()!!.asString)
                 } else {
@@ -259,7 +308,7 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    fun isValid(): Boolean{
+    fun isValid(): Boolean {
 
         var isvalid = true
 
@@ -268,12 +317,12 @@ class LoginActivity : AppCompatActivity() {
 //            isvalid = false
 //        }
 
-        if(TextUtils.isEmpty(login_etEmail.text.toString()) || !Patterns.EMAIL_ADDRESS.matcher(login_etEmail.text.toString()).matches()){
+        if (TextUtils.isEmpty(login_etEmail.text.toString()) || !Patterns.EMAIL_ADDRESS.matcher(login_etEmail.text.toString()).matches()) {
             login_etEmail.error = "Please enter valid Email Address"
             isvalid = false
         }
 
-        if(TextUtils.isEmpty(login_etPassword.text.toString())){
+        if (TextUtils.isEmpty(login_etPassword.text.toString())) {
             login_etPassword.error = "Password must not be null"
             isvalid = false
         }
@@ -281,5 +330,238 @@ class LoginActivity : AppCompatActivity() {
         return isvalid
 
     }
+
+    fun callCheckEmailApi(logintype: String, fname: String, lname: String, email: String, pass: String, cpass: String) {
+
+        val sortDialog = Dialog(this@LoginActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
+        val window = sortDialog.window
+        val wlp = window!!.attributes
+        sortDialog.window!!.attributes.verticalMargin = 0.10f
+        wlp.gravity = Gravity.BOTTOM
+        window.attributes = wlp
+
+//        sortDialog.window!!.setBackgroundDrawableResource(R.drawable.filter1_1)
+
+        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        sortDialog.setCancelable(true)
+//        sortDialog.setContentView(getRoot())
+        sortDialog.show()
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.checkEmail(WebRequests.checkEmailParams(email))
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body()!!["Status"].asString == "true") {
+
+                    sortDialog.dismiss()
+                    Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+
+                    val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.FIRST_NAME,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.LAST_NAME,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_ID,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_EMAIL,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_PASSWORD,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_MOBILE,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_LOGIN_TYPE,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["LoginTypeID"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_STATUSID,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
+                    )
+
+
+//                    Log.w("check email response", GsonBuilder().setPrettyPrinting().create().toJson(response))
+
+//                    Log.d("loginresponse", response.body()!!.asString)
+                } else {
+                    sortDialog.dismiss()
+                    Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+
+                    callSignupApi(
+                        logintype,
+                        fname,
+                        lname,
+                        email,
+                        pass,
+                        cpass
+                    )
+
+//                    setPasswordDialog()
+
+//                    Log.d("loginresponse", response.body()!!.asString)
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                sortDialog.dismiss()
+            }
+        })
+    }
+
+    fun callSignupApi(logintype: String, fname: String, lname: String, email: String, pass: String, cpass: String) {
+
+        val sortDialog = Dialog(this@LoginActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
+        val window = sortDialog.window
+        val wlp = window!!.attributes
+        sortDialog.window!!.attributes.verticalMargin = 0.10f
+        wlp.gravity = Gravity.BOTTOM
+        window.attributes = wlp
+
+//        sortDialog.window!!.setBackgroundDrawableResource(R.drawable.filter1_1)
+
+        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        sortDialog.setCancelable(true)
+//        sortDialog.setContentView(getRoot())
+        sortDialog.show()
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call =
+            apiService.getSignup(WebRequests.addSignupParams(logintype, "0", fname, lname, email, pass, cpass, "1"))
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body()!!.get("Status").asString == "true") {
+
+                    sortDialog.dismiss()
+                    Toast.makeText(this@LoginActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG).show()
+
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.FIRST_NAME,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.LAST_NAME,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_ID,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_EMAIL,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_PASSWORD,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_MOBILE,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_LOGIN_TYPE,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["LoginTypeID"].asString
+                    )
+                    Utils.setStringValue(
+                        this@LoginActivity,
+                        AppConstants.USER_STATUSID,
+                        response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
+                    )
+
+                    val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                    finish()
+
+                    Log.d("websize", response.body()!!.get("Msg").asString)
+
+                } else {
+
+                    sortDialog.dismiss()
+                    Toast.makeText(this@LoginActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG).show()
+
+                    Log.d("websize", response.body()!!.get("Msg").asString)
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                sortDialog.dismiss()
+            }
+        })
+
+    }
+
+//    private fun setPasswordDialog() {
+//
+//
+//
+//        val dialog = Dialog(this@LoginActivity)
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        dialog.setContentView(R.layout.dialog_setpassword)
+//        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+//
+//        val window = dialog.window
+//        val wlp: WindowManager.LayoutParams?
+//        if (window != null) {
+//            wlp = window.attributes
+//
+//            wlp!!.gravity = Gravity.CENTER
+//            window.attributes = wlp
+//
+//        }
+//
+//        val btnClose: Button = dialog.findViewById(R.id.dialog_setpass_close_btn)
+//        val etPassword: EditText = dialog.findViewById(R.id.dialog_setpass_etPassword)
+//        val etCpassword: EditText = dialog.findViewById(R.id.dialog_setpass_etCPassword)
+//        val btnSubmit: Button = dialog.findViewById(R.id.dialog_setpass_btnSignup)
+//
+//        btnSubmit.setOnClickListener {
+//
+//            callSignupApi(account!!.givenName.toString(), account!!.familyName.toString(), account!!.email.toString(), etPassword.text.toString(), etCpassword.text.toString())
+//        }
+//
+//        btnClose.setOnClickListener { dialog.dismiss() }
+//
+//        dialog.show()
+//    }
 
 }

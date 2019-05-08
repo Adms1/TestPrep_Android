@@ -3,6 +3,8 @@ package com.testprep.old
 
 import android.app.Dialog
 import android.graphics.BitmapFactory
+import android.graphics.Rect
+import android.graphics.drawable.NinePatchDrawable
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,20 +13,17 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import com.squareup.picasso.Picasso
+import com.testprep.R
 import com.testprep.old.adapter.SelectImageOptionAdapter
 import com.testprep.old.models.QuestionResponse
-import com.testprep.old.retrofit.WebInterface
+import com.testprep.old.retrofit.ApiClient
+import com.testprep.old.retrofit.ApiInterface
 import kotlinx.android.synthetic.main.fragment_page_view.*
 import kotlinx.android.synthetic.main.fragment_webview.wv_question_list
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.net.URL
-import android.graphics.drawable.NinePatchDrawable
-import android.graphics.Rect
-import com.testprep.R
-import com.testprep.old.retrofit.ApiClient
-import com.testprep.old.retrofit.ApiInterface
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -225,7 +224,7 @@ class PageView2Fragment : Fragment() {
             val chunk = bmp.ninePatchChunk
             val np = NinePatchDrawable(bmp, chunk, Rect(), null)
 
-            return np!!
+            return np
         }
 
         /*

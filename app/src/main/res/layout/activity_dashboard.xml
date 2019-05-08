@@ -24,7 +24,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/colorPrimary"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"/>
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <ImageView
+                        android:id="@+id/dashboard_ivMenu"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:src="@drawable/menu"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Home"
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="@dimen/_40sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
+                        app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"/>
+
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
 
@@ -32,13 +51,13 @@
                 android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_marginTop="?android:attr/actionBarSize"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
             android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_200sdp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="true">
@@ -50,59 +69,88 @@
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                android:gravity="center"
                 android:paddingBottom="20dp"
                 android:orientation="vertical">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/dashboard_ivProfile"
                     android:layout_width="@dimen/_70sdp"
                     android:layout_marginTop="@dimen/_30sdp"
                     android:layout_height="@dimen/_70sdp"
-                    android:src="@drawable/pie_chart"/>
+                    app:civ_border_width="2dp"
+                    android:layout_gravity="center_horizontal"
+                    app:civ_border_color="@color/white"
+                    android:src="@drawable/person_placeholder"/>
 
             <TextView
                     android:id="@+id/dashboard_tvUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/colorPrimary"
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_20sdp"
                     android:textSize="@dimen/_14sdp"
                     app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
-                    android:layout_marginTop="@dimen/_15sdp"/>
+                    android:layout_marginTop="@dimen/_5sdp"/>
 
             <View android:layout_width="match_parent"
                   android:layout_height="@dimen/_1sdp"
                   android:background="@color/gray"
                   android:layout_marginTop="@dimen/_10sdp"/>
 
-            <TextView
-                    android:id="@+id/dashboard_tvedit"
+            <ScrollView
+                    android:id="@+id/dashboard_rvMenuList"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/edit_profile"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:textSize="@dimen/_14sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
-                    android:layout_marginTop="@dimen/_15sdp"/>
+                    android:layout_height="match_parent">
 
-            <TextView
-                    android:id="@+id/dashboard_tvLogout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/logout"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:textSize="@dimen/_14sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
-                    android:layout_marginTop="@dimen/_15sdp"/>
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:id="@+id/dashboard_tvtest"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/test"
+                            android:textColor="@color/gray"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:textSize="@dimen/_14sdp"
+                            app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
+                            android:layout_marginTop="@dimen/_15sdp"/>
+
+
+                    <TextView
+                            android:id="@+id/dashboard_tvedit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/profile"
+                            android:textColor="@color/gray"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:textSize="@dimen/_14sdp"
+                            app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
+                            android:layout_marginTop="@dimen/_15sdp"/>
+
+                    <TextView
+                            android:id="@+id/dashboard_tvLogout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/logout"
+                            android:textColor="@color/gray"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:textSize="@dimen/_14sdp"
+                            app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
+                            android:layout_marginTop="@dimen/_15sdp"/>
+
+                </LinearLayout>
+
+            </ScrollView>
 
         </LinearLayout>
         <!--</LinearLayout>-->

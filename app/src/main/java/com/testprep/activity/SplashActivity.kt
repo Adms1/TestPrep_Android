@@ -1,10 +1,10 @@
 package com.testprep.activity
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import com.testprep.R
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
+import android.support.v7.app.AppCompatActivity
+import com.testprep.R
 
 class SplashActivity : AppCompatActivity() {
 
@@ -13,7 +13,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed(
-            Runnable /*
+            /* Runnable
                  * Showing splash screen with a timer. This will be useful when you
                  * want to show case your app logo / company
                  */

@@ -12,7 +12,6 @@ import com.testprep.R
 import com.testprep.old.models.QuestionResponse
 import com.testprep.old.retrofit.ApiClient
 import com.testprep.old.retrofit.ApiInterface
-import com.testprep.old.retrofit.WebInterface
 import kotlinx.android.synthetic.main.activity_page.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -107,7 +106,7 @@ class PageActivity : AppCompatActivity() {
 
     fun callQuestionApi() {
 
-        val sortDialog = Dialog(this@PageActivity!!)//,R.style.PauseDialog);//, R.style.PauseDialog);
+        val sortDialog = Dialog(this@PageActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
         val window = sortDialog.window
         val wlp = window!!.attributes
         sortDialog.window!!.attributes.verticalMargin = 0.10f
@@ -141,7 +140,7 @@ class PageActivity : AppCompatActivity() {
                     Log.d("", "Number of movies received: " + movies.size)
                 } else {
                     sortDialog.dismiss()
-                    Toast.makeText(this@PageActivity!!, "No Question at that time", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@PageActivity, "No Question at that time", Toast.LENGTH_LONG).show()
                 }
             }
 

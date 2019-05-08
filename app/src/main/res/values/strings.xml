@@ -34,4 +34,8 @@
     <string name="continuee">Continue</string>
     <string name="logout">Logout</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="set_password">Set Password</string>
+    <string name="profile">Profile</string>
+    <string name="update">Update</string>
+    <string name="test">Test</string>
 </resources>
