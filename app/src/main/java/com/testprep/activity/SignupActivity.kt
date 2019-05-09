@@ -46,12 +46,12 @@ class SignupActivity : AppCompatActivity() {
         var isvalid = true
 
         if (TextUtils.isEmpty(signup_etFname.text.toString())) {
-            signup_etFname.error = "first name must not be null"
+            signup_etFname.error = "Please enter first name"
             isvalid = false
         }
 
         if (TextUtils.isEmpty(signup_etLname.text.toString())) {
-            signup_etLname.error = "last name must not be null"
+            signup_etLname.error = "Please enter last name"
             isvalid = false
         }
 
@@ -61,12 +61,12 @@ class SignupActivity : AppCompatActivity() {
         }
 
         if (TextUtils.isEmpty(signup_etPassword.text.toString())) {
-            signup_etPassword.error = "password must not be null"
+            signup_etPassword.error = "Please enter password"
             isvalid = false
         }
 
         if (TextUtils.isEmpty(signup_etCPassword.text.toString())) {
-            signup_etCPassword.error = "confirm password must not be null"
+            signup_etCPassword.error = "Please enter confirm password"
             isvalid = false
         }
 

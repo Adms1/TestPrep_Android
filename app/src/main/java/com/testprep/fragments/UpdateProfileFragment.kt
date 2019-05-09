@@ -41,7 +41,16 @@ class UpdateProfileFragment : Fragment() {
         signup_etFname.setText(Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, ""))
         signup_etLname.setText(Utils.getStringValue(activity!!, AppConstants.LAST_NAME, ""))
         signup_etEmail.setText(Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, ""))
-        signup_etPassword.setText(Utils.getStringValue(activity!!, AppConstants.USER_PASSWORD, ""))
+
+        if (Utils.getStringValue(activity!!, AppConstants.USER_LOGIN_TYPE, "") != "1") {
+            signup_llPassword.visibility = View.GONE
+            signup_llCPassword.visibility = View.GONE
+        } else {
+            signup_llPassword.visibility = View.VISIBLE
+            signup_llCPassword.visibility = View.VISIBLE
+            signup_etPassword.setText(Utils.getStringValue(activity!!, AppConstants.USER_PASSWORD, ""))
+        }
+
         signup_etMobile.setText(Utils.getStringValue(activity!!, AppConstants.USER_MOBILE, ""))
 
         signup_btnSignup.text = getString(R.string.update)
@@ -173,19 +182,22 @@ class UpdateProfileFragment : Fragment() {
             isvalid = false
         }
 
-        if (TextUtils.isEmpty(signup_etPassword.text.toString())) {
-            signup_etPassword.error = "password must not be null"
-            isvalid = false
-        }
+        if (Utils.getStringValue(activity!!, AppConstants.USER_LOGIN_TYPE, "") == "1") {
 
-        if (TextUtils.isEmpty(signup_etCPassword.text.toString())) {
-            signup_etCPassword.error = "confirm password must not be null"
-            isvalid = false
-        }
+            if (TextUtils.isEmpty(signup_etPassword.text.toString())) {
+                signup_etPassword.error = "password must not be null"
+                isvalid = false
+            }
 
-        if (signup_etPassword.text.toString() != signup_etCPassword.text.toString()) {
-            signup_etCPassword.error = "password and confirm password must be same"
-            isvalid = false
+            if (TextUtils.isEmpty(signup_etCPassword.text.toString())) {
+                signup_etCPassword.error = "confirm password must not be null"
+                isvalid = false
+            }
+
+            if (signup_etPassword.text.toString() != signup_etCPassword.text.toString()) {
+                signup_etCPassword.error = "password and confirm password must be same"
+                isvalid = false
+            }
         }
 
         if (TextUtils.isEmpty(signup_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(signup_etMobile.text.toString()).matches()) {

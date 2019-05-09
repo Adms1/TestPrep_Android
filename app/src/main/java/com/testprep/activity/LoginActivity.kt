@@ -150,7 +150,13 @@ class LoginActivity : AppCompatActivity() {
 
         login_btnGoogle.setOnClickListener { signIn(); }
 
-//        login_btnFb.setOnClickListener {    }
+        login_tvForgotPass.setOnClickListener {
+
+            val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
+        }
 
     }
 
@@ -191,6 +197,11 @@ class LoginActivity : AppCompatActivity() {
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             account = completedTask.getResult(ApiException::class.java)
+
+            Log.d(
+                "googlesigninresponse",
+                account!!.givenName.toString() + " " + account!!.familyName.toString() + " " + account!!.email.toString()
+            )
 
             callCheckEmailApi(
                 "2",
@@ -323,7 +334,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         if (TextUtils.isEmpty(login_etPassword.text.toString())) {
-            login_etPassword.error = "Password must not be null"
+            login_etPassword.error = "Please enter Password"
             isvalid = false
         }
 

@@ -10,4 +10,5 @@
     <color name="demo_light_transparent">#16000000</color>
     <color name="default_shimmer_color">#e3e1e3</color>
     <color name="gray">#808080</color>
+    <color name="green">#77B34D</color>
 </resources>
