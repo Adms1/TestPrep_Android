@@ -1,16 +1,15 @@
 package com.testprep.activity
 
-import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.Gravity
-import android.view.Window
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
+import com.testprep.utils.DialogUtils
+import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import retrofit2.Call
@@ -31,19 +30,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
     fun callForgotPasswordlApi() {
 
-        val sortDialog = Dialog(this@ForgotPasswordActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
-        val window = sortDialog.window
-        val wlp = window!!.attributes
-        sortDialog.window!!.attributes.verticalMargin = 0.10f
-        wlp.gravity = Gravity.BOTTOM
-        window.attributes = wlp
+        if (!DialogUtils.isNetworkConnected(this@ForgotPasswordActivity)) {
+            Utils.ping(this@ForgotPasswordActivity, "Connetion not available")
+        }
 
-//        sortDialog.window!!.setBackgroundDrawableResource(R.drawable.filter1_1)
-
-        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        sortDialog.setCancelable(true)
-//        sortDialog.setContentView(getRoot())
-        sortDialog.show()
+        DialogUtils.showDialog(this@ForgotPasswordActivity)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
@@ -51,24 +42,35 @@ class ForgotPasswordActivity : AppCompatActivity() {
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
-                if (response.body()!!["Status"].asString == "true") {
+                if (response.body() != null) {
 
-                    sortDialog.dismiss()
-                    Toast.makeText(this@ForgotPasswordActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
-                        .show()
-                    finish()
+                    DialogUtils.dismissDialog()
 
-                } else {
-                    sortDialog.dismiss()
-                    Toast.makeText(this@ForgotPasswordActivity, response.body()!!["Msg"].asString, Toast.LENGTH_SHORT)
-                        .show()
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        Toast.makeText(
+                            this@ForgotPasswordActivity,
+                            response.body()!!["Msg"].asString,
+                            Toast.LENGTH_LONG
+                        )
+                            .show()
+                        finish()
+
+                    } else {
+                        Toast.makeText(
+                            this@ForgotPasswordActivity,
+                            response.body()!!["Msg"].asString,
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
-                sortDialog.dismiss()
+                DialogUtils.dismissDialog()
             }
         })
     }

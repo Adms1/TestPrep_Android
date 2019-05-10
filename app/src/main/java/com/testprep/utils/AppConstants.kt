@@ -12,8 +12,11 @@ class AppConstants {
         var USER_EMAIL = "useremail"
         var USER_PASSWORD = "userpassword"
         var USER_MOBILE = "usermobile"
-        var USER_LOGIN_TYPE = "userlogintype"
+        var USER_ACCOUNT_TYPE = "userlogintype"
         var USER_STATUSID = "userstatusid"
-    }
 
+        var COURSE_FLOW = ""
+        var COURSE_FLOW_ARRAY: ArrayList<String> = ArrayList()
+
+    }
 }

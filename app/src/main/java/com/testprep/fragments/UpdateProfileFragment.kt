@@ -1,18 +1,20 @@
 package com.testprep.fragments
 
-import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
+import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
 import kotlinx.android.synthetic.main.activity_signup.*
@@ -42,7 +44,7 @@ class UpdateProfileFragment : Fragment() {
         signup_etLname.setText(Utils.getStringValue(activity!!, AppConstants.LAST_NAME, ""))
         signup_etEmail.setText(Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, ""))
 
-        if (Utils.getStringValue(activity!!, AppConstants.USER_LOGIN_TYPE, "") != "1") {
+        if (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") != "1") {
             signup_llPassword.visibility = View.GONE
             signup_llCPassword.visibility = View.GONE
         } else {
@@ -66,24 +68,15 @@ class UpdateProfileFragment : Fragment() {
 
     fun callSignupApi() {
 
-        val sortDialog = Dialog(activity!!)//,R.style.PauseDialog);//, R.style.PauseDialog);
-        val window = sortDialog.window
-        val wlp = window!!.attributes
-        sortDialog.window!!.attributes.verticalMargin = 0.10f
-        wlp.gravity = Gravity.BOTTOM
-        window.attributes = wlp
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
+        }
 
-//        sortDialog.window!!.setBackgroundDrawableResource(R.drawable.filter1_1)
-
-        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        sortDialog.setCancelable(true)
-//        sortDialog.setContentView(getRoot())
-        sortDialog.show()
-
+        DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
         val call = apiService.updateProfile(
             WebRequests.addSignupParams(
-                Utils.getStringValue(activity!!, AppConstants.USER_LOGIN_TYPE, "")!!,
+                Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "")!!,
                 Utils.getStringValue(activity!!, AppConstants.USER_ID, "")!!,
                 signup_etFname.text.toString(),
                 signup_etLname.text.toString(),
@@ -96,68 +89,70 @@ class UpdateProfileFragment : Fragment() {
 
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                if (response.body() != null) {
 
-                if (response.body()!!.get("Status").asString == "true") {
+                    DialogUtils.dismissDialog()
 
-                    sortDialog.dismiss()
-                    Toast.makeText(activity!!, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG).show()
+                    if (response.body()!!.get("Status").asString == "true") {
 
-                    Utils.setStringValue(
-                        activity!!,
-                        AppConstants.FIRST_NAME,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
-                    )
-                    Utils.setStringValue(
-                        activity!!,
-                        AppConstants.LAST_NAME,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
-                    )
-                    Utils.setStringValue(
-                        activity!!,
-                        AppConstants.USER_ID,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
-                    )
-                    Utils.setStringValue(
-                        activity!!,
-                        AppConstants.USER_EMAIL,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
-                    )
-                    Utils.setStringValue(
-                        activity!!,
-                        AppConstants.USER_PASSWORD,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
-                    )
-                    Utils.setStringValue(
-                        activity!!,
-                        AppConstants.USER_MOBILE,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
-                    )
-                    Utils.setStringValue(
-                        activity!!,
-                        AppConstants.USER_LOGIN_TYPE,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["LoginTypeID"].asString
-                    )
-                    Utils.setStringValue(
-                        activity!!,
-                        AppConstants.USER_STATUSID,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
-                    )
+                        Toast.makeText(activity!!, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG).show()
 
-                    Log.d("websize", response.body()!!.get("Msg").asString)
+                        Utils.setStringValue(
+                            activity!!,
+                            AppConstants.FIRST_NAME,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
+                        )
+                        Utils.setStringValue(
+                            activity!!,
+                            AppConstants.LAST_NAME,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
+                        )
+                        Utils.setStringValue(
+                            activity!!,
+                            AppConstants.USER_ID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
+                        )
+                        Utils.setStringValue(
+                            activity!!,
+                            AppConstants.USER_EMAIL,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
+                        )
+                        Utils.setStringValue(
+                            activity!!,
+                            AppConstants.USER_PASSWORD,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
+                        )
+                        Utils.setStringValue(
+                            activity!!,
+                            AppConstants.USER_MOBILE,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
+                        )
+                        Utils.setStringValue(
+                            activity!!,
+                            AppConstants.USER_ACCOUNT_TYPE,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["AccountTypeID"].asString
+                        )
+                        Utils.setStringValue(
+                            activity!!,
+                            AppConstants.USER_STATUSID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
+                        )
 
-                } else {
+                        Log.d("websize", response.body()!!.get("Msg").asString)
 
-                    sortDialog.dismiss()
-                    Toast.makeText(activity!!, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG).show()
+                    } else {
 
-                    Log.d("websize", response.body()!!.get("Msg").asString)
+                        Toast.makeText(activity!!, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG).show()
+
+                        Log.d("websize", response.body()!!.get("Msg").asString)
+                    }
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
-                sortDialog.dismiss()
+                DialogUtils.dismissDialog()
             }
         })
 
@@ -182,7 +177,7 @@ class UpdateProfileFragment : Fragment() {
             isvalid = false
         }
 
-        if (Utils.getStringValue(activity!!, AppConstants.USER_LOGIN_TYPE, "") == "1") {
+        if (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") == "1") {
 
             if (TextUtils.isEmpty(signup_etPassword.text.toString())) {
                 signup_etPassword.error = "password must not be null"

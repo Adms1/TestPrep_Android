@@ -1,7 +1,6 @@
 package com.testprep.activity
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -10,8 +9,6 @@ import android.text.TextUtils
 import android.util.Base64
 import android.util.Log
 import android.util.Patterns
-import android.view.Gravity
-import android.view.Window
 import android.widget.TextView
 import android.widget.Toast
 import com.facebook.*
@@ -28,6 +25,7 @@ import com.testprep.R
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
+import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
 import kotlinx.android.synthetic.main.activity_login.*
@@ -76,7 +74,6 @@ class LoginActivity : AppCompatActivity() {
 
             Log.d("KeyHash:", "" + e.printStackTrace())
         }
-
 
         login_btnFb.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
@@ -165,7 +162,7 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, 100)
     }
 
-    protected fun setGooglePlusButtonText(signInButton: SignInButton, buttonText: String) {
+    private fun setGooglePlusButtonText(signInButton: SignInButton, buttonText: String) {
         // Find the TextView that is inside of the SignInButton and set its text
         for (i in 0 until signInButton.childCount) {
             val v = signInButton.getChildAt(i)
@@ -226,19 +223,11 @@ class LoginActivity : AppCompatActivity() {
 
     fun callLoginApi() {
 
-        val sortDialog = Dialog(this@LoginActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
-        val window = sortDialog.window
-        val wlp = window!!.attributes
-        sortDialog.window!!.attributes.verticalMargin = 0.10f
-        wlp.gravity = Gravity.BOTTOM
-        window.attributes = wlp
+        if (!DialogUtils.isNetworkConnected(this@LoginActivity)) {
+            Utils.ping(this@LoginActivity, "Connetion not available")
+        }
 
-//        sortDialog.window!!.setBackgroundDrawableResource(R.drawable.filter1_1)
-
-        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        sortDialog.setCancelable(true)
-//        sortDialog.setContentView(getRoot())
-        sortDialog.show()
+        DialogUtils.showDialog(this@LoginActivity)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
@@ -251,70 +240,73 @@ class LoginActivity : AppCompatActivity() {
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
-                if (response.body()!!["Status"].asString == "true") {
+                if (response.body() != null) {
 
-                    sortDialog.dismiss()
-                    Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+                    DialogUtils.dismissDialog()
 
-                    val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                    if (response.body()!!["Status"].asString == "true") {
 
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.FIRST_NAME,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.LAST_NAME,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_ID,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_EMAIL,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_PASSWORD,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_MOBILE,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_LOGIN_TYPE,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["LoginTypeID"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_STATUSID,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
-                    )
+                        Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
+                        val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
 
-//                    Log.d("loginresponse", response.body()!!.asString)
-                } else {
-                    sortDialog.dismiss()
-                    Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.FIRST_NAME,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.LAST_NAME,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_ID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_EMAIL,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_PASSWORD,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_MOBILE,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_ACCOUNT_TYPE,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["AccountTypeID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_STATUSID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
+                        )
+
 
 //                    Log.d("loginresponse", response.body()!!.asString)
+                    } else {
+                        Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+
+//                    Log.d("loginresponse", response.body()!!.asString)
+                    }
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
-                sortDialog.dismiss()
+                DialogUtils.dismissDialog()
             }
         })
     }
@@ -344,19 +336,11 @@ class LoginActivity : AppCompatActivity() {
 
     fun callCheckEmailApi(logintype: String, fname: String, lname: String, email: String, pass: String, cpass: String) {
 
-        val sortDialog = Dialog(this@LoginActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
-        val window = sortDialog.window
-        val wlp = window!!.attributes
-        sortDialog.window!!.attributes.verticalMargin = 0.10f
-        wlp.gravity = Gravity.BOTTOM
-        window.attributes = wlp
+        if (!DialogUtils.isNetworkConnected(this@LoginActivity)) {
+            Utils.ping(this@LoginActivity, "Connetion not available")
+        }
 
-//        sortDialog.window!!.setBackgroundDrawableResource(R.drawable.filter1_1)
-
-        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        sortDialog.setCancelable(true)
-//        sortDialog.setContentView(getRoot())
-        sortDialog.show()
+        DialogUtils.showDialog(this@LoginActivity)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
@@ -364,177 +348,177 @@ class LoginActivity : AppCompatActivity() {
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
-                if (response.body()!!["Status"].asString == "true") {
+                if (response.body() != null) {
 
-                    sortDialog.dismiss()
-                    Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+                    DialogUtils.dismissDialog()
 
-                    val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                    if (response.body()!!["Status"].asString == "true") {
 
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.FIRST_NAME,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.LAST_NAME,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_ID,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_EMAIL,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_PASSWORD,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_MOBILE,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_LOGIN_TYPE,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["LoginTypeID"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_STATUSID,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
-                    )
+                        Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+
+                        val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.FIRST_NAME,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.LAST_NAME,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_ID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_EMAIL,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_PASSWORD,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_MOBILE,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_ACCOUNT_TYPE,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["AccountTypeID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_STATUSID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
+                        )
 
 
 //                    Log.w("check email response", GsonBuilder().setPrettyPrinting().create().toJson(response))
 
 //                    Log.d("loginresponse", response.body()!!.asString)
-                } else {
-                    sortDialog.dismiss()
-                    Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
-                    callSignupApi(
-                        logintype,
-                        fname,
-                        lname,
-                        email,
-                        pass,
-                        cpass
-                    )
+                        callSignupApi(
+                            logintype,
+                            fname,
+                            lname,
+                            email,
+                            pass,
+                            cpass
+                        )
 
 //                    setPasswordDialog()
 
 //                    Log.d("loginresponse", response.body()!!.asString)
+                    }
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
-                sortDialog.dismiss()
+                DialogUtils.dismissDialog()
             }
         })
     }
 
-    fun callSignupApi(logintype: String, fname: String, lname: String, email: String, pass: String, cpass: String) {
+    fun callSignupApi(accounttype: String, fname: String, lname: String, email: String, pass: String, cpass: String) {
 
-        val sortDialog = Dialog(this@LoginActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
-        val window = sortDialog.window
-        val wlp = window!!.attributes
-        sortDialog.window!!.attributes.verticalMargin = 0.10f
-        wlp.gravity = Gravity.BOTTOM
-        window.attributes = wlp
+        if (!DialogUtils.isNetworkConnected(this@LoginActivity)) {
+            Utils.ping(this@LoginActivity, "Connetion not available")
+        }
 
-//        sortDialog.window!!.setBackgroundDrawableResource(R.drawable.filter1_1)
-
-        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        sortDialog.setCancelable(true)
-//        sortDialog.setContentView(getRoot())
-        sortDialog.show()
+        DialogUtils.showDialog(this@LoginActivity)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call =
-            apiService.getSignup(WebRequests.addSignupParams(logintype, "0", fname, lname, email, pass, cpass, "1"))
+            apiService.getSignup(WebRequests.addSignupParams(accounttype, "0", fname, lname, email, pass, cpass, "1"))
 
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
-                if (response.body()!!.get("Status").asString == "true") {
+                if (response.body() != null) {
 
-                    sortDialog.dismiss()
-                    Toast.makeText(this@LoginActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG).show()
+                    DialogUtils.dismissDialog()
 
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.FIRST_NAME,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.LAST_NAME,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_ID,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_EMAIL,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_PASSWORD,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_MOBILE,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_LOGIN_TYPE,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["LoginTypeID"].asString
-                    )
-                    Utils.setStringValue(
-                        this@LoginActivity,
-                        AppConstants.USER_STATUSID,
-                        response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
-                    )
+                    if (response.body()!!.get("Status").asString == "true") {
 
-                    val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                    finish()
+                        Toast.makeText(this@LoginActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG)
+                            .show()
 
-                    Log.d("websize", response.body()!!.get("Msg").asString)
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.FIRST_NAME,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.LAST_NAME,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_ID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_EMAIL,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_PASSWORD,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_MOBILE,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_ACCOUNT_TYPE,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["AccountTypeID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@LoginActivity,
+                            AppConstants.USER_STATUSID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
+                        )
 
-                } else {
+                        val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        finish()
 
-                    sortDialog.dismiss()
-                    Toast.makeText(this@LoginActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG).show()
+                        Log.d("websize", response.body()!!.get("Msg").asString)
 
-                    Log.d("websize", response.body()!!.get("Msg").asString)
+                    } else {
+
+                        Toast.makeText(this@LoginActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG)
+                            .show()
+
+                        Log.d("websize", response.body()!!.get("Msg").asString)
+                    }
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
-                sortDialog.dismiss()
+                DialogUtils.dismissDialog()
             }
         })
 

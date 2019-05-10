@@ -28,6 +28,7 @@ class OtpActivity : AppCompatActivity() {
             otp_btnSubmit.visibility = View.GONE
             otp_ivSuccess.visibility = View.VISIBLE
             otp_tvSuccess.visibility = View.VISIBLE
+            otp_ivLogo.visibility = View.GONE
 
 //            val intent = Intent(this@OtpActivity, DashboardActivity::class.java)
 //            startActivity(intent)

@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:padding="@dimen/_10sdp"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/_80sdp">
 
     <TextView
             android:id="@+id/drawer_list_title"
@@ -13,13 +13,9 @@
             android:text="@string/profile"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:paddingTop="@dimen/_15sdp"
-            android:paddingBottom="@dimen/_15sdp"
             android:textColor="@color/white"
             android:gravity="center"
-            android:paddingLeft="@dimen/_25sdp"
             android:background="@drawable/blue_gradient_bg"
-            android:paddingRight="@dimen/_25sdp"
             android:textSize="@dimen/_14sdp"
             android:textStyle="bold"
             android:elevation="@dimen/_10sdp"

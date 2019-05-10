@@ -7,7 +7,7 @@ class WebRequests {
     companion object{
 
         fun addSignupParams(
-            logintype: String,
+            accounttype: String,
             id: String,
             fname: String,
             lname: String,
@@ -17,7 +17,7 @@ class WebRequests {
             status: String
         ): HashMap<String, String> {
             val map = HashMap<String, String>()
-            map["LoginTypeID"] = logintype
+            map["AccountTypeID"] = accounttype
             map["StudentID"] = id
             map["StudentFirstName"] = fname
             map["StudentLastName"] = lname
