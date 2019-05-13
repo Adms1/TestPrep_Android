@@ -62,13 +62,13 @@ class ChooseCoarseFragment : Fragment() {
 
                     if (response.body()!!.Status == "true") {
 
-                        chooseCoarseAdapter = ChooseCoarseAdapter(activity!!, "main_course", response.body()!!.data)
+                        chooseCoarseAdapter =
+                            ChooseCoarseAdapter(activity!!, "main_course", response.body()!!.data, "no")
                         coarse_rvCoarseList.adapter = chooseCoarseAdapter
 
                     } else {
 
-                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -80,5 +80,4 @@ class ChooseCoarseFragment : Fragment() {
             }
         })
     }
-
 }

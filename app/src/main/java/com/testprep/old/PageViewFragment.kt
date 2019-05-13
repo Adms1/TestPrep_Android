@@ -189,6 +189,7 @@ class PageViewFragment : Fragment() {
             doInBackground(Params... params)
                 Override this method to perform a computation on a background thread.
          */
+
         override fun doInBackground(vararg urls: String): Drawable? {
             val urlOfImage = urls[0]
             var logo: Bitmap? = null

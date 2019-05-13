@@ -11,11 +11,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
 import com.testprep.activity.SelectCourseTypeActivity
+import com.testprep.activity.SelectStandardActivity
 import com.testprep.models.GetCourseListData
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 
-class ChooseCoarseAdapter(val context: Context, val type: String, val dataList: ArrayList<GetCourseListData>) :
+
+class ChooseCoarseAdapter(
+    val context: Context,
+    val type: String,
+    val dataList: ArrayList<GetCourseListData>,
+    val selectType: String
+) :
     RecyclerView.Adapter<ChooseCoarseAdapter.viewholder>() {
 
     var row_index = -1
@@ -37,67 +44,65 @@ class ChooseCoarseAdapter(val context: Context, val type: String, val dataList: 
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        if (type == "main_course") {
-            p0.title.text = dataList[p1].CourseTypeName
+        when (type) {
+            "main_course" -> {
+                p0.title.text = dataList[p1].CourseTypeName
 
-            p0.title.setOnClickListener {
+                p0.title.setOnClickListener {
 
+                    row_index = p1
+                    notifyDataSetChanged()
 
-                //                Utils.saveArrayList(context, AppConstants.COURSE_FLOW_ARRAY, AppConstants.COURSE_FLOW)
+                    Log.d("flow1", Utils.getStringValue(context, AppConstants.COURSE_FLOW, ""))
 
-                row_index = p1
-                notifyDataSetChanged()
+                    val mIntent = Intent(context, SelectCourseTypeActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("course_type", dataList[p1].CourseTypeID.toString())
+                    mIntent.putExtras(mBundle)
+                    context.startActivity(mIntent)
 
-//                var fragment: Fragment = CoarseTypeFragment()
-//                var bundle = Bundle()
-//                bundle.putString("course_type", dataList[p1].CourseTypeID.toString())
-//                fragment.arguments = bundle
-//                (context as DashboardActivity).supportFragmentManager.beginTransaction()
-//                    .add(R.id.container, fragment).addToBackStack(null).commit()
+                    AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].CourseTypeName)
 
-                Log.d("flow1", Utils.getStringValue(context, AppConstants.COURSE_FLOW, ""))
-
-                val mIntent = Intent(context, SelectCourseTypeActivity::class.java)
-                val mBundle = Bundle()
-                mBundle.putString("course_type", dataList[p1].CourseTypeID.toString())
-                mIntent.putExtras(mBundle)
-                context.startActivity(mIntent)
-
-                AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].CourseTypeName)
-
+                }
             }
+            "course_type" -> {
+                p0.title.text = dataList[p1].CourseName
 
+                p0.title.setOnClickListener {
 
-        } else if (type == "course_type") {
-            p0.title.text = dataList[p1].CourseName
+                    row_index = p1
+                    notifyDataSetChanged()
 
-            p0.title.setOnClickListener {
+                    val mIntent = Intent(context, SelectStandardActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("course_id", dataList[p1].CourseID.toString())
+                    mIntent.putExtras(mBundle)
+                    context.startActivity(mIntent)
 
-                row_index = p1
-                notifyDataSetChanged()
+                    AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].CourseName)
 
-                val mIntent = Intent(context, SelectCourseTypeActivity::class.java)
-                val mBundle = Bundle()
-                mBundle.putString("course_type", dataList[p1].CourseTypeID.toString())
-                mIntent.putExtras(mBundle)
-                context.startActivity(mIntent)
+                }
+            }
+            "course_subject" -> {
 
-                AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].CourseName)
+                p0.title.text = dataList[p1].SubjectName
 
-//                AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].CourseName)
-//                Utils.saveArrayList(context, AppConstants.COURSE_FLOW_ARRAY, AppConstants.COURSE_FLOW)
-
-//                Utils.setStringValue(context, AppConstants.COURSE_FLOW, AppConstants.COURSE_FLOW + ">" + dataList[p1].CourseName)
-
+                p0.title.setOnClickListener {
+                    dataList[p1].isSelected = (!dataList[p1].isSelected)
+                    p0.title.setBackgroundResource(if (dataList[p1].isSelected) R.drawable.dark_blue_gredient_bg else R.drawable.blue_gradient_bg)
+                }
             }
         }
 
-        if (row_index == p1) {
+        if (selectType == "yes") {
             p0.title.setBackgroundResource(R.drawable.dark_blue_gredient_bg)
         } else {
-            p0.title.setBackgroundResource(R.drawable.blue_gradient_bg)
+            if (row_index == p1) {
+                p0.title.setBackgroundResource(R.drawable.dark_blue_gredient_bg)
+            } else {
+                p0.title.setBackgroundResource(R.drawable.blue_gradient_bg)
+            }
         }
-
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -105,5 +110,6 @@ class ChooseCoarseAdapter(val context: Context, val type: String, val dataList: 
         var title: TextView = itemView.findViewById(R.id.drawer_list_title)
 
     }
+
 }
 

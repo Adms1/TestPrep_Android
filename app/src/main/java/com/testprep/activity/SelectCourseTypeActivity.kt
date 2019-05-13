@@ -73,7 +73,12 @@ class SelectCourseTypeActivity : AppCompatActivity() {
                     if (response.body()!!.Status == "true") {
 
                         chooseCoarseAdapter =
-                            ChooseCoarseAdapter(this@SelectCourseTypeActivity, "course_type", response.body()!!.data)
+                            ChooseCoarseAdapter(
+                                this@SelectCourseTypeActivity,
+                                "course_type",
+                                response.body()!!.data,
+                                "no"
+                            )
                         coarse_rvCoarseList.adapter = chooseCoarseAdapter
 
                         Log.d("flow", Utils.getStringValue(this@SelectCourseTypeActivity, AppConstants.COURSE_FLOW, ""))

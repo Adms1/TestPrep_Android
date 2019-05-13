@@ -8,4 +8,7 @@ class GetCourseListData {
     var CourseID = 0
     var CourseName = ""
 
+    var CourseSubjectID = 0
+    var SubjectName = ""
+    var isSelected = false
 }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.TextUtils
 import android.util.Log
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,12 +43,14 @@ class UpdateProfileFragment : Fragment() {
         signup_etLname.setText(Utils.getStringValue(activity!!, AppConstants.LAST_NAME, ""))
         signup_etEmail.setText(Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, ""))
 
+        signup_llCPassword.visibility = View.GONE
+        signup_etEmail.isFocusable = false
+
         if (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") != "1") {
             signup_llPassword.visibility = View.GONE
-            signup_llCPassword.visibility = View.GONE
+
         } else {
             signup_llPassword.visibility = View.VISIBLE
-            signup_llCPassword.visibility = View.VISIBLE
             signup_etPassword.setText(Utils.getStringValue(activity!!, AppConstants.USER_PASSWORD, ""))
         }
 
@@ -172,25 +173,10 @@ class UpdateProfileFragment : Fragment() {
             isvalid = false
         }
 
-        if (TextUtils.isEmpty(signup_etEmail.text.toString()) || !Patterns.EMAIL_ADDRESS.matcher(signup_etEmail.text.toString()).matches()) {
-            signup_etEmail.error = "Please enter valid Email Address"
-            isvalid = false
-        }
-
         if (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") == "1") {
 
             if (TextUtils.isEmpty(signup_etPassword.text.toString())) {
                 signup_etPassword.error = "password must not be null"
-                isvalid = false
-            }
-
-            if (TextUtils.isEmpty(signup_etCPassword.text.toString())) {
-                signup_etCPassword.error = "confirm password must not be null"
-                isvalid = false
-            }
-
-            if (signup_etPassword.text.toString() != signup_etCPassword.text.toString()) {
-                signup_etCPassword.error = "password and confirm password must be same"
                 isvalid = false
             }
         }

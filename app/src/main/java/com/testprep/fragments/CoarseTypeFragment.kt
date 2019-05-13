@@ -78,7 +78,8 @@ class CoarseTypeFragment : Fragment() {
 
                     if (response.body()!!.Status == "true") {
 
-                        chooseCoarseAdapter = ChooseCoarseAdapter(activity!!, "course_type", response.body()!!.data)
+                        chooseCoarseAdapter =
+                            ChooseCoarseAdapter(activity!!, "course_type", response.body()!!.data, "no")
                         coarse_rvCoarseList.adapter = chooseCoarseAdapter
                         chooseCoarseAdapter!!.notifyDataSetChanged()
 
