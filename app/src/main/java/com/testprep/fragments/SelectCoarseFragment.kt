@@ -25,7 +25,7 @@ import retrofit2.Response
  *
  */
 
-class ChooseCoarseFragment : Fragment() {
+class SelectCoarseFragment : Fragment() {
 
     private var chooseCoarseAdapter: ChooseCoarseAdapter? = null
     private var coarseList = arrayOf("Competitive", "Academic")

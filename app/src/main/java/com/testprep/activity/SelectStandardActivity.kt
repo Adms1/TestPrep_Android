@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.widget.Toast
+import com.testprep.R
 import com.testprep.models.GetCourseListData
 import com.testprep.models.MainModel
 import com.testprep.retrofit.WebClient
@@ -13,67 +14,36 @@ import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
-import kotlinx.android.synthetic.main.activity_course_type.coarse_rvCoarseList
-import kotlinx.android.synthetic.main.activity_course_type.course_type_ivBack
-import kotlinx.android.synthetic.main.activity_course_type.course_type_tvFlow
-import kotlinx.android.synthetic.main.activity_standard_fragment.*
+import kotlinx.android.synthetic.main.activity_select_standard.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class SelectStandardActivity : AppCompatActivity() {
 
     private var chooseCoarseAdapter: ChooseCoarseAdapter? = null
-    private var courseId = ""
+    private var standardList: ArrayList<GetCourseListData> = ArrayList()
     private var selectType = "no"
-    private var subjectList: ArrayList<GetCourseListData> = ArrayList()
+    private var stdId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.testprep.R.layout.activity_standard_fragment)
-
-        val sb = StringBuilder()
-        for (s in AppConstants.COURSE_FLOW_ARRAY) {
-            sb.append(s)
-            sb.append(" > ")
-            AppConstants.COURSE_FLOW = sb.toString()
-        }
-        course_type_tvFlow.text = AppConstants.COURSE_FLOW
+        setContentView(R.layout.activity_select_standard)
 
         if (intent != null) {
-            courseId = intent.extras.getString("course_id", "")
+            stdId = intent.extras!!.getString("course_id", "")
         }
 
-        coarse_rvCoarseList.layoutManager = GridLayoutManager(this@SelectStandardActivity, 2)
+        standard_rvList.layoutManager = GridLayoutManager(this@SelectStandardActivity, 2)
 
-        course_type_ivBack.setOnClickListener {
-
+        standard_ivBack.setOnClickListener {
             onBackPressed()
         }
 
-        course_type_chbAll.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                // perform logic
-                selectType = "yes"
-
-                chooseCoarseAdapter =
-                    ChooseCoarseAdapter(this@SelectStandardActivity, "course_subject", subjectList, selectType)
-                coarse_rvCoarseList.adapter = chooseCoarseAdapter
-
-            } else {
-                selectType = "no"
-
-                chooseCoarseAdapter =
-                    ChooseCoarseAdapter(this@SelectStandardActivity, "course_subject", subjectList, selectType)
-                coarse_rvCoarseList.adapter = chooseCoarseAdapter
-            }
-        }
-
-        callSubjectList()
+        callStandardList()
     }
 
-    fun callSubjectList() {
+    fun callStandardList() {
 
         if (!DialogUtils.isNetworkConnected(this@SelectStandardActivity)) {
             Utils.ping(this@SelectStandardActivity, "Connetion not available")
@@ -82,7 +52,8 @@ class SelectStandardActivity : AppCompatActivity() {
         DialogUtils.showDialog(this@SelectStandardActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getCourseSubjectList(courseId)
+        var call = apiService.getBoardStandardList(stdId)
+
         call.enqueue(object : Callback<MainModel> {
             override fun onResponse(call: Call<MainModel>, response: Response<MainModel>) {
 
@@ -92,16 +63,16 @@ class SelectStandardActivity : AppCompatActivity() {
 
                     if (response.body()!!.Status == "true") {
 
-                        subjectList = response.body()!!.data
+                        standardList = response.body()!!.data
 
                         chooseCoarseAdapter =
                             ChooseCoarseAdapter(
                                 this@SelectStandardActivity,
-                                "course_subject",
+                                "course_standard",
                                 response.body()!!.data,
                                 selectType
                             )
-                        coarse_rvCoarseList.adapter = chooseCoarseAdapter
+                        standard_rvList.adapter = chooseCoarseAdapter
 
                         Log.d("flow", Utils.getStringValue(this@SelectStandardActivity, AppConstants.COURSE_FLOW, ""))
 
@@ -111,7 +82,7 @@ class SelectStandardActivity : AppCompatActivity() {
                             sb.append(" > ")
                             AppConstants.COURSE_FLOW = sb.toString()
                         }
-                        course_type_tvFlow.text = AppConstants.COURSE_FLOW
+                        standard_tvFlow.text = AppConstants.COURSE_FLOW
 
                     } else {
 
@@ -128,6 +99,7 @@ class SelectStandardActivity : AppCompatActivity() {
             }
         })
     }
+
 
     override fun onBackPressed() {
         super.onBackPressed()

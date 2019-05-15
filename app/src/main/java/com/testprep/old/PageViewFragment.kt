@@ -1,6 +1,5 @@
 package com.testprep.old
 
-
 import android.app.Dialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -21,6 +20,7 @@ import com.testprep.old.adapter.SelectImageOptionAdapter
 import com.testprep.old.models.QuestionResponse
 import com.testprep.old.retrofit.ApiClient
 import com.testprep.old.retrofit.ApiInterface
+import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.fragment_page_view.*
 import kotlinx.android.synthetic.main.fragment_webview.wv_question_list
 import retrofit2.Call
@@ -28,27 +28,30 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.net.URL
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
  * A simple [Fragment] subclass.
  *
  */
+
 class PageViewFragment : Fragment() {
+
+    private var que_list: ArrayList<QuestionResponse.QuestionList> = ArrayList()
+    private var que_num = 0
 
     companion object {
 
         var qsize = 0
+
+        fun newInstance(sectionNumber: Int): PageViewFragment {
+            val fragment = PageViewFragment()
+            val args = Bundle()
+            args.putInt("que_number", sectionNumber)
+            fragment.arguments = args
+            return fragment
+        }
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_page_view, container, false)
     }
@@ -56,12 +59,30 @@ class PageViewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        var bundle = arguments
-//        var posi = bundle!!.getInt("posi", 0)
+        que_list = Utils.getArrayList(activity!!, "que_list")
+
+        val args = arguments
+        que_num = args!!.getInt("que_number")
 
         wv_question_list.isNestedScrollingEnabled = false
 
-        callQuestionApi()
+        Log.d("sizeee", "" + page_img_que_img.width + ", " + page_img_que_img.height)
+
+        Picasso.get().load("http://content.testcraft.co.in/question/" + que_list[que_num].titleimg)
+            .resize(page_img_que_img.width, page_img_que_img.height)
+//            .transform(imageTransform(200, true))
+            .into(page_img_que_img)
+
+//        qsize = page_img_que_img.width
+
+        wv_question_list.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        wv_question_list.adapter = SelectImageOptionAdapter(
+            activity!!,
+            que_list[que_num].mcq,
+            page_img_que_img.width
+        )
+
+//        callQuestionApi()
 
     }
 
@@ -101,10 +122,10 @@ class PageViewFragment : Fragment() {
 
 //                            var url = URL("http://content.testcraft.co.in/question/" + movies[pos].titleimg)
 //                            var bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-//
+
 //                            var widhtx  = bmp.width
 //                            var heightx = bmp.height
-//
+
 //                            Log.d("imgsize", "widht" + widhtx + "  height" + heightx)
 
                                 Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].titleimg)
@@ -214,6 +235,7 @@ class PageViewFragment : Fragment() {
             onPostExecute(Result result)
                 Runs on the UI thread after doInBackground(Params...).
          */
+
         override fun onPostExecute(result: Drawable) {
             imageView.setImageDrawable(result)
         }

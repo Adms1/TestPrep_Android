@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.testprep.old.models.QuestionResponse
 
 
 class Utils {
@@ -33,7 +34,7 @@ class Utils {
             return mSharedPreferences!!.getString(key, defaultValue)
         }
 
-        fun saveArrayList(context: Context, list: ArrayList<String>, key: String) {
+        fun saveArrayList(context: Context, list: ArrayList<QuestionResponse.QuestionList>, key: String) {
             val prefs = PreferenceManager.getDefaultSharedPreferences(context)
             val editor = prefs.edit()
             val gson = Gson()
@@ -42,11 +43,11 @@ class Utils {
             editor.apply()     // This line is IMPORTANT !!!
         }
 
-        fun getArrayList(context: Context, key: String): ArrayList<String> {
+        fun getArrayList(context: Context, key: String): ArrayList<QuestionResponse.QuestionList> {
             val prefs = PreferenceManager.getDefaultSharedPreferences(context)
             val gson = Gson()
             val json = prefs.getString(key, null)
-            val type = object : TypeToken<ArrayList<String>>() {
+            val type = object : TypeToken<ArrayList<QuestionResponse.QuestionList>>() {
 
             }.type
             return gson.fromJson(json, type)

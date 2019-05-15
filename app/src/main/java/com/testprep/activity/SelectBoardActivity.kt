@@ -20,10 +20,11 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class SelectCourseTypeActivity : AppCompatActivity() {
+class SelectBoardActivity : AppCompatActivity() {
 
     private var chooseCoarseAdapter: ChooseCoarseAdapter? = null
     private var courseType = ""
+    private var courseName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,18 +36,19 @@ class SelectCourseTypeActivity : AppCompatActivity() {
             sb.append(" > ")
             AppConstants.COURSE_FLOW = sb.toString()
         }
+
         course_type_tvFlow.text = AppConstants.COURSE_FLOW
 
         if (intent != null) {
             courseType = intent.extras.getString("course_type", "")
+            courseName = intent.extras.getString("course_name", "")
         }
 
-        coarse_rvCoarseList.layoutManager = GridLayoutManager(this@SelectCourseTypeActivity, 2)
+        coarse_rvCoarseList.layoutManager = GridLayoutManager(this@SelectBoardActivity, 2)
 
         course_type_ivBack.setOnClickListener {
 
             onBackPressed()
-
         }
 
         callCourseTypeList()
@@ -55,11 +57,11 @@ class SelectCourseTypeActivity : AppCompatActivity() {
 
     fun callCourseTypeList() {
 
-        if (!DialogUtils.isNetworkConnected(this@SelectCourseTypeActivity)) {
-            Utils.ping(this@SelectCourseTypeActivity, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(this@SelectBoardActivity)) {
+            Utils.ping(this@SelectBoardActivity, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@SelectCourseTypeActivity)
+        DialogUtils.showDialog(this@SelectBoardActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.getCourseTypeList(courseType)
@@ -73,15 +75,10 @@ class SelectCourseTypeActivity : AppCompatActivity() {
                     if (response.body()!!.Status == "true") {
 
                         chooseCoarseAdapter =
-                            ChooseCoarseAdapter(
-                                this@SelectCourseTypeActivity,
-                                "course_type",
-                                response.body()!!.data,
-                                "no"
-                            )
+                            ChooseCoarseAdapter(this@SelectBoardActivity, "course_type", response.body()!!.data, "no")
                         coarse_rvCoarseList.adapter = chooseCoarseAdapter
 
-                        Log.d("flow", Utils.getStringValue(this@SelectCourseTypeActivity, AppConstants.COURSE_FLOW, ""))
+                        Log.d("flow", Utils.getStringValue(this@SelectBoardActivity, AppConstants.COURSE_FLOW, ""))
 
                         val sb = StringBuilder()
                         for (s in AppConstants.COURSE_FLOW_ARRAY) {
@@ -93,8 +90,7 @@ class SelectCourseTypeActivity : AppCompatActivity() {
 
                     } else {
 
-                        Toast.makeText(this@SelectCourseTypeActivity, response.body()!!.Msg, Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(this@SelectBoardActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

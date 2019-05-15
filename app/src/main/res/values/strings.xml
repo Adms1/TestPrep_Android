@@ -41,4 +41,11 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="verify">Verify</string>
     <string name="course_type">Course Type</string>
+    <string name="home">Home</string>
+    <string name="questions">Questions</string>
+    <string name="title_activity_tabwise_question">TabwiseQuestionActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 </resources>

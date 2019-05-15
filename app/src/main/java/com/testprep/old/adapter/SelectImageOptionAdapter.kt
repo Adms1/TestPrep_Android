@@ -63,8 +63,9 @@ class SelectImageOptionAdapter(val context: Context, val dataList: ArrayList<Que
             var imgwidth: Int = 100
 
             Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].titleimg)
-                .resize(qsize, 0)
-//                .centerCrop(5)
+                .resize(qsize, 110)
+//                .fit()
+//                .centerInside()
                 .into(p0.opone1)
         }
 

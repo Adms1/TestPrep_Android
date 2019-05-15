@@ -10,8 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
-import com.testprep.activity.SelectCourseTypeActivity
+import com.testprep.activity.SelectBoardActivity
 import com.testprep.activity.SelectStandardActivity
+import com.testprep.activity.SelectSubjectActivity
 import com.testprep.models.GetCourseListData
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
@@ -45,19 +46,24 @@ class ChooseCoarseAdapter(
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
         when (type) {
+
             "main_course" -> {
+
                 p0.title.text = dataList[p1].CourseTypeName
 
                 p0.title.setOnClickListener {
+
+                    Utils.setStringValue(context, "course_type_id", dataList[p1].CourseTypeID.toString())
 
                     row_index = p1
                     notifyDataSetChanged()
 
                     Log.d("flow1", Utils.getStringValue(context, AppConstants.COURSE_FLOW, ""))
 
-                    val mIntent = Intent(context, SelectCourseTypeActivity::class.java)
+                    val mIntent = Intent(context, SelectBoardActivity::class.java)
                     val mBundle = Bundle()
                     mBundle.putString("course_type", dataList[p1].CourseTypeID.toString())
+                    mBundle.putString("course_name", dataList[p1].CourseTypeName)
                     mIntent.putExtras(mBundle)
                     context.startActivity(mIntent)
 
@@ -65,7 +71,9 @@ class ChooseCoarseAdapter(
 
                 }
             }
+
             "course_type" -> {
+
                 p0.title.text = dataList[p1].CourseName
 
                 p0.title.setOnClickListener {
@@ -73,11 +81,21 @@ class ChooseCoarseAdapter(
                     row_index = p1
                     notifyDataSetChanged()
 
-                    val mIntent = Intent(context, SelectStandardActivity::class.java)
-                    val mBundle = Bundle()
-                    mBundle.putString("course_id", dataList[p1].CourseID.toString())
-                    mIntent.putExtras(mBundle)
-                    context.startActivity(mIntent)
+                    if (Utils.getStringValue(context, "course_type_id", "") != "1") {
+                        val mIntent = Intent(context, SelectSubjectActivity::class.java)
+                        val mBundle = Bundle()
+                        mBundle.putString("course_id", dataList[p1].CourseID.toString())
+                        mIntent.putExtras(mBundle)
+                        context.startActivity(mIntent)
+
+                    } else {
+                        val mIntent = Intent(context, SelectStandardActivity::class.java)
+                        val mBundle = Bundle()
+                        mBundle.putString("course_id", dataList[p1].CourseID.toString())
+                        mIntent.putExtras(mBundle)
+                        context.startActivity(mIntent)
+
+                    }
 
                     AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].CourseName)
 
@@ -91,6 +109,46 @@ class ChooseCoarseAdapter(
                     dataList[p1].isSelected = (!dataList[p1].isSelected)
                     p0.title.setBackgroundResource(if (dataList[p1].isSelected) R.drawable.dark_blue_gredient_bg else R.drawable.blue_gradient_bg)
                 }
+            }
+            "course_standard" -> {
+//                row_index = p1
+//                notifyDataSetChanged()
+
+                p0.title.text = dataList[p1].StandardName
+
+                p0.title.setOnClickListener {
+
+                    row_index = p1
+                    notifyDataSetChanged()
+
+                    val mIntent = Intent(context, SelectSubjectActivity::class.java)
+                    val mBundle = Bundle()
+                    mBundle.putString("course_id", dataList[p1].StandardID.toString())
+                    mIntent.putExtras(mBundle)
+                    context.startActivity(mIntent)
+
+                    AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].StandardName)
+
+                }
+            }
+            "course_stdSubject" -> {
+                p0.title.text = dataList[p1].SubjectName
+
+                p0.title.setOnClickListener {
+
+                    row_index = p1
+                    notifyDataSetChanged()
+
+//                    val mIntent = Intent(context, SelectSubjectActivity::class.java)
+//                    val mBundle = Bundle()
+//                    mBundle.putString("standard_id", dataList[p1].StandardID.toString())
+//                    mIntent.putExtras(mBundle)
+//                    context.startActivity(mIntent)
+
+                    AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].SubjectName)
+
+                }
+
             }
         }
 
@@ -110,6 +168,5 @@ class ChooseCoarseAdapter(
         var title: TextView = itemView.findViewById(R.id.drawer_list_title)
 
     }
-
 }
 

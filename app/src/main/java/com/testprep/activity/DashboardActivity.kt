@@ -10,7 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.testprep.R
 import com.testprep.adapter.DrawerMenuListAdapter
-import com.testprep.fragments.ChooseCoarseFragment
+import com.testprep.fragments.SelectCoarseFragment
 import com.testprep.fragments.UpdateProfileFragment
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
@@ -45,7 +45,7 @@ class DashboardActivity : AppCompatActivity() {
 
         init()
 
-        supportFragmentManager.beginTransaction().add(R.id.container, ChooseCoarseFragment()).commit()
+        supportFragmentManager.beginTransaction().add(R.id.container, SelectCoarseFragment()).commit()
     }
 
     private fun init() {
@@ -63,11 +63,8 @@ class DashboardActivity : AppCompatActivity() {
 
         dashboard_ivMenu.setOnClickListener { drawer_layout.openDrawer(nav_view) }
 
-        dashboard_tvtest.setOnClickListener {
-            supportFragmentManager.beginTransaction().replace(
-                R.id.container,
-                ChooseCoarseFragment()
-            ).commit()
+        dashboard_tvhome.setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.container, SelectCoarseFragment()).commit()
             drawer_layout.closeDrawer(nav_view)
 
         }
@@ -78,6 +75,16 @@ class DashboardActivity : AppCompatActivity() {
             drawer_layout.closeDrawer(nav_view)
 
         }
+
+        dashboard_tvquestions.setOnClickListener {
+            //            supportFragmentManager.beginTransaction().replace(R.id.container, PageViewFragment()).commit()
+//            drawer_layout.closeDrawer(nav_view)
+
+            val intent = Intent(this@DashboardActivity, TabwiseQuestionActivity::class.java)
+            startActivity(intent)
+
+        }
+
     }
 
     private fun signOut() {

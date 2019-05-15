@@ -12,7 +12,7 @@
             android:text="Preference"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/course_type_header"
+            android:id="@+id/standard_header"
             android:paddingTop="@dimen/_7sdp"
             android:paddingBottom="@dimen/_7sdp"
             app:layout_constraintTop_toTopOf="parent"
@@ -25,17 +25,17 @@
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:src="@drawable/left_arrow"
-            android:id="@+id/course_type_ivBack"
+            android:id="@+id/standard_ivBack"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:padding="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/course_type_header"/>
+            app:layout_constraintBottom_toBottomOf="@+id/standard_header"/>
 
     <TextView
             android:text="@string/course_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/course_type_tvFlow"
+            android:id="@+id/standard_tvFlow"
             android:paddingTop="@dimen/_7sdp"
             android:paddingBottom="@dimen/_7sdp"
             android:textSize="@dimen/_15sdp"
@@ -44,12 +44,12 @@
             android:background="@color/black"
             android:alpha="0.25"
             android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@+id/course_type_header"/>
+            app:layout_constraintTop_toBottomOf="@+id/standard_header"/>
 
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/coarse_rvCoarseList"
+            android:id="@+id/standard_rvList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/course_type_tvFlow"/>
+            app:layout_constraintTop_toBottomOf="@+id/standard_tvFlow"/>
 
 </android.support.constraint.ConstraintLayout>

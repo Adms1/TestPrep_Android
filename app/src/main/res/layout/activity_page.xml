@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
+                android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_actionbar"
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbar_actionbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--android:layout_alignParentTop="true">-->
+
+    <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="Image View"
-            app:titleTextColor="@color/white"
-            android:layout_alignParentTop="true"
-            android:background="@color/colorAccent"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/toolbar_actionbar"
+            android:layout_alignParentTop="true">
+
+        <TextView
+                android:text="Preference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/header"
+                android:paddingTop="@dimen/_7sdp"
+                android:paddingBottom="@dimen/_7sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center"
+                android:textSize="@dimen/_18sdp"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"/>
+
+        <ImageView
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:src="@drawable/left_arrow"
+                android:id="@+id/ivBack"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:padding="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/course_type_header"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <!--</android.support.v7.widget.Toolbar>-->
 
     <FrameLayout
             android:id="@+id/web_container"
@@ -34,7 +66,7 @@
             android:text="Previous"
             android:layout_alignParentLeft="true"
             android:textSize="15sp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:textStyle="bold"
@@ -51,7 +83,7 @@
             android:textSize="15sp"
             android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:textStyle="bold"

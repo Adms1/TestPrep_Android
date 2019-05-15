@@ -6,13 +6,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".fragments.ChooseCoarseFragment">
+        tools:context=".fragments.SelectCoarseFragment">
 
     <TextView
             android:text="Preference"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/course_type_header"
+            android:id="@+id/subject_header"
             android:paddingTop="@dimen/_7sdp"
             android:paddingBottom="@dimen/_7sdp"
             app:layout_constraintTop_toTopOf="parent"
@@ -25,17 +25,17 @@
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:src="@drawable/left_arrow"
-            android:id="@+id/course_type_ivBack"
+            android:id="@+id/subject_ivBack"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:padding="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/course_type_header"/>
+            app:layout_constraintBottom_toBottomOf="@+id/subject_header"/>
 
     <TextView
             android:text="@string/course_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/course_type_tvFlow"
+            android:id="@+id/subject_tvFlow"
             android:paddingTop="@dimen/_7sdp"
             android:paddingBottom="@dimen/_7sdp"
             android:textSize="@dimen/_15sdp"
@@ -44,24 +44,24 @@
             android:background="@color/black"
             android:alpha="0.25"
             android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@+id/course_type_header"/>
+            app:layout_constraintTop_toBottomOf="@+id/subject_header"/>
 
     <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_35sdp"
-            android:id="@+id/course_type_chbAll"
+            android:id="@+id/subject_chbAll"
             app:layout_constraintRight_toRightOf="parent"
             android:padding="@dimen/_5sdp"
             android:theme="@style/CheckBox"
             android:text="Select All"
             android:layout_marginRight="@dimen/_10sdp"
             android:textColor="@color/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@+id/course_type_tvFlow"/>
+            app:layout_constraintTop_toBottomOf="@+id/subject_tvFlow"/>
 
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/coarse_rvCoarseList"
+            android:id="@+id/subject_rvList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/course_type_chbAll"/>
+            app:layout_constraintTop_toBottomOf="@+id/subject_chbAll"/>
 
 </android.support.constraint.ConstraintLayout>

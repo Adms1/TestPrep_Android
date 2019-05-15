@@ -34,6 +34,10 @@ class PageActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().add(R.id.web_container, fragment).commit()
 
+        ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
         btnNext.setOnClickListener { v: View? ->
 
             countt += 1

@@ -112,17 +112,16 @@
                         android:orientation="vertical">
 
                     <TextView
-                            android:id="@+id/dashboard_tvtest"
+                            android:id="@+id/dashboard_tvhome"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/test"
+                            android:text="@string/home"
                             android:textColor="@color/gray"
                             android:layout_marginLeft="@dimen/_20sdp"
                             android:layout_marginRight="@dimen/_20sdp"
                             android:textSize="@dimen/_14sdp"
                             app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
                             android:layout_marginTop="@dimen/_15sdp"/>
-
 
                     <TextView
                             android:id="@+id/dashboard_tvedit"
@@ -135,6 +134,19 @@
                             android:textSize="@dimen/_14sdp"
                             app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
                             android:layout_marginTop="@dimen/_15sdp"/>
+
+                    <TextView
+                            android:id="@+id/dashboard_tvquestions"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/questions"
+                            android:textColor="@color/gray"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:textSize="@dimen/_14sdp"
+                            app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
+                            android:layout_marginTop="@dimen/_15sdp"/>
+
 
                     <TextView
                             android:id="@+id/dashboard_tvLogout"
