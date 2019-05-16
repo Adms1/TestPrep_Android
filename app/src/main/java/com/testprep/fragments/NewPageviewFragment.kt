@@ -1,4 +1,5 @@
-package com.testprep.old
+package com.testprep.fragments
+
 
 import android.app.Dialog
 import android.graphics.Bitmap
@@ -17,7 +18,8 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.squareup.picasso.Picasso
 import com.testprep.R
-import com.testprep.old.PageActivity.Companion.countt
+import com.testprep.old.PageActivity
+import com.testprep.old.PageViewFragment
 import com.testprep.old.adapter.SelectImageOptionAdapter
 import com.testprep.old.models.QuestionResponse
 import com.testprep.old.retrofit.ApiClient
@@ -29,12 +31,16 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.net.URL
 
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
 /**
  * A simple [Fragment] subclass.
  *
  */
-
-class PageViewFragment : Fragment() {
+class NewPageviewFragment : Fragment() {
 
     private var que_list: ArrayList<QuestionResponse.QuestionList> = ArrayList()
     private var que_num = 0
@@ -45,18 +51,20 @@ class PageViewFragment : Fragment() {
 
         var qsize = 0
 
-        fun newInstance(sectionNumber: Int): PageViewFragment {
-            val fragment = PageViewFragment()
-            val args = Bundle()
-            args.putInt("que_number", sectionNumber)
-            fragment.arguments = args
-            return fragment
-        }
+//        fun newInstance(sectionNumber: Int): PageViewFragment {
+//            val fragment = PageViewFragment()
+//            val args = Bundle()
+//            args.putInt("que_number", sectionNumber)
+//            fragment.arguments = args
+//            return fragment
+//        }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        var vieww: View = inflater.inflate(R.layout.fragment_page_view, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        var vieww: View = inflater.inflate(R.layout.fragment_page_view2, container, false)
 
         imgQue = vieww.findViewById(R.id.page_img_que_img)
         ansList = vieww.findViewById(R.id.wv_question_list)
@@ -73,7 +81,7 @@ class PageViewFragment : Fragment() {
         que_list = Utils.getArrayList(activity!!, "que_list")
 
         val args = arguments
-        que_num = args!!.getInt("que_number")
+        que_num = args!!.getInt("posi")
 
         ansList!!.isNestedScrollingEnabled = false
 
@@ -109,7 +117,7 @@ class PageViewFragment : Fragment() {
             }, 1000
         )
 
-//        callQuestionApi()
+        callQuestionApi()
 
     }
 
@@ -140,11 +148,11 @@ class PageViewFragment : Fragment() {
 
                     totall.text = "Total" + movies.size
 
-                    qno.text = "Q." + (countt+1)
+                    qno.text = "Q." + (PageActivity.countt + 1)
 
-                    Log.d("qid", ""+movies[0].id)
+                    Log.d("qid", "" + movies[0].id)
 
-                    if(countt >= 0) {
+                    if (PageActivity.countt >= 0) {
                         if ("http://content.testcraft.co.in/question/" + movies[0].titleimg != "") {
 
 //                            var url = URL("http://content.testcraft.co.in/question/" + movies[pos].titleimg)
@@ -155,11 +163,11 @@ class PageViewFragment : Fragment() {
 
 //                            Log.d("imgsize", "widht" + widhtx + "  height" + heightx)
 
-                                Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].titleimg)
+                            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].titleimg)
                                 .resize(page_img_que_img.width, page_img_que_img.height)
                                 .into(page_img_que_img)
 
-                            qsize = page_img_que_img.width
+                            PageViewFragment.qsize = page_img_que_img.width
 
 
 //                            Log.d("imgsize", "widht" + page_img_que_img.width + "  height" + page_img_que_img.height)
@@ -182,7 +190,7 @@ class PageViewFragment : Fragment() {
                                 page_img_que_img.width
                             )
                         }
-                    }else{
+                    } else {
                         if ("http://content.testcraft.co.in/question/" + movies[0].titleimg != "") {
                             Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].titleimg)
                                 .resize(page_img_que_img.width, page_img_que_img.height)
@@ -267,5 +275,6 @@ class PageViewFragment : Fragment() {
             imageView.setImageDrawable(result)
         }
     }
+
 
 }

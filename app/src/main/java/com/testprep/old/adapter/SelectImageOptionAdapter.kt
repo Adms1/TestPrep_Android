@@ -9,25 +9,31 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.RelativeLayout
 import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.old.models.QuestionResponse
 
-class SelectImageOptionAdapter(val context: Context, val dataList: ArrayList<QuestionResponse.QuestionList>, var qsize: Int) :
+class SelectImageOptionAdapter(
+    val context: Context,
+    val dataList: ArrayList<QuestionResponse.QuestionList>,
+    var qsize: Int
+) :
     RecyclerView.Adapter<SelectImageOptionAdapter.viewholder>() {
 
     private var lastCheckedRadioGroup: RadioGroup? = null
+    private val lastCheckedPosition = -1
+
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
         return viewholder(
             LayoutInflater.from(context).inflate(
-                R.layout.select_image_option_list_view,
+                com.testprep.R.layout.select_image_option_list_view,
                 p0,
                 false
             )
         )
-
     }
 
     override fun getItemCount(): Int {
@@ -55,15 +61,14 @@ class SelectImageOptionAdapter(val context: Context, val dataList: ArrayList<Que
 //            }
 //        }).start()
 
-        if ("http://content.testcraft.co.in/question/" + dataList[p1].titleimg != "")
-        {
+        if ("http://content.testcraft.co.in/question/" + dataList[p1].titleimg != "") {
 
-            Log.d("qsize", ""+ qsize)
+            Log.d("qsize", "" + qsize)
 
             var imgwidth: Int = 100
 
             Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].titleimg)
-                .resize(qsize, 110)
+                .resize(qsize, p0.opone1.height)
 //                .fit()
 //                .centerInside()
                 .into(p0.opone1)
@@ -72,6 +77,11 @@ class SelectImageOptionAdapter(val context: Context, val dataList: ArrayList<Que
         var id = (p1 + 1) * 100
 //        for (i in 0..4) {
         val rb = RadioButton(this@SelectImageOptionAdapter.context)
+
+        rb.layoutParams = RadioGroup.LayoutParams(
+            RadioGroup.LayoutParams.MATCH_PARENT,
+            RadioGroup.LayoutParams.WRAP_CONTENT
+        )
 
         rb.id = id++
 
@@ -94,7 +104,6 @@ class SelectImageOptionAdapter(val context: Context, val dataList: ArrayList<Que
         p0.opone.addView(rb)
 //        }
 
-
         p0.opone.setOnCheckedChangeListener { group, checkedId ->
 
             //since only one package is allowed to be selected
@@ -105,6 +114,7 @@ class SelectImageOptionAdapter(val context: Context, val dataList: ArrayList<Que
                 && lastCheckedRadioGroup!!.checkedRadioButtonId
                 != p0.opone.checkedRadioButtonId
                 && lastCheckedRadioGroup!!.checkedRadioButtonId != -1
+
             ) {
                 lastCheckedRadioGroup!!.clearCheck()
 
@@ -112,17 +122,25 @@ class SelectImageOptionAdapter(val context: Context, val dataList: ArrayList<Que
 //                        "Radio button clicked " + p0.opone.checkedRadioButtonId,
 //                        Toast.LENGTH_SHORT).show()
 
+                p0.llmain.setBackgroundResource(R.drawable.gray_ring_bg)
+
+            } else if (lastCheckedRadioGroup == null) {
+                p0.llmain.setBackgroundResource(R.drawable.gray_ring_bg)
+
+            } else {
+                p0.llmain.setBackgroundResource(R.drawable.white_ring_bg)
+
             }
             lastCheckedRadioGroup = p0.opone
+
         }
-
-
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var opone1: ImageView = itemView.findViewById(R.id.option_one1)
         var opone: RadioGroup = itemView.findViewById(R.id.option_one)
+        var llmain: RelativeLayout = itemView.findViewById(R.id.option_lll)
     }
 
 //    internal inner class RetrieveFeedTask : AsyncTask<String, Void, Bitmap>() {

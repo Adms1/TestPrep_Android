@@ -36,21 +36,23 @@ class DialogUtils {
             return false
         }
 
-//        fun createConfirmDialog(
-//            context: Context, @StringRes titleId: Int, @StringRes messageId: Int,
+        fun createConfirmDialog(
+            context: Context, titleId: String, messageId: String,
+            positiveBtnTxt: String,
+            nagativeBtnTxt: String,
 //            view: View,
-//            positiveClickListener: DialogInterface.OnClickListener,
-//            negativeClickListener: DialogInterface.OnClickListener
-//        ): Dialog {
-//            val builder = AlertDialog.Builder(context)
-//            builder.setTitle(titleId)
-//            builder.setMessage(messageId)
+            positiveClickListener: DialogInterface.OnClickListener,
+            negativeClickListener: DialogInterface.OnClickListener
+        ): Dialog {
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle(titleId)
+            builder.setMessage(messageId)
 //            builder.setView(view)
-//            builder.setPositiveButton(R.string.ok, positiveClickListener)
-//            builder.setNegativeButton(R.string.mdtp_cancel, negativeClickListener)
-//
-//            return builder.create()
-//        }
+            builder.setPositiveButton(positiveBtnTxt, positiveClickListener)
+            builder.setNegativeButton(nagativeBtnTxt, negativeClickListener)
+
+            return builder.create()
+        }
 
         fun showDialog(context: Context) {
             if (dialog == null) {

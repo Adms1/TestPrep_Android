@@ -1,13 +1,18 @@
 package com.testprep.activity
 
+import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.design.widget.TabLayout
+import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.testprep.R
 import com.testprep.adapter.QuestionsPagerAdapter
 import com.testprep.old.PageActivity
 import com.testprep.old.models.QuestionResponse
@@ -26,16 +31,68 @@ class TabwiseQuestionActivity : AppCompatActivity() {
 
     var questionpagerAdapret: QuestionsPagerAdapter? = null
     var mToolbar: Toolbar? = null
+    var movies: ArrayList<QuestionResponse.QuestionList> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.testprep.R.layout.activity_tabwise_question)
+        setContentView(R.layout.activity_tabwise_question)
 
 //        mToolbar = (Toolbar) findViewById(com.testprep.R.id.sliding_tabs)
 //        sliding_tabs.setOnTabSelectedListener(this)
         setSupportActionBar(mToolbar)
 
         queTab_sliding_tabs.setupWithViewPager(queTab_viewpager)
+
+        queTab_btnNext.setOnClickListener {
+            getLastPage()
+            queTab_viewpager.currentItem = queTab_viewpager.currentItem + 1
+            queTab_tvTotal.text = """${queTab_viewpager.currentItem + 1}/${movies.size}"""
+        }
+
+        queTab_btnPrevious.setOnClickListener { v: View? ->
+
+            queTab_viewpager.currentItem = queTab_viewpager.currentItem - 1
+            queTab_tvTotal.text = """${queTab_viewpager.currentItem + 1}/${movies.size}"""
+        }
+
+        queTab_viewpager.addOnPageChangeListener(object : OnPageChangeListener {
+
+            // This method will be invoked when a new page becomes selected.
+            override fun onPageSelected(position: Int) {
+                queTab_tvTotal.text = """${position + 1}/${movies.size}"""
+                getLastPage()
+            }
+
+            // This method will be invoked when the current page is scrolled
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                // Code goes here
+//                getLastPage()
+            }
+
+            // Called when the scroll state changes:
+            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
+            override fun onPageScrollStateChanged(state: Int) {
+                // Code goes here
+//                getLastPage()
+            }
+        })
+
+        queTab_tvSubmit.setOnClickListener {
+
+            //            DialogUtils.createConfirmDialog(this@TabwiseQuestionActivity, "Submit Test?", "are you sure you want to end this test?",
+//                "OK", "Cancel",
+//                DialogInterface.OnClickListener { dialog, which ->
+//
+//                       dialog.dismiss()
+//                },
+//            DialogInterface.OnClickListener { dialog, which ->
+//
+//                dialog.dismiss()
+//            }).show()
+
+            onBackPressed()
+
+        }
 
         callQuestionApi()
     }
@@ -71,8 +128,9 @@ class TabwiseQuestionActivity : AppCompatActivity() {
                 setCountdown("10")
 
                 if (response.body()!!.message == "Success") {
-                    val movies = response.body()!!.data
+                    movies = response.body()!!.data
 
+                    queTab_tvTotal.text = """1/${movies.size}"""
 //                    totall.text = "Total" + movies.size
 
 //                    qno.text = "Q." + (PageActivity.countt +1)
@@ -118,6 +176,7 @@ class TabwiseQuestionActivity : AppCompatActivity() {
 
         object : CountDownTimer(mili, 1000) {
 
+            @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
                 queTab_tvTimer.text = "" + String.format(
                     "%02d : %02d",
@@ -131,9 +190,39 @@ class TabwiseQuestionActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                queTab_tvTimer.text = "done!"
+                queTab_tvTimer.text = getString(R.string._00_00)
             }
         }.start()
+    }
+
+    private fun getLastPage() {
+
+        if (queTab_viewpager.currentItem == movies.size - 1) {
+
+            queTab_btnNext.text = getString(R.string.finish)
+
+        } else {
+            queTab_btnNext.text = getString(R.string.next)
+        }
+    }
+
+    override fun onBackPressed() {
+
+        DialogUtils.createConfirmDialog(
+            this@TabwiseQuestionActivity,
+            "Submit Test?",
+            "are you sure you want to end this test?",
+            "OK",
+            "Cancel",
+            DialogInterface.OnClickListener { dialog, which ->
+                super.onBackPressed()
+
+            },
+            DialogInterface.OnClickListener { dialog, which ->
+                dialog.dismiss()
+
+
+            }).show()
     }
 
 }

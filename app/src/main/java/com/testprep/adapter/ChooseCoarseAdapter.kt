@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
+import com.testprep.activity.DashboardActivity
 import com.testprep.activity.SelectBoardActivity
 import com.testprep.activity.SelectStandardActivity
 import com.testprep.activity.SelectSubjectActivity
@@ -66,6 +67,10 @@ class ChooseCoarseAdapter(
                     mBundle.putString("course_name", dataList[p1].CourseTypeName)
                     mIntent.putExtras(mBundle)
                     context.startActivity(mIntent)
+                    (context as DashboardActivity).overridePendingTransition(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                    )
 
                     AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].CourseTypeName)
 
@@ -87,6 +92,11 @@ class ChooseCoarseAdapter(
                         mBundle.putString("course_id", dataList[p1].CourseID.toString())
                         mIntent.putExtras(mBundle)
                         context.startActivity(mIntent)
+                        (context as SelectBoardActivity).overridePendingTransition(
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left
+                        )
+
 
                     } else {
                         val mIntent = Intent(context, SelectStandardActivity::class.java)
@@ -94,6 +104,11 @@ class ChooseCoarseAdapter(
                         mBundle.putString("course_id", dataList[p1].CourseID.toString())
                         mIntent.putExtras(mBundle)
                         context.startActivity(mIntent)
+                        (context as SelectBoardActivity).overridePendingTransition(
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left
+                        )
+
 
                     }
 
@@ -126,6 +141,7 @@ class ChooseCoarseAdapter(
                     mBundle.putString("course_id", dataList[p1].StandardID.toString())
                     mIntent.putExtras(mBundle)
                     context.startActivity(mIntent)
+//                    (context as SelectStandardActivity).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 
                     AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].StandardName)
 

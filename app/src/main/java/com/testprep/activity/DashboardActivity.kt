@@ -85,6 +85,15 @@ class DashboardActivity : AppCompatActivity() {
 
         }
 
+//        dashboard_tvquestions1.setOnClickListener {
+//            //            supportFragmentManager.beginTransaction().replace(R.id.container, PageViewFragment()).commit()
+////            drawer_layout.closeDrawer(nav_view)
+//
+//            val intent = Intent(this@DashboardActivity, NewPageActivity::class.java)
+//            startActivity(intent)
+//
+//        }
+
     }
 
     private fun signOut() {
