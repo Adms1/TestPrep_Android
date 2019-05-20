@@ -10,6 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.testprep.R
 import com.testprep.adapter.DrawerMenuListAdapter
+import com.testprep.fragments.CoinFragment
 import com.testprep.fragments.SelectCoarseFragment
 import com.testprep.fragments.UpdateProfileFragment
 import com.testprep.utils.AppConstants
@@ -78,11 +79,11 @@ class DashboardActivity : AppCompatActivity() {
 
         dashboard_tvquestions.setOnClickListener {
             //            supportFragmentManager.beginTransaction().replace(R.id.container, PageViewFragment()).commit()
-//            drawer_layout.closeDrawer(nav_view)
+            //            drawer_layout.closeDrawer(nav_view)
 
             val intent = Intent(this@DashboardActivity, TabwiseQuestionActivity::class.java)
             startActivity(intent)
-
+            drawer_layout.closeDrawer(nav_view)
         }
 
 //        dashboard_tvquestions1.setOnClickListener {
@@ -93,6 +94,14 @@ class DashboardActivity : AppCompatActivity() {
 //            startActivity(intent)
 //
 //        }
+
+        dashboard_tvCoin.setOnClickListener {
+            //            supportFragmentManager.beginTransaction().replace(R.id.container, PageViewFragment()).commit()
+//            drawer_layout.closeDrawer(nav_view)
+
+            supportFragmentManager.beginTransaction().replace(R.id.container, CoinFragment()).commit()
+            drawer_layout.closeDrawer(nav_view)
+        }
 
     }
 

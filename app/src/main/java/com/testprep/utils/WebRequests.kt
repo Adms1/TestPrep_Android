@@ -1,7 +1,5 @@
 package com.testprep.utils
 
-import java.util.*
-
 class WebRequests {
 
     companion object{
@@ -45,6 +43,17 @@ class WebRequests {
 
             return map
         }
+
+//        fun paymentParams(): HashMap<String, String>{
+//
+//            val map = HashMap<String, String>()
+//
+//            map["Email"] = email
+//            map["Password"] = pass
+//
+//            return map
+//
+//        }
 
     }
 

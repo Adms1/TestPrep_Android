@@ -293,7 +293,6 @@ class LoginActivity : AppCompatActivity() {
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
                         )
 
-
 //                    Log.d("loginresponse", response.body()!!.asString)
                     } else {
                         Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
