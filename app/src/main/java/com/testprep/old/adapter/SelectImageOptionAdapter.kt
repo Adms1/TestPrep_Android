@@ -122,13 +122,13 @@ class SelectImageOptionAdapter(
 //                        "Radio button clicked " + p0.opone.checkedRadioButtonId,
 //                        Toast.LENGTH_SHORT).show()
 
-                p0.llmain.setBackgroundResource(R.drawable.gray_ring_bg)
+//                p0.llmain.setBackgroundResource(R.drawable.gray_ring_bg)
 
             } else if (lastCheckedRadioGroup == null) {
-                p0.llmain.setBackgroundResource(R.drawable.gray_ring_bg)
+//                p0.llmain.setBackgroundResource(R.drawable.gray_ring_bg)
 
             } else {
-                p0.llmain.setBackgroundResource(R.drawable.white_ring_bg)
+//                p0.llmain.setBackgroundResource(R.drawable.white_ring_bg)
 
             }
             lastCheckedRadioGroup = p0.opone

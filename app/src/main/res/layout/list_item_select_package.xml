@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp">
+
+    <RelativeLayout
+            android:id="@+id/llImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:gravity="center"
+            app:layout_constraintRight_toRightOf="parent">
+
+        <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:id="@+id/package_image"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:id="@+id/package_image1"/>
+
+    </RelativeLayout>
+
+    <TextView
+            android:id="@+id/package_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/llImage"/>
+
+    <TextView
+            android:id="@+id/package_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/package_name"/>
+
+</android.support.constraint.ConstraintLayout>

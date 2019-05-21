@@ -19,6 +19,8 @@
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning"
             tools:targetApi="m">
+        <activity android:name=".activity.SelectPackageActivity">
+        </activity>
         <activity android:name=".activity.PaymentSuccessScreen">
         </activity>
         <activity android:name=".activity.TraknpayRequestActivity">

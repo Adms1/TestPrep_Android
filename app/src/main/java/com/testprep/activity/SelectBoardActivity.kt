@@ -40,8 +40,8 @@ class SelectBoardActivity : AppCompatActivity() {
         course_type_tvFlow.text = AppConstants.COURSE_FLOW
 
         if (intent != null) {
-            courseType = intent.extras.getString("course_type", "")
-            courseName = intent.extras.getString("course_name", "")
+            courseType = intent.extras!!.getString("course_type", "")
+            courseName = intent.extras!!.getString("course_name", "")
         }
 
         coarse_rvCoarseList.layoutManager = GridLayoutManager(this@SelectBoardActivity, 2)

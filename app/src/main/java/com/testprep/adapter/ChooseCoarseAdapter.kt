@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
 import com.testprep.activity.SelectBoardActivity
+import com.testprep.activity.SelectPackageActivity
 import com.testprep.activity.SelectStandardActivity
 import com.testprep.activity.SelectSubjectActivity
 import com.testprep.models.GetCourseListData
@@ -154,11 +155,11 @@ class ChooseCoarseAdapter(
                     row_index = p1
                     notifyDataSetChanged()
 
-//                    val mIntent = Intent(context, SelectSubjectActivity::class.java)
+                    val mIntent = Intent(context, SelectPackageActivity::class.java)
 //                    val mBundle = Bundle()
 //                    mBundle.putString("standard_id", dataList[p1].StandardID.toString())
 //                    mIntent.putExtras(mBundle)
-//                    context.startActivity(mIntent)
+                    context.startActivity(mIntent)
 
                     AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].SubjectName)
 
