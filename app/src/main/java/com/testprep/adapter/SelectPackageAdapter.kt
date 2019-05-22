@@ -12,9 +12,9 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.amulyakhare.textdrawable.TextDrawable
-import com.amulyakhare.textdrawable.util.ColorGenerator
 import com.testprep.models.PackageData
+import com.testprep.utils.ColorGenerator
+import com.testprep.utils.TextDrawable
 import de.hdodenhof.circleimageview.CircleImageView
 
 class SelectPackageAdapter(val context: Context, val dataList: ArrayList<PackageData>) :
@@ -47,11 +47,12 @@ class SelectPackageAdapter(val context: Context, val dataList: ArrayList<Package
 
             p0.image1.visibility = GONE
             p0.image.visibility = VISIBLE
-
+            p0.pname.visibility = VISIBLE
 //            createDrawable
 
-            val drawable =
-                mDrawableBuilder.build(dataList[p1].namee.substring(0, 1), mColorGenerator.getColor(dataList[p1]))
+            p0.pname.text = dataList[p1].namee.substring(0, 1)
+
+//            val drawable = mDrawableBuilder.build(dataList[p1].namee.substring(0, 1), mColorGenerator.getColor(dataList[p1]))
             p0.image.setImageDrawable(createDrawable(p1))
         }
 
@@ -68,7 +69,7 @@ class SelectPackageAdapter(val context: Context, val dataList: ArrayList<Package
         var image1: CircleImageView = itemView.findViewById(com.testprep.R.id.package_image1)
         var name: TextView = itemView.findViewById(com.testprep.R.id.package_name)
         var price: TextView = itemView.findViewById(com.testprep.R.id.package_price)
-
+        var pname: TextView = itemView.findViewById(com.testprep.R.id.package_name_short)
     }
 
     private fun createDrawable(pos: Int): Drawable {

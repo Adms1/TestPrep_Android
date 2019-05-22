@@ -3,10 +3,10 @@ package com.testprep.activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import com.amulyakhare.textdrawable.TextDrawable
 import com.testprep.R
 import com.testprep.adapter.SelectPackageAdapter
 import com.testprep.models.PackageData
+import com.testprep.utils.TextDrawable
 import kotlinx.android.synthetic.main.activity_select_package.*
 
 

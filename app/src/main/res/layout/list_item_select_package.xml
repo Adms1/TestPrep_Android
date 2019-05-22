@@ -15,10 +15,27 @@
             android:gravity="center"
             app:layout_constraintRight_toRightOf="parent">
 
-        <ImageView
+        <RelativeLayout
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
-                android:id="@+id/package_image"/>
+                android:elevation="@dimen/_13sdp">
+
+            <ImageView
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:id="@+id/package_image"/>
+
+            <TextView
+                    android:id="@+id/package_name_short"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_18sdp"
+                    android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="@dimen/_50sdp"

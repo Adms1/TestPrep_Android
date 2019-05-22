@@ -26,7 +26,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
         setContentView(com.testprep.R.layout.activity_traknpay_request)
 
         val return_url = "https://biz.traknpay.in/tnp/return_page_android.php"
-        var mode: String? = "LIVE"
+        var mode: String? = "TEST"
         var order_id: String? = Calendar.getInstance().timeInMillis.toString()
         var amount: String? = "100"
         val currency = "INR"
@@ -142,7 +142,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
             }
         }
 
-//        hashData = "531553f8d6b906aa3342948a3c535ca301de9d5d|-|-|100|535ee616-a161-4e16-88ed-a338582e841a|Ahmedabad|IND|INR|This charge is for Education/Professions at test craft on 21/5/2019 @ 06:46 p.m.|saralpayonline@gmail.com|LIVE|navin |A2079190521184609|7575809733|https://biz.traknpay.in/tnp/return_page_android.php|n|Gujarat|380015"
+//        hashData = "531553f8d6b906aa3342948a3c535ca301de9d5d|-|-|20|535ee616-a161-4e16-88ed-a338582e841a|Ahmedabad|IND|INR|test|bhargavchauhan1992@gmail.com|TEST|Bhargav|12|7575809733|https://biz.traknpay.in/tnp/return_page_android.php|n|Gujarat|380015"
 
 
         // Sort the map by key and create the hashData and postData
@@ -160,7 +160,8 @@ class TraknpayRequestActivity : AppCompatActivity() {
 //        val hash = generateSha512Hash(hashData).toUpperCase()
         postData = postData + "hash=" + hash
 
-//        postData = "address_line_1=-&address_line_2=-&amount=100&api_key=535ee616-a161-4e16-88ed-a338582e841a&city=Ahmedabad&country=IND&currency=INR&description=This charge is for Education/Professions at test craft on 21/5/2019 @ 06:46 p.m.&email=saralpayonline@gmail.com&mode=LIVE&name=navin &order_id=A2079190521184609&phone=7575809733&return_url=https://biz.traknpay.in/tnp/return_page_android.php&show_saved_cards=n&state=Gujarat&zip_code=380015" + "hash=" + hash
+//        postData =
+//            "address_line_1=-&address_line_2=-&amount=20&api_key=535ee616-a161-4e16-88ed-a338582e841a&city=Ahmedabad&country=IND&currency=INR&description=test&email=bhargavchauhan1992@gmail.com&mode=TEST&name=Bhargav&order_id=12&phone=7575809733&return_url=https://biz.traknpay.in/tnp/return_page_android.php&show_saved_cards=n&state=Gujarat&zip_code=380015&hash=$hash"
 
         Log.d(TAG, "HashData: $hashData")
         Log.d(TAG, "Hash: $hash")
@@ -177,10 +178,14 @@ class TraknpayRequestActivity : AppCompatActivity() {
 //        webSettings.setAppCachePath("/data/data/" + getPackageName() + "/cache/");
 //        webSettings.setAppCacheEnabled(true);
 //        webSettings.setLightTouchEnabled(true);
+
         webSettings.builtInZoomControls = true
 //        webView.setWebChromeClient(new WebChromeClient());
         webView.webViewClient = WebViewClient()
         webView.postUrl("https://biz.traknpay.in/v1/paymentrequest", postData.toByteArray())
+
+        Log.d("url", "" + webView.postUrl("https://biz.traknpay.in/v1/paymentrequest", postData.toByteArray()))
+
         webView.addJavascriptInterface(MyJavaScriptInterface(this), "Android")
 
     }
