@@ -44,16 +44,23 @@ class WebRequests {
             return map
         }
 
-//        fun paymentParams(): HashMap<String, String>{
-//
-//            val map = HashMap<String, String>()
-//
-//            map["Email"] = email
-//            map["Password"] = pass
-//
-//            return map
-//
-//        }
+        fun getPackageParams(
+            coursetype: String,
+            boardid: String,
+            stdid: String,
+            subjectid: String
+        ): HashMap<String, String> {
+
+            val map = HashMap<String, String>()
+
+            map["CourseTypeID"] = coursetype
+            map["BoardID"] = boardid
+            map["StandardID"] = stdid
+            map["SubjectID"] = subjectid
+
+            return map
+
+        }
 
     }
 

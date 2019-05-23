@@ -138,7 +138,7 @@ class ChooseCoarseAdapter(
 
                     val mIntent = Intent(context, SelectSubjectActivity::class.java)
                     val mBundle = Bundle()
-                    mBundle.putString("course_id", dataList[p1].StandardID.toString())
+                    mBundle.putString("standard_id", dataList[p1].StandardID.toString())
                     mIntent.putExtras(mBundle)
                     context.startActivity(mIntent)
 //                    (context as SelectStandardActivity).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -158,6 +158,7 @@ class ChooseCoarseAdapter(
                     val mIntent = Intent(context, SelectPackageActivity::class.java)
 //                    val mBundle = Bundle()
 //                    mBundle.putString("standard_id", dataList[p1].StandardID.toString())
+//
 //                    mIntent.putExtras(mBundle)
                     context.startActivity(mIntent)
 

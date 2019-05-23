@@ -4,6 +4,10 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.Color.argb
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.location.Criteria
 import android.location.LocationManager
 import android.os.Build
@@ -159,6 +163,53 @@ class Utils {
             }
             return locationArray
         }
+
+        private val mDrawableBuilder: TextDrawable.IBuilder = TextDrawable.builder().round()
+        private val mColorGenerator = ColorGenerator.MATERIAL
+
+        fun createDrawable(pos: Int): Drawable {
+            // Initialize a new GradientDrawable
+            val gd = GradientDrawable()
+
+            val lcolor = darker(pos, 0.1f)
+
+//        val sf = object : ShapeDrawable.ShaderFactory() {
+//            override fun resize(width: Int, height: Int): Shader {
+//                return LinearGradient(
+//                    0f, 0f, width.toFloat(), height.toFloat(),
+//                    intArrayOf(Color.GREEN, Color.GREEN, Color.WHITE, Color.WHITE),
+//                    floatArrayOf(0f, 0.5f, .55f, 1f), Shader.TileMode.REPEAT
+//                )
+//            }
+//        }
+
+            // Set the color array to draw gradient
+            gd.colors = intArrayOf(mColorGenerator.getColor(pos), lcolor)
+
+            // Set the GradientDrawable gradient type linear gradient
+            gd.gradientType = GradientDrawable.LINEAR_GRADIENT
+
+            // Set GradientDrawable shape is a rectangle
+            gd.shape = GradientDrawable.RECTANGLE
+
+            gd.cornerRadius = 210F
+            // Set 3 pixels width solid blue color border
+
+            // Set GradientDrawable width and in pixels
+            gd.setSize(390, 390) // Width 450 pixels and height 150 pixels
+
+            // Set GradientDrawable as ImageView source image
+            return gd
+
+        }
+
+        fun darker(color: Int, factor: Float): Int {
+            var red: Int = (Color.red(color) * factor).toInt()
+            var green: Int = (Color.green(color) * factor).toInt()
+            var blue: Int = (Color.blue(color) * factor).toInt()
+            return argb(Color.alpha(color), red, green, blue)
+        }
+
 
     }
 }

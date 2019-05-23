@@ -22,7 +22,6 @@ import retrofit2.Response
 class SelectSubjectActivity : AppCompatActivity() {
 
     private var chooseCoarseAdapter: ChooseCoarseAdapter? = null
-    private var courseId = ""
     private var selectType = "no"
     private var standardList: ArrayList<GetCourseListData> = ArrayList()
     private var selectType1 = "no"
@@ -43,7 +42,7 @@ class SelectSubjectActivity : AppCompatActivity() {
         subject_tvFlow.text = AppConstants.COURSE_FLOW
 
         if (intent != null) {
-            courseId = intent.extras!!.getString("course_id", "")
+            stdId = intent.extras!!.getString("standard_id", "")
         }
 
         subject_rvList.layoutManager = GridLayoutManager(this@SelectSubjectActivity, 2)
@@ -91,11 +90,11 @@ class SelectSubjectActivity : AppCompatActivity() {
         var call: Call<MainModel>? = null
 
         if (Utils.getStringValue(this@SelectSubjectActivity, "course_type_id", "") != "1") {
-            call = apiService.getCourseSubjectList(courseId)
+            call = apiService.getCourseSubjectList(stdId)
             apitype = "course_subject"
 
         } else {
-            call = apiService.getBoardStandardSubjectList("1", courseId)
+            call = apiService.getBoardStandardSubjectList("1", stdId)
             apitype = "course_stdSubject"
             subject_chbAll.visibility = View.GONE
 

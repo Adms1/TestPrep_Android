@@ -58,6 +58,7 @@ class ColorGenerator private constructor(private val mColors: List<Int>) {
                     -0x6f5b52
                 )
             )
+
         }
 
         fun create(colorList: List<Int>): ColorGenerator {

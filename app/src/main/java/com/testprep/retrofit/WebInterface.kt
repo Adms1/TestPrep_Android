@@ -2,6 +2,7 @@ package com.testprep.retrofit
 
 import com.google.gson.JsonObject
 import com.testprep.models.MainModel
+import com.testprep.models.PackageData
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -49,5 +50,9 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Get_BoardStandardSubject_List")
     fun getPayment(@FieldMap map: HashMap<String, String>): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Get_TestPackageName_By_ID")
+    fun getPackage(@FieldMap map: HashMap<String, String>): Call<PackageData>
 
 }

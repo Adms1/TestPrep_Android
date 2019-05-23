@@ -1,62 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.v7.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_5sdp">
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_5sdp"
+        android:id="@+id/package_llmain"
+        android:layout_margin="@dimen/_5sdp"
+        app:cardElevation="@dimen/_5sdp">
 
-    <RelativeLayout
-            android:id="@+id/llImage"
+    <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:gravity="center"
-            app:layout_constraintRight_toRightOf="parent">
+            android:layout_gravity="center"
+            android:padding="@dimen/_5sdp">
 
         <RelativeLayout
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:elevation="@dimen/_13sdp">
+                android:id="@+id/llImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                app:layout_constraintRight_toRightOf="parent">
+
+            <!--<RelativeLayout-->
+            <!--android:layout_width="@dimen/_50sdp"-->
+            <!--android:layout_height="@dimen/_50sdp">-->
 
             <ImageView
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="@dimen/_50sdp"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
                     android:id="@+id/package_image"/>
 
-            <TextView
-                    android:id="@+id/package_name_short"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_18sdp"
-                    android:layout_centerInParent="true"/>
+            <!--<TextView-->
+            <!--android:id="@+id/package_name_short"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/_5sdp"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textSize="@dimen/_18sdp"-->
+            <!--android:layout_centerInParent="true"/>-->
+
+            <!--</RelativeLayout>-->
+
+            <!--<de.hdodenhof.circleimageview.CircleImageView-->
+            <!--android:layout_width="@dimen/_60sdp"-->
+            <!--android:layout_height="@dimen/_60sdp"-->
+            <!--android:elevation="@dimen/_4sdp"-->
+            <!--android:id="@+id/package_image1"/>-->
 
         </RelativeLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:id="@+id/package_image1"/>
+        <TextView
+                android:id="@+id/package_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/llImage"/>
 
-    </RelativeLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/package_name">
 
-    <TextView
-            android:id="@+id/package_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/llImage"/>
+            <TextView
+                    android:id="@+id/package_sprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/green"
+                    android:layout_marginRight="@dimen/_2sdp"
+                    android:text="@string/enter_coin"/>
 
-    <TextView
-            android:id="@+id/package_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/package_name"/>
+            <TextView
+                    android:id="@+id/package_lprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:textColor="@color/gray"
+                    android:text="@string/submit"/>
 
-</android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

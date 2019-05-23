@@ -17,8 +17,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
+            android:hardwareAccelerated="true"
             tools:ignore="GoogleAppIndexingWarning"
             tools:targetApi="m">
+        <activity android:name=".activity.PackageDetailActivity">
+        </activity>
         <activity android:name=".activity.SelectPackageActivity">
         </activity>
         <activity android:name=".activity.PaymentSuccessScreen">
