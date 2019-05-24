@@ -83,6 +83,8 @@ class ChooseCoarseAdapter(
 
                 p0.title.setOnClickListener {
 
+                    Utils.setStringValue(context, "course_id", dataList[p1].CourseID.toString())
+
                     row_index = p1
                     notifyDataSetChanged()
 
@@ -133,6 +135,8 @@ class ChooseCoarseAdapter(
 
                 p0.title.setOnClickListener {
 
+                    Utils.setStringValue(context, "std_id", dataList[p1].StandardID.toString())
+
                     row_index = p1
                     notifyDataSetChanged()
 
@@ -156,10 +160,7 @@ class ChooseCoarseAdapter(
                     notifyDataSetChanged()
 
                     val mIntent = Intent(context, SelectPackageActivity::class.java)
-//                    val mBundle = Bundle()
-//                    mBundle.putString("standard_id", dataList[p1].StandardID.toString())
-//
-//                    mIntent.putExtras(mBundle)
+                    mIntent.putExtra("subject_id", dataList[p1].SubjectID.toString())
                     context.startActivity(mIntent)
 
                     AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].SubjectName)

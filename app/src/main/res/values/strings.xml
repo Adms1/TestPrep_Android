@@ -54,4 +54,8 @@
     <string name="enter_coin">Enter Coin</string>
     <string name="charge">Charge</string>
     <string name="description">Description</string>
+    <string name="board">Board</string>
+    <string name="standard">Standard</string>
+    <string name="subject">Subject</string>
+    <string name="buy">Buy</string>
 </resources>

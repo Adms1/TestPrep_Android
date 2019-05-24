@@ -10,8 +10,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.support.v7.app.AlertDialog
+import android.text.Html
 import android.view.Window
-import com.testprep.R
+
 
 class DialogUtils {
 
@@ -46,19 +47,21 @@ class DialogUtils {
         ): Dialog {
             val builder = AlertDialog.Builder(context)
             builder.setTitle(titleId)
-            builder.setMessage(messageId)
+            builder.setMessage(Html.fromHtml("<Big>$messageId</Big>"))
+
 //            builder.setView(view)
-            builder.setPositiveButton(positiveBtnTxt, positiveClickListener)
-            builder.setNegativeButton(nagativeBtnTxt, negativeClickListener)
+            builder.setPositiveButton(Html.fromHtml("<Big>$positiveBtnTxt</Big>"), positiveClickListener)
+            builder.setNegativeButton(Html.fromHtml("<Big>$nagativeBtnTxt</Big>"), negativeClickListener)
 
             return builder.create()
+
         }
 
         fun showDialog(context: Context) {
             if (dialog == null) {
                 dialog = Dialog(context)
                 dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                dialog!!.setContentView(R.layout.progressbar_dialog)
+                dialog!!.setContentView(com.testprep.R.layout.progressbar_dialog)
                 dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog!!.setCanceledOnTouchOutside(false)
                 dialog!!.setCancelable(false)

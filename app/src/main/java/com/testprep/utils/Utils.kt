@@ -20,9 +20,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.testprep.R
 import com.testprep.old.models.QuestionResponse
-
 
 class Utils {
 
@@ -102,7 +100,7 @@ class Utils {
         fun openInvalidApiKeyDialog(context: Activity) {
             android.app.AlertDialog.Builder(context)
                 .setTitle("Account Alert")
-                .setIcon(context.resources.getDrawable(R.mipmap.logo))
+                .setIcon(context.resources.getDrawable(com.testprep.R.mipmap.logo))
                 .setMessage("We are currently setting up your account. Please contact customer support at +91 75758 09733 if you have any questions.")
                 .setNegativeButton("Cancel") { dialog, which ->
                     // do nothing
@@ -167,9 +165,12 @@ class Utils {
         private val mDrawableBuilder: TextDrawable.IBuilder = TextDrawable.builder().round()
         private val mColorGenerator = ColorGenerator.MATERIAL
 
-        fun createDrawable(pos: Int): Drawable {
+        fun createDrawable(ch: Char, length: Int): Drawable {
             // Initialize a new GradientDrawable
             val gd = GradientDrawable()
+
+            var pos = ch - 'a' + 1
+            pos += length
 
             val lcolor = darker(pos, 0.1f)
 
@@ -184,7 +185,7 @@ class Utils {
 //        }
 
             // Set the color array to draw gradient
-            gd.colors = intArrayOf(mColorGenerator.getColor(pos), lcolor)
+            gd.colors = intArrayOf(lcolor, mColorGenerator.getColor(pos))
 
             // Set the GradientDrawable gradient type linear gradient
             gd.gradientType = GradientDrawable.LINEAR_GRADIENT

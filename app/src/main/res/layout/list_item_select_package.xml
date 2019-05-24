@@ -27,26 +27,24 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 app:layout_constraintRight_toRightOf="parent">
 
-            <!--<RelativeLayout-->
-            <!--android:layout_width="@dimen/_50sdp"-->
-            <!--android:layout_height="@dimen/_50sdp">-->
-
-            <ImageView
+            <RelativeLayout
                     android:layout_width="@dimen/_60sdp"
-                    android:layout_height="@dimen/_60sdp"
-                    android:id="@+id/package_image"/>
+                    android:layout_height="@dimen/_60sdp">
 
-            <!--<TextView-->
-            <!--android:id="@+id/package_name_short"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="@dimen/_5sdp"-->
-            <!--android:textColor="@color/white"-->
-            <!--android:textStyle="bold"-->
-            <!--android:textSize="@dimen/_18sdp"-->
-            <!--android:layout_centerInParent="true"/>-->
+                <ImageView
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:id="@+id/package_image"/>
 
-            <!--</RelativeLayout>-->
+                <TextView
+                        android:id="@+id/package_name_short"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_25sdp"
+                        android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
 
             <!--<de.hdodenhof.circleimageview.CircleImageView-->
             <!--android:layout_width="@dimen/_60sdp"-->
@@ -62,10 +60,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="center"
+                android:textSize="@dimen/_13sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
+                android:maxLines="2"
                 app:layout_constraintTop_toBottomOf="@+id/llImage"/>
 
         <LinearLayout
@@ -82,8 +82,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:textColor="@color/green"
+                    android:textSize="@dimen/_11sdp"
                     android:layout_marginRight="@dimen/_2sdp"
-                    android:text="@string/enter_coin"/>
+                    android:maxLines="1"/>
 
             <TextView
                     android:id="@+id/package_lprice"
@@ -91,8 +92,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginLeft="@dimen/_2sdp"
+                    android:textSize="@dimen/_11sdp"
                     android:textColor="@color/gray"
-                    android:text="@string/submit"/>
+                    android:maxLines="1"/>
 
         </LinearLayout>
 

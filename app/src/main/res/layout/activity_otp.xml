@@ -58,7 +58,7 @@
             android:maxLines="1"
             android:gravity="center"
             android:layout_marginTop="@dimen/_40sdp"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:paddingTop="@dimen/_7sdp"
             android:paddingBottom="@dimen/_7sdp"
             android:paddingLeft="@dimen/_10sdp"

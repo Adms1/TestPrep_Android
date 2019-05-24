@@ -10,10 +10,7 @@ import com.testprep.adapter.SelectPackageAdapter
 import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
-import com.testprep.utils.DialogUtils
-import com.testprep.utils.TextDrawable
-import com.testprep.utils.Utils
-import com.testprep.utils.WebRequests
+import com.testprep.utils.*
 import kotlinx.android.synthetic.main.activity_select_package.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -72,7 +69,14 @@ class SelectPackageActivity : AppCompatActivity() {
         DialogUtils.showDialog(this@SelectPackageActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getPackage(WebRequests.getPackageParams("1", "1", "9", "1"))
+        val call = apiService.getPackage(
+            WebRequests.getPackageParams(
+                Utils.getStringValue(this@SelectPackageActivity, "course_type_id", "0")!!,
+                Utils.getStringValue(this@SelectPackageActivity, "course_id", "0")!!,
+                Utils.getStringValue(this@SelectPackageActivity, "std_id", "0")!!,
+                intent.getStringExtra("subject_id")
+            )
+        )
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
@@ -100,6 +104,15 @@ class SelectPackageActivity : AppCompatActivity() {
                 DialogUtils.dismissDialog()
             }
         })
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        if (AppConstants.COURSE_FLOW_ARRAY.size > 0) {
+            AppConstants.COURSE_FLOW_ARRAY.removeAt(AppConstants.COURSE_FLOW_ARRAY.size - 1)
+        }
+
     }
 
 }

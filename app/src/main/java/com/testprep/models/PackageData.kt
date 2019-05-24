@@ -1,5 +1,7 @@
 package com.testprep.models
 
+import java.io.Serializable
+
 class PackageData {
 
     var Status = ""
@@ -14,10 +16,11 @@ class PackageData {
         var TestPackageListPrice = ""
         var TestPackageDescription = ""
         var NumberOfTest = ""
+        var TestType: ArrayList<PackageTestType> = ArrayList()
 
     }
 
-    class PackageTestType {
+    class PackageTestType(var name: String, var qty: String) : Serializable {
 
         var TestTypeName = ""
         var TestQuantity = ""
