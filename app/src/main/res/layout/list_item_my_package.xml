@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/item_my_package_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_3sdp">
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp">
+
+        <RelativeLayout
+                android:id="@+id/item_rlImage"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent">
+
+            <ImageView
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:id="@+id/item_my_package_image"/>
+
+            <TextView
+                    android:id="@+id/item_my_package_name_short"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_25sdp"
+                    android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <TextView
+                android:id="@+id/item_my_package_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="CBSE 9th science package"
+                android:textSize="@dimen/_16sdp"
+                android:textColor="@color/black"
+                android:maxLines="1"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="@+id/item_rlImage"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/item_rlImage"/>
+
+        <TextView
+                android:id="@+id/item_my_package_sdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/_13sdp"
+                app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
+                app:layout_constraintBottom_toBottomOf="@+id/item_rlImage"
+                android:maxLines="1"
+                android:text="24/05/2019"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintRight_toLeftOf="@+id/item_my_package_edate"
+                app:layout_constraintTop_toBottomOf="@+id/item_my_package_name"/>
+
+        <TextView
+                android:id="@+id/item_my_package_edate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="@+id/item_rlImage"
+                app:layout_constraintLeft_toRightOf="@id/item_my_package_sdate"
+                app:layout_constraintTop_toBottomOf="@id/item_my_package_name"
+                android:text="24/05/2020"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

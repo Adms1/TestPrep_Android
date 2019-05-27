@@ -48,11 +48,19 @@ interface WebInterface {
     fun getBoardStandardSubjectList(@Field("BoardID") boardid: String, @Field("StandardID") standardid: String): Call<MainModel>
 
     @FormUrlEncoded
-    @POST("Get_BoardStandardSubject_List")
+    @POST("GeneratePaymentRequest")
     fun getPayment(@FieldMap map: HashMap<String, String>): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Update_Payment_Request")
+    fun updatePaymentStatus(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
     @FormUrlEncoded
     @POST("Get_TestPackageName_By_ID")
     fun getPackage(@FieldMap map: HashMap<String, String>): Call<PackageData>
+
+    @FormUrlEncoded
+    @POST("Get_Student_PaymentTransaction_List")
+    fun getMyPayment(@Field("StudentID") boardid: String): Call<PackageData>
 
 }

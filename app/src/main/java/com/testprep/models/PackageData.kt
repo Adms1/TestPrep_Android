@@ -18,6 +18,12 @@ class PackageData {
         var NumberOfTest = ""
         var TestType: ArrayList<PackageTestType> = ArrayList()
 
+        var PaymentTransactionID = ""
+        var PaymentAmount = 0
+        var PaymentDate = ""
+        var ExternalTransactionID = ""
+        var ExternalTransactionStatus = ""
+
     }
 
     class PackageTestType(var name: String, var qty: String) : Serializable {

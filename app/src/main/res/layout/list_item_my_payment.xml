@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_8sdp">
+
+    <TextView
+            android:id="@+id/item_my_payment_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Transaction ID : HTRQ1234"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/item_rlImage"/>
+
+    <TextView
+            android:id="@+id/item_my_payment_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/_13sdp"
+            android:maxLines="1"
+            android:text="Date : 27-05-2019 04:28 PM"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_my_payment_id"/>
+
+    <TextView
+            android:id="@+id/item_my_payment_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+            android:id="@+id/item_my_payment_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:maxLines="1"
+            android:textColor="@color/green"
+            app:layout_constraintTop_toBottomOf="@id/item_my_payment_amount"
+            android:text="Success"/>
+
+    <Button
+            android:id="@+id/item_my_payment_btnTry"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25sdp"
+            android:gravity="center"
+            android:textSize="@dimen/_11sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@color/colorPrimary"
+            android:maxLines="1"
+            android:textAllCaps="false"
+            android:padding="@dimen/_5sdp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/item_my_payment_status"
+            android:text="@string/try_again"/>
+
+</android.support.constraint.ConstraintLayout>

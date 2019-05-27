@@ -9,6 +9,7 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.testprep.utils.AppConstants
+import com.testprep.utils.Utils
 import org.json.JSONObject
 import java.io.UnsupportedEncodingException
 import java.security.MessageDigest
@@ -27,20 +28,25 @@ class TraknpayRequestActivity : AppCompatActivity() {
 
         val return_url = "https://biz.traknpay.in/tnp/return_page_android.php"
         var mode: String? = "TEST"
-        var order_id: String? = Calendar.getInstance().timeInMillis.toString()
-        var amount: String? = "100"
+        var order_id: String? = intent.getStringExtra("order_id")
+        var amount: String? = intent.getStringExtra("amount")
         val currency = "INR"
         var description: String? = "coin purchase"
-        val name = "Antra"
-        val email = "antra.vala@gmail.com"//saralpayonline@gmail.com
-        val phone = "7575809733"//7575809733
+        val name = Utils.getStringValue(
+            this@TraknpayRequestActivity,
+            AppConstants.FIRST_NAME,
+            ""
+        ) + " " + Utils.getStringValue(this@TraknpayRequestActivity, AppConstants.LAST_NAME, "")
+        val email =
+            Utils.getStringValue(this@TraknpayRequestActivity, AppConstants.USER_EMAIL, "")//saralpayonline@gmail.com
+        val phone = Utils.getStringValue(this@TraknpayRequestActivity, AppConstants.USER_MOBILE, "")//7575809733
         val address_line_1 = "-"
         val address_line_2 = "-"
         val city = "Ahmedabad"
         val state = "Gujarat"
         val zip_code = "380015"
         val country = "IND"
-        val udf1 = "udf1"
+        val udf1 = Utils.getStringValue(this@TraknpayRequestActivity, AppConstants.USER_ID, "")
         val udf2 = "udf2"
         val udf3 = "udf3"
         val udf4 = "udf4"
@@ -85,14 +91,14 @@ class TraknpayRequestActivity : AppCompatActivity() {
         mapHashData["country"] = country
         mapHashData["currency"] = currency
         mapHashData["description"] = description!!
-        mapHashData["email"] = email
+        mapHashData["email"] = email!!
         mapHashData["mode"] = mode!!
         mapHashData["name"] = name
         mapHashData["order_id"] = order_id!!
-        mapHashData["phone"] = phone
+        mapHashData["phone"] = phone!!
         mapHashData["return_url"] = return_url
         mapHashData["state"] = state
-        mapHashData["udf1"] = udf1
+        mapHashData["udf1"] = udf1!!
         mapHashData["udf2"] = udf2
         mapHashData["udf3"] = udf3
         mapHashData["udf4"] = udf4

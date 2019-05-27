@@ -10,9 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.testprep.R
 import com.testprep.adapter.DrawerMenuListAdapter
-import com.testprep.fragments.CoinFragment
-import com.testprep.fragments.SelectCoarseFragment
-import com.testprep.fragments.UpdateProfileFragment
+import com.testprep.fragments.*
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -86,14 +84,19 @@ class DashboardActivity : AppCompatActivity() {
             drawer_layout.closeDrawer(nav_view)
         }
 
-//        dashboard_tvquestions1.setOnClickListener {
-//            //            supportFragmentManager.beginTransaction().replace(R.id.container, PageViewFragment()).commit()
-////            drawer_layout.closeDrawer(nav_view)
-//
-//            val intent = Intent(this@DashboardActivity, NewPageActivity::class.java)
-//            startActivity(intent)
-//
-//        }
+        dashboard_tvmypackages.setOnClickListener {
+
+            supportFragmentManager.beginTransaction().replace(R.id.container, MyPackagesFragment()).commit()
+            drawer_layout.closeDrawer(nav_view)
+
+        }
+
+        dashboard_tvmypayments.setOnClickListener {
+
+            supportFragmentManager.beginTransaction().replace(R.id.container, MyPaymentFragment()).commit()
+            drawer_layout.closeDrawer(nav_view)
+
+        }
 
         dashboard_tvCoin.setOnClickListener {
             //            supportFragmentManager.beginTransaction().replace(R.id.container, PageViewFragment()).commit()

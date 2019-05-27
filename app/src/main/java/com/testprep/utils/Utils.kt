@@ -211,6 +211,63 @@ class Utils {
             return argb(Color.alpha(color), red, green, blue)
         }
 
+//        fun generateTrackNPayRequest(context: Context, coin: String) {
+//            if (!DialogUtils.isNetworkConnected(context)) {
+//                ping(context, "Connetion not available")
+//            }
+//
+//            DialogUtils.showDialog(context)
+//
+//            val apiService = WebClient.getClient().create(WebInterface::class.java)
+//
+////        if (isBoolean_permission_phoneState) {
+////            hashMap["IMEINumber"] = Utils.getIMEI(context)
+////        } else {
+////            hashMap["IMEINumber"] = ""
+////        }
+////
+////        if (isBoolean_permission_location) {
+////            val loc = Utils.getLocation(context)
+////            hashMap["Latitude"] = loc[0].toString()
+////            hashMap["Longitude"] = loc[1].toString()
+////        } else {
+////            hashMap["Latitude"] = ""
+////            hashMap["Longitude"] = ""
+////        }
+//
+//            val call = apiService.getPayment(WebRequests.getPaymentParams("0", getStringValue(context, AppConstants.USER_ID, "")!!, coin))
+//
+//            call.enqueue(object : Callback<JsonObject> {
+//                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+//
+//                    if (response.body() != null) {
+//
+//                        DialogUtils.dismissDialog()
+//
+//                        if (response.body()!!["Status"].asString == "true") {
+//
+//                            Log.v("order_id: ", ""+response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].toString().replace("\"", ""))
+//
+//                            val intent = Intent(context, TraknpayRequestActivity::class.java)
+//                            intent.putExtra("order_id", response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].toString().replace("\"", ""))
+//                            intent.putExtra("amount", coin)
+//                            context.startActivity(intent)
+//
+//                        } else {
+//                            Toast.makeText(context, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+//
+//                        }
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+//                    // Log error here since request failed
+//                    Log.e("", t.toString())
+//                    DialogUtils.dismissDialog()
+//                }
+//            })
+//
+//        }
 
     }
 }

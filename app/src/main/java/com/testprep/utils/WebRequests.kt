@@ -62,6 +62,31 @@ class WebRequests {
 
         }
 
+        fun getPaymentParams(tansid: String, stuid: String, amount: String): HashMap<String, String> {
+
+            val hashMap = java.util.HashMap<String, String>()
+            hashMap["PaymentTransactionID"] = tansid
+            hashMap["StudentID"] = stuid
+            hashMap["PaymentAmount"] = amount
+
+            return hashMap
+        }
+
+        fun getPaymentStatusParams(
+            stid: String,
+            orderid: String,
+            transid: String,
+            transtatus: String
+        ): HashMap<String, String> {
+            val hashMap = java.util.HashMap<String, String>()
+            hashMap["StudentID"] = stid
+            hashMap["PaymentOrderID"] = orderid
+            hashMap["ExternalTransactionID"] = transid
+            hashMap["ExternalTransactionStatus"] = transtatus
+
+            return hashMap
+        }
+
     }
 
 }

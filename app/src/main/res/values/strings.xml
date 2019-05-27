@@ -58,4 +58,8 @@
     <string name="standard">Standard</string>
     <string name="subject">Subject</string>
     <string name="buy">Buy</string>
+    <string name="mypackages">My Packages</string>
+    <string name="mypayments">My Payments</string>
+    <string name="cancel">Cancel</string>
+    <string name="try_again">Try Again</string>
 </resources>

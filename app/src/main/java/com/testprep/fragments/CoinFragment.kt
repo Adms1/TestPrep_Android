@@ -1,5 +1,6 @@
 package com.testprep.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -16,11 +17,11 @@ import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
+import com.testprep.utils.WebRequests
 import kotlinx.android.synthetic.main.fragment_coin.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -128,15 +129,7 @@ class CoinFragment : Fragment() {
                     //                            fetchTokenAndTransactionID();
                     //Custom UI
 
-                    val intent = Intent(activity!!, TraknpayRequestActivity::class.java)
-//                                            if (isCardPresent) {
-//                                                intent.putExtra("CardDetails", cardDetail)
-//                                            }
-//                                            intent.putExtra("order_id", transactionID)
-//                                            intent.putExtra("amount", edtAmount.getText().toString())
-//                                            intent.putExtra("mode", "LIVE")
-//                                            intent.putExtra("description", edtNarration.getText().toString())
-                    startActivity(intent)
+                    generateTrackNPayRequest(activity!!, coin_etCoin.text.toString())
 
 //                    }
                 } catch (e: Exception) {
@@ -153,44 +146,39 @@ class CoinFragment : Fragment() {
         }
     }
 
-    fun generateTrackNPayRequest() {
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+    fun generateTrackNPayRequest(context: Context, coin: String) {
+        if (!DialogUtils.isNetworkConnected(context)) {
+            Utils.ping(context, "Connetion not available")
         }
 
-        DialogUtils.showDialog(activity!!)
+        DialogUtils.showDialog(context)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val hashMap = HashMap<String, String>()
-        hashMap["CustomerID"] = AppConstants.USER_ID
-        hashMap["Name"] = AppConstants.FIRST_NAME + " " + AppConstants.LAST_NAME
-        hashMap["Email"] = AppConstants.USER_EMAIL
-        hashMap["Mobile"] = AppConstants.USER_MOBILE
-        hashMap["Amount"] = coin_etCoin.text.toString().trim { it <= ' ' }
-        hashMap["Description"] = "purchase coin"
-
-        if (isBoolean_permission_phoneState) {
-            hashMap["IMEINumber"] = Utils.getIMEI(activity!!)
-        } else {
-            hashMap["IMEINumber"] = ""
-        }
-
-        if (isBoolean_permission_location) {
-            val loc = Utils.getLocation(activity!!)
-            hashMap["Latitude"] = loc[0].toString()
-            hashMap["Longitude"] = loc[1].toString()
-        } else {
-            hashMap["Latitude"] = ""
-            hashMap["Longitude"] = ""
-        }
-//        if (isCardPresent) {
-//            hashMap["Trans_Type"] = "1" /* card*/
+//        if (isBoolean_permission_phoneState) {
+//            hashMap["IMEINumber"] = Utils.getIMEI(context)
 //        } else {
-//            hashMap["Trans_Type"] = "2" /* manually */
+//            hashMap["IMEINumber"] = ""
+//        }
+//
+//        if (isBoolean_permission_location) {
+//            val loc = Utils.getLocation(context)
+//            hashMap["Latitude"] = loc[0].toString()
+//            hashMap["Longitude"] = loc[1].toString()
+//        } else {
+//            hashMap["Latitude"] = ""
+//            hashMap["Longitude"] = ""
 //        }
 
-        val call = apiService.getPayment(hashMap)
+        val call = apiService.getPayment(
+            WebRequests.getPaymentParams(
+                "0", Utils.getStringValue(
+                    context,
+                    AppConstants.USER_ID,
+                    ""
+                )!!, coin
+            )
+        )
 
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -201,33 +189,28 @@ class CoinFragment : Fragment() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-//                                        if (hashMapResult.size > 0) {
-//                                            transactionID = hashMapResult.get("TransactionID")
-//                                        }
-//                                        if (transactionID != null) {
-//                                            Log.v("CardPresent: ", isCardPresent.toString())
-                        val intent = Intent(activity!!, TraknpayRequestActivity::class.java)
-//                                            if (isCardPresent) {
-//                                                intent.putExtra("CardDetails", cardDetail)
-//                                            }
-//                                            intent.putExtra("order_id", transactionID)
-//                                            intent.putExtra("amount", edtAmount.getText().toString())
-//                                            intent.putExtra("mode", "LIVE")
-//                                            intent.putExtra("description", edtNarration.getText().toString())
-                        startActivity(intent)
-//                                        } else {
-//                                            Utils.ping(mContext, "Transaction ID not found. Please try again")
-//                                        }
-//
-//                                    fun OnResponseFail(output: Any) {
-//                                        dialog.dismiss()
-//                                        Utils.ping(mContext, "Transaction ID not found. Please try again")
-//                                    }
+                        Log.v(
+                            "order_id: ",
+                            "" + response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].toString().replace(
+                                "\"",
+                                ""
+                            )
+                        )
+
+                        val intent = Intent(context, TraknpayRequestActivity::class.java)
+                        intent.putExtra(
+                            "order_id",
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].toString().replace(
+                                "\"",
+                                ""
+                            )
+                        )
+                        intent.putExtra("amount", coin)
+                        context.startActivity(intent)
 
                     } else {
-                        Toast.makeText(activity!!, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
-//                    Log.d("loginresponse", response.body()!!.asString)
                     }
                 }
             }
