@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
@@ -21,6 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 /**
  * A simple [Fragment] subclass.
  *
@@ -31,12 +33,16 @@ class UpdateProfileFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_signup, container, false)
+        val view = inflater.inflate(R.layout.activity_signup, container, false)
 
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val heading = activity!!.findViewById(R.id.dashboard_tvTitle) as TextView
+        heading.text = "Profile"
 
         userid = Utils.getStringValue(activity!!, AppConstants.USER_ID, "").toString()
         signup_etFname.setText(Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, ""))
@@ -56,7 +62,7 @@ class UpdateProfileFragment : Fragment() {
 
         signup_etMobile.setText(Utils.getStringValue(activity!!, AppConstants.USER_MOBILE, ""))
 
-        signup_btnSignup.text = getString(R.string.update)
+        signup_btnSignup.text = getString(com.testprep.R.string.update)
         signup_tvHeading.visibility = View.GONE
 
         signup_btnSignup.setOnClickListener {

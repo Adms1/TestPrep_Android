@@ -91,7 +91,7 @@ class ChooseCoarseAdapter(
                     if (Utils.getStringValue(context, "course_type_id", "") != "1") {
                         val mIntent = Intent(context, SelectSubjectActivity::class.java)
                         val mBundle = Bundle()
-                        mBundle.putString("course_id", dataList[p1].CourseID.toString())
+                        mBundle.putString("standard_id", dataList[p1].CourseID.toString())
                         mIntent.putExtras(mBundle)
                         context.startActivity(mIntent)
 //                        (context as SelectBoardActivity).overridePendingTransition(

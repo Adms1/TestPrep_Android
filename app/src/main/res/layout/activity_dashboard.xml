@@ -33,6 +33,7 @@
                         android:src="@drawable/menu"/>
 
                 <TextView
+                        android:id="@+id/dashboard_tvTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Home"
@@ -112,6 +113,18 @@
                         android:orientation="vertical">
 
                     <TextView
+                            android:id="@+id/dashboard_tvedit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/profile"
+                            android:textColor="@color/gray"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:textSize="@dimen/_14sdp"
+                            app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
+                            android:layout_marginTop="@dimen/_15sdp"/>
+
+                    <TextView
                             android:id="@+id/dashboard_tvhome"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -124,10 +137,22 @@
                             android:layout_marginTop="@dimen/_15sdp"/>
 
                     <TextView
-                            android:id="@+id/dashboard_tvedit"
+                            android:id="@+id/dashboard_tvCoin"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/profile"
+                            android:text="@string/coin"
+                            android:textColor="@color/gray"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:textSize="@dimen/_14sdp"
+                            app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
+                            android:layout_marginTop="@dimen/_15sdp"/>
+
+                    <TextView
+                            android:id="@+id/dashboard_tvNew"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="New Design"
                             android:textColor="@color/gray"
                             android:layout_marginLeft="@dimen/_20sdp"
                             android:layout_marginRight="@dimen/_20sdp"
@@ -144,6 +169,7 @@
                             android:layout_marginLeft="@dimen/_20sdp"
                             android:layout_marginRight="@dimen/_20sdp"
                             android:textSize="@dimen/_14sdp"
+                            android:visibility="gone"
                             app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
                             android:layout_marginTop="@dimen/_15sdp"/>
 
@@ -181,18 +207,6 @@
                             android:layout_marginRight="@dimen/_20sdp"
                             android:textSize="@dimen/_14sdp"
                             android:visibility="gone"
-                            app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
-                            android:layout_marginTop="@dimen/_15sdp"/>
-
-                    <TextView
-                            android:id="@+id/dashboard_tvCoin"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/coin"
-                            android:textColor="@color/gray"
-                            android:layout_marginLeft="@dimen/_20sdp"
-                            android:layout_marginRight="@dimen/_20sdp"
-                            android:textSize="@dimen/_14sdp"
                             app:layout_constraintTop_toBottomOf="@+id/login_btnGoogle"
                             android:layout_marginTop="@dimen/_15sdp"/>
 

@@ -68,6 +68,12 @@ class DashboardActivity : AppCompatActivity() {
 
         }
 
+        dashboard_tvNew.setOnClickListener {
+            val intent = Intent(this@DashboardActivity, NewActivity::class.java)
+            startActivity(intent)
+            drawer_layout.closeDrawer(nav_view)
+        }
+
         dashboard_tvedit.setOnClickListener {
 
             supportFragmentManager.beginTransaction().replace(R.id.container, UpdateProfileFragment()).commit()

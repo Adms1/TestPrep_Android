@@ -42,10 +42,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="CBSE 9th science package"
-                android:textSize="@dimen/_16sdp"
+                android:textSize="@dimen/_13sdp"
                 android:textColor="@color/black"
                 android:maxLines="1"
-                android:gravity="center"
+                android:layout_marginLeft="@dimen/_10sdp"
                 app:layout_constraintTop_toTopOf="@+id/item_rlImage"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/item_rlImage"/>
@@ -58,10 +58,10 @@
                 android:textSize="@dimen/_13sdp"
                 app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
                 app:layout_constraintBottom_toBottomOf="@+id/item_rlImage"
+                app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
                 android:maxLines="1"
                 android:text="24/05/2019"
                 android:layout_marginTop="@dimen/_10sdp"
-                app:layout_constraintRight_toLeftOf="@+id/item_my_package_edate"
                 app:layout_constraintTop_toBottomOf="@+id/item_my_package_name"/>
 
         <TextView

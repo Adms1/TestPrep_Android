@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.testprep.R
 import com.testprep.adapter.MyPackageAdapter
 import kotlinx.android.synthetic.main.fragment_my_packages.*
@@ -34,6 +35,9 @@ class MyPackagesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val heading = activity!!.findViewById(R.id.dashboard_tvTitle) as TextView
+        heading.text = "My Packages"
 
         packageSize.add(23)
         packageSize.add(25)

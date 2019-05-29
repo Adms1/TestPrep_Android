@@ -122,6 +122,7 @@ class LoginActivity : AppCompatActivity() {
         })
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("428229802198-ctp9vqa11slhi8domor8f9u1lsvvabbk.apps.googleusercontent.com")
             .requestEmail()
             .build()
 
