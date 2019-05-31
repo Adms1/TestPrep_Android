@@ -8,7 +8,6 @@ import android.util.Log
 import com.testprep.R
 import com.testprep.adapter.TestTypeAdapter
 import com.testprep.models.PackageData
-import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.activity_package_detail.*
 
 class PackageDetailActivity : AppCompatActivity() {
@@ -27,7 +26,7 @@ class PackageDetailActivity : AppCompatActivity() {
 
         Log.d("colr1", " " + pos + " " + package_detail_tvPname.text.length)
 
-        package_detail_image1.setImageDrawable(Utils.createDrawable(pos, package_detail_tvPname.text.length))
+//        package_detail_image1.setImageDrawable(Utils.createDrawable(pos, package_detail_tvPname.text.length))
         package_detail_tvlprice.paintFlags = package_detail_tvlprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
         package_detail_rvList.isNestedScrollingEnabled = false

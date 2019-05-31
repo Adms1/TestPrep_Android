@@ -1,6 +1,7 @@
 package com.testprep.activity
 
 import adapter.ChooseCoarseAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -50,6 +51,15 @@ class SelectSubjectActivity : AppCompatActivity() {
         subject_ivBack.setOnClickListener {
 
             onBackPressed()
+        }
+
+        subject_btnNext.setOnClickListener {
+
+            val subIds: String = chooseCoarseAdapter!!.getIds()
+
+            val mIntent = Intent(this@SelectSubjectActivity, SelectPackageActivity::class.java)
+            mIntent.putExtra("subject_id", subIds)
+            startActivity(mIntent)
         }
 
         subject_chbAll.setOnCheckedChangeListener { buttonView, isChecked ->

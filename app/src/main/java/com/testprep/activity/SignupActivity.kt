@@ -34,11 +34,6 @@ class SignupActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-    }
-
     fun isValid(): Boolean {
 
         var isvalid = true
@@ -150,14 +145,13 @@ class SignupActivity : AppCompatActivity() {
                             response.body()!!["data"].asJsonArray[0].asJsonObject["AccountTypeID"].asString
                         )
                         Utils.setStringValue(
-                            this@SignupActivity,
-                            AppConstants.USER_STATUSID,
+                            this@SignupActivity, AppConstants.USER_STATUSID,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
                         )
 
                         val intent = Intent(this@SignupActivity, OtpActivity::class.java)
                         startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+//                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
                         finish()
 
                         Log.d("websize", response.body()!!.get("Msg").asString)

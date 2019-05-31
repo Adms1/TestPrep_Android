@@ -14,7 +14,6 @@ import android.widget.TextView
 import com.testprep.R
 import com.testprep.activity.PackageDetailActivity
 import com.testprep.models.PackageData
-import com.testprep.utils.Utils
 
 
 class SelectPackageAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
@@ -55,12 +54,12 @@ class SelectPackageAdapter(val context: Context, val dataList: ArrayList<Package
         )
 
 //            val drawable = mDrawableBuilder.build(dataList[p1].TestPackageName.substring(0, 1), mColorGenerator.getColor(dataList[p1]))
-        p0.image.setImageDrawable(
-            Utils.createDrawable(
-                dataList[p1].TestPackageName.substring(0, 1).single(),
-                dataList[p1].TestPackageName.length
-            )
-        )
+//        p0.image.setImageDrawable(
+//            Utils.createDrawable(
+//                dataList[p1].TestPackageName.substring(0, 1).single(),
+//                dataList[p1].TestPackageName.length
+//            )
+//        )
 //        }
 //
 //        p0.itemView.setBackgroundColor(Color.TRANSPARENT)

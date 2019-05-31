@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
 import com.testprep.activity.SelectBoardActivity
-import com.testprep.activity.SelectPackageActivity
 import com.testprep.activity.SelectStandardActivity
 import com.testprep.activity.SelectSubjectActivity
 import com.testprep.models.GetCourseListData
@@ -28,6 +27,8 @@ class ChooseCoarseAdapter(
     RecyclerView.Adapter<ChooseCoarseAdapter.viewholder>() {
 
     var row_index = -1
+    var ismulti = -1
+    var selected: ArrayList<Int> = ArrayList()
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
@@ -55,6 +56,8 @@ class ChooseCoarseAdapter(
                 p0.title.setOnClickListener {
 
                     Utils.setStringValue(context, "course_type_id", dataList[p1].CourseTypeID.toString())
+
+                    ismulti = 0
 
                     row_index = p1
                     notifyDataSetChanged()
@@ -85,6 +88,7 @@ class ChooseCoarseAdapter(
 
                     Utils.setStringValue(context, "course_id", dataList[p1].CourseID.toString())
 
+                    ismulti = 0
                     row_index = p1
                     notifyDataSetChanged()
 
@@ -98,7 +102,6 @@ class ChooseCoarseAdapter(
 //                            R.anim.slide_in_right,
 //                            R.anim.slide_out_left
 //                        )
-
 
                     } else {
                         val mIntent = Intent(context, SelectStandardActivity::class.java)
@@ -118,15 +121,22 @@ class ChooseCoarseAdapter(
 
                 }
             }
+
             "course_subject" -> {
 
                 p0.title.text = dataList[p1].SubjectName
 
                 p0.title.setOnClickListener {
-                    dataList[p1].isSelected = (!dataList[p1].isSelected)
-                    p0.title.setBackgroundResource(if (dataList[p1].isSelected) R.drawable.dark_blue_gredient_bg else R.drawable.blue_gradient_bg)
+
+                    ismulti = -1
+                    row_index = p1
+                    notifyDataSetChanged()
+
+//                    dataList[p1].isSelected = (!dataList[p1].isSelected)
+//                    p0.title.setBackgroundResource(if (dataList[p1].isSelected) R.drawable.dark_blue_gredient_bg else R.drawable.blue_gradient_bg)
                 }
             }
+
             "course_standard" -> {
 //                row_index = p1
 //                notifyDataSetChanged()
@@ -137,6 +147,7 @@ class ChooseCoarseAdapter(
 
                     Utils.setStringValue(context, "std_id", dataList[p1].StandardID.toString())
 
+                    ismulti = 0
                     row_index = p1
                     notifyDataSetChanged()
 
@@ -151,19 +162,23 @@ class ChooseCoarseAdapter(
 
                 }
             }
+
             "course_stdSubject" -> {
                 p0.title.text = dataList[p1].SubjectName
 
                 p0.title.setOnClickListener {
 
+                    //                    p0.title.setBackgroundResource(R.drawable.dark_blue_gredient_bg)
+
+                    ismulti = -1
                     row_index = p1
                     notifyDataSetChanged()
 
-                    val mIntent = Intent(context, SelectPackageActivity::class.java)
-                    mIntent.putExtra("subject_id", dataList[p1].SubjectID.toString())
-                    context.startActivity(mIntent)
+//                    val mIntent = Intent(context, SelectPackageActivity::class.java)
+//                    mIntent.putExtra("subject_id", dataList[p1].SubjectID.toString())
+//                    context.startActivity(mIntent)
 
-                    AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].SubjectName)
+//                    AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].SubjectName)
 
                 }
 
@@ -172,11 +187,43 @@ class ChooseCoarseAdapter(
 
         if (selectType == "yes") {
             p0.title.setBackgroundResource(R.drawable.dark_blue_gredient_bg)
+
         } else {
-            if (row_index == p1) {
-                p0.title.setBackgroundResource(R.drawable.dark_blue_gredient_bg)
-            } else {
-                p0.title.setBackgroundResource(R.drawable.blue_gradient_bg)
+            if (ismulti == 0) {
+
+                if (row_index == p1) {
+                    p0.title.setBackgroundResource(R.drawable.dark_blue_gredient_bg)
+                } else {
+                    p0.title.setBackgroundResource(R.drawable.blue_gradient_bg)
+                }
+
+            } else if (ismulti == -1) {
+
+                if (row_index == p1) {
+                    p0.title.setBackgroundResource(R.drawable.dark_blue_gredient_bg)
+
+                    if (selected.size > 0) {
+
+                        for (i in 0..selected.size) {
+                            if (selected.contains(dataList[p1].SubjectID)) {
+                                selected.remove(dataList[p1].SubjectID)
+                                p0.title.setBackgroundResource(R.drawable.blue_gradient_bg)
+                                break
+
+                            } else {
+                                selected.add(dataList[p1].SubjectID)
+//                            p0.title.setBackgroundResource(R.drawable.dark_blue_gredient_bg)
+
+                                break
+
+                            }
+                        }
+
+                        Log.d("selected array : ", " $selected")
+                    } else {
+                        selected.add(dataList[p1].SubjectID)
+                    }
+                }
             }
         }
     }
@@ -184,6 +231,14 @@ class ChooseCoarseAdapter(
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var title: TextView = itemView.findViewById(R.id.drawer_list_title)
+
+    }
+
+    fun getIds(): String {
+
+        val ids = selected.toString().replace("[", "").replace("]", "")
+
+        return ids
 
     }
 }

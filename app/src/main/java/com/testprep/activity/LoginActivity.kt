@@ -133,7 +133,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this@LoginActivity, SignupActivity::class.java)
             intent.putExtra("comefrom", "login")
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+//            overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
         }
 
@@ -152,7 +152,7 @@ class LoginActivity : AppCompatActivity() {
 
             val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+//            overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
         }
 
@@ -251,7 +251,7 @@ class LoginActivity : AppCompatActivity() {
 
                         val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
                         startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+//                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
                         Utils.setStringValue(
                             this@LoginActivity,
@@ -358,7 +358,7 @@ class LoginActivity : AppCompatActivity() {
 
                         val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
                         startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+//                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
                         Utils.setStringValue(
                             this@LoginActivity,
@@ -500,7 +500,7 @@ class LoginActivity : AppCompatActivity() {
 
                         val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
                         startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+//                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
                         finish()
 
                         Log.d("websize", response.body()!!.get("Msg").asString)

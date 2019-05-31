@@ -53,7 +53,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
         tvCancel.setOnClickListener {
             val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+//            overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
             // close this activity
             finish()
@@ -105,7 +105,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
                                     // Start your app main activity
                                     val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
                                     startActivity(intent)
-                                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+//                                    overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
                                     // close this activity
                                     finish()

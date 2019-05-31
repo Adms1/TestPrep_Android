@@ -11,7 +11,6 @@ import android.graphics.drawable.GradientDrawable
 import android.location.Criteria
 import android.location.LocationManager
 import android.os.Build
-import android.preference.PreferenceManager
 import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.text.TextUtils
@@ -44,23 +43,31 @@ class Utils {
             return mSharedPreferences!!.getString(key, defaultValue)
         }
 
+        @SuppressLint("CommitPrefEdits")
         fun saveArrayList(context: Context, list: ArrayList<QuestionResponse.QuestionList>, key: String) {
-            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-            val editor = prefs.edit()
+            mSharedPreferences = context.getSharedPreferences(APP_PREF, Context.MODE_PRIVATE)
+            mSharedPreferencesEditor = mSharedPreferences!!.edit()
             val gson = Gson()
             val json = gson.toJson(list)
-            editor.putString(key, json)
-            editor.apply()     // This line is IMPORTANT !!!
+            mSharedPreferencesEditor!!.putString(key, json)
+            mSharedPreferencesEditor!!.apply()     // This line is IMPORTANT !!!
         }
 
         fun getArrayList(context: Context, key: String): ArrayList<QuestionResponse.QuestionList> {
-            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+            mSharedPreferences = context.getSharedPreferences(APP_PREF, Context.MODE_PRIVATE)
             val gson = Gson()
-            val json = prefs.getString(key, null)
+            val json = mSharedPreferences!!.getString(key, null)
             val type = object : TypeToken<ArrayList<QuestionResponse.QuestionList>>() {
 
             }.type
             return gson.fromJson(json, type)
+        }
+
+        fun clearPrefrence(context: Context) {
+            mSharedPreferences = context.getSharedPreferences(APP_PREF, Context.MODE_PRIVATE)
+            mSharedPreferencesEditor = mSharedPreferences!!.edit()
+            mSharedPreferencesEditor!!.clear()
+            mSharedPreferencesEditor!!.commit()
         }
 
         fun hideKeyboard(activity: Activity) {

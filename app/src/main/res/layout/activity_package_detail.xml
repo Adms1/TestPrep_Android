@@ -52,6 +52,7 @@
                 <ImageView
                         android:layout_width="@dimen/_60sdp"
                         android:layout_height="@dimen/_60sdp"
+                        android:src="@drawable/gray_bg"
                         android:id="@+id/package_detail_image1"/>
 
                 <TextView

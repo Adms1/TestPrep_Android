@@ -13,6 +13,7 @@ import com.testprep.adapter.DrawerMenuListAdapter
 import com.testprep.fragments.*
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
+import com.testprep.utils.Utils.Companion.clearPrefrence
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity() {
@@ -115,13 +116,17 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun signOut() {
+
+        clearPrefrence(this@DashboardActivity)
+        AppConstants.COURSE_FLOW_ARRAY.clear()
+
         mGoogleSignInClient!!.signOut()
             .addOnCompleteListener(this) {
                 // ...
 
                 val intent = Intent(this@DashboardActivity, LoginActivity ::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+//                overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
                 finish()
 
             }
