@@ -25,7 +25,10 @@ import retrofit2.Response
 
 class PrefrenceActivity : AppCompatActivity() {
 
-    lateinit var chooseCoarseAdapter: NewSelectSubjectAdapter
+    var chooseCoarseAdapter: NewSelectSubjectAdapter? = null
+    var isOpen1: Boolean = false
+    var isOPen2: Boolean = false
+    var isOpen3: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,14 +73,83 @@ class PrefrenceActivity : AppCompatActivity() {
 
         package_btnNext.setOnClickListener {
 
-            var subIds: String = chooseCoarseAdapter.getIds()
+            if (chooseCoarseAdapter != null) {
+                var subIds = chooseCoarseAdapter!!.getIds()
 
-            val mIntent = Intent(this@PrefrenceActivity, SelectPackageActivity::class.java)
-            mIntent.putExtra("subject_id", subIds)
-            startActivity(mIntent)
+                if (subIds != "" && subIds != null) {
+                    val mIntent = Intent(this@PrefrenceActivity, SelectPackageActivity::class.java)
+                    mIntent.putExtra("subject_id", subIds)
+                    startActivity(mIntent)
+                } else {
+                    Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+                }
+
+            } else {
+                Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+            }
         }
 
+        expand()
+
         callCourseTypeList()
+    }
+
+    fun expand() {
+
+        rlOp1.setOnClickListener {
+
+            if (isOpen1) {
+                coarse_rvCoarseList.visibility = VISIBLE
+                step1_arrow.rotation = 180f
+
+                isOpen1 = false
+
+            } else {
+                coarse_rvCoarseList.visibility = GONE
+                step1_arrow.rotation = 0f
+
+                isOpen1 = true
+
+            }
+
+        }
+
+        rlOp2.setOnClickListener {
+
+            if (isOPen2) {
+                coarse_rvStandardList.visibility = VISIBLE
+                step2_arrow.rotation = 180f
+
+                isOPen2 = false
+
+            } else {
+                coarse_rvStandardList.visibility = GONE
+                step2_arrow.rotation = 0f
+
+                isOPen2 = true
+
+            }
+
+        }
+
+        rlOp3.setOnClickListener {
+
+            if (isOpen3) {
+                coarse_rvSubjectList.visibility = VISIBLE
+                step3_arrow.rotation = 180f
+
+                isOpen3 = false
+
+            } else {
+                coarse_rvSubjectList.visibility = GONE
+                step3_arrow.rotation = 0f
+
+                isOpen3 = true
+
+            }
+
+        }
+
     }
 
     fun callCourseTypeList() {

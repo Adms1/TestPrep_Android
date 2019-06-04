@@ -20,7 +20,8 @@
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning"
             tools:targetApi="m">
-
+        <activity android:name=".activity.IntroActivity">
+        </activity>
         <activity android:name=".activity.PrefrenceActivity">
         </activity>
         <activity android:name=".activity.NewActivity">
@@ -49,7 +50,7 @@
                 android:windowSoftInputMode="adjustPan"/>
         <activity
                 android:name=".activity.LoginActivity"
-                android:windowSoftInputMode="adjustNothing"/>
+                android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -21,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
             {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                val i = Intent(this@SplashActivity, LoginActivity::class.java)
+                val i = Intent(this@SplashActivity, IntroActivity::class.java)
                 startActivity(i)
 
                 // close this activity

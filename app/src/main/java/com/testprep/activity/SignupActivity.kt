@@ -32,6 +32,13 @@ class SignupActivity : AppCompatActivity() {
                 callSignupApi()
             }
         }
+
+        signup_btnLogin.setOnClickListener {
+
+            val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun isValid(): Boolean {

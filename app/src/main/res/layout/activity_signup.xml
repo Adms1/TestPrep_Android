@@ -18,7 +18,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="@dimen/_30sdp"
-                android:text="@string/sign_up"
+                android:text="@string/sign_up_header"
                 android:gravity="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_25sdp"
@@ -182,18 +182,31 @@
         <Button
                 android:id="@+id/signup_btnSignup"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:text="@string/continuee"
-                android:textColor="@color/white"
+                android:textColor="@color/colorPrimary"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
-                android:background="@drawable/login_btn_bg"
+                android:background="@drawable/primary_ring_bg"
                 android:textSize="@dimen/_14sdp"
                 android:textAllCaps="false"
                 app:layout_constraintTop_toBottomOf="@+id/signup_llMobile"
                 android:layout_marginBottom="@dimen/_20sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginTop="@dimen/_20sdp"/>
+
+        <TextView
+                android:id="@+id/signup_btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_in"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:textSize="@dimen/_11sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/signup_btnSignup"
+                android:layout_marginTop="@dimen/_15sdp"/>
 
     </android.support.constraint.ConstraintLayout>
 

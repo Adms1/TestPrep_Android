@@ -8,15 +8,14 @@
         tools:context=".activity.PrefrenceActivity">
 
     <TextView
-            android:text="Preferences"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:text="@string/your_preferences"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
             android:id="@+id/package_header"
-            android:paddingTop="@dimen/_7sdp"
-            android:paddingBottom="@dimen/_7sdp"
             app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center"
+            app:layout_constraintLeft_toRightOf="@+id/package_ivBack"
             android:textSize="@dimen/_18sdp"
+            android:gravity="center_vertical"
             android:textColor="@color/black"/>
 
     <ImageView
@@ -25,7 +24,7 @@
             android:src="@drawable/back_button"
             android:id="@+id/package_ivBack"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/package_header"
             android:padding="@dimen/_8sdp"
             app:layout_constraintBottom_toBottomOf="@+id/package_header"/>
 
@@ -43,6 +42,7 @@
                 android:orientation="vertical">
 
             <RelativeLayout
+                    android:id="@+id/rlOp1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#F7FCFF"
@@ -65,6 +65,7 @@
                         android:layout_alignParentRight="true"
                         android:src="@drawable/down_arrow"
                         android:padding="@dimen/_6sdp"
+                        android:rotation="180"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:id="@+id/step1_arrow"/>
 
@@ -77,6 +78,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/course_type_tvFlow"/>
 
             <RelativeLayout
+                    android:id="@+id/rlOp2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#F7FCFF"
@@ -102,6 +104,7 @@
                         android:src="@drawable/down_arrow"
                         android:padding="@dimen/_6sdp"
                         android:visibility="gone"
+                        android:rotation="180"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:id="@+id/step2_arrow"/>
 
@@ -114,6 +117,7 @@
                     android:visibility="gone"/>
 
             <RelativeLayout
+                    android:id="@+id/rlOp3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#F7FCFF"
@@ -139,6 +143,7 @@
                         android:src="@drawable/down_arrow"
                         android:padding="@dimen/_6sdp"
                         android:visibility="gone"
+                        android:rotation="180"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:id="@+id/step3_arrow"/>
 

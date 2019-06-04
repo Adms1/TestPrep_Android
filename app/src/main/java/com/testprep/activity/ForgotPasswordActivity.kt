@@ -2,6 +2,7 @@ package com.testprep.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import com.google.gson.JsonObject
@@ -23,8 +24,17 @@ class ForgotPasswordActivity : AppCompatActivity() {
         setContentView(R.layout.activity_forgot_password)
 
         forgot_pass_btnSignup.setOnClickListener {
-            callForgotPasswordlApi()
+
+            if (TextUtils.isEmpty(forgot_pass_etEmail.text.toString())) {
+                forgot_pass_etEmail.error = "Please Enter Email"
+            } else {
+                callForgotPasswordlApi()
+            }
         }
+
+
+
+
 
     }
 

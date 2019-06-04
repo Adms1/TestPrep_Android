@@ -12,7 +12,6 @@ import com.testprep.activity.PrefrenceActivity
 import com.testprep.models.GetCourseListData
 import com.testprep.utils.Utils
 
-
 class NewSelectBoardAdapter(val context: Context, val dataList: ArrayList<GetCourseListData>) :
     RecyclerView.Adapter<NewSelectBoardAdapter.viewholder>() {
 
@@ -35,12 +34,14 @@ class NewSelectBoardAdapter(val context: Context, val dataList: ArrayList<GetCou
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-//        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].CourseName.substring(0, 1)))
+//      p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].CourseName.substring(0, 1)))
 
         p0.title.text = dataList[p1].CourseName
         p0.stitle.text = p0.title.text.substring(0, 1)
 
         p0.image.setOnClickListener {
+
+            Utils.setStringValue(context, "course_id", dataList[p1].CourseID.toString())
 
             row_index = p1
             notifyDataSetChanged()
