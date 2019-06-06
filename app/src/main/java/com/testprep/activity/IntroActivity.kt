@@ -3,9 +3,16 @@ package com.testprep.activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.view.PagerAdapter
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.text.Html
 import android.util.Base64
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.facebook.*
@@ -14,7 +21,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.gson.JsonObject
@@ -40,15 +46,29 @@ class IntroActivity : AppCompatActivity() {
     var callbackManager: CallbackManager? = null
     var mGoogleSignInClient: GoogleSignInClient? = null
 
+    private var myViewPagerAdapter: MyViewPagerAdapter? = null
+    private var dots: Array<TextView>? = null
+    private var layouts: IntArray? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//        Utils.changeStatusbarColor(this@IntroActivity, Color.TRANSPARENT)
 
         FacebookSdk.sdkInitialize(applicationContext)
 
         setContentView(R.layout.activity_intro)
 
         callbackManager = CallbackManager.Factory.create()
-        intro_btnFb.setReadPermissions(Arrays.asList(EMAIL))
+        fb.setReadPermissions(Arrays.asList(EMAIL))
+
+        layouts = intArrayOf(R.drawable.slider_logo, R.drawable.slider_logo, R.drawable.slider_logo)
+
+        addBottomDots(0)
+
+        myViewPagerAdapter = MyViewPagerAdapter()
+        intro_view_pager.adapter = myViewPagerAdapter
+        intro_view_pager.addOnPageChangeListener(introViewPagerListener)
 
         // Add code to print out the key hash
         try {
@@ -76,7 +96,7 @@ class IntroActivity : AppCompatActivity() {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        setGooglePlusButtonText(intro_btnGoogle, "Continue with Google")
+//        setGooglePlusButtonText(intro_btnGoogle, "Continue with Google")
 
         intro_btnGoogle.setOnClickListener { signIn(); }
 
@@ -87,12 +107,12 @@ class IntroActivity : AppCompatActivity() {
 
         }
 
-        intro_btnLogin.setOnClickListener {
-            val intent = Intent(this@IntroActivity, LoginActivity::class.java)
+        intro_btnEmail.setOnClickListener {
+            val intent = Intent(this@IntroActivity, SignupActivity::class.java)
             startActivity(intent)
         }
 
-        intro_btnFb.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+        fb.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 setResult(RESULT_OK)
 //                Toast.makeText(this@IntroActivity, "Welcome" + loginResult.accessToken.userId, Toast.LENGTH_LONG).show()
@@ -137,7 +157,81 @@ class IntroActivity : AppCompatActivity() {
                 // Handle exception
             }
         })
+    }
 
+    private fun addBottomDots(currentPage: Int) {
+        var arraySize = layouts!!.size
+        dots = Array(arraySize) { textboxInit() }
+        val colorsActive = resources.getIntArray(R.array.array_dot_active)
+        val colorsInactive = resources.getIntArray(R.array.array_dot_inactive)
+        layoutDots.removeAllViews()
+        for (i in 0 until dots!!.size) {
+            dots!![i] = TextView(this)
+            dots!![i].text = Html.fromHtml("&#9679;")
+            dots!![i].textSize = 10F
+            dots!![i].setPadding(10, 0, 10, 0)
+            dots!![i].setTextColor(colorsInactive[currentPage])
+            layoutDots.addView(dots!![i])
+        }
+        if (dots!!.isNotEmpty())
+            dots!![currentPage].setTextColor(colorsActive[currentPage])
+    }
+
+    private fun getItem(i: Int): Int {
+        return intro_view_pager.currentItem + i
+    }
+
+    private fun textboxInit(): TextView {
+        return TextView(applicationContext)
+    }
+
+    private var introViewPagerListener: ViewPager.OnPageChangeListener = object : ViewPager.OnPageChangeListener {
+        override fun onPageSelected(position: Int) {
+            addBottomDots(position)
+            /*Based on the page position change the button text*/
+
+        }
+
+        override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
+            //Do nothing for now
+        }
+
+        override fun onPageScrollStateChanged(arg0: Int) {
+            //Do nothing for now
+        }
+    }
+
+    inner class MyViewPagerAdapter : PagerAdapter() {
+        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+            val layoutInflater: LayoutInflater = LayoutInflater.from(applicationContext)
+            val view = layoutInflater.inflate(R.layout.slider_item_layout, container, false)
+
+            var iv: ImageView = view.findViewById(R.id.imageView)
+
+            iv.setImageResource(layouts!![position])
+
+            container.addView(view)
+            return view
+        }
+
+        override fun getCount(): Int {
+            return layouts!!.size
+        }
+
+        override fun isViewFromObject(view: View, obj: Any): Boolean {
+            return view === obj
+        }
+
+        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+            val view = `object` as View
+            container.removeView(view)
+        }
+    }
+
+    fun onClick(v: View) {
+        if (v == intro_btnFb) {
+            fb.performClick()
+        }
     }
 
     private fun signIn() {
@@ -145,17 +239,17 @@ class IntroActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, 100)
     }
 
-    private fun setGooglePlusButtonText(signInButton: SignInButton, buttonText: String) {
-        // Find the TextView that is inside of the SignInButton and set its text
-        for (i in 0 until signInButton.childCount) {
-            val v = signInButton.getChildAt(i)
-
-            if (v is TextView) {
-                v.text = buttonText
-                return
-            }
-        }
-    }
+//    private fun setGooglePlusButtonText(signInButton: Button, buttonText: String) {
+//        // Find the TextView that is inside of the SignInButton and set its text
+//        for (i in 0 until signInButton.childCount) {
+//            val v = signInButton.getChildAt(i)
+//
+//            if (v is TextView) {
+//                v.text = buttonText
+//                return
+//            }
+//        }
+//    }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

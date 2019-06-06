@@ -31,11 +31,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 callForgotPasswordlApi()
             }
         }
-
-
-
-
-
     }
 
     fun callForgotPasswordlApi() {

@@ -10,6 +10,9 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//        changeStatusbarColor(this@SplashActivity, R.color.fb_bg)
+
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed(

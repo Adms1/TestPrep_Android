@@ -15,12 +15,14 @@ import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.amulyakhare.textdrawable.TextDrawable
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.testprep.old.models.QuestionResponse
+
 
 class Utils {
 
@@ -225,6 +227,23 @@ class Utils {
             val ic1 = TextDrawable.builder().buildRound(ch, color1)
 
             return ic1
+        }
+
+        fun changeStatusbarColor(context: Activity, color: Int) {
+            val window = context.window
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+
+// finally change the color
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.statusBarColor = color
+            }
         }
 
     }

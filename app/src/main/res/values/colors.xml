@@ -15,4 +15,6 @@
 
     <color name="nfcolor">#0060DC</color>
     <color name="light_gray">#9A9A9A</color>
+    <color name="fb_bg">#3B699D</color>
+    <color name="google_bg">#DD6753</color>
 </resources>

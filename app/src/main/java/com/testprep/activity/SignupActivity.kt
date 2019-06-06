@@ -39,6 +39,10 @@ class SignupActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        signup_ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 
     fun isValid(): Boolean {

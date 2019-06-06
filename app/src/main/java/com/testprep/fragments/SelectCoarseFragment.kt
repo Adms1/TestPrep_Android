@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import com.testprep.R
 import com.testprep.models.MainModel
@@ -39,8 +38,8 @@ class SelectCoarseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val heading = activity!!.findViewById(R.id.dashboard_tvTitle) as TextView
-        heading.text = "Home"
+//        val heading = activity!!.findViewById(R.id.dashboard_tvTitle) as TextView
+//        heading.text = "Home"
 
         coarse_rvCoarseList.layoutManager = GridLayoutManager(activity!!, 2)
 
