@@ -30,7 +30,6 @@ class DashboardActivity : AppCompatActivity() {
 //            R.string.app_name, // nav drawer open - description for accessibility
 //            R.string.app_name // nav drawer close - description for accessibility
 //        ) {
-//
 //        }
 
 //        drawer_layout.setDrawerListener(mDrawerToggle)

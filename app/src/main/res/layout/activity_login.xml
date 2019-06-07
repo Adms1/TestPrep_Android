@@ -108,12 +108,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/sign_up"
-                android:textAllCaps="true"
                 android:gravity="center"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:textSize="@dimen/small_text_size"
-                android:textColor="@color/light_gray"
+                android:layout_marginBottom="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_btnLogin"
                 android:layout_marginTop="@dimen/_15sdp"/>
 

@@ -85,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
 
                         val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
                         startActivity(intent)
+                        finish()
 //                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
                         Utils.setStringValue(

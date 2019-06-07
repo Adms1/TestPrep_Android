@@ -10,6 +10,7 @@
 
     <dimen name="normal_text_size">@dimen/_13sdp</dimen>
     <dimen name="normal_header_size">@dimen/_17sdp</dimen>
+    <dimen name="regular_text_size">@dimen/_14sdp</dimen>
     <dimen name="small_text_size">@dimen/_11sdp</dimen>
     <dimen name="extra_small_size">@dimen/_9sdp</dimen>
 
