@@ -53,7 +53,6 @@ class LoginActivity : AppCompatActivity() {
 //            overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
         }
-
     }
 
     fun callLoginApi() {
