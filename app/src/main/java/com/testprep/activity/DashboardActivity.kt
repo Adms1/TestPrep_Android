@@ -1,10 +1,12 @@
 package com.testprep.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.WindowManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -13,16 +15,30 @@ import com.testprep.adapter.DrawerMenuListAdapter
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils.Companion.clearPrefrence
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class DashboardActivity : AppCompatActivity() {
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
 
     var mGoogleSignInClient: GoogleSignInClient? = null
     internal lateinit var mDrawerToggle: ActionBarDrawerToggle
     var drawerMenuListAdapter: DrawerMenuListAdapter? = null
     var menuList = arrayOf("Test", "Profile", "Logout")
 
+//    super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
         setContentView(R.layout.activity_dashboard)
 
 //        mDrawerToggle = object : ActionBarDrawerToggle(

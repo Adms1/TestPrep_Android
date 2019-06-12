@@ -1,12 +1,14 @@
 package com.testprep.activity
 
 import adapter.ChooseCoarseAdapter
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import com.testprep.models.GetCourseListData
 import com.testprep.models.MainModel
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_standard_fragment.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class SelectSubjectActivity : AppCompatActivity() {
 
@@ -30,8 +33,19 @@ class SelectSubjectActivity : AppCompatActivity() {
     var apitype = ""
     private var subjectList: ArrayList<GetCourseListData> = ArrayList()
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
         setContentView(com.testprep.R.layout.activity_standard_fragment)
 
         val sb = StringBuilder()

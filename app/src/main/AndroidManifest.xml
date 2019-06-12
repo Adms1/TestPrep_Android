@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
+            android:name=".CustomFontApp"
             android:allowBackup="true"
             android:hardwareAccelerated="true"
             android:icon="@mipmap/logo"
@@ -20,7 +21,8 @@
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning"
             tools:targetApi="m">
-        <activity android:name=".activity.IntroActivity">
+
+        <activity android:name=".activity.IntroActivity" android:theme="@style/AppTheme2">
         </activity>
         <activity android:name=".activity.PrefrenceActivity">
         </activity>

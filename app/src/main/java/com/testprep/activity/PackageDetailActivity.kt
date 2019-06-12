@@ -1,19 +1,34 @@
 package com.testprep.activity
 
+import android.content.Context
 import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import com.testprep.R
 import com.testprep.adapter.TestTypeAdapter
 import com.testprep.models.PackageData
 import kotlinx.android.synthetic.main.activity_package_detail.*
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class PackageDetailActivity : AppCompatActivity() {
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
         setContentView(R.layout.activity_package_detail)
 
         package_detail_tvPname.text = intent.getStringExtra("pname")

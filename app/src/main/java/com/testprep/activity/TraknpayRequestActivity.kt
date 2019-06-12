@@ -5,12 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 import org.json.JSONObject
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.io.UnsupportedEncodingException
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -22,8 +25,19 @@ class TraknpayRequestActivity : AppCompatActivity() {
     private val TAG = "TNPRequestDebugTag"
 //    private var extras: Bundle? = null
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
         setContentView(com.testprep.R.layout.activity_traknpay_request)
 
         val return_url = "https://biz.traknpay.in/tnp/return_page_android.php"

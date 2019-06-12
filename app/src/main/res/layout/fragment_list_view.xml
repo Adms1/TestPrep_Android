@@ -8,12 +8,12 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".old.Main2Activity">
 
-    <com.testprep.old.ShimmerRecyclerView
-            android:id="@+id/main_question_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:shimmer_demo_layout="@layout/layout_sample_view"
-            app:layout_constraintTop_toTopOf="parent"/>
+    <!--<com.testprep.old.ShimmerRecyclerView-->
+    <!--android:id="@+id/main_question_list"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="5dp"-->
+    <!--app:shimmer_demo_layout="@layout/layout_sample_view"-->
+    <!--app:layout_constraintTop_toTopOf="parent"/>-->
 
 </android.support.constraint.ConstraintLayout>
