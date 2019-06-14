@@ -5,15 +5,17 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/_15sdp"
+        android:background="@color/white"
         tools:context=".activity.PrefrenceActivity">
 
     <TextView
             android:text="@string/your_preferences"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="wrap_content"
             android:id="@+id/package_header"
             app:layout_constraintTop_toTopOf="parent"
+            android:paddingTop="@dimen/_7sdp"
+            android:paddingBottom="@dimen/_7sdp"
             app:layout_constraintLeft_toRightOf="@+id/package_ivBack"
             android:textSize="@dimen/normal_header_size"
             android:gravity="center_vertical"
@@ -27,6 +29,17 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/package_header"
             android:padding="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/package_header"/>
+
+    <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:id="@+id/package_btnNext"
+            android:layout_marginRight="@dimen/_5sdp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:src="@drawable/right_icn"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="@+id/package_header"
             app:layout_constraintBottom_toBottomOf="@+id/package_header"/>
 
     <ScrollView
@@ -46,7 +59,7 @@
                     android:id="@+id/rlOp1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#F7FCFF"
+                    android:background="@color/light_blue"
                     android:gravity="center">
 
                 <TextView
@@ -160,15 +173,5 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <Button
-            android:layout_width="@dimen/_55sdp"
-            android:layout_height="@dimen/_58sdp"
-            android:id="@+id/package_btnNext"
-            app:layout_constraintRight_toRightOf="parent"
-            android:background="@drawable/next_btn"
-            android:layout_marginBottom="@dimen/_20sdp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
 
 </android.support.constraint.ConstraintLayout>

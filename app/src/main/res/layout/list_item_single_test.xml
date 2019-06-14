@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_12sdp">
+
+    <TextView
+            android:text="Std:12th - Science"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/singleTest_item_tvStd"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textSize="@dimen/extra_small_size"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
+
+    <TextView
+            android:text="Mathematics"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/singleTest_item_tvSub"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/singleTest_item_tvStd"
+            android:textSize="@dimen/normal_header_size"
+            android:textColor="@color/black"/>
+
+    <TextView
+            android:text="₹1500"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/singleTest_item_tvPrice"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/singleTest_item_btnAddCart"
+            android:textSize="@dimen/normal_text_size"
+            android:layout_marginRight="@dimen/_7sdp"
+            android:gravity="center_vertical"
+            android:textColor="@color/gray"/>
+
+    <Button
+            android:text="Add to cart"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_20sdp"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/singleTest_item_btnAddCart"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/extra_small_size"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:background="@drawable/gray_ring_bg"
+            android:textColor="@color/black"/>
+
+</android.support.constraint.ConstraintLayout>

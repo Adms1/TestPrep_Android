@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.WindowManager
 import android.widget.Toast
 import com.testprep.R
 import com.testprep.adapter.NewSelectBoardAdapter
@@ -41,10 +40,10 @@ class PrefrenceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+//        )
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_prefrence)
@@ -92,7 +91,7 @@ class PrefrenceActivity : AppCompatActivity() {
                 var subIds = chooseCoarseAdapter!!.getIds()
 
                 if (subIds != "" && subIds != null) {
-                    val mIntent = Intent(this@PrefrenceActivity, SelectPackageActivity::class.java)
+                    val mIntent = Intent(this@PrefrenceActivity, SelectCompititiveActivity::class.java)
                     mIntent.putExtra("subject_id", subIds)
                     startActivity(mIntent)
                 } else {

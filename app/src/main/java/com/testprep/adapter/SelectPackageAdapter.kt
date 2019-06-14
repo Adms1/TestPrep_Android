@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.testprep.R
-import com.testprep.activity.PackageDetailActivity
+import com.testprep.activity.SelectCompititiveActivity
 import com.testprep.models.PackageData
 
 
@@ -77,7 +77,7 @@ class SelectPackageAdapter(val context: Context, val dataList: ArrayList<Package
 
         p0.llmain.setOnClickListener {
 
-            val intent = Intent(context, PackageDetailActivity::class.java)
+            val intent = Intent(context, SelectCompititiveActivity::class.java)
             intent.putExtra("pname", p0.name.text!!)
             intent.putExtra("sprice", p0.sprice.text!!)
             intent.putExtra("lprice", p0.lprice.text!!)

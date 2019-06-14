@@ -38,4 +38,10 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
+
+    <style name="MineCustomTabText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">@dimen/_12sdp</item>
+    </style>
+
+
 </resources>

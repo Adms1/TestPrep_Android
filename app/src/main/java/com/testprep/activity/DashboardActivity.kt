@@ -12,6 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.testprep.R
 import com.testprep.adapter.DrawerMenuListAdapter
+import com.testprep.fragments.MarketPlaceFragment
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils.Companion.clearPrefrence
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -83,7 +84,7 @@ class DashboardActivity : AppCompatActivity() {
 
             dash_llMarket -> {
 
-                page_title.text = "Market Place"
+                supportFragmentManager.beginTransaction().add(R.id.container, MarketPlaceFragment()).commit()
 
                 dash_ivMarket.setImageResource(R.drawable.blue_list)
                 dash_ivHome.setImageResource(R.drawable.home)

@@ -331,7 +331,7 @@ class IntroActivity : AppCompatActivity() {
 
                         Toast.makeText(this@IntroActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
-                        val intent = Intent(this@IntroActivity, DashboardActivity::class.java)
+                        val intent = Intent(this@IntroActivity, NewActivity::class.java)
                         startActivity(intent)
 //                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
@@ -473,7 +473,7 @@ class IntroActivity : AppCompatActivity() {
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
                         )
 
-                        val intent = Intent(this@IntroActivity, DashboardActivity::class.java)
+                        val intent = Intent(this@IntroActivity, NewActivity::class.java)
                         startActivity(intent)
 //                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
                         finish()

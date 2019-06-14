@@ -51,7 +51,7 @@ class OtpActivity : AppCompatActivity() {
                 {
                     // This method will be executed once the timer is over
                     // Start your app main activity
-                    val intent = Intent(this@OtpActivity, DashboardActivity::class.java)
+                    val intent = Intent(this@OtpActivity, NewActivity::class.java)
                     startActivity(intent)
 //                    overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 

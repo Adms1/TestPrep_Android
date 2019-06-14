@@ -96,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
 
                         Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
-                        val intent = Intent(this@LoginActivity, DashboardActivity::class.java)
+                        val intent = Intent(this@LoginActivity, NewActivity::class.java)
                         startActivity(intent)
                         finish()
 //                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
