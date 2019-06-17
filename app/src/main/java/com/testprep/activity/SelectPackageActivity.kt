@@ -25,7 +25,7 @@ class SelectPackageActivity : AppCompatActivity() {
 
     var selectPackageAdapter: SelectPackageAdapter? = null
 
-    private var mDrawableBuilder: TextDrawable.IBuilder? = null
+    private var mDrawableBuilder: TextDrawablee.IBuilder? = null
 
     // list of data items
     private var mDataList: ArrayList<PackageData.PackageDataList>? = null
@@ -63,7 +63,7 @@ class SelectPackageActivity : AppCompatActivity() {
 
         package_rvList.layoutManager = GridLayoutManager(this@SelectPackageActivity, 2)
 
-        mDrawableBuilder = TextDrawable.builder().round()
+        mDrawableBuilder = TextDrawablee.builder().round()
 
         package_ivBack.setOnClickListener {
             onBackPressed()
@@ -85,10 +85,15 @@ class SelectPackageActivity : AppCompatActivity() {
 
         val call = apiService.getPackage(
             WebRequests.getPackageParams(
-                Utils.getStringValue(this@SelectPackageActivity, "course_type_id", "0")!!,
-                Utils.getStringValue(this@SelectPackageActivity, "course_id", "0")!!,
-                Utils.getStringValue(this@SelectPackageActivity, "std_id", "0")!!,
-                intent.getStringExtra("subject_id")
+//                Utils.getStringValue(this@SelectPackageActivity, "course_type_id", "0")!!,
+//                Utils.getStringValue(this@SelectPackageActivity, "course_id", "0")!!,
+//                Utils.getStringValue(this@SelectPackageActivity, "std_id", "0")!!,
+//                intent.getStringExtra("subject_id")
+
+                Utils.getStringValue(this@SelectPackageActivity, "course_type_id", "")!!,
+                Utils.getStringValue(this@SelectPackageActivity, "course_id", "")!!,
+                Utils.getStringValue(this@SelectPackageActivity, "standard_id", "")!!,
+                Utils.getStringValue(this@SelectPackageActivity, "subject_id", "")!!
             )
         )
         call.enqueue(object : Callback<PackageData> {

@@ -43,6 +43,9 @@ class NewSelectStandardAdapter(val context: Context, val dataList: ArrayList<Get
 
             p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
 
+            Utils.setStringValue(context, "standard_id", dataList[p1].StandardID.toString())
+            Utils.setStringValue(context, "standard_name", dataList[p1].StandardName)
+
             row_index = p1
             notifyDataSetChanged()
 

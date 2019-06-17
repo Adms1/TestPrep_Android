@@ -90,8 +90,30 @@ class PrefrenceActivity : AppCompatActivity() {
             if (chooseCoarseAdapter != null) {
                 var subIds = chooseCoarseAdapter!!.getIds()
 
+                Utils.setStringValue(this@PrefrenceActivity, "subject_id", subIds)
+
                 if (subIds != "" && subIds != null) {
-                    val mIntent = Intent(this@PrefrenceActivity, SelectCompititiveActivity::class.java)
+                    val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
+                    mIntent.putExtra("subject_id", subIds)
+                    startActivity(mIntent)
+                } else {
+                    Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+                }
+
+            } else {
+                Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+            }
+        }
+
+        package_btnNextt.setOnClickListener {
+
+            if (chooseCoarseAdapter != null) {
+                var subIds = chooseCoarseAdapter!!.getIds()
+
+                Utils.setStringValue(this@PrefrenceActivity, "subject_id", subIds)
+
+                if (subIds != "" && subIds != null) {
+                    val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
                     mIntent.putExtra("subject_id", subIds)
                     startActivity(mIntent)
                 } else {
@@ -110,7 +132,7 @@ class PrefrenceActivity : AppCompatActivity() {
 
     fun expand() {
 
-        rlOp1.setOnClickListener {
+        step1_arrow.setOnClickListener {
 
             if (isOpen1) {
                 coarse_rvCoarseList.visibility = VISIBLE
@@ -128,7 +150,7 @@ class PrefrenceActivity : AppCompatActivity() {
 
         }
 
-        rlOp2.setOnClickListener {
+        step2_arrow.setOnClickListener {
 
             if (isOPen2) {
                 coarse_rvStandardList.visibility = VISIBLE
@@ -146,7 +168,7 @@ class PrefrenceActivity : AppCompatActivity() {
 
         }
 
-        rlOp3.setOnClickListener {
+        step3_arrow.setOnClickListener {
 
             if (isOpen3) {
                 coarse_rvSubjectList.visibility = VISIBLE

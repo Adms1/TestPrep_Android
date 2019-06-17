@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:background="@color/white"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingTop="@dimen/_10sdp"
         tools:context=".activity.SignupActivity">
 
@@ -23,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
             android:text="@string/sign_up_header"
             android:gravity="center"
             android:textAllCaps="true"
@@ -44,12 +43,12 @@
             <ImageView
                     android:id="@+id/signup_ivLogo"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/_100sdp"
+                    android:layout_height="@dimen/_60sdp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_40sdp"
+                    android:layout_marginRight="@dimen/_40sdp"
                     android:src="@drawable/tc_logo"
                     android:contentDescription="@string/logo"/>
 
@@ -62,6 +61,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/signup_llFname"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:id="@+id/signup_ivf"/>
 
             <android.support.design.widget.TextInputLayout
@@ -103,7 +103,7 @@
             <android.support.design.widget.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     app:layout_constraintLeft_toRightOf="@+id/signup_ivl"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/signup_llFname"
@@ -146,7 +146,7 @@
                     app:layout_constraintTop_toBottomOf="@id/signup_llLname"
                     app:layout_constraintLeft_toRightOf="@+id/signup_ive"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:id="@+id/signup_llEmail">
 
                 <android.support.design.widget.TextInputEditText
@@ -184,7 +184,7 @@
                     app:layout_constraintTop_toBottomOf="@id/signup_llEmail"
                     app:layout_constraintLeft_toRightOf="@+id/signup_ivp"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:id="@+id/signup_llPassword">
 
                 <android.support.design.widget.TextInputEditText
@@ -220,7 +220,7 @@
                     android:layout_height="wrap_content"
                     app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Blue"
                     app:layout_constraintTop_toBottomOf="@id/signup_llPassword"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     app:layout_constraintLeft_toRightOf="@+id/signup_ivcp"
                     app:layout_constraintRight_toRightOf="parent"
                     android:id="@+id/signup_llCPassword">
@@ -262,7 +262,7 @@
                     app:layout_constraintLeft_toRightOf="@+id/signup_ivm"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintVertical_bias="0.028"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:id="@+id/signup_llMobile">
 
                 <android.support.design.widget.TextInputEditText
@@ -296,7 +296,7 @@
                     android:textAllCaps="false"
                     app:layout_constraintTop_toBottomOf="@+id/signup_llMobile"
                     android:layout_marginBottom="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_20sdp"/>
+                    android:layout_marginTop="@dimen/_15sdp"/>
 
             <TextView
                     android:id="@+id/signup_btnLogin"
@@ -307,10 +307,10 @@
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_20sdp"
                     android:textSize="@dimen/small_text_size"
-                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/signup_btnSignup"
-                    android:layout_marginTop="@dimen/_15sdp"/>
+                    android:layout_marginTop="@dimen/_10sdp"/>
 
         </android.support.constraint.ConstraintLayout>
 

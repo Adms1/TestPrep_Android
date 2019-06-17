@@ -1,13 +1,16 @@
 package com.testprep.fragments
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.testprep.R
+import com.testprep.adapter.MarketPlaceViewpagerAdapter
 import com.testprep.adapter.QuestionsPagerAdapter
+import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.fragment_market_place.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,7 +42,10 @@ class MarketPlaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        market_tabs.setupWithViewPager(queTab_viewpager)
+        market_header.text = Utils.getStringValue(activity!!, "course_type_name", "") +
+                "," + Utils.getStringValue(activity!!, "course_name", "") +
+                "," + Utils.getStringValue(activity!!, "standard_name", "") +
+                "," + Utils.getStringValue(activity!!, "subject_name", "")
 
         configureTabLayout()
 
@@ -51,26 +57,27 @@ class MarketPlaceFragment : Fragment() {
         market_tabs.addTab(market_tabs.newTab().setText("Test Packages"))
         market_tabs.addTab(market_tabs.newTab().setText("Tutors"))
 
-//        val adapter = MarketPlaceViewpagerAdapter(childFragmentManager, market_tabs.tabCount)
-//        market_viewpager.adapter = adapter
-//
-//        market_viewpager.addOnPageChangeListener(
-//            TabLayout.TabLayoutOnPageChangeListener(market_tabs))
-//        market_tabs.addOnTabSelectedListener(object :
-//            TabLayout.OnTabSelectedListener {
-//            override fun onTabSelected(tab: TabLayout.Tab) {
-//                market_viewpager.currentItem = tab.position
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab) {
-//
-//            }
-//
-//            override fun onTabReselected(tab: TabLayout.Tab) {
-//
-//            }
-//
-//        })
+        val adapter = MarketPlaceViewpagerAdapter(childFragmentManager, market_tabs.tabCount)
+        market_viewpager.adapter = adapter
+
+        market_viewpager.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(market_tabs)
+        )
+        market_tabs.addOnTabSelectedListener(object :
+            TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                market_viewpager.currentItem = tab.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+
+            }
+
+        })
     }
 
 }

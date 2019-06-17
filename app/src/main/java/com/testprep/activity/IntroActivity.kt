@@ -331,6 +331,8 @@ class IntroActivity : AppCompatActivity() {
 
                         Toast.makeText(this@IntroActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
+                        Utils.setStringValue(this@IntroActivity, "is_login", "true")
+
                         val intent = Intent(this@IntroActivity, NewActivity::class.java)
                         startActivity(intent)
 //                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)

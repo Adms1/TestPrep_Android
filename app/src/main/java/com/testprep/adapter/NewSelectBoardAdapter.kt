@@ -42,6 +42,7 @@ class NewSelectBoardAdapter(val context: Context, val dataList: ArrayList<GetCou
         p0.image.setOnClickListener {
 
             Utils.setStringValue(context, "course_id", dataList[p1].CourseID.toString())
+            Utils.setStringValue(context, "course_name", dataList[p1].CourseName)
 
             row_index = p1
             notifyDataSetChanged()

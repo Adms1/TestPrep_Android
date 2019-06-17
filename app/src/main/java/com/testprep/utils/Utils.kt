@@ -12,15 +12,14 @@ import android.location.Criteria
 import android.location.LocationManager
 import android.os.Build
 import android.provider.Settings
-import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import com.amulyakhare.textdrawable.TextDrawable
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.testprep.R
 import com.testprep.old.models.QuestionResponse
 
 
@@ -119,11 +118,11 @@ class Utils {
                 .show()
         }
 
-        fun getIMEI(context: Context): String {
-            val mngr = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-            return mngr.deviceId
-
-        }
+//        fun getIMEI(context: Context): String {
+//            val mngr = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+//            return mngr.deviceId
+//
+//        }
 
         fun isLocationEnabled(context: Context): Boolean {
             var locationMode = 0
@@ -222,7 +221,7 @@ class Utils {
 
         fun newcreateDrawable(ch: String): Drawable {
 
-            var color1 = mColorGenerator.randomColor
+            var color1 = R.color.dark_sky_blue
 
             val ic1 = TextDrawable.builder().buildRound(ch, color1)
 

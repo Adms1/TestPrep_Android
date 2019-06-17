@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.WindowManager
 import com.testprep.R
+import com.testprep.utils.Utils
 
 class SplashActivity : AppCompatActivity() {
 
@@ -26,20 +27,28 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed(
             /* Runnable
-                     * Showing splash screen with a timer. This will be useful when you
-                     * want to show case your app logo / company
-                     */
+                 * Showing splash screen with a timer. This will be useful when you
+                 * want to show case your app logo / company
+                 */
 
             {
-                // This method will be executed once the timer is over
-                // Start your app main activity
-                val i = Intent(this@SplashActivity, IntroActivity::class.java)
-                startActivity(i)
+                if (Utils.getStringValue(this@SplashActivity, "is_login", "") == "true") {
+                    // This method will be executed once the timer is over
+                    // Start your app main activity
+                    val i = Intent(this@SplashActivity, NewActivity::class.java)
+                    startActivity(i)
 
-                // close this activity
+                } else {
+                    val i = Intent(this@SplashActivity, IntroActivity::class.java)
+                    startActivity(i)
+
+                }
+
                 finish()
+
             }, 3000
         )
+
     }
 
 }

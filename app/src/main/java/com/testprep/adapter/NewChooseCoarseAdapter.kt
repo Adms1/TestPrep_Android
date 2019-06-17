@@ -35,12 +35,15 @@ class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<GetCo
 
         p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].CourseTypeName.substring(0, 1)))
 
+//        p0.image.setBackgroundColor(context.resources.getColor(R.color.dark_sky_blue))
+
         p0.title.text = dataList[p1].CourseTypeName
 //        p0.stitle.text = p0.title.text.substring(0, 1)
 
         p0.image.setOnClickListener {
 
             Utils.setStringValue(context, "course_type_id", dataList[p1].CourseTypeID.toString())
+            Utils.setStringValue(context, "course_type_name", dataList[p1].CourseTypeName)
 
             val intent = Intent(context, PrefrenceActivity::class.java)
             intent.putExtra("examtype", dataList[p1].CourseTypeID.toString())

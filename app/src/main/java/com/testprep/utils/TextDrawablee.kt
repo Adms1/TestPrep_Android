@@ -6,7 +6,7 @@ import android.graphics.drawable.shapes.OvalShape
 import android.graphics.drawable.shapes.RectShape
 import android.graphics.drawable.shapes.RoundRectShape
 
-class TextDrawable private constructor(builder: Builder) : ShapeDrawable(builder.shape) {
+class TextDrawablee private constructor(builder: Builder) : ShapeDrawable(builder.shape) {
 
     private val textPaint: Paint
     private val borderPaint: Paint
@@ -237,25 +237,25 @@ class TextDrawable private constructor(builder: Builder) : ShapeDrawable(builder
             return this
         }
 
-        override fun buildRect(text: String, color: Int): TextDrawable {
+        override fun buildRect(text: String, color: Int): TextDrawablee {
             rect()
             return build(text, color)
         }
 
-        override fun buildRoundRect(text: String, color: Int, radius: Int): TextDrawable {
+        override fun buildRoundRect(text: String, color: Int, radius: Int): TextDrawablee {
             roundRect(radius)
             return build(text, color)
         }
 
-        override fun buildRound(text: String, color: Int): TextDrawable {
+        override fun buildRound(text: String, color: Int): TextDrawablee {
             round()
             return build(text, color)
         }
 
-        override fun build(text: String, color: Int): TextDrawable {
+        override fun build(text: String, color: Int): TextDrawablee {
             this.color = color
             this.text = text
-            return TextDrawable(this)
+            return TextDrawablee(this)
         }
     }
 
@@ -281,7 +281,7 @@ class TextDrawable private constructor(builder: Builder) : ShapeDrawable(builder
 
     interface IBuilder {
 
-        fun build(text: String, color: Int): TextDrawable
+        fun build(text: String, color: Int): TextDrawablee
     }
 
     interface IShapeBuilder {
@@ -294,11 +294,11 @@ class TextDrawable private constructor(builder: Builder) : ShapeDrawable(builder
 
         fun roundRect(radius: Int): IBuilder
 
-        fun buildRect(text: String, color: Int): TextDrawable
+        fun buildRect(text: String, color: Int): TextDrawablee
 
-        fun buildRoundRect(text: String, color: Int, radius: Int): TextDrawable
+        fun buildRoundRect(text: String, color: Int, radius: Int): TextDrawablee
 
-        fun buildRound(text: String, color: Int): TextDrawable
+        fun buildRound(text: String, color: Int): TextDrawablee
     }
 
     companion object {

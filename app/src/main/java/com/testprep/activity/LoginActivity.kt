@@ -96,6 +96,8 @@ class LoginActivity : AppCompatActivity() {
 
                         Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
+                        Utils.setStringValue(this@LoginActivity, "is_login", "true")
+
                         val intent = Intent(this@LoginActivity, NewActivity::class.java)
                         startActivity(intent)
                         finish()

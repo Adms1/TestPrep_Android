@@ -21,41 +21,45 @@
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning"
             tools:targetApi="m">
-        <activity android:name=".activity.SelectCompititiveActivity">
-        </activity>
-        <activity
-                android:name=".activity.IntroActivity"
-                android:theme="@style/AppTheme2">
-        </activity>
-        <activity android:name=".activity.PrefrenceActivity">
-        </activity>
-        <activity android:name=".activity.NewActivity">
-        </activity>
-        <activity android:name=".activity.PackageDetailActivity">
-        </activity>
-        <activity android:name=".activity.SelectPackageActivity">
-        </activity>
-        <activity android:name=".activity.PaymentSuccessScreen">
-        </activity>
-        <activity android:name=".activity.TraknpayRequestActivity">
-        </activity>
-        <activity android:name=".old.NewPageActivity">
-        </activity>
+
+        <activity android:name=".activity.MarketPlaceListActivity" android:theme="@style/AppTheme2"/>
+
+        <activity android:name=".activity.SelectCompititiveActivity"/>
+
+        <activity android:name=".activity.IntroActivity" android:theme="@style/AppTheme2"/>
+
+        <activity android:name=".activity.PrefrenceActivity"/>
+
+        <activity android:name=".activity.NewActivity"/>
+
+        <activity android:name=".activity.PackageDetailActivity"/>
+
+        <activity android:name=".activity.SelectPackageActivity"/>
+
+        <activity android:name=".activity.PaymentSuccessScreen"/>
+
+        <activity android:name=".activity.TraknpayRequestActivity"/>
+
+        <activity android:name=".old.NewPageActivity"/>
+
         <activity android:name=".activity.TabwiseQuestionActivity"/>
+
         <activity android:name=".activity.SelectStandardActivity"/>
+
         <activity android:name=".activity.SelectSubjectActivity"/>
+
         <activity android:name=".activity.SelectBoardActivity"/>
+
         <activity android:name=".activity.ForgotPasswordActivity"/>
+
         <activity android:name=".activity.OtpActivity"/>
-        <activity
-                android:name=".activity.DashboardActivity"
-                android:windowSoftInputMode="adjustPan"/>
-        <activity
-                android:name=".activity.SignupActivity"
-                android:windowSoftInputMode="adjustPan"/>
-        <activity
-                android:name=".activity.LoginActivity"
-                android:windowSoftInputMode="adjustPan"/>
+
+        <activity android:name=".activity.DashboardActivity" android:windowSoftInputMode="adjustPan"/>
+
+        <activity android:name=".activity.SignupActivity" android:windowSoftInputMode="adjustPan"/>
+
+        <activity android:name=".activity.LoginActivity" android:windowSoftInputMode="adjustPan"/>
+
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -67,48 +71,36 @@
    <activity android:name=".ImageviewPageActivity">
        </activity>
         -->
-        <activity
-                android:name=".old.WebviewPageActivity"
-                android:theme="@style/AppTheme2"/>
-        <activity
-                android:name=".old.PageActivity"
-                android:theme="@style/AppTheme2"/>
-        <activity
-                android:name=".old.Main2Activity"
-                android:label="@string/title_activity_main2"
-                android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".old.WebviewPageActivity" android:theme="@style/AppTheme2"/>
+
+        <activity android:name=".old.PageActivity" android:theme="@style/AppTheme2"/>
+
+        <activity android:name=".old.Main2Activity" android:label="@string/title_activity_main2"
+                  android:theme="@style/AppTheme.NoActionBar"/>
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN"/> -->
 
-
             <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
             <!-- </intent-filter> -->
-        </activity>
 
-        <meta-data
-                android:name="com.facebook.sdk.ApplicationId"
-                android:value="@string/facebook_app_id"/>
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
-        <activity
-                android:name="com.facebook.FacebookActivity"
-                android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-                android:label="@string/app_name"/>
-        <activity
-                android:name="com.facebook.CustomTabActivity"
-                android:exported="true">
+        <activity android:name="com.facebook.FacebookActivity"
+                  android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                  android:label="@string/app_name"/>
+
+        <activity android:name="com.facebook.CustomTabActivity" android:exported="true"/>
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.VIEW"/> -->
 
-
             <!-- <category android:name="android.intent.category.DEFAULT"/> -->
             <!-- <category android:name="android.intent.category.BROWSABLE"/> -->
 
-
             <!-- <data android:scheme="@string/fb_login_protocol_scheme"/> -->
             <!-- </intent-filter> -->
-        </activity>
+
     </application>
 
 </manifest>

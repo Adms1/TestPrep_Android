@@ -24,14 +24,15 @@
             android:layout_marginBottom="@dimen/_5sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/dashboard"
             android:gravity="center"
             android:textColor="@color/light_gray"
             android:textSize="@dimen/normal_header_size"/>
 
     <View
             app:layout_constraintTop_toBottomOf="@+id/container"
+            app:layout_constraintBottom_toTopOf="@+id/dashboard_llBottom"
             android:layout_width="match_parent"
+            android:id="@+id/line"
             android:layout_height="@dimen/_1sdp"
             android:background="#CDCDCD"/>
 
@@ -41,7 +42,8 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:weightSum="1"
-            android:layout_height="wrap_content">
+            android:background="@color/light_blue"
+            android:layout_height="0dp">
 
         <LinearLayout
                 android:id="@+id/dash_llDashboard"

@@ -45,9 +45,7 @@
     <Button
             android:text="Add to cart"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_20sdp"
-            android:paddingLeft="@dimen/_5sdp"
-            android:paddingRight="@dimen/_5sdp"
+            android:layout_height="@dimen/_25sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/singleTest_item_btnAddCart"
@@ -55,7 +53,7 @@
             android:textSize="@dimen/extra_small_size"
             android:gravity="center"
             android:textAllCaps="false"
-            android:background="@drawable/gray_ring_bg"
+            android:background="@drawable/add_cart_bg"
             android:textColor="@color/black"/>
 
 </android.support.constraint.ConstraintLayout>

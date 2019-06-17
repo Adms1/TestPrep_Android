@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.testprep.R
 import com.testprep.models.GetCourseListData
+import com.testprep.utils.Utils
 
 class NewSelectSubjectAdapter(val context: Context, val dataList: ArrayList<GetCourseListData>) :
     RecyclerView.Adapter<NewSelectSubjectAdapter.viewholder>() {
@@ -39,6 +40,8 @@ class NewSelectSubjectAdapter(val context: Context, val dataList: ArrayList<GetC
         p0.stitle.text = p0.title.text.substring(0, 1)
 
         p0.image.setOnClickListener {
+
+            Utils.setStringValue(context, "subject_name", dataList[p1].SubjectName)
 
             row_index = p1
 

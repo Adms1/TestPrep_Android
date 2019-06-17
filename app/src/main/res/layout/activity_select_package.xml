@@ -8,11 +8,11 @@
         tools:context=".activity.SelectPackageActivity">
 
     <TextView
-            android:text="Packages"
+            android:text="Test Packages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/package_header"
-            android:paddingTop="@dimen/_7sdp"
+            android:paddingTop="@dimen/_15sdp"
             android:paddingBottom="@dimen/_7sdp"
             app:layout_constraintTop_toTopOf="parent"
             android:gravity="center"

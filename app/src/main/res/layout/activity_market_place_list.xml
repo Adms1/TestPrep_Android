@@ -9,7 +9,7 @@
         tools:context=".activity.PrefrenceActivity">
 
     <TextView
-            android:text="@string/your_preferences"
+            android:text="@string/market_place"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/package_header"
@@ -39,6 +39,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:src="@drawable/right_icn"
             android:padding="@dimen/_5sdp"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="@+id/package_header"
             app:layout_constraintBottom_toBottomOf="@+id/package_header"/>
 
@@ -49,6 +50,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginBottom="@dimen/_20sdp"
             android:background="@drawable/next_btn"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     <ScrollView
@@ -72,11 +74,11 @@
                     android:gravity="center">
 
                 <TextView
-                        android:text="Step - 1 Select Board"
+                        android:text="Browse Packages"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/_7sdp"
-                        android:id="@+id/pref_tvStep1"
+                        android:id="@+id/mpList_tvStep1"
                         android:paddingBottom="@dimen/_7sdp"
                         android:textSize="@dimen/_14sdp"
                         android:paddingLeft="@dimen/_10sdp"
@@ -95,7 +97,7 @@
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
-                    android:id="@+id/coarse_rvCoarseList"
+                    android:id="@+id/mpList_rvPkgList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@+id/course_type_tvFlow"/>
@@ -108,11 +110,11 @@
                     android:gravity="center">
 
                 <TextView
-                        android:text="Step - 3 Select Standard"
+                        android:text="Browse Tutors"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/_7sdp"
-                        android:id="@+id/pref_tvStep2"
+                        android:id="@+id/mpList_tvStep2"
                         android:visibility="gone"
                         android:paddingBottom="@dimen/_7sdp"
                         app:layout_constraintTop_toTopOf="parent"
@@ -134,50 +136,10 @@
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
-                    android:id="@+id/coarse_rvStandardList"
+                    android:id="@+id/mpList_rvStandardList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"/>
-
-            <RelativeLayout
-                    android:id="@+id/rlOp3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#F7FCFF"
-                    android:gravity="center">
-
-                <TextView
-                        android:text="Step - 2 Select Subject"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/_7sdp"
-                        android:paddingBottom="@dimen/_7sdp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:textSize="@dimen/_14sdp"
-                        android:paddingLeft="@dimen/_10sdp"
-                        android:id="@+id/pref_tvStep3"
-                        android:visibility="gone"
-                        android:textColor="@color/nfcolor"/>
-
-                <ImageView
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/down_arrow"
-                        android:padding="@dimen/_6sdp"
-                        android:visibility="gone"
-                        android:rotation="180"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:id="@+id/step3_arrow"/>
-
-            </RelativeLayout>
-
-            <android.support.v7.widget.RecyclerView
-                    android:id="@+id/coarse_rvSubjectList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@+id/course_type_tvFlow"/>
 
         </LinearLayout>
 

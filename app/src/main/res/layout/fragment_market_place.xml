@@ -11,18 +11,19 @@
 
     <TextView
             android:text="@string/market_place"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/_7sdp"
             android:paddingTop="@dimen/_7sdp"
             android:id="@+id/market_header"
-            android:paddingLeft="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_5sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxWidth="@dimen/_150sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/market_ivBack"
-            android:textSize="@dimen/normal_header_size"
-            android:gravity="center_vertical"
-            android:textColor="@color/black"/>
+            android:textSize="@dimen/normal_text_size"
+            android:gravity="center_vertical"/>
 
     <ImageView
             android:layout_width="@dimen/_30sdp"

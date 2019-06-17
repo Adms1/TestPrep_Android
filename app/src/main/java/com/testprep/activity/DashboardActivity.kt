@@ -12,7 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.testprep.R
 import com.testprep.adapter.DrawerMenuListAdapter
-import com.testprep.fragments.MarketPlaceFragment
+import com.testprep.fragments.ChooseMarketPlaceFragment
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils.Companion.clearPrefrence
 import kotlinx.android.synthetic.main.activity_dashboard.*
@@ -51,6 +51,11 @@ class DashboardActivity : AppCompatActivity() {
 
 //        drawer_layout.setDrawerListener(mDrawerToggle)
 
+        supportFragmentManager.beginTransaction().add(R.id.container, ChooseMarketPlaceFragment()).commit()
+        dash_ivMarket.setImageResource(R.drawable.blue_list)
+        dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
+        page_title.text = ""
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
@@ -84,7 +89,9 @@ class DashboardActivity : AppCompatActivity() {
 
             dash_llMarket -> {
 
-                supportFragmentManager.beginTransaction().add(R.id.container, MarketPlaceFragment()).commit()
+                page_title.text = ""
+
+                supportFragmentManager.beginTransaction().add(R.id.container, ChooseMarketPlaceFragment()).commit()
 
                 dash_ivMarket.setImageResource(R.drawable.blue_list)
                 dash_ivHome.setImageResource(R.drawable.home)

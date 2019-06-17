@@ -29,7 +29,6 @@ import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.concurrent.TimeUnit
 
-
 class TabwiseQuestionActivity : AppCompatActivity() {
 
     var questionpagerAdapret: QuestionsPagerAdapter? = null
