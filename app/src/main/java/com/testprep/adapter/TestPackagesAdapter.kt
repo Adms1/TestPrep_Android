@@ -51,11 +51,13 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
             notifyDataSetChanged()
 
             val intent = Intent(context, PackageDetailActivity::class.java)
+            intent.putExtra("pkgid", dataList[p1].TestPackageID)
             intent.putExtra("pname", p0.title.text!!)
             intent.putExtra("sprice", dataList[p1].TestPackageSalePrice)
             intent.putExtra("lprice", dataList[p1].TestPackageListPrice)
             intent.putExtra("desc", dataList[p1].TestPackageDescription)
             intent.putExtra("test_type_list", dataList[p1].TestType)
+            intent.putExtra("come_from", "selectpackage")
             intent.putExtra("position", dataList[p1].TestPackageName.substring(0, 1).single())
             context.startActivity(intent)
 

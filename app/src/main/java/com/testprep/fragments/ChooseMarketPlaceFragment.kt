@@ -30,6 +30,11 @@ class ChooseMarketPlaceFragment : Fragment() {
             startActivity(intent)
         }
 
+//        choosemp_ivFilter.setOnClickListener {
+//            val intent = Intent(activity, FilterActivity::class.java)
+//            startActivity(intent)
+//        }
+
         choosemp_tvTutors.setOnClickListener {}
     }
 }

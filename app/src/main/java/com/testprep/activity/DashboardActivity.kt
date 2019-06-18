@@ -13,7 +13,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.testprep.R
 import com.testprep.adapter.DrawerMenuListAdapter
 import com.testprep.fragments.ChooseMarketPlaceFragment
+import com.testprep.fragments.MyPackagesFragment
 import com.testprep.utils.AppConstants
+import com.testprep.utils.Utils
 import com.testprep.utils.Utils.Companion.clearPrefrence
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
@@ -51,16 +53,18 @@ class DashboardActivity : AppCompatActivity() {
 
 //        drawer_layout.setDrawerListener(mDrawerToggle)
 
-        supportFragmentManager.beginTransaction().add(R.id.container, ChooseMarketPlaceFragment()).commit()
-        dash_ivMarket.setImageResource(R.drawable.blue_list)
-        dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
-        page_title.text = ""
+        supportFragmentManager.beginTransaction().add(R.id.container, MyPackagesFragment()).commit()
+        dash_ivHome.setImageResource(R.drawable.blue_home)
+        dash_tvHome.setTextColor(resources.getColor(R.color.nfcolor))
+        dashboard_header.text = "My Packages"
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        dashboard_ivLogout.setOnClickListener { signOut() }
 
 //        init()
 
@@ -69,12 +73,16 @@ class DashboardActivity : AppCompatActivity() {
 
     fun onClick(v: View) {
         when (v) {
+
+            dashboard_ivLogout -> {
+                signOut()
+            }
+
             dash_llDashboard -> {
 
-                page_title.text = "Dashboard"
+                dashboard_header.text = "My Packages"
 
-                val intent = Intent(this@DashboardActivity, NewActivity::class.java)
-                startActivity(intent)
+                supportFragmentManager.beginTransaction().add(R.id.container, MyPackagesFragment()).commit()
 
                 dash_ivHome.setImageResource(R.drawable.blue_home)
                 dash_ivMarket.setImageResource(R.drawable.list)
@@ -89,7 +97,7 @@ class DashboardActivity : AppCompatActivity() {
 
             dash_llMarket -> {
 
-                page_title.text = ""
+                dashboard_header.text = "Market Place"
 
                 supportFragmentManager.beginTransaction().add(R.id.container, ChooseMarketPlaceFragment()).commit()
 
@@ -106,7 +114,7 @@ class DashboardActivity : AppCompatActivity() {
 
             dash_llExplore -> {
 
-                page_title.text = "Explore"
+                dashboard_header.text = "Explore"
 
                 dash_ivSearch.setImageResource(R.drawable.blue_search)
                 dash_ivUser.setImageResource(R.drawable.user)
@@ -121,7 +129,7 @@ class DashboardActivity : AppCompatActivity() {
 
             dash_llProfile -> {
 
-                page_title.text = "Profile"
+                dashboard_header.text = "Profile"
 
                 dash_ivUser.setImageResource(R.drawable.blue_user)
                 dash_ivSearch.setImageResource(R.drawable.search)
@@ -203,6 +211,7 @@ class DashboardActivity : AppCompatActivity() {
 //
 //    }
 
+
     private fun signOut() {
 
         clearPrefrence(this@DashboardActivity)
@@ -212,7 +221,9 @@ class DashboardActivity : AppCompatActivity() {
             .addOnCompleteListener(this) {
                 // ...
 
-                val intent = Intent(this@DashboardActivity, LoginActivity::class.java)
+                Utils.setStringValue(this@DashboardActivity, "is_login", "false")
+
+                val intent = Intent(this@DashboardActivity, IntroActivity::class.java)
                 startActivity(intent)
 //                overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
                 finish()

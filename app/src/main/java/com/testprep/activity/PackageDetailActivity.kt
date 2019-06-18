@@ -8,13 +8,25 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
+import com.google.gson.JsonObject
 import com.testprep.R
 import com.testprep.adapter.TestTypeAdapter
 import com.testprep.models.PackageData
+import com.testprep.retrofit.WebClient
+import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
+import com.testprep.utils.DialogUtils
+import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.activity_package_detail.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class PackageDetailActivity : AppCompatActivity() {
+
+    var pkgid = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -37,6 +49,10 @@ class PackageDetailActivity : AppCompatActivity() {
         package_detail_tvDesc.text = intent.getStringExtra("desc")
         package_detail_name_short.text = intent.getStringExtra("pname").substring(0, 1)
 
+        Log.d("pkgid", intent.getStringExtra("pkgid"))
+
+        pkgid = intent.getStringExtra("pkgid")
+
         var pos = intent.getCharExtra("position", 'a')
 
         Log.d("colr1", " " + pos + " " + package_detail_tvPname.text.length)
@@ -48,6 +64,10 @@ class PackageDetailActivity : AppCompatActivity() {
         package_detail_rvList.layoutManager =
             LinearLayoutManager(this@PackageDetailActivity, LinearLayoutManager.VERTICAL, false)
 
+        if (intent.getStringExtra("come_from") == "mypackage") {
+            package_detail_btnAddTocart.visibility = View.GONE
+        }
+
         package_detail_rvList.adapter = TestTypeAdapter(
             this@PackageDetailActivity,
             intent.getSerializableExtra("test_type_list") as ArrayList<PackageData.PackageTestType>
@@ -57,5 +77,57 @@ class PackageDetailActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        package_detail_btnAddTocart.setOnClickListener {
+            callAddTestPackageApi()
+        }
     }
+
+    fun callAddTestPackageApi() {
+
+        if (!DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
+            Utils.ping(this@PackageDetailActivity, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(this@PackageDetailActivity)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.addTestPackage(
+            Utils.getStringValue(this@PackageDetailActivity, AppConstants.USER_ID, "0")!!,
+            intent.getStringExtra("pkgid")
+        )
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].toString() == "true") {
+
+                        Toast.makeText(
+                            this@PackageDetailActivity,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        onBackPressed()
+                    } else {
+
+                        Toast.makeText(
+                            this@PackageDetailActivity,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+
 }

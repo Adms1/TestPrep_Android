@@ -78,6 +78,7 @@
     <string name="pref_tvSelectExams">Based on your selection, \n do you want to select competitive \n exams?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="filter">Filter</string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>

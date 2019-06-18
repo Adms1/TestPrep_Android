@@ -24,6 +24,9 @@ class PackageData {
         var ExternalTransactionID = ""
         var ExternalTransactionStatus = ""
 
+        var StudentTestPackageID = 0
+        var PurchaseDate = ""
+        var ExpirationDate = ""
     }
 
     class PackageTestType(var name: String, var qty: String) : Serializable {

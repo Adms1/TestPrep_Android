@@ -66,7 +66,7 @@ class SelectPackageAdapter(val context: Context, val dataList: ArrayList<Package
 //
         p0.name.text = dataList[p1].TestPackageName
         p0.sprice.text = "₹" + dataList[p1].TestPackageSalePrice
-        p0.lprice.text = " ₹" + dataList[p1].TestPackageListPrice
+        p0.lprice.text = "₹" + dataList[p1].TestPackageListPrice
 
 //        val mBSpannableString = SpannableString( p0.lprice.text)
 //        val mStrikeThrough = StrikethroughSpan()
@@ -78,6 +78,7 @@ class SelectPackageAdapter(val context: Context, val dataList: ArrayList<Package
         p0.llmain.setOnClickListener {
 
             val intent = Intent(context, PackageDetailActivity::class.java)
+            intent.putExtra("pkgid", dataList[p1].TestPackageID)
             intent.putExtra("pname", p0.name.text!!)
             intent.putExtra("sprice", p0.sprice.text!!)
             intent.putExtra("lprice", p0.lprice.text!!)
