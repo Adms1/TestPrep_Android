@@ -79,6 +79,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="filter">Filter</string>
+    <string name="other">Other</string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>

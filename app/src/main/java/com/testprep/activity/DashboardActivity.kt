@@ -14,6 +14,7 @@ import com.testprep.R
 import com.testprep.adapter.DrawerMenuListAdapter
 import com.testprep.fragments.ChooseMarketPlaceFragment
 import com.testprep.fragments.MyPackagesFragment
+import com.testprep.fragments.OtherFragment
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 import com.testprep.utils.Utils.Companion.clearPrefrence
@@ -82,12 +83,12 @@ class DashboardActivity : AppCompatActivity() {
 
                 dashboard_header.text = "My Packages"
 
-                supportFragmentManager.beginTransaction().add(R.id.container, MyPackagesFragment()).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.container, MyPackagesFragment()).commit()
 
                 dash_ivHome.setImageResource(R.drawable.blue_home)
                 dash_ivMarket.setImageResource(R.drawable.list)
                 dash_ivSearch.setImageResource(R.drawable.search)
-                dash_ivUser.setImageResource(R.drawable.user)
+                dash_ivUser.setImageResource(R.drawable.menu_one)
 
                 dash_tvHome.setTextColor(resources.getColor(R.color.nfcolor))
                 dash_tvMarket.setTextColor(resources.getColor(R.color.light_gray))
@@ -99,11 +100,11 @@ class DashboardActivity : AppCompatActivity() {
 
                 dashboard_header.text = "Market Place"
 
-                supportFragmentManager.beginTransaction().add(R.id.container, ChooseMarketPlaceFragment()).commit()
+                supportFragmentManager.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
 
                 dash_ivMarket.setImageResource(R.drawable.blue_list)
                 dash_ivHome.setImageResource(R.drawable.home)
-                dash_ivUser.setImageResource(R.drawable.user)
+                dash_ivUser.setImageResource(R.drawable.menu_one)
                 dash_ivSearch.setImageResource(R.drawable.search)
 
                 dash_tvHome.setTextColor(resources.getColor(R.color.light_gray))
@@ -117,7 +118,7 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_header.text = "Explore"
 
                 dash_ivSearch.setImageResource(R.drawable.blue_search)
-                dash_ivUser.setImageResource(R.drawable.user)
+                dash_ivUser.setImageResource(R.drawable.menu_one)
                 dash_ivMarket.setImageResource(R.drawable.list)
                 dash_ivHome.setImageResource(R.drawable.home)
 
@@ -129,9 +130,12 @@ class DashboardActivity : AppCompatActivity() {
 
             dash_llProfile -> {
 
-                dashboard_header.text = "Profile"
+                dashboard_header.text = "Other"
 
-                dash_ivUser.setImageResource(R.drawable.blue_user)
+//                dashboard_ivLogout.visibility = View.GONE
+                supportFragmentManager.beginTransaction().replace(R.id.container, OtherFragment()).commit()
+
+                dash_ivUser.setImageResource(R.drawable.blue_menu)
                 dash_ivSearch.setImageResource(R.drawable.search)
                 dash_ivMarket.setImageResource(R.drawable.list)
                 dash_ivHome.setImageResource(R.drawable.home)

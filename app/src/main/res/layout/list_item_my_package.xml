@@ -86,35 +86,48 @@
                 android:text="Price : 100"
                 app:layout_constraintTop_toBottomOf="@+id/item_my_package_edate"/>
 
+        <TextView
+                android:id="@+id/item_my_package_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/normal_text_size"
+                app:layout_constraintRight_toRightOf="@+id/item_my_package_edate"
+                android:maxLines="1"
+                android:text=""
+                app:layout_constraintTop_toBottomOf="@+id/item_my_package_edate"/>
+
         <Button
                 android:id="@+id/item_my_package_view"
                 android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:gravity="center"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/small_text_size"
                 app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
                 app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
                 android:maxLines="1"
                 android:text="View"
                 android:textColor="@color/white"
                 android:textStyle="bold"
+                android:visibility="gone"
                 android:background="@drawable/blue_gradient_bg"
                 app:layout_constraintTop_toBottomOf="@+id/item_my_package_price"/>
 
         <Button
-                android:id="@+id/item_my_package_test"
+                android:id="@+id/item_my_package_btntest"
                 android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:gravity="center"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingRight="@dimen/_10sdp"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/small_text_size"
                 app:layout_constraintRight_toRightOf="parent"
                 android:maxLines="1"
                 android:textColor="@color/white"
                 android:textStyle="bold"
+                android:visibility="gone"
                 android:background="@drawable/blue_gradient_bg"
                 app:layout_constraintLeft_toRightOf="@id/item_my_package_view"
                 app:layout_constraintTop_toBottomOf="@id/item_my_package_price"

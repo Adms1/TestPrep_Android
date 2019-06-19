@@ -117,12 +117,13 @@ class PaymentSuccessScreen : AppCompatActivity() {
                                 {
                                     // This method will be executed once the timer is over
                                     // Start your app main activity
-                                    val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
-                                    startActivity(intent)
+//                                    val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
+//                                    startActivity(intent)
 //                                    overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
                                     // close this activity
-                                    finish()
+//                                    finish()
+                                    onBackPressed()
                                 }, 1500
                             )
                         }

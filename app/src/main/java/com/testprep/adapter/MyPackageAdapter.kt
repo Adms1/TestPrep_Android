@@ -13,7 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.testprep.R
 import com.testprep.activity.PackageDetailActivity
-import com.testprep.activity.TabwiseQuestionActivity
+import com.testprep.activity.TestListActivity
 import com.testprep.models.PackageData
 
 class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
@@ -37,12 +37,13 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
         p0.name.text = dataList[p1].TestPackageName
         p0.short_name.text = p0.name.text.substring(0, 1)
         p0.price.text = "Price: ₹" + dataList[p1].TestPackageSalePrice
+        p0.test.text = dataList[p1].NumberOfTest + " Tests"
 
 //        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))
 
         p0.mainll.setOnClickListener {
 
-            val intent = Intent(context, TabwiseQuestionActivity::class.java)
+            val intent = Intent(context, TestListActivity::class.java)
             context.startActivity(intent)
 
         }
@@ -79,7 +80,7 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
         var mainll: CardView = itemView.findViewById(R.id.item_my_package_main)
         var price: TextView = itemView.findViewById(R.id.item_my_package_price)
         var view: Button = itemView.findViewById(R.id.item_my_package_view)
-        var test: Button = itemView.findViewById(R.id.item_my_package_test)
+        var test: TextView = itemView.findViewById(R.id.item_my_package_test)
     }
 
 }

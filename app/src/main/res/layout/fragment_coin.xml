@@ -5,38 +5,72 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".fragments.CoinFragment">
+
+    <TextView
+            android:text="Add Coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:id="@+id/coin_header"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:maxLines="1"
+            android:maxWidth="@dimen/_150sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toRightOf="@+id/coin_ivBack"
+            android:textSize="@dimen/normal_header_size"
+            android:gravity="center_vertical"/>
+
+    <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/back_button"
+            android:id="@+id/coin_ivBack"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/coin_header"
+            android:padding="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/coin_header"/>
 
     <TextView
             android:id="@+id/coin_tvDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/coin_header"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="Please Enter Coin you want to purchase"
+            android:text="Please Select Coin you want to purchase"
             android:padding="@dimen/_5sdp"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/_30sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/_13sdp"/>
 
-    <EditText
-            android:id="@+id/coin_etCoin"
+    <!--<EditText-->
+    <!--android:id="@+id/coin_etCoin"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="@dimen/_20sdp"-->
+    <!--android:layout_marginRight="@dimen/_20sdp"-->
+    <!--android:layout_marginLeft="@dimen/_20sdp"-->
+    <!--android:background="@drawable/gray_ring_bg"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/coin_tvDesc"-->
+    <!--android:gravity="center"-->
+    <!--android:hint="@string/enter_coin"-->
+    <!--android:inputType="numberDecimal"-->
+    <!--android:imeOptions="actionDone"-->
+    <!--android:maxLines="1"-->
+    <!--android:textSize="@dimen/_14sdp"-->
+    <!--android:padding="@dimen/_10sdp"-->
+    <!--android:singleLine="true"/>-->
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/coin_rvList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:background="@drawable/gray_ring_bg"
             app:layout_constraintTop_toBottomOf="@+id/coin_tvDesc"
-            android:gravity="center"
-            android:hint="@string/enter_coin"
-            android:inputType="numberDecimal"
-            android:imeOptions="actionDone"
-            android:maxLines="1"
-            android:textSize="@dimen/_14sdp"
-            android:padding="@dimen/_10sdp"
-            android:singleLine="true"/>
+            android:layout_height="wrap_content"/>
 
     <Button
             android:id="@+id/coin_btnCharge"
@@ -44,8 +78,10 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="@dimen/_20sdp"
-            android:background="@color/colorPrimary"
-            android:text="@string/charge"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:background="@drawable/login_round_bg"
+            android:text="Add Now!"
             android:textColor="@color/white"
             android:textSize="@dimen/_13sdp"
             android:textStyle="bold"/>

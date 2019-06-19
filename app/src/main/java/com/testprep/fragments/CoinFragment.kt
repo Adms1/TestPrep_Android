@@ -4,14 +4,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
 import com.testprep.activity.TraknpayRequestActivity
+import com.testprep.adapter.CoinAdapter
+import com.testprep.interfaces.CoinInteface
+import com.testprep.models.CoinModel
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
@@ -32,42 +35,62 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class CoinFragment : Fragment() {
+class CoinFragment : AppCompatActivity(), CoinInteface {
 
     internal var isBoolean_permission_location = false
     internal var isBoolean_permission_phoneState = false
     val REQUEST_PERMISSIONS_Location = 1
     val REQUEST_PERMISSIONS_PhoneState = 2
+    var coinInteface: CoinInteface? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_coin, container, false)
-    }
+    var coinArr: ArrayList<CoinModel> = ArrayList()
+    var purchaseCoin = ""
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View? {
+//        // Inflate the layout for this fragment
+//        return inflater.inflate(R.layout.fragment_coin, container, false)
+//    }
+//
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
 
-//        val heading = activity!!.findViewById(R.id.dashboard_tvTitle) as TextView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+        coinInteface = this
+
+        setContentView(R.layout.fragment_coin)
+
+//        val heading = this@CoinFragment.findViewById(R.id.dashboard_tvTitle) as TextView
 //        heading.text = "Coin"
 
+        coinList()
+
+        coin_rvList.layoutManager = GridLayoutManager(this@CoinFragment, 3)
+        coin_rvList.adapter = CoinAdapter(this@CoinFragment, coinArr, coinInteface!!)
+
         coin_btnCharge.setOnClickListener {
-            if (DialogUtils.isNetworkConnected(activity!!)) {
+            if (DialogUtils.isNetworkConnected(this@CoinFragment)) {
 
 //            if (isVersionCodeUpdated) {
                 chargeBtnLogic()
 
 //            } else {
-//                Utils.openVersionDialogCharge(activity!!)
+//                Utils.openVersionDialogCharge(this@CoinFragment)
 //
 //            }
 
             } else {
-                Utils.ping(activity!!, "Network not available")
+                Utils.ping(this@CoinFragment, "Network not available")
             }
         }
+
+        coin_ivBack.setOnClickListener { onBackPressed() }
+
     }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -84,24 +107,58 @@ class CoinFragment : Fragment() {
 //            //                Utility.ping(mContext, "Oops!! Payment was cancelled");
 //            //            }
 //        } else {
-//            Utils.ping(activity!!, "Oops!! Payment was cancelled")
+//            Utils.ping(this@CoinFragment, "Oops!! Payment was cancelled")
 //        }
 //    }
+
+    fun coinList() {
+
+        val coinModel = CoinModel()
+        coinModel.coin = "50"
+        coinModel.rupees = "100"
+        coinArr.add(coinModel)
+
+        val coinModel1 = CoinModel()
+        coinModel1.coin = "100"
+        coinModel1.rupees = "200"
+        coinArr.add(coinModel1)
+
+        val coinModel2 = CoinModel()
+        coinModel2.coin = "200"
+        coinModel2.rupees = "400"
+        coinArr.add(coinModel2)
+
+        val coinModel3 = CoinModel()
+        coinModel3.coin = "300"
+        coinModel3.rupees = "600"
+        coinArr.add(coinModel3)
+
+        val coinModel4 = CoinModel()
+        coinModel4.coin = "400"
+        coinModel4.rupees = "800"
+        coinArr.add(coinModel4)
+
+        val coinModel5 = CoinModel()
+        coinModel5.coin = "500"
+        coinModel5.rupees = "1000"
+        coinArr.add(coinModel5)
+
+    }
 
     fun chargeBtnLogic() {
 //        com.testprep.utils.AppConstants.planid = "0"
         if (AppConstants.API_KEY.length > 5 && AppConstants.SECRET_KEY.length > 5) {
             var amount: Array<String>? = null
-            if (coin_etCoin.text.toString().contains("."))
-                amount = coin_etCoin.text.toString().split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
+            if (purchaseCoin.contains("."))
+                amount = purchaseCoin.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
                     .toTypedArray()//to check decimal places
 
-            if (coin_etCoin.text.toString().equals("", ignoreCase = true)) {
-                Utils.ping(activity!!, activity!!.resources.getString(R.string.enter_coin))
+            if (purchaseCoin.equals("", ignoreCase = true)) {
+                Utils.ping(this@CoinFragment, this@CoinFragment.resources.getString(R.string.enter_coin))
             } else if (amount != null && amount[1].length > 2) {
-                Utils.ping(activity!!, "Please provide upto 2 decimal places only.")
-            } else if (java.lang.Double.parseDouble(coin_etCoin.text.toString()) < 2.00) {
-                Utils.ping(activity!!, "Amount can't be less than Rs. 2.00")
+                Utils.ping(this@CoinFragment, "Please provide upto 2 decimal places only.")
+            } else if (java.lang.Double.parseDouble(purchaseCoin) < 2.00) {
+                Utils.ping(this@CoinFragment, "Amount can't be less than Rs. 2.00")
             } else {
                 //SHRENIK IS HERE.....
                 /*if(1==2) {
@@ -132,20 +189,20 @@ class CoinFragment : Fragment() {
                     //                            fetchTokenAndTransactionID();
                     //Custom UI
 
-                    generateTrackNPayRequest(activity!!, coin_etCoin.text.toString())
+                    generateTrackNPayRequest(this@CoinFragment, purchaseCoin)
 
 //                    }
                 } catch (e: Exception) {
                     //SendMessage(MESSAGE_ERROR, e.getMessage());
-                    Utils.ping(activity!!, e.message.toString())
+                    Utils.ping(this@CoinFragment, e.message.toString())
                 }
 
             }/*else if (Double.parseDouble(edtAmount.getText().toString()) < 2.00) {
-                        com.testprep.utils.Utils.ping(activity!!, "Amount can't be more than Rs. 100000.00");
+                        com.testprep.utils.Utils.ping(this@CoinFragment, "Amount can't be more than Rs. 100000.00");
                     }*/
 //            Instamojo.setLogLevel(Log.DEBUG)
         } else {
-            Utils.openInvalidApiKeyDialog(activity!!)
+            Utils.openInvalidApiKeyDialog(this@CoinFragment)
         }
     }
 
@@ -210,6 +267,7 @@ class CoinFragment : Fragment() {
                         )
                         intent.putExtra("amount", coin)
                         context.startActivity(intent)
+                        finish()
 
                     } else {
                         Toast.makeText(context, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
@@ -225,6 +283,11 @@ class CoinFragment : Fragment() {
             }
         })
 
+    }
+
+    override fun getCoin(str: String) {
+
+        purchaseCoin = str
     }
 
 }

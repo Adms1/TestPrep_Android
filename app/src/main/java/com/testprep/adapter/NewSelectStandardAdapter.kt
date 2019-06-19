@@ -55,7 +55,7 @@ class NewSelectStandardAdapter(val context: Context, val dataList: ArrayList<Get
 
         if (row_index == p1) {
             p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
-            p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.pink_round))
+            p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.close_cancel))
             p0.p_select.visibility = View.VISIBLE
         } else {
             p0.title.setTextColor(context.resources.getColor(R.color.black))

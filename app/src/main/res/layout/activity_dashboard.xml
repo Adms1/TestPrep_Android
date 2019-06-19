@@ -196,7 +196,7 @@
                     android:id="@+id/dash_ivUser"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:background="@drawable/user"
+                    android:background="@drawable/menu_one"
                     android:layout_marginTop="@dimen/_10sdp"/>
 
             <TextView
@@ -205,7 +205,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:text="@string/my_profile"
+                    android:text="@string/other"
                     android:gravity="center"
                     android:textColor="@color/light_gray"
                     android:textSize="@dimen/extra_small_size"/>
