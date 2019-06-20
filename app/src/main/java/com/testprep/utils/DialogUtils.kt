@@ -10,7 +10,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.support.v7.app.AlertDialog
-import android.text.Html
 import android.view.Window
 
 
@@ -47,11 +46,11 @@ class DialogUtils {
         ): Dialog {
             val builder = AlertDialog.Builder(context)
             builder.setTitle(titleId)
-            builder.setMessage(Html.fromHtml("<Big>$messageId</Big>"))
+            builder.setMessage(messageId)
 
 //            builder.setView(view)
-            builder.setPositiveButton(Html.fromHtml("<Big>$positiveBtnTxt</Big>"), positiveClickListener)
-            builder.setNegativeButton(Html.fromHtml("<Big>$nagativeBtnTxt</Big>"), negativeClickListener)
+            builder.setPositiveButton(positiveBtnTxt, positiveClickListener)
+            builder.setNegativeButton(nagativeBtnTxt, negativeClickListener)
 
             return builder.create()
 

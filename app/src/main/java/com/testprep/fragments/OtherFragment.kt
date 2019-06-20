@@ -1,6 +1,5 @@
 package com.testprep.fragments
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -21,6 +20,7 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
+
 class OtherFragment : Fragment() {
 
     var menuList: ArrayList<String> = ArrayList()
@@ -37,11 +37,11 @@ class OtherFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         menuList.add("Edit Profile")
-        menuList.add("My Coin")
+        menuList.add("My Payments")
         menuList.add("Add Coin")
 //        menuList.add("Logout")
 
-        other_lvList.adapter = ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, menuList)
+        other_lvList.adapter = ArrayAdapter(activity, android.R.layout.simple_list_item_1, menuList)
 
         other_lvList.onItemClickListener = OnItemClickListener { parent, view, position, id ->
 

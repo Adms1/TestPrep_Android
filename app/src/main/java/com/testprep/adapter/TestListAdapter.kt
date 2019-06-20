@@ -1,14 +1,17 @@
 package com.testprep.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
+import com.testprep.activity.TabwiseQuestionActivity
+import com.testprep.models.TestListModel
 
-class TestListAdapter(val context: Context) :
+class TestListAdapter(val context: Context, var dataList: ArrayList<TestListModel.TestData>) :
     RecyclerView.Adapter<TestListAdapter.viewholder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
@@ -23,18 +26,26 @@ class TestListAdapter(val context: Context) :
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return dataList.size
     }
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-//        p0.name.text = "Std: " + dataList[p1].StandardName
+        p0.name.text = dataList[p1].TestName
+
+        p0.test.setOnClickListener {
+
+            val intent = Intent(context, TabwiseQuestionActivity::class.java)
+            context.startActivity(intent)
+
+        }
 
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var name: TextView = itemView.findViewById(R.id.test_item_tvTestName)
+        var test: TextView = itemView.findViewById(R.id.test_item_tvStart)
 
     }
 }

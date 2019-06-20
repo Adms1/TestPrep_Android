@@ -3,6 +3,7 @@ package com.testprep.retrofit
 import com.google.gson.JsonObject
 import com.testprep.models.MainModel
 import com.testprep.models.PackageData
+import com.testprep.models.TestListModel
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -70,5 +71,9 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Get_StudentTestPackage")
     fun myTestPackage(@Field("StudentID") stuid: String): Call<PackageData>
+
+    @FormUrlEncoded
+    @POST("Get_StudentTest")
+    fun getTestList(@Field("StudentID") stuid: String, @Field("StudentTestPackageID") StudentTestPackageID: String): Call<TestListModel>
 
 }

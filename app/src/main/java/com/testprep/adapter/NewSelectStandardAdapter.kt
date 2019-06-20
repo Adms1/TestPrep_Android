@@ -37,7 +37,12 @@ class NewSelectStandardAdapter(val context: Context, val dataList: ArrayList<Get
         p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].StandardName.substring(0, 1)))
 
         p0.title.text = "Std: " + dataList[p1].StandardName
-        p0.stitle.text = dataList[p1].StandardName
+
+        if (dataList[p1].StandardName.contains(" ")) {
+            p0.stitle.text = dataList[p1].StandardName.substring(0, 2)
+        } else {
+            p0.stitle.text = dataList[p1].StandardName
+        }
 
         p0.image.setOnClickListener {
 

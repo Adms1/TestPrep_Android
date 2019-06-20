@@ -1,6 +1,7 @@
 package com.testprep.activity
 
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -78,7 +79,22 @@ class PackageDetailActivity : AppCompatActivity() {
         }
 
         package_detail_btnAddTocart.setOnClickListener {
-            callAddTestPackageApi()
+
+            DialogUtils.createConfirmDialog(
+                this@PackageDetailActivity,
+                "",
+                "are you sure you want to buy this package?",
+                "Yes",
+                "No",
+                DialogInterface.OnClickListener { dialog, which ->
+                    callAddTestPackageApi()
+
+                },
+                DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+
+
+                }).show()
         }
     }
 
