@@ -22,8 +22,8 @@ import com.testprep.old.PageActivity
 import com.testprep.old.PageViewFragment
 import com.testprep.old.adapter.SelectImageOptionAdapter
 import com.testprep.old.models.QuestionResponse
-import com.testprep.old.retrofit.ApiClient
-import com.testprep.old.retrofit.ApiInterface
+import com.testprep.retrofit.WebClient
+import com.testprep.retrofit.WebInterface
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.fragment_page_view.*
 import retrofit2.Call
@@ -98,7 +98,7 @@ class NewPageviewFragment : Fragment() {
                 // Start your app main activity
                 Log.d("sizeee", "" + imgQue!!.width + ", " + imgQue!!.height)
 
-                Picasso.get().load("http://content.testcraft.co.in/question/" + que_list[que_num].titleimg)
+                Picasso.get().load("http://content.testcraft.co.in/question/" + que_list[que_num].QuestionImage)
 
                     .resize(imgQue!!.width, imgQue!!.height)
 //            .transform(imageTransform(200, true))
@@ -109,7 +109,7 @@ class NewPageviewFragment : Fragment() {
                 if (activity != null) {
                     ansList!!.adapter = SelectImageOptionAdapter(
                         activity!!,
-                        que_list[que_num].mcq,
+                        que_list[que_num].StudentTestQuestionMCQ,
                         imgQue!!.width
                     )
                 }
@@ -137,23 +137,23 @@ class NewPageviewFragment : Fragment() {
 //        sortDialog.setContentView(getRoot())
         sortDialog.show()
 
-        val apiService = ApiClient.getClient().create(ApiInterface::class.java)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getTopRatedMovies("t1506-o2506-u3506-r4506")
+        val call = apiService.getQuestions("2")
         call.enqueue(object : Callback<QuestionResponse> {
             override fun onResponse(call: Call<QuestionResponse>, response: Response<QuestionResponse>) {
 
-                if (response.body()!!.message == "Success") {
+                if (response.body()!!.Msg == "Success") {
                     val movies = response.body()!!.data
 
                     totall.text = "Total" + movies.size
 
                     qno.text = "Q." + (PageActivity.countt + 1)
 
-                    Log.d("qid", "" + movies[0].id)
+                    Log.d("qid", "" + movies[0].QuestionID)
 
                     if (PageActivity.countt >= 0) {
-                        if ("http://content.testcraft.co.in/question/" + movies[0].titleimg != "") {
+                        if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
 
 //                            var url = URL("http://content.testcraft.co.in/question/" + movies[pos].titleimg)
 //                            var bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
@@ -163,7 +163,7 @@ class NewPageviewFragment : Fragment() {
 
 //                            Log.d("imgsize", "widht" + widhtx + "  height" + heightx)
 
-                            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].titleimg)
+                            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
                                 .resize(page_img_que_img.width, page_img_que_img.height)
                                 .into(page_img_que_img)
 
@@ -186,13 +186,13 @@ class NewPageviewFragment : Fragment() {
                             ansList!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                             ansList!!.adapter = SelectImageOptionAdapter(
                                 activity!!,
-                                movies[0].mcq,
+                                movies[0].StudentTestQuestionMCQ,
                                 page_img_que_img.width
                             )
                         }
                     } else {
-                        if ("http://content.testcraft.co.in/question/" + movies[0].titleimg != "") {
-                            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].titleimg)
+                        if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
+                            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
                                 .resize(page_img_que_img.width, page_img_que_img.height)
                                 .into(page_img_que_img)
 
@@ -201,7 +201,7 @@ class NewPageviewFragment : Fragment() {
                         ansList!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                         ansList!!.adapter = SelectImageOptionAdapter(
                             activity!!,
-                            movies[0].mcq,
+                            movies[0].StudentTestQuestionMCQ,
                             page_img_que_img.width
                         )
 

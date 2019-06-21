@@ -10,8 +10,8 @@ import android.view.Window
 import android.widget.Toast
 import com.testprep.R
 import com.testprep.old.models.QuestionResponse
-import com.testprep.old.retrofit.ApiClient
-import com.testprep.old.retrofit.ApiInterface
+import com.testprep.retrofit.WebClient
+import com.testprep.retrofit.WebInterface
 import kotlinx.android.synthetic.main.activity_page.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -124,13 +124,13 @@ class PageActivity : AppCompatActivity() {
 //        sortDialog.setContentView(getRoot())
         sortDialog.show()
 
-        val apiService = ApiClient.getClient().create(ApiInterface::class.java)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getTopRatedMovies("t1506-o2506-u3506-r4506")
+        val call = apiService.getQuestions("2")
         call.enqueue(object : Callback<QuestionResponse> {
             override fun onResponse(call: Call<QuestionResponse>, response: Response<QuestionResponse>) {
 
-                if (response.body()!!.message == "Success") {
+                if (response.body()!!.Msg == "Success") {
                     val movies = response.body()!!.data
 
                     questionss = response.body()!!.data

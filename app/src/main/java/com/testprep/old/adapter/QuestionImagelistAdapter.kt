@@ -31,20 +31,28 @@ class QuestionImagelistAdapter(val context: Context, val dataList: ArrayList<Que
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        if("http://content.testcraft.co.in/question/" + dataList[p1].titleimg != "") {
-            Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].titleimg).into(p0.quesimg)
+        if ("http://content.testcraft.co.in/question/" + dataList[p1].QuestionImage != "") {
+            Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].QuestionImage).into(p0.quesimg)
         }
-        if("http://content.testcraft.co.in/question/" + dataList[p1].mcq[0].titleimg != "") {
-            Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].mcq[0].titleimg).into(p0.opone1)
+        if ("http://content.testcraft.co.in/question/" + dataList[p1].StudentTestQuestionMCQ[0].AnswerImage != "") {
+            Picasso.get()
+                .load("http://content.testcraft.co.in/question/" + dataList[p1].StudentTestQuestionMCQ[0].AnswerImage)
+                .into(p0.opone1)
         }
-        if("http://content.testcraft.co.in/question/" + dataList[p1].mcq[1].titleimg != "") {
-            Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].mcq[1].titleimg).into(p0.optwo1)
+        if ("http://content.testcraft.co.in/question/" + dataList[p1].StudentTestQuestionMCQ[1].AnswerImage != "") {
+            Picasso.get()
+                .load("http://content.testcraft.co.in/question/" + dataList[p1].StudentTestQuestionMCQ[1].AnswerImage)
+                .into(p0.optwo1)
         }
-        if("http://content.testcraft.co.in/question/" + dataList[p1].mcq[2].titleimg != "") {
-            Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].mcq[2].titleimg).into(p0.opthree1)
+        if ("http://content.testcraft.co.in/question/" + dataList[p1].StudentTestQuestionMCQ[2].AnswerImage != "") {
+            Picasso.get()
+                .load("http://content.testcraft.co.in/question/" + dataList[p1].StudentTestQuestionMCQ[2].AnswerImage)
+                .into(p0.opthree1)
         }
-        if("http://content.testcraft.co.in/question/" + dataList[p1].mcq[3].titleimg != "") {
-            Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].mcq[3].titleimg).into(p0.opfour1)
+        if ("http://content.testcraft.co.in/question/" + dataList[p1].StudentTestQuestionMCQ[3].AnswerImage != "") {
+            Picasso.get()
+                .load("http://content.testcraft.co.in/question/" + dataList[p1].StudentTestQuestionMCQ[3].AnswerImage)
+                .into(p0.opfour1)
         }
 
             p0.opone.setOnCheckedChangeListener { group, checkedId ->

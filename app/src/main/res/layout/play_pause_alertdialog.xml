@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/add_cart_bg"
+        android:padding="@dimen/_10sdp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test Pause"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/dialog_tvHeader"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="@dimen/_20sdp"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/dialog_line"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_tvHeader"
+            android:background="#EFEFEF"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Abort"
+            app:layout_constraintTop_toBottomOf="@id/dialog_line1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:id="@+id/dialog_tvAbort"
+            android:gravity="center"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_15sdp"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/dialog_line1"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_tvResume"
+            android:background="#EFEFEF"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/dialog_tvCancel"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_line2"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:textColor="@color/black"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/_15sdp"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/dialog_line2"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_tvAbort"
+            android:background="#EFEFEF"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resume"
+            android:id="@+id/dialog_tvResume"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialog_line"
+            android:textColor="@color/green"
+            android:textSize="@dimen/_15sdp"/>
+
+</android.support.constraint.ConstraintLayout>

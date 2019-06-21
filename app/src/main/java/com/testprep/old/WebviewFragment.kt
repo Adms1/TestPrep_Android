@@ -9,11 +9,10 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import com.testprep.R
-import com.testprep.old.WebviewPageActivity.Companion.count
 import com.testprep.old.adapter.SelectOptionAdapter
 import com.testprep.old.models.QuestionResponse
-import com.testprep.old.retrofit.ApiClient
-import com.testprep.old.retrofit.ApiInterface
+import com.testprep.retrofit.WebClient
+import com.testprep.retrofit.WebInterface
 import kotlinx.android.synthetic.main.fragment_webview.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -65,24 +64,24 @@ class WebviewFragment : Fragment() {
 //        sortDialog.setContentView(getRoot())
         sortDialog.show()
 
-        val apiService = ApiClient.getClient().create(ApiInterface::class.java)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getTopRatedMovies("t1506-o2506-u3506-r4506")
+        val call = apiService.getQuestions("2")
         call.enqueue(object : Callback<QuestionResponse> {
             override fun onResponse(call: Call<QuestionResponse>, response: Response<QuestionResponse>) {
 
-                if (response.body()!!.message == "Success") {
+                if (response.body()!!.Msg == "Success") {
                     val movies = response.body()!!.data
 
-                    wv_que_img.loadData(
-                        "<b>Q." + (count+1) + "</b> " + movies[0].title + movies[0].titlehtml,
-                        "text/html",
-                        "UTF-8"
-                    )
+//                    wv_que_img.loadData(
+//                        "<b>Q." + (count+1) + "</b> " + movies[0].title + movies[0].titlehtml,
+//                        "text/html",
+//                        "UTF-8"
+//                    )
 
                     wv_question_list.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                     wv_question_list.adapter =
-                        SelectOptionAdapter(activity!!, movies[0].mcq)
+                        SelectOptionAdapter(activity!!, movies[0].StudentTestQuestionMCQ)
 
 //                    optwo1.loadData(
 //                        movies[0].mcq[0].title + "<div></div>" + movies[0].mcq[0].titlehtml,

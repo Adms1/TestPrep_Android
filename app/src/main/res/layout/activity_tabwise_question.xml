@@ -12,10 +12,22 @@
             app:layout_constraintTop_toTopOf="parent"
             android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:paddingTop="@dimen/_15sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:background="@color/colorPrimary"
+            android:background="@color/white"
             android:layout_height="wrap_content">
+
+        <CheckBox
+                android:id="@+id/queTab_ivPlayPause"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center"
+                android:checked="true"
+                android:button="@drawable/play_pause_checkbox"/>
 
         <TextView
                 android:text="@string/_00_00"
@@ -27,11 +39,10 @@
                 android:textSize="@dimen/_15sdp"
                 android:paddingLeft="@dimen/_5sdp"
                 android:paddingRight="@dimen/_5sdp"
+                android:layout_toRightOf="@+id/queTab_ivPlayPause"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:textColor="@color/white"
-                android:maxLines="1"
-                android:layout_alignParentLeft="true"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:textColor="@color/dark_sky_blue"
+                android:maxLines="1"/>
 
         <TextView
                 android:text="@string/submit"
@@ -44,7 +55,7 @@
                 android:paddingLeft="@dimen/_5sdp"
                 android:textStyle="bold"
                 android:paddingRight="@dimen/_5sdp"
-                android:textColor="@color/white"
+                android:textColor="@color/dark_sky_blue"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:layout_alignParentRight="true"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -56,16 +67,14 @@
             app:layout_constraintTop_toBottomOf="@+id/queTab_llTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/light_blue"
             android:layout_gravity="center_horizontal"
             app:tabGravity="fill"
             app:tabTextColor="@color/gray"
-
-
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:tabTextAppearance="@style/TextAppearance.Design.Tab"
-            app:tabSelectedTextColor="@color/white"
+            app:tabSelectedTextColor="@color/dark_sky_blue"
             app:tabIndicatorColor="@color/black"
             android:overScrollMode="never"
             app:tabMode="scrollable"/>

@@ -2,16 +2,23 @@ package com.testprep.old.models
 
 class QuestionResponse {
 
-    var status = ""
-    var message = ""
+    var Status = ""
+    var Msg = ""
     var data: ArrayList<QuestionList> = ArrayList()
 
     class QuestionList{
-        var id = ""
-        var title = ""
-        var titlehtml = ""
-        var titleimg = ""
+        var QuestionID = ""
+        var QuestionTypeID = ""
+        var Marks = ""
+        var QuestionImage = ""
         var iscorrect = ""
-        var mcq: ArrayList<QuestionList> = ArrayList()
+        var StudentTestQuestionMCQ: ArrayList<QuestionDataList> = ArrayList()
     }
+
+    class QuestionDataList {
+        var MultipleChoiceQuestionAnswerID = ""
+        var AnswerImage = ""
+        var IsCorrectAnswer = ""
+    }
+
 }

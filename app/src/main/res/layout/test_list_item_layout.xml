@@ -4,32 +4,51 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:layout_margin="@dimen/_5sdp"
-        android:padding="@dimen/_5sdp"
-        android:background="@drawable/add_cart_bg">
+        android:padding="@dimen/_5sdp">
 
     <TextView
             android:id="@+id/test_item_tvTestName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/normal_text_size"
+            android:textSize="@dimen/regular_text_size"
             android:maxLines="1"
             android:padding="@dimen/_5sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="Test name test name test name"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
             android:id="@+id/test_item_tvStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/normal_text_size"
-            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/regular_text_size"
+            app:layout_constraintRight_toLeftOf="@+id/test_item_ivStart"
             app:layout_constraintTop_toTopOf="parent"
             android:maxLines="1"
             android:text="Start"
-            android:textColor="@color/green"
+            android:textColor="@color/light_green"
             android:padding="@dimen/_5sdp"/>
+
+    <ImageView
+            android:id="@+id/test_item_ivStart"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:textSize="@dimen/regular_text_size"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/test_item_tvStart"
+            android:src="@drawable/back_button"
+            android:rotation="180"
+            android:textColor="@color/light_green"
+            android:padding="@dimen/_5sdp"/>
+
+    <View
+            android:layout_height="@dimen/_1sdp"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/test_item_tvTestName"
+            android:background="#EFEFEF"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -11,7 +11,8 @@ import android.widget.RadioGroup
 import com.testprep.R
 import com.testprep.old.models.QuestionResponse
 
-class SelectOptionAdapter(val context: Context, val dataList: ArrayList<QuestionResponse.QuestionList>) : RecyclerView.Adapter<SelectOptionAdapter.viewholder>() {
+class SelectOptionAdapter(val context: Context, val dataList: ArrayList<QuestionResponse.QuestionDataList>) :
+    RecyclerView.Adapter<SelectOptionAdapter.viewholder>() {
 
     private var lastCheckedRadioGroup: RadioGroup? = null
 
@@ -33,11 +34,11 @@ class SelectOptionAdapter(val context: Context, val dataList: ArrayList<Question
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        p0.opone1.loadData(
-            dataList[p1].title + "<div></div>" + dataList[p1].titlehtml,
-            "text/html",
-            "UTF-8"
-        )
+//        p0.opone1.loadData(
+//            dataList[p1].title + "<div></div>" + dataList[p1].titlehtml,
+//            "text/html",
+//            "UTF-8"
+//        )
 
         var id = (p1 + 1) * 100
 //        for (i in 0..4) {

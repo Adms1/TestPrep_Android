@@ -16,8 +16,8 @@ import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.old.adapter.SelectImageOptionAdapter
 import com.testprep.old.models.QuestionResponse
-import com.testprep.old.retrofit.ApiClient
-import com.testprep.old.retrofit.ApiInterface
+import com.testprep.retrofit.WebClient
+import com.testprep.retrofit.WebInterface
 import kotlinx.android.synthetic.main.fragment_page_view.*
 import kotlinx.android.synthetic.main.fragment_webview.wv_question_list
 import retrofit2.Call
@@ -79,28 +79,28 @@ class PageView2Fragment : Fragment() {
 //        sortDialog.setContentView(getRoot())
         sortDialog.show()
 
-        val apiService = ApiClient.getClient().create(ApiInterface::class.java)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getTopRatedMovies("t1506-o2506-u3506-r4506")
+        val call = apiService.getQuestions("2")
         call.enqueue(object : Callback<QuestionResponse> {
             override fun onResponse(call: Call<QuestionResponse>, response: Response<QuestionResponse>) {
 
-                if (response.body()!!.message == "Success") {
+                if (response.body()!!.Msg == "Success") {
                     val movies = response.body()!!.data
 
                     totall.text = "Total" + movies.size
 
                     qno.text = "Q." + (PageActivity.countt +1)
 
-                    Log.d("qid", ""+movies[0].id)
+                    Log.d("qid", "" + movies[0].QuestionID)
 
                     if(PageActivity.countt >= 0) {
-                        if ("http://content.testcraft.co.in/question/" + movies[0].titleimg != "") {
+                        if ("http://content.testcraft.co.in/question/" + movies[0].QuestionTypeID != "") {
 
-                            var url = URL("http://content.testcraft.co.in/question/" + movies[0].titleimg)
+                            var url = URL("http://content.testcraft.co.in/question/" + movies[0].QuestionTypeID)
 //                            var bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
 
-                            DownLoadImageTask().execute("http://content.testcraft.co.in/question/" + movies[0].titleimg)
+                            DownLoadImageTask().execute("http://content.testcraft.co.in/question/" + movies[0].QuestionTypeID)
 
 //                            val chunk = bmp.ninePatchChunk
 //                            val np = NinePatchDrawable(bmp, chunk, Rect(), null)
@@ -157,13 +157,13 @@ class PageView2Fragment : Fragment() {
                             wv_question_list.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                             wv_question_list.adapter = SelectImageOptionAdapter(
                                 activity!!,
-                                movies[0].mcq,
+                                movies[0].StudentTestQuestionMCQ,
                                 page_img_que_img.width
                             )
                         }
                     }else{
-                        if ("http://content.testcraft.co.in/question/" + movies[0].titleimg != "") {
-                            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].titleimg)
+                        if ("http://content.testcraft.co.in/question/" + movies[0].QuestionTypeID != "") {
+                            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionTypeID)
                                 .resize(page_img_que_img.width, page_img_que_img.height)
                                 .into(page_img_que_img)
 
@@ -172,7 +172,7 @@ class PageView2Fragment : Fragment() {
                         wv_question_list.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
                         wv_question_list.adapter = SelectImageOptionAdapter(
                             activity!!,
-                            movies[0].mcq,
+                            movies[0].StudentTestQuestionMCQ,
                             page_img_que_img.width
                         )
 

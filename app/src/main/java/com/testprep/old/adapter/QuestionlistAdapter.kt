@@ -32,32 +32,32 @@ class QuestionlistAdapter(val context: Context, val dataList: ArrayList<Question
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-            p0.quesimg.loadData(
-                "<b>Q." + (p1 + 1) + "</b> " + dataList[p1].title + dataList[p1].titlehtml,
-                "text/html",
-                "UTF-8"
-            )
-
-            p0.optwo1.loadData(
-                dataList[p1].mcq[0].title + "<div></div>" + dataList[p1].mcq[0].titlehtml,
-                "text/html",
-                "UTF-8"
-            )
-            p0.opone1.loadData(
-                dataList[p1].mcq[1].title + "<div></div>" + dataList[p1].mcq[1].titlehtml,
-                "text/html",
-                "UTF-8"
-            )
-            p0.opthree1.loadData(
-                dataList[p1].mcq[2].title + "<div></div>" + dataList[p1].mcq[2].titlehtml,
-                "text/html",
-                "UTF-8"
-            )
-            p0.opfour1.loadData(
-                dataList[p1].mcq[3].title + "<div></div>" + dataList[p1].mcq[3].titlehtml,
-                "text/html",
-                "UTF-8"
-            )
+//            p0.quesimg.loadData(
+//                "<b>Q." + (p1 + 1) + "</b> " + dataList[p1].title + dataList[p1].titlehtml,
+//                "text/html",
+//                "UTF-8"
+//            )
+//
+//            p0.optwo1.loadData(
+//                dataList[p1].mcq[0].title + "<div></div>" + dataList[p1].mcq[0].titlehtml,
+//                "text/html",
+//                "UTF-8"
+//            )
+//            p0.opone1.loadData(
+//                dataList[p1].mcq[1].title + "<div></div>" + dataList[p1].mcq[1].titlehtml,
+//                "text/html",
+//                "UTF-8"
+//            )
+//            p0.opthree1.loadData(
+//                dataList[p1].mcq[2].title + "<div></div>" + dataList[p1].mcq[2].titlehtml,
+//                "text/html",
+//                "UTF-8"
+//            )
+//            p0.opfour1.loadData(
+//                dataList[p1].mcq[3].title + "<div></div>" + dataList[p1].mcq[3].titlehtml,
+//                "text/html",
+//                "UTF-8"
+//            )
 
             p0.opone.setOnCheckedChangeListener { group, checkedId ->
 

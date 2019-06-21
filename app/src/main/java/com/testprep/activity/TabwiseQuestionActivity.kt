@@ -1,6 +1,7 @@
 package com.testprep.activity
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
@@ -10,16 +11,17 @@ import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
+import android.widget.TextView
 import com.testprep.R
 import com.testprep.adapter.QuestionsPagerAdapter
 import com.testprep.old.PageActivity
 import com.testprep.old.models.QuestionResponse
-import com.testprep.old.retrofit.ApiClient
-import com.testprep.old.retrofit.ApiInterface
+import com.testprep.retrofit.WebClient
+import com.testprep.retrofit.WebInterface
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.activity_tabwise_question.*
@@ -48,7 +50,7 @@ class TabwiseQuestionActivity : AppCompatActivity() {
         )
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        setContentView(R.layout.activity_tabwise_question)
+        setContentView(com.testprep.R.layout.activity_tabwise_question)
 
 //        mToolbar = (Toolbar) findViewById(com.testprep.R.id.sliding_tabs)
 //        sliding_tabs.setOnTabSelectedListener(this)
@@ -60,6 +62,41 @@ class TabwiseQuestionActivity : AppCompatActivity() {
             getLastPage()
             queTab_viewpager.currentItem = queTab_viewpager.currentItem + 1
             queTab_tvTotal.text = """${queTab_viewpager.currentItem + 1}/${movies.size}"""
+        }
+
+        queTab_ivPlayPause.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            stopTimer()
+
+            val dialog = Dialog(this@TabwiseQuestionActivity)
+            dialog.setContentView(R.layout.play_pause_alertdialog)
+            dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
+//            var wmlp: WindowManager.LayoutParams = dialog.window.attributes
+//            wmlp.width = WindowManager.LayoutParams.MATCH_PARENT
+//            wmlp.height = WindowManager.LayoutParams.WRAP_CONTENT
+            dialog.window!!.setGravity(Gravity.BOTTOM)
+            dialog.setCanceledOnTouchOutside(false)
+
+            val cancelBtn: TextView = dialog.findViewById(R.id.dialog_tvCancel)
+            val resumeBtn: TextView = dialog.findViewById(R.id.dialog_tvResume)
+            val abortBtn: TextView = dialog.findViewById(R.id.dialog_tvAbort)
+
+            cancelBtn.setOnClickListener {
+                dialog.dismiss()
+                timerResume()
+            }
+
+            resumeBtn.setOnClickListener {
+                timerResume()
+                dialog.dismiss()
+            }
+
+            abortBtn.setOnClickListener { onBackPressed() }
+
+            dialog.show()
+
+            queTab_ivPlayPause.isChecked = !isChecked
+
         }
 
         queTab_btnPrevious.setOnClickListener { v: View? ->
@@ -130,17 +167,17 @@ class TabwiseQuestionActivity : AppCompatActivity() {
 
         DialogUtils.showDialog(this@TabwiseQuestionActivity)
 
-        val apiService = ApiClient.getClient().create(ApiInterface::class.java)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getTopRatedMovies("t1506-o2506-u3506-r4506")
+        val call = apiService.getQuestions("2")
         call.enqueue(object : Callback<QuestionResponse> {
             override fun onResponse(call: Call<QuestionResponse>, response: Response<QuestionResponse>) {
 
                 DialogUtils.dismissDialog()
 
-                setCountdown("10")
+                setCountdown(30 * 60 * 1000)
 
-                if (response.body()!!.message == "Success") {
+//                if (response.body()!!.Msg == "Question List ") {
                     movies = response.body()!!.data
 
                     queTab_tvTotal.text = """1/${movies.size}"""
@@ -148,13 +185,13 @@ class TabwiseQuestionActivity : AppCompatActivity() {
 
 //                    qno.text = "Q." + (PageActivity.countt +1)
 
-                    Log.d("qid", "" + movies[0].id)
+                Log.d("qid", "" + movies[0].QuestionID)
 
                     if (PageActivity.countt >= 0) {
 
                         Utils.saveArrayList(this@TabwiseQuestionActivity, movies, "que_list")
 
-                        if ("http://content.testcraft.co.in/question/" + movies[0].titleimg != "") {
+                        if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
 
                             for (i in 0 until movies.size) {
                                 queTab_sliding_tabs.addTab(queTab_sliding_tabs.newTab().setText((i + 1).toString()))
@@ -169,28 +206,45 @@ class TabwiseQuestionActivity : AppCompatActivity() {
                         }
                     }
                     Log.d("imgcall", "Number of movies received: " + movies.size)
-                } else {
-
-                    Toast.makeText(this@TabwiseQuestionActivity, "No Question at that time", Toast.LENGTH_LONG).show()
-                }
+//                } else {
+//
+//                    Toast.makeText(this@TabwiseQuestionActivity, "No Question at that time", Toast.LENGTH_LONG).show()
+//                }
             }
 
             override fun onFailure(call: Call<QuestionResponse>, t: Throwable) {
                 // Log error here since request failed
-                Log.e("", t.toString())
+                Log.e("question res", t.toString())
                 DialogUtils.dismissDialog()
             }
         })
     }
 
-    private fun setCountdown(minute: String) {
+    var waitTimer: CountDownTimer? = null
+    var milliLeft: Long = 0
 
-        val mili = TimeUnit.MINUTES.toMillis(minute.toLong())
+    private fun stopTimer() {
+        if (waitTimer != null) {
+            waitTimer!!.cancel()
+            waitTimer = null
+        }
+    }
 
-        object : CountDownTimer(mili, 1000) {
+    private fun timerResume() {
+//        Log.i("min", java.lang.Long.toString(min))
+//        Log.i("Sec", java.lang.Long.toString(sec))
+        setCountdown(milliLeft)
+    }
+
+    private fun setCountdown(minute: Long) {
+
+//        val mili = TimeUnit.MINUTES.toMillis(minute.toLong())
+
+        waitTimer = object : CountDownTimer(minute, 1000) {
 
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
+                milliLeft = millisUntilFinished
                 queTab_tvTimer.text = "" + String.format(
                     "%02d : %02d",
                     TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
@@ -203,7 +257,7 @@ class TabwiseQuestionActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                queTab_tvTimer.text = getString(R.string._00_00)
+                queTab_tvTimer.text = getString(com.testprep.R.string._00_00)
             }
         }.start()
     }
@@ -212,10 +266,10 @@ class TabwiseQuestionActivity : AppCompatActivity() {
 
         if (queTab_viewpager.currentItem == movies.size - 1) {
 
-            queTab_btnNext.text = getString(R.string.finish)
+            queTab_btnNext.text = getString(com.testprep.R.string.finish)
 
         } else {
-            queTab_btnNext.text = getString(R.string.next)
+            queTab_btnNext.text = getString(com.testprep.R.string.next)
         }
     }
 

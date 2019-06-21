@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#00B7C5</color>
     <color name="colorPrimaryDark">#00B7C5</color>
-    <color name="colorAccent">#e3e1e3</color>
+    <color name="colorAccent">@color/nfcolor</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
@@ -13,6 +13,7 @@
     <color name="green">#47841F</color>
     <color name="red">#FF0012</color>
 
+    <color name="light_green">#209900</color>
     <color name="nfcolor">#0060DC</color>
     <color name="light_gray">#9A9A9A</color>
     <color name="fb_bg">#3B699D</color>

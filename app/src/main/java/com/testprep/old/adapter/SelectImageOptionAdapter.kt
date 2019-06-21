@@ -16,7 +16,7 @@ import com.testprep.old.models.QuestionResponse
 
 class SelectImageOptionAdapter(
     val context: Context,
-    val dataList: ArrayList<QuestionResponse.QuestionList>,
+    val dataList: ArrayList<QuestionResponse.QuestionDataList>,
     var qsize: Int
 ) :
     RecyclerView.Adapter<SelectImageOptionAdapter.viewholder>() {
@@ -29,7 +29,7 @@ class SelectImageOptionAdapter(
 
         return viewholder(
             LayoutInflater.from(context).inflate(
-                com.testprep.R.layout.select_image_option_list_view,
+                R.layout.select_image_option_list_view,
                 p0,
                 false
             )
@@ -61,13 +61,13 @@ class SelectImageOptionAdapter(
 //            }
 //        }).start()
 
-        if ("http://content.testcraft.co.in/question/" + dataList[p1].titleimg != "") {
+        if ("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage != "") {
 
             Log.d("qsize", "" + qsize)
 
             var imgwidth: Int = 100
 
-            Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].titleimg)
+            Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage)
                 .resize(qsize, p0.opone1.height)
 //                .fit()
 //                .centerInside()
