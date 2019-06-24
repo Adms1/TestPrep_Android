@@ -24,10 +24,10 @@
     <string name="google">Continue with Google</string>
     <string name="forgot_pass">Forgot Password?</string>
     <string name="sign_in">ALREADY HAVE AN ACCOUNT?
-        <font color="#00B7C5">SIGN IN</font>
+        <font color="#10A8DD">SIGN IN</font>
     </string>
     <string name="sign_up">DON\'T HAVE AN ACCOUNT?
-        <font color="#00B7C5">SIGN UP</font>
+        <font color="#10A8DD">SIGN UP</font>
     </string>
     <string name="full_name">First Name</string>
     <string name="mobile">Mobile Number</string>
@@ -45,7 +45,7 @@
     <string name="update">Update</string>
     <string name="test">Test</string>
     <string name="forgot_password">Forgot Password</string>
-    <string name="verify">Verify</string>
+    <string name="verify">Verify the Code</string>
     <string name="course_type">Course Type</string>
     <string name="home">Home</string>
     <string name="questions">Questions</string>
@@ -80,6 +80,13 @@
     <string name="no">No</string>
     <string name="filter">Filter</string>
     <string name="other">Other</string>
+    <string name="enter_verification_code">Enter Verification Code</string>
+    <string name="resend_code">Didn\'t receive the code?
+        <font color="#10A8DD">Resend</font>
+    </string>
+    <string name="email_or_mobile_number">EMAIL or Mobile Number</string>
+    <string name="check_mail">Check Your email</string>
+    <string name="go_to_email">Go to Email</string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>

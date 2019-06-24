@@ -50,7 +50,10 @@ class TestListActivity : AppCompatActivity() {
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getTestList(Utils.getStringValue(this@TestListActivity, AppConstants.USER_ID, "0")!!, "1")
+        val call = apiService.getTestList(
+            Utils.getStringValue(this@TestListActivity, AppConstants.USER_ID, "0")!!,
+            intent.getStringExtra("pkgid")
+        )
         call.enqueue(object : Callback<TestListModel> {
             override fun onResponse(call: Call<TestListModel>, response: Response<TestListModel>) {
 

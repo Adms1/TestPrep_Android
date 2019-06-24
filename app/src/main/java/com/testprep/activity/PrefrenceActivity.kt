@@ -132,57 +132,75 @@ class PrefrenceActivity : AppCompatActivity() {
 
     fun expand() {
 
-        step1_arrow.setOnClickListener {
+        rlOp1.setOnClickListener {
 
-            if (isOpen1) {
+            step2_arrow.rotation = 0f
+            step3_arrow.rotation = 0f
+
+            coarse_rvStandardList.visibility = GONE
+            coarse_rvSubjectList.visibility = GONE
+
+//            if (isOpen1) {
                 coarse_rvCoarseList.visibility = VISIBLE
                 step1_arrow.rotation = 180f
 
-                isOpen1 = false
-
-            } else {
-                coarse_rvCoarseList.visibility = GONE
-                step1_arrow.rotation = 0f
-
-                isOpen1 = true
-
-            }
+//                isOpen1 = false
+//
+//            } else {
+//                coarse_rvCoarseList.visibility = GONE
+//                step1_arrow.rotation = 0f
+//
+//                isOpen1 = true
+//
+//            }
 
         }
 
-        step2_arrow.setOnClickListener {
+        rlOp2.setOnClickListener {
 
-            if (isOPen2) {
+            step1_arrow.rotation = 0f
+            step3_arrow.rotation = 0f
+
+            coarse_rvCoarseList.visibility = GONE
+            coarse_rvSubjectList.visibility = GONE
+
+//            if (isOPen2) {
                 coarse_rvStandardList.visibility = VISIBLE
                 step2_arrow.rotation = 180f
 
-                isOPen2 = false
-
-            } else {
-                coarse_rvStandardList.visibility = GONE
-                step2_arrow.rotation = 0f
-
-                isOPen2 = true
-
-            }
+//                isOPen2 = false
+//
+//            } else {
+//                coarse_rvStandardList.visibility = GONE
+//                step2_arrow.rotation = 0f
+//
+//                isOPen2 = true
+//
+//            }
 
         }
 
-        step3_arrow.setOnClickListener {
+        rlOp3.setOnClickListener {
 
-            if (isOpen3) {
+            step2_arrow.rotation = 0f
+            step1_arrow.rotation = 0f
+
+            coarse_rvStandardList.visibility = GONE
+            coarse_rvCoarseList.visibility = GONE
+
+//            if (isOpen3) {
                 coarse_rvSubjectList.visibility = VISIBLE
                 step3_arrow.rotation = 180f
 
-                isOpen3 = false
+//                isOpen3 = false
 
-            } else {
-                coarse_rvSubjectList.visibility = GONE
-                step3_arrow.rotation = 0f
-
-                isOpen3 = true
-
-            }
+//            } else {
+//                coarse_rvSubjectList.visibility = GONE
+//                step3_arrow.rotation = 0f
+//
+//                isOpen3 = true
+//
+//            }
 
         }
 
@@ -259,7 +277,6 @@ class PrefrenceActivity : AppCompatActivity() {
                 Utils.getStringValue(this@PrefrenceActivity, "course_type_id", "")!!,
                 stdId
             )
-
         }
 
         call.enqueue(object : Callback<MainModel> {
@@ -276,6 +293,13 @@ class PrefrenceActivity : AppCompatActivity() {
                         pref_tvStep3.visibility = VISIBLE
                         coarse_rvSubjectList.visibility = VISIBLE
                         step3_arrow.visibility = VISIBLE
+
+//                        pref_tvStep1.visibility = GONE
+                        coarse_rvCoarseList.visibility = GONE
+                        step1_arrow.rotation = 0f
+
+                        coarse_rvStandardList.visibility = GONE
+                        step2_arrow.rotation = 0f
 
                         val subjectList = response.body()!!.data
 
@@ -321,13 +345,15 @@ class PrefrenceActivity : AppCompatActivity() {
 
                     if (response.body()!!.Status == "true") {
 
-                        pref_tvStep3.visibility = GONE
-                        coarse_rvSubjectList.visibility = GONE
-                        step3_arrow.visibility = GONE
-
                         pref_tvStep2.visibility = VISIBLE
                         coarse_rvStandardList.visibility = VISIBLE
                         step2_arrow.visibility = VISIBLE
+
+                        coarse_rvCoarseList.visibility = GONE
+                        step1_arrow.rotation = 0f
+
+                        coarse_rvSubjectList.visibility = GONE
+                        step3_arrow.rotation = 0f
 
                         val standardList = response.body()!!.data
 

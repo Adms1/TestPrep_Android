@@ -43,9 +43,13 @@ class SignupActivity : AppCompatActivity() {
 
         signup_btnSignup.setOnClickListener {
 
-            if (isValid()) {
-                callSignupApi()
-            }
+            val intent = Intent(this@SignupActivity, OtpActivity::class.java)
+            startActivity(intent)
+            finish()
+
+//            if (isValid()) {
+//                callSignupApi()
+//            }
         }
 
         signup_btnLogin.setOnClickListener {

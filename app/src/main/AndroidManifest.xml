@@ -12,6 +12,7 @@
     <application
             android:name=".CustomFontApp"
             android:allowBackup="true"
+            android:fitsSystemWindows="true"
             android:hardwareAccelerated="true"
             android:icon="@mipmap/logo"
             android:label="@string/app_name"
@@ -19,51 +20,45 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme2"
             android:usesCleartextTraffic="true"
-            tools:ignore="GoogleAppIndexingWarning"
-            tools:targetApi="m">
-
+            tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.CheckEmailActivity">
+        </activity>
         <activity android:name=".activity.TestListActivity"/>
-
-        <activity android:name=".activity.FilterActivity" android:theme="@style/AppTheme2"/>
-
-        <activity android:name=".activity.MarketPlaceListActivity" android:theme="@style/AppTheme2"/>
-
+        <activity
+                android:name=".activity.FilterActivity"
+                android:theme="@style/AppTheme2"/>
+        <activity
+                android:name=".activity.MarketPlaceListActivity"
+                android:theme="@style/AppTheme2"/>
         <activity android:name=".activity.SelectCompititiveActivity"/>
-
-        <activity android:name=".activity.IntroActivity" android:theme="@style/AppTheme2"/>
-
+        <activity
+                android:name=".activity.IntroActivity"
+                android:theme="@style/AppTheme2"/>
         <activity android:name=".activity.PrefrenceActivity"/>
-
         <activity android:name=".activity.NewActivity"/>
-
         <activity android:name=".activity.PackageDetailActivity"/>
-
         <activity android:name=".activity.SelectPackageActivity"/>
-
         <activity android:name=".activity.PaymentSuccessScreen"/>
-
         <activity android:name=".activity.TraknpayRequestActivity"/>
-
         <activity android:name=".old.NewPageActivity"/>
-
         <activity android:name=".activity.TabwiseQuestionActivity"/>
-
         <activity android:name=".activity.SelectStandardActivity"/>
-
         <activity android:name=".activity.SelectSubjectActivity"/>
-
         <activity android:name=".activity.SelectBoardActivity"/>
-
         <activity android:name=".activity.ForgotPasswordActivity"/>
-
-        <activity android:name=".activity.OtpActivity"/>
-
-        <activity android:name=".activity.DashboardActivity" android:windowSoftInputMode="adjustPan"/>
-
-        <activity android:name=".activity.SignupActivity" android:windowSoftInputMode="adjustPan"/>
-
-        <activity android:name=".activity.LoginActivity" android:windowSoftInputMode="adjustPan"/>
-
+        <activity
+                android:name=".activity.OtpActivity"
+                android:windowSoftInputMode="adjustPan"/>
+        <activity
+                android:name=".activity.DashboardActivity"
+                android:windowSoftInputMode="adjustPan"/>
+        <activity
+                android:name=".activity.SignupActivity"
+                android:windowSoftInputMode="adjustPan"/>
+        <activity
+                android:name=".activity.LoginActivity"
+                android:theme="@style/AppTheme2"
+                android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -71,32 +66,36 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
-        <activity android:name=".old.WebviewPageActivity" android:theme="@style/AppTheme2"/>
-
-        <activity android:name=".old.PageActivity" android:theme="@style/AppTheme2"/>
-
-        <activity android:name=".fragments.UpdateProfileFragment" android:windowSoftInputMode="adjustPan"/>
-
-        <activity android:name=".old.Main2Activity" android:label="@string/title_activity_main2"
-                  android:theme="@style/AppTheme.NoActionBar"/> <!-- <intent-filter> -->
-
+        <activity
+                android:name=".old.WebviewPageActivity"
+                android:theme="@style/AppTheme2"/>
+        <activity
+                android:name=".old.PageActivity"
+                android:theme="@style/AppTheme2"/>
+        <activity
+                android:name=".fragments.UpdateProfileFragment"
+                android:windowSoftInputMode="adjustPan"/>
+        <activity
+                android:name=".old.Main2Activity"
+                android:label="@string/title_activity_main2"
+                android:theme="@style/AppTheme.NoActionBar"/> <!-- <intent-filter> -->
         <activity android:name=".fragments.MyPaymentFragment"/>
-
-        <activity android:name=".fragments.CoinFragment" android:windowSoftInputMode="adjustPan"/>
-
-        <!-- <action android:name="android.intent.action.MAIN"/> -->
+        <activity
+                android:name=".fragments.CoinFragment"
+                android:windowSoftInputMode="adjustPan"/> <!-- <action android:name="android.intent.action.MAIN"/> -->
         <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
         <!-- </intent-filter> -->
+        <meta-data
+                android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/facebook_app_id"/>
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-
-        <activity android:name="com.facebook.FacebookActivity"
-                  android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-                  android:label="@string/app_name"/>
-
-        <activity android:name="com.facebook.CustomTabActivity" android:exported="true"/>
-
+        <activity
+                android:name="com.facebook.FacebookActivity"
+                android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                android:label="@string/app_name"/>
+        <activity
+                android:name="com.facebook.CustomTabActivity"
+                android:exported="true"/>
     </application>
 
 </manifest>

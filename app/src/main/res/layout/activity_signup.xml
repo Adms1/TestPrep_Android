@@ -33,14 +33,15 @@
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"/>
 
-    <ScrollView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_below="@+id/signup_tvHeading">
+    <!--<ScrollView-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_below="@+id/signup_tvHeading">-->
 
-        <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/signup_tvHeading">
 
             <ImageView
                     android:id="@+id/signup_ivLogo"
@@ -318,7 +319,7 @@
 
         </android.support.constraint.ConstraintLayout>
 
-    </ScrollView>
+    <!--</ScrollView>-->
 
 </RelativeLayout>
 

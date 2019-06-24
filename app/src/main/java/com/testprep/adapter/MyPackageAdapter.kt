@@ -44,6 +44,7 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
         p0.mainll.setOnClickListener {
 
             val intent = Intent(context, TestListActivity::class.java)
+            intent.putExtra("pkgid", dataList[p1].StudentTestPackageID.toString())
             context.startActivity(intent)
 
         }

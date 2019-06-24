@@ -8,92 +8,122 @@
         tools:context=".activity.OtpActivity">
 
     <ImageView
-            android:id="@+id/otp_ivLogo"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:padding="@dimen/_8sdp"
+            app:layout_constraintTop_toTopOf="@+id/otp_tvHeading"
+            app:layout_constraintBottom_toBottomOf="@+id/otp_tvHeading"
+            app:srcCompat="@drawable/back_button"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/_50sdp"
-            android:src="@mipmap/logo"
-            android:contentDescription="@string/logo"/>
+            android:id="@+id/otp_ivBack"/>
 
     <TextView
             android:id="@+id/otp_tvHeading"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/verification_code"
-            android:textColor="@color/colorPrimary"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:textSize="@dimen/_18sdp"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/otp_ivLogo"/>
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:text="@string/enter_verification_code"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/otp_ivBack"
+            android:textSize="@dimen/normal_header_size"/>
+
+    <ImageView
+            android:id="@+id/otp_ivLogo"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:src="@mipmap/logo"
+            app:layout_constraintTop_toBottomOf="@+id/otp_tvHeading"
+            android:contentDescription="@string/logo"/>
+
+    <!--<TextView-->
+    <!--android:id="@+id/otp_tvHeading"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/verification_code"-->
+    <!--android:textColor="@color/colorPrimary"-->
+    <!--android:layout_marginTop="@dimen/_20sdp"-->
+    <!--android:layout_marginLeft="@dimen/_20sdp"-->
+    <!--android:layout_marginRight="@dimen/_20sdp"-->
+    <!--android:textSize="@dimen/_18sdp"-->
+    <!--android:gravity="center"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/otp_ivLogo"/>-->
 
     <TextView
             android:id="@+id/otp_tvInstruction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Please enter verification code sent to your mobile number"
-            android:textColor="@color/gray"
+            android:text="Please enter verification code \n sent to your number"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/regular_text_size"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_25sdp"
+            android:paddingRight="@dimen/_25sdp"
+            app:layout_constraintTop_toBottomOf="@+id/otp_ivLogo"/>
+
+    <com.alahammad.otp_view.OtpView
+            android:id="@+id/otp_etOtp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/otp_tvResend"
+            app:layout_constraintTop_toBottomOf="@+id/otp_tvInstruction"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:otp_number="4"/>
+
+    <TextView
+            android:id="@+id/otp_tvResend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/resend_code"
+            android:textColor="@color/black"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/normal_text_size"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/otp_tvHeading" />
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:layout_constraintBottom_toTopOf="@+id/otp_btnSubmit"/>
 
-    <EditText
-            android:id="@+id/otp_etOtp"
+    <TextView
+            android:id="@+id/otp_tvVerificationSuccess"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/enter_otp"
+            android:text="Your Mobile Number has been virified successfully"
             android:textColor="@color/black"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:background="@drawable/gray_ring_bg"
-            android:textSize="@dimen/_14sdp"
-            android:inputType="number"
-            android:maxLines="1"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/regular_text_size"
             android:gravity="center"
-            android:layout_marginTop="@dimen/_40sdp"
-            android:imeOptions="actionDone"
-            android:paddingTop="@dimen/_7sdp"
-            android:paddingBottom="@dimen/_7sdp"
-            android:paddingLeft="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@+id/otp_tvInstruction"/>
+            android:paddingLeft="@dimen/_25sdp"
+            android:paddingRight="@dimen/_25sdp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/otp_ivLogo"
+            app:layout_constraintBottom_toTopOf="@+id/otp_btnSubmit"/>
 
     <Button
             android:id="@+id/otp_btnSubmit"
-            android:layout_width="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_height="@dimen/_35sdp"
-            android:text="@string/verify"
-            android:textColor="@color/white"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:background="@drawable/login_btn_bg"
-            android:textSize="@dimen/_14sdp"
-            android:textAllCaps="false"
-            android:paddingLeft="@dimen/_20sdp"
-            android:paddingRight="@dimen/_20sdp"
-            app:layout_constraintTop_toBottomOf="@+id/otp_etOtp"
-            android:layout_marginTop="@dimen/_20sdp"/>
-
-    <TextView
-            android:id="@+id/otp_tvSuccess"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/thank_u"
-            android:textColor="@color/green"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:textSize="@dimen/_20sdp"
-            android:gravity="center"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/otp_ivSuccess"/>
+            android:text="@string/verify"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@drawable/login_round_bg"
+            android:textSize="@dimen/regular_text_size"
+            android:textAllCaps="false"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/_20sdp"/>
 
     <ImageView
             android:id="@+id/otp_ivSuccess"

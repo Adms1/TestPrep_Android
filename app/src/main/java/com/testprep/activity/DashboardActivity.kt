@@ -54,10 +54,11 @@ class DashboardActivity : AppCompatActivity() {
 
 //        drawer_layout.setDrawerListener(mDrawerToggle)
 
-        supportFragmentManager.beginTransaction().add(R.id.container, MyPackagesFragment()).commit()
-        dash_ivHome.setImageResource(R.drawable.blue_home)
-        dash_tvHome.setTextColor(resources.getColor(R.color.nfcolor))
-        dashboard_header.text = "My Packages"
+        supportFragmentManager.beginTransaction().add(R.id.container, ChooseMarketPlaceFragment()).commit()
+        dash_ivMarket.setImageResource(R.drawable.blue_list)
+
+        dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
+        dashboard_header.text = "Market Place"
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()

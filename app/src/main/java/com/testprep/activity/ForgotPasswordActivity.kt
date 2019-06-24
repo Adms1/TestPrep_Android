@@ -1,11 +1,12 @@
 package com.testprep.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
-import android.view.WindowManager
+import android.view.View
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
@@ -29,21 +30,26 @@ class ForgotPasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_forgot_password)
 
-        forgot_pass_btnSignup.setOnClickListener {
+        forgot_pass_btnReset.setOnClickListener {
 
             if (TextUtils.isEmpty(forgot_pass_etEmail.text.toString())) {
                 forgot_pass_etEmail.error = "Please Enter Email"
             } else {
-                callForgotPasswordlApi()
+//                callForgotPasswordlApi()
+
+                val intent = Intent(this@ForgotPasswordActivity, CheckEmailActivity::class.java)
+                startActivity(intent)
+                finish()
+
             }
         }
+
+        forgot_pass_ivBack.setOnClickListener { onBackPressed() }
+
     }
 
     fun callForgotPasswordlApi() {
@@ -72,6 +78,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         )
                             .show()
+
+                        val intent = Intent(this@ForgotPasswordActivity, CheckEmailActivity::class.java)
+                        startActivity(intent)
                         finish()
 
                     } else {
