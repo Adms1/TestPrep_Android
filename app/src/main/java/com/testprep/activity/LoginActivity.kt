@@ -9,7 +9,6 @@ import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
@@ -36,10 +35,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_login)
@@ -218,5 +214,12 @@ class LoginActivity : AppCompatActivity() {
 //
 //        dialog.show()
 //    }
+
+    override fun onBackPressed() {
+
+        val intent = Intent(this@LoginActivity, IntroActivity::class.java)
+        startActivity(intent)
+
+    }
 
 }

@@ -28,7 +28,7 @@
             android:id="@+id/my_payments_ivBack"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/my_payments_header"
-            android:padding="@dimen/_8sdp"
+            android:padding="@dimen/_9sdp"
             app:layout_constraintBottom_toBottomOf="@+id/my_payments_header"/>
 
     <android.support.v7.widget.RecyclerView

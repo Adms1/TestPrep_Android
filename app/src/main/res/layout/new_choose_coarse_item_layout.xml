@@ -22,7 +22,7 @@
                 android:layout_width="@dimen/_80sdp"
                 android:layout_height="@dimen/_80sdp">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_87sdp"
                     android:id="@+id/package_image"/>

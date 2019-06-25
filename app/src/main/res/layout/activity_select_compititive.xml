@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
+        android:paddingTop="@dimen/_15sdp"
         tools:context=".activity.SelectCompititiveActivity">
 
     <TextView
@@ -16,7 +17,7 @@
             android:paddingBottom="@dimen/_7sdp"
             android:id="@+id/pref_header"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/pref_ivBack"
+            app:layout_constraintLeft_toRightOf="@+id/competitive_ivBack"
             android:textSize="@dimen/normal_header_size"
             android:gravity="center_vertical"
             android:textColor="@color/black"/>
@@ -25,10 +26,10 @@
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:src="@drawable/back_button"
-            android:id="@+id/pref_ivBack"
+            android:id="@+id/competitive_ivBack"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/pref_header"
-            android:padding="@dimen/_8sdp"
+            android:padding="@dimen/_9sdp"
             app:layout_constraintBottom_toBottomOf="@+id/pref_header"/>
 
     <TextView
@@ -37,6 +38,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/_7sdp"
             android:id="@+id/pref_tvHeader"
+            android:layout_marginTop="@dimen/_10sdp"
             android:paddingBottom="@dimen/_7sdp"
             android:textSize="@dimen/_14sdp"
             android:background="#F7FCFF"

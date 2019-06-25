@@ -6,14 +6,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".activity.FilterActivity"
+        android:paddingTop="@dimen/_15sdp"
         android:background="@color/white">
 
     <TextView
             android:text="@string/filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_10sdp"
-            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_7sdp"
+            android:paddingTop="@dimen/_7sdp"
             android:id="@+id/filter_header"
             android:layout_marginBottom="@dimen/_5sdp"
             android:ellipsize="end"
@@ -32,7 +33,7 @@
             android:id="@+id/filter_ivBack"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/filter_header"
-            android:padding="@dimen/_8sdp"
+            android:padding="@dimen/_9sdp"
             app:layout_constraintBottom_toBottomOf="@+id/filter_header"/>
 
     <View

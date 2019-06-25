@@ -39,11 +39,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
             if (TextUtils.isEmpty(forgot_pass_etEmail.text.toString())) {
                 forgot_pass_etEmail.error = "Please Enter Email"
             } else {
-//                callForgotPasswordlApi()
+                callForgotPasswordlApi()
 
-                val intent = Intent(this@ForgotPasswordActivity, CheckEmailActivity::class.java)
-                startActivity(intent)
-                finish()
+//                val intent = Intent(this@ForgotPasswordActivity, CheckEmailActivity::class.java)
+//                startActivity(intent)
+//                finish()
 
             }
         }

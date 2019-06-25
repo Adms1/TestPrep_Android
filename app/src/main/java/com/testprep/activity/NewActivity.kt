@@ -15,7 +15,7 @@ import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
-import kotlinx.android.synthetic.main.fragment_new.*
+import kotlinx.android.synthetic.main.activity_new.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,7 +39,7 @@ class NewActivity : AppCompatActivity() {
 
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        setContentView(R.layout.fragment_new)
+        setContentView(R.layout.activity_new)
 
         new_coarse_rvCoarseList.layoutManager = GridLayoutManager(this@NewActivity, 2)
 

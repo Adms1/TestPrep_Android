@@ -1,5 +1,6 @@
-package com.testprep.fragments
+package com.testprep.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -19,13 +20,18 @@ import kotlinx.android.synthetic.main.activity_signup.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class UpdateProfileFragment : AppCompatActivity() {
+class UpdateProfileActivity : AppCompatActivity() {
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
 
     var userid = ""
 
@@ -47,19 +53,19 @@ class UpdateProfileFragment : AppCompatActivity() {
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        super.onViewCreated(view, savedInstanceState)
 //
-//        val heading = this@UpdateProfileFragment.findViewById(R.id.dashboard_tvTitle) as TextView
+//        val heading = this@UpdateProfileActivity.findViewById(R.id.dashboard_tvTitle) as TextView
 //        heading.text = "Profile"
 
-        userid = Utils.getStringValue(this@UpdateProfileFragment, AppConstants.USER_ID, "").toString()
-        signup_etFname.setText(Utils.getStringValue(this@UpdateProfileFragment, AppConstants.FIRST_NAME, ""))
-        signup_etLname.setText(Utils.getStringValue(this@UpdateProfileFragment, AppConstants.LAST_NAME, ""))
-        signup_etEmail.setText(Utils.getStringValue(this@UpdateProfileFragment, AppConstants.USER_EMAIL, ""))
+        userid = Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_ID, "").toString()
+        signup_etFname.setText(Utils.getStringValue(this@UpdateProfileActivity, AppConstants.FIRST_NAME, ""))
+        signup_etLname.setText(Utils.getStringValue(this@UpdateProfileActivity, AppConstants.LAST_NAME, ""))
+        signup_etEmail.setText(Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_EMAIL, ""))
 
         signup_etEmail.isFocusable = false
 
-        signup_etPassword.setText(Utils.getStringValue(this@UpdateProfileFragment, AppConstants.USER_PASSWORD, ""))
+        signup_etPassword.setText(Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_PASSWORD, ""))
 
-        signup_etMobile.setText(Utils.getStringValue(this@UpdateProfileFragment, AppConstants.USER_MOBILE, ""))
+        signup_etMobile.setText(Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_MOBILE, ""))
 
         signup_btnSignup.text = getString(com.testprep.R.string.update)
 
@@ -75,22 +81,22 @@ class UpdateProfileFragment : AppCompatActivity() {
 
     fun callSignupApi() {
 
-        if (!DialogUtils.isNetworkConnected(this@UpdateProfileFragment)) {
-            Utils.ping(this@UpdateProfileFragment, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(this@UpdateProfileActivity)) {
+            Utils.ping(this@UpdateProfileActivity, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@UpdateProfileFragment)
+        DialogUtils.showDialog(this@UpdateProfileActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
         val call = apiService.updateProfile(
             WebRequests.addSignupParams(
-                Utils.getStringValue(this@UpdateProfileFragment, AppConstants.USER_ACCOUNT_TYPE, "")!!,
-                Utils.getStringValue(this@UpdateProfileFragment, AppConstants.USER_ID, "")!!,
+                Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_ACCOUNT_TYPE, "")!!,
+                Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_ID, "")!!,
                 signup_etFname.text.toString(),
                 signup_etLname.text.toString(),
                 signup_etEmail.text.toString(),
                 signup_etPassword.text.toString(),
                 signup_etMobile.text.toString(),
-                Utils.getStringValue(this@UpdateProfileFragment, AppConstants.USER_STATUSID, "")!!
+                Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_STATUSID, "")!!
             )
         )
 
@@ -103,48 +109,48 @@ class UpdateProfileFragment : AppCompatActivity() {
                     if (response.body()!!.get("Status").asString == "true") {
 
                         Toast.makeText(
-                            this@UpdateProfileFragment,
+                            this@UpdateProfileActivity,
                             response.body()!!.get("Msg").asString,
                             Toast.LENGTH_LONG
                         ).show()
 
                         Utils.setStringValue(
-                            this@UpdateProfileFragment,
+                            this@UpdateProfileActivity,
                             AppConstants.FIRST_NAME,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileFragment,
+                            this@UpdateProfileActivity,
                             AppConstants.LAST_NAME,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileFragment,
+                            this@UpdateProfileActivity,
                             AppConstants.USER_ID,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileFragment,
+                            this@UpdateProfileActivity,
                             AppConstants.USER_EMAIL,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileFragment,
+                            this@UpdateProfileActivity,
                             AppConstants.USER_PASSWORD,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileFragment,
+                            this@UpdateProfileActivity,
                             AppConstants.USER_MOBILE,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileFragment,
+                            this@UpdateProfileActivity,
                             AppConstants.USER_ACCOUNT_TYPE,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["AccountTypeID"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileFragment,
+                            this@UpdateProfileActivity,
                             AppConstants.USER_STATUSID,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
                         )
@@ -154,7 +160,7 @@ class UpdateProfileFragment : AppCompatActivity() {
                     } else {
 
                         Toast.makeText(
-                            this@UpdateProfileFragment,
+                            this@UpdateProfileActivity,
                             response.body()!!.get("Msg").asString,
                             Toast.LENGTH_LONG
                         ).show()
@@ -187,7 +193,7 @@ class UpdateProfileFragment : AppCompatActivity() {
             isvalid = false
         }
 
-        if (Utils.getStringValue(this@UpdateProfileFragment, AppConstants.USER_ACCOUNT_TYPE, "") == "1") {
+        if (Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_ACCOUNT_TYPE, "") == "1") {
 
             if (TextUtils.isEmpty(signup_etPassword.text.toString())) {
                 signup_etPassword.error = "password must not be null"

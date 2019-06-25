@@ -1,6 +1,7 @@
-package com.testprep.fragments
+package com.testprep.activity
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_my_payments.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,9 +33,13 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class MyPaymentFragment : AppCompatActivity() {
+class MyPaymentActivity : AppCompatActivity() {
 
 //    private var packageSize: ArrayList<Int> = ArrayList()
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +58,7 @@ class MyPaymentFragment : AppCompatActivity() {
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        super.onViewCreated(view, savedInstanceState)
 
-//        val heading = this@MyPaymentFragment.findViewById(R.id.dashboard_tvTitle) as TextView
+//        val heading = this@MyPaymentActivity.findViewById(R.id.dashboard_tvTitle) as TextView
 //        heading.text = "My Payments"
 
 //        packageSize.add(23)
@@ -62,7 +68,7 @@ class MyPaymentFragment : AppCompatActivity() {
 //        packageSize.add(22)
 
         my_payments_rvList.layoutManager =
-            LinearLayoutManager(this@MyPaymentFragment, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(this@MyPaymentActivity, LinearLayoutManager.VERTICAL, false)
 
         val dividerItemDecoration = DividerItemDecoration(my_payments_rvList.context, LinearLayoutManager.VERTICAL)
 
@@ -75,14 +81,14 @@ class MyPaymentFragment : AppCompatActivity() {
 
     fun callPaymentListApi() {
 
-        if (!DialogUtils.isNetworkConnected(this@MyPaymentFragment)) {
-            Utils.ping(this@MyPaymentFragment, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(this@MyPaymentActivity)) {
+            Utils.ping(this@MyPaymentActivity, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@MyPaymentFragment)
+        DialogUtils.showDialog(this@MyPaymentActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getMyPayment(Utils.getStringValue(this@MyPaymentFragment, AppConstants.USER_ID, "0")!!)
+        val call = apiService.getMyPayment(Utils.getStringValue(this@MyPaymentActivity, AppConstants.USER_ID, "0")!!)
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
@@ -94,11 +100,11 @@ class MyPaymentFragment : AppCompatActivity() {
 
                         val mDataList = response.body()!!.data
 
-                        my_payments_rvList.adapter = MyPaymentAdapter(this@MyPaymentFragment, mDataList)
+                        my_payments_rvList.adapter = MyPaymentAdapter(this@MyPaymentActivity, mDataList)
 
                     } else {
 
-                        Toast.makeText(this@MyPaymentFragment, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MyPaymentActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

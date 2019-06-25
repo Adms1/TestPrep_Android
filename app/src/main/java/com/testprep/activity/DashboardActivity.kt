@@ -13,6 +13,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.testprep.R
 import com.testprep.adapter.DrawerMenuListAdapter
 import com.testprep.fragments.ChooseMarketPlaceFragment
+import com.testprep.fragments.ExploreFragment
 import com.testprep.fragments.MyPackagesFragment
 import com.testprep.fragments.OtherFragment
 import com.testprep.utils.AppConstants
@@ -118,6 +119,8 @@ class DashboardActivity : AppCompatActivity() {
 
                 dashboard_header.text = "Explore"
 
+                supportFragmentManager.beginTransaction().replace(R.id.container, ExploreFragment()).commit()
+
                 dash_ivSearch.setImageResource(R.drawable.blue_search)
                 dash_ivUser.setImageResource(R.drawable.menu_one)
                 dash_ivMarket.setImageResource(R.drawable.list)
@@ -178,7 +181,7 @@ class DashboardActivity : AppCompatActivity() {
 //
 //        dashboard_tvedit.setOnClickListener {
 //
-//            supportFragmentManager.beginTransaction().replace(R.id.container, UpdateProfileFragment()).commit()
+//            supportFragmentManager.beginTransaction().replace(R.id.container, UpdateProfileActivity()).commit()
 //            drawer_layout.closeDrawer(nav_view)
 //
 //        }
@@ -201,7 +204,7 @@ class DashboardActivity : AppCompatActivity() {
 //
 //        dashboard_tvmypayments.setOnClickListener {
 //
-//            supportFragmentManager.beginTransaction().replace(R.id.container, MyPaymentFragment()).commit()
+//            supportFragmentManager.beginTransaction().replace(R.id.container, MyPaymentActivity()).commit()
 //            drawer_layout.closeDrawer(nav_view)
 //
 //        }
@@ -210,7 +213,7 @@ class DashboardActivity : AppCompatActivity() {
 //            //            supportFragmentManager.beginTransaction().replace(R.id.container, PageViewFragment()).commit()
 ////            drawer_layout.closeDrawer(nav_view)
 //
-//            supportFragmentManager.beginTransaction().replace(R.id.container, CoinFragment()).commit()
+//            supportFragmentManager.beginTransaction().replace(R.id.container, CoinActivity()).commit()
 //            drawer_layout.closeDrawer(nav_view)
 //        }
 //
@@ -234,6 +237,10 @@ class DashboardActivity : AppCompatActivity() {
                 finish()
 
             }
+    }
+
+    override fun onBackPressed() {
+
     }
 
 }

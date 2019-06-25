@@ -16,7 +16,7 @@ import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
-import kotlinx.android.synthetic.main.fragment_new.*
+import kotlinx.android.synthetic.main.activity_new.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,7 +39,7 @@ class NewActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new, container, false)
+        return inflater.inflate(R.layout.activity_new, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

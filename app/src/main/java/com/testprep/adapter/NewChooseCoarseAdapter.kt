@@ -33,12 +33,12 @@ class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<GetCo
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].CourseTypeName.substring(0, 1)))
+//        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].CourseTypeName.substring(0, 1)))
 
-//        p0.image.setBackgroundColor(context.resources.getColor(R.color.dark_sky_blue))
+        p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.close_cancel))
 
         p0.title.text = dataList[p1].CourseTypeName
-//        p0.stitle.text = p0.title.text.substring(0, 1)
+        p0.stitle.text = p0.title.text.substring(0, 1)
 
         p0.image.setOnClickListener {
 
@@ -57,7 +57,7 @@ class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<GetCo
 
         var image: ImageView = itemView.findViewById(R.id.package_image)
         var title: TextView = itemView.findViewById(R.id.package_name)
-//        var stitle: TextView = itemView.findViewById(R.id.package_name_short)
+        var stitle: TextView = itemView.findViewById(R.id.package_name_short)
 
     }
 }

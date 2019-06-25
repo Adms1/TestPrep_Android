@@ -1,4 +1,4 @@
-package com.testprep.fragments
+package com.testprep.activity
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,6 @@ import android.view.View
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
-import com.testprep.activity.TraknpayRequestActivity
 import com.testprep.adapter.CoinAdapter
 import com.testprep.interfaces.CoinInteface
 import com.testprep.models.CoinModel
@@ -25,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_coin.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +35,11 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class CoinFragment : AppCompatActivity(), CoinInteface {
+class CoinActivity : AppCompatActivity(), CoinInteface {
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
 
     internal var isBoolean_permission_location = false
     internal var isBoolean_permission_phoneState = false
@@ -65,27 +69,27 @@ class CoinFragment : AppCompatActivity(), CoinInteface {
 
         setContentView(R.layout.fragment_coin)
 
-//        val heading = this@CoinFragment.findViewById(R.id.dashboard_tvTitle) as TextView
+//        val heading = this@CoinActivity.findViewById(R.id.dashboard_tvTitle) as TextView
 //        heading.text = "Coin"
 
         coinList()
 
-        coin_rvList.layoutManager = GridLayoutManager(this@CoinFragment, 3)
-        coin_rvList.adapter = CoinAdapter(this@CoinFragment, coinArr, coinInteface!!)
+        coin_rvList.layoutManager = GridLayoutManager(this@CoinActivity, 3)
+        coin_rvList.adapter = CoinAdapter(this@CoinActivity, coinArr, coinInteface!!)
 
         coin_btnCharge.setOnClickListener {
-            if (DialogUtils.isNetworkConnected(this@CoinFragment)) {
+            if (DialogUtils.isNetworkConnected(this@CoinActivity)) {
 
 //            if (isVersionCodeUpdated) {
                 chargeBtnLogic()
 
 //            } else {
-//                Utils.openVersionDialogCharge(this@CoinFragment)
+//                Utils.openVersionDialogCharge(this@CoinActivity)
 //
 //            }
 
             } else {
-                Utils.ping(this@CoinFragment, "Network not available")
+                Utils.ping(this@CoinActivity, "Network not available")
             }
         }
 
@@ -107,7 +111,7 @@ class CoinFragment : AppCompatActivity(), CoinInteface {
 //            //                Utility.ping(mContext, "Oops!! Payment was cancelled");
 //            //            }
 //        } else {
-//            Utils.ping(this@CoinFragment, "Oops!! Payment was cancelled")
+//            Utils.ping(this@CoinActivity, "Oops!! Payment was cancelled")
 //        }
 //    }
 
@@ -154,11 +158,11 @@ class CoinFragment : AppCompatActivity(), CoinInteface {
                     .toTypedArray()//to check decimal places
 
             if (purchaseCoin.equals("", ignoreCase = true)) {
-                Utils.ping(this@CoinFragment, this@CoinFragment.resources.getString(R.string.enter_coin))
+                Utils.ping(this@CoinActivity, this@CoinActivity.resources.getString(R.string.enter_coin))
             } else if (amount != null && amount[1].length > 2) {
-                Utils.ping(this@CoinFragment, "Please provide upto 2 decimal places only.")
+                Utils.ping(this@CoinActivity, "Please provide upto 2 decimal places only.")
             } else if (java.lang.Double.parseDouble(purchaseCoin) < 2.00) {
-                Utils.ping(this@CoinFragment, "Amount can't be less than Rs. 2.00")
+                Utils.ping(this@CoinActivity, "Amount can't be less than Rs. 2.00")
             } else {
                 //SHRENIK IS HERE.....
                 /*if(1==2) {
@@ -189,20 +193,20 @@ class CoinFragment : AppCompatActivity(), CoinInteface {
                     //                            fetchTokenAndTransactionID();
                     //Custom UI
 
-                    generateTrackNPayRequest(this@CoinFragment, purchaseCoin)
+                    generateTrackNPayRequest(this@CoinActivity, purchaseCoin)
 
 //                    }
                 } catch (e: Exception) {
                     //SendMessage(MESSAGE_ERROR, e.getMessage());
-                    Utils.ping(this@CoinFragment, e.message.toString())
+                    Utils.ping(this@CoinActivity, e.message.toString())
                 }
 
             }/*else if (Double.parseDouble(edtAmount.getText().toString()) < 2.00) {
-                        com.testprep.utils.Utils.ping(this@CoinFragment, "Amount can't be more than Rs. 100000.00");
+                        com.testprep.utils.Utils.ping(this@CoinActivity, "Amount can't be more than Rs. 100000.00");
                     }*/
 //            Instamojo.setLogLevel(Log.DEBUG)
         } else {
-            Utils.openInvalidApiKeyDialog(this@CoinFragment)
+            Utils.openInvalidApiKeyDialog(this@CoinActivity)
         }
     }
 

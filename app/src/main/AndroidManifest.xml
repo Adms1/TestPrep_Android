@@ -18,22 +18,23 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme2"
+            android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name=".activity.TestReviewActivity">
+        </activity>
         <activity android:name=".activity.CheckEmailActivity">
         </activity>
         <activity android:name=".activity.TestListActivity"/>
         <activity
                 android:name=".activity.FilterActivity"
-                android:theme="@style/AppTheme2"/>
+        />
         <activity
                 android:name=".activity.MarketPlaceListActivity"
-                android:theme="@style/AppTheme2"/>
+        />
         <activity android:name=".activity.SelectCompititiveActivity"/>
-        <activity
-                android:name=".activity.IntroActivity"
-                android:theme="@style/AppTheme2"/>
+        <activity android:name=".activity.IntroActivity"/>
         <activity android:name=".activity.PrefrenceActivity"/>
         <activity android:name=".activity.NewActivity"/>
         <activity android:name=".activity.PackageDetailActivity"/>
@@ -57,8 +58,8 @@
                 android:windowSoftInputMode="adjustPan"/>
         <activity
                 android:name=".activity.LoginActivity"
-                android:theme="@style/AppTheme2"
                 android:windowSoftInputMode="adjustPan"/>
+
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -68,20 +69,20 @@
         </activity>
         <activity
                 android:name=".old.WebviewPageActivity"
-                android:theme="@style/AppTheme2"/>
+                android:theme="@style/AppTheme"/>
         <activity
                 android:name=".old.PageActivity"
-                android:theme="@style/AppTheme2"/>
+                android:theme="@style/AppTheme"/>
         <activity
-                android:name=".fragments.UpdateProfileFragment"
+                android:name=".activity.UpdateProfileActivity"
                 android:windowSoftInputMode="adjustPan"/>
         <activity
                 android:name=".old.Main2Activity"
                 android:label="@string/title_activity_main2"
                 android:theme="@style/AppTheme.NoActionBar"/> <!-- <intent-filter> -->
-        <activity android:name=".fragments.MyPaymentFragment"/>
+        <activity android:name=".activity.MyPaymentActivity"/>
         <activity
-                android:name=".fragments.CoinFragment"
+                android:name=".activity.CoinActivity"
                 android:windowSoftInputMode="adjustPan"/> <!-- <action android:name="android.intent.action.MAIN"/> -->
         <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
         <!-- </intent-filter> -->

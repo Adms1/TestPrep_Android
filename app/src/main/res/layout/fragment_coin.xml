@@ -6,14 +6,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context=".fragments.CoinFragment">
+        tools:context=".activity.CoinActivity">
 
     <TextView
             android:text="Add Coin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_10sdp"
-            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_7sdp"
+            android:paddingTop="@dimen/_7sdp"
             android:id="@+id/coin_header"
             android:layout_marginBottom="@dimen/_5sdp"
             android:maxLines="1"
@@ -31,7 +31,7 @@
             android:id="@+id/coin_ivBack"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/coin_header"
-            android:padding="@dimen/_8sdp"
+            android:padding="@dimen/_9sdp"
             app:layout_constraintBottom_toBottomOf="@+id/coin_header"/>
 
     <TextView

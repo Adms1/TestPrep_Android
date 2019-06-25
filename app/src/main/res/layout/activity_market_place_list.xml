@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
+        android:paddingTop="@dimen/_15sdp"
         tools:context=".activity.PrefrenceActivity">
 
     <TextView
@@ -28,7 +29,7 @@
             android:id="@+id/package_ivBack"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/package_header"
-            android:padding="@dimen/_8sdp"
+            android:padding="@dimen/_9sdp"
             app:layout_constraintBottom_toBottomOf="@+id/package_header"/>
 
     <ImageView
@@ -64,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="vertical">
 
             <RelativeLayout

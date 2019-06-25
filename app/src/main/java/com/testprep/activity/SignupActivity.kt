@@ -8,7 +8,6 @@ import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
@@ -33,23 +32,19 @@ class SignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_signup)
 
         signup_btnSignup.setOnClickListener {
 
-            val intent = Intent(this@SignupActivity, OtpActivity::class.java)
-            startActivity(intent)
-            finish()
+            //            val intent = Intent(this@SignupActivity, OtpActivity::class.java)
+//            startActivity(intent)
+//            finish()
 
-//            if (isValid()) {
-//                callSignupApi()
-//            }
+            if (isValid()) {
+                callSignupApi()
+            }
         }
 
         signup_btnLogin.setOnClickListener {
@@ -202,6 +197,13 @@ class SignupActivity : AppCompatActivity() {
                 DialogUtils.dismissDialog()
             }
         })
+
+    }
+
+    override fun onBackPressed() {
+
+        val intent = Intent(this@SignupActivity, IntroActivity::class.java)
+        startActivity(intent)
 
     }
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.design.widget.TabLayout
@@ -36,6 +37,8 @@ class TabwiseQuestionActivity : AppCompatActivity() {
     var questionpagerAdapret: QuestionsPagerAdapter? = null
     var mToolbar: Toolbar? = null
     var movies: ArrayList<QuestionResponse.QuestionList> = ArrayList()
+
+    var where = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -91,7 +94,10 @@ class TabwiseQuestionActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
 
-            abortBtn.setOnClickListener { onBackPressed() }
+            abortBtn.setOnClickListener {
+                where = "testlist"
+                onBackPressed()
+            }
 
             dialog.show()
 
@@ -275,21 +281,27 @@ class TabwiseQuestionActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
-        DialogUtils.createConfirmDialog(
-            this@TabwiseQuestionActivity,
-            "Submit Test?",
-            "are you sure you want to end this test?",
-            "OK",
-            "Cancel",
-            DialogInterface.OnClickListener { dialog, which ->
-                super.onBackPressed()
+        if (where == "testlist") {
+            super.onBackPressed()
+        } else {
+            DialogUtils.createConfirmDialog(
+                this@TabwiseQuestionActivity,
+                "Submit Test?",
+                "are you sure you want to submit this test?",
+                "OK",
+                "Cancel",
+                DialogInterface.OnClickListener { dialog, which ->
+                    val intent = Intent(this@TabwiseQuestionActivity, TestReviewActivity::class.java)
+                    startActivity(intent)
 
-            },
-            DialogInterface.OnClickListener { dialog, which ->
-                dialog.dismiss()
+                    finish()
+                },
+                DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
 
 
-            }).show()
+                }).show()
+        }
     }
 
 }

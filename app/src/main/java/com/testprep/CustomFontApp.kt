@@ -7,13 +7,13 @@ class CustomFontApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-//        TypefaceUtil.overrideFont(applicationContext, "SERIF", "fonts/Inter-Regular.ttf")
+//        TypefaceUtil.overrideFont(applicationContext, "SERIF", "fonts/inter_regular.ttf")
 //        Utils.changeStatusbarColor(Activity)
 
         CalligraphyConfig.initDefault(
             CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/Inter-Regular.ttf")
-//                .setFontAttrId(R.attr.fontPath)
+                .setFontAttrId(R.attr.fontPath)
                 .build()
         )
 

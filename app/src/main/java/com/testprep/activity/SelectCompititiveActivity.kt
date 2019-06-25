@@ -16,7 +16,7 @@ class SelectCompititiveActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_select_compititive)
 
-        pref_ivBack.setOnClickListener {
+        competitive_ivBack.setOnClickListener {
             onBackPressed()
         }
 

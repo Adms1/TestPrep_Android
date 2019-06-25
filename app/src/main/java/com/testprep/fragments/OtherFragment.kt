@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import com.testprep.R
+import com.testprep.activity.CoinActivity
+import com.testprep.activity.MyPaymentActivity
+import com.testprep.activity.UpdateProfileActivity
 import kotlinx.android.synthetic.main.fragment_other.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -48,17 +51,17 @@ class OtherFragment : Fragment() {
             when {
                 menuList[position] == "Edit Profile" -> {
 
-                    val intent = Intent(activity, UpdateProfileFragment::class.java)
+                    val intent = Intent(activity, UpdateProfileActivity::class.java)
                     startActivity(intent)
                 }
-                menuList[position] == "My Coin" -> {
+                menuList[position] == "My Payments" -> {
 
-                    val intent = Intent(activity, MyPaymentFragment::class.java)
+                    val intent = Intent(activity, MyPaymentActivity::class.java)
                     startActivity(intent)
                 }
                 menuList[position] == "Add Coin" -> {
 
-                    val intent = Intent(activity, CoinFragment::class.java)
+                    val intent = Intent(activity, CoinActivity::class.java)
                     startActivity(intent)
                 }
             }

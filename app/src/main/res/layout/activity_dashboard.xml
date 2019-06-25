@@ -8,6 +8,7 @@
         android:background="@color/white"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
+        android:paddingTop="@dimen/_15sdp"
         tools:openDrawer="start">
 
     <TextView
@@ -17,7 +18,6 @@
             android:id="@+id/dashboard_header"
             app:layout_constraintTop_toTopOf="parent"
             android:paddingTop="@dimen/_7sdp"
-            android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_5sdp"
             android:paddingBottom="@dimen/_7sdp"
             android:layout_marginLeft="@dimen/_20sdp"
