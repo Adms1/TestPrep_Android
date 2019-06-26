@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.old.PageActivity.Companion.countt
 import com.testprep.old.adapter.SelectImageOptionAdapter
+import com.testprep.old.adapter.SolutionAdapter
 import com.testprep.old.models.QuestionResponse
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
@@ -38,6 +39,7 @@ class PageViewFragment : Fragment() {
 
     private var que_list: ArrayList<QuestionResponse.QuestionList> = ArrayList()
     private var que_num = 0
+    private var come = ""
     private var imgQue: ImageView? = null
     private var ansList: RecyclerView? = null
 
@@ -45,10 +47,11 @@ class PageViewFragment : Fragment() {
 
         var qsize = 0
 
-        fun newInstance(sectionNumber: Int): PageViewFragment {
+        fun newInstance(sectionNumber: Int, come: String): PageViewFragment {
             val fragment = PageViewFragment()
             val args = Bundle()
             args.putInt("que_number", sectionNumber)
+            args.putString("come", come)
             fragment.arguments = args
             return fragment
         }
@@ -74,6 +77,7 @@ class PageViewFragment : Fragment() {
 
         val args = arguments
         que_num = args!!.getInt("que_number")
+        come = args.getString("come")!!
 
         ansList!!.isNestedScrollingEnabled = false
 
@@ -99,11 +103,21 @@ class PageViewFragment : Fragment() {
 //        qsize = page_img_que_img.width
 
                 if (activity != null) {
-                    ansList!!.adapter = SelectImageOptionAdapter(
-                        activity!!,
-                        que_list[que_num].StudentTestQuestionMCQ,
-                        imgQue!!.width
-                    )
+
+                    if (come != "solution") {
+
+                        ansList!!.adapter = SelectImageOptionAdapter(
+                            activity!!,
+                            que_list[que_num].StudentTestQuestionMCQ,
+                            imgQue!!.width
+                        )
+                    } else {
+                        ansList!!.adapter = SolutionAdapter(
+                            activity!!,
+                            que_list[que_num].StudentTestQuestionMCQ,
+                            imgQue!!.width
+                        )
+                    }
                 }
 
             }, 1000
@@ -138,9 +152,9 @@ class PageViewFragment : Fragment() {
                 if (response.body()!!.Msg == "Success") {
                     val movies = response.body()!!.data
 
-                    totall.text = "Total" + movies.size
+//                    totall.text = "Total" + movies.size
 
-                    qno.text = "Q." + (countt+1)
+//                    qno.text = "Q." + (countt+1)
 
                     Log.d("qid", "" + movies[0].QuestionID)
 
@@ -176,11 +190,23 @@ class PageViewFragment : Fragment() {
 
 
                             ansList!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-                            ansList!!.adapter = SelectImageOptionAdapter(
-                                activity!!,
-                                movies[0].StudentTestQuestionMCQ,
-                                page_img_que_img.width
-                            )
+
+                            if (come != "solution") {
+
+                                ansList!!.adapter = SelectImageOptionAdapter(
+                                    activity!!,
+                                    movies[0].StudentTestQuestionMCQ,
+                                    page_img_que_img.width
+                                )
+                            } else {
+                                ansList!!.adapter = SolutionAdapter(
+                                    activity!!,
+                                    movies[0].StudentTestQuestionMCQ,
+                                    page_img_que_img.width
+                                )
+                            }
+
+
                         }
                     }else{
                         if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
@@ -191,11 +217,21 @@ class PageViewFragment : Fragment() {
                         }
 
                         ansList!!.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-                        ansList!!.adapter = SelectImageOptionAdapter(
-                            activity!!,
-                            movies[0].StudentTestQuestionMCQ,
-                            page_img_que_img.width
-                        )
+
+                        if (come != "solution") {
+
+                            ansList!!.adapter = SelectImageOptionAdapter(
+                                activity!!,
+                                movies[0].StudentTestQuestionMCQ,
+                                page_img_que_img.width
+                            )
+                        } else {
+                            ansList!!.adapter = SolutionAdapter(
+                                activity!!,
+                                movies[0].StudentTestQuestionMCQ,
+                                page_img_que_img.width
+                            )
+                        }
 
                     }
 

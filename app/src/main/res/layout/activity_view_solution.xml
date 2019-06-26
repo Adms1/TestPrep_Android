@@ -6,12 +6,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:paddingTop="@dimen/_15sdp"
         tools:context=".activity.TabwiseQuestionActivity">
 
-    <RelativeLayout
-            android:id="@+id/queTab_llTop"
+    <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:padding="@dimen/_9sdp"
+            app:layout_constraintTop_toTopOf="@+id/solution_tvHeading"
+            app:layout_constraintBottom_toBottomOf="@+id/solution_tvHeading"
+            app:srcCompat="@drawable/back_button"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/solution_ivBack"/>
+
+    <TextView
+            android:id="@+id/solution_tvHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_7sdp"
+            android:paddingTop="@dimen/_7sdp"
+            android:gravity="center_vertical"
+            android:text="Solution"
+            android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/solution_ivBack"
+            android:textSize="@dimen/normal_header_size"/>
+
+    <RelativeLayout
+            android:id="@+id/solution_llTop"
+            app:layout_constraintTop_toBottomOf="@+id/solution_tvHeading"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:paddingTop="@dimen/_7sdp"
@@ -22,7 +44,7 @@
             android:layout_height="wrap_content">
 
         <CheckBox
-                android:id="@+id/queTab_ivPlayPause"
+                android:id="@+id/solution_ivPlayPause"
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
                 android:layout_alignParentLeft="true"
@@ -30,19 +52,21 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="center"
                 android:checked="true"
+                android:visibility="gone"
                 android:button="@drawable/play_pause_checkbox"/>
 
         <TextView
                 android:text="@string/_00_00"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/queTab_tvTimer"
+                android:id="@+id/solution_tvTimer"
                 android:paddingTop="@dimen/_7sdp"
                 android:paddingBottom="@dimen/_7sdp"
                 android:textSize="@dimen/_15sdp"
                 android:paddingLeft="@dimen/_5sdp"
+                android:visibility="gone"
                 android:paddingRight="@dimen/_5sdp"
-                android:layout_toRightOf="@+id/queTab_ivPlayPause"
+                android:layout_toRightOf="@+id/solution_ivPlayPause"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:textColor="@color/dark_sky_blue"
                 android:maxLines="1"/>
@@ -51,12 +75,13 @@
                 android:text="@string/submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/queTab_tvSubmit"
+                android:id="@+id/solution_tvSubmit"
                 android:paddingTop="@dimen/_7sdp"
                 android:paddingBottom="@dimen/_7sdp"
                 android:textSize="@dimen/_15sdp"
                 android:paddingLeft="@dimen/_5sdp"
                 android:textStyle="bold"
+                android:visibility="gone"
                 android:paddingRight="@dimen/_5sdp"
                 android:textColor="@color/dark_sky_blue"
                 android:layout_marginRight="@dimen/_10sdp"
@@ -66,8 +91,8 @@
     </RelativeLayout>
 
     <android.support.design.widget.TabLayout
-            android:id="@+id/queTab_sliding_tabs"
-            app:layout_constraintTop_toBottomOf="@+id/queTab_llTop"
+            android:id="@+id/solution_sliding_tabs"
+            app:layout_constraintTop_toBottomOf="@+id/solution_llTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/light_blue"
@@ -83,45 +108,46 @@
             app:tabMode="scrollable"/>
 
     <Button
-            android:id="@+id/queTab_ivReview"
+            android:id="@+id/solution_ivReview"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="@dimen/_20sdp"
             android:background="@drawable/rotate_eye_gray"
             android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintTop_toBottomOf="@id/queTab_sliding_tabs"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/solution_sliding_tabs"
             android:contentDescription="@string/logo"/>
 
     <android.support.v4.view.ViewPager
-            android:id="@+id/queTab_viewpager"
+            android:id="@+id/solution_viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/white"
             android:paddingBottom="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@id/queTab_ivReview"
+            app:layout_constraintTop_toBottomOf="@id/solution_sliding_tabs"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/queTab_llBottom"/>
+            app:layout_constraintBottom_toTopOf="@+id/solution_llBottom"/>
 
     <ImageView
-            android:id="@+id/queTab_ivReport"
+            android:id="@+id/solution_ivReport"
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_20sdp"
             android:src="@drawable/risk_gray"
             android:layout_marginBottom="@dimen/_5sdp"
-            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/queTab_viewpager"
-            app:layout_constraintBottom_toTopOf="@+id/queTab_llBottom"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/solution_viewpager"
+            app:layout_constraintBottom_toTopOf="@+id/solution_llBottom"
             android:contentDescription="@string/logo"/>
 
     <TextView
             android:text="Report an issue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/queTab_tvReport"
+            android:id="@+id/solution_tvReport"
             android:layout_marginBottom="@dimen/_7sdp"
             android:textSize="@dimen/small_text_size"
             android:paddingLeft="@dimen/_5sdp"
@@ -130,12 +156,12 @@
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_alignParentRight="true"
             android:visibility="gone"
-            app:layout_constraintLeft_toRightOf="@+id/queTab_ivReport"
-            app:layout_constraintBottom_toTopOf="@+id/queTab_llBottom"
-            app:layout_constraintTop_toBottomOf="@+id/queTab_viewpager"/>
+            app:layout_constraintLeft_toRightOf="@+id/solution_ivReport"
+            app:layout_constraintBottom_toTopOf="@+id/solution_llBottom"
+            app:layout_constraintTop_toBottomOf="@+id/solution_viewpager"/>
 
     <RelativeLayout
-            android:id="@+id/queTab_llBottom"
+            android:id="@+id/solution_llBottom"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:background="@color/white"
@@ -145,7 +171,7 @@
             android:layout_height="wrap_content">
 
         <Button
-                android:id="@+id/queTab_btnPrevious"
+                android:id="@+id/solution_btnPrevious"
                 android:layout_width="@dimen/_75sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:text="@string/previous"
@@ -162,13 +188,13 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/queTab_tvTotal"
+                android:id="@+id/solution_tvTotal"
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/gray"
                 android:layout_centerInParent="true"/>
 
         <Button
-                android:id="@+id/queTab_btnNext"
+                android:id="@+id/solution_btnNext"
                 android:layout_width="@dimen/_75sdp"
                 android:layout_height="@dimen/_35sdp"
                 android:text="@string/next"

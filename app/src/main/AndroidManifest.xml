@@ -21,18 +21,15 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
-
+        <activity android:name=".activity.ViewSolutionActivity">
+        </activity>
         <activity android:name=".activity.TestReviewActivity">
         </activity>
         <activity android:name=".activity.CheckEmailActivity">
         </activity>
         <activity android:name=".activity.TestListActivity"/>
-        <activity
-                android:name=".activity.FilterActivity"
-        />
-        <activity
-                android:name=".activity.MarketPlaceListActivity"
-        />
+        <activity android:name=".activity.FilterActivity"/>
+        <activity android:name=".activity.MarketPlaceListActivity"/>
         <activity android:name=".activity.SelectCompititiveActivity"/>
         <activity android:name=".activity.IntroActivity"/>
         <activity android:name=".activity.PrefrenceActivity"/>
@@ -59,7 +56,6 @@
         <activity
                 android:name=".activity.LoginActivity"
                 android:windowSoftInputMode="adjustPan"/>
-
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

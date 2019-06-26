@@ -39,6 +39,7 @@ class TabwiseQuestionActivity : AppCompatActivity() {
     var movies: ArrayList<QuestionResponse.QuestionList> = ArrayList()
 
     var where = ""
+    var reviewQue: ArrayList<Int> = ArrayList()
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -53,9 +54,9 @@ class TabwiseQuestionActivity : AppCompatActivity() {
         )
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        setContentView(com.testprep.R.layout.activity_tabwise_question)
+        setContentView(R.layout.activity_tabwise_question)
 
-//        mToolbar = (Toolbar) findViewById(com.testprep.R.id.sliding_tabs)
+//        mToolbar = (Toolbar) findViewById(R.id.sliding_tabs)
 //        sliding_tabs.setOnTabSelectedListener(this)
         setSupportActionBar(mToolbar)
 
@@ -116,6 +117,18 @@ class TabwiseQuestionActivity : AppCompatActivity() {
             // This method will be invoked when a new page becomes selected.
             override fun onPageSelected(position: Int) {
                 queTab_tvTotal.text = """${position + 1}/${movies.size}"""
+
+//                for (i in 0 until reviewQue.size){
+//                    if(reviewQue.contains(position + 1)){
+//                        queTab_ivReview.background = resources.getDrawable(R.drawable.rotate_eye_blue)
+//                        queTab_ivReview.isSelected = true
+
+//                }else{
+//                    queTab_ivReview.background = resources.getDrawable(R.drawable.rotate_eye_gray)
+//
+//                }
+//                }
+
                 getLastPage()
             }
 
@@ -132,6 +145,36 @@ class TabwiseQuestionActivity : AppCompatActivity() {
 //                getLastPage()
             }
         })
+
+//        queTab_ivReview.setOnClickListener {
+//
+//            queTab_sliding_tabs.getTabAt(queTab_viewpager.currentItem)!!.setCustomView(R.layout.custom_tab)
+//
+//            if(reviewQue.contains(queTab_viewpager.currentItem)){
+//
+//                queTab_ivReview.background = resources.getDrawable(R.drawable.rotate_eye_gray)
+//                reviewQue.remove(queTab_viewpager.currentItem)
+//
+//                queTab_ivReview.isSelected = false
+//
+//            }else{
+////                queTab_sliding_tabs.getTabAt(queTab_viewpager.currentItem)!!.setCustomView(R.layout.custom_tab_normal)
+//
+//                queTab_ivReview.background = resources.getDrawable(R.drawable.rotate_eye_blue)
+//                reviewQue.add(queTab_viewpager.currentItem)
+//
+//                queTab_ivReview.isSelected = true
+//
+//            }
+//
+////            if(queTab_ivReview.isPressed){
+////
+////                queTab_sliding_tabs.getTabAt(queTab_viewpager.currentItem)!!.setCustomView(R.layout.custom_tab)
+////
+////            }else{
+////                queTab_sliding_tabs.getTabAt(queTab_viewpager.currentItem)!!.setCustomView(R.layout.custom_tab_normal)
+////            }
+//        }
 
         queTab_tvSubmit.setOnClickListener {
 
@@ -202,7 +245,8 @@ class TabwiseQuestionActivity : AppCompatActivity() {
                             for (i in 0 until movies.size) {
                                 queTab_sliding_tabs.addTab(queTab_sliding_tabs.newTab().setText((i + 1).toString()))
 
-                                questionpagerAdapret = QuestionsPagerAdapter(supportFragmentManager, movies.size)
+                                questionpagerAdapret =
+                                    QuestionsPagerAdapter(supportFragmentManager, movies.size, "paper")
 
 //                                questionpagerAdapret!!.addFragment(PageViewFragment())
                             }
@@ -263,7 +307,7 @@ class TabwiseQuestionActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                queTab_tvTimer.text = getString(com.testprep.R.string._00_00)
+                queTab_tvTimer.text = getString(R.string._00_00)
             }
         }.start()
     }
@@ -272,10 +316,10 @@ class TabwiseQuestionActivity : AppCompatActivity() {
 
         if (queTab_viewpager.currentItem == movies.size - 1) {
 
-            queTab_btnNext.text = getString(com.testprep.R.string.finish)
+            queTab_btnNext.text = getString(R.string.finish)
 
         } else {
-            queTab_btnNext.text = getString(com.testprep.R.string.next)
+            queTab_btnNext.text = getString(R.string.next)
         }
     }
 

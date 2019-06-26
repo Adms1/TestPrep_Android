@@ -9,6 +9,7 @@ class TestListModel {
     class TestData {
 
         var TestName = ""
+        var TestId = 0
 
     }
 }

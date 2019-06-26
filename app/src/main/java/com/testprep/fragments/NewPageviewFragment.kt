@@ -146,9 +146,9 @@ class NewPageviewFragment : Fragment() {
                 if (response.body()!!.Msg == "Success") {
                     val movies = response.body()!!.data
 
-                    totall.text = "Total" + movies.size
+//                    totall.text = "Total" + movies.size
 
-                    qno.text = "Q." + (PageActivity.countt + 1)
+//                    qno.text = "Q." + (PageActivity.countt + 1)
 
                     Log.d("qid", "" + movies[0].QuestionID)
 

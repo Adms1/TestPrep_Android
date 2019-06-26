@@ -18,6 +18,7 @@ class SelectImageOptionAdapter(
     val context: Context,
     val dataList: ArrayList<QuestionResponse.QuestionDataList>,
     var qsize: Int
+
 ) :
     RecyclerView.Adapter<SelectImageOptionAdapter.viewholder>() {
 
@@ -132,8 +133,8 @@ class SelectImageOptionAdapter(
 
             }
             lastCheckedRadioGroup = p0.opone
-
         }
+
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {

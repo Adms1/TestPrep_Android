@@ -36,10 +36,10 @@ class TestListAdapter(val context: Context, var dataList: ArrayList<TestListMode
         p0.test.setOnClickListener {
 
             val intent = Intent(context, TabwiseQuestionActivity::class.java)
+            intent.putExtra("testid", dataList[p1].TestId)
             context.startActivity(intent)
 
         }
-
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {

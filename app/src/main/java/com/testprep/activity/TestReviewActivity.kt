@@ -1,6 +1,7 @@
 package com.testprep.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -23,7 +24,10 @@ class TestReviewActivity : AppCompatActivity() {
 
         review_ivBack.setOnClickListener { onBackPressed() }
 
-        review_btnSubmit.setOnClickListener { onBackPressed() }
+        review_btnSubmit.setOnClickListener {
+            val intent = Intent(this@TestReviewActivity, ViewSolutionActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }
