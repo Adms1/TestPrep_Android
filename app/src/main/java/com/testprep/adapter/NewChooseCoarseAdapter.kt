@@ -35,7 +35,7 @@ class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<GetCo
 
 //        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].CourseTypeName.substring(0, 1)))
 
-        p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.close_cancel))
+        p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.select_exam_bg))
 
         p0.title.text = dataList[p1].CourseTypeName
         p0.stitle.text = p0.title.text.substring(0, 1)

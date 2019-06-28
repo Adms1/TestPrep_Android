@@ -21,12 +21,14 @@
     <string name="or">OR</string>
     <string name="sign_up_header">Sign Up</string>
     <string name="facebook">Continue with Facebook</string>
-    <string name="google">Continue with Google</string>
+    <string name="google">Continue with Gmail</string>
     <string name="forgot_pass">Forgot Password?</string>
-    <string name="sign_in">ALREADY HAVE AN ACCOUNT?
+    <string name="sign_in">
+        <font color="#9A9A9A">ALREADY HAVE AN ACCOUNT?</font>
         <font color="#10A8DD">SIGN IN</font>
     </string>
-    <string name="sign_up">DON\'T HAVE AN ACCOUNT?
+    <string name="sign_up">
+        <font color="#9A9A9A">DON\'T HAVE AN ACCOUNT?</font>
         <font color="#10A8DD">SIGN UP</font>
     </string>
     <string name="full_name">First Name</string>
@@ -81,7 +83,8 @@
     <string name="filter">Filter</string>
     <string name="other">Other</string>
     <string name="enter_verification_code">Enter Verification Code</string>
-    <string name="resend_code">Didn\'t receive the code?
+    <string name="resend_code">
+        <font color="#9A9A9A">Didn\'t receive the code?</font>
         <font color="#10A8DD">Resend</font>
     </string>
     <string name="email_or_mobile_number">EMAIL or Mobile Number</string>

@@ -83,7 +83,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/full_name"
-                        android:textColor="@color/black"
+                        android:textColor="@color/gray"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_25sdp"
                         android:textSize="@dimen/normal_text_size"
@@ -120,7 +120,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/last_name"
-                        android:textColor="@color/black"
+                        android:textColor="@color/gray"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_25sdp"
                         android:textSize="@dimen/normal_text_size"
@@ -159,7 +159,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/enter_email"
-                        android:textColor="@color/black"
+                        android:textColor="@color/gray"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_25sdp"
                         android:textSize="@dimen/normal_text_size"
@@ -197,7 +197,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/password"
-                        android:textColor="@color/black"
+                        android:textColor="@color/gray"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_25sdp"
                         android:textSize="@dimen/normal_text_size"
@@ -209,43 +209,45 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <ImageView
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    app:srcCompat="@drawable/password_new"
-                    android:layout_marginLeft="@dimen/_15sdp"
-                    app:layout_constraintTop_toTopOf="@+id/signup_llCPassword"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    app:layout_constraintBottom_toBottomOf="@+id/signup_llCPassword"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:id="@+id/signup_ivcp"/>
+        <!--<ImageView-->
+        <!--android:layout_width="@dimen/_20sdp"-->
+        <!--android:layout_height="@dimen/_20sdp"-->
+        <!--app:srcCompat="@drawable/password_new"-->
+        <!--android:layout_marginLeft="@dimen/_15sdp"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/signup_llCPassword"-->
+        <!--android:layout_marginTop="@dimen/_5sdp"-->
+        <!--android:visibility="gone"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/signup_llCPassword"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--android:id="@+id/signup_ivcp"/>-->
 
-            <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Blue"
-                    app:layout_constraintTop_toBottomOf="@id/signup_llPassword"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    app:layout_constraintLeft_toRightOf="@+id/signup_ivcp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:id="@+id/signup_llCPassword">
+        <!--<android.support.design.widget.TextInputLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Blue"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/signup_llPassword"-->
+        <!--android:layout_marginTop="@dimen/_8sdp"-->
+        <!--android:visibility="gone"-->
+        <!--app:layout_constraintLeft_toRightOf="@+id/signup_ivcp"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--android:id="@+id/signup_llCPassword">-->
 
-                <android.support.design.widget.TextInputEditText
-                        android:id="@+id/signup_etCPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/cpassword"
-                        android:textColor="@color/black"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_25sdp"
-                        android:textSize="@dimen/normal_text_size"
-                        android:inputType="textPassword"
-                        android:maxLines="1"
-                        android:imeOptions="actionNext"
-                        android:paddingTop="@dimen/_7sdp"
-                        android:paddingBottom="@dimen/_7sdp"/>
+        <!--<android.support.design.widget.TextInputEditText-->
+        <!--android:id="@+id/signup_etCPassword"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="@string/cpassword"-->
+        <!--android:textColor="@color/gray"-->
+        <!--android:layout_marginLeft="@dimen/_10sdp"-->
+        <!--android:layout_marginRight="@dimen/_25sdp"-->
+        <!--android:textSize="@dimen/normal_text_size"-->
+        <!--android:inputType="textPassword"-->
+        <!--android:maxLines="1"-->
+        <!--android:imeOptions="actionNext"-->
+        <!--android:paddingTop="@dimen/_7sdp"-->
+        <!--android:paddingBottom="@dimen/_7sdp"/>-->
 
-            </android.support.design.widget.TextInputLayout>
+        <!--</android.support.design.widget.TextInputLayout>-->
 
             <ImageView
                     android:layout_width="@dimen/_20sdp"
@@ -262,7 +264,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Blue"
-                    app:layout_constraintTop_toBottomOf="@id/signup_llCPassword"
+                    app:layout_constraintTop_toBottomOf="@id/signup_llPassword"
                     app:layout_constraintBottom_toTopOf="@+id/signup_btnSignup"
                     app:layout_constraintLeft_toRightOf="@+id/signup_ivm"
                     app:layout_constraintRight_toRightOf="parent"
@@ -275,7 +277,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/mobile"
-                        android:textColor="@color/black"
+                        android:textColor="@color/gray"
                         android:textSize="@dimen/normal_text_size"
                         android:inputType="phone"
                         android:maxLines="1"

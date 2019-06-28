@@ -83,15 +83,15 @@ class SignupActivity : AppCompatActivity() {
             isvalid = false
         }
 
-        if (TextUtils.isEmpty(signup_etCPassword.text.toString())) {
-            signup_etCPassword.error = "Please enter confirm password"
-            isvalid = false
-        }
+//        if (TextUtils.isEmpty(signup_etCPassword.text.toString())) {
+//            signup_etCPassword.error = "Please enter confirm password"
+//            isvalid = false
+//        }
 
-        if (signup_etPassword.text.toString() != signup_etCPassword.text.toString()) {
-            signup_etCPassword.error = "password and confirm password must be same"
-            isvalid = false
-        }
+//        if (signup_etPassword.text.toString() != signup_etCPassword.text.toString()) {
+//            signup_etCPassword.error = "password and confirm password must be same"
+//            isvalid = false
+//        }
 
         if (TextUtils.isEmpty(signup_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(signup_etMobile.text.toString()).matches()) {
             signup_etMobile.error = "Please enter valid mobile number"
