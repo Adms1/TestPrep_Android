@@ -1,6 +1,7 @@
 package com.testprep.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -55,6 +56,8 @@ class OtpActivity : AppCompatActivity() {
 //                )
             } else {
 
+                val intent = Intent(this@OtpActivity, ChangePasswordActivity::class.java)
+                startActivity(intent)
 
             }
         }

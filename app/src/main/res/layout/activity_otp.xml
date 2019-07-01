@@ -96,7 +96,7 @@
             android:id="@+id/otp_tvVerificationSuccess"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Mobile Number has been virified successfully"
+            android:text="Your Mobile Number has been verified successfully"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/regular_text_size"

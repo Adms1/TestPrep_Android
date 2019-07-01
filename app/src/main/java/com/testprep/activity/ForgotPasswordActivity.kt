@@ -79,7 +79,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         )
                             .show()
 
-                        val intent = Intent(this@ForgotPasswordActivity, CheckEmailActivity::class.java)
+                        val intent = Intent(this@ForgotPasswordActivity, OtpActivity::class.java)
                         startActivity(intent)
                         finish()
 

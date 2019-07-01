@@ -88,9 +88,10 @@
         <font color="#10A8DD">Resend</font>
     </string>
     <string name="email_or_mobile_number">EMAIL or Mobile Number</string>
-    <string name="check_mail">Check Your email</string>
+    <string name="check_mail">Check your email</string>
     <string name="go_to_email">Go to Email</string>
     <string name="cart">Cart</string>
+    <string name="change_pass">Change Password</string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>

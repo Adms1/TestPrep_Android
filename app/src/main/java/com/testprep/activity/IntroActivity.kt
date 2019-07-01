@@ -41,7 +41,6 @@ import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import java.util.*
 
 class IntroActivity : AppCompatActivity() {
 
@@ -71,7 +70,7 @@ class IntroActivity : AppCompatActivity() {
         setContentView(R.layout.activity_intro)
 
         callbackManager = CallbackManager.Factory.create()
-        fb.setReadPermissions(Arrays.asList(EMAIL))
+        fb.setReadPermissions(listOf(EMAIL))
 
         layouts = intArrayOf(R.drawable.slider_logo, R.drawable.slider_logo, R.drawable.slider_logo)
 
