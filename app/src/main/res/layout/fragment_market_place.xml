@@ -9,31 +9,31 @@
         android:paddingTop="@dimen/_15sdp"
         tools:context=".fragments.MarketPlaceFragment">
 
-    <TextView
-            android:text="@string/market_place"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_7sdp"
-            android:paddingTop="@dimen/_7sdp"
-            android:id="@+id/market_header"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:maxWidth="@dimen/_150sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/market_ivBack"
-            android:textSize="@dimen/normal_header_size"
-            android:gravity="center_vertical"/>
+    <!--<TextView-->
+    <!--android:text="@string/market_place"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingBottom="@dimen/_7sdp"-->
+    <!--android:paddingTop="@dimen/_7sdp"-->
+    <!--android:id="@+id/market_header"-->
+    <!--android:layout_marginBottom="@dimen/_5sdp"-->
+    <!--android:ellipsize="end"-->
+    <!--android:maxLines="1"-->
+    <!--android:maxWidth="@dimen/_150sdp"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:layout_constraintLeft_toRightOf="@+id/market_ivBack"-->
+    <!--android:textSize="@dimen/normal_header_size"-->
+    <!--android:gravity="center_vertical"/>-->
 
-    <ImageView
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:src="@drawable/back_button"
-            android:id="@+id/market_ivBack"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/market_header"
-            android:padding="@dimen/_9sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/market_header"/>
+    <!--<ImageView-->
+    <!--android:layout_width="@dimen/_30sdp"-->
+    <!--android:layout_height="@dimen/_30sdp"-->
+    <!--android:src="@drawable/back_button"-->
+    <!--android:id="@+id/market_ivBack"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="@+id/market_header"-->
+    <!--android:padding="@dimen/_9sdp"-->
+    <!--app:layout_constraintBottom_toBottomOf="@+id/market_header"/>-->
 
     <android.support.design.widget.TabLayout
             android:id="@+id/market_tabs"

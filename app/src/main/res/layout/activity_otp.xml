@@ -59,7 +59,6 @@
             android:id="@+id/otp_tvInstruction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Please enter verification code \n sent to your number"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/regular_text_size"

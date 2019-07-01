@@ -93,7 +93,7 @@ class SignupActivity : AppCompatActivity() {
 //            isvalid = false
 //        }
 
-        if (TextUtils.isEmpty(signup_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(signup_etMobile.text.toString()).matches()) {
+        if (TextUtils.isEmpty(signup_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(signup_etMobile.text.toString()).matches() || signup_etMobile.length() < 10) {
             signup_etMobile.error = "Please enter valid mobile number"
             isvalid = false
         }
@@ -175,6 +175,7 @@ class SignupActivity : AppCompatActivity() {
                         )
 
                         val intent = Intent(this@SignupActivity, OtpActivity::class.java)
+                        intent.putExtra("mobile_number", signup_etMobile.text.toString())
                         startActivity(intent)
 //                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
                         finish()

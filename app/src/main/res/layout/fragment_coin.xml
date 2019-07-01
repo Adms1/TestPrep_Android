@@ -82,6 +82,8 @@
             android:layout_marginRight="@dimen/_30sdp"
             android:background="@drawable/login_round_bg"
             android:text="Add Now!"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
             android:textColor="@color/white"
             android:textSize="@dimen/_13sdp"
             android:textStyle="bold"/>

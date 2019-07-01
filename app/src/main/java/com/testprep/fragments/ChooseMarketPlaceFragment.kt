@@ -1,13 +1,11 @@
 package com.testprep.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.testprep.R
-import com.testprep.activity.SelectPackageActivity
 import kotlinx.android.synthetic.main.fragment_choose_market_place.*
 
 class ChooseMarketPlaceFragment : Fragment() {
@@ -26,8 +24,12 @@ class ChooseMarketPlaceFragment : Fragment() {
         choosemp_tvSingleTest.setOnClickListener {}
 
         choosemp_tvTestPackages.setOnClickListener {
-            val intent = Intent(activity, SelectPackageActivity::class.java)
-            startActivity(intent)
+
+            fragmentManager!!.beginTransaction().replace(R.id.container, MarketPlaceFragment()).addToBackStack(null)
+                .commit()
+
+//            val intent = Intent(activity, SelectPackageActivity::class.java)
+//            startActivity(intent)
         }
 
 //        choosemp_ivFilter.setOnClickListener {

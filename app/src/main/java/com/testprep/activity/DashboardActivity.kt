@@ -77,6 +77,13 @@ class DashboardActivity : AppCompatActivity() {
     fun onClick(v: View) {
         when (v) {
 
+            dashboard_ivCart -> {
+
+                val intent = Intent(this@DashboardActivity, CartActivity::class.java)
+                startActivity(intent)
+
+            }
+
             dashboard_ivLogout -> {
                 signOut()
             }
@@ -86,6 +93,10 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_header.text = "My Packages"
 
                 supportFragmentManager.beginTransaction().replace(R.id.container, MyPackagesFragment()).commit()
+
+                dashboard_ivFilter.visibility = View.GONE
+                dashboard_ivCart.visibility = View.GONE
+                dashboard_ivPencil.visibility = View.GONE
 
                 dash_ivHome.setImageResource(R.drawable.blue_home)
                 dash_ivMarket.setImageResource(R.drawable.list)
@@ -104,6 +115,10 @@ class DashboardActivity : AppCompatActivity() {
 
                 supportFragmentManager.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
 
+                dashboard_ivFilter.visibility = View.VISIBLE
+                dashboard_ivCart.visibility = View.VISIBLE
+                dashboard_ivPencil.visibility = View.VISIBLE
+
                 dash_ivMarket.setImageResource(R.drawable.blue_list)
                 dash_ivHome.setImageResource(R.drawable.home)
                 dash_ivUser.setImageResource(R.drawable.menu_one)
@@ -121,6 +136,10 @@ class DashboardActivity : AppCompatActivity() {
 
                 supportFragmentManager.beginTransaction().replace(R.id.container, ExploreFragment()).commit()
 
+                dashboard_ivFilter.visibility = View.GONE
+                dashboard_ivCart.visibility = View.GONE
+                dashboard_ivPencil.visibility = View.GONE
+
                 dash_ivSearch.setImageResource(R.drawable.blue_search)
                 dash_ivUser.setImageResource(R.drawable.menu_one)
                 dash_ivMarket.setImageResource(R.drawable.list)
@@ -135,6 +154,10 @@ class DashboardActivity : AppCompatActivity() {
             dash_llProfile -> {
 
                 dashboard_header.text = "Other"
+
+                dashboard_ivFilter.visibility = View.GONE
+                dashboard_ivCart.visibility = View.GONE
+                dashboard_ivPencil.visibility = View.GONE
 
 //                dashboard_ivLogout.visibility = View.GONE
                 supportFragmentManager.beginTransaction().replace(R.id.container, OtherFragment()).commit()

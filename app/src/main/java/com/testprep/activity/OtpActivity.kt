@@ -25,6 +25,9 @@ class OtpActivity : AppCompatActivity() {
 
         otp_ivBack.setOnClickListener { onBackPressed() }
 
+        otp_tvInstruction.text =
+            "Please enter verification code \n sent to +91 " + intent.getStringExtra("mobile_number")
+
         otp_btnSubmit.setOnClickListener {
 
             if (otp_btnSubmit.text.toString() != "Done") {

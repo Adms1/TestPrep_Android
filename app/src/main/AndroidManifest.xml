@@ -21,6 +21,8 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.CartActivity">
+        </activity>
         <activity android:name=".activity.ViewSolutionActivity">
         </activity>
         <activity android:name=".activity.TestReviewActivity">

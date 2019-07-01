@@ -13,8 +13,8 @@ class MarketPlaceViewpagerAdapter(fm: FragmentManager, private var tabCount: Int
     override fun getItem(position: Int): Fragment? {
 
         return when (position) {
-            0 -> SingleTestFragment()
-            1 -> TestPackageFragment()
+            1 -> SingleTestFragment()
+            0 -> TestPackageFragment()
             2 -> TutorsFragment()
             else -> null
         }

@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import com.testprep.R
 import com.testprep.adapter.MarketPlaceViewpagerAdapter
 import com.testprep.adapter.QuestionsPagerAdapter
-import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.fragment_market_place.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,10 +41,10 @@ class MarketPlaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        market_header.text = Utils.getStringValue(activity!!, "course_type_name", "") +
-                "," + Utils.getStringValue(activity!!, "course_name", "") +
-                "," + Utils.getStringValue(activity!!, "standard_name", "") +
-                "," + Utils.getStringValue(activity!!, "subject_name", "")
+//        market_header.text = Utils.getStringValue(activity!!, "course_type_name", "") +
+//                "," + Utils.getStringValue(activity!!, "course_name", "") +
+//                "," + Utils.getStringValue(activity!!, "standard_name", "") +
+//                "," + Utils.getStringValue(activity!!, "subject_name", "")
 
         configureTabLayout()
 
@@ -53,8 +52,8 @@ class MarketPlaceFragment : Fragment() {
 
     private fun configureTabLayout() {
 
-        market_tabs.addTab(market_tabs.newTab().setText("Single Test"))
         market_tabs.addTab(market_tabs.newTab().setText("Test Packages"))
+        market_tabs.addTab(market_tabs.newTab().setText("Single Test"))
         market_tabs.addTab(market_tabs.newTab().setText("Tutors"))
 
         val adapter = MarketPlaceViewpagerAdapter(childFragmentManager, market_tabs.tabCount)

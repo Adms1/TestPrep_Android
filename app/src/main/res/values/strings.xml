@@ -90,6 +90,7 @@
     <string name="email_or_mobile_number">EMAIL or Mobile Number</string>
     <string name="check_mail">Check Your email</string>
     <string name="go_to_email">Go to Email</string>
+    <string name="cart">Cart</string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>
