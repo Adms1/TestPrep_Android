@@ -44,6 +44,23 @@ class WebRequests {
             return map
         }
 
+        fun checkForgotpassParams(mobile: String): HashMap<String, String> {
+            val map = HashMap<String, String>()
+
+            map["Mobile"] = mobile
+
+            return map
+        }
+
+        fun changePasswordParams(stu_id: String, new_pass: String): HashMap<String, String> {
+            val map = HashMap<String, String>()
+
+            map["StudentID"] = stu_id
+            map["NewPassword"] = new_pass
+
+            return map
+        }
+
         fun getPackageParams(
             coursetype: String,
             boardid: String,

@@ -32,20 +32,23 @@ class OtpActivity : AppCompatActivity() {
         otp_btnSubmit.setOnClickListener {
 
             if (otp_btnSubmit.text.toString() != "Done") {
-                Toast.makeText(this@OtpActivity, "Registration Successfully done...", Toast.LENGTH_LONG).show()
 
-                Utils.hideKeyboard(this@OtpActivity)
-                otp_tvVerificationSuccess.visibility = View.VISIBLE
-                otp_tvHeading.text = "Awesome!"
+                if (otp_etOtp.value.toString() == intent.getStringExtra("otp")) {
 
-                otp_tvInstruction.visibility = View.GONE
-                otp_btnSubmit.text = "Done"
-                otp_tvResend.visibility = View.GONE
-                otp_etOtp.visibility = View.GONE
+                    Utils.hideKeyboard(this@OtpActivity)
+                    otp_tvVerificationSuccess.visibility = View.VISIBLE
+                    otp_tvHeading.text = "Awesome!"
 
-                otp_ivLogo.setImageDrawable(resources.getDrawable(R.drawable.success_verification_icn))
+                    otp_tvInstruction.visibility = View.GONE
+                    otp_btnSubmit.text = "Done"
+                    otp_tvResend.visibility = View.GONE
+                    otp_etOtp.visibility = View.GONE
+
+                    otp_ivLogo.setImageDrawable(resources.getDrawable(R.drawable.success_verification_icn))
+                } else {
+                    Toast.makeText(this@OtpActivity, "OTP not match", Toast.LENGTH_LONG).show()
+                }
 //                Handler().postDelayed(
-//
 //                    {
 //                        val intent = Intent(this@OtpActivity, NewActivity::class.java)
 //                        startActivity(intent)
@@ -56,8 +59,15 @@ class OtpActivity : AppCompatActivity() {
 //                )
             } else {
 
-                val intent = Intent(this@OtpActivity, ChangePasswordActivity::class.java)
-                startActivity(intent)
+                if (intent.getStringExtra("come_from") == "forgot password") {
+                    val intent = Intent(this@OtpActivity, ChangePasswordActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val intent = Intent(this@OtpActivity, NewActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
 
             }
         }

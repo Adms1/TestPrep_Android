@@ -30,6 +30,10 @@ interface WebInterface {
     @POST("Forgot_Password")
     fun forgotPassword(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
+    @FormUrlEncoded
+    @POST("Change_Password")
+    fun changePassword(@FieldMap map: HashMap<String, String>): Call<JsonObject>
+
     @GET("Get_CourseType_List")
     fun getCourseList(): Call<MainModel>
 

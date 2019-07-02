@@ -16,6 +16,7 @@ class AppConstants {
         var USER_STATUSID = "userstatusid"
 
         var COURSE_FLOW = ""
+        var ON_BACK = 0
         var COURSE_FLOW_ARRAY: ArrayList<String> = ArrayList()
 
         var API_KEY = "535ee616-a161-4e16-88ed-a338582e841a"

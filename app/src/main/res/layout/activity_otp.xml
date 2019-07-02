@@ -67,16 +67,62 @@
             android:paddingRight="@dimen/_25sdp"
             app:layout_constraintTop_toBottomOf="@+id/otp_ivLogo"/>
 
-    <com.alahammad.otp_view.OtpView
+    <!--<com.goodiebag.pinview.Pinview-->
+    <!--android:id="@+id/otp_etOtp"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:inputType="number"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/otp_tvResend"-->
+    <!--android:layout_marginBottom="@dimen/_40sdp"-->
+    <!--app:otp_number="6"/>-->
+
+    <com.goodiebag.pinview.Pinview
             android:id="@+id/otp_etOtp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/otp_tvResend"
+            app:pinWidth="@dimen/_25sdp"
+            app:pinHeight="@dimen/_30sdp"
+            app:textSize="@dimen/small_text_size"
+            app:pinLength="6"
+            app:cursorVisible="true"
+            app:forceKeyboard="true"
+            app:hint="000000"
+            app:pinBackground="@drawable/otp_bg"
+            app:inputType="number"
             android:layout_marginBottom="@dimen/_40sdp"
-            app:otp_number="4"/>
+            app:layout_constraintBottom_toTopOf="@+id/otp_tvResend"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:password="false"/>
+
+    <!--<com.chaos.view.PinView-->
+    <!--android:id="@+id/otp_etOtp"-->
+    <!--style="@style/PinWidget.PinView"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:cursorVisible="true"-->
+    <!--android:hint="123456"-->
+    <!--android:inputType="number"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/otp_tvResend"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--android:layout_marginBottom="@dimen/_40sdp"-->
+    <!--android:textColor="@color/colorPrimary"-->
+    <!--android:textSize="18sp"-->
+    <!--android:textStyle="bold"-->
+    <!--app:cursorColor="@color/colorPrimary"-->
+    <!--app:cursorWidth="2dp"-->
+    <!--app:hideLineWhenFilled="true"-->
+    <!--app:itemCount="6"-->
+    <!--app:itemHeight="48dp"-->
+    <!--app:itemRadius="4dp"-->
+    <!--app:itemSpacing="0dp"-->
+    <!--app:itemWidth="48dp"-->
+    <!--app:lineColor="@color/colorPrimary"-->
+    <!--app:lineWidth="@dimen/_50sdp"-->
+    <!--app:viewType="line" />-->
 
     <TextView
             android:id="@+id/otp_tvResend"
@@ -96,7 +142,7 @@
             android:id="@+id/otp_tvVerificationSuccess"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Mobile Number has been verified successfully"
+            android:text="Your mobile number has been verified successfully"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/regular_text_size"

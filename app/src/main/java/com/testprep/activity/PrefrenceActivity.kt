@@ -87,41 +87,50 @@ class PrefrenceActivity : AppCompatActivity() {
 
         package_btnNext.setOnClickListener {
 
-            if (chooseCoarseAdapter != null) {
-                var subIds = chooseCoarseAdapter!!.getIds()
-
-                Utils.setStringValue(this@PrefrenceActivity, "subject_id", subIds)
-
-                if (subIds != "" && subIds != null) {
-                    val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
-                    mIntent.putExtra("subject_id", subIds)
-                    startActivity(mIntent)
-                } else {
-                    Utils.ping(this@PrefrenceActivity, "Please Select Subject")
-                }
-
+            if (Utils.getStringValue(this@PrefrenceActivity, "course_id", "") == "") {
+                Utils.ping(this@PrefrenceActivity, "Please Select Board")
             } else {
-                Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+                if (chooseCoarseAdapter != null) {
+                    var subIds = chooseCoarseAdapter!!.getIds()
+
+                    Utils.setStringValue(this@PrefrenceActivity, "subject_id", subIds)
+
+                    if (subIds != "" && subIds != null) {
+                        val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
+                        mIntent.putExtra("subject_id", subIds)
+                        startActivity(mIntent)
+
+                    } else {
+                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+                    }
+
+                } else {
+                    Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+                }
             }
         }
 
         package_btnNextt.setOnClickListener {
 
-            if (chooseCoarseAdapter != null) {
-                var subIds = chooseCoarseAdapter!!.getIds()
-
-                Utils.setStringValue(this@PrefrenceActivity, "subject_id", subIds)
-
-                if (subIds != "" && subIds != null) {
-                    val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
-                    mIntent.putExtra("subject_id", subIds)
-                    startActivity(mIntent)
-                } else {
-                    Utils.ping(this@PrefrenceActivity, "Please Select Subject")
-                }
-
+            if (Utils.getStringValue(this@PrefrenceActivity, "course_id", "") == "") {
+                Utils.ping(this@PrefrenceActivity, "Please Select Board")
             } else {
-                Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+                if (chooseCoarseAdapter != null) {
+                    var subIds = chooseCoarseAdapter!!.getIds()
+
+                    Utils.setStringValue(this@PrefrenceActivity, "subject_id", subIds)
+
+                    if (subIds != "" && subIds != null) {
+                        val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
+                        mIntent.putExtra("subject_id", subIds)
+                        startActivity(mIntent)
+                    } else {
+                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+                    }
+
+                } else {
+                    Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+                }
             }
         }
 
@@ -232,6 +241,8 @@ class PrefrenceActivity : AppCompatActivity() {
                         pref_tvStep3.visibility = GONE
                         coarse_rvSubjectList.visibility = GONE
                         step3_arrow.visibility = GONE
+
+                        Utils.setStringValue(this@PrefrenceActivity, "course_id", "")
 
                         val chooseCoarseAdapter = NewSelectBoardAdapter(this@PrefrenceActivity, response.body()!!.data)
                         coarse_rvCoarseList.adapter = chooseCoarseAdapter

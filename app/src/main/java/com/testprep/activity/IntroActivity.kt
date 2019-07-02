@@ -328,7 +328,7 @@ class IntroActivity : AppCompatActivity() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-                        Toast.makeText(this@IntroActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+//                        Toast.makeText(this@IntroActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
                         Utils.setStringValue(this@IntroActivity, "is_login", "true")
 
@@ -382,7 +382,7 @@ class IntroActivity : AppCompatActivity() {
 
 //                    Log.d("loginresponse", response.body()!!.asString)
                     } else {
-                        Toast.makeText(this@IntroActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+//                        Toast.makeText(this@IntroActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
                         callSignupApi(
                             logintype,
@@ -430,8 +430,8 @@ class IntroActivity : AppCompatActivity() {
 
                     if (response.body()!!.get("Status").asString == "true") {
 
-                        Toast.makeText(this@IntroActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG)
-                            .show()
+//                        Toast.makeText(this@IntroActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG)
+//                            .show()
 
                         Utils.setStringValue(
                             this@IntroActivity,

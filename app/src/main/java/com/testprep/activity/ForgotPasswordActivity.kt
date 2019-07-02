@@ -12,6 +12,7 @@ import com.google.gson.JsonObject
 import com.testprep.R
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
@@ -36,15 +37,16 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         forgot_pass_btnReset.setOnClickListener {
 
-            if (TextUtils.isEmpty(forgot_pass_etEmail.text.toString())) {
-                forgot_pass_etEmail.error = "Please Enter Email"
-            } else {
-                callForgotPasswordlApi()
+            when {
+                TextUtils.isEmpty(forgot_pass_etEmail.text.toString()) -> forgot_pass_etEmail.error =
+                    "Please Enter Mobile Number"
+                forgot_pass_etEmail.text!!.length != 10 -> forgot_pass_etEmail.error =
+                    "Please enter valid Mobile Number"
+                else -> callForgotPasswordlApi()
 
-//                val intent = Intent(this@ForgotPasswordActivity, CheckEmailActivity::class.java)
-//                startActivity(intent)
-//                finish()
-
+                //                val intent = Intent(this@ForgotPasswordActivity, CheckEmailActivity::class.java)
+                //                startActivity(intent)
+                //                finish()
             }
         }
 
@@ -62,7 +64,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.forgotPassword(WebRequests.checkEmailParams(forgot_pass_etEmail.text.toString()))
+        val call = apiService.forgotPassword(WebRequests.checkForgotpassParams(forgot_pass_etEmail.text.toString()))
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
@@ -72,16 +74,24 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-                        Toast.makeText(
+//                        Toast.makeText(
+//                            this@ForgotPasswordActivity,
+//                            response.body()!!["Msg"].asString,
+//                            Toast.LENGTH_LONG
+//                        )
+//                            .show()
+
+                        Utils.setStringValue(
                             this@ForgotPasswordActivity,
-                            response.body()!!["Msg"].asString,
-                            Toast.LENGTH_LONG
+                            AppConstants.USER_ID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
                         )
-                            .show()
 
                         val intent = Intent(this@ForgotPasswordActivity, OtpActivity::class.java)
+                        intent.putExtra("mobile_number", forgot_pass_etEmail.text.toString())
+                        intent.putExtra("otp", response.body()!!["data"].asJsonArray[0].asJsonObject["OTP"].asString)
+                        intent.putExtra("come_from", "forgot password")
                         startActivity(intent)
-                        finish()
 
                     } else {
                         Toast.makeText(

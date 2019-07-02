@@ -90,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-                        Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+//                        Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
                         Utils.setStringValue(this@LoginActivity, "is_login", "true")
 

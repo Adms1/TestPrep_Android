@@ -65,12 +65,13 @@ class PaymentSuccessScreen : AppCompatActivity() {
         }
 
         tvCancel.setOnClickListener {
-            val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
-            startActivity(intent)
+            //            val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
+//            startActivity(intent)
 //            overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
             // close this activity
-            finish()
+//            finish()
+            onBackPressed()
         }
 
         tvTry.setOnClickListener {
@@ -131,6 +132,8 @@ class PaymentSuccessScreen : AppCompatActivity() {
                     } else {
                         Toast.makeText(this@PaymentSuccessScreen, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
                             .show()
+
+                        onBackPressed()
 
                     }
                 }

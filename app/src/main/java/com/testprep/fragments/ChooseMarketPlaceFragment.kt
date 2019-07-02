@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.testprep.R
+import com.testprep.utils.AppConstants
 import kotlinx.android.synthetic.main.fragment_choose_market_place.*
 
 class ChooseMarketPlaceFragment : Fragment() {
@@ -20,6 +21,8 @@ class ChooseMarketPlaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        AppConstants.ON_BACK = 1
 
         choosemp_tvSingleTest.setOnClickListener {}
 

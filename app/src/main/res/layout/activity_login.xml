@@ -11,7 +11,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white"
         tools:context=".activity.LoginActivity">
 
@@ -41,7 +41,7 @@
 
         <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Blue"
                 app:layout_constraintTop_toBottomOf="@+id/login_ivLogo"
                 app:layout_constraintLeft_toRightOf="@+id/login_ive"
@@ -81,7 +81,7 @@
 
         <android.support.design.widget.TextInputLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Blue"
                 app:layout_constraintTop_toBottomOf="@id/login_llEmail"
                 app:layout_constraintLeft_toRightOf="@+id/login_ivp"
@@ -148,7 +148,6 @@
                 android:layout_marginRight="@dimen/_20sdp"
                 android:textSize="@dimen/small_text_size"
                 android:layout_marginBottom="@dimen/_20sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/login_btnLogin"
                 android:layout_marginTop="@dimen/_15sdp"/>
 

@@ -84,4 +84,8 @@ class NewActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onBackPressed() {
+
+    }
 }

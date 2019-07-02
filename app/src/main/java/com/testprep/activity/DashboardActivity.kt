@@ -1,6 +1,7 @@
 package com.testprep.activity
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActionBarDrawerToggle
@@ -17,10 +18,12 @@ import com.testprep.fragments.ExploreFragment
 import com.testprep.fragments.MyPackagesFragment
 import com.testprep.fragments.OtherFragment
 import com.testprep.utils.AppConstants
+import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.Utils.Companion.clearPrefrence
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -57,6 +60,7 @@ class DashboardActivity : AppCompatActivity() {
 
         supportFragmentManager.beginTransaction().add(R.id.container, ChooseMarketPlaceFragment()).commit()
         dash_ivMarket.setImageResource(R.drawable.blue_list)
+        dashboard_ivBack.visibility = View.VISIBLE
 
         dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
         dashboard_header.text = "Market Place"
@@ -66,6 +70,12 @@ class DashboardActivity : AppCompatActivity() {
             .build()
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        dashboard_ivBack.setOnClickListener {
+
+            onBackPressed()
+
+        }
 
         dashboard_ivLogout.setOnClickListener { signOut() }
 
@@ -97,6 +107,7 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_ivFilter.visibility = View.GONE
                 dashboard_ivCart.visibility = View.GONE
                 dashboard_ivPencil.visibility = View.GONE
+                dashboard_ivBack.visibility = View.GONE
 
                 dash_ivHome.setImageResource(R.drawable.blue_home)
                 dash_ivMarket.setImageResource(R.drawable.list)
@@ -118,6 +129,7 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_ivFilter.visibility = View.VISIBLE
                 dashboard_ivCart.visibility = View.VISIBLE
                 dashboard_ivPencil.visibility = View.VISIBLE
+                dashboard_ivBack.visibility = View.VISIBLE
 
                 dash_ivMarket.setImageResource(R.drawable.blue_list)
                 dash_ivHome.setImageResource(R.drawable.home)
@@ -139,6 +151,7 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_ivFilter.visibility = View.GONE
                 dashboard_ivCart.visibility = View.GONE
                 dashboard_ivPencil.visibility = View.GONE
+                dashboard_ivBack.visibility = View.GONE
 
                 dash_ivSearch.setImageResource(R.drawable.blue_search)
                 dash_ivUser.setImageResource(R.drawable.menu_one)
@@ -158,6 +171,7 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_ivFilter.visibility = View.GONE
                 dashboard_ivCart.visibility = View.GONE
                 dashboard_ivPencil.visibility = View.GONE
+                dashboard_ivBack.visibility = View.GONE
 
 //                dashboard_ivLogout.visibility = View.GONE
                 supportFragmentManager.beginTransaction().replace(R.id.container, OtherFragment()).commit()
@@ -245,24 +259,48 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun signOut() {
 
-        clearPrefrence(this@DashboardActivity)
-        AppConstants.COURSE_FLOW_ARRAY.clear()
+        DialogUtils.createConfirmDialog(
+            this@DashboardActivity,
+            "Logout?",
+            "are you sure you want to logout?",
+            "Yes",
+            "No",
+            DialogInterface.OnClickListener { dialog, which ->
+                clearPrefrence(this@DashboardActivity)
+                AppConstants.COURSE_FLOW_ARRAY.clear()
 
-        mGoogleSignInClient!!.signOut()
-            .addOnCompleteListener(this) {
-                // ...
+                mGoogleSignInClient!!.signOut()
+                    .addOnCompleteListener(this) {
+                        // ...
 
-                Utils.setStringValue(this@DashboardActivity, "is_login", "false")
+                        Utils.setStringValue(this@DashboardActivity, "is_login", "false")
 
-                val intent = Intent(this@DashboardActivity, IntroActivity::class.java)
-                startActivity(intent)
+                        val intent = Intent(this@DashboardActivity, IntroActivity::class.java)
+                        startActivity(intent)
 //                overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
-                finish()
+                        finish()
 
-            }
+                    }
+            },
+            DialogInterface.OnClickListener { dialog, which ->
+                dialog.dismiss()
+
+
+            }).show()
     }
 
     override fun onBackPressed() {
+
+        when {
+            AppConstants.ON_BACK == 1 -> super.onBackPressed()
+            AppConstants.ON_BACK == 2 -> supportFragmentManager.beginTransaction().replace(
+                R.id.container,
+                ChooseMarketPlaceFragment()
+            ).commit()
+            else -> {
+
+            }
+        }
 
     }
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.testprep.R
 import com.testprep.adapter.MarketPlaceViewpagerAdapter
 import com.testprep.adapter.QuestionsPagerAdapter
+import com.testprep.utils.AppConstants
 import kotlinx.android.synthetic.main.fragment_market_place.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -40,6 +41,8 @@ class MarketPlaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        AppConstants.ON_BACK = 2
 
 //        market_header.text = Utils.getStringValue(activity!!, "course_type_name", "") +
 //                "," + Utils.getStringValue(activity!!, "course_name", "") +

@@ -83,6 +83,11 @@ class SignupActivity : AppCompatActivity() {
             isvalid = false
         }
 
+        if (signup_etPassword.text!!.length < 4) {
+            signup_etPassword.error = " you have to enter at least 4 digit!"
+            isvalid = false
+        }
+
 //        if (TextUtils.isEmpty(signup_etCPassword.text.toString())) {
 //            signup_etCPassword.error = "Please enter confirm password"
 //            isvalid = false
@@ -176,6 +181,8 @@ class SignupActivity : AppCompatActivity() {
 
                         val intent = Intent(this@SignupActivity, OtpActivity::class.java)
                         intent.putExtra("mobile_number", signup_etMobile.text.toString())
+                        intent.putExtra("otp", "1234")
+                        intent.putExtra("come_from", "signup")
                         startActivity(intent)
 //                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
                         finish()
