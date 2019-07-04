@@ -84,7 +84,7 @@ class PackageDetailActivity : AppCompatActivity() {
             DialogUtils.createConfirmDialog(
                 this@PackageDetailActivity,
                 "",
-                "are you sure you want to buy this package?",
+                "Are you sure you want to buy this package?",
                 "Yes",
                 "No",
                 DialogInterface.OnClickListener { dialog, which ->

@@ -59,7 +59,7 @@ class MarketPlaceFragment : Fragment() {
         market_tabs.addTab(market_tabs.newTab().setText("Single Test"))
         market_tabs.addTab(market_tabs.newTab().setText("Tutors"))
 
-        val adapter = MarketPlaceViewpagerAdapter(childFragmentManager, market_tabs.tabCount)
+        val adapter = MarketPlaceViewpagerAdapter(childFragmentManager, market_tabs.tabCount, "market place")
         market_viewpager.adapter = adapter
 
         market_viewpager.addOnPageChangeListener(

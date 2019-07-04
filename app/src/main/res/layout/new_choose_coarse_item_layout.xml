@@ -19,12 +19,12 @@
             app:layout_constraintRight_toRightOf="parent">
 
         <RelativeLayout
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_80sdp">
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_90sdp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_87sdp"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_90sdp"
                     android:id="@+id/package_image"/>
 
             <TextView

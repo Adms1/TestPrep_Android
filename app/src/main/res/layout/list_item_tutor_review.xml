@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp">
+
+    <ImageView
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:padding="@dimen/_6sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@drawable/pink_round"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:id="@+id/tutor_review_image"/>
+
+    <TextView
+            android:text="Hemang Mehta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_item_tvName"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_review_image"
+            app:layout_constraintTop_toTopOf="@+id/tutor_review_image"
+            app:layout_constraintBottom_toBottomOf="@+id/tutor_review_image"
+            android:textSize="@dimen/regular_text_size"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="@color/black"/>
+
+    <RatingBar
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:rating="5"
+            android:id="@+id/tutor_review_rating"
+            app:layout_constraintLeft_toLeftOf="@+id/tutor_review_image"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_review_image"/>
+
+    <TextView
+            android:text="16/06/2019"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_item_tvDate"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_review_rating"
+            app:layout_constraintTop_toTopOf="@+id/tutor_review_rating"
+            app:layout_constraintBottom_toBottomOf="@+id/tutor_review_rating"
+            android:textSize="@dimen/small_text_size"
+            android:layout_marginLeft="@dimen/_10sdp"/>
+
+    <TextView
+            android:text="Hemang Mehta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_item_tvName1"
+            app:layout_constraintLeft_toLeftOf="@+id/tutor_review_image"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDate"
+            android:textSize="@dimen/regular_text_size"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textColor="@color/black"/>
+
+    <TextView
+            android:text="Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_item_tvDesc"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvName1"
+            app:layout_constraintLeft_toLeftOf="@+id/tutor_review_image"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/extra_small_size"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:maxLines="5"
+            android:gravity="center_vertical"
+            android:textColor="@color/gray"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.PrefrenceActivity
 import com.testprep.models.GetCourseListData
+import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 
 class NewSelectStandardAdapter(val context: Context, val dataList: ArrayList<GetCourseListData>) :
@@ -34,15 +36,20 @@ class NewSelectStandardAdapter(val context: Context, val dataList: ArrayList<Get
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].StandardName.substring(0, 1)))
+//        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].StandardName.substring(0, 1)))
+
+        if (dataList[p1].Icon != null) {
+            Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
+        } else {
+            if (dataList[p1].StandardName.contains(" ")) {
+                p0.stitle.text = dataList[p1].StandardName.substring(0, 2)
+            } else {
+                p0.stitle.text = dataList[p1].StandardName
+            }
+
+        }
 
         p0.title.text = dataList[p1].StandardName
-
-        if (dataList[p1].StandardName.contains(" ")) {
-            p0.stitle.text = dataList[p1].StandardName.substring(0, 2)
-        } else {
-            p0.stitle.text = dataList[p1].StandardName
-        }
 
         p0.image.setOnClickListener {
 
@@ -58,15 +65,28 @@ class NewSelectStandardAdapter(val context: Context, val dataList: ArrayList<Get
             notifyDataSetChanged()
         }
 
-        if (row_index == p1) {
-            p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
-            p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.close_cancel))
-            p0.p_select.visibility = View.VISIBLE
+        if (dataList[p1].Icon == null) {
+            if (row_index == p1) {
+                p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
+                p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.close_cancel))
+                p0.p_select.visibility = View.VISIBLE
+            } else {
+                p0.title.setTextColor(context.resources.getColor(R.color.black))
+                p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
+                p0.p_select.visibility = View.GONE
+            }
         } else {
-            p0.title.setTextColor(context.resources.getColor(R.color.black))
-            p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
-            p0.p_select.visibility = View.GONE
+            if (row_index == p1) {
+                p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
+//                p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.close_cancel))
+                p0.p_select.visibility = View.VISIBLE
+            } else {
+                p0.title.setTextColor(context.resources.getColor(R.color.black))
+//                p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
+                p0.p_select.visibility = View.GONE
+            }
         }
+
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {

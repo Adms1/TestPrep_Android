@@ -84,14 +84,13 @@
                         android:textColor="@color/nfcolor"/>
 
                 <ImageView
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/down_arrow"
-                        android:padding="@dimen/_7sdp"
                         android:rotation="180"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_17sdp"
                         android:id="@+id/step1_arrow"/>
 
             </RelativeLayout>
@@ -123,15 +122,14 @@
                         android:textColor="@color/nfcolor"/>
 
                 <ImageView
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/down_arrow"
-                        android:padding="@dimen/_7sdp"
                         android:visibility="gone"
                         android:rotation="180"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_17sdp"
                         android:id="@+id/step2_arrow"/>
 
             </RelativeLayout>
@@ -163,15 +161,14 @@
                         android:textColor="@color/nfcolor"/>
 
                 <ImageView
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/down_arrow"
-                        android:padding="@dimen/_7sdp"
                         android:layout_centerVertical="true"
                         android:visibility="gone"
                         android:rotation="180"
-                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_17sdp"
                         android:id="@+id/step3_arrow"/>
 
             </RelativeLayout>

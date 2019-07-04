@@ -16,4 +16,6 @@ class GetCourseListData {
     var StandardName = ""
 
     var SubjectID = 0
+
+    var Icon = ""
 }

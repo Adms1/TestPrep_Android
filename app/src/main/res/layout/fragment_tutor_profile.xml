@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/_15sdp"
+        tools:context=".fragments.TutorProfileFragment">
+
+    <ImageView
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:padding="@dimen/_6sdp"
+            android:src="@drawable/pink_round"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:id="@+id/tutor_profile_image"/>
+
+    <TextView
+            android:text="Hemang Mehta"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_profile_tvName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
+            android:textSize="@dimen/regular_text_size"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
+
+    <TextView
+            android:text="+91 9727087456"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_profile_tvMobile"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_profile_tvName"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
+            android:textSize="@dimen/small_text_size"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:textColor="@color/gray"/>
+
+    <TextView
+            android:text="hemang@coronation.in"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_profile_tvEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_profile_tvMobile"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
+            android:textSize="@dimen/extra_small_size"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:gravity="top"
+            android:textColor="@color/gray"/>
+
+    <TextView
+            android:text="Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_item_tvDesc"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_profile_tvEmail"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/extra_small_size"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:maxLines="4"
+            android:gravity="center_vertical"
+            android:textColor="@color/gray"/>
+
+    <TextView
+            android:text="Simillar Curators"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_7sdp"
+            android:id="@+id/tutor_item_tvCurators"
+            android:paddingBottom="@dimen/_7sdp"
+            android:textSize="@dimen/_14sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:background="@color/light_blue"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDesc"
+            android:textColor="@color/nfcolor"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/tutor_item_rvCuratorList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvCurators"/>
+
+
+</android.support.constraint.ConstraintLayout>

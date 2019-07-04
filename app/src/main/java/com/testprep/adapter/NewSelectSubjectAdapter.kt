@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.models.GetCourseListData
+import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 
 class NewSelectSubjectAdapter(val context: Context, val dataList: ArrayList<GetCourseListData>) :
@@ -37,7 +39,14 @@ class NewSelectSubjectAdapter(val context: Context, val dataList: ArrayList<GetC
 
 //        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].SubjectName.substring(0, 1)))
         p0.title.text = dataList[p1].SubjectName
-        p0.stitle.text = p0.title.text.substring(0, 1)
+//        p0.stitle.text = p0.title.text.substring(0, 1)
+
+        if (dataList[p1].Icon != null) {
+            Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
+        } else {
+//            p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].SubjectName.substring(0, 1)))
+            p0.stitle.text = p0.title.text.substring(0, 1)
+        }
 
         p0.image.setOnClickListener {
 
@@ -49,40 +58,76 @@ class NewSelectSubjectAdapter(val context: Context, val dataList: ArrayList<GetC
 
         }
 
-        if (row_index == p1) {
+        if (dataList[p1].Icon == null) {
+            if (row_index == p1) {
 
-            p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
-            p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.close_cancel))
-            p0.p_select.visibility = View.VISIBLE
+                p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
+                p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.close_cancel))
+                p0.p_select.visibility = View.VISIBLE
 
-            if (selected.size > 0) {
+                if (selected.size > 0) {
 
-                for (i in 0..selected.size) {
-                    if (selected.contains(dataList[p1].SubjectID)) {
-                        selected.remove(dataList[p1].SubjectID)
-                        p0.p_select.visibility = View.GONE
-                        p0.title.setTextColor(context.resources.getColor(R.color.light_gray))
-                        p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
-                        break
+                    for (i in 0..selected.size) {
+                        if (selected.contains(dataList[p1].SubjectID)) {
+                            selected.remove(dataList[p1].SubjectID)
+                            p0.p_select.visibility = View.GONE
+                            p0.title.setTextColor(context.resources.getColor(R.color.black))
+                            p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
+                            break
 
-                    } else {
-                        selected.add(dataList[p1].SubjectID)
+                        } else {
+                            selected.add(dataList[p1].SubjectID)
 
-                        break
+                            break
 
+                        }
                     }
+
+                    Log.d("selected array : ", " $selected")
+
+                } else {
+                    selected.add(dataList[p1].SubjectID)
                 }
 
-                Log.d("selected array : ", " $selected")
-
             } else {
-                selected.add(dataList[p1].SubjectID)
-            }
-
-        } else {
 //            p0.title.setTextColor(context.resources.getColor(R.color.black))
 //            p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
 
+            }
+        } else {
+            if (row_index == p1) {
+
+                p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
+//                p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.close_cancel))
+                p0.p_select.visibility = View.VISIBLE
+
+                if (selected.size > 0) {
+
+                    for (i in 0..selected.size) {
+                        if (selected.contains(dataList[p1].SubjectID)) {
+                            selected.remove(dataList[p1].SubjectID)
+                            p0.p_select.visibility = View.GONE
+                            p0.title.setTextColor(context.resources.getColor(R.color.black))
+//                            p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
+                            break
+
+                        } else {
+                            selected.add(dataList[p1].SubjectID)
+
+                            break
+
+                        }
+                    }
+
+                    Log.d("selected array : ", " $selected")
+
+                } else {
+                    selected.add(dataList[p1].SubjectID)
+                }
+
+            } else {
+
+            }
         }
 
     }

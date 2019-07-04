@@ -2,7 +2,81 @@
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp">
 
+    <RelativeLayout
+            android:id="@+id/tutor_rlImage"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:padding="@dimen/_6sdp"
+                android:id="@+id/tutor_image"/>
+
+        <TextView
+                android:id="@+id/tutor_name_short"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_25sdp"
+                android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <TextView
+            android:text="Std:12th - Mathematics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_item_tvStd"
+            app:layout_constraintBottom_toTopOf="@+id/tutor_item_tvName"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_rlImage"
+            android:textSize="@dimen/extra_small_size"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="center_vertical"
+            android:textColor="@color/gray"/>
+
+    <TextView
+            android:text="MIOD Institute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_item_tvName"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_rlImage"
+            app:layout_constraintTop_toTopOf="@+id/tutor_rlImage"
+            app:layout_constraintBottom_toBottomOf="@+id/tutor_rlImage"
+            android:textSize="@dimen/regular_text_size"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="@color/black"/>
+
+    <TextView
+            android:text="Vastraput, Ahmedabad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_item_tvLocation"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_rlImage"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvName"
+            android:textSize="@dimen/extra_small_size"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/gray"/>
+
+    <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:padding="@dimen/_9sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@drawable/back_button"
+            android:rotation="180"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:id="@+id/tutor_item_btnNext"/>
 
 </android.support.constraint.ConstraintLayout>

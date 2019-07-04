@@ -27,31 +27,37 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return if (dataList != null && dataList.size > 0) {
+            dataList.size
+        } else {
+            5
+        }
     }
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        p0.std.text = dataList[p1].TestPackageName
-        p0.sub.text = "Mathematics"
-        p0.price.text = "₹" + dataList[p1].TestPackageSalePrice
+        if (dataList != null && dataList.size > 0) {
+            p0.std.text = dataList[p1].TestPackageName
+            p0.sub.text = "Mathematics"
+            p0.price.text = "₹" + dataList[p1].TestPackageSalePrice
 
 //        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))
-        p0.createdby.text = Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + "TestPrep" + "</font>")
+            p0.createdby.text = Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + "TestPrep" + "</font>")
 //        p0.stitle.text = dataList[p1].TestPackageName
 
-        p0.mainll.setOnClickListener {
+            p0.mainll.setOnClickListener {
 
-            val intent = Intent(context, PackageDetailActivity::class.java)
-            intent.putExtra("pkgid", dataList[p1].TestPackageID)
-            intent.putExtra("pname", dataList[p1].TestPackageName)
-            intent.putExtra("sprice", dataList[p1].TestPackageSalePrice)
-            intent.putExtra("lprice", dataList[p1].TestPackageListPrice)
-            intent.putExtra("desc", dataList[p1].TestPackageDescription)
-            intent.putExtra("test_type_list", dataList[p1].TestType)
-            intent.putExtra("come_from", "selectpackage")
-            intent.putExtra("position", dataList[p1].TestPackageName.substring(0, 1).single())
-            context.startActivity(intent)
+                val intent = Intent(context, PackageDetailActivity::class.java)
+                intent.putExtra("pkgid", dataList[p1].TestPackageID)
+                intent.putExtra("pname", dataList[p1].TestPackageName)
+                intent.putExtra("sprice", dataList[p1].TestPackageSalePrice)
+                intent.putExtra("lprice", dataList[p1].TestPackageListPrice)
+                intent.putExtra("desc", dataList[p1].TestPackageDescription)
+                intent.putExtra("test_type_list", dataList[p1].TestType)
+                intent.putExtra("come_from", "selectpackage")
+                intent.putExtra("position", dataList[p1].TestPackageName.substring(0, 1).single())
+                context.startActivity(intent)
+            }
         }
 
     }

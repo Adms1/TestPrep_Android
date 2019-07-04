@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.PrefrenceActivity
 import com.testprep.models.GetCourseListData
+import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 
 class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<GetCourseListData>) :
@@ -35,10 +37,13 @@ class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<GetCo
 
 //        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].CourseTypeName.substring(0, 1)))
 
-        p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.select_exam_bg))
+//        p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.select_exam_bg))
+//        p0.image.setImageDrawable(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon)
+
+        Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
 
         p0.title.text = dataList[p1].CourseTypeName
-        p0.stitle.text = p0.title.text.substring(0, 1)
+//        p0.stitle.text = p0.title.text.substring(0, 1)
 
         p0.image.setOnClickListener {
 

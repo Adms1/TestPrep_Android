@@ -7,6 +7,16 @@
         android:id="@+id/mainll"
         android:padding="@dimen/_12sdp">
 
+    <ImageView
+            android:src="@drawable/close_cancel"
+            android:layout_width="@dimen/_5sdp"
+            android:layout_height="@dimen/_5sdp"
+            android:id="@+id/testpkg_item_tvBullet"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginBottom="@dimen/_5sdp"/>
+
     <TextView
             android:text="Std:12th - Science"
             android:layout_width="0dp"
@@ -14,7 +24,8 @@
             android:id="@+id/testpkg_item_tvStd"
             android:layout_marginBottom="@dimen/_5sdp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_5sdp"
+            app:layout_constraintLeft_toRightOf="@+id/testpkg_item_tvBullet"
             android:textSize="@dimen/extra_small_size"
             android:gravity="center_vertical"
             android:textColor="@color/gray"/>
@@ -24,7 +35,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/testpkg_item_tvSub"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_5sdp"
+            app:layout_constraintLeft_toRightOf="@+id/testpkg_item_tvBullet"
             app:layout_constraintTop_toBottomOf="@+id/testpkg_item_tvStd"
             android:textSize="@dimen/normal_header_size"
             android:textColor="@color/black"/>
@@ -35,8 +47,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/testpkg_item_tvCreated"
             android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
             app:layout_constraintTop_toBottomOf="@+id/testpkg_item_tvSub"
-            app:layout_constraintLeft_toLeftOf="@+id/testpkg_item_tvSub"
+            app:layout_constraintLeft_toRightOf="@+id/testpkg_item_tvBullet"
             android:textSize="@dimen/extra_small_size"
             android:gravity="center_vertical"
             android:textColor="@color/black"/>
@@ -46,8 +59,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/testpkg_item_tvPrice"
+            android:layout_marginLeft="@dimen/_5sdp"
             app:layout_constraintTop_toBottomOf="@+id/testpkg_item_tvCreated"
-            app:layout_constraintLeft_toLeftOf="@+id/testpkg_item_tvCreated"
+            app:layout_constraintLeft_toRightOf="@+id/testpkg_item_tvBullet"
             android:textSize="@dimen/normal_text_size"
             android:gravity="center_vertical"
             android:textColor="@color/gray"/>

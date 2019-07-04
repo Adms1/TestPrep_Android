@@ -331,7 +331,7 @@ class TabwiseQuestionActivity : AppCompatActivity() {
             DialogUtils.createConfirmDialog(
                 this@TabwiseQuestionActivity,
                 "Submit Test?",
-                "are you sure you want to submit this test?",
+                "Are you sure you want to submit this test?",
                 "OK",
                 "Cancel",
                 DialogInterface.OnClickListener { dialog, which ->

@@ -181,7 +181,7 @@ class SignupActivity : AppCompatActivity() {
 
                         val intent = Intent(this@SignupActivity, OtpActivity::class.java)
                         intent.putExtra("mobile_number", signup_etMobile.text.toString())
-                        intent.putExtra("otp", "1234")
+                        intent.putExtra("otp", response.body()!!["data"].asJsonArray[0].asJsonObject["OTP"].asString)
                         intent.putExtra("come_from", "signup")
                         startActivity(intent)
 //                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)

@@ -18,6 +18,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.facebook.*
+import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -141,6 +142,9 @@ class IntroActivity : AppCompatActivity() {
                     callCheckEmailApi("3", name, "", email, "", "")
 //                    callSignupApi("3", name, "", email, "", "")
 
+                    if (AccessToken.getCurrentAccessToken() != null) {
+                        LoginManager.getInstance().logOut()
+                    }
                 }
                 val parameters = Bundle()
                 parameters.putString("fields", "id,name,email,gender,birthday")
@@ -377,6 +381,7 @@ class IntroActivity : AppCompatActivity() {
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
                         )
 
+//                        LoginManager.getInstance().logOut()
 
 //                    Log.w("check email response", GsonBuilder().setPrettyPrinting().create().toJson(response))
 
@@ -480,7 +485,7 @@ class IntroActivity : AppCompatActivity() {
                         finish()
 
                         Log.d("websize", response.body()!!.get("Msg").asString)
-
+//                        LoginManager.getInstance().logOut()
                     } else {
 
                         Toast.makeText(this@IntroActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG)
@@ -499,5 +504,20 @@ class IntroActivity : AppCompatActivity() {
         })
 
     }
+
+//    fun disconnectFromFacebook() {
+//
+//    if (AccessToken.getCurrentAccessToken() == null) {
+//        return; // already logged out
+//    }
+//
+//    GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, GraphRequest
+//            .Callback() {
+//
+//            LoginManager.getInstance().logOut();
+//
+//        }
+//
+//}
 
 }

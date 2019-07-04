@@ -26,6 +26,10 @@ class OtpActivity : AppCompatActivity() {
 
         otp_ivBack.setOnClickListener { onBackPressed() }
 
+        otp_tvResend.setOnClickListener {
+            Toast.makeText(this@OtpActivity, "OTP send to your registered mobile number", Toast.LENGTH_LONG).show()
+        }
+
         otp_tvInstruction.text =
             "Please enter verification code \n sent to +91 " + intent.getStringExtra("mobile_number")
 
