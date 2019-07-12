@@ -35,7 +35,25 @@ class ChangePasswordActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_change_password)
 
+        if (intent.getStringExtra("come_from") == "other") {
+
+            chngepass_ivoldpass.visibility = View.VISIBLE
+            chngepass_llOldpass.visibility = View.VISIBLE
+
+        } else {
+
+            chngepass_ivoldpass.visibility = View.GONE
+            chngepass_llOldpass.visibility = View.GONE
+
+        }
+
         chngepass_btnChange.setOnClickListener {
+
+            if (intent.getStringExtra("come_from") == "other") {
+                if (chngepass_etOldpass.text!!.length < 4) {
+                    chngepass_etOldpass.error = " you have to enter at least 4 digit!"
+                }
+            }
 
             if (chngepass_etNewpass.text!!.length < 4) {
                 chngepass_etNewpass.error = " you have to enter at least 4 digit!"

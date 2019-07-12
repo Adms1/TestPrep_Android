@@ -65,6 +65,7 @@ class OtpActivity : AppCompatActivity() {
 
                 if (intent.getStringExtra("come_from") == "forgot password") {
                     val intent = Intent(this@OtpActivity, ChangePasswordActivity::class.java)
+                    intent.putExtra("come_from", "otp")
                     startActivity(intent)
                     finish()
                 } else {

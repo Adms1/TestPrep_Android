@@ -4,6 +4,7 @@
         android:layout_width="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_height="wrap_content"
+        android:id="@+id/tutor_clMain"
         android:layout_margin="@dimen/_5sdp">
 
     <RelativeLayout
@@ -43,14 +44,14 @@
             android:textColor="@color/gray"/>
 
     <TextView
-            android:text="MIOD Institute"
+            android:text="Bothra Classes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tutor_item_tvName"
             app:layout_constraintLeft_toRightOf="@+id/tutor_rlImage"
             app:layout_constraintTop_toTopOf="@+id/tutor_rlImage"
             app:layout_constraintBottom_toBottomOf="@+id/tutor_rlImage"
-            android:textSize="@dimen/regular_text_size"
+            android:textSize="@dimen/_13sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:textColor="@color/black"/>
 

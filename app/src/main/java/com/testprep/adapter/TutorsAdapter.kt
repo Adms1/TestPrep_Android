@@ -2,6 +2,7 @@ package com.testprep.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.testprep.R
-import com.testprep.activity.TutorDetailActivity
+import com.testprep.fragments.TutorPackagesFragment
 
 class TutorsAdapter(val context: Context) :
     RecyclerView.Adapter<TutorsAdapter.viewholder>() {
@@ -39,11 +40,11 @@ class TutorsAdapter(val context: Context) :
 //        }
 
         p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
-        p0.stitle.text = "M"
+        p0.stitle.text = "B"
 
-        p0.next.setOnClickListener {
+        p0.clMain.setOnClickListener {
 
-            val intent = Intent(context, TutorDetailActivity::class.java)
+            val intent = Intent(context, TutorPackagesFragment::class.java)
             context.startActivity(intent)
 
         }
@@ -56,7 +57,7 @@ class TutorsAdapter(val context: Context) :
         var title: TextView = itemView.findViewById(R.id.tutor_item_tvName)
         var stitle: TextView = itemView.findViewById(R.id.tutor_name_short)
         var next: ImageView = itemView.findViewById(R.id.tutor_item_btnNext)
-
+        var clMain: ConstraintLayout = itemView.findViewById(R.id.tutor_clMain)
     }
 }
 

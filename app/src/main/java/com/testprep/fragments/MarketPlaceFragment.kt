@@ -27,6 +27,8 @@ class MarketPlaceFragment : Fragment() {
     var questionpagerAdapret: QuestionsPagerAdapter? = null
     var mToolbar: Toolbar? = null
 
+    var selectedTab = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +37,9 @@ class MarketPlaceFragment : Fragment() {
         val vieww = inflater.inflate(R.layout.fragment_market_place, container, false)
 
         activity!!.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+        val bundle = this.arguments
+        selectedTab = bundle!!.getString("tab")
 
         return vieww
     }
@@ -62,12 +67,19 @@ class MarketPlaceFragment : Fragment() {
         val adapter = MarketPlaceViewpagerAdapter(childFragmentManager, market_tabs.tabCount, "market place")
         market_viewpager.adapter = adapter
 
+        when (selectedTab) {
+            "Test Packages" -> market_viewpager.currentItem = 0
+            "Single Test" -> market_viewpager.currentItem = 1
+            "Tutors" -> market_viewpager.currentItem = 2
+        }
+
         market_viewpager.addOnPageChangeListener(
             TabLayout.TabLayoutOnPageChangeListener(market_tabs)
         )
         market_tabs.addOnTabSelectedListener(object :
             TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
+
                 market_viewpager.currentItem = tab.position
             }
 

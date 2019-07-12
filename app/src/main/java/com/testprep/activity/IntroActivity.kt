@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.text.Html
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -75,11 +74,11 @@ class IntroActivity : AppCompatActivity() {
 
         layouts = intArrayOf(R.drawable.slider_logo, R.drawable.slider_logo, R.drawable.slider_logo)
 
-        addBottomDots(0)
+//        addBottomDots(0)
 
         myViewPagerAdapter = MyViewPagerAdapter()
-        intro_view_pager.adapter = myViewPagerAdapter
-        intro_view_pager.addOnPageChangeListener(introViewPagerListener)
+//        intro_view_pager.adapter = myViewPagerAdapter
+//        intro_view_pager.addOnPageChangeListener(introViewPagerListener)
 
         // Add code to print out the key hash
         try {
@@ -173,27 +172,27 @@ class IntroActivity : AppCompatActivity() {
         })
     }
 
-    private fun addBottomDots(currentPage: Int) {
-        var arraySize = layouts!!.size
-        dots = Array(arraySize) { textboxInit() }
-        val colorsActive = resources.getIntArray(R.array.array_dot_active)
-        val colorsInactive = resources.getIntArray(R.array.array_dot_inactive)
-        layoutDots.removeAllViews()
-        for (i in 0 until dots!!.size) {
-            dots!![i] = TextView(this)
-            dots!![i].text = Html.fromHtml("&#9679;")
-            dots!![i].textSize = 10F
-            dots!![i].setPadding(10, 0, 10, 0)
-            dots!![i].setTextColor(colorsInactive[currentPage])
-            layoutDots.addView(dots!![i])
-        }
-        if (dots!!.isNotEmpty())
-            dots!![currentPage].setTextColor(colorsActive[currentPage])
-    }
+//    private fun addBottomDots(currentPage: Int) {
+//        var arraySize = layouts!!.size
+//        dots = Array(arraySize) { textboxInit() }
+//        val colorsActive = resources.getIntArray(R.array.array_dot_active)
+//        val colorsInactive = resources.getIntArray(R.array.array_dot_inactive)
+//        layoutDots.removeAllViews()
+//        for (i in 0 until dots!!.size) {
+//            dots!![i] = TextView(this)
+//            dots!![i].text = Html.fromHtml("&#9679;")
+//            dots!![i].textSize = 10F
+//            dots!![i].setPadding(10, 0, 10, 0)
+//            dots!![i].setTextColor(colorsInactive[currentPage])
+//            layoutDots.addView(dots!![i])
+//        }
+//        if (dots!!.isNotEmpty())
+//            dots!![currentPage].setTextColor(colorsActive[currentPage])
+//    }
 
-    private fun getItem(i: Int): Int {
-        return intro_view_pager.currentItem + i
-    }
+//    private fun getItem(i: Int): Int {
+//        return intro_view_pager.currentItem + i
+//    }
 
     private fun textboxInit(): TextView {
         return TextView(applicationContext)
@@ -201,7 +200,7 @@ class IntroActivity : AppCompatActivity() {
 
     private var introViewPagerListener: ViewPager.OnPageChangeListener = object : ViewPager.OnPageChangeListener {
         override fun onPageSelected(position: Int) {
-            addBottomDots(position)
+//            addBottomDots(position)
             /*Based on the page position change the button text*/
 
         }

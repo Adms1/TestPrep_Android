@@ -23,12 +23,23 @@ class ChooseMarketPlaceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         AppConstants.ON_BACK = 1
+        var fragment = MarketPlaceFragment()
 
-        choosemp_tvSingleTest.setOnClickListener {}
+        choosemp_tvSingleTest.setOnClickListener {
+
+            val bundle = Bundle()
+            bundle.putString("tab", "Single Test")
+            fragment.arguments = bundle
+            fragmentManager!!.beginTransaction().replace(R.id.container, fragment).addToBackStack(null)
+                .commit()
+
+        }
 
         choosemp_tvTestPackages.setOnClickListener {
-
-            fragmentManager!!.beginTransaction().replace(R.id.container, MarketPlaceFragment()).addToBackStack(null)
+            val bundle = Bundle()
+            bundle.putString("tab", "Test Packages")
+            fragment.arguments = bundle
+            fragmentManager!!.beginTransaction().replace(R.id.container, fragment).addToBackStack(null)
                 .commit()
 
 //            val intent = Intent(activity, SelectPackageActivity::class.java)
@@ -40,6 +51,13 @@ class ChooseMarketPlaceFragment : Fragment() {
 //            startActivity(intent)
 //        }
 
-        choosemp_tvTutors.setOnClickListener {}
+        choosemp_tvTutors.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("tab", "Tutors")
+            fragment.arguments = bundle
+            fragmentManager!!.beginTransaction().replace(R.id.container, fragment).addToBackStack(null)
+                .commit()
+
+        }
     }
 }

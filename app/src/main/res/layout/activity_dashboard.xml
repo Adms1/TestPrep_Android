@@ -8,7 +8,6 @@
         android:background="@color/white"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        android:paddingTop="@dimen/_15sdp"
         tools:openDrawer="start">
 
     <TextView

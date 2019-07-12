@@ -7,24 +7,29 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.support.design.widget.TabLayout
-import android.support.v4.view.ViewPager.OnPageChangeListener
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
+import android.support.v4.app.ActionBarDrawerToggle
+import android.support.v4.app.FragmentActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.Window
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import com.squareup.picasso.Picasso
 import com.testprep.R
-import com.testprep.adapter.QuestionsPagerAdapter
+import com.testprep.adapter.QuestionListSideMenuAdapter
+import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.old.PageActivity
+import com.testprep.old.PageViewFragment
+import com.testprep.old.adapter.SelectImageOptionAdapter
+import com.testprep.old.adapter.SolutionAdapter
 import com.testprep.old.models.QuestionResponse
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.DialogUtils
-import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.activity_tabwise_question.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -32,40 +37,110 @@ import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.concurrent.TimeUnit
 
-class TabwiseQuestionActivity : AppCompatActivity() {
+class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
-    var questionpagerAdapret: QuestionsPagerAdapter? = null
-    var mToolbar: Toolbar? = null
+    //    var questionpagerAdapret: QuestionsPagerAdapter? = null
+//    var mToolbar: Toolbar? = null
     var movies: ArrayList<QuestionResponse.QuestionList> = ArrayList()
 
     var where = ""
     var reviewQue: ArrayList<Int> = ArrayList()
 
+    var sectionList = ArrayList<String>()
+    var sectionList1 = ArrayList<String>()
+    var childList = HashMap<String, ArrayList<String>>()
+
+    private var que_list: ArrayList<QuestionResponse.QuestionList> = ArrayList()
+    private var que_num = 0
+    private var come = ""
+    private var imgQue: ImageView? = null
+    private var ansList: RecyclerView? = null
+
+    var filterTypeSelectionInteface: FilterTypeSelectionInteface? = null
+
+    var qsize = 0
+    internal var mDrawerToggle: ActionBarDrawerToggle? = null
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+//    override fun onPostCreate(savedInstanceState: Bundle?) {
+//        super.onPostCreate(savedInstanceState)
+//        mDrawerToggle!!.syncState()
+//    }
+
+//    override fun onConfigurationChanged(newConfig: Configuration) {
+//        super.onConfigurationChanged(newConfig)
+//        // Pass any configuration change to the drawer toggls
+//        mDrawerToggle!!.onConfigurationChanged(newConfig)
+//    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_tabwise_question)
 
 //        mToolbar = (Toolbar) findViewById(R.id.sliding_tabs)
 //        sliding_tabs.setOnTabSelectedListener(this)
-        setSupportActionBar(mToolbar)
+//        setSupportActionBar(mToolbar)
 
-        queTab_sliding_tabs.setupWithViewPager(queTab_viewpager)
+        filterTypeSelectionInteface = this
+
+        imgQue = findViewById(R.id.page_img_que_img)
+        ansList = findViewById(R.id.wv_question_list)
+
+        imgQue!!.isDrawingCacheEnabled = true
+
+        queTab_ivBack.setOnClickListener { onBackPressed() }
+
+        mDrawerToggle = ActionBarDrawerToggle(
+            this, drawer_layout, R.mipmap.tc_logo, // nav menu toggle icon
+            R.string.app_name, // nav drawer open - description for accessibility
+            R.string.app_name
+        )
+
+        package_btnNextt.setOnClickListener {
+            drawer_layout.openDrawer(Gravity.END)
+        }
+
+//        mDrawerToggle = ActionBarDrawerToggle(
+//            this, drawer_layout, R.mipmap.tc_logo, // nav menu toggle icon
+//            R.string.app_name, // nav drawer open - description for accessibility
+//            R.string.app_name // nav drawer close - description for accessibility
+//        ) {
+//            @SuppressLint("NewApi")
+//            override fun onDrawerClosed(view: View?) {
+//                invalidateOptionsMenu()
+//            }
+//
+//            @SuppressLint("NewApi")
+//            override fun onDrawerOpened(drawerView: View?) {
+//                invalidateOptionsMenu()
+//            }
+//        }
+        drawer_layout.setDrawerListener(mDrawerToggle)
+
+//        queTab_expQueList.setOnGroupClickListener(ExpandableListView.OnGroupClickListener { parent, v, groupPosition, id ->
+//            //            if (headerList[groupPosition].isGroup) {
+////                if (!headerList[groupPosition].hasChildren) {
+////                    val webView = findViewById<WebView>(R.id.webView)
+////                    webView.loadUrl(headerList[groupPosition].url)
+////                    onBackPressed()
+////                }
+////            }
+//
+//            false
+//        })
+
+//        queTab_sliding_tabs.setupWithViewPager(queTab_viewpager)
 
         queTab_btnNext.setOnClickListener {
             getLastPage()
             queTab_viewpager.currentItem = queTab_viewpager.currentItem + 1
-            queTab_tvTotal.text = """${queTab_viewpager.currentItem + 1}/${movies.size}"""
+//            queTab_tvTotal.text = """${queTab_viewpager.currentItem + 1}/${movies.size}"""
         }
 
         queTab_ivPlayPause.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -109,42 +184,87 @@ class TabwiseQuestionActivity : AppCompatActivity() {
         queTab_btnPrevious.setOnClickListener { v: View? ->
 
             queTab_viewpager.currentItem = queTab_viewpager.currentItem - 1
-            queTab_tvTotal.text = """${queTab_viewpager.currentItem + 1}/${movies.size}"""
+//            queTab_tvTotal.text = """${queTab_viewpager.currentItem + 1}/${movies.size}"""
         }
 
-        queTab_viewpager.addOnPageChangeListener(object : OnPageChangeListener {
+        ansList!!.isNestedScrollingEnabled = false
 
-            // This method will be invoked when a new page becomes selected.
-            override fun onPageSelected(position: Int) {
-                queTab_tvTotal.text = """${position + 1}/${movies.size}"""
+        ansList!!.layoutManager = LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
-//                for (i in 0 until reviewQue.size){
-//                    if(reviewQue.contains(position + 1)){
-//                        queTab_ivReview.background = resources.getDrawable(R.drawable.rotate_eye_blue)
-//                        queTab_ivReview.isSelected = true
-
-//                }else{
-//                    queTab_ivReview.background = resources.getDrawable(R.drawable.rotate_eye_gray)
+//        Handler().postDelayed(
+//            /* Runnable
+//                 * Showing splash screen with a timer. This will be useful when you
+//                 * want to show case your app logo / company
+//                 */
 //
+//            {
+//                // This method will be executed once the timer is over
+//                // Start your app main activity
+//                Log.d("sizeee", "" + imgQue!!.width + ", " + imgQue!!.height)
+//
+//                Picasso.get().load("http://content.testcraft.co.in/question/" + que_list[que_num].QuestionImage)
+//
+//                    .resize(imgQue!!.width, imgQue!!.height)
+////            .transform(imageTransform(200, true))
+//                    .into(imgQue)
+//
+////        qsize = page_img_que_img.width
+//
+//                if (this@TabwiseQuestionActivity != null) {
+//
+//                    if (come != "solution") {
+//
+//                        ansList!!.adapter = SelectImageOptionAdapter(
+//                            this@TabwiseQuestionActivity,
+//                            que_list[que_num].StudentTestQuestionMCQ,
+//                            imgQue!!.width
+//                        )
+//                    } else {
+//                        ansList!!.adapter = SolutionAdapter(
+//                            this@TabwiseQuestionActivity,
+//                            que_list[que_num].StudentTestQuestionMCQ,
+//                            imgQue!!.width
+//                        )
+//                    }
 //                }
-//                }
+//
+//            }, 1000
+//        )
 
-                getLastPage()
-            }
 
-            // This method will be invoked when the current page is scrolled
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                // Code goes here
+//        queTab_viewpager.addOnPageChangeListener(object : OnPageChangeListener {
+//
+//            // This method will be invoked when a new page becomes selected.
+//            override fun onPageSelected(position: Int) {
+//                queTab_tvTotal.text = """${position + 1}/${movies.size}"""
+//
+////                for (i in 0 until reviewQue.size){
+////                    if(reviewQue.contains(position + 1)){
+////                        queTab_ivReview.background = resources.getDrawable(R.drawable.rotate_eye_blue)
+////                        queTab_ivReview.isSelected = true
+//
+////                }else{
+////                    queTab_ivReview.background = resources.getDrawable(R.drawable.rotate_eye_gray)
+////
+////                }
+////                }
+//
 //                getLastPage()
-            }
-
-            // Called when the scroll state changes:
-            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
-            override fun onPageScrollStateChanged(state: Int) {
-                // Code goes here
-//                getLastPage()
-            }
-        })
+//            }
+//
+//            // This method will be invoked when the current page is scrolled
+//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+//                // Code goes here
+////                getLastPage()
+//            }
+//
+//            // Called when the scroll state changes:
+//            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
+//            override fun onPageScrollStateChanged(state: Int) {
+//                // Code goes here
+////                getLastPage()
+//            }
+//        })
 
 //        queTab_ivReview.setOnClickListener {
 //
@@ -196,25 +316,39 @@ class TabwiseQuestionActivity : AppCompatActivity() {
         callQuestionApi()
     }
 
-    var mTabLayout_config: Runnable = Runnable {
-        if (queTab_sliding_tabs.width < this@TabwiseQuestionActivity.resources.displayMetrics.widthPixels) {
-            queTab_sliding_tabs.tabMode = TabLayout.MODE_FIXED
-            val mParams = queTab_sliding_tabs.layoutParams
-            mParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-            queTab_sliding_tabs.layoutParams = mParams
+//    var mTabLayout_config: Runnable = Runnable {
+//        if (queTab_sliding_tabs.width < this@TabwiseQuestionActivity.resources.displayMetrics.widthPixels) {
+//            queTab_sliding_tabs.tabMode = TabLayout.MODE_FIXED
+//            val mParams = queTab_sliding_tabs.layoutParams
+//            mParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+//            queTab_sliding_tabs.layoutParams = mParams
+//
+//        } else {
+//            queTab_sliding_tabs.tabMode = TabLayout.MODE_SCROLLABLE
+//        }
+//    }
 
-        } else {
-            queTab_sliding_tabs.tabMode = TabLayout.MODE_SCROLLABLE
-        }
-    }
+//    fun onLeft() {
+//        // TODO Auto-generated method stub
+//        //        mDrawerList.setSelectionAfterHeaderView();
+//        drawer_layout.openDrawer(leftRl)
+//    }
 
     fun callQuestionApi() {
 
-        if (!DialogUtils.isNetworkConnected(this@TabwiseQuestionActivity)) {
-            Utils.ping(this@TabwiseQuestionActivity, "Connetion not available")
-        }
+        val sortDialog = Dialog(this@TabwiseQuestionActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
+        val window = sortDialog.window
+        val wlp = window!!.attributes
+        sortDialog.window!!.attributes.verticalMargin = 0.10f
+        wlp.gravity = Gravity.BOTTOM
+        window.attributes = wlp
 
-        DialogUtils.showDialog(this@TabwiseQuestionActivity)
+//        sortDialog.window!!.setBackgroundDrawableResource(R.drawable.filter1_1)
+
+        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        sortDialog.setCancelable(true)
+//        sortDialog.setContentView(getRoot())
+        sortDialog.show()
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
@@ -222,50 +356,159 @@ class TabwiseQuestionActivity : AppCompatActivity() {
         call.enqueue(object : Callback<QuestionResponse> {
             override fun onResponse(call: Call<QuestionResponse>, response: Response<QuestionResponse>) {
 
-                DialogUtils.dismissDialog()
-
-                setCountdown(30 * 60 * 1000)
-
-//                if (response.body()!!.Msg == "Question List ") {
+                if (response.body()!!.Status == "true") {
                     movies = response.body()!!.data
 
-                    queTab_tvTotal.text = """1/${movies.size}"""
 //                    totall.text = "Total" + movies.size
 
-//                    qno.text = "Q." + (PageActivity.countt +1)
+//                    qno.text = "Q." + (countt+1)
 
-                Log.d("qid", "" + movies[0].QuestionID)
+                    Log.d("qid", "" + movies[0].QuestionID)
 
                     if (PageActivity.countt >= 0) {
-
-                        Utils.saveArrayList(this@TabwiseQuestionActivity, movies, "que_list")
-
                         if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
 
+//                            var url = URL("http://content.testcraft.co.in/question/" + movies[pos].titleimg)
+//                            var bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+
+//                            var widhtx  = bmp.width
+//                            var heightx = bmp.height
+
+//                            Log.d("imgsize", "widht" + widhtx + "  height" + heightx)
+
+                            // setting list adapter
+
+
+                            sectionList.add("Section 1")
+//                            sectionList.add("Section 2")
+//                            sectionList.add("Section 3")
+//                            sectionList.add("Section 4")
+
+
+//                            sectionList1.add("I")
+//                            sectionList1.add("II")
+//                            sectionList1.add("III")
+//                            sectionList1.add("IV")
+//                            sectionList1.add("V")
+//                            sectionList1.add("VI")
+//                            sectionList1.add("VII")
+//                            sectionList1.add("VIII")
+//                            sectionList1.add("IX")
+//                            sectionList1.add("X")
+
                             for (i in 0 until movies.size) {
-                                queTab_sliding_tabs.addTab(queTab_sliding_tabs.newTab().setText((i + 1).toString()))
-
-                                questionpagerAdapret =
-                                    QuestionsPagerAdapter(supportFragmentManager, movies.size, "paper")
-
-//                                questionpagerAdapret!!.addFragment(PageViewFragment())
+                                sectionList1.add(i.toString())
                             }
-                            queTab_viewpager.adapter = questionpagerAdapret
 
-                            queTab_sliding_tabs.post(mTabLayout_config)
-                        }
-                    }
-                    Log.d("imgcall", "Number of movies received: " + movies.size)
-//                } else {
+                            Log.d("header", "" + sectionList)
+                            Log.d("child", "" + childList)
+
+                            queTab_expQueList.layoutManager =
+                                LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
+
+                            queTab_expQueList.adapter =
+                                QuestionListSideMenuAdapter(
+                                    this@TabwiseQuestionActivity,
+                                    sectionList,
+                                    sectionList1,
+                                    filterTypeSelectionInteface!!
+                                )
+
+                            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
+                                .resize(page_img_que_img.width, page_img_que_img.height)
+                                .into(page_img_que_img)
 //
-//                    Toast.makeText(this@TabwiseQuestionActivity, "No Question at that time", Toast.LENGTH_LONG).show()
-//                }
+                            PageViewFragment.qsize = page_img_que_img.width
+
+//                            Log.d("imgsize", "widht" + page_img_que_img.width + "  height" + page_img_que_img.height)
+//                            Picasso.get().load("https://homeshealth.info/wp-content/uploads/2018/02/classy-algebra-distance-formula-problems-in-distance-formula-of-algebra-distance-formula-problems.jpg")
+//                                .resize(page_img_que_img.width, page_img_que_img.height)
+//                                .into(page_img_que_img)
+
+//
+//                        val photoPath = Environment.getExternalStorageDirectory().toString() + "testcraftimg/pic.jpg"
+//                        val options = BitmapFactory.Options()
+//                        options.inSampleSize = 8
+//                        val b = BitmapFactory.decodeFile(photoPath, options)
+//                        page_img_que_img.setImageBitmap(b)
+
+
+                            ansList!!.layoutManager =
+                                LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
+
+                            if (come != "solution") {
+
+                                ansList!!.adapter = SelectImageOptionAdapter(
+                                    this@TabwiseQuestionActivity,
+                                    movies[0].StudentTestQuestionMCQ,
+                                    page_img_que_img.width
+                                )
+                            } else {
+                                ansList!!.adapter = SolutionAdapter(
+                                    this@TabwiseQuestionActivity,
+                                    movies[0].StudentTestQuestionMCQ,
+                                    page_img_que_img.width
+                                )
+                            }
+
+
+                        }
+                    } else {
+                        if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
+                            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
+                                .resize(page_img_que_img.width, page_img_que_img.height)
+                                .into(page_img_que_img)
+
+                        }
+
+                        ansList!!.layoutManager =
+                            LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
+
+                        if (come != "solution") {
+
+                            ansList!!.adapter = SelectImageOptionAdapter(
+                                this@TabwiseQuestionActivity,
+                                movies[0].StudentTestQuestionMCQ,
+                                page_img_que_img.width
+                            )
+                        } else {
+                            ansList!!.adapter = SolutionAdapter(
+                                this@TabwiseQuestionActivity,
+                                movies[0].StudentTestQuestionMCQ,
+                                page_img_que_img.width
+                            )
+                        }
+
+                    }
+
+//                    html_text.setHtml(movies[pos].titlehtml,
+//                        HtmlHttpImageGetter(html_text)
+//                    );
+
+//                    val url = URL("http://content.testcraft.co.in/question/9b734bff-db1d-42f5-8c54-0cf96612193d.jpeg")
+//                    val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+//
+//                    val drawable = BitmapDrawable(resources, bmp)
+//
+//                    page_img_que_img.setImageDrawable(drawable)
+
+//                    DownLoadImageTask(page_img_que_img).execute("https://www.jagranjosh.com/imported/images/E/Articles/JEE_integrals.jpg");
+
+//                    page_img_que_img.setImageDrawable(activity!!.resources.getDrawable(R.drawable.pic))
+
+                    sortDialog.dismiss()
+
+                    Log.d("imgcall", "Number of movies received: " + movies.size)
+                } else {
+                    sortDialog.dismiss()
+                    Toast.makeText(this@TabwiseQuestionActivity, "No Question at that time", Toast.LENGTH_LONG).show()
+                }
             }
 
             override fun onFailure(call: Call<QuestionResponse>, t: Throwable) {
                 // Log error here since request failed
-                Log.e("question res", t.toString())
-                DialogUtils.dismissDialog()
+                Log.e("", t.toString())
+                sortDialog.dismiss()
             }
         })
     }
@@ -345,6 +588,30 @@ class TabwiseQuestionActivity : AppCompatActivity() {
 
 
                 }).show()
+        }
+    }
+
+    override fun getType(p0: Int) {
+
+        drawer_layout.closeDrawer(Gravity.END)
+
+        if ("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage != "") {
+
+            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage)
+                .resize(imgQue!!.width, qsize)
+                .into(imgQue)
+
+//            PageViewFragment.qsize = page_img_que_img.width
+
+            ansList!!.layoutManager =
+                LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
+
+            ansList!!.adapter = SelectImageOptionAdapter(
+                this@TabwiseQuestionActivity,
+                movies[p0].StudentTestQuestionMCQ,
+                imgQue!!.width
+            )
+
         }
     }
 

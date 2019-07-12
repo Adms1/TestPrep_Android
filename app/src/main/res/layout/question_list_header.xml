@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/queList_tvHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Section 1"
+            android:textSize="17dp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:textColor="@color/black"
+            android:padding="@dimen/_3sdp"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/queList_tvList"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/queList_tvHeader"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_height="wrap_content"/>
+
+</android.support.constraint.ConstraintLayout>

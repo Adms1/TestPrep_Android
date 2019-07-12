@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import com.testprep.R
+import com.testprep.activity.ChangePasswordActivity
 import com.testprep.activity.CoinActivity
 import com.testprep.activity.MyPaymentActivity
 import com.testprep.activity.UpdateProfileActivity
@@ -42,6 +43,7 @@ class OtherFragment : Fragment() {
         menuList.add("Edit Profile")
         menuList.add("My Payments")
         menuList.add("Add Coin")
+        menuList.add("Change Password")
 //        menuList.add("Logout")
 
         other_lvList.adapter = ArrayAdapter(activity, android.R.layout.simple_list_item_1, menuList)
@@ -62,6 +64,12 @@ class OtherFragment : Fragment() {
                 menuList[position] == "Add Coin" -> {
 
                     val intent = Intent(activity, CoinActivity::class.java)
+                    startActivity(intent)
+                }
+                menuList[position] == "Change Password" -> {
+
+                    val intent = Intent(activity, ChangePasswordActivity::class.java)
+                    intent.putExtra("come_from", "other")
                     startActivity(intent)
                 }
             }

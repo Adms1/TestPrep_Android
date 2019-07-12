@@ -7,9 +7,8 @@
         android:layout_margin="@dimen/_5sdp">
 
     <ImageView
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:padding="@dimen/_6sdp"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:src="@drawable/pink_round"
@@ -24,12 +23,12 @@
             app:layout_constraintLeft_toRightOf="@+id/tutor_review_image"
             app:layout_constraintTop_toTopOf="@+id/tutor_review_image"
             app:layout_constraintBottom_toBottomOf="@+id/tutor_review_image"
-            android:textSize="@dimen/regular_text_size"
+            android:textSize="@dimen/small_text_size"
             android:layout_marginLeft="@dimen/_10sdp"
             android:textColor="@color/black"/>
 
     <RatingBar
-            android:layout_width="@dimen/_100sdp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:rating="5"
             android:id="@+id/tutor_review_rating"
@@ -56,12 +55,12 @@
             android:id="@+id/tutor_item_tvName1"
             app:layout_constraintLeft_toLeftOf="@+id/tutor_review_image"
             app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDate"
-            android:textSize="@dimen/regular_text_size"
+            android:textSize="@dimen/small_text_size"
             android:layout_marginTop="@dimen/_10sdp"
             android:textColor="@color/black"/>
 
     <TextView
-            android:text="Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics"
+            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tutor_item_tvDesc"
@@ -73,6 +72,13 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:maxLines="5"
             android:gravity="center_vertical"
-            android:textColor="@color/gray"/>
+            android:textColor="@color/light_gray"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDesc"
+            android:background="#EFEFEF"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -5,17 +5,68 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/_15sdp"
+        android:background="@color/white"
         tools:context=".fragments.TutorProfileFragment">
+
+    <TextView
+            android:text="Bothra Classes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_profile_header"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingTop="@dimen/_7sdp"
+            android:paddingBottom="@dimen/_7sdp"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_profile_ivBack"
+            android:textSize="@dimen/normal_header_size"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"/>
+
+    <TextView
+            android:text="(View Profile)"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tutor_profile_tvViewProfile"
+            app:layout_constraintTop_toTopOf="@+id/tutor_profile_header"
+            app:layout_constraintBottom_toBottomOf="@+id/tutor_profile_header"
+            android:paddingTop="@dimen/_7sdp"
+            android:paddingBottom="@dimen/_7sdp"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_profile_header"
+            android:textSize="@dimen/normal_header_size"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:textColor="@color/colorPrimaryDark"/>
+
+    <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/back_button"
+            android:id="@+id/tutor_profile_ivBack"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tutor_profile_header"
+            android:padding="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/tutor_profile_header"/>
+
+    <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/cart_icon"
+            android:id="@+id/tutor_profile_ivCart"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@+id/tutor_profile_header"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/tutor_profile_header"/>
+
 
     <ImageView
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
             android:padding="@dimen/_6sdp"
             android:src="@drawable/pink_round"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_profile_header"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:id="@+id/tutor_profile_image"/>
 
     <TextView
@@ -23,14 +74,44 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tutor_profile_tvName"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_profile_header"
             app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
-            android:textSize="@dimen/regular_text_size"
+            app:layout_constraintRight_toLeftOf="@+id/llRating"
+            android:textSize="@dimen/_13sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:gravity="center_vertical"
-            android:textColor="@color/black"/>
+            android:maxLines="2"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textColor="@color/colorPrimaryDark"/>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/llRating"
+            app:layout_constraintBottom_toBottomOf="@id/tutor_profile_tvName"
+            app:layout_constraintTop_toTopOf="@id/tutor_profile_tvName">
+
+        <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_15sdp"
+                android:rating="5"
+                android:id="@+id/tutor_profile_rating"
+                style="@style/Widget.AppCompat.RatingBar.Small"/>
+
+        <TextView
+                android:text="(105)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tutor_profile_tvCount"
+                android:textSize="@dimen/small_text_size"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginLeft="@dimen/_5sdp"/>
+
+    </LinearLayout>
 
     <TextView
             android:text="+91 9727087456"
@@ -44,6 +125,7 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:gravity="center_vertical"
+            android:maxLines="1"
             android:textColor="@color/gray"/>
 
     <TextView
@@ -58,10 +140,11 @@
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:gravity="top"
+            android:maxLines="1"
             android:textColor="@color/gray"/>
 
     <TextView
-            android:text="Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics Std:12th - Mathematics"
+            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tutor_item_tvDesc"
@@ -89,7 +172,7 @@
             android:background="@color/light_blue"
             android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDesc"
-            android:textColor="@color/nfcolor"/>
+            android:textColor="@color/black"/>
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/tutor_item_rvCuratorList"

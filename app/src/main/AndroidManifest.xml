@@ -36,6 +36,9 @@
         <activity android:name=".activity.TestListActivity"/>
         <activity android:name=".activity.FilterActivity"/>
         <activity android:name=".activity.MarketPlaceListActivity"/>
+        <activity android:name=".fragments.TutorPackagesFragment"/>
+        <activity android:name=".fragments.TutorProfileFragment"/>
+        <activity android:name=".fragments.TutorsReviewFragment"/>
         <activity android:name=".activity.SelectCompititiveActivity"/>
         <activity android:name=".activity.IntroActivity"/>
         <activity android:name=".activity.PrefrenceActivity"/>
