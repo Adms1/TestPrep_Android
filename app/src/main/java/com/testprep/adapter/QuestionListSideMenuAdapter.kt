@@ -15,7 +15,8 @@ class QuestionListSideMenuAdapter(
     var context: Context,
     var listDataHeader: ArrayList<String>,
     var listChildData: ArrayList<String>,
-    val filterTypeSelectionInteface: FilterTypeSelectionInteface
+    val filterTypeSelectionInteface: FilterTypeSelectionInteface,
+    val row_index: Int
 ) : RecyclerView.Adapter<QuestionListSideMenuAdapter.viewholder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
@@ -37,7 +38,7 @@ class QuestionListSideMenuAdapter(
         p0.title.text = listDataHeader[p1]
         p0.list.layoutManager = GridLayoutManager(context, 5)
 
-        p0.list.adapter = QuestionChildListAdapter(context, listChildData, filterTypeSelectionInteface)
+        p0.list.adapter = QuestionChildListAdapter(context, listChildData, row_index, filterTypeSelectionInteface)
 
     }
 

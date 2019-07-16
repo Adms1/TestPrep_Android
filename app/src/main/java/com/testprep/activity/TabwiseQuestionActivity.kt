@@ -5,6 +5,8 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v4.app.ActionBarDrawerToggle
@@ -29,6 +31,7 @@ import com.testprep.old.adapter.SolutionAdapter
 import com.testprep.old.models.QuestionResponse
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import kotlinx.android.synthetic.main.activity_tabwise_question.*
 import retrofit2.Call
@@ -83,6 +86,8 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         setContentView(R.layout.activity_tabwise_question)
 
+        AppConstants.QUE_NUMBER = 0
+
 //        mToolbar = (Toolbar) findViewById(R.id.sliding_tabs)
 //        sliding_tabs.setOnTabSelectedListener(this)
 //        setSupportActionBar(mToolbar)
@@ -96,6 +101,8 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         queTab_ivBack.setOnClickListener { onBackPressed() }
 
+        queTab_ivSubmit.setOnClickListener { onBackPressed() }
+
         mDrawerToggle = ActionBarDrawerToggle(
             this, drawer_layout, R.mipmap.tc_logo, // nav menu toggle icon
             R.string.app_name, // nav drawer open - description for accessibility
@@ -104,6 +111,15 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         package_btnNextt.setOnClickListener {
             drawer_layout.openDrawer(Gravity.END)
+        }
+
+        queTab_ivInfo.setOnClickListener {
+
+            val dialog = Dialog(this@TabwiseQuestionActivity)
+            dialog.setContentView(R.layout.dialog_question_information)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.setCanceledOnTouchOutside(true)
+            dialog.show()
         }
 
 //        mDrawerToggle = ActionBarDrawerToggle(
@@ -138,9 +154,25 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 //        queTab_sliding_tabs.setupWithViewPager(queTab_viewpager)
 
         queTab_btnNext.setOnClickListener {
-            getLastPage()
-            queTab_viewpager.currentItem = queTab_viewpager.currentItem + 1
-//            queTab_tvTotal.text = """${queTab_viewpager.currentItem + 1}/${movies.size}"""
+            //            getLastPage()
+//            queTab_viewpager.currentItem = queTab_viewpager.currentItem + 1
+
+            if ((movies.size - 1) > AppConstants.QUE_NUMBER) {
+                AppConstants.QUE_NUMBER = AppConstants.QUE_NUMBER + 1
+
+                Log.d("que_number", "" + AppConstants.QUE_NUMBER)
+
+                queTab_expQueList.adapter = QuestionListSideMenuAdapter(
+                    this@TabwiseQuestionActivity,
+                    sectionList,
+                    sectionList1,
+                    filterTypeSelectionInteface!!,
+                    AppConstants.QUE_NUMBER
+                )
+
+                getType(AppConstants.QUE_NUMBER)
+
+            }
         }
 
         queTab_ivPlayPause.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -183,8 +215,25 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         queTab_btnPrevious.setOnClickListener { v: View? ->
 
-            queTab_viewpager.currentItem = queTab_viewpager.currentItem - 1
-//            queTab_tvTotal.text = """${queTab_viewpager.currentItem + 1}/${movies.size}"""
+            if (AppConstants.QUE_NUMBER != 0) {
+                AppConstants.QUE_NUMBER = AppConstants.QUE_NUMBER - 1
+
+                Log.d("que_number", "" + AppConstants.QUE_NUMBER)
+
+                queTab_expQueList.adapter = QuestionListSideMenuAdapter(
+                    this@TabwiseQuestionActivity,
+                    sectionList,
+                    sectionList1,
+                    filterTypeSelectionInteface!!,
+                    AppConstants.QUE_NUMBER
+                )
+
+                getType(AppConstants.QUE_NUMBER)
+
+            }
+
+//            queTab_viewpager.currentItem = queTab_viewpager.currentItem - 1
+//            queTab_tvTotal.text = """${AppConstants.QUE_NUMBER - 1}/${movies.size}"""
         }
 
         ansList!!.isNestedScrollingEnabled = false
@@ -357,11 +406,16 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             override fun onResponse(call: Call<QuestionResponse>, response: Response<QuestionResponse>) {
 
                 if (response.body()!!.Status == "true") {
+
+                    setCountdown(30 * 60 * 1000)
+
                     movies = response.body()!!.data
 
 //                    totall.text = "Total" + movies.size
 
 //                    qno.text = "Q." + (countt+1)
+
+                    queTab_tvTotal.text = "1/${movies.size}"
 
                     Log.d("qid", "" + movies[0].QuestionID)
 
@@ -411,7 +465,8 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                                     this@TabwiseQuestionActivity,
                                     sectionList,
                                     sectionList1,
-                                    filterTypeSelectionInteface!!
+                                    filterTypeSelectionInteface!!,
+                                    -1
                                 )
 
                             Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
@@ -578,7 +633,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                 "OK",
                 "Cancel",
                 DialogInterface.OnClickListener { dialog, which ->
-                    val intent = Intent(this@TabwiseQuestionActivity, TestReviewActivity::class.java)
+                    val intent = Intent(this@TabwiseQuestionActivity, ResultActivity::class.java)
                     startActivity(intent)
 
                     finish()
@@ -594,6 +649,8 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
     override fun getType(p0: Int) {
 
         drawer_layout.closeDrawer(Gravity.END)
+
+        queTab_tvTotal.text = """${p0 + 1}/${movies.size}"""
 
         if ("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage != "") {
 

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.view.WindowManager
 import com.testprep.R
 import com.testprep.utils.Utils
 
@@ -17,11 +16,8 @@ class SplashActivity : AppCompatActivity() {
 //        changeStatusbarColor(this@SplashActivity)
 
         // In Activity's onCreate() for instance
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
 
         setContentView(R.layout.activity_splash)
 

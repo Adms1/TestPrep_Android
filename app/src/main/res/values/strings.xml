@@ -92,6 +92,14 @@
     <string name="go_to_email">Go to Email</string>
     <string name="cart">Cart</string>
     <string name="change_pass">Change Password</string>
+    <string name="not_visited">Not Visited</string>
+    <string name="review_later">Review Later</string>
+    <string name="un_answered">Un Answered</string>
+    <string name="answered">Answered</string>
+    <string name="current">Current</string>
+    <string name="view_reports">
+        <u>View Reports</u>
+    </string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>

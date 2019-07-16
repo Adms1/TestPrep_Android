@@ -51,7 +51,7 @@
             android:background="@drawable/circle_icon"
             android:id="@+id/review_ivCorrect"
             android:textSize="@dimen/_15sdp"
-            android:text="19\n______\n30"
+            android:text="23\n______\n30"
             android:gravity="center"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -60,7 +60,7 @@
             android:textStyle="bold"/>
 
     <TextView
-            android:text="19    Correct"
+            android:text="23    Correct"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/_7sdp"
@@ -75,7 +75,7 @@
             app:layout_constraintTop_toBottomOf="@+id/review_tvTitle"/>
 
     <TextView
-            android:text="09    Incorrect"
+            android:text="05    Incorrect"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/_7sdp"

@@ -37,7 +37,7 @@
                 android:orientation="horizontal"/>
 
         <!--<ImageView-->
-        <!--android:id="@+id/intro_ivLogo"-->
+        <!--ndroid:id="@+id/intro_ivLogo"-->
         <!--android:layout_width="@dimen/_150sdp"-->
         <!--android:layout_height="@dimen/_200sdp"-->
         <!--app:layout_constraintRight_toRightOf="parent"-->
