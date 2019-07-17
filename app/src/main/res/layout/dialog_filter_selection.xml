@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_10sdp"
+                android:background="@color/white">
+
+    <Button
+            android:id="@+id/filterSelection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Selection"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/white"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/filterSelection"
+            android:layout_above="@+id/btnDone"/>
+
+    <Button
+            android:id="@+id/btnDone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="done"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/white"
+            android:layout_margin="@dimen/_10sdp"/>
+
+</RelativeLayout>

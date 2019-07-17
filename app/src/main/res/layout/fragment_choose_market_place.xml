@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/llFirst"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             android:weightSum="1">
 
@@ -95,10 +96,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/llFirst"
             android:weightSum="1">
 
         <RelativeLayout
+                android:id="@+id/rlOne"
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="wrap_content"
@@ -135,6 +138,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+                android:id="@+id/rlTwo"
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="wrap_content"
@@ -172,6 +176,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+                android:id="@+id/rlThree"
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="wrap_content"
@@ -215,6 +220,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/llThird"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/llSecond"
             android:weightSum="1">
 
@@ -254,10 +260,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/llThird"
             android:weightSum="1">
 
         <RelativeLayout
+                android:id="@+id/rlFour"
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="wrap_content"
@@ -292,6 +300,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+                android:id="@+id/rlFive"
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="wrap_content"
@@ -327,6 +336,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+                android:id="@+id/rlSix"
                 android:layout_width="0dp"
                 android:layout_weight="0.33"
                 android:layout_height="wrap_content"
@@ -381,19 +391,18 @@
             android:id="@+id/choosemp_tvPayTC"
             app:layout_constraintTop_toBottomOf="@+id/llFourth"
             android:layout_marginTop="@dimen/_10sdp"
-            android:text="Pay with TC$"
+            android:text="  Pay with TC$  "
             android:textColor="@color/white"
-            android:padding="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
+            android:padding="@dimen/_4sdp"
             app:layout_constraintLeft_toRightOf="@+id/choosemp_tvBalance"
-            android:background="@drawable/green_round_bg"
+            android:background="@drawable/green_bg"
             android:textSize="@dimen/extra_small_size"/>
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/choosemp_rvList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             app:layout_constraintTop_toBottomOf="@+id/choosemp_tvPayTC"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

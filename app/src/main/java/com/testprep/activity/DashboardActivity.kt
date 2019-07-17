@@ -126,7 +126,7 @@ class DashboardActivity : AppCompatActivity() {
 
                 dashboard_ivFilter.visibility = View.VISIBLE
                 dashboard_ivCart.visibility = View.VISIBLE
-                dashboard_ivPencil.visibility = View.VISIBLE
+//                dashboard_ivPencil.visibility = View.VISIBLE
                 dashboard_ivBack.visibility = View.VISIBLE
 
                 dash_ivMarket.setImageResource(R.drawable.blue_list)
