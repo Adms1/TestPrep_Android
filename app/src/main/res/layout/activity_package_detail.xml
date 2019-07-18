@@ -86,6 +86,19 @@
                     android:textStyle="bold"/>
 
             <TextView
+                    android:text="created name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/package_detail_createdby"
+                    android:textSize="@dimen/small_text_size"
+                    app:layout_constraintTop_toBottomOf="@+id/package_detail_tvPname"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:maxLines="2"
+                    app:layout_constraintLeft_toRightOf="@+id/package_detail_llImage"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:textColor="@color/black"/>
+
+            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/package_detail_tvsprice"
@@ -93,7 +106,7 @@
                     android:textSize="@dimen/_11sdp"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:maxLines="1"
-                    app:layout_constraintTop_toBottomOf="@+id/package_detail_tvPname"
+                    app:layout_constraintTop_toBottomOf="@+id/package_detail_createdby"
                     app:layout_constraintLeft_toRightOf="@+id/package_detail_llImage"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:textColor="@color/green"/>

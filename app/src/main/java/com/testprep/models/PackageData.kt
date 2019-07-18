@@ -24,6 +24,10 @@ class PackageData {
         var ExternalTransactionID = ""
         var ExternalTransactionStatus = ""
 
+        var SubjectName = ""
+        var InstituteName = ""
+        var TutorName = ""
+        var TutorID = ""
         var StudentTestPackageID = 0
         var PurchaseDate = ""
         var ExpirationDate = ""

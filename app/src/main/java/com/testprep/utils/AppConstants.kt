@@ -4,10 +4,10 @@ class AppConstants {
 
     companion object{
 
-//        var BASE_URL = "http://103.204.192.187:7077/WebService.asmx/"
+        var BASE_URL = "http://103.204.192.187:7077/WebService.asmx/"
 //        var IMAGE_BASE_URL = "http://103.204.192.187:7077/"
 
-        var BASE_URL = "https://testprep.testcraft.co.in/WebService.asmx/"
+        //        var BASE_URL = "https://testprep.testcraft.co.in/WebService.asmx/"
         var IMAGE_BASE_URL = "https://testprep.testcraft.co.in/"
 
         var FIRST_NAME = "firstname"

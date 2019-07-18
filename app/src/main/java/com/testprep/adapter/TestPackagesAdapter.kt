@@ -14,7 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
-import com.testprep.fragments.TutorPackagesFragment
+import com.testprep.activity.PackageDetailActivity
 import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
@@ -50,11 +50,18 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
 
         if (dataList != null && dataList.size > 0) {
             p0.std.text = dataList[p1].TestPackageName
-            p0.sub.text = "Mathematics"
+            p0.sub.text = dataList[p1].SubjectName
             p0.price.text = "₹" + dataList[p1].TestPackageSalePrice
 
 //        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))
-            p0.createdby.text = Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + "Bothra Classes" + "</font>")
+
+            if (dataList[p1].InstituteName != "" && dataList[p1].InstituteName != null) {
+                p0.createdby.text =
+                    Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + dataList[p1].InstituteName + "</font>")
+            } else {
+                p0.createdby.text =
+                    Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + dataList[p1].TutorName + "</font>")
+            }
 //        p0.stitle.text = dataList[p1].TestPackageName
 
             p0.tvBuy.setOnClickListener {
@@ -89,7 +96,21 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
             }
 
             p0.mainll.setOnClickListener {
-                val intent = Intent(context, TutorPackagesFragment::class.java)
+                val intent = Intent(context, PackageDetailActivity::class.java)
+                intent.putExtra("pkgid", dataList[p1].TestPackageID)
+                intent.putExtra("pname", dataList[p1].TestPackageName)
+                intent.putExtra("sprice", dataList[p1].TestPackageSalePrice)
+                intent.putExtra("lprice", dataList[p1].TestPackageListPrice)
+                intent.putExtra("desc", dataList[p1].TestPackageDescription)
+                intent.putExtra("test_type_list", dataList[p1].TestType)
+                if (dataList[p1].InstituteName != "" && dataList[p1].InstituteName != null) {
+                    intent.putExtra("created_by", dataList[p1].InstituteName)
+                } else {
+                    intent.putExtra("created_by", dataList[p1].TutorName)
+                }
+                intent.putExtra("tutor_id", dataList[p1].TutorID)
+                intent.putExtra("come_from", "selectpackage")
+                intent.putExtra("position", dataList[p1].TestPackageName.substring(0, 1).single())
                 context.startActivity(intent)
             }
 

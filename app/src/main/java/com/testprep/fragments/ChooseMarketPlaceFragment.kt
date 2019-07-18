@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import com.testprep.R
 import com.testprep.adapter.RecyclerviewAdapter
@@ -32,6 +33,8 @@ class ChooseMarketPlaceFragment : Fragment() {
 
     private var mDataList: ArrayList<PackageData.PackageDataList>? = null
     private var testPackagesAdapter: TestPackagesAdapter? = null
+
+    var dialogArray: ArrayList<String> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -101,32 +104,70 @@ class ChooseMarketPlaceFragment : Fragment() {
 
         rlOne.setOnClickListener {
 
-            filterClick("single")
+            dialogArray = ArrayList()
+            dialogArray.add("9th")
+            dialogArray.add("10th")
+            dialogArray.add("11th")
+            dialogArray.add("12th")
+
+            filterClick("single", "Select Standard", dialogArray, choosemp_filterStandard)
         }
 
         rlTwo.setOnClickListener {
 
-            filterClick("multiple")
+            dialogArray = ArrayList()
+            dialogArray.add("Social Science")
+            dialogArray.add("Science")
+            dialogArray.add("Mathematics")
+            dialogArray.add("Hindi")
+            dialogArray.add("English")
+
+            filterClick("multiple", "Select Subject", dialogArray, choosemp_filterSubject)
         }
 
         rlThree.setOnClickListener {
 
-            filterClick("multiple")
+            dialogArray = ArrayList()
+            dialogArray.add("ADMS")
+            dialogArray.add("Navin Goradara")
+            dialogArray.add("Hemang Mehta")
+            dialogArray.add("Bothra Classes")
+
+            filterClick("multiple", "Select Tutors", dialogArray, choosemp_filterTutors)
         }
 
         rlFour.setOnClickListener {
 
-            filterClick("single")
+            dialogArray = ArrayList()
+            dialogArray.add("JEE IIT")
+            dialogArray.add("NEET")
+            dialogArray.add("CBSE")
+            dialogArray.add("GSEB")
+
+            filterClick("single", "Select Exam", dialogArray, choosemp_filterExam)
         }
 
         rlFive.setOnClickListener {
 
-            filterClick("multiple")
+            dialogArray = ArrayList()
+            dialogArray.add("Social Science")
+            dialogArray.add("Science")
+            dialogArray.add("Mathematics")
+            dialogArray.add("Hindi")
+            dialogArray.add("English")
+
+            filterClick("multiple", "Select Subject", dialogArray, choosemp_filtereSubject)
         }
 
         rlSix.setOnClickListener {
 
-            filterClick("multiple")
+            dialogArray = ArrayList()
+            dialogArray.add("ADMS")
+            dialogArray.add("Navin Goradara")
+            dialogArray.add("Hemang Mehta")
+            dialogArray.add("Bothra Classes")
+
+            filterClick("multiple", "Select Tutors", dialogArray, choosemp_filtereTutors)
         }
 
         choosemp_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
@@ -135,23 +176,58 @@ class ChooseMarketPlaceFragment : Fragment() {
 
     }
 
-    fun filterClick(selectionType: String) {
+    fun filterClick(selectionType: String, selection: String, arr: ArrayList<String>, view: TextView) {
 
         val dialog = Dialog(context!!)
         dialog.setContentView(R.layout.dialog_filter_selection)
 
         val mModelList: ArrayList<Model> = ArrayList()
-        for (i in 0..25) {
-            mModelList.add(Model("package$i"))
+        for (i in 0 until arr.size) {
+            val model = Model()
+            model.textt = arr[i]
+            model.isSelected = false
+            mModelList.add(model)
         }
 
         val list: RecyclerView = dialog.findViewById(R.id.recycler_view)
         val btnDone: Button = dialog.findViewById(R.id.btnDone)
+        val btnCancel: Button = dialog.findViewById(R.id.btnCancel)
+        val header: TextView = dialog.findViewById(R.id.filterSelection)
+
+        header.text = selection
 
         list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        list.adapter = RecyclerviewAdapter(activity!!, mModelList, selectionType)
+        var recyclerviewAdapter = RecyclerviewAdapter(activity!!, mModelList, selectionType)
+        list.adapter = recyclerviewAdapter
 
-        btnDone.setOnClickListener { dialog.dismiss() }
+        var str = ""
+
+        btnDone.setOnClickListener {
+
+            if (selectionType == "multiple") {
+                var finalFilerArray = recyclerviewAdapter.sendArray()
+
+                Log.d("filterarraysize", "" + finalFilerArray.size)
+
+                for (i in 0 until finalFilerArray.size) {
+                    if (finalFilerArray[i].isSelected) {
+                        str += finalFilerArray[i].textt + ","
+                    }
+                }
+
+                str = str.substring(0, str.length - 1)
+
+                Log.d("filterarraytxt", "" + str)
+            } else {
+                str = recyclerviewAdapter.sendStandard()
+            }
+
+            view.text = str
+
+            dialog.dismiss()
+        }
+
+        btnCancel.setOnClickListener { dialog.dismiss() }
 
         dialog.show()
 

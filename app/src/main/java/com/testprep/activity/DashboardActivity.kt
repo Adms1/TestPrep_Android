@@ -35,7 +35,6 @@ class DashboardActivity : AppCompatActivity() {
     var drawerMenuListAdapter: DrawerMenuListAdapter? = null
     var menuList = arrayOf("Test", "Profile", "Logout")
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

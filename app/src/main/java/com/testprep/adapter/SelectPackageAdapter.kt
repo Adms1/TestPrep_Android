@@ -82,6 +82,7 @@ class SelectPackageAdapter(val context: Context, val dataList: ArrayList<Package
             intent.putExtra("pname", p0.name.text!!)
             intent.putExtra("sprice", p0.sprice.text!!)
             intent.putExtra("lprice", p0.lprice.text!!)
+            intent.putExtra("created_by", "")
             intent.putExtra("desc", dataList[p1].TestPackageDescription)
             intent.putExtra("test_type_list", dataList[p1].TestType)
             intent.putExtra("position", dataList[p1].TestPackageName.substring(0, 1).single())

@@ -2,10 +2,12 @@ package com.testprep.activity
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Html
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -13,6 +15,7 @@ import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
 import com.testprep.adapter.TestTypeAdapter
+import com.testprep.fragments.TutorProfileFragment
 import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
@@ -50,7 +53,8 @@ class PackageDetailActivity : AppCompatActivity() {
         package_detail_tvlprice.text = "List Price : " + intent.getStringExtra("lprice").trim()
         package_detail_tvDesc.text = intent.getStringExtra("desc")
         package_detail_name_short.text = intent.getStringExtra("pname").substring(0, 1)
-
+        package_detail_createdby.text =
+            Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + intent.getStringExtra("created_by") + "</font>")
         Log.d("pkgid", intent.getStringExtra("pkgid"))
 
         pkgid = intent.getStringExtra("pkgid")
@@ -74,6 +78,14 @@ class PackageDetailActivity : AppCompatActivity() {
             this@PackageDetailActivity,
             intent.getSerializableExtra("test_type_list") as ArrayList<PackageData.PackageTestType>
         )
+
+        package_detail_createdby.setOnClickListener {
+
+            val intent = Intent(this@PackageDetailActivity, TutorProfileFragment::class.java)
+            intent.putExtra("tutor_id", intent.getStringExtra("tutor_id"))
+            startActivity(intent)
+
+        }
 
         package_detail_ivBack.setOnClickListener {
             onBackPressed()

@@ -147,4 +147,12 @@
             android:background="@drawable/add_cart_bg"
             android:textColor="@color/black"/>
 
+    <View android:layout_width="match_parent"
+          android:layout_height="@dimen/_1sdp"
+          android:layout_marginTop="@dimen/_10sdp"
+          android:alpha="0.3
+"
+          app:layout_constraintTop_toBottomOf="@+id/testpkg_item_btnAddCart"
+          android:background="@color/default_shimmer_color"/>
+
 </android.support.constraint.ConstraintLayout>

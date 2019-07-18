@@ -59,6 +59,7 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
             intent.putExtra("sprice", dataList[p1].TestPackageSalePrice)
             intent.putExtra("lprice", "")
             intent.putExtra("desc", "")
+            intent.putExtra("created_by", "")
             intent.putExtra("test_type_list", dataList[p1].TestType)
             intent.putExtra("come_from", "mypackage")
             intent.putExtra("position", dataList[p1].TestPackageName.substring(0, 1).single())
