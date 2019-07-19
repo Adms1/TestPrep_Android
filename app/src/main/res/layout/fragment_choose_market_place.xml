@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/choosemp_filterStandard"
-                    android:text="10th"
+                    android:text="9th"
                     android:ellipsize="end"
                     android:gravity="left"
                     android:layout_toLeftOf="@+id/choosemp_ivStandard"
@@ -159,7 +159,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/choosemp_filterSubject"
-                    android:text="Sci, Ma"
+                    android:text="Social Science"
                     android:ellipsize="middle"
                     android:layout_toLeftOf="@+id/choosemp_ivSubject"
                     android:singleLine="true"
@@ -200,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/choosemp_filterTutors"
-                    android:text="All"
+                    android:text="ADMS"
                     android:ellipsize="middle"
                     android:gravity="left"
                     android:singleLine="true"
@@ -240,7 +240,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/choosemp_tveExam"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:text="Exam"
+                android:text="JEE IIT"
                 android:textSize="@dimen/extra_small_size"/>
 
         <TextView
@@ -250,7 +250,7 @@
                 android:id="@+id/choosemp_tveSubject"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Subject"
+                android:text="Social Science"
                 android:textSize="@dimen/extra_small_size"/>
 
         <TextView
@@ -260,7 +260,7 @@
                 android:id="@+id/choosemp_tveTutors"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Tutors"
+                android:text="ADMS"
                 android:textSize="@dimen/extra_small_size"/>
 
     </LinearLayout>
@@ -399,6 +399,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:text="Your TC$ Balance: 3500 "
             android:textColor="@color/black"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="@+id/choosemp_tvPayTC"
             app:layout_constraintBottom_toBottomOf="@+id/choosemp_tvPayTC"
             android:textSize="@dimen/small_text_size"/>
@@ -413,6 +414,7 @@
             android:text="  Pay with TC$  "
             android:textColor="@color/white"
             android:padding="@dimen/_4sdp"
+            android:visibility="gone"
             app:layout_constraintLeft_toRightOf="@+id/choosemp_tvBalance"
             android:background="@drawable/green_bg"
             android:textSize="@dimen/extra_small_size"/>

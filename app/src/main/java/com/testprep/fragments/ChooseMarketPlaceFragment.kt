@@ -215,16 +215,28 @@ class ChooseMarketPlaceFragment : Fragment() {
                     }
                 }
 
-                str = str.substring(0, str.length - 1)
+                if (str != null && str != "") {
+                    str = str.substring(0, str.length - 1)
 
-                Log.d("filterarraytxt", "" + str)
+                    Log.d("filterarraytxt", "" + str)
+                    dialog.dismiss()
+                } else {
+                    Utils.ping(activity!!, "You have to select atleast one")
+                }
+
             } else {
+
                 str = recyclerviewAdapter.sendStandard()
+
+                if (str != null && str != "") {
+
+                    dialog.dismiss()
+                } else {
+                    Utils.ping(activity!!, "Please select any one")
+                }
             }
 
             view.text = str
-
-            dialog.dismiss()
         }
 
         btnCancel.setOnClickListener { dialog.dismiss() }

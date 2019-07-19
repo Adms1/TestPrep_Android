@@ -56,6 +56,7 @@
             android:textSize="@dimen/regular_text_size"
             android:text="Chapter Name"/>
 
+
     <TextView
             android:id="@+id/dialog_queinfo_tvTotalMarks"
             app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvTotalMarksHeader"

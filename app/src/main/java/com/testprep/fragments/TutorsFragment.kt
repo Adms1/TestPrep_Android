@@ -37,8 +37,8 @@ private var tutorsAdapter: TutorsAdapter? = null
 
         tutors_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
-        tutorsAdapter = TutorsAdapter(activity!!)
-        tutors_rvList.adapter = tutorsAdapter
+//        tutorsAdapter = TutorsAdapter(activity!!)
+//        tutors_rvList.adapter = tutorsAdapter
 
     }
 

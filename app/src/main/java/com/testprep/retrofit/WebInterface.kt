@@ -4,6 +4,7 @@ import com.google.gson.JsonObject
 import com.testprep.models.MainModel
 import com.testprep.models.PackageData
 import com.testprep.models.TestListModel
+import com.testprep.models.TutorModel
 import com.testprep.old.models.QuestionResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -84,5 +85,13 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Get_Student_TestQuestion")
     fun getQuestions(@Field("TestID") testid: String): Call<QuestionResponse>
+
+    @FormUrlEncoded
+    @POST("Get_Tutor_By_TutorID")
+    fun getTutorProfile(@Field("TutorID") stuid: String): Call<TutorModel>
+
+    @FormUrlEncoded
+    @POST("Get_TestPackageName_By_TutorID")
+    fun getTutorSimilarPkgs(@Field("TutorID") stuid: String): Call<PackageData>
 
 }

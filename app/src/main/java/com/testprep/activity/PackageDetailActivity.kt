@@ -31,6 +31,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 class PackageDetailActivity : AppCompatActivity() {
 
     var pkgid = ""
+    var tutor_id = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -58,6 +59,7 @@ class PackageDetailActivity : AppCompatActivity() {
         Log.d("pkgid", intent.getStringExtra("pkgid"))
 
         pkgid = intent.getStringExtra("pkgid")
+        tutor_id = intent.getStringExtra("tutor_id")
 
         var pos = intent.getCharExtra("position", 'a')
 
@@ -82,7 +84,7 @@ class PackageDetailActivity : AppCompatActivity() {
         package_detail_createdby.setOnClickListener {
 
             val intent = Intent(this@PackageDetailActivity, TutorProfileFragment::class.java)
-            intent.putExtra("tutor_id", intent.getStringExtra("tutor_id"))
+            intent.putExtra("tutor_id", tutor_id)
             startActivity(intent)
 
         }
