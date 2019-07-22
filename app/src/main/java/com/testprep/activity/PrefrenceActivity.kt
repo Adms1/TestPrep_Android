@@ -70,7 +70,7 @@ class PrefrenceActivity : AppCompatActivity() {
 
         } else {
 
-            pref_tvStep1.text = "Step - 1 Select Board"
+            pref_tvStep1.text = "Step - 1 Select Course"
             pref_tvStep3.text = "Step - 2 Select Subject"
 
             pref_tvStep2.visibility = GONE
@@ -105,7 +105,11 @@ class PrefrenceActivity : AppCompatActivity() {
                     }
 
                 } else {
-                    Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+                    if (Utils.getStringValue(this@PrefrenceActivity, "course_type_id", "") == "1") {
+                        Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+                    } else {
+                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+                    }
                 }
             }
         }
@@ -129,7 +133,12 @@ class PrefrenceActivity : AppCompatActivity() {
                     }
 
                 } else {
-                    Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+
+                    if (Utils.getStringValue(this@PrefrenceActivity, "course_type_id", "") == "1") {
+                        Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+                    } else {
+                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+                    }
                 }
             }
         }

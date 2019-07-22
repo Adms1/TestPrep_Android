@@ -15,7 +15,7 @@ import android.widget.Toast
 import com.testprep.R
 import com.testprep.adapter.RecyclerviewAdapter
 import com.testprep.adapter.TestPackagesAdapter
-import com.testprep.models.Model
+import com.testprep.models.FilterModel
 import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
@@ -28,20 +28,24 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class ChooseMarketPlaceFragment : Fragment() {
 
     private var mDataList: ArrayList<PackageData.PackageDataList>? = null
     private var testPackagesAdapter: TestPackagesAdapter? = null
 
     var dialogArray: ArrayList<String> = ArrayList()
+    var tutorArr: ArrayList<FilterModel.FilterData> = ArrayList()
+    var subjectArr: ArrayList<FilterModel.FilterData> = ArrayList()
+    var standardArr: ArrayList<FilterModel.FilterData> = ArrayList()
+    var examArr: ArrayList<FilterModel.FilterData> = ArrayList()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(com.testprep.R.layout.fragment_choose_market_place, container, false)
+        return inflater.inflate(R.layout.fragment_choose_market_place, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,10 +75,9 @@ class ChooseMarketPlaceFragment : Fragment() {
 ////            startActivity(intent)
 //        }
 //
-////        choosemp_ivFilter.setOnClickListener {
-////            val intent = Intent(activity, FilterActivity::class.java)
-////            startActivity(intent)
-////        }
+        choosemp_ivFilter.setOnClickListener {
+            callFilterListApi()
+        }
 //
 //        choosemp_tvTutors.setOnClickListener {
 //            val bundle = Bundle()
@@ -87,107 +90,122 @@ class ChooseMarketPlaceFragment : Fragment() {
 
         if (Utils.getStringValue(activity!!, "course_type_id", "") == "1") {
 
-            llFirst.visibility = View.VISIBLE
-            llSecond.visibility = View.VISIBLE
-            llThird.visibility = View.GONE
-            llFourth.visibility = View.GONE
+            choosemp_tvStandard.text = "Standard"
+
+            rlOne.visibility = View.VISIBLE
+//            rlThree.visibility = View.VISIBLE
+            rlFour.visibility = View.GONE
+//            llFourth.visibility = View.GONE
 
         } else {
 
-            llFirst.visibility = View.GONE
-            llSecond.visibility = View.GONE
-            llThird.visibility = View.VISIBLE
-            llFourth.visibility = View.VISIBLE
+            choosemp_tvStandard.text = "Exam"
+
+            rlOne.visibility = View.GONE
+//            llSecond.visibility = View.GONE
+            rlFour.visibility = View.VISIBLE
+//            llFourth.visibility = View.VISIBLE
 
         }
 
 
         rlOne.setOnClickListener {
 
-            dialogArray = ArrayList()
-            dialogArray.add("9th")
-            dialogArray.add("10th")
-            dialogArray.add("11th")
-            dialogArray.add("12th")
+            //            dialogArray = ArrayList()
+//            dialogArray.add("9th")
+//            dialogArray.add("10th")
+//            dialogArray.add("11th")
+//            dialogArray.add("12th")
 
-            filterClick("single", "Select Standard", dialogArray, choosemp_filterStandard)
+            filterClick("single", "Select Standard", standardArr, choosemp_filterStandard, "standard")
         }
 
         rlTwo.setOnClickListener {
 
-            dialogArray = ArrayList()
-            dialogArray.add("Social Science")
-            dialogArray.add("Science")
-            dialogArray.add("Mathematics")
-            dialogArray.add("Hindi")
-            dialogArray.add("English")
+            //            dialogArray = ArrayList()
+//            dialogArray.add("Social Science")
+//            dialogArray.add("Science")
+//            dialogArray.add("Mathematics")
+//            dialogArray.add("Hindi")
+//            dialogArray.add("English")
 
-            filterClick("multiple", "Select Subject", dialogArray, choosemp_filterSubject)
+//            filterClick("multiple", "Select Subject", dialogArray, choosemp_filterSubject)
+            filterClick("multiple", "Select Subjects", subjectArr, choosemp_filterSubject, "subject")
         }
 
         rlThree.setOnClickListener {
 
-            dialogArray = ArrayList()
-            dialogArray.add("ADMS")
-            dialogArray.add("Navin Goradara")
-            dialogArray.add("Hemang Mehta")
-            dialogArray.add("Bothra Classes")
+            //            dialogArray = ArrayList()
+//            dialogArray.add("ADMS")
+//            dialogArray.add("Navin Goradara")
+//            dialogArray.add("Hemang Mehta")
+//            dialogArray.add("Bothra Classes")
 
-            filterClick("multiple", "Select Tutors", dialogArray, choosemp_filterTutors)
+            filterClick("single", "Select Tutors", tutorArr, choosemp_filterTutors, "tutor")
         }
 
         rlFour.setOnClickListener {
 
-            dialogArray = ArrayList()
-            dialogArray.add("JEE IIT")
-            dialogArray.add("NEET")
-            dialogArray.add("CBSE")
-            dialogArray.add("GSEB")
+            //            dialogArray = ArrayList()
+//            dialogArray.add("JEE IIT")
+//            dialogArray.add("NEET")
+//            dialogArray.add("CBSE")
+//            dialogArray.add("GSEB")
 
-            filterClick("single", "Select Exam", dialogArray, choosemp_filterExam)
+            filterClick("single", "Select Exam", examArr, choosemp_filterExam, "exam")
         }
 
-        rlFive.setOnClickListener {
-
-            dialogArray = ArrayList()
-            dialogArray.add("Social Science")
-            dialogArray.add("Science")
-            dialogArray.add("Mathematics")
-            dialogArray.add("Hindi")
-            dialogArray.add("English")
-
-            filterClick("multiple", "Select Subject", dialogArray, choosemp_filtereSubject)
-        }
-
-        rlSix.setOnClickListener {
-
-            dialogArray = ArrayList()
-            dialogArray.add("ADMS")
-            dialogArray.add("Navin Goradara")
-            dialogArray.add("Hemang Mehta")
-            dialogArray.add("Bothra Classes")
-
-            filterClick("multiple", "Select Tutors", dialogArray, choosemp_filtereTutors)
-        }
+//        rlFive.setOnClickListener {
+//
+//            dialogArray = ArrayList()
+//            dialogArray.add("Social Science")
+//            dialogArray.add("Science")
+//            dialogArray.add("Mathematics")
+//            dialogArray.add("Hindi")
+//            dialogArray.add("English")
+//
+////            filterClick("multiple", "Select Subject", dialogArray, choosemp_filtereSubject)
+//        }
+//
+//        rlSix.setOnClickListener {
+//
+//            dialogArray = ArrayList()
+//            dialogArray.add("ADMS")
+//            dialogArray.add("Navin Goradara")
+//            dialogArray.add("Hemang Mehta")
+//            dialogArray.add("Bothra Classes")
+//
+////            filterClick("multiple", "Select Tutors", dialogArray, choosemp_filtereTutors)
+//        }
 
         choosemp_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
+        callTutorListApi()
+        callSubjectListApi()
+        callStandardListApi()
+        callExamListApi()
         callPackageListApi()
 
     }
 
-    fun filterClick(selectionType: String, selection: String, arr: ArrayList<String>, view: TextView) {
+    fun filterClick(
+        selectionType: String,
+        selection: String,
+        arr: ArrayList<FilterModel.FilterData>,
+        view: TextView,
+        filterType: String
+    ) {
 
         val dialog = Dialog(context!!)
         dialog.setContentView(R.layout.dialog_filter_selection)
 
-        val mModelList: ArrayList<Model> = ArrayList()
-        for (i in 0 until arr.size) {
-            val model = Model()
-            model.textt = arr[i]
-            model.isSelected = false
-            mModelList.add(model)
-        }
+//        val mModelList: ArrayList<FilterModel.FilterData> = ArrayList()
+//        for (i in 0 until arr.size) {
+//            val model = TutorModel.TutorData()
+//            model.TutorName = arr[i].TutorName
+//            model.isSelected = false
+//            mModelList.add(model)
+//        }
 
         val list: RecyclerView = dialog.findViewById(R.id.recycler_view)
         val btnDone: Button = dialog.findViewById(R.id.btnDone)
@@ -197,23 +215,77 @@ class ChooseMarketPlaceFragment : Fragment() {
         header.text = selection
 
         list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        var recyclerviewAdapter = RecyclerviewAdapter(activity!!, mModelList, selectionType)
+        var recyclerviewAdapter = RecyclerviewAdapter(activity!!, arr, selectionType, filterType)
         list.adapter = recyclerviewAdapter
 
-        var str = ""
 
         btnDone.setOnClickListener {
+
+            var str = ""
 
             if (selectionType == "multiple") {
                 var finalFilerArray = recyclerviewAdapter.sendArray()
 
                 Log.d("filterarraysize", "" + finalFilerArray.size)
 
-                for (i in 0 until finalFilerArray.size) {
-                    if (finalFilerArray[i].isSelected) {
-                        str += finalFilerArray[i].textt + ","
+                when (filterType) {
+                    "standard" -> {
+                        for (i in 0 until finalFilerArray.size) {
+                            if (finalFilerArray[i].isSelected) {
+
+                                str += finalFilerArray[i].StandardName + ","
+                            }
+                        }
+                    }
+                    "subject" -> {
+                        for (i in 0 until finalFilerArray.size) {
+                            if (finalFilerArray[i].isSelected) {
+
+                                str += finalFilerArray[i].SubjectName + ","
+                            }
+                        }
+                    }
+                    "tutor" -> {
+                        for (i in 0 until finalFilerArray.size) {
+                            if (finalFilerArray[i].isSelected) {
+
+                                str += finalFilerArray[i].TutorName + ","
+                            }
+                        }
+                    }
+                    "exam" -> {
+                        for (i in 0 until finalFilerArray.size) {
+                            if (finalFilerArray[i].isSelected) {
+
+                                str += finalFilerArray[i].CourseName + ","
+                            }
+                        }
                     }
                 }
+
+//                for (i in 0 until finalFilerArray.size) {
+//                    if (finalFilerArray[i].isSelected) {
+//
+//                        when (filterType) {
+//                            "standard" ->{
+//                                str = ""
+//                                str += finalFilerArray[i].StandardName + ","
+//                            }
+//                            "subject" -> {
+//                                str = ""
+//                                str += finalFilerArray[i].SubjectName + ","
+//                            }
+//                            "tutor" -> {
+//                                str = ""
+//                                str += finalFilerArray[i].TutorName + ","
+//                            }
+//                            "exam" ->{
+//                                str = ""
+//                                str += finalFilerArray[i].InstituteName + ","
+//                            }
+//                        }
+//                    }
+//                }
 
                 if (str != null && str != "") {
                     str = str.substring(0, str.length - 1)
@@ -244,6 +316,161 @@ class ChooseMarketPlaceFragment : Fragment() {
         dialog.show()
 
     }
+
+    fun callTutorListApi() {
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(activity!!)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getTutorList()
+        call.enqueue(object : Callback<FilterModel> {
+            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.Status == "true") {
+
+                        tutorArr = response.body()!!.data
+
+                        choosemp_filterTutors.text = tutorArr[0].TutorName
+
+                    } else {
+
+                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+    fun callSubjectListApi() {
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(activity!!)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getSubjectList()
+        call.enqueue(object : Callback<FilterModel> {
+            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.Status == "true") {
+
+                        subjectArr = response.body()!!.data
+
+                        choosemp_filterSubject.text = subjectArr[0].SubjectName
+
+                    } else {
+
+                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+    fun callStandardListApi() {
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(activity!!)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getStandardList()
+        call.enqueue(object : Callback<FilterModel> {
+            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.Status == "true") {
+
+                        standardArr = ArrayList()
+                        standardArr = response.body()!!.data
+
+                        choosemp_filterStandard.text = standardArr[0].StandardName
+
+                    } else {
+
+                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+    fun callExamListApi() {
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(activity!!)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getExamList(Utils.getStringValue(activity!!, "course_type_id", "")!!)
+        call.enqueue(object : Callback<FilterModel> {
+            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.Status == "true") {
+
+                        examArr = ArrayList()
+                        examArr = response.body()!!.data
+
+                        choosemp_filterExam.text = examArr[0].CourseName
+
+                    } else {
+
+                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
 
     fun callPackageListApi() {
 
@@ -306,5 +533,53 @@ class ChooseMarketPlaceFragment : Fragment() {
         })
     }
 
+    fun callFilterListApi() {
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(activity!!)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getFilterData(
+            WebRequests.getFilterParams(
+
+                Utils.getStringValue(activity!!, "course_type_id", "")!!,
+                Utils.getStringValue(activity!!, "course_id", "")!!,
+                Utils.getStringValue(activity!!, "standard_id", choosemp_filterSubject.text.toString())!!,
+                Utils.getStringValue(activity!!, "subject_id", "")!!,
+                ""
+            )
+        )
+
+        call.enqueue(object : Callback<PackageData> {
+            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.Status == "true") {
+
+                        mDataList = response.body()!!.data
+
+                        testPackagesAdapter = TestPackagesAdapter(activity!!, mDataList!!)
+                        choosemp_rvList.adapter = testPackagesAdapter
+
+                    } else {
+
+                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PackageData>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
 
 }

@@ -1,10 +1,7 @@
 package com.testprep.retrofit
 
 import com.google.gson.JsonObject
-import com.testprep.models.MainModel
-import com.testprep.models.PackageData
-import com.testprep.models.TestListModel
-import com.testprep.models.TutorModel
+import com.testprep.models.*
 import com.testprep.old.models.QuestionResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -93,5 +90,22 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Get_TestPackageName_By_TutorID")
     fun getTutorSimilarPkgs(@Field("TutorID") stuid: String): Call<PackageData>
+
+    @GET("Get_Tutor")
+    fun getTutorList(): Call<FilterModel>
+
+    @GET("Get_Subject")
+    fun getSubjectList(): Call<FilterModel>
+
+    @GET("Get_Standard")
+    fun getStandardList(): Call<FilterModel>
+
+    @FormUrlEncoded
+    @POST("Get_TestPackageName_By_Search_Criteria")
+    fun getFilterData(@FieldMap map: HashMap<String, String>): Call<PackageData>
+
+    @FormUrlEncoded
+    @POST("Get_Course_List")
+    fun getExamList(@Field("CourseTypeID") coursetype: String): Call<FilterModel>
 
 }

@@ -79,6 +79,27 @@ class WebRequests {
 
         }
 
+        fun getFilterParams(
+            coursetype: String,
+            boardid: String,
+            stdid: String,
+            subjectid: String,
+            tutorid: String
+        ): HashMap<String, String> {
+
+            val map = HashMap<String, String>()
+
+            map["CourseTypeID"] = coursetype
+            map["BoardID"] = boardid
+            map["StandardID"] = stdid
+            map["SubjectID"] = subjectid
+            map["TutorID"] = tutorid
+
+            return map
+
+        }
+
+
         fun getPaymentParams(tansid: String, stuid: String, amount: String): HashMap<String, String> {
 
             val hashMap = java.util.HashMap<String, String>()

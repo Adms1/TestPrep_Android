@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         android:padding="@dimen/_10sdp"
         android:background="@color/white"
+
         tools:context=".fragments.ChooseMarketPlaceFragment">
 
     <!--<TextView-->
@@ -54,63 +55,92 @@
     <!--android:padding="@dimen/_25sdp"-->
     <!--android:background="@drawable/add_cart_bg"/>-->
 
-    <LinearLayout
-            android:layout_width="match_parent"
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:id="@+id/llFirst"-->
+    <!--android:visibility="visible"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--android:weightSum="1">-->
+
+    <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/llFirst"
-            android:visibility="gone"
+            android:id="@+id/choosemp_tvStandard"
             app:layout_constraintTop_toTopOf="parent"
-            android:weightSum="1">
+            android:text="Standard"
+            android:layout_marginRight="@dimen/_5sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/choosemp_tvSubject"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:textSize="@dimen/extra_small_size"/>
 
-        <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.33"
-                android:layout_height="wrap_content"
-                android:id="@+id/choosemp_tvStandard"
-                android:text="Standard"
-                android:textSize="@dimen/extra_small_size"/>
+    <!--app:layout_constraintEnd_toStartOf="@+id/choosemp_tvTutors"-->
+    <!--app:layout_constraintStart_toEndOf="@+id/choosemp_tvStandard"-->
 
-        <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.33"
-                android:layout_height="wrap_content"
-                android:id="@+id/choosemp_tvSubject"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Subject"
-                android:textSize="@dimen/extra_small_size"/>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/choosemp_tvSubject"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Subject"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            app:layout_constraintStart_toEndOf="@+id/choosemp_tvStandard"
+            app:layout_constraintEnd_toStartOf="@+id/choosemp_tvTutors"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:textSize="@dimen/extra_small_size"/>
 
-        <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.33"
-                android:layout_height="wrap_content"
-                android:id="@+id/choosemp_tvTutors"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Tutors"
-                android:textSize="@dimen/extra_small_size"/>
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/choosemp_tvTutors"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Tutors"
+            android:layout_marginLeft="@dimen/_5sdp"
+            app:layout_constraintRight_toRightOf="@id/rlThree"
+            app:layout_constraintLeft_toRightOf="@+id/choosemp_tvSubject"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:textSize="@dimen/extra_small_size"/>
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
+
+    <ImageView
+            android:id="@+id/choosemp_ivFilter"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:src="@drawable/search"
+            app:layout_constraintTop_toTopOf="@id/rlThree"
+            app:layout_constraintBottom_toBottomOf="@id/rlThree"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="@dimen/_3sdp"
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/_5sdp"
+            app:layout_constraintLeft_toRightOf="@id/rlThree"/>
 
     <LinearLayout
-            android:id="@+id/llSecond"
-            android:layout_width="match_parent"
+            android:id="@+id/llFirst"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/llFirst"
-            android:weightSum="1">
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:layout_marginRight="@dimen/_5sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/rlTwo"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintTop_toBottomOf="@+id/choosemp_tvStandard">
 
         <RelativeLayout
                 android:id="@+id/rlOne"
-                android:layout_width="0dp"
-                android:layout_weight="0.33"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/choosemp_tvTutors"
-                app:layout_constraintRight_toRightOf="parent"
                 android:background="@drawable/login_btn_bg"
                 android:paddingLeft="@dimen/_5sdp"
                 android:paddingRight="@dimen/_5sdp"
                 android:paddingTop="@dimen/_3sdp"
+                android:visibility="gone"
                 android:paddingBottom="@dimen/_3sdp"
                 android:orientation="horizontal">
 
@@ -118,7 +148,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/choosemp_filterStandard"
-                    android:text="9th"
                     android:ellipsize="end"
                     android:gravity="left"
                     android:layout_toLeftOf="@+id/choosemp_ivStandard"
@@ -141,148 +170,14 @@
         </RelativeLayout>
 
         <RelativeLayout
-                android:id="@+id/rlTwo"
-                android:layout_width="0dp"
-                android:layout_weight="0.33"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/choosemp_tvTutors"
-                app:layout_constraintRight_toRightOf="parent"
-                android:background="@drawable/login_btn_bg"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_5sdp"
-                android:paddingRight="@dimen/_5sdp"
-                android:paddingTop="@dimen/_3sdp"
-                android:paddingBottom="@dimen/_3sdp"
-                android:orientation="horizontal">
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/choosemp_filterSubject"
-                    android:text="Social Science"
-                    android:ellipsize="middle"
-                    android:layout_toLeftOf="@+id/choosemp_ivSubject"
-                    android:singleLine="true"
-                    android:gravity="left"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:textSize="@dimen/small_text_size"
-                    android:layout_alignParentStart="true"/>
-
-            <ImageView
-                    android:id="@+id/choosemp_ivSubject"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:src="@drawable/filter_icon"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:padding="@dimen/_2sdp"
-                    android:layout_alignParentEnd="true"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:id="@+id/rlThree"
-                android:layout_width="0dp"
-                android:layout_weight="0.33"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/choosemp_tvTutors"
-                app:layout_constraintRight_toRightOf="parent"
-                android:background="@drawable/login_btn_bg"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_5sdp"
-                android:paddingTop="@dimen/_3sdp"
-                android:paddingBottom="@dimen/_3sdp"
-                android:paddingRight="@dimen/_5sdp"
-                android:orientation="horizontal">
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/choosemp_filterTutors"
-                    android:text="ADMS"
-                    android:ellipsize="middle"
-                    android:gravity="left"
-                    android:singleLine="true"
-                    android:layout_toLeftOf="@+id/choosemp_ivTutors"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:textSize="@dimen/small_text_size"
-                    android:layout_alignParentStart="true"/>
-
-            <ImageView
-                    android:id="@+id/choosemp_ivTutors"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:src="@drawable/filter_icon"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:padding="@dimen/_2sdp"
-                    android:layout_alignParentEnd="true"/>
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/llThird"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/llSecond"
-            android:weightSum="1">
-
-        <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.33"
-                android:layout_height="wrap_content"
-                android:id="@+id/choosemp_tveExam"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:text="JEE IIT"
-                android:textSize="@dimen/extra_small_size"/>
-
-        <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.33"
-                android:layout_height="wrap_content"
-                android:id="@+id/choosemp_tveSubject"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Social Science"
-                android:textSize="@dimen/extra_small_size"/>
-
-        <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.33"
-                android:layout_height="wrap_content"
-                android:id="@+id/choosemp_tveTutors"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:text="ADMS"
-                android:textSize="@dimen/extra_small_size"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:id="@+id/llFourth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@+id/llThird"
-            android:weightSum="1">
-
-        <RelativeLayout
                 android:id="@+id/rlFour"
-                android:layout_width="0dp"
-                android:layout_weight="0.33"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/login_btn_bg"
                 android:paddingLeft="@dimen/_5sdp"
                 android:paddingRight="@dimen/_5sdp"
                 android:paddingTop="@dimen/_3sdp"
+                android:visibility="gone"
                 android:paddingBottom="@dimen/_3sdp"
                 android:orientation="horizontal">
 
@@ -290,7 +185,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/choosemp_filterExam"
-                    android:text="JEE,NIIT"
                     android:ellipsize="middle"
                     android:gravity="left"
                     android:layout_toLeftOf="@+id/choosemp_ivExam"
@@ -312,85 +206,227 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
-                android:id="@+id/rlFive"
-                android:layout_width="0dp"
-                android:layout_weight="0.33"
-                android:layout_height="wrap_content"
-                android:background="@drawable/login_btn_bg"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_5sdp"
-                android:paddingRight="@dimen/_5sdp"
-                android:paddingTop="@dimen/_3sdp"
-                android:paddingBottom="@dimen/_3sdp"
-                android:orientation="horizontal">
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/choosemp_filtereSubject"
-                    android:text="Sci, Ma"
-                    android:ellipsize="middle"
-                    android:gravity="left"
-                    android:layout_toLeftOf="@+id/choosemp_iveSubject"
-                    android:singleLine="true"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:textSize="@dimen/small_text_size"
-                    android:layout_alignParentStart="true"/>
-
-            <ImageView
-                    android:id="@+id/choosemp_iveSubject"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:src="@drawable/filter_icon"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:padding="@dimen/_2sdp"
-                    android:layout_alignParentEnd="true"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-                android:id="@+id/rlSix"
-                android:layout_width="0dp"
-                android:layout_weight="0.33"
-                android:layout_height="wrap_content"
-                android:background="@drawable/login_btn_bg"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:paddingLeft="@dimen/_5sdp"
-                android:paddingRight="@dimen/_5sdp"
-                android:paddingTop="@dimen/_3sdp"
-                android:paddingBottom="@dimen/_3sdp"
-                android:orientation="horizontal">
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/choosemp_filtereTutors"
-                    android:text="Bothra,Ga"
-                    android:ellipsize="middle"
-                    android:gravity="left"
-                    android:layout_toLeftOf="@+id/choosemp_iveTutors"
-                    android:singleLine="true"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:textSize="@dimen/small_text_size"
-                    android:layout_alignParentStart="true"/>
-
-            <ImageView
-                    android:id="@+id/choosemp_iveTutors"
-                    android:layout_width="@dimen/_15sdp"
-                    android:layout_height="@dimen/_15sdp"
-                    android:src="@drawable/filter_icon"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:padding="@dimen/_2sdp"
-                    android:layout_alignParentEnd="true"/>
-
-        </RelativeLayout>
-
     </LinearLayout>
+
+    <RelativeLayout
+            android:id="@+id/rlTwo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/choosemp_tvTutors"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/llFirst"
+            app:layout_constraintRight_toLeftOf="@+id/rlThree"
+            android:background="@drawable/login_btn_bg"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/choosemp_filterSubject"
+                android:ellipsize="middle"
+                android:layout_toLeftOf="@+id/choosemp_ivSubject"
+                android:singleLine="true"
+                android:gravity="left"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="@dimen/small_text_size"
+                android:layout_alignParentStart="true"/>
+
+        <ImageView
+                android:id="@+id/choosemp_ivSubject"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:src="@drawable/filter_icon"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/_2sdp"
+                android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/rlThree"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/rlTwo"
+            app:layout_constraintTop_toBottomOf="@+id/choosemp_tvStandard"
+            android:background="@drawable/login_btn_bg"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingTop="@dimen/_3sdp"
+            android:paddingBottom="@dimen/_3sdp"
+            android:paddingRight="@dimen/_5sdp"
+            app:layout_constraintRight_toLeftOf="@+id/choosemp_ivFilter"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            android:orientation="horizontal">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/choosemp_filterTutors"
+                android:ellipsize="middle"
+                android:gravity="left"
+                android:singleLine="true"
+                android:layout_toLeftOf="@+id/choosemp_ivTutors"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="@dimen/small_text_size"
+                android:layout_alignParentStart="true"/>
+
+        <ImageView
+                android:id="@+id/choosemp_ivTutors"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:src="@drawable/filter_icon"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/_2sdp"
+                android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:id="@+id/llThird"-->
+    <!--android:visibility="visible"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/llSecond"-->
+    <!--android:weightSum="1">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_weight="0.33"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/choosemp_tveExam"-->
+    <!--android:layout_marginTop="@dimen/_20sdp"-->
+    <!--app:layout_constraintRight_toRightOf="@+id/rlOne"-->
+    <!--app:layout_constraintLeft_toLeftOf="@+id/rlOne"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/choosemp_tvStandard"-->
+    <!--android:text="Exam"-->
+    <!--android:textSize="@dimen/extra_small_size"/>-->
+
+    <!--<TextView-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_weight="0.33"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/choosemp_tveSubject"-->
+    <!--android:layout_marginTop="@dimen/_20sdp"-->
+    <!--android:layout_marginLeft="@dimen/_10sdp"-->
+    <!--android:text="Subject"-->
+    <!--android:textSize="@dimen/extra_small_size"/>-->
+
+    <!--<TextView-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_weight="0.33"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/choosemp_tveTutors"-->
+    <!--android:layout_marginTop="@dimen/_20sdp"-->
+    <!--android:layout_marginLeft="@dimen/_10sdp"-->
+    <!--android:text="Tutors"-->
+    <!--android:textSize="@dimen/extra_small_size"/>-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:id="@+id/llFourth"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:visibility="visible"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/llThird"-->
+    <!--android:weightSum="1">-->
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/rlFive"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_weight="0.33"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@drawable/login_btn_bg"-->
+    <!--android:layout_marginLeft="@dimen/_10sdp"-->
+    <!--android:paddingLeft="@dimen/_5sdp"-->
+    <!--android:paddingRight="@dimen/_5sdp"-->
+    <!--android:paddingTop="@dimen/_3sdp"-->
+    <!--android:paddingBottom="@dimen/_3sdp"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/choosemp_filtereSubject"-->
+    <!--android:text="Sci, Ma"-->
+    <!--android:ellipsize="middle"-->
+    <!--android:gravity="left"-->
+    <!--android:layout_toLeftOf="@+id/choosemp_iveSubject"-->
+    <!--android:singleLine="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:textSize="@dimen/small_text_size"-->
+    <!--android:layout_alignParentStart="true"/>-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/choosemp_iveSubject"-->
+    <!--android:layout_width="@dimen/_15sdp"-->
+    <!--android:layout_height="@dimen/_15sdp"-->
+    <!--android:src="@drawable/filter_icon"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:padding="@dimen/_2sdp"-->
+    <!--android:layout_alignParentEnd="true"/>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/rlSix"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_weight="0.33"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@drawable/login_btn_bg"-->
+    <!--android:layout_marginLeft="@dimen/_10sdp"-->
+    <!--android:paddingLeft="@dimen/_5sdp"-->
+    <!--android:paddingRight="@dimen/_5sdp"-->
+    <!--android:paddingTop="@dimen/_3sdp"-->
+    <!--android:paddingBottom="@dimen/_3sdp"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/choosemp_filtereTutors"-->
+    <!--android:text="Bothra,Ga"-->
+    <!--android:ellipsize="middle"-->
+    <!--android:gravity="left"-->
+    <!--android:layout_toLeftOf="@+id/choosemp_iveTutors"-->
+    <!--android:singleLine="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:textSize="@dimen/small_text_size"-->
+    <!--android:layout_alignParentStart="true"/>-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/choosemp_iveTutors"-->
+    <!--android:layout_width="@dimen/_15sdp"-->
+    <!--android:layout_height="@dimen/_15sdp"-->
+    <!--android:src="@drawable/filter_icon"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:padding="@dimen/_2sdp"-->
+    <!--android:layout_alignParentEnd="true"/>-->
+
+    <!--</RelativeLayout>-->
+
+    <!--</LinearLayout>-->
 
     <TextView
             android:layout_width="wrap_content"
@@ -409,7 +445,7 @@
             android:layout_weight="0.33"
             android:layout_height="wrap_content"
             android:id="@+id/choosemp_tvPayTC"
-            app:layout_constraintTop_toBottomOf="@+id/llFourth"
+            app:layout_constraintTop_toBottomOf="@+id/llFirst"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="  Pay with TC$  "
             android:textColor="@color/white"
