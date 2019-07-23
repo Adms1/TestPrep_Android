@@ -13,6 +13,9 @@ class QuestionResponse {
         var QuestionImage = ""
         var iscorrect = ""
         var StudentTestQuestionMCQ: ArrayList<QuestionDataList> = ArrayList()
+
+        var isAnswered = 0
+        var isView = 0
     }
 
     class QuestionDataList {

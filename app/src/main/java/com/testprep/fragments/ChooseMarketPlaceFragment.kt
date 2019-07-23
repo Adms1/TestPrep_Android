@@ -39,6 +39,10 @@ class ChooseMarketPlaceFragment : Fragment() {
     var standardArr: ArrayList<FilterModel.FilterData> = ArrayList()
     var examArr: ArrayList<FilterModel.FilterData> = ArrayList()
 
+    var tutorids = ""
+    var subids = ""
+    var stdids = "0"
+    var examids = "0"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,18 +78,17 @@ class ChooseMarketPlaceFragment : Fragment() {
 ////            val intent = Intent(activity, SelectPackageActivity::class.java)
 ////            startActivity(intent)
 //        }
-//
+
         choosemp_ivFilter.setOnClickListener {
             callFilterListApi()
         }
-//
+
 //        choosemp_tvTutors.setOnClickListener {
 //            val bundle = Bundle()
 //            bundle.putString("tab", "Tutors")
 //            fragment.arguments = bundle
 //            fragmentManager!!.beginTransaction().replace(R.id.container, fragment).addToBackStack(null)
 //                .commit()
-//
 //        }
 
         if (Utils.getStringValue(activity!!, "course_type_id", "") == "1") {
@@ -182,8 +185,12 @@ class ChooseMarketPlaceFragment : Fragment() {
 
         callTutorListApi()
         callSubjectListApi()
-        callStandardListApi()
-        callExamListApi()
+
+        if (Utils.getStringValue(activity!!, "course_type_id", "") == "1") {
+            callStandardListApi()
+        } else {
+            callExamListApi()
+        }
         callPackageListApi()
 
     }
@@ -215,16 +222,16 @@ class ChooseMarketPlaceFragment : Fragment() {
         header.text = selection
 
         list.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        var recyclerviewAdapter = RecyclerviewAdapter(activity!!, arr, selectionType, filterType)
+        val recyclerviewAdapter = RecyclerviewAdapter(activity!!, arr, selectionType, filterType)
         list.adapter = recyclerviewAdapter
-
 
         btnDone.setOnClickListener {
 
             var str = ""
+            subids = ""
 
             if (selectionType == "multiple") {
-                var finalFilerArray = recyclerviewAdapter.sendArray()
+                val finalFilerArray = recyclerviewAdapter.sendArray()
 
                 Log.d("filterarraysize", "" + finalFilerArray.size)
 
@@ -234,58 +241,46 @@ class ChooseMarketPlaceFragment : Fragment() {
                             if (finalFilerArray[i].isSelected) {
 
                                 str += finalFilerArray[i].StandardName + ","
+                                stdids += finalFilerArray[i].StandardID + ","
                             }
                         }
+
+                        stdids = stdids.substring(0, stdids.length - 1)
                     }
                     "subject" -> {
                         for (i in 0 until finalFilerArray.size) {
                             if (finalFilerArray[i].isSelected) {
 
                                 str += finalFilerArray[i].SubjectName + ","
+                                subids += finalFilerArray[i].SubjectID + ","
                             }
                         }
+
+                        subids = subids.substring(0, subids.length - 1)
+                        Log.d("subids", "" + subids)
                     }
                     "tutor" -> {
                         for (i in 0 until finalFilerArray.size) {
                             if (finalFilerArray[i].isSelected) {
 
                                 str += finalFilerArray[i].TutorName + ","
+                                tutorids += finalFilerArray[i].TutorID + ","
                             }
                         }
+
+                        tutorids = tutorids.substring(0, tutorids.length - 1)
                     }
                     "exam" -> {
                         for (i in 0 until finalFilerArray.size) {
                             if (finalFilerArray[i].isSelected) {
 
                                 str += finalFilerArray[i].CourseName + ","
+                                examids += finalFilerArray[i].CourseID + ","
                             }
                         }
+                        examids = examids.substring(0, examids.length - 1)
                     }
                 }
-
-//                for (i in 0 until finalFilerArray.size) {
-//                    if (finalFilerArray[i].isSelected) {
-//
-//                        when (filterType) {
-//                            "standard" ->{
-//                                str = ""
-//                                str += finalFilerArray[i].StandardName + ","
-//                            }
-//                            "subject" -> {
-//                                str = ""
-//                                str += finalFilerArray[i].SubjectName + ","
-//                            }
-//                            "tutor" -> {
-//                                str = ""
-//                                str += finalFilerArray[i].TutorName + ","
-//                            }
-//                            "exam" ->{
-//                                str = ""
-//                                str += finalFilerArray[i].InstituteName + ","
-//                            }
-//                        }
-//                    }
-//                }
 
                 if (str != null && str != "") {
                     str = str.substring(0, str.length - 1)
@@ -308,7 +303,16 @@ class ChooseMarketPlaceFragment : Fragment() {
                 }
             }
 
-            view.text = str
+            view.text = str.substringAfter("-")
+
+            when (view) {
+                choosemp_filterTutors -> tutorids = str.substringBefore("-")
+                choosemp_filterStandard -> stdids = str.substringBefore("-")
+                choosemp_filterExam -> examids = str.substringBefore("-")
+                choosemp_filterSubject -> {
+                }
+            }
+
         }
 
         btnCancel.setOnClickListener { dialog.dismiss() }
@@ -339,6 +343,7 @@ class ChooseMarketPlaceFragment : Fragment() {
                         tutorArr = response.body()!!.data
 
                         choosemp_filterTutors.text = tutorArr[0].TutorName
+//                        tutorids = tutorArr[0].TutorID
 
                     } else {
 
@@ -377,6 +382,7 @@ class ChooseMarketPlaceFragment : Fragment() {
                         subjectArr = response.body()!!.data
 
                         choosemp_filterSubject.text = subjectArr[0].SubjectName
+//                        subids = subjectArr[0].SubjectID
 
                     } else {
 
@@ -416,6 +422,7 @@ class ChooseMarketPlaceFragment : Fragment() {
                         standardArr = response.body()!!.data
 
                         choosemp_filterStandard.text = standardArr[0].StandardName
+//                        stdids = standardArr[0].StandardID
 
                     } else {
 
@@ -455,6 +462,7 @@ class ChooseMarketPlaceFragment : Fragment() {
                         examArr = response.body()!!.data
 
                         choosemp_filterExam.text = examArr[0].CourseName
+//                        examids = examArr[0].CourseID
 
                     } else {
 
@@ -515,6 +523,11 @@ class ChooseMarketPlaceFragment : Fragment() {
 
                         mDataList = response.body()!!.data
 
+                        choosemp_filterExam.text = Utils.getStringValue(activity!!, "course_name", "")!!
+                        choosemp_filterStandard.text = Utils.getStringValue(activity!!, "standard_name", "")!!
+                        choosemp_filterSubject.text = Utils.getStringValue(activity!!, "subject_name", "")!!
+                        choosemp_filterTutors.text = "All"
+
                         testPackagesAdapter = TestPackagesAdapter(activity!!, mDataList!!)
                         choosemp_rvList.adapter = testPackagesAdapter
 
@@ -544,12 +557,11 @@ class ChooseMarketPlaceFragment : Fragment() {
 
         val call = apiService.getFilterData(
             WebRequests.getFilterParams(
-
                 Utils.getStringValue(activity!!, "course_type_id", "")!!,
-                Utils.getStringValue(activity!!, "course_id", "")!!,
-                Utils.getStringValue(activity!!, "standard_id", choosemp_filterSubject.text.toString())!!,
-                Utils.getStringValue(activity!!, "subject_id", "")!!,
-                ""
+                examids,
+                stdids,
+                subids,
+                tutorids
             )
         )
 
@@ -564,12 +576,14 @@ class ChooseMarketPlaceFragment : Fragment() {
 
                         mDataList = response.body()!!.data
 
+                        choosemp_rvList.visibility = View.VISIBLE
                         testPackagesAdapter = TestPackagesAdapter(activity!!, mDataList!!)
                         choosemp_rvList.adapter = testPackagesAdapter
 
                     } else {
 
                         Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                        choosemp_rvList.visibility = View.GONE
                     }
                 }
             }

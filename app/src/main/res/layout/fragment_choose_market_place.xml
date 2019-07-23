@@ -116,7 +116,7 @@
             app:layout_constraintBottom_toBottomOf="@id/rlThree"
             app:layout_constraintRight_toRightOf="parent"
             android:padding="@dimen/_3sdp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginLeft="@dimen/_5sdp"
             app:layout_constraintLeft_toRightOf="@id/rlThree"/>
 

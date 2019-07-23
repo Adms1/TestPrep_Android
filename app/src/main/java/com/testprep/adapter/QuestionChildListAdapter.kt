@@ -9,12 +9,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
 import com.testprep.interfaces.FilterTypeSelectionInteface
+import com.testprep.models.QuestionTypeModel
 import com.testprep.utils.AppConstants
 
 
 class QuestionChildListAdapter(
     val context: Context,
-    val dataList: ArrayList<String>,
+    val dataList: ArrayList<QuestionTypeModel>,
     var row_index: Int,
     val filterTypeSelectionInteface: FilterTypeSelectionInteface
 ) : RecyclerView.Adapter<QuestionChildListAdapter.viewholder>() {
@@ -37,6 +38,29 @@ class QuestionChildListAdapter(
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
         p0.title.text = (p1 + 1).toString()
 
+        when {
+            dataList[p1].type == 1 -> {
+                p0.title.setTextColor(context.resources.getColor(R.color.white))
+                p0.title.setBackgroundResource(R.drawable.blue_round)
+            }
+            dataList[p1].type == 2 -> {
+                p0.title.setTextColor(context.resources.getColor(R.color.white))
+                p0.title.setBackgroundResource(R.drawable.green_round)
+            }
+            dataList[p1].type == 3 -> {
+                p0.title.setTextColor(context.resources.getColor(R.color.white))
+                p0.title.setBackgroundResource(R.drawable.red_round)
+            }
+            dataList[p1].type == 4 -> {
+                p0.title.setTextColor(context.resources.getColor(R.color.white))
+                p0.title.setBackgroundResource(R.drawable.pink_round)
+            }
+            dataList[p1].type == 5 -> {
+                p0.title.setTextColor(context.resources.getColor(R.color.white))
+                p0.title.setBackgroundResource(R.drawable.gray_bg)
+            }
+        }
+
         p0.title.setOnClickListener {
 
             row_index = p1
@@ -49,13 +73,15 @@ class QuestionChildListAdapter(
             filterTypeSelectionInteface.getType(p1)
         }
 
-        if (row_index == p1) {
-            p0.title.setTextColor(context.resources.getColor(R.color.white))
-            p0.title.setBackgroundResource(R.drawable.pink_round)
-        } else {
-            p0.title.setTextColor(context.resources.getColor(R.color.gray))
-            p0.title.setBackgroundResource(R.drawable.light_gray_round_bg)
-        }
+//        if (row_index == p1) {
+//
+//            p0.title.setTextColor(context.resources.getColor(R.color.white))
+//            p0.title.setBackgroundResource(R.drawable.blue_round)
+//        } else {
+//
+//            p0.title.setTextColor(context.resources.getColor(R.color.gray))
+//            p0.title.setBackgroundResource(R.drawable.light_gray_round_bg)
+//        }
 
     }
 

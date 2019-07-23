@@ -9,12 +9,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
 import com.testprep.interfaces.FilterTypeSelectionInteface
+import com.testprep.models.QuestionTypeModel
 import java.util.*
 
 class QuestionListSideMenuAdapter(
     var context: Context,
     var listDataHeader: ArrayList<String>,
-    var listChildData: ArrayList<String>,
+    var listChildData: ArrayList<QuestionTypeModel>,
     val filterTypeSelectionInteface: FilterTypeSelectionInteface,
     val row_index: Int
 ) : RecyclerView.Adapter<QuestionListSideMenuAdapter.viewholder>() {

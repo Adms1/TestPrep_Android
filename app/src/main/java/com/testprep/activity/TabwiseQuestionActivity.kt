@@ -17,6 +17,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.Window
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -24,6 +25,7 @@ import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.adapter.QuestionListSideMenuAdapter
 import com.testprep.interfaces.FilterTypeSelectionInteface
+import com.testprep.models.QuestionTypeModel
 import com.testprep.old.PageActivity
 import com.testprep.old.PageViewFragment
 import com.testprep.old.adapter.SelectImageOptionAdapter
@@ -44,13 +46,10 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
     //    var questionpagerAdapret: QuestionsPagerAdapter? = null
 //    var mToolbar: Toolbar? = null
-    var movies: ArrayList<QuestionResponse.QuestionList> = ArrayList()
 
     var where = ""
     var reviewQue: ArrayList<Int> = ArrayList()
 
-    var sectionList = ArrayList<String>()
-    var sectionList1 = ArrayList<String>()
     var childList = HashMap<String, ArrayList<String>>()
 
     private var que_list: ArrayList<QuestionResponse.QuestionList> = ArrayList()
@@ -58,8 +57,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
     private var come = ""
     private var imgQue: ImageView? = null
     private var ansList: RecyclerView? = null
-
-    var filterTypeSelectionInteface: FilterTypeSelectionInteface? = null
 
     var qsize = 0
     internal var mDrawerToggle: ActionBarDrawerToggle? = null
@@ -94,8 +91,12 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         filterTypeSelectionInteface = this
 
+        context = this@TabwiseQuestionActivity
+
         imgQue = findViewById(R.id.page_img_que_img)
         ansList = findViewById(R.id.wv_question_list)
+        nextButton = findViewById(R.id.queTab_btnNext)
+        sideList = findViewById(R.id.queTab_expQueList)
 
         imgQue!!.isDrawingCacheEnabled = true
 
@@ -120,6 +121,14 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.setCanceledOnTouchOutside(true)
             dialog.show()
+        }
+
+        queTab_ivReview.setOnClickListener {
+
+            setSideMenu(4)
+
+            getNextQuestion()
+
         }
 
 //        mDrawerToggle = ActionBarDrawerToggle(
@@ -157,21 +166,17 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             //            getLastPage()
 //            queTab_viewpager.currentItem = queTab_viewpager.currentItem + 1
 
-            if ((movies.size - 1) > AppConstants.QUE_NUMBER) {
-                AppConstants.QUE_NUMBER = AppConstants.QUE_NUMBER + 1
+            if (queTab_btnNext.text == "Next") {
+                queTab_btnNext.text = "Skip"
 
-                Log.d("que_number", "" + AppConstants.QUE_NUMBER)
+                setSideMenu(2)
+                getNextQuestion()
 
-                queTab_expQueList.adapter = QuestionListSideMenuAdapter(
-                    this@TabwiseQuestionActivity,
-                    sectionList,
-                    sectionList1,
-                    filterTypeSelectionInteface!!,
-                    AppConstants.QUE_NUMBER
-                )
+            } else {
 
-                getType(AppConstants.QUE_NUMBER)
+                setSideMenu(3)
 
+                getNextQuestion()
             }
         }
 
@@ -451,7 +456,10 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 //                            sectionList1.add("X")
 
                             for (i in 0 until movies.size) {
-                                sectionList1.add(i.toString())
+                                val questionTypeModel = QuestionTypeModel()
+                                questionTypeModel.qnumber = i
+                                questionTypeModel.type = 5
+                                sectionList1.add(questionTypeModel)
                             }
 
                             Log.d("header", "" + sectionList)
@@ -668,6 +676,49 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                 movies[p0].StudentTestQuestionMCQ,
                 imgQue!!.width
             )
+
+        }
+    }
+
+    fun getNextQuestion() {
+        if ((movies.size - 1) > AppConstants.QUE_NUMBER) {
+            AppConstants.QUE_NUMBER = AppConstants.QUE_NUMBER + 1
+
+            getType(AppConstants.QUE_NUMBER)
+
+            setSideMenu(1)
+        }
+    }
+
+    companion object {
+
+        var nextButton: Button? = null
+        var sideList: RecyclerView? = null
+        var sectionList = ArrayList<String>()
+        var sectionList1 = ArrayList<QuestionTypeModel>()
+        var filterTypeSelectionInteface: FilterTypeSelectionInteface? = null
+        var movies: ArrayList<QuestionResponse.QuestionList> = ArrayList()
+
+        var context: Context? = null
+
+        fun setSideMenu(type: Int) {
+            for (i in 0 until sectionList1.size) {
+                if (sectionList1[i].qnumber == AppConstants.QUE_NUMBER) {
+                    sectionList1[i].type = type
+                }
+            }
+
+            sideList!!.adapter = QuestionListSideMenuAdapter(
+                context!!,
+                sectionList,
+                sectionList1,
+                filterTypeSelectionInteface!!,
+                AppConstants.QUE_NUMBER
+            )
+        }
+
+        fun setButton() {
+            nextButton!!.text = "Next"
 
         }
     }

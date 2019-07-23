@@ -12,19 +12,19 @@ import android.widget.RadioGroup
 import android.widget.RelativeLayout
 import com.squareup.picasso.Picasso
 import com.testprep.R
+import com.testprep.activity.TabwiseQuestionActivity
 import com.testprep.old.models.QuestionResponse
 
 class SelectImageOptionAdapter(
     val context: Context,
     val dataList: ArrayList<QuestionResponse.QuestionDataList>,
     var qsize: Int
-
 ) :
+
     RecyclerView.Adapter<SelectImageOptionAdapter.viewholder>() {
 
     private var lastCheckedRadioGroup: RadioGroup? = null
     private val lastCheckedPosition = -1
-
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
@@ -101,12 +101,12 @@ class SelectImageOptionAdapter(
 //                }
 //            }
 
-
         p0.opone.addView(rb)
 //        }
 
         p0.opone.setOnCheckedChangeListener { group, checkedId ->
 
+            TabwiseQuestionActivity.setButton()
             //since only one package is allowed to be selected
             //this logic clears previous selection
             //it checks state of last radiogroup and
