@@ -5,12 +5,17 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.WindowManager
 import com.testprep.R
+import com.testprep.models.AnswerModel
 import kotlinx.android.synthetic.main.activity_result.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class ResultActivity : AppCompatActivity() {
+
+    var resultArr: ArrayList<AnswerModel> = ArrayList()
+    var marksCounter = 0
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -28,6 +33,28 @@ class ResultActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
+        }
+
+        resultArr = TabwiseQuestionActivity.ansArr
+        Log.d("arrresult", "" + resultArr)
+
+        for (i in 0 until resultArr.size) {
+            if (resultArr[i].ansresult) {
+                marksCounter += 1
+            }
+        }
+        result_tvMarks.text = "Marks : " + marksCounter
+
+        if (marksCounter <= 0) {
+            result_card.background = resources.getDrawable(R.drawable.pink_bg)
+            result_tvViewAnswer.setTextColor(resources.getColor(R.color.pink))
+            result_tvHeader.text = "Better luck next time"
+            dialog_queinfo_tvResult.text = "FAIL"
+        } else {
+            result_card.background = resources.getDrawable(R.drawable.green_round_bg)
+            result_tvViewAnswer.setTextColor(resources.getColor(R.color.green))
+            result_tvHeader.text = "Congratulations"
+            dialog_queinfo_tvResult.text = "PASS"
         }
 
         result_tvViewAnswer.setOnClickListener {

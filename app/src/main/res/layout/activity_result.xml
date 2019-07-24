@@ -41,13 +41,15 @@
             android:layout_marginRight="@dimen/_15sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:id="@+id/result_card"
             android:background="@drawable/green_round_bg">
 
         <TextView
                 android:id="@+id/result_tvHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/light_gray"
+                android:textColor="@color/white"
+                android:alpha="0.18"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -123,7 +125,8 @@
                 android:id="@+id/dialog_queinfo_tvResult"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/shimmer_color"
+                android:textColor="@color/white"
+                android:alpha="0.18"
                 android:textSize="@dimen/_40sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

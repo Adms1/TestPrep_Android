@@ -9,7 +9,12 @@ class TestListModel {
     class TestData {
 
         var TestName = ""
-        var TestId = 0
+        var TestID = 0
+        var TestDuration = ""
+        var TestMarks = ""
+        var TestStartTime = ""
+        var TestEndTime = ""
+        var StatusName = ""
 
     }
 }

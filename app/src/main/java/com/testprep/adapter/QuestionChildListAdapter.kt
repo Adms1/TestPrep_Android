@@ -20,6 +20,8 @@ class QuestionChildListAdapter(
     val filterTypeSelectionInteface: FilterTypeSelectionInteface
 ) : RecyclerView.Adapter<QuestionChildListAdapter.viewholder>() {
 
+    var click = false
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
         return viewholder(
@@ -40,8 +42,24 @@ class QuestionChildListAdapter(
 
         when {
             dataList[p1].type == 1 -> {
-                p0.title.setTextColor(context.resources.getColor(R.color.white))
-                p0.title.setBackgroundResource(R.drawable.blue_round)
+
+                if (click) {
+
+                    click = false
+
+                    if (row_index == p1) {
+
+                        p0.title.setTextColor(context.resources.getColor(R.color.white))
+                        p0.title.setBackgroundResource(R.drawable.blue_round)
+                    } else {
+
+                        p0.title.setTextColor(context.resources.getColor(R.color.white))
+                        p0.title.setBackgroundResource(R.drawable.gray_bg)
+                    }
+                } else {
+                    p0.title.setTextColor(context.resources.getColor(R.color.white))
+                    p0.title.setBackgroundResource(R.drawable.blue_round)
+                }
             }
             dataList[p1].type == 2 -> {
                 p0.title.setTextColor(context.resources.getColor(R.color.white))
@@ -63,6 +81,9 @@ class QuestionChildListAdapter(
 
         p0.title.setOnClickListener {
 
+            click = true
+
+            dataList[p1].type = 1
             row_index = p1
             notifyDataSetChanged()
 
@@ -71,6 +92,7 @@ class QuestionChildListAdapter(
             Log.d("que_number", "" + AppConstants.QUE_NUMBER)
 
             filterTypeSelectionInteface.getType(p1)
+
         }
 
 //        if (row_index == p1) {

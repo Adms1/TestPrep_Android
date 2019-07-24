@@ -110,7 +110,8 @@ class NewPageviewFragment : Fragment() {
                     ansList!!.adapter = SelectImageOptionAdapter(
                         activity!!,
                         que_list[que_num].StudentTestQuestionMCQ,
-                        imgQue!!.width
+                        imgQue!!.width,
+                        que_list[que_num].QuestionID
                     )
                 }
 
@@ -187,7 +188,8 @@ class NewPageviewFragment : Fragment() {
                             ansList!!.adapter = SelectImageOptionAdapter(
                                 activity!!,
                                 movies[0].StudentTestQuestionMCQ,
-                                page_img_que_img.width
+                                page_img_que_img.width,
+                                movies[0].QuestionID
                             )
                         }
                     } else {
@@ -202,7 +204,8 @@ class NewPageviewFragment : Fragment() {
                         ansList!!.adapter = SelectImageOptionAdapter(
                             activity!!,
                             movies[0].StudentTestQuestionMCQ,
-                            page_img_que_img.width
+                            page_img_que_img.width,
+                            movies[0].QuestionID
                         )
 
                     }

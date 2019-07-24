@@ -54,8 +54,8 @@ class SolutionAdapter(
         }
 
         when {
-            dataList[p1].IsCorrectAnswer == "true" -> p0.opone.setImageResource(R.drawable.success_icon)
-            dataList[p1].IsCorrectAnswer == "false" -> p0.opone.setImageResource(R.drawable.fail_icon)
+            dataList[p1].IsCorrectAnswer -> p0.opone.setImageResource(R.drawable.success_icon)
+            !dataList[p1].IsCorrectAnswer -> p0.opone.setImageResource(R.drawable.fail_icon)
             else -> p0.opone.setImageResource(R.drawable.gray_ring_bg)
         }
 

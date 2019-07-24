@@ -25,6 +25,7 @@ import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.adapter.QuestionListSideMenuAdapter
 import com.testprep.interfaces.FilterTypeSelectionInteface
+import com.testprep.models.AnswerModel
 import com.testprep.models.QuestionTypeModel
 import com.testprep.old.PageActivity
 import com.testprep.old.PageViewFragment
@@ -58,6 +59,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
     private var imgQue: ImageView? = null
     private var ansList: RecyclerView? = null
 
+    var testid = ""
     var qsize = 0
     internal var mDrawerToggle: ActionBarDrawerToggle? = null
 
@@ -83,7 +85,13 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         setContentView(R.layout.activity_tabwise_question)
 
+        testid = intent.getStringExtra("testid")
+
         AppConstants.QUE_NUMBER = 0
+
+        ansArr = ArrayList()
+        sectionList = ArrayList()
+        sectionList1 = ArrayList()
 
 //        mToolbar = (Toolbar) findViewById(R.id.sliding_tabs)
 //        sliding_tabs.setOnTabSelectedListener(this)
@@ -102,7 +110,9 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         queTab_ivBack.setOnClickListener { onBackPressed() }
 
-        queTab_ivSubmit.setOnClickListener { onBackPressed() }
+        queTab_ivSubmit.setOnClickListener {
+            onBackPressed()
+        }
 
         mDrawerToggle = ActionBarDrawerToggle(
             this, drawer_layout, R.mipmap.tc_logo, // nav menu toggle icon
@@ -166,6 +176,8 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             //            getLastPage()
 //            queTab_viewpager.currentItem = queTab_viewpager.currentItem + 1
 
+            queTab_btnNext.visibility = View.GONE
+
             if (queTab_btnNext.text == "Next") {
                 queTab_btnNext.text = "Skip"
 
@@ -227,8 +239,8 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
                 queTab_expQueList.adapter = QuestionListSideMenuAdapter(
                     this@TabwiseQuestionActivity,
-                    sectionList,
-                    sectionList1,
+                    sectionList!!,
+                    sectionList1!!,
                     filterTypeSelectionInteface!!,
                     AppConstants.QUE_NUMBER
                 )
@@ -367,7 +379,9 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         }
 
-        callQuestionApi()
+        if (testid != "") {
+            callQuestionApi()
+        }
     }
 
 //    var mTabLayout_config: Runnable = Runnable {
@@ -406,7 +420,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getQuestions("2")
+        val call = apiService.getQuestions(intent.getStringExtra("testid"))
         call.enqueue(object : Callback<QuestionResponse> {
             override fun onResponse(call: Call<QuestionResponse>, response: Response<QuestionResponse>) {
 
@@ -438,7 +452,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                             // setting list adapter
 
 
-                            sectionList.add("Section 1")
+                            sectionList!!.add("Section 1")
 //                            sectionList.add("Section 2")
 //                            sectionList.add("Section 3")
 //                            sectionList.add("Section 4")
@@ -459,7 +473,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                                 val questionTypeModel = QuestionTypeModel()
                                 questionTypeModel.qnumber = i
                                 questionTypeModel.type = 5
-                                sectionList1.add(questionTypeModel)
+                                sectionList1!!.add(questionTypeModel)
                             }
 
                             Log.d("header", "" + sectionList)
@@ -471,14 +485,14 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                             queTab_expQueList.adapter =
                                 QuestionListSideMenuAdapter(
                                     this@TabwiseQuestionActivity,
-                                    sectionList,
-                                    sectionList1,
+                                    sectionList!!,
+                                    sectionList1!!,
                                     filterTypeSelectionInteface!!,
                                     -1
                                 )
 
                             Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
-                                .resize(page_img_que_img.width, page_img_que_img.height)
+//                                .resize(page_img_que_img.width, page_img_que_img.height)
                                 .into(page_img_que_img)
 //
                             PageViewFragment.qsize = page_img_que_img.width
@@ -495,7 +509,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 //                        val b = BitmapFactory.decodeFile(photoPath, options)
 //                        page_img_que_img.setImageBitmap(b)
 
-
                             ansList!!.layoutManager =
                                 LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
@@ -504,7 +517,8 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                                 ansList!!.adapter = SelectImageOptionAdapter(
                                     this@TabwiseQuestionActivity,
                                     movies[0].StudentTestQuestionMCQ,
-                                    page_img_que_img.width
+                                    page_img_que_img.width,
+                                    movies[0].QuestionID
                                 )
                             } else {
                                 ansList!!.adapter = SolutionAdapter(
@@ -519,7 +533,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                     } else {
                         if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
                             Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
-                                .resize(page_img_que_img.width, page_img_que_img.height)
+//                                .resize(page_img_que_img.width, page_img_que_img.height)
                                 .into(page_img_que_img)
 
                         }
@@ -532,7 +546,8 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                             ansList!!.adapter = SelectImageOptionAdapter(
                                 this@TabwiseQuestionActivity,
                                 movies[0].StudentTestQuestionMCQ,
-                                page_img_que_img.width
+                                page_img_que_img.width,
+                                movies[0].QuestionID
                             )
                         } else {
                             ansList!!.adapter = SolutionAdapter(
@@ -663,7 +678,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         if ("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage != "") {
 
             Picasso.get().load("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage)
-                .resize(imgQue!!.width, qsize)
+//                .resize(imgQue!!.width, qsize)
                 .into(imgQue)
 
 //            PageViewFragment.qsize = page_img_que_img.width
@@ -674,10 +689,13 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             ansList!!.adapter = SelectImageOptionAdapter(
                 this@TabwiseQuestionActivity,
                 movies[p0].StudentTestQuestionMCQ,
-                imgQue!!.width
+                imgQue!!.width,
+                movies[p0].QuestionID
             )
-
         }
+
+        queTab_btnNext.visibility = View.VISIBLE
+
     }
 
     fun getNextQuestion() {
@@ -694,31 +712,39 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         var nextButton: Button? = null
         var sideList: RecyclerView? = null
-        var sectionList = ArrayList<String>()
-        var sectionList1 = ArrayList<QuestionTypeModel>()
+        var sectionList: ArrayList<String>? = null
+        var sectionList1: ArrayList<QuestionTypeModel>? = null
         var filterTypeSelectionInteface: FilterTypeSelectionInteface? = null
         var movies: ArrayList<QuestionResponse.QuestionList> = ArrayList()
+        var ansArr: ArrayList<AnswerModel> = ArrayList()
 
         var context: Context? = null
 
         fun setSideMenu(type: Int) {
-            for (i in 0 until sectionList1.size) {
-                if (sectionList1[i].qnumber == AppConstants.QUE_NUMBER) {
-                    sectionList1[i].type = type
+            for (i in 0 until sectionList1!!.size) {
+                if (sectionList1!![i].qnumber == AppConstants.QUE_NUMBER) {
+                    sectionList1!![i].type = type
                 }
             }
 
             sideList!!.adapter = QuestionListSideMenuAdapter(
                 context!!,
-                sectionList,
-                sectionList1,
+                sectionList!!,
+                sectionList1!!,
                 filterTypeSelectionInteface!!,
                 AppConstants.QUE_NUMBER
             )
         }
 
-        fun setButton() {
+        fun setButton(ansid: String, qid: String, result: Boolean) {
             nextButton!!.text = "Next"
+
+            val answerModel = AnswerModel()
+            answerModel.ansid = ansid
+            answerModel.qid = qid
+            answerModel.ansresult = result
+
+            ansArr.add(answerModel)
 
         }
     }

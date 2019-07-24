@@ -158,7 +158,8 @@ class PageView2Fragment : Fragment() {
                             wv_question_list.adapter = SelectImageOptionAdapter(
                                 activity!!,
                                 movies[0].StudentTestQuestionMCQ,
-                                page_img_que_img.width
+                                page_img_que_img.width,
+                                movies[0].QuestionID
                             )
                         }
                     }else{
@@ -173,7 +174,8 @@ class PageView2Fragment : Fragment() {
                         wv_question_list.adapter = SelectImageOptionAdapter(
                             activity!!,
                             movies[0].StudentTestQuestionMCQ,
-                            page_img_que_img.width
+                            page_img_que_img.width,
+                            movies[0].QuestionID
                         )
 
                     }

@@ -18,7 +18,8 @@ import com.testprep.old.models.QuestionResponse
 class SelectImageOptionAdapter(
     val context: Context,
     val dataList: ArrayList<QuestionResponse.QuestionDataList>,
-    var qsize: Int
+    var qsize: Int,
+    var qid: String
 ) :
 
     RecyclerView.Adapter<SelectImageOptionAdapter.viewholder>() {
@@ -106,7 +107,11 @@ class SelectImageOptionAdapter(
 
         p0.opone.setOnCheckedChangeListener { group, checkedId ->
 
-            TabwiseQuestionActivity.setButton()
+            if (dataList[p1].IsCorrectAnswer) {
+                TabwiseQuestionActivity.setButton(dataList[p1].MultipleChoiceQuestionAnswerID, qid, true)
+            } else {
+                TabwiseQuestionActivity.setButton(dataList[p1].MultipleChoiceQuestionAnswerID, qid, false)
+            }
             //since only one package is allowed to be selected
             //this logic clears previous selection
             //it checks state of last radiogroup and
