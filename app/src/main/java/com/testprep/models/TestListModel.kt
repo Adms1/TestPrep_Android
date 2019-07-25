@@ -15,6 +15,6 @@ class TestListModel {
         var TestStartTime = ""
         var TestEndTime = ""
         var StatusName = ""
-
+        var StudentTestID = 0
     }
 }

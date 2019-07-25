@@ -60,7 +60,10 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
     private var ansList: RecyclerView? = null
 
     var testid = ""
+    var studenttestid = ""
+
     var qsize = 0
+
     internal var mDrawerToggle: ActionBarDrawerToggle? = null
 
     override fun attachBaseContext(newBase: Context?) {
@@ -86,6 +89,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         setContentView(R.layout.activity_tabwise_question)
 
         testid = intent.getStringExtra("testid")
+        studenttestid = intent.getStringExtra("studenttestid")
 
         AppConstants.QUE_NUMBER = 0
 
@@ -120,7 +124,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             R.string.app_name
         )
 
-        package_btnNextt.setOnClickListener {
+        queTab_btnNextt.setOnClickListener {
             drawer_layout.openDrawer(Gravity.END)
         }
 
@@ -253,7 +257,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 //            queTab_tvTotal.text = """${AppConstants.QUE_NUMBER - 1}/${movies.size}"""
         }
 
-        ansList!!.isNestedScrollingEnabled = false
+//        ansList!!.isNestedScrollingEnabled = false
 
         ansList!!.layoutManager = LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
@@ -474,6 +478,13 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                                 questionTypeModel.qnumber = i
                                 questionTypeModel.type = 5
                                 sectionList1!!.add(questionTypeModel)
+
+                                val answerModel = AnswerModel()
+                                answerModel.qid = movies[i].QuestionID
+                                answerModel.ansid = "0"
+                                answerModel.ansresult = false
+                                ansArr.add(answerModel)
+
                             }
 
                             Log.d("header", "" + sectionList)
@@ -656,7 +667,17 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                 "OK",
                 "Cancel",
                 DialogInterface.OnClickListener { dialog, which ->
+
+                    var ansstr = ""
+
+                    for (i in 0 until ansArr.size) {
+                        ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
+                    }
+
+                    Log.d("ansstr", ansstr)
+
                     val intent = Intent(this@TabwiseQuestionActivity, ResultActivity::class.java)
+                    intent.putExtra("testid", testid)
                     startActivity(intent)
 
                     finish()
@@ -708,6 +729,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         }
     }
 
+
     companion object {
 
         var nextButton: Button? = null
@@ -739,13 +761,19 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         fun setButton(ansid: String, qid: String, result: Boolean) {
             nextButton!!.text = "Next"
 
-            val answerModel = AnswerModel()
-            answerModel.ansid = ansid
-            answerModel.qid = qid
-            answerModel.ansresult = result
+//            val answerModel = AnswerModel()
+//            answerModel.ansid = ansid
+//            answerModel.qid = qid
+//            answerModel.ansresult = result
 
-            ansArr.add(answerModel)
-
+            if (ansArr.size > 0) {
+                for (i in 0 until ansArr.size) {
+                    if (ansArr[i].qid == qid) {
+                        ansArr[i].ansid = ansid
+                        ansArr[i].ansresult = true
+                    }
+                }
+            }
         }
     }
 

@@ -53,10 +53,20 @@ class SolutionAdapter(
                 .into(p0.opone1)
         }
 
+//        if(dataList[p1].IsCorrectAnswer){
+//
+//                p0.opone.setImageResource(R.drawable.green_round)
+//
+//
+//
+//        }else{
+//
+//        }
+
         when {
-            dataList[p1].IsCorrectAnswer -> p0.opone.setImageResource(R.drawable.success_icon)
-            !dataList[p1].IsCorrectAnswer -> p0.opone.setImageResource(R.drawable.fail_icon)
-            else -> p0.opone.setImageResource(R.drawable.gray_ring_bg)
+            dataList[p1].IsCorrectAnswer -> p0.opone.setImageResource(R.drawable.wrong)
+            dataList[p1].StudentAnswer -> p0.opone.setImageResource(R.drawable.correct)
+            else -> p0.opone.setImageResource(R.drawable.grey_round)
         }
 
     }

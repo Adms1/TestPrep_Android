@@ -11,7 +11,7 @@ class QuestionResponse {
         var QuestionTypeID = ""
         var Marks = ""
         var QuestionImage = ""
-        var iscorrect = ""
+        var StudentTestAnswerMCQ: ArrayList<QuestionDataList> = ArrayList()
         var StudentTestQuestionMCQ: ArrayList<QuestionDataList> = ArrayList()
 
     }
@@ -20,6 +20,7 @@ class QuestionResponse {
         var MultipleChoiceQuestionAnswerID = ""
         var AnswerImage = ""
         var IsCorrectAnswer = false
+        var StudentAnswer = false
 
     }
 

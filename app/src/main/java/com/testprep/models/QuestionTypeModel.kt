@@ -5,4 +5,6 @@ class QuestionTypeModel {
     var qnumber = 0
     var type = 5
 
+    var isTrue = false
+
 }

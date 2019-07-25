@@ -17,6 +17,8 @@ class ResultActivity : AppCompatActivity() {
     var resultArr: ArrayList<AnswerModel> = ArrayList()
     var marksCounter = 0
 
+    var testid = ""
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
@@ -26,6 +28,8 @@ class ResultActivity : AppCompatActivity() {
 
 //        window.decorView.systemUiVisibility = View.
         setContentView(R.layout.activity_result)
+
+        testid = intent.getStringExtra("testid")
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             val w = window
@@ -58,7 +62,14 @@ class ResultActivity : AppCompatActivity() {
         }
 
         result_tvViewAnswer.setOnClickListener {
+            val intent = Intent(this@ResultActivity, ViewSolutionActivity::class.java)
+            intent.putExtra("testid", testid)
+            startActivity(intent)
+        }
+
+        result_tvReports.setOnClickListener {
             val intent = Intent(this@ResultActivity, TestReviewActivity::class.java)
+            intent.putExtra("testid", testid)
             startActivity(intent)
         }
 

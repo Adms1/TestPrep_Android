@@ -176,7 +176,6 @@ class PageViewFragment : Fragment() {
 
                             qsize = page_img_que_img.width
 
-
 //                            Log.d("imgsize", "widht" + page_img_que_img.width + "  height" + page_img_que_img.height)
 //                            Picasso.get().load("https://homeshealth.info/wp-content/uploads/2018/02/classy-algebra-distance-formula-problems-in-distance-formula-of-algebra-distance-formula-problems.jpg")
 //                                .resize(page_img_que_img.width, page_img_que_img.height)

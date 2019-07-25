@@ -108,4 +108,12 @@ interface WebInterface {
     @POST("Get_Course_List")
     fun getExamList(@Field("CourseTypeID") coursetype: String): Call<FilterModel>
 
+    @FormUrlEncoded
+    @POST("Add_StudentTestAnswer")
+    fun submitTest(@Field("StudentTestID") studenttest_id: String, @Field("QuestionIDAnswerID") que_ans_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Get_Student_StudentTestAnswer")
+    fun getSolution(@Field("TestID") test_id: String): Call<QuestionResponse>
+
 }

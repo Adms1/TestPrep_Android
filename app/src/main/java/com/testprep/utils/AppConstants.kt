@@ -4,10 +4,10 @@ class AppConstants {
 
     companion object{
 
-        var BASE_URL = "http://103.204.192.187:7077/WebService.asmx/"
+//        var BASE_URL = "http://103.204.192.187:7077/WebService.asmx/"
 //        var IMAGE_BASE_URL = "http://103.204.192.187:7077/"
 
-            //        var BASE_URL = "https://testprep.testcraft.co.in/WebService.asmx/"
+        var BASE_URL = "https://testprep.testcraft.co.in/WebService.asmx/"
         var IMAGE_BASE_URL = "https://testprep.testcraft.co.in/"
 
         var FIRST_NAME = "firstname"
@@ -27,6 +27,7 @@ class AppConstants {
         var SECRET_KEY = "531553f8d6b906aa3342948a3c535ca301de9d5d"
 
         var QUE_NUMBER = 0
+        var QUE_NUMBER1 = 0
 
 //        var API_KEY = "487f26cf-15cd-4497-a053-a4c5ac0e9a7f"
 //        var SECRET_KEY = "900249336e0680941326c99ff756b23e3e675efd"

@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.testprep.R
+import com.testprep.activity.DashboardActivity
 import com.testprep.adapter.RecyclerviewAdapter
 import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.models.FilterModel
@@ -51,6 +52,7 @@ class ChooseMarketPlaceFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_choose_market_place, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,7 +93,7 @@ class ChooseMarketPlaceFragment : Fragment() {
 //                .commit()
 //        }
 
-        if (Utils.getStringValue(activity!!, "course_type_id", "") == "1") {
+        if (Utils.getStringValue(context as DashboardActivity, "course_type_id", "") == "1") {
 
             choosemp_tvStandard.text = "Standard"
 
@@ -381,7 +383,7 @@ class ChooseMarketPlaceFragment : Fragment() {
 
                         subjectArr = response.body()!!.data
 
-                        choosemp_filterSubject.text = subjectArr[0].SubjectName
+//                        choosemp_filterSubject.text = subjectArr[0].SubjectName
 //                        subids = subjectArr[0].SubjectID
 
                     } else {
