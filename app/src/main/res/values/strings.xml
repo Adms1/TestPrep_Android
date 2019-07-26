@@ -101,6 +101,7 @@
         <u>View Reports</u>
     </string>
     <string name="skip">Skip</string>
+    <string name="analysis">Analysis</string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>

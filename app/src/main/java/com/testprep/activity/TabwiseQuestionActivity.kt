@@ -21,6 +21,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.adapter.QuestionListSideMenuAdapter
@@ -234,28 +235,28 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         }
 
-        queTab_btnPrevious.setOnClickListener { v: View? ->
-
-            if (AppConstants.QUE_NUMBER != 0) {
-                AppConstants.QUE_NUMBER = AppConstants.QUE_NUMBER - 1
-
-                Log.d("que_number", "" + AppConstants.QUE_NUMBER)
-
-                queTab_expQueList.adapter = QuestionListSideMenuAdapter(
-                    this@TabwiseQuestionActivity,
-                    sectionList!!,
-                    sectionList1!!,
-                    filterTypeSelectionInteface!!,
-                    AppConstants.QUE_NUMBER
-                )
-
-                getType(AppConstants.QUE_NUMBER)
-
-            }
-
-//            queTab_viewpager.currentItem = queTab_viewpager.currentItem - 1
-//            queTab_tvTotal.text = """${AppConstants.QUE_NUMBER - 1}/${movies.size}"""
-        }
+//        queTab_btnPrevious.setOnClickListener { v: View? ->
+//
+//            if (AppConstants.QUE_NUMBER != 0) {
+//                AppConstants.QUE_NUMBER = AppConstants.QUE_NUMBER - 1
+//
+//                Log.d("que_number", "" + AppConstants.QUE_NUMBER)
+//
+//                queTab_expQueList.adapter = QuestionListSideMenuAdapter(
+//                    this@TabwiseQuestionActivity,
+//                    sectionList!!,
+//                    sectionList1!!,
+//                    filterTypeSelectionInteface!!,
+//                    "question"
+//                )
+//
+//                getType(AppConstants.QUE_NUMBER)
+//
+//            }
+//
+////            queTab_viewpager.currentItem = queTab_viewpager.currentItem - 1
+////            queTab_tvTotal.text = """${AppConstants.QUE_NUMBER - 1}/${movies.size}"""
+//        }
 
 //        ansList!!.isNestedScrollingEnabled = false
 
@@ -499,7 +500,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                                     sectionList!!,
                                     sectionList1!!,
                                     filterTypeSelectionInteface!!,
-                                    -1
+                                    "question"
                                 )
 
                             Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
@@ -672,15 +673,13 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
                     for (i in 0 until ansArr.size) {
                         ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
+
                     }
 
                     Log.d("ansstr", ansstr)
 
-                    val intent = Intent(this@TabwiseQuestionActivity, ResultActivity::class.java)
-                    intent.putExtra("testid", testid)
-                    startActivity(intent)
+                    callSubmitAPI(ansstr.substring(0, ansstr.length - 1))
 
-                    finish()
                 },
                 DialogInterface.OnClickListener { dialog, which ->
                     dialog.dismiss()
@@ -688,6 +687,55 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
                 }).show()
         }
+    }
+
+    fun callSubmitAPI(ansstr: String) {
+        val sortDialog = Dialog(this@TabwiseQuestionActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
+        val window = sortDialog.window
+        val wlp = window!!.attributes
+        sortDialog.window!!.attributes.verticalMargin = 0.10f
+        wlp.gravity = Gravity.BOTTOM
+        window.attributes = wlp
+
+        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        sortDialog.setCancelable(true)
+        sortDialog.show()
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.submitTest(studenttestid, ansstr)
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body()!!.get("Status").asString == "true") {
+
+//                    Toast.makeText(this@TabwiseQuestionActivity, response.body()!!.get("Msg").asString , Toast.LENGTH_LONG).show()
+
+                    val intent = Intent(this@TabwiseQuestionActivity, ResultActivity::class.java)
+                    intent.putExtra("testid", testid)
+                    intent.putExtra(
+                        "marks",
+                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Correct").asString
+                    )
+                    startActivity(intent)
+                    finish()
+
+                } else {
+
+                    Toast.makeText(
+                        this@TabwiseQuestionActivity,
+                        response.body()!!.get("Msg").asString,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                sortDialog.dismiss()
+            }
+        })
     }
 
     override fun getType(p0: Int) {
@@ -725,10 +773,17 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
             getType(AppConstants.QUE_NUMBER)
 
-            setSideMenu(1)
+            sideList!!.adapter = QuestionListSideMenuAdapter(
+                context!!,
+                sectionList!!,
+                sectionList1!!,
+                filterTypeSelectionInteface!!,
+                "question"
+            )
+
+//            setSideMenu(1)
         }
     }
-
 
     companion object {
 
@@ -754,7 +809,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                 sectionList!!,
                 sectionList1!!,
                 filterTypeSelectionInteface!!,
-                AppConstants.QUE_NUMBER
+                "question"
             )
         }
 

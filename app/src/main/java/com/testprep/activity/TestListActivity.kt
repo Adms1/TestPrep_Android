@@ -39,6 +39,8 @@ class TestListActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_test_list)
 
+        test_header.text = intent.getStringExtra("pname")
+
         test_rvPkgList.layoutManager = LinearLayoutManager(this@TestListActivity, LinearLayoutManager.VERTICAL, false)
 
         test_ivBack.setOnClickListener { onBackPressed() }

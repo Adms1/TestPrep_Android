@@ -15,9 +15,7 @@ import android.widget.ImageView
 import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.adapter.QuestionListSideMenuAdapter
-import com.testprep.adapter.QuestionsPagerAdapter
 import com.testprep.interfaces.FilterTypeSelectionInteface
-import com.testprep.models.AnswerModel
 import com.testprep.models.QuestionTypeModel
 import com.testprep.old.adapter.SolutionAdapter
 import com.testprep.old.models.QuestionResponse
@@ -34,12 +32,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
-    var questionpagerAdapret: QuestionsPagerAdapter? = null
     var mToolbar: Toolbar? = null
     var movies: ArrayList<QuestionResponse.QuestionList> = ArrayList()
 
     var testid = ""
-    var reviewQue: ArrayList<Int> = ArrayList()
 
     private var ansList: RecyclerView? = null
     private var imgQue: ImageView? = null
@@ -63,7 +59,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         filterTypeSelectionInteface = this
 
-        AppConstants.QUE_NUMBER = 0
+        AppConstants.QUE_NUMBER1 = 0
 
         testid = intent.getStringExtra("testid")
 
@@ -76,7 +72,6 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         sideList = findViewById(R.id.solution_expQueList)
 
         imgQue!!.isDrawingCacheEnabled = true
-//        solution_sliding_tabs.setupWithViewPager(solution_viewpager)
 
         mDrawerToggle = ActionBarDrawerToggle(
             this, drawer_layout, R.mipmap.tc_logo, // nav menu toggle icon
@@ -91,9 +86,6 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         }
 
         solution_btnNext.setOnClickListener {
-            //            getLastPage()
-//            solution_viewpager.currentItem = solution_viewpager.currentItem + 1
-//            solution_tvTotal.text = """${solution_viewpager.currentItem + 1}/${movies.size}"""
 
             getNextQuestion1()
 
@@ -126,22 +118,22 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                 movies = response.body()!!.data
 
-                if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
-
+                if (movies.size > 0) {
                     sectionList!!.add("Section 1")
-
                     for (i in 0 until movies.size) {
                         val questionTypeModel = QuestionTypeModel()
                         questionTypeModel.qnumber = i
-                        questionTypeModel.type = 5
+
+                        for (j in 0 until movies[i].StudentTestAnswerMCQ.size) {
+                            if (movies[i].StudentTestAnswerMCQ[j].IsCorrectAnswer && movies[i].StudentTestAnswerMCQ[j].StudentAnswer) {
+                                questionTypeModel.type = 2
+                                break
+                            } else {
+                                questionTypeModel.type = 3
+                            }
+                        }
 
                         sectionList1!!.add(questionTypeModel)
-
-                        val answerModel = AnswerModel()
-                        answerModel.qid = movies[i].QuestionID
-                        answerModel.ansid = "0"
-                        answerModel.ansresult = false
-                        ansArr.add(answerModel)
 
                     }
 
@@ -157,14 +149,14 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                             sectionList!!,
                             sectionList1!!,
                             filterTypeSelectionInteface!!,
-                            -1
+                            "solution"
                         )
+                }
+
+                if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
 
                     Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
-//                                .resize(page_img_que_img.width, page_img_que_img.height)
                         .into(solution_page_img_que_img)
-//
-//                    PageViewFragment.qsize = solution_page_img_que_img.width
 
                     ansList!!.layoutManager =
                         LinearLayoutManager(this@ViewSolutionActivity, LinearLayoutManager.VERTICAL, false)
@@ -174,7 +166,6 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                         movies[0].StudentTestAnswerMCQ,
                         solution_page_img_que_img.width
                     )
-
 
                     Log.d("imgcall", "Number of movies received: " + movies.size)
                 }
@@ -195,10 +186,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         if ("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage != "") {
 
             Picasso.get().load("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage)
-//                .resize(imgQue!!.width, qsize)
                 .into(imgQue)
-
-//            PageViewFragment.qsize = page_img_que_img.width
 
             ansList!!.layoutManager =
                 LinearLayoutManager(this@ViewSolutionActivity, LinearLayoutManager.VERTICAL, false)
@@ -207,12 +195,10 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 this@ViewSolutionActivity,
                 movies[p0].StudentTestAnswerMCQ,
                 solution_page_img_que_img.width
-
             )
         }
 
         solution_btnNext.visibility = View.VISIBLE
-
     }
 
     fun getNextQuestion1() {
@@ -221,7 +207,15 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
             getType(AppConstants.QUE_NUMBER1)
 
-            setSideMenu1(1)
+            sideList!!.adapter = QuestionListSideMenuAdapter(
+                context!!,
+                sectionList!!,
+                sectionList1!!,
+                filterTypeSelectionInteface!!,
+                "solution"
+            )
+
+//            setSideMenu1(1)
         }
     }
 
@@ -232,9 +226,6 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         var sectionList: ArrayList<String>? = null
         var sectionList1: ArrayList<QuestionTypeModel>? = null
         var filterTypeSelectionInteface: FilterTypeSelectionInteface? = null
-        var movies: ArrayList<QuestionResponse.QuestionList> = ArrayList()
-        var ansArr: ArrayList<AnswerModel> = ArrayList()
-
         var context: Context? = null
 
         fun setSideMenu1(type: Int) {
@@ -249,7 +240,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 sectionList!!,
                 sectionList1!!,
                 filterTypeSelectionInteface!!,
-                AppConstants.QUE_NUMBER1
+                "solution"
             )
         }
     }

@@ -25,7 +25,7 @@
             android:paddingBottom="@dimen/_7sdp"
             android:paddingTop="@dimen/_7sdp"
             android:gravity="center_vertical"
-            android:text="Review"
+            android:text="@string/analysis"
             android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/review_ivBack"
@@ -60,7 +60,6 @@
             android:textStyle="bold"/>
 
     <TextView
-            android:text="23    Correct"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/_7sdp"
@@ -75,7 +74,6 @@
             app:layout_constraintTop_toBottomOf="@+id/review_tvTitle"/>
 
     <TextView
-            android:text="05    Incorrect"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/_7sdp"
@@ -90,7 +88,6 @@
             app:layout_constraintTop_toBottomOf="@+id/review_tvCorrect"/>
 
     <TextView
-            android:text="02    Unanswered"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/_7sdp"

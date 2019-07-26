@@ -16,9 +16,12 @@ import com.testprep.utils.AppConstants
 class QuestionChildListAdapter(
     val context: Context,
     val dataList: ArrayList<QuestionTypeModel>,
-    var row_index: Int,
-    val filterTypeSelectionInteface: FilterTypeSelectionInteface
+    val filterTypeSelectionInteface: FilterTypeSelectionInteface,
+    val come_from: String
+
 ) : RecyclerView.Adapter<QuestionChildListAdapter.viewholder>() {
+
+    var old_que: Int? = null
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
@@ -38,13 +41,26 @@ class QuestionChildListAdapter(
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
         p0.title.text = (p1 + 1).toString()
 
+        old_que = AppConstants.QUE_NUMBER
+
         p0.title.setOnClickListener {
 
-            dataList[p1].type = 6
-            row_index = p1
+            if (come_from == "question") {
+//                dataList[old_que!!].type = 3
+//                dataList[p1].type = 1
 
+                AppConstants.QUE_NUMBER = p1
 
-            AppConstants.QUE_NUMBER = p1
+            } else {
+
+                AppConstants.QUE_NUMBER1 = p1
+            }
+
+//            old_type = dataList[old_que!!].type
+
+//            p0.title.setTextColor(context.resources.getColor(R.color.white))
+//            p0.title.setBackgroundResource(R.drawable.red_round)
+
             notifyDataSetChanged()
 
             Log.d("que_number", "" + AppConstants.QUE_NUMBER)
@@ -53,29 +69,12 @@ class QuestionChildListAdapter(
 
         }
 
-//        if (row_index == -1) {
-//
-//            p0.title.setTextColor(context.resources.getColor(R.color.white))
-//            p0.title.setBackgroundResource(R.drawable.blue_round)
-//
-//            row_index = 0
-//
-//        } else{
         when {
             dataList[p1].type == 1 -> {
 
-//                    if (click) {
-//
-//                        click = false
-//
-//                    } else {
-//
-//                        row_index = p1
-//                        notifyDataSetChanged()
-
                 p0.title.setTextColor(context.resources.getColor(R.color.white))
                 p0.title.setBackgroundResource(R.drawable.blue_round)
-//                    }
+
             }
             dataList[p1].type == 2 -> {
                 p0.title.setTextColor(context.resources.getColor(R.color.white))
@@ -90,21 +89,23 @@ class QuestionChildListAdapter(
                 p0.title.setBackgroundResource(R.drawable.pink_round)
             }
             dataList[p1].type == 5 -> {
-                p0.title.setTextColor(context.resources.getColor(R.color.white))
-                p0.title.setBackgroundResource(R.drawable.gray_bg)
-            }
-            dataList[p1].type == 6 -> {
-                if (row_index == p1) {
-
-                    p0.title.setTextColor(context.resources.getColor(R.color.white))
-                    p0.title.setBackgroundResource(R.drawable.blue_round)
-
-                } else {
-                    p0.title.setTextColor(context.resources.getColor(R.color.white))
-                    p0.title.setBackgroundResource(R.drawable.gray_bg)
-                }
+                p0.title.setTextColor(context.resources.getColor(R.color.gray))
+                p0.title.setBackgroundResource(R.drawable.light_gray_round_bg)
             }
         }
+
+        if (come_from == "question") {
+            if (AppConstants.QUE_NUMBER == p1) {
+                p0.title.setTextColor(context.resources.getColor(R.color.white))
+                p0.title.setBackgroundResource(R.drawable.blue_round)
+            }
+        } else {
+            if (AppConstants.QUE_NUMBER1 == p1) {
+                p0.title.setTextColor(context.resources.getColor(R.color.white))
+                p0.title.setBackgroundResource(R.drawable.blue_round)
+            }
+        }
+
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {

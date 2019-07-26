@@ -15,7 +15,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 class ResultActivity : AppCompatActivity() {
 
     var resultArr: ArrayList<AnswerModel> = ArrayList()
-    var marksCounter = 0
+//    var marksCounter = 0
 
     var testid = ""
 
@@ -42,14 +42,14 @@ class ResultActivity : AppCompatActivity() {
         resultArr = TabwiseQuestionActivity.ansArr
         Log.d("arrresult", "" + resultArr)
 
-        for (i in 0 until resultArr.size) {
-            if (resultArr[i].ansresult) {
-                marksCounter += 1
-            }
-        }
-        result_tvMarks.text = "Marks : " + marksCounter
+//        for (i in 0 until resultArr.size) {
+//            if (resultArr[i].ansresult) {
+//                marksCounter += 1
+//            }
+//        }
+        result_tvMarks.text = "Marks : " + intent.getStringExtra("marks")
 
-        if (marksCounter <= 0) {
+        if (intent.getStringExtra("marks") <= "0") {
             result_card.background = resources.getDrawable(R.drawable.pink_bg)
             result_tvViewAnswer.setTextColor(resources.getColor(R.color.pink))
             result_tvHeader.text = "Better luck next time"
@@ -67,11 +67,11 @@ class ResultActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        result_tvReports.setOnClickListener {
-            val intent = Intent(this@ResultActivity, TestReviewActivity::class.java)
-            intent.putExtra("testid", testid)
-            startActivity(intent)
-        }
+//        result_tvReports.setOnClickListener {
+//            val intent = Intent(this@ResultActivity, TestReviewActivity::class.java)
+//            intent.putExtra("testid", testid)
+//            startActivity(intent)
+//        }
 
         result_ivBack.setOnClickListener {
             onBackPressed()
