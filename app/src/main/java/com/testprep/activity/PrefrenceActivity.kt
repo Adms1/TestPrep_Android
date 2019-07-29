@@ -14,7 +14,7 @@ import com.testprep.R
 import com.testprep.adapter.NewSelectBoardAdapter
 import com.testprep.adapter.NewSelectStandardAdapter
 import com.testprep.adapter.NewSelectSubjectAdapter
-import com.testprep.models.MainModel
+import com.testprep.models.FilterModel
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.DialogUtils
@@ -234,8 +234,8 @@ class PrefrenceActivity : AppCompatActivity() {
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.getCourseTypeList(intent.getStringExtra("examtype"))
-        call.enqueue(object : Callback<MainModel> {
-            override fun onResponse(call: Call<MainModel>, response: Response<MainModel>) {
+        call.enqueue(object : Callback<FilterModel> {
+            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
 
                 if (response.body() != null) {
 
@@ -270,7 +270,7 @@ class PrefrenceActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<MainModel>, t: Throwable) {
+            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()
@@ -287,7 +287,7 @@ class PrefrenceActivity : AppCompatActivity() {
         DialogUtils.showDialog(this@PrefrenceActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        var call: Call<MainModel>? = null
+        var call: Call<FilterModel>? = null
 
         call = if (Utils.getStringValue(this@PrefrenceActivity, "course_type_id", "") != "1") {
             apiService.getCourseSubjectList(stdId)
@@ -299,8 +299,8 @@ class PrefrenceActivity : AppCompatActivity() {
             )
         }
 
-        call.enqueue(object : Callback<MainModel> {
-            override fun onResponse(call: Call<MainModel>, response: Response<MainModel>) {
+        call.enqueue(object : Callback<FilterModel> {
+            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
 
                 if (response.body() != null) {
 
@@ -337,7 +337,7 @@ class PrefrenceActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<MainModel>, t: Throwable) {
+            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()
@@ -356,8 +356,8 @@ class PrefrenceActivity : AppCompatActivity() {
 
         var call = apiService.getBoardStandardList(courseId.toString())
 
-        call.enqueue(object : Callback<MainModel> {
-            override fun onResponse(call: Call<MainModel>, response: Response<MainModel>) {
+        call.enqueue(object : Callback<FilterModel> {
+            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
 
                 if (response.body() != null) {
 
@@ -396,7 +396,7 @@ class PrefrenceActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<MainModel>, t: Throwable) {
+            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()

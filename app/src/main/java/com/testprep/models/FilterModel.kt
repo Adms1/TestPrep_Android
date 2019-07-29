@@ -9,6 +9,10 @@ class FilterModel {
 
     class FilterData {
 
+        var CourseTypeID = 0
+        var CourseTypeName = ""
+        var Icon = ""
+
         var TutorID = ""
         var TutorName = ""
         var TutorEmail = ""

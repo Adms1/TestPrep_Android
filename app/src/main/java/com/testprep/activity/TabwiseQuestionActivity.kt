@@ -690,22 +690,27 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
     }
 
     fun callSubmitAPI(ansstr: String) {
-        val sortDialog = Dialog(this@TabwiseQuestionActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
-        val window = sortDialog.window
-        val wlp = window!!.attributes
-        sortDialog.window!!.attributes.verticalMargin = 0.10f
-        wlp.gravity = Gravity.BOTTOM
-        window.attributes = wlp
+//        val sortDialog = Dialog(this@TabwiseQuestionActivity)
+//        sortDialog.setContentView(R.layout.progressbar_dialog)//,R.style.PauseDialog);//, R.style.PauseDialog);
+//        val window = sortDialog.window
+//        val wlp = window!!.attributes
+//        sortDialog.window!!.attributes.verticalMargin = 0.10f
+//        wlp.gravity = Gravity.BOTTOM
+//        window.attributes = wlp
+//
+////        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        sortDialog.setCancelable(true)
+//        sortDialog.show()
 
-        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        sortDialog.setCancelable(true)
-        sortDialog.show()
+        DialogUtils.showDialog(this@TabwiseQuestionActivity)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.submitTest(studenttestid, ansstr)
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                DialogUtils.dismissDialog()
 
                 if (response.body()!!.get("Status").asString == "true") {
 
@@ -717,6 +722,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                         "marks",
                         response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Correct").asString
                     )
+                    intent.putExtra("studenttestid", studenttestid)
                     startActivity(intent)
                     finish()
 
@@ -733,7 +739,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
-                sortDialog.dismiss()
+                DialogUtils.dismissDialog()
             }
         })
     }

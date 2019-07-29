@@ -10,8 +10,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import com.testprep.R
-import com.testprep.models.GetCourseListData
-import com.testprep.models.MainModel
+import com.testprep.models.FilterModel
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
@@ -26,7 +25,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 class SelectStandardActivity : AppCompatActivity() {
 
     private var chooseCoarseAdapter: ChooseCoarseAdapter? = null
-    private var standardList: ArrayList<GetCourseListData> = ArrayList()
+    private var standardList: ArrayList<FilterModel.FilterData> = ArrayList()
     private var selectType = "no"
     private var stdId = ""
 
@@ -69,8 +68,8 @@ class SelectStandardActivity : AppCompatActivity() {
 
         var call = apiService.getBoardStandardList(stdId)
 
-        call.enqueue(object : Callback<MainModel> {
-            override fun onResponse(call: Call<MainModel>, response: Response<MainModel>) {
+        call.enqueue(object : Callback<FilterModel> {
+            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
 
                 if (response.body() != null) {
 
@@ -107,7 +106,7 @@ class SelectStandardActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<MainModel>, t: Throwable) {
+            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()

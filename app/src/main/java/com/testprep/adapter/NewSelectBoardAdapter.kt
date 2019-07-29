@@ -10,11 +10,11 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.PrefrenceActivity
-import com.testprep.models.GetCourseListData
+import com.testprep.models.FilterModel
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 
-class NewSelectBoardAdapter(val context: Context, val dataList: ArrayList<GetCourseListData>) :
+class NewSelectBoardAdapter(val context: Context, val dataList: ArrayList<FilterModel.FilterData>) :
     RecyclerView.Adapter<NewSelectBoardAdapter.viewholder>() {
 
     var row_index = -1
@@ -60,7 +60,7 @@ class NewSelectBoardAdapter(val context: Context, val dataList: ArrayList<GetCou
             p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
 
             if (Utils.getStringValue(context, "course_type_id", "") == "1") {
-                (context as PrefrenceActivity).callStandardList(dataList[p1].CourseID)
+                (context as PrefrenceActivity).callStandardList(dataList[p1].CourseID.toInt())
             } else {
                 (context as PrefrenceActivity).callSubjectList(dataList[p1].CourseID.toString())
             }

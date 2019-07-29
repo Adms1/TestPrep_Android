@@ -9,12 +9,12 @@ import android.widget.TextView
 import com.testprep.R
 import com.testprep.interfaces.FilterTypeSelectionInteface
 
-class FilterAdapter(
+class FilterListAdapter(
     val context: Context,
     val dataList: ArrayList<String>,
     var filterTypeSelectionInteface: FilterTypeSelectionInteface
 ) :
-    RecyclerView.Adapter<FilterAdapter.viewholder>() {
+    RecyclerView.Adapter<FilterListAdapter.viewholder>() {
 
     var row_index = -1
 
@@ -22,7 +22,7 @@ class FilterAdapter(
 
         return viewholder(
             LayoutInflater.from(context).inflate(
-                R.layout.filter_data_list_item,
+                R.layout.filter_type_list_item,
                 p0,
                 false
             )

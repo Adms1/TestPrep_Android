@@ -44,6 +44,7 @@ class RecyclerviewAdapter(
             "subject" -> holder.textView.text = model.SubjectName
             "tutor" -> holder.textView.text = model.TutorName
             "exam" -> holder.textView.text = model.CourseName
+            "course_type" -> holder.textView.text = model.CourseTypeName
         }
 
         holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.right_white_bg))

@@ -18,6 +18,7 @@ class ResultActivity : AppCompatActivity() {
 //    var marksCounter = 0
 
     var testid = ""
+    var studenttestid = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -30,6 +31,7 @@ class ResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_result)
 
         testid = intent.getStringExtra("testid")
+        studenttestid = intent.getStringExtra("studenttestid")
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             val w = window
@@ -52,11 +54,13 @@ class ResultActivity : AppCompatActivity() {
         if (intent.getStringExtra("marks") <= "0") {
             result_card.background = resources.getDrawable(R.drawable.pink_bg)
             result_tvViewAnswer.setTextColor(resources.getColor(R.color.pink))
+            result_tvReports.setTextColor(resources.getColor(R.color.pink))
             result_tvHeader.text = "Better luck next time"
             dialog_queinfo_tvResult.text = "FAIL"
         } else {
             result_card.background = resources.getDrawable(R.drawable.green_round_bg)
             result_tvViewAnswer.setTextColor(resources.getColor(R.color.green))
+            result_tvReports.setTextColor(resources.getColor(R.color.green))
             result_tvHeader.text = "Congratulations"
             dialog_queinfo_tvResult.text = "PASS"
         }
@@ -67,11 +71,12 @@ class ResultActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        result_tvReports.setOnClickListener {
-//            val intent = Intent(this@ResultActivity, TestReviewActivity::class.java)
-//            intent.putExtra("testid", testid)
-//            startActivity(intent)
-//        }
+        result_tvReports.setOnClickListener {
+            val intent1 = Intent(this@ResultActivity, TestReviewActivity::class.java)
+            intent1.putExtra("testid", testid)
+            intent1.putExtra("studenttestid", studenttestid)
+            startActivity(intent1)
+        }
 
         result_ivBack.setOnClickListener {
             onBackPressed()

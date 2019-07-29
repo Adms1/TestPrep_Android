@@ -10,11 +10,11 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.PrefrenceActivity
-import com.testprep.models.GetCourseListData
+import com.testprep.models.FilterModel
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 
-class NewSelectStandardAdapter(val context: Context, val dataList: ArrayList<GetCourseListData>) :
+class NewSelectStandardAdapter(val context: Context, val dataList: ArrayList<FilterModel.FilterData>) :
     RecyclerView.Adapter<NewSelectStandardAdapter.viewholder>() {
 
     var row_index = -1

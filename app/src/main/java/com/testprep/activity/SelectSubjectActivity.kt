@@ -10,8 +10,8 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import com.testprep.models.FilterModel
 import com.testprep.models.GetCourseListData
-import com.testprep.models.MainModel
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
@@ -31,7 +31,7 @@ class SelectSubjectActivity : AppCompatActivity() {
     private var selectType1 = "no"
     private var stdId = ""
     var apitype = ""
-    private var subjectList: ArrayList<GetCourseListData> = ArrayList()
+    private var subjectList: ArrayList<FilterModel.FilterData> = ArrayList()
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -111,7 +111,7 @@ class SelectSubjectActivity : AppCompatActivity() {
         DialogUtils.showDialog(this@SelectSubjectActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        var call: Call<MainModel>? = null
+        var call: Call<FilterModel>? = null
 
         if (Utils.getStringValue(this@SelectSubjectActivity, "course_type_id", "") != "1") {
             call = apiService.getCourseSubjectList(stdId)
@@ -124,8 +124,8 @@ class SelectSubjectActivity : AppCompatActivity() {
 
         }
 
-        call.enqueue(object : Callback<MainModel> {
-            override fun onResponse(call: Call<MainModel>, response: Response<MainModel>) {
+        call.enqueue(object : Callback<FilterModel> {
+            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
 
                 if (response.body() != null) {
 
@@ -162,7 +162,7 @@ class SelectSubjectActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<MainModel>, t: Throwable) {
+            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()

@@ -13,7 +13,7 @@ import com.testprep.R
 import com.testprep.activity.SelectBoardActivity
 import com.testprep.activity.SelectStandardActivity
 import com.testprep.activity.SelectSubjectActivity
-import com.testprep.models.GetCourseListData
+import com.testprep.models.FilterModel
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 
@@ -21,7 +21,7 @@ import com.testprep.utils.Utils
 class ChooseCoarseAdapter(
     val context: Context,
     val type: String,
-    val dataList: ArrayList<GetCourseListData>,
+    val dataList: ArrayList<FilterModel.FilterData>,
     val selectType: String
 ) :
     RecyclerView.Adapter<ChooseCoarseAdapter.viewholder>() {
@@ -205,13 +205,13 @@ class ChooseCoarseAdapter(
                     if (selected.size > 0) {
 
                         for (i in 0..selected.size) {
-                            if (selected.contains(dataList[p1].SubjectID)) {
-                                selected.remove(dataList[p1].SubjectID)
+                            if (selected.contains(dataList[p1].SubjectID.toInt())) {
+                                selected.remove(dataList[p1].SubjectID.toInt())
                                 p0.title.setBackgroundResource(R.drawable.blue_gradient_bg)
                                 break
 
                             } else {
-                                selected.add(dataList[p1].SubjectID)
+                                selected.add(dataList[p1].SubjectID.toInt())
 //                            p0.title.setBackgroundResource(R.drawable.dark_blue_gredient_bg)
 
                                 break
@@ -221,7 +221,7 @@ class ChooseCoarseAdapter(
 
                         Log.d("selected array : ", " $selected")
                     } else {
-                        selected.add(dataList[p1].SubjectID)
+                        selected.add(dataList[p1].SubjectID.toInt())
                     }
                 }
             }

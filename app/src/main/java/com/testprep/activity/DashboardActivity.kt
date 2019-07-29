@@ -58,6 +58,7 @@ class DashboardActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.container, ChooseMarketPlaceFragment()).commit()
         dash_ivMarket.setImageResource(R.drawable.blue_list)
         dashboard_ivBack.visibility = View.VISIBLE
+        dashboard_ivPencil.visibility = View.VISIBLE
 
         dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
         dashboard_header.text = "Market Place"
@@ -91,6 +92,14 @@ class DashboardActivity : AppCompatActivity() {
 
             }
 
+            dashboard_ivPencil -> {
+
+                val intent = Intent(this@DashboardActivity, FilterActivity::class.java)
+                startActivity(intent)
+
+            }
+
+
             dashboard_ivLogout -> {
                 signOut()
             }
@@ -105,6 +114,7 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_ivCart.visibility = View.GONE
                 dashboard_ivPencil.visibility = View.GONE
                 dashboard_ivBack.visibility = View.GONE
+                dashboard_ivFilter.visibility = View.GONE
 
                 dash_ivHome.setImageResource(R.drawable.blue_home)
                 dash_ivMarket.setImageResource(R.drawable.list)
@@ -127,6 +137,7 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_ivCart.visibility = View.VISIBLE
 //                dashboard_ivPencil.visibility = View.VISIBLE
                 dashboard_ivBack.visibility = View.VISIBLE
+                dashboard_ivPencil.visibility = View.VISIBLE
 
                 dash_ivMarket.setImageResource(R.drawable.blue_list)
                 dash_ivHome.setImageResource(R.drawable.home)
@@ -149,6 +160,7 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_ivCart.visibility = View.GONE
                 dashboard_ivPencil.visibility = View.GONE
                 dashboard_ivBack.visibility = View.GONE
+                dashboard_ivFilter.visibility = View.GONE
 
                 dash_ivSearch.setImageResource(R.drawable.blue_search)
                 dash_ivUser.setImageResource(R.drawable.menu_one)
@@ -169,6 +181,7 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_ivCart.visibility = View.GONE
                 dashboard_ivPencil.visibility = View.GONE
                 dashboard_ivBack.visibility = View.GONE
+                dashboard_ivFilter.visibility = View.GONE
 
 //                dashboard_ivLogout.visibility = View.GONE
                 supportFragmentManager.beginTransaction().replace(R.id.container, OtherFragment()).commit()

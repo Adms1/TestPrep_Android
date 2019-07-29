@@ -10,11 +10,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testprep.R
-import com.testprep.models.GetCourseListData
+import com.testprep.models.FilterModel
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 
-class NewSelectSubjectAdapter(val context: Context, val dataList: ArrayList<GetCourseListData>) :
+class NewSelectSubjectAdapter(val context: Context, val dataList: ArrayList<FilterModel.FilterData>) :
     RecyclerView.Adapter<NewSelectSubjectAdapter.viewholder>() {
 
     var row_index = -1
@@ -68,15 +68,15 @@ class NewSelectSubjectAdapter(val context: Context, val dataList: ArrayList<GetC
                 if (selected.size > 0) {
 
                     for (i in 0..selected.size) {
-                        if (selected.contains(dataList[p1].SubjectID)) {
-                            selected.remove(dataList[p1].SubjectID)
+                        if (selected.contains(dataList[p1].SubjectID.toInt())) {
+                            selected.remove(dataList[p1].SubjectID.toInt())
                             p0.p_select.visibility = View.GONE
                             p0.title.setTextColor(context.resources.getColor(R.color.black))
                             p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
                             break
 
                         } else {
-                            selected.add(dataList[p1].SubjectID)
+                            selected.add(dataList[p1].SubjectID.toInt())
 
                             break
 
@@ -86,7 +86,7 @@ class NewSelectSubjectAdapter(val context: Context, val dataList: ArrayList<GetC
                     Log.d("selected array : ", " $selected")
 
                 } else {
-                    selected.add(dataList[p1].SubjectID)
+                    selected.add(dataList[p1].SubjectID.toInt())
                 }
 
             } else {
@@ -104,15 +104,15 @@ class NewSelectSubjectAdapter(val context: Context, val dataList: ArrayList<GetC
                 if (selected.size > 0) {
 
                     for (i in 0..selected.size) {
-                        if (selected.contains(dataList[p1].SubjectID)) {
-                            selected.remove(dataList[p1].SubjectID)
+                        if (selected.contains(dataList[p1].SubjectID.toInt())) {
+                            selected.remove(dataList[p1].SubjectID.toInt())
                             p0.p_select.visibility = View.GONE
                             p0.title.setTextColor(context.resources.getColor(R.color.black))
 //                            p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
                             break
 
                         } else {
-                            selected.add(dataList[p1].SubjectID)
+                            selected.add(dataList[p1].SubjectID.toInt())
 
                             break
 
@@ -122,7 +122,7 @@ class NewSelectSubjectAdapter(val context: Context, val dataList: ArrayList<GetC
                     Log.d("selected array : ", " $selected")
 
                 } else {
-                    selected.add(dataList[p1].SubjectID)
+                    selected.add(dataList[p1].SubjectID.toInt())
                 }
 
             } else {

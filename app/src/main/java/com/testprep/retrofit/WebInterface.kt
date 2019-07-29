@@ -1,7 +1,10 @@
 package com.testprep.retrofit
 
 import com.google.gson.JsonObject
-import com.testprep.models.*
+import com.testprep.models.FilterModel
+import com.testprep.models.PackageData
+import com.testprep.models.TestListModel
+import com.testprep.models.TutorModel
 import com.testprep.old.models.QuestionResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -33,23 +36,23 @@ interface WebInterface {
     fun changePassword(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
     @GET("Get_CourseType_List")
-    fun getCourseList(): Call<MainModel>
+    fun getCourseList(): Call<FilterModel>
 
     @FormUrlEncoded
     @POST("Get_Course_List")
-    fun getCourseTypeList(@Field("CourseTypeID") coursetype: String): Call<MainModel>
+    fun getCourseTypeList(@Field("CourseTypeID") coursetype: String): Call<FilterModel>
 
     @FormUrlEncoded
     @POST("Get_CourseSubject_List")
-    fun getCourseSubjectList(@Field("CourseID") courseid: String): Call<MainModel>
+    fun getCourseSubjectList(@Field("CourseID") courseid: String): Call<FilterModel>
 
     @FormUrlEncoded
     @POST("Get_BoardStandard_List")
-    fun getBoardStandardList(@Field("BoardID") boardid: String): Call<MainModel>
+    fun getBoardStandardList(@Field("BoardID") boardid: String): Call<FilterModel>
 
     @FormUrlEncoded
     @POST("Get_BoardStandardSubject_List")
-    fun getBoardStandardSubjectList(@Field("BoardID") boardid: String, @Field("StandardID") standardid: String): Call<MainModel>
+    fun getBoardStandardSubjectList(@Field("BoardID") boardid: String, @Field("StandardID") standardid: String): Call<FilterModel>
 
     @FormUrlEncoded
     @POST("GeneratePaymentRequest")
