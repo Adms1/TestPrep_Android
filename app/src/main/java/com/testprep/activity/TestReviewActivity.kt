@@ -23,6 +23,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 class TestReviewActivity : AppCompatActivity() {
 
     var testid = ""
+    var studenttestid = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -36,12 +37,14 @@ class TestReviewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_test_review)
 
         testid = intent.getStringExtra("testid")
+        studenttestid = intent.getStringExtra("studenttestid")
 
         review_ivBack.setOnClickListener { onBackPressed() }
 
         review_btnSubmit.setOnClickListener {
             val intent = Intent(this@TestReviewActivity, ViewSolutionActivity::class.java)
             intent.putExtra("testid", testid)
+            intent.putExtra("studenttestid", studenttestid)
             startActivity(intent)
         }
 

@@ -42,8 +42,8 @@ class ChooseMarketPlaceFragment : Fragment() {
 
     var tutorids = ""
     var subids = ""
-    var stdids = "0"
-    var examids = "0"
+    var stdids = ""
+    var examids = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -230,7 +230,6 @@ class ChooseMarketPlaceFragment : Fragment() {
         btnDone.setOnClickListener {
 
             var str = ""
-            subids = ""
 
             if (selectionType == "multiple") {
                 val finalFilerArray = recyclerviewAdapter.sendArray()
@@ -250,6 +249,9 @@ class ChooseMarketPlaceFragment : Fragment() {
                         stdids = stdids.substring(0, stdids.length - 1)
                     }
                     "subject" -> {
+
+                        subids = ""
+
                         for (i in 0 until finalFilerArray.size) {
                             if (finalFilerArray[i].isSelected) {
 
@@ -258,7 +260,9 @@ class ChooseMarketPlaceFragment : Fragment() {
                             }
                         }
 
-                        subids = subids.substring(0, subids.length - 1)
+                        if (subids != "") {
+                            subids = subids.substring(0, subids.length - 1)
+                        }
                         Log.d("subids", "" + subids)
                     }
                     "tutor" -> {
@@ -345,7 +349,7 @@ class ChooseMarketPlaceFragment : Fragment() {
                         tutorArr = response.body()!!.data
 
                         choosemp_filterTutors.text = tutorArr[0].TutorName
-//                        tutorids = tutorArr[0].TutorID
+                        tutorids = tutorArr[0].TutorID
 
                     } else {
 
@@ -383,8 +387,8 @@ class ChooseMarketPlaceFragment : Fragment() {
 
                         subjectArr = response.body()!!.data
 
-//                        choosemp_filterSubject.text = subjectArr[0].SubjectName
-//                        subids = subjectArr[0].SubjectID
+                        choosemp_filterSubject.text = Utils.getStringValue(activity!!, "subject_name", "")!!
+                        subids = Utils.getStringValue(activity!!, "subject_id", "")!!
 
                     } else {
 
@@ -423,8 +427,8 @@ class ChooseMarketPlaceFragment : Fragment() {
                         standardArr = ArrayList()
                         standardArr = response.body()!!.data
 
-                        choosemp_filterStandard.text = standardArr[0].StandardName
-//                        stdids = standardArr[0].StandardID
+                        choosemp_filterStandard.text = Utils.getStringValue(activity!!, "standard_name", "")!!
+                        stdids = Utils.getStringValue(activity!!, "standard_id", "")!!
 
                     } else {
 
@@ -463,8 +467,8 @@ class ChooseMarketPlaceFragment : Fragment() {
                         examArr = ArrayList()
                         examArr = response.body()!!.data
 
-                        choosemp_filterExam.text = examArr[0].CourseName
-//                        examids = examArr[0].CourseID
+                        choosemp_filterExam.text = Utils.getStringValue(activity!!, "course_type_name", "")!!
+                        examids = Utils.getStringValue(activity!!, "course_type_id", "")!!
 
                     } else {
 
@@ -560,10 +564,13 @@ class ChooseMarketPlaceFragment : Fragment() {
         val call = apiService.getFilterData(
             WebRequests.getFilterParams(
                 Utils.getStringValue(activity!!, "course_type_id", "")!!,
+                "",
                 examids,
                 stdids,
                 subids,
-                tutorids
+                tutorids,
+                "",
+                ""
             )
         )
 

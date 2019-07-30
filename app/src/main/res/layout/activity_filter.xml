@@ -43,12 +43,47 @@
             android:background="@color/light_gray"
             app:layout_constraintTop_toBottomOf="@+id/filter_header"/>
 
+    <RadioGroup
+            android:id="@+id/filter_rgCourseType"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/filter_line"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/_40sdp"
+            android:layout_marginRight="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_height="wrap_content">
+
+        <RadioButton
+                android:id="@+id/filter_rbBoards"
+                android:layout_width="0dp"
+                android:layout_weight="0.3"
+                android:layout_height="wrap_content"
+                android:text="Boards"/>
+
+        <RadioButton
+                android:id="@+id/filter_rbCompetitive"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text="Competitive Exam"/>
+
+    </RadioGroup>
+
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/_1sdp"-->
+    <!--android:id="@+id/filter_line1"-->
+    <!--android:alpha="0.1"-->
+    <!--android:layout_marginTop="@dimen/_10sdp"-->
+    <!--android:background="@color/light_gray"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/filter_rgCourseType"/>-->
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/filter_line"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@+id/filter_rgCourseType"
             app:layout_constraintBottom_toBottomOf="parent"
             android:weightSum="1">
 
@@ -69,8 +104,9 @@
     </LinearLayout>
 
     <Button
+            android:id="@+id/filter_btnApply"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="@dimen/_35sdp"
             android:text="Apply"
             android:background="@drawable/dark_blue_gredient_bg"
             app:layout_constraintBottom_toBottomOf="parent"

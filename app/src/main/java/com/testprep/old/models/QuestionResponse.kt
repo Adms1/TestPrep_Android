@@ -11,6 +11,7 @@ class QuestionResponse {
         var QuestionTypeID = ""
         var Marks = ""
         var QuestionImage = ""
+        var QuestionAns = ""
         var StudentTestAnswerMCQ: ArrayList<QuestionDataList> = ArrayList()
         var StudentTestQuestionMCQ: ArrayList<QuestionDataList> = ArrayList()
 

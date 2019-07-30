@@ -44,9 +44,11 @@ class FilterListAdapter(
         }
 
         if (row_index == p1) {
-            p0.title.setBackgroundColor(context.resources.getColor(R.color.white))
+            p0.title.setTextColor(context.resources.getColor(R.color.white))
+            p0.title.setBackgroundColor(context.resources.getColor(R.color.colorPrimaryDark))
 
         } else {
+            p0.title.setTextColor(context.resources.getColor(R.color.gray))
             p0.title.setBackgroundColor(context.resources.getColor(R.color.light_blue))
 
         }

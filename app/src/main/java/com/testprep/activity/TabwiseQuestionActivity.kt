@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v4.app.FragmentActivity
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -93,6 +94,8 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         studenttestid = intent.getStringExtra("studenttestid")
 
         AppConstants.QUE_NUMBER = 0
+
+        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         ansArr = ArrayList()
         sectionList = ArrayList()

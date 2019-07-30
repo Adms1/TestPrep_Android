@@ -68,6 +68,7 @@ class ResultActivity : AppCompatActivity() {
         result_tvViewAnswer.setOnClickListener {
             val intent = Intent(this@ResultActivity, ViewSolutionActivity::class.java)
             intent.putExtra("testid", testid)
+            intent.putExtra("studenttestid", studenttestid)
             startActivity(intent)
         }
 

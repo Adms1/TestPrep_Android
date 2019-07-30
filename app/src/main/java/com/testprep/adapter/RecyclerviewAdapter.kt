@@ -47,14 +47,14 @@ class RecyclerviewAdapter(
             "course_type" -> holder.textView.text = model.CourseTypeName
         }
 
-        holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.right_white_bg))
-
         if (model.isSelected) {
 //            holder.view.setBackgroundColor(cotext.resources.getColor(R.color.colorPrimaryDark))
-            holder.img.visibility = View.VISIBLE
+//            holder.img.visibility = View.VISIBLE
+            holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.right_white_bg))
         } else {
 //            holder.view.setBackgroundColor(Color.WHITE)
-            holder.img.visibility = View.GONE
+//            holder.img.visibility = View.GONE
+            holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
         }
 
         holder.mainll.setOnClickListener {
@@ -98,10 +98,12 @@ class RecyclerviewAdapter(
 
                 if (model.isSelected) {
 //                holder.view.setBackgroundColor(cotext.resources.getColor(R.color.colorPrimaryDark))
-                    holder.img.visibility = View.VISIBLE
+                    holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.right_white_bg))
+//                    holder.img.visibility = View.VISIBLE
                 } else {
 //                holder.view.setBackgroundColor(Color.WHITE)
-                    holder.img.visibility = View.GONE
+//                    holder.img.visibility = View.GONE
+                    holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
                 }
 
             }
@@ -109,10 +111,12 @@ class RecyclerviewAdapter(
 
         if (selectionType == "single") {
             if (raw_index == position) {
-                holder.img.visibility = View.VISIBLE
+                holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.right_white_bg))
+//                holder.img.visibility = View.VISIBLE
                 model.isSelected = !model.isSelected
             } else {
-                holder.img.visibility = View.GONE
+//                holder.img.visibility = View.GONE
+                holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
                 model.isSelected = model.isSelected
             }
         }

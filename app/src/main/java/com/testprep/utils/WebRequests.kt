@@ -81,19 +81,25 @@ class WebRequests {
 
         fun getFilterParams(
             coursetype: String,
+            courseid: String,
             boardid: String,
             stdid: String,
             subjectid: String,
-            tutorid: String
+            tutorid: String,
+            fromprice: String,
+            toprice: String
         ): HashMap<String, String> {
 
             val map = HashMap<String, String>()
 
             map["CourseTypeID"] = coursetype
+            map["CourseID"] = courseid
             map["BoardID"] = boardid
             map["StandardID"] = stdid
             map["SubjectID"] = subjectid
             map["TutorID"] = tutorid
+            map["FromPrice"] = fromprice
+            map["ToPrice"] = toprice
 
             return map
 

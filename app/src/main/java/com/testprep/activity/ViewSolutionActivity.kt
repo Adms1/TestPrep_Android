@@ -3,6 +3,7 @@ package com.testprep.activity
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.ActionBarDrawerToggle
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -36,6 +37,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
     var movies: ArrayList<QuestionResponse.QuestionList> = ArrayList()
 
     var testid = ""
+    var studenttestid = ""
 
     private var ansList: RecyclerView? = null
     private var imgQue: ImageView? = null
@@ -62,6 +64,9 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         AppConstants.QUE_NUMBER1 = 0
 
         testid = intent.getStringExtra("testid")
+        studenttestid = intent.getStringExtra("studenttestid")
+
+        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         sectionList = ArrayList()
         sectionList1 = ArrayList()
@@ -96,11 +101,11 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         solution_ivBack.setOnClickListener { onBackPressed() }
 
         if (testid != "") {
-            callQuestionApi()
+            callSolutionApi()
         }
     }
 
-    fun callQuestionApi() {
+    fun callSolutionApi() {
 
         if (!DialogUtils.isNetworkConnected(this@ViewSolutionActivity)) {
             Utils.ping(this@ViewSolutionActivity, "Connetion not available")
@@ -110,7 +115,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getSolution(testid)
+        val call = apiService.getSolution(testid, studenttestid)
         call.enqueue(object : Callback<QuestionResponse> {
             override fun onResponse(call: Call<QuestionResponse>, response: Response<QuestionResponse>) {
 
@@ -124,14 +129,20 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                         val questionTypeModel = QuestionTypeModel()
                         questionTypeModel.qnumber = i
 
-                        for (j in 0 until movies[i].StudentTestAnswerMCQ.size) {
-                            if (movies[i].StudentTestAnswerMCQ[j].IsCorrectAnswer && movies[i].StudentTestAnswerMCQ[j].StudentAnswer) {
-                                questionTypeModel.type = 2
-                                break
-                            } else {
-                                questionTypeModel.type = 3
-                            }
+//                        for (j in 0 until movies[i].StudentTestAnswerMCQ.size) {
+//                            if (movies[i].StudentTestAnswerMCQ[j].IsCorrectAnswer && movies[i].StudentTestAnswerMCQ[j].StudentAnswer) {
+//                                questionTypeModel.type = 2
+//                                break
+//                            } else {
+//                                questionTypeModel.type = 3
+//                            }
+
+                        when {
+                            movies[i].QuestionAns == "1" -> questionTypeModel.type = 2
+                            movies[i].QuestionAns == "0" -> questionTypeModel.type = 3
+                            else -> questionTypeModel.type = 5
                         }
+//                        }
 
                         sectionList1!!.add(questionTypeModel)
 

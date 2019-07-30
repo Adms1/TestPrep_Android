@@ -74,6 +74,11 @@ class OtherFilterFragment : Fragment() {
                 callStandardListApi()
 
             }
+            "tutor" -> {
+
+                callTutorListApi()
+
+            }
             "subjects" -> {
 
                 callSubjectListApi()
@@ -106,6 +111,7 @@ class OtherFilterFragment : Fragment() {
                     if (response.body()!!.Status == "true") {
 
                         filterArray = response.body()!!.data
+
                         recyclerviewAdapter = RecyclerviewAdapter(activity!!, filterArray, "multiple", "course_type")
                         filterData_rvList.adapter = recyclerviewAdapter
 //                        filterArray!!.add("Boards")
@@ -150,6 +156,13 @@ class OtherFilterFragment : Fragment() {
                     if (response.body()!!.Status == "true") {
 
                         filterArray = response.body()!!.data
+
+                        for (i in 0 until filterArray.size) {
+                            if (filterArray[i].StandardID == Utils.getStringValue(activity!!, "standard_id", "")!!) {
+                                filterArray[i].isSelected = true
+                            }
+                        }
+
                         recyclerviewAdapter = RecyclerviewAdapter(activity!!, filterArray, "multiple", "standard")
                         filterData_rvList.adapter = recyclerviewAdapter
 
@@ -191,6 +204,13 @@ class OtherFilterFragment : Fragment() {
                     if (response.body()!!.Status == "true") {
 
                         filterArray = response.body()!!.data
+
+                        for (i in 0 until filterArray.size) {
+                            if (filterArray[i].SubjectID == Utils.getStringValue(activity!!, "subject_id", "")!!) {
+                                filterArray[i].isSelected = true
+                            }
+                        }
+
                         recyclerviewAdapter = RecyclerviewAdapter(activity!!, filterArray, "multiple", "subject")
                         filterData_rvList.adapter = recyclerviewAdapter
 //                        choosemp_filterSubject.text = subjectArr[0].SubjectName
@@ -236,6 +256,46 @@ class OtherFilterFragment : Fragment() {
 
                         filterArray = response.body()!!.data
                         recyclerviewAdapter = RecyclerviewAdapter(activity!!, filterArray, "multiple", "exam")
+                        filterData_rvList.adapter = recyclerviewAdapter
+
+                    } else {
+
+                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+    fun callTutorListApi() {
+
+        var filterArray: ArrayList<FilterModel.FilterData> = ArrayList()
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(activity!!)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getTutorList()
+        call.enqueue(object : Callback<FilterModel> {
+            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.Status == "true") {
+
+                        filterArray = response.body()!!.data
+                        recyclerviewAdapter = RecyclerviewAdapter(activity!!, filterArray, "multiple", "tutor")
                         filterData_rvList.adapter = recyclerviewAdapter
 
                     } else {

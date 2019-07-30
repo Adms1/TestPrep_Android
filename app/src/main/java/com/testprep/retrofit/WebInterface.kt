@@ -117,7 +117,7 @@ interface WebInterface {
 
     @FormUrlEncoded
     @POST("Get_Student_StudentTestAnswer")
-    fun getSolution(@Field("TestID") test_id: String): Call<QuestionResponse>
+    fun getSolution(@Field("TestID") test_id: String, @Field("StudentTestID") student_test_id: String): Call<QuestionResponse>
 
     @FormUrlEncoded
     @POST("Get_StudentTestAnswer_Report")
