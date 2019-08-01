@@ -1,10 +1,13 @@
 package com.testprep.adapter
 
 import android.content.Context
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.testprep.R
 
 class PopularPackagesAdapter(val context: Context) : RecyclerView.Adapter<PopularPackagesAdapter.viewholder>() {
@@ -24,9 +27,11 @@ class PopularPackagesAdapter(val context: Context) : RecyclerView.Adapter<Popula
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-//        var coin: TextView = itemView.findViewById(R.id.coin_item_short)
-//        var rupees: TextView = itemView.findViewById(R.id.coin_item_rupees)
-//        var image: ImageView = itemView.findViewById(R.id.coin_item_image)
+        var std: TextView = itemView.findViewById(R.id.package_item_tvStd)
+        var sub: TextView = itemView.findViewById(R.id.package_item_tvSub)
+        var price: TextView = itemView.findViewById(R.id.package_item_tvPrice)
+        var mainll: ConstraintLayout = itemView.findViewById(R.id.mall)
+        var tvBuy: ImageView = itemView.findViewById(R.id.package_item_ivCart)
 
     }
 }

@@ -55,7 +55,7 @@ class ChooseCoarseAdapter(
 
                 p0.title.setOnClickListener {
 
-                    Utils.setStringValue(context, "course_type_id", dataList[p1].CourseTypeID.toString())
+                    Utils.setStringValue(context, AppConstants.COURSE_TYPE_ID, dataList[p1].CourseTypeID.toString())
 
                     ismulti = 0
 
@@ -86,13 +86,13 @@ class ChooseCoarseAdapter(
 
                 p0.title.setOnClickListener {
 
-                    Utils.setStringValue(context, "course_id", dataList[p1].CourseID.toString())
+                    Utils.setStringValue(context, AppConstants.COURSE_ID, dataList[p1].CourseID.toString())
 
                     ismulti = 0
                     row_index = p1
                     notifyDataSetChanged()
 
-                    if (Utils.getStringValue(context, "course_type_id", "") != "1") {
+                    if (Utils.getStringValue(context, AppConstants.COURSE_TYPE_ID, "") != "1") {
                         val mIntent = Intent(context, SelectSubjectActivity::class.java)
                         val mBundle = Bundle()
                         mBundle.putString("standard_id", dataList[p1].CourseID.toString())
@@ -145,7 +145,7 @@ class ChooseCoarseAdapter(
 
                 p0.title.setOnClickListener {
 
-                    Utils.setStringValue(context, "std_id", dataList[p1].StandardID.toString())
+                    Utils.setStringValue(context, AppConstants.STANDARD_ID, dataList[p1].StandardID.toString())
 
                     ismulti = 0
                     row_index = p1

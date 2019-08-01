@@ -17,6 +17,7 @@ import com.testprep.adapter.NewSelectSubjectAdapter
 import com.testprep.models.FilterModel
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.activity_prefrence.*
@@ -58,7 +59,7 @@ class PrefrenceActivity : AppCompatActivity() {
         coarse_rvStandardList.layoutManager = GridLayoutManager(this@PrefrenceActivity, 3)
         coarse_rvSubjectList.layoutManager = GridLayoutManager(this@PrefrenceActivity, 3)
 
-        if (Utils.getStringValue(this@PrefrenceActivity, "course_type_id", "") == "1") {
+        if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_TYPE_ID, "") == "1") {
 
             pref_tvStep1.text = "Step - 1 Select Board"
             pref_tvStep2.text = "Step - 2 Select Standard"
@@ -87,13 +88,13 @@ class PrefrenceActivity : AppCompatActivity() {
 
         package_btnNext.setOnClickListener {
 
-            if (Utils.getStringValue(this@PrefrenceActivity, "course_id", "") == "") {
+            if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "") == "") {
                 Utils.ping(this@PrefrenceActivity, "Please Select Board")
             } else {
                 if (chooseCoarseAdapter != null) {
                     var subIds = chooseCoarseAdapter!!.getIds()
 
-                    Utils.setStringValue(this@PrefrenceActivity, "subject_id", subIds)
+                    Utils.setStringValue(this@PrefrenceActivity, AppConstants.SUBJECT_ID, subIds)
 
                     if (subIds != "" && subIds != null) {
                         val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
@@ -105,7 +106,7 @@ class PrefrenceActivity : AppCompatActivity() {
                     }
 
                 } else {
-                    if (Utils.getStringValue(this@PrefrenceActivity, "course_type_id", "") == "1") {
+                    if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_TYPE_ID, "") == "1") {
                         Utils.ping(this@PrefrenceActivity, "Please Select Standard")
                     } else {
                         Utils.ping(this@PrefrenceActivity, "Please Select Subject")
@@ -116,13 +117,13 @@ class PrefrenceActivity : AppCompatActivity() {
 
         package_btnNextt.setOnClickListener {
 
-            if (Utils.getStringValue(this@PrefrenceActivity, "course_id", "") == "") {
+            if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "") == "") {
                 Utils.ping(this@PrefrenceActivity, "Please Select Board")
             } else {
                 if (chooseCoarseAdapter != null) {
                     var subIds = chooseCoarseAdapter!!.getIds()
 
-                    Utils.setStringValue(this@PrefrenceActivity, "subject_id", subIds)
+                    Utils.setStringValue(this@PrefrenceActivity, AppConstants.SUBJECT_ID, subIds)
 
                     if (subIds != "" && subIds != null) {
                         val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
@@ -134,7 +135,7 @@ class PrefrenceActivity : AppCompatActivity() {
 
                 } else {
 
-                    if (Utils.getStringValue(this@PrefrenceActivity, "course_type_id", "") == "1") {
+                    if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_TYPE_ID, "") == "1") {
                         Utils.ping(this@PrefrenceActivity, "Please Select Standard")
                     } else {
                         Utils.ping(this@PrefrenceActivity, "Please Select Subject")
@@ -251,7 +252,7 @@ class PrefrenceActivity : AppCompatActivity() {
                         coarse_rvSubjectList.visibility = GONE
                         step3_arrow.visibility = GONE
 
-                        Utils.setStringValue(this@PrefrenceActivity, "course_id", "")
+                        Utils.setStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "")
 
                         val chooseCoarseAdapter = NewSelectBoardAdapter(this@PrefrenceActivity, response.body()!!.data)
                         coarse_rvCoarseList.adapter = chooseCoarseAdapter
@@ -289,12 +290,12 @@ class PrefrenceActivity : AppCompatActivity() {
 
         var call: Call<FilterModel>? = null
 
-        call = if (Utils.getStringValue(this@PrefrenceActivity, "course_type_id", "") != "1") {
+        call = if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_TYPE_ID, "") != "1") {
             apiService.getCourseSubjectList(stdId)
 
         } else {
             apiService.getBoardStandardSubjectList(
-                Utils.getStringValue(this@PrefrenceActivity, "course_type_id", "")!!,
+                Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_TYPE_ID, "")!!,
                 stdId
             )
         }
@@ -308,7 +309,7 @@ class PrefrenceActivity : AppCompatActivity() {
 
                     if (response.body()!!.Status == "true") {
 
-                        Utils.setStringValue(this@PrefrenceActivity, "std_id", stdId)
+                        Utils.setStringValue(this@PrefrenceActivity, AppConstants.STANDARD_ID, stdId)
 
                         pref_tvStep3.visibility = VISIBLE
                         coarse_rvSubjectList.visibility = VISIBLE

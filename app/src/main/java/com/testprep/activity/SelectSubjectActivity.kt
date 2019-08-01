@@ -113,7 +113,7 @@ class SelectSubjectActivity : AppCompatActivity() {
 
         var call: Call<FilterModel>? = null
 
-        if (Utils.getStringValue(this@SelectSubjectActivity, "course_type_id", "") != "1") {
+        if (Utils.getStringValue(this@SelectSubjectActivity, AppConstants.COURSE_TYPE_ID, "") != "1") {
             call = apiService.getCourseSubjectList(stdId)
             apitype = "course_subject"
 

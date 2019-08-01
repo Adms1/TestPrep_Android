@@ -14,6 +14,7 @@ import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
@@ -92,10 +93,10 @@ class TestPackageFragment : Fragment() {
 //                Utils.getStringValue(activity, "std_id", "0")!!,
 //                intent.getStringExtra("subject_id")
 
-                Utils.getStringValue(activity!!, "course_type_id", "")!!,
-                Utils.getStringValue(activity!!, "course_id", "")!!,
-                Utils.getStringValue(activity!!, "standard_id", "")!!,
-                Utils.getStringValue(activity!!, "subject_id", "")!!
+                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
+                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
+                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
+                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
             )
         )
 
@@ -146,7 +147,7 @@ class TestPackageFragment : Fragment() {
 //
 //                Utils.getStringValue(activity!!, "course_type_id", "")!!,
 //                Utils.getStringValue(activity!!, "course_id", "")!!,
-//                Utils.getStringValue(activity!!, "standard_id", "")!!,
+//                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
 //                Utils.getStringValue(activity!!, "subject_id", "")!!
 //            )
 //        )

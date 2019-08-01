@@ -5,11 +5,11 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
-import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
@@ -33,8 +33,8 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
         return viewholder(
-            LayoutInflater.from(context).inflate(R.layout.list_item_test_package, p0, false)
-//            LayoutInflater.from(context).inflate(R.layout.new_prefrence_item_layout, p0, false)
+//            LayoutInflater.from(context).inflate(R.layout.list_item_test_package, p0, false)
+            LayoutInflater.from(context).inflate(R.layout.popular_pkg_list_item, p0, false)
         )
     }
 
@@ -55,13 +55,13 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
 
 //        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))
 
-            if (dataList[p1].InstituteName != "" && dataList[p1].InstituteName != null) {
-                p0.createdby.text =
-                    Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + dataList[p1].InstituteName + "</font>")
-            } else {
-                p0.createdby.text =
-                    Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + dataList[p1].TutorName + "</font>")
-            }
+//            if (dataList[p1].InstituteName != "" && dataList[p1].InstituteName != null) {
+//                p0.createdby.text =
+//                    Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + dataList[p1].InstituteName + "</font>")
+//            } else {
+//                p0.createdby.text =
+//                    Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + dataList[p1].TutorName + "</font>")
+//            }
 //        p0.stitle.text = dataList[p1].TestPackageName
 
             p0.tvBuy.setOnClickListener {
@@ -113,9 +113,7 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
                 intent.putExtra("position", dataList[p1].TestPackageName.substring(0, 1).single())
                 context.startActivity(intent)
             }
-
         }
-
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -125,12 +123,12 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
 //        var stitle: TextView = itemView.findViewById(R.id.package_name_short)
 //        var p_select: ImageView = itemView.findViewById(R.id.package_select)
 
-        var std: TextView = itemView.findViewById(R.id.testpkg_item_tvStd)
-        var sub: TextView = itemView.findViewById(R.id.testpkg_item_tvSub)
-        var price: TextView = itemView.findViewById(R.id.testpkg_item_tvPrice)
-        var mainll: ConstraintLayout = itemView.findViewById(R.id.mainll)
-        var tvBuy: TextView = itemView.findViewById(R.id.testpkg_item_tvBuy)
-        var createdby: TextView = itemView.findViewById(R.id.testpkg_item_tvCreated)
+        var std: TextView = itemView.findViewById(R.id.package_item_tvStd)
+        var sub: TextView = itemView.findViewById(R.id.package_item_tvSub)
+        var price: TextView = itemView.findViewById(R.id.package_item_tvPrice)
+        var mainll: ConstraintLayout = itemView.findViewById(R.id.mall)
+        var tvBuy: ImageView = itemView.findViewById(R.id.package_item_ivCart)
+//        var createdby: TextView = itemView.findViewById(R.id.testpkg_item_tvCreated)
     }
 
     fun callAddTestPackageApi(pkgid: String) {

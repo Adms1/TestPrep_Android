@@ -8,7 +8,7 @@ class QuestionResponse {
 
     class QuestionList{
         var QuestionID = ""
-        var QuestionTypeID = ""
+        var QuestionTypeID = 0
         var Marks = ""
         var QuestionImage = ""
         var QuestionAns = ""

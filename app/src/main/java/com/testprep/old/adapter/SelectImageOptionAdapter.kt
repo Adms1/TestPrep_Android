@@ -6,10 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.RelativeLayout
+import android.widget.*
 import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.TabwiseQuestionActivity
@@ -19,13 +16,11 @@ class SelectImageOptionAdapter(
     val context: Context,
     val dataList: ArrayList<QuestionResponse.QuestionDataList>,
     var qsize: Int,
+    var qtype: Int,
     var qid: String
-) :
-
-    RecyclerView.Adapter<SelectImageOptionAdapter.viewholder>() {
+) : RecyclerView.Adapter<SelectImageOptionAdapter.viewholder>() {
 
     private var lastCheckedRadioGroup: RadioGroup? = null
-    private val lastCheckedPosition = -1
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
@@ -44,30 +39,9 @@ class SelectImageOptionAdapter(
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        var widhtx = 0
-        var heightx = 0
-
-//        Thread(Runnable {
-//            try {
-//                var url = URL("http://content.testcraft.co.in/question/" + dataList[p1].titleimg)
-//                var bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-//
-//                widhtx = bmp.width
-//                heightx = bmp.height
-//
-//                Log.d("imgsizeee", "widht$widhtx  height$heightx")
-//
-//                // Your implementation
-//            } catch (ex: Exception) {
-//                ex.printStackTrace()
-//            }
-//        }).start()
-
         if ("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage != "") {
 
             Log.d("qsize", "" + qsize)
-
-            var imgwidth: Int = 100
 
             Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage)
                 .resize(qsize, p0.opone1.height)
@@ -77,46 +51,44 @@ class SelectImageOptionAdapter(
         }
 
         var id = (p1 + 1) * 100
-//        for (i in 0..4) {
-        val rb = RadioButton(this@SelectImageOptionAdapter.context)
 
-        rb.layoutParams = RadioGroup.LayoutParams(
-            RadioGroup.LayoutParams.MATCH_PARENT,
-            RadioGroup.LayoutParams.WRAP_CONTENT
-        )
+        when (qtype) {
+            1 -> {
 
-        rb.id = id++
+                p0.opone.visibility = View.VISIBLE
+                p0.opone1.visibility = View.VISIBLE
+                p0.llCheckBox.visibility = View.GONE
 
-//            when (p1) {
-//                0 -> {
-//                    rb.text = "A"
-//                }
-//                1 -> {
-//                    rb.text = "B"
-//                }
-//                2 -> {
-//                    rb.text = "C"
-//                }
-//                3 -> {
-//                    rb.text = "D"
-//                }
-//            }
+                val rb = RadioButton(this@SelectImageOptionAdapter.context)
 
-        p0.opone.addView(rb)
-//        }
+                rb.layoutParams = RadioGroup.LayoutParams(
+                    RadioGroup.LayoutParams.MATCH_PARENT,
+                    RadioGroup.LayoutParams.WRAP_CONTENT
+                )
+
+                rb.id = id++
+
+                p0.opone.addView(rb)
+
+            }
+            2 -> {
+
+                p0.opone.visibility = View.GONE
+                p0.opone1.visibility = View.VISIBLE
+                p0.llCheckBox.visibility = View.VISIBLE
+
+                val cb = CheckBox(this@SelectImageOptionAdapter.context)
+
+                p0.llCheckBox.addView(cb)
+
+            }
+
+        }
 
         p0.opone.setOnCheckedChangeListener { group, checkedId ->
 
-            //            if (dataList[p1].IsCorrectAnswer) {
-                TabwiseQuestionActivity.setButton(dataList[p1].MultipleChoiceQuestionAnswerID, qid, true)
-//            }
-//            else {
-//                TabwiseQuestionActivity.setButton(dataList[p1].MultipleChoiceQuestionAnswerID, qid, false)
-//            }
-            //since only one package is allowed to be selected
-            //this logic clears previous selection
-            //it checks state of last radiogroup and
-            // clears it if it meets conditions
+            TabwiseQuestionActivity.setButton(dataList[p1].MultipleChoiceQuestionAnswerID, qid, true)
+
             if (lastCheckedRadioGroup != null
                 && lastCheckedRadioGroup!!.checkedRadioButtonId
                 != p0.opone.checkedRadioButtonId
@@ -125,17 +97,9 @@ class SelectImageOptionAdapter(
             ) {
                 lastCheckedRadioGroup!!.clearCheck()
 
-//                    Toast.makeText(this@SelectOptionAdapter.context,
-//                        "Radio button clicked " + p0.opone.checkedRadioButtonId,
-//                        Toast.LENGTH_SHORT).show()
-
-//                p0.llmain.setBackgroundResource(R.drawable.gray_ring_bg)
-
             } else if (lastCheckedRadioGroup == null) {
-//                p0.llmain.setBackgroundResource(R.drawable.gray_ring_bg)
 
             } else {
-//                p0.llmain.setBackgroundResource(R.drawable.white_ring_bg)
 
             }
             lastCheckedRadioGroup = p0.opone
@@ -148,38 +112,7 @@ class SelectImageOptionAdapter(
         var opone1: ImageView = itemView.findViewById(R.id.option_one1)
         var opone: RadioGroup = itemView.findViewById(R.id.option_one)
         var llmain: RelativeLayout = itemView.findViewById(R.id.option_lll)
+        var llCheckBox: LinearLayout = itemView.findViewById(R.id.option_llCheckbox)
     }
-
-//    internal inner class RetrieveFeedTask : AsyncTask<String, Void, Bitmap>() {
-//
-//        private var exception: Exception? = null
-//
-//
-//
-//        override fun doInBackground(urls: String): Bitmap? {
-//            try {
-//                var url = URL(urls)
-//                var bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-//
-//                var widhtx = bmp.width
-//                var heightx = bmp.height
-//
-//                return bmp
-//            } catch (e: Exception) {
-//                this.exception = e
-//
-//                return null
-//            } finally {
-////                `is`.close()
-//            }
-//        }
-//
-//        override fun onPostExecute(feed: Bitmap) {
-//            // TODO: check this.exception
-//            // TODO: do something with the feed
-//
-//
-//        }
-//    }
 
 }

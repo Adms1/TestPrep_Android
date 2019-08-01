@@ -25,7 +25,7 @@
             android:id="@+id/imgSelect"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:padding="@dimen/_5sdp"
+            android:padding="@dimen/_3sdp"
             android:layout_marginRight="@dimen/_5sdp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"

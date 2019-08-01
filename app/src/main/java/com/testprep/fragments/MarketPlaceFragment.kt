@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.testprep.R
 import com.testprep.adapter.MarketPlaceViewpagerAdapter
-import com.testprep.adapter.QuestionsPagerAdapter
 import com.testprep.utils.AppConstants
 import kotlinx.android.synthetic.main.fragment_market_place.*
 
@@ -22,9 +21,9 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
+
 class MarketPlaceFragment : Fragment() {
 
-    var questionpagerAdapret: QuestionsPagerAdapter? = null
     var mToolbar: Toolbar? = null
 
     var selectedTab = ""

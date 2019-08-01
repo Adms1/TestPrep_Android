@@ -51,7 +51,7 @@ class NewSelectBoardAdapter(val context: Context, val dataList: ArrayList<Filter
 
         p0.image.setOnClickListener {
 
-            Utils.setStringValue(context, "course_id", dataList[p1].CourseID.toString())
+            Utils.setStringValue(context, AppConstants.COURSE_ID, dataList[p1].CourseID.toString())
             Utils.setStringValue(context, "course_name", dataList[p1].CourseName)
 
             row_index = p1
@@ -59,7 +59,7 @@ class NewSelectBoardAdapter(val context: Context, val dataList: ArrayList<Filter
 
             p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
 
-            if (Utils.getStringValue(context, "course_type_id", "") == "1") {
+            if (Utils.getStringValue(context, AppConstants.COURSE_TYPE_ID, "") == "1") {
                 (context as PrefrenceActivity).callStandardList(dataList[p1].CourseID.toInt())
             } else {
                 (context as PrefrenceActivity).callSubjectList(dataList[p1].CourseID.toString())

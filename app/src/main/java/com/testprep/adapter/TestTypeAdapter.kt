@@ -25,7 +25,7 @@ class TestTypeAdapter(val context: Context, val dataList: ArrayList<PackageData.
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
         p0.test_name.text = dataList[p1].TestTypeName
-        p0.test_quantity.text = dataList[p1].TestQuantity
+        p0.test_quantity.text = "30"
 
     }
 

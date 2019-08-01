@@ -29,10 +29,7 @@ import com.testprep.adapter.QuestionListSideMenuAdapter
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.AnswerModel
 import com.testprep.models.QuestionTypeModel
-import com.testprep.old.PageActivity
-import com.testprep.old.PageViewFragment
 import com.testprep.old.adapter.SelectImageOptionAdapter
-import com.testprep.old.adapter.SolutionAdapter
 import com.testprep.old.models.QuestionResponse
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
@@ -116,7 +113,10 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         imgQue!!.isDrawingCacheEnabled = true
 
-        queTab_ivBack.setOnClickListener { onBackPressed() }
+        queTab_ivBack.setOnClickListener {
+            where = "testlist"
+            onBackPressed()
+        }
 
         queTab_ivSubmit.setOnClickListener {
             onBackPressed()
@@ -195,7 +195,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             } else {
 
                 setSideMenu(3)
-
                 getNextQuestion()
             }
         }
@@ -446,7 +445,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
                     Log.d("qid", "" + movies[0].QuestionID)
 
-                    if (PageActivity.countt >= 0) {
+//                    if (PageActivity.countt >= 0) {
                         if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
 
 //                            var url = URL("http://content.testcraft.co.in/question/" + movies[pos].titleimg)
@@ -510,7 +509,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 //                                .resize(page_img_que_img.width, page_img_que_img.height)
                                 .into(page_img_que_img)
 //
-                            PageViewFragment.qsize = page_img_que_img.width
+//                            PageViewFragment.qsize = page_img_que_img.width
 
 //                            Log.d("imgsize", "widht" + page_img_que_img.width + "  height" + page_img_que_img.height)
 //                            Picasso.get().load("https://homeshealth.info/wp-content/uploads/2018/02/classy-algebra-distance-formula-problems-in-distance-formula-of-algebra-distance-formula-problems.jpg")
@@ -527,20 +526,21 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                             ansList!!.layoutManager =
                                 LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
-                            if (come != "solution") {
+                            if (movies[0].QuestionTypeID != 3) {
+
+                                queTab_tvFillBlanks.visibility = View.GONE
+                                ansList!!.visibility = View.VISIBLE
 
                                 ansList!!.adapter = SelectImageOptionAdapter(
                                     this@TabwiseQuestionActivity,
                                     movies[0].StudentTestQuestionMCQ,
                                     page_img_que_img.width,
+                                    movies[0].QuestionTypeID,
                                     movies[0].QuestionID
                                 )
                             } else {
-                                ansList!!.adapter = SolutionAdapter(
-                                    this@TabwiseQuestionActivity,
-                                    movies[0].StudentTestQuestionMCQ,
-                                    page_img_que_img.width
-                                )
+                                queTab_tvFillBlanks.visibility = View.VISIBLE
+                                ansList!!.visibility = View.GONE
                             }
 
 
@@ -556,20 +556,22 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                         ansList!!.layoutManager =
                             LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
-                        if (come != "solution") {
+                    if (movies[0].QuestionTypeID != 3) {
+
+                        queTab_tvFillBlanks.visibility = View.GONE
+                        ansList!!.visibility = View.VISIBLE
 
                             ansList!!.adapter = SelectImageOptionAdapter(
                                 this@TabwiseQuestionActivity,
                                 movies[0].StudentTestQuestionMCQ,
                                 page_img_que_img.width,
+                                movies[0].QuestionTypeID,
                                 movies[0].QuestionID
                             )
                         } else {
-                            ansList!!.adapter = SolutionAdapter(
-                                this@TabwiseQuestionActivity,
-                                movies[0].StudentTestQuestionMCQ,
-                                page_img_que_img.width
-                            )
+                        queTab_tvFillBlanks.visibility = View.VISIBLE
+                        ansList!!.visibility = View.GONE
+
                         }
 
                     }
@@ -592,10 +594,10 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                     sortDialog.dismiss()
 
                     Log.d("imgcall", "Number of movies received: " + movies.size)
-                } else {
-                    sortDialog.dismiss()
-                    Toast.makeText(this@TabwiseQuestionActivity, "No Question at that time", Toast.LENGTH_LONG).show()
-                }
+//                } else {
+//                    sortDialog.dismiss()
+//                    Toast.makeText(this@TabwiseQuestionActivity, "No Question at that time", Toast.LENGTH_LONG).show()
+//                }
             }
 
             override fun onFailure(call: Call<QuestionResponse>, t: Throwable) {
@@ -764,12 +766,22 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             ansList!!.layoutManager =
                 LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
-            ansList!!.adapter = SelectImageOptionAdapter(
-                this@TabwiseQuestionActivity,
-                movies[p0].StudentTestQuestionMCQ,
-                imgQue!!.width,
-                movies[p0].QuestionID
-            )
+            if (movies[p0].QuestionTypeID != 3) {
+
+                queTab_tvFillBlanks.visibility = View.GONE
+                ansList!!.visibility = View.VISIBLE
+
+                ansList!!.adapter = SelectImageOptionAdapter(
+                    this@TabwiseQuestionActivity,
+                    movies[p0].StudentTestQuestionMCQ,
+                    imgQue!!.width,
+                    movies[p0].QuestionTypeID,
+                    movies[p0].QuestionID
+                )
+            } else {
+                queTab_tvFillBlanks.visibility = View.VISIBLE
+                ansList!!.visibility = View.GONE
+            }
         }
 
         queTab_btnNext.visibility = View.VISIBLE

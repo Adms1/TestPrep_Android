@@ -1,6 +1,7 @@
 package com.testprep.fragments
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -10,10 +11,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.testprep.R
-import com.testprep.adapter.RecyclerviewAdapter
+import com.testprep.activity.DashboardActivity
+import com.testprep.adapter.FilterAdapter
+import com.testprep.adapter.TestPackagesAdapter
+import com.testprep.interfaces.filterInterface
 import com.testprep.models.FilterModel
+import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.fragment_other_filter.*
@@ -30,11 +36,24 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class OtherFilterFragment : Fragment() {
+class OtherFilterFragment : Fragment(), filterInterface {
 
     var filter_type = ""
     var finalfilterArray: ArrayList<FilterModel.FilterData>? = null
-    var recyclerviewAdapter: RecyclerviewAdapter? = null
+    var recyclerviewAdapter: FilterAdapter? = null
+
+    private var testPackagesAdapter: TestPackagesAdapter? = null
+    private var mDataList: ArrayList<PackageData.PackageDataList>? = null
+
+    var filterInterface: filterInterface? = null
+
+    var coursetypeid = ""
+    var tutorids = ""
+    var subids = ""
+    var stdids = ""
+    var examids = ""
+    var max = ""
+    var min = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +61,7 @@ class OtherFilterFragment : Fragment() {
     ): View? {
 
         filter_type = arguments!!.getString("type")
+        coursetypeid = arguments!!.getString("coursetype")
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_other_filter, container, false)
     }
@@ -49,16 +69,38 @@ class OtherFilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        filterData_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        filterInterface = this
 
-        callCourseListApi()
+        filterData_rvList.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+
+        filter_btnApply.setOnClickListener {
+
+            if (stdids != "")
+                Utils.setStringValue(activity!!, AppConstants.STANDARD_ID, stdids)
+
+            if (subids != "")
+                Utils.setStringValue(activity!!, AppConstants.SUBJECT_ID, subids)
+
+            if (tutorids != "")
+                Utils.setStringValue(activity!!, AppConstants.TUTOR_ID, tutorids)
+
+            if (examids != "")
+                Utils.setStringValue(activity!!, AppConstants.COURSE_ID, examids)
+
+            val intent = Intent(activity, DashboardActivity::class.java)
+            startActivity(intent)
+            activity!!.finish()
+//            callFilterListApi()
+        }
+
+//        callCourseListApi()
 
         when (filter_type) {
-            "course_type" -> {
-
-                callCourseListApi()
-
-            }
+//            "course_type" -> {
+//
+//                callCourseListApi()
+//
+//            }
             "boards" -> {
 
                 callExamListApi("1")
@@ -84,54 +126,7 @@ class OtherFilterFragment : Fragment() {
                 callSubjectListApi()
 
             }
-
         }
-
-    }
-
-    fun callCourseListApi(): ArrayList<FilterModel.FilterData> {
-
-        var filterArray: ArrayList<FilterModel.FilterData> = ArrayList()
-
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
-        }
-
-        DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getCourseList()
-        call.enqueue(object : Callback<FilterModel> {
-            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
-
-                if (response.body() != null) {
-
-                    DialogUtils.dismissDialog()
-
-                    if (response.body()!!.Status == "true") {
-
-                        filterArray = response.body()!!.data
-
-                        recyclerviewAdapter = RecyclerviewAdapter(activity!!, filterArray, "multiple", "course_type")
-                        filterData_rvList.adapter = recyclerviewAdapter
-//                        filterArray!!.add("Boards")
-//                        filterArray!!.add("Competitve Exams")
-
-                    } else {
-
-                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
-
-        return filterArray
     }
 
     fun callStandardListApi() {
@@ -157,13 +152,18 @@ class OtherFilterFragment : Fragment() {
 
                         filterArray = response.body()!!.data
 
+                        val strArray = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!.split(",")
+
                         for (i in 0 until filterArray.size) {
-                            if (filterArray[i].StandardID == Utils.getStringValue(activity!!, "standard_id", "")!!) {
-                                filterArray[i].isSelected = true
+                            for (j in 0 until strArray.size) {
+                                if (strArray[j] == filterArray[i].StandardID) {
+                                    filterArray[i].isSelected = true
+                                }
                             }
                         }
 
-                        recyclerviewAdapter = RecyclerviewAdapter(activity!!, filterArray, "multiple", "standard")
+                        recyclerviewAdapter =
+                            FilterAdapter(activity!!, filterArray, "multiple", "standard", filterInterface!!)
                         filterData_rvList.adapter = recyclerviewAdapter
 
                     } else {
@@ -205,13 +205,18 @@ class OtherFilterFragment : Fragment() {
 
                         filterArray = response.body()!!.data
 
+                        val strArray = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!.split(",")
+
                         for (i in 0 until filterArray.size) {
-                            if (filterArray[i].SubjectID == Utils.getStringValue(activity!!, "subject_id", "")!!) {
-                                filterArray[i].isSelected = true
+                            for (j in 0 until strArray.size) {
+                                if (strArray[j] == filterArray[i].SubjectID) {
+                                    filterArray[i].isSelected = true
+                                }
                             }
                         }
 
-                        recyclerviewAdapter = RecyclerviewAdapter(activity!!, filterArray, "multiple", "subject")
+                        recyclerviewAdapter =
+                            FilterAdapter(activity!!, filterArray, "multiple", "subject", filterInterface!!)
                         filterData_rvList.adapter = recyclerviewAdapter
 //                        choosemp_filterSubject.text = subjectArr[0].SubjectName
 //                        subids = subjectArr[0].SubjectID
@@ -255,7 +260,19 @@ class OtherFilterFragment : Fragment() {
                     if (response.body()!!.Status == "true") {
 
                         filterArray = response.body()!!.data
-                        recyclerviewAdapter = RecyclerviewAdapter(activity!!, filterArray, "multiple", "exam")
+
+                        val strArray = Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!.split(",")
+
+                        for (i in 0 until filterArray.size) {
+                            for (j in 0 until strArray.size) {
+                                if (strArray[j] == filterArray[i].CourseID) {
+                                    filterArray[i].isSelected = true
+                                }
+                            }
+                        }
+
+                        recyclerviewAdapter =
+                            FilterAdapter(activity!!, filterArray, "multiple", "exam", filterInterface!!)
                         filterData_rvList.adapter = recyclerviewAdapter
 
                     } else {
@@ -295,7 +312,20 @@ class OtherFilterFragment : Fragment() {
                     if (response.body()!!.Status == "true") {
 
                         filterArray = response.body()!!.data
-                        recyclerviewAdapter = RecyclerviewAdapter(activity!!, filterArray, "multiple", "tutor")
+
+                        val strArray = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!.split(",")
+
+                        for (i in 0 until filterArray.size) {
+                            for (j in 0 until strArray.size) {
+                                if (strArray[j] == filterArray[i].TutorID) {
+                                    filterArray[i].isSelected = true
+                                }
+                            }
+                        }
+
+
+                        recyclerviewAdapter =
+                            FilterAdapter(activity!!, filterArray, "multiple", "tutor", filterInterface!!)
                         filterData_rvList.adapter = recyclerviewAdapter
 
                     } else {
@@ -313,4 +343,93 @@ class OtherFilterFragment : Fragment() {
         })
     }
 
+    override fun filterData(filterType: String) {
+
+        when (filterType) {
+            "standard" -> {
+
+                var str = ""
+                stdids = ""
+
+                val finalFilerArray = recyclerviewAdapter!!.sendArray()
+
+                for (i in 0 until finalFilerArray.size) {
+                    if (finalFilerArray[i].isSelected) {
+
+                        str += finalFilerArray[i].StandardName + ","
+                        stdids += finalFilerArray[i].StandardID + ","
+                    }
+                }
+
+                if (stdids != "") {
+                    stdids = stdids.substring(0, stdids.length - 1)
+                }
+                Log.d("stdid", "" + stdids)
+
+            }
+            "subject" -> {
+
+                var str = ""
+                subids = ""
+
+                val finalFilerArray = recyclerviewAdapter!!.sendArray()
+
+                for (i in 0 until finalFilerArray.size) {
+                    if (finalFilerArray[i].isSelected) {
+
+                        str += finalFilerArray[i].SubjectName + ","
+                        subids += finalFilerArray[i].SubjectID + ","
+                    }
+                }
+
+                if (subids != "") {
+                    subids = subids.substring(0, subids.length - 1)
+                }
+                Log.d("subids", "" + subids)
+
+            }
+            "tutor" -> {
+
+                var str = ""
+                tutorids = ""
+
+                val finalFilerArray = recyclerviewAdapter!!.sendArray()
+
+                for (i in 0 until finalFilerArray.size) {
+                    if (finalFilerArray[i].isSelected) {
+
+                        str += finalFilerArray[i].TutorName + ","
+                        tutorids += finalFilerArray[i].TutorID + ","
+                    }
+                }
+
+                if (tutorids != "") {
+                    tutorids = tutorids.substring(0, tutorids.length - 1)
+                }
+                Log.d("tutorids", "" + tutorids)
+
+            }
+            "exam" -> {
+
+                var str = ""
+                examids = ""
+
+                val finalFilerArray = recyclerviewAdapter!!.sendArray()
+
+                for (i in 0 until finalFilerArray.size) {
+                    if (finalFilerArray[i].isSelected) {
+
+                        str += finalFilerArray[i].CourseName + ","
+                        examids += finalFilerArray[i].CourseID + ","
+                    }
+                }
+
+                if (examids != "") {
+                    examids = examids.substring(0, examids.length - 1)
+                }
+                Log.d("examids", "" + examids)
+            }
+        }
+
+    }
 }

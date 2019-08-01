@@ -23,7 +23,6 @@ import com.testprep.utils.Utils.Companion.clearPrefrence
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-
 class DashboardActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
@@ -55,9 +54,9 @@ class DashboardActivity : AppCompatActivity() {
 
 //        drawer_layout.setDrawerListener(mDrawerToggle)
 
-        supportFragmentManager.beginTransaction().add(R.id.container, ChooseMarketPlaceFragment()).commit()
-        dash_ivMarket.setImageResource(R.drawable.blue_list)
-        dashboard_ivBack.visibility = View.VISIBLE
+        supportFragmentManager.beginTransaction().add(com.testprep.R.id.container, ChooseMarketPlaceFragment()).commit()
+        dash_ivMarket.setImageResource(com.testprep.R.drawable.blue_list)
+        dashboard_ivBack.visibility = View.GONE
         dashboard_ivPencil.visibility = View.VISIBLE
 
         dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
@@ -96,6 +95,7 @@ class DashboardActivity : AppCompatActivity() {
 
                 val intent = Intent(this@DashboardActivity, FilterActivity::class.java)
                 startActivity(intent)
+                finish()
 
             }
 
@@ -108,7 +108,8 @@ class DashboardActivity : AppCompatActivity() {
 
                 dashboard_header.text = "My Packages"
 
-                supportFragmentManager.beginTransaction().replace(R.id.container, MyPackagesFragment()).commit()
+                supportFragmentManager.beginTransaction().replace(com.testprep.R.id.container, MyPackagesFragment())
+                    .commit()
 
                 dashboard_ivFilter.visibility = View.GONE
                 dashboard_ivCart.visibility = View.GONE
@@ -116,45 +117,47 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_ivBack.visibility = View.GONE
                 dashboard_ivFilter.visibility = View.GONE
 
-                dash_ivHome.setImageResource(R.drawable.blue_home)
-                dash_ivMarket.setImageResource(R.drawable.list)
-                dash_ivSearch.setImageResource(R.drawable.search)
-                dash_ivUser.setImageResource(R.drawable.menu_one)
+                dash_ivHome.setImageResource(com.testprep.R.drawable.blue_home)
+                dash_ivMarket.setImageResource(com.testprep.R.drawable.list)
+                dash_ivSearch.setImageResource(com.testprep.R.drawable.search)
+                dash_ivUser.setImageResource(com.testprep.R.drawable.menu_one)
 
-                dash_tvHome.setTextColor(resources.getColor(R.color.nfcolor))
-                dash_tvMarket.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvSearch.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvUser.setTextColor(resources.getColor(R.color.light_gray))
+                dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
+                dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
             }
 
             dash_llMarket -> {
 
                 dashboard_header.text = "Market Place"
 
-                supportFragmentManager.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
+                supportFragmentManager.beginTransaction()
+                    .replace(com.testprep.R.id.container, ChooseMarketPlaceFragment()).commit()
 
                 dashboard_ivFilter.visibility = View.VISIBLE
                 dashboard_ivCart.visibility = View.VISIBLE
 //                dashboard_ivPencil.visibility = View.VISIBLE
-                dashboard_ivBack.visibility = View.VISIBLE
+                dashboard_ivBack.visibility = View.GONE
                 dashboard_ivPencil.visibility = View.VISIBLE
 
-                dash_ivMarket.setImageResource(R.drawable.blue_list)
-                dash_ivHome.setImageResource(R.drawable.home)
-                dash_ivUser.setImageResource(R.drawable.menu_one)
-                dash_ivSearch.setImageResource(R.drawable.search)
+                dash_ivMarket.setImageResource(com.testprep.R.drawable.blue_list)
+                dash_ivHome.setImageResource(com.testprep.R.drawable.home)
+                dash_ivUser.setImageResource(com.testprep.R.drawable.menu_one)
+                dash_ivSearch.setImageResource(com.testprep.R.drawable.search)
 
-                dash_tvHome.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
-                dash_tvSearch.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvUser.setTextColor(resources.getColor(R.color.light_gray))
+                dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
+                dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
             }
 
             dash_llExplore -> {
 
                 dashboard_header.text = "Explore"
 
-                supportFragmentManager.beginTransaction().replace(R.id.container, ExploreFragment()).commit()
+                supportFragmentManager.beginTransaction().replace(com.testprep.R.id.container, ExploreFragment())
+                    .commit()
 
                 dashboard_ivFilter.visibility = View.GONE
                 dashboard_ivCart.visibility = View.GONE
@@ -162,15 +165,15 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_ivBack.visibility = View.GONE
                 dashboard_ivFilter.visibility = View.GONE
 
-                dash_ivSearch.setImageResource(R.drawable.blue_search)
-                dash_ivUser.setImageResource(R.drawable.menu_one)
-                dash_ivMarket.setImageResource(R.drawable.list)
-                dash_ivHome.setImageResource(R.drawable.home)
+                dash_ivSearch.setImageResource(com.testprep.R.drawable.blue_search)
+                dash_ivUser.setImageResource(com.testprep.R.drawable.menu_one)
+                dash_ivMarket.setImageResource(com.testprep.R.drawable.list)
+                dash_ivHome.setImageResource(com.testprep.R.drawable.home)
 
-                dash_tvHome.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvMarket.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvSearch.setTextColor(resources.getColor(R.color.nfcolor))
-                dash_tvUser.setTextColor(resources.getColor(R.color.light_gray))
+                dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
+                dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
             }
 
             dash_llProfile -> {
@@ -184,17 +187,17 @@ class DashboardActivity : AppCompatActivity() {
                 dashboard_ivFilter.visibility = View.GONE
 
 //                dashboard_ivLogout.visibility = View.GONE
-                supportFragmentManager.beginTransaction().replace(R.id.container, OtherFragment()).commit()
+                supportFragmentManager.beginTransaction().replace(com.testprep.R.id.container, OtherFragment()).commit()
 
-                dash_ivUser.setImageResource(R.drawable.blue_menu)
-                dash_ivSearch.setImageResource(R.drawable.search)
-                dash_ivMarket.setImageResource(R.drawable.list)
-                dash_ivHome.setImageResource(R.drawable.home)
+                dash_ivUser.setImageResource(com.testprep.R.drawable.blue_menu)
+                dash_ivSearch.setImageResource(com.testprep.R.drawable.search)
+                dash_ivMarket.setImageResource(com.testprep.R.drawable.list)
+                dash_ivHome.setImageResource(com.testprep.R.drawable.home)
 
-                dash_tvHome.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvMarket.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvSearch.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvUser.setTextColor(resources.getColor(R.color.nfcolor))
+                dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
             }
         }
     }
@@ -266,7 +269,6 @@ class DashboardActivity : AppCompatActivity() {
 //
 //    }
 
-
     private fun signOut() {
 
         DialogUtils.createConfirmDialog(
@@ -295,14 +297,14 @@ class DashboardActivity : AppCompatActivity() {
             DialogInterface.OnClickListener { dialog, which ->
                 dialog.dismiss()
 
-
             }).show()
     }
 
     override fun onBackPressed() {
 
         when {
-            AppConstants.ON_BACK == 1 -> super.onBackPressed()
+            AppConstants.ON_BACK == 1 -> {
+            }
             AppConstants.ON_BACK == 2 -> supportFragmentManager.beginTransaction().replace(
                 R.id.container,
                 ChooseMarketPlaceFragment()
@@ -311,7 +313,5 @@ class DashboardActivity : AppCompatActivity() {
 
             }
         }
-
     }
-
 }

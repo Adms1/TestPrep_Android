@@ -8,7 +8,7 @@ class PackageData {
     var Msg = ""
     var data: ArrayList<PackageDataList> = ArrayList()
 
-    class PackageDataList {
+    class PackageDataList : Serializable {
 
         var TestPackageID = ""
         var TestPackageName = ""

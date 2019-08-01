@@ -16,7 +16,7 @@ class FilterListAdapter(
 ) :
     RecyclerView.Adapter<FilterListAdapter.viewholder>() {
 
-    var row_index = -1
+    var row_index = 0
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 

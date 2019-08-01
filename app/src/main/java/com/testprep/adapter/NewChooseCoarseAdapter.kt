@@ -47,7 +47,7 @@ class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<Filte
 
         p0.image.setOnClickListener {
 
-            Utils.setStringValue(context, "course_type_id", dataList[p1].CourseTypeID.toString())
+            Utils.setStringValue(context, AppConstants.COURSE_TYPE_ID, dataList[p1].CourseTypeID.toString())
             Utils.setStringValue(context, "course_type_name", dataList[p1].CourseTypeName)
 
             val intent = Intent(context, PrefrenceActivity::class.java)

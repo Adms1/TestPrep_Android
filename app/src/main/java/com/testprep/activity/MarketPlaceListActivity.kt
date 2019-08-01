@@ -12,6 +12,7 @@ import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
@@ -139,10 +140,10 @@ class MarketPlaceListActivity : AppCompatActivity() {
 
         val call = apiService.getPackage(
             WebRequests.getPackageParams(
-                Utils.getStringValue(this@MarketPlaceListActivity, "course_type_id", "")!!,
-                Utils.getStringValue(this@MarketPlaceListActivity, "course_id", "")!!,
-                Utils.getStringValue(this@MarketPlaceListActivity, "standard_id", "")!!,
-                Utils.getStringValue(this@MarketPlaceListActivity, "subject_id", "")!!
+                Utils.getStringValue(this@MarketPlaceListActivity, AppConstants.COURSE_TYPE_ID, "")!!,
+                Utils.getStringValue(this@MarketPlaceListActivity, AppConstants.COURSE_ID, "")!!,
+                Utils.getStringValue(this@MarketPlaceListActivity, AppConstants.STANDARD_ID, "")!!,
+                Utils.getStringValue(this@MarketPlaceListActivity, AppConstants.SUBJECT_ID, "")!!
             )
         )
 

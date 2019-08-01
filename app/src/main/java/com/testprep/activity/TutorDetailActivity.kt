@@ -1,15 +1,19 @@
 package com.testprep.activity
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.testprep.R
+import com.testprep.adapter.TestPackagesAdapter
+import com.testprep.models.PackageData
 import kotlinx.android.synthetic.main.activity_tutor_detail.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class TutorDetailActivity : AppCompatActivity() {
+
+    var data: ArrayList<PackageData.PackageDataList> = ArrayList()
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -22,12 +26,20 @@ class TutorDetailActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_tutor_detail)
 
+        data = intent.getSerializableExtra("parr") as ArrayList<PackageData.PackageDataList>
+
         tutor_detail_ivBack.setOnClickListener { onBackPressed() }
 
-        tutor_detail_ivCart.setOnClickListener {
-            val intent = Intent(this@TutorDetailActivity, CartActivity::class.java)
-            startActivity(intent)
-        }
+//        tutor_detail_ivCart.setOnClickListener {
+//            val intent = Intent(this@TutorDetailActivity, CartActivity::class.java)
+//            startActivity(intent)
+//        }
+
+        tutor_detail_header.text = intent.getStringExtra("pname")
+
+        tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+
+        tutor_packages_rvPopularPkg.adapter = TestPackagesAdapter(this@TutorDetailActivity, data)
 
 //        configureTabLayout()
 

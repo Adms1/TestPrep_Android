@@ -90,10 +90,10 @@ class SelectPackageActivity : AppCompatActivity() {
 //                Utils.getStringValue(this@SelectPackageActivity, "std_id", "0")!!,
 //                intent.getStringExtra("subject_id")
 
-                Utils.getStringValue(this@SelectPackageActivity, "course_type_id", "")!!,
-                Utils.getStringValue(this@SelectPackageActivity, "course_id", "")!!,
-                Utils.getStringValue(this@SelectPackageActivity, "standard_id", "")!!,
-                Utils.getStringValue(this@SelectPackageActivity, "subject_id", "")!!
+                Utils.getStringValue(this@SelectPackageActivity, AppConstants.COURSE_TYPE_ID, "")!!,
+                Utils.getStringValue(this@SelectPackageActivity, AppConstants.COURSE_ID, "")!!,
+                Utils.getStringValue(this@SelectPackageActivity, AppConstants.STANDARD_ID, "")!!,
+                Utils.getStringValue(this@SelectPackageActivity, AppConstants.SUBJECT_ID, "")!!
             )
         )
         call.enqueue(object : Callback<PackageData> {

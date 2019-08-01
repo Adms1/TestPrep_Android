@@ -45,17 +45,17 @@
 
             <RelativeLayout
                     android:id="@+id/package_detail_llImage"
-                    android:layout_width="@dimen/_60sdp"
-                    android:layout_height="@dimen/_60sdp"
+                    android:layout_width="@dimen/_65sdp"
+                    android:layout_height="@dimen/_65sdp"
                     android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent">
 
                 <ImageView
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp"
-                        android:src="@drawable/gray_bg"
+                        android:layout_width="@dimen/_65sdp"
+                        android:layout_height="@dimen/_65sdp"
+                        android:src="@drawable/pp_1"
                         android:id="@+id/package_detail_image1"/>
 
                 <TextView
@@ -64,6 +64,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         android:gravity="center"
+                        android:visibility="gone"
                         android:textSize="@dimen/_25sdp"
                         android:layout_centerInParent="true"/>
 
@@ -74,7 +75,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/package_detail_tvPname"
-                    android:layout_marginTop="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:textSize="@dimen/_15sdp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -176,7 +177,7 @@
                     android:alpha="0.15"/>
 
             <TextView
-                    android:text="Test Type"
+                    android:text="Test Name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/package_detail_tvTestType"
@@ -190,12 +191,12 @@
                     android:textColor="@color/black"/>
 
             <TextView
-                    android:text="Qty"
+                    android:text="Marks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/package_detail_tvQuantity"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:layout_marginRight="@dimen/_88sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
                     app:layout_constraintTop_toBottomOf="@+id/package_detail_view"
                     android:gravity="center"
                     android:textStyle="bold"

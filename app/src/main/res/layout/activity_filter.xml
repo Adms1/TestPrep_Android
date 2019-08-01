@@ -57,6 +57,7 @@
                 android:id="@+id/filter_rbBoards"
                 android:layout_width="0dp"
                 android:layout_weight="0.3"
+                android:checked="true"
                 android:layout_height="wrap_content"
                 android:text="Boards"/>
 
@@ -102,19 +103,5 @@
                 android:id="@+id/filter_container"/>
 
     </LinearLayout>
-
-    <Button
-            android:id="@+id/filter_btnApply"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_35sdp"
-            android:text="Apply"
-            android:background="@drawable/dark_blue_gredient_bg"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:textColor="@color/white"
-            android:layout_marginLeft="@dimen/_5sdp"
-            app:layout_constraintLeft_toRightOf="@+id/filter_header"
-            android:layout_marginRight="@dimen/_5sdp"/>
 
 </android.support.constraint.ConstraintLayout>

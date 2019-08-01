@@ -4,11 +4,11 @@ class AppConstants {
 
     companion object{
 
-        var BASE_URL = "http://103.204.192.187:7077/WebService.asmx/"
+//        var BASE_URL = "http://103.204.192.187:7077/WebService.asmx/"
 //        var IMAGE_BASE_UR
 //        L = "http://103.204.192.187:7077/"
 
-        //                var BASE_URL = "https://testprep.testcraft.co.in/WebService.asmx/"
+        var BASE_URL = "https://testprep.testcraft.co.in/WebService.asmx/"
         var IMAGE_BASE_URL = "https://testprep.testcraft.co.in/"
 
         var FIRST_NAME = "firstname"
@@ -29,6 +29,15 @@ class AppConstants {
 
         var QUE_NUMBER = 0
         var QUE_NUMBER1 = 0
+
+        var COURSE_TYPE_ID = "course_type_id"
+        var COURSE_ID = "course_id"
+        var BOARD_ID = "board_id"
+        var STANDARD_ID = "standard_id"
+        var SUBJECT_ID = "subject_id"
+        var TUTOR_ID = "tutor_id"
+        var FROM_RICE = "from_price"
+        var TO_PRICE = "to_price"
 
 //        var API_KEY = "487f26cf-15cd-4497-a053-a4c5ac0e9a7f"
 //        var SECRET_KEY = "900249336e0680941326c99ff756b23e3e675efd"
