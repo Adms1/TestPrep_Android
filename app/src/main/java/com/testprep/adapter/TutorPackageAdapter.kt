@@ -10,11 +10,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.testprep.R
-import com.testprep.fragments.TutorProfileFragment
+import com.testprep.activity.PackageDetailActivity
 import com.testprep.models.PackageData
 
-class TutorsAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
-    RecyclerView.Adapter<TutorsAdapter.viewholder>() {
+class TutorPackageAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
+    RecyclerView.Adapter<TutorPackageAdapter.viewholder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
@@ -41,33 +41,29 @@ class TutorsAdapter(val context: Context, val dataList: ArrayList<PackageData.Pa
 //        }
 
         p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
-        p0.title.text = dataList[p1].TutorName
-        p0.stitle.text = dataList[p1].TutorName.substring(0, 1)
-        p0.price.text = dataList[p1].TutorEmail
-        p0.std.text = ""
+        p0.title.text = dataList[p1].TestPackageName
+        p0.stitle.text = dataList[p1].TestPackageName.substring(0, 1)
+        p0.std.text = dataList[p1].InstituteName
+        p0.price.text = "₹" + dataList[p1].TestPackageSalePrice
 
         p0.clMain.setOnClickListener {
 
-            val intent = Intent(context, TutorProfileFragment::class.java)
+            val intent = Intent(context, PackageDetailActivity::class.java)
+            intent.putExtra("pkgid", dataList[p1].TestPackageID)
+            intent.putExtra("pname", dataList[p1].TestPackageName)
+            intent.putExtra("sprice", dataList[p1].TestPackageSalePrice)
+            intent.putExtra("lprice", dataList[p1].TestPackageListPrice)
+            intent.putExtra("desc", dataList[p1].TestPackageDescription)
+            intent.putExtra("test_type_list", dataList[p1].TestType)
+            if (dataList[p1].InstituteName != "" && dataList[p1].InstituteName != null) {
+                intent.putExtra("created_by", dataList[p1].InstituteName)
+            } else {
+                intent.putExtra("created_by", dataList[p1].TutorName)
+            }
             intent.putExtra("tutor_id", dataList[p1].TutorID)
+            intent.putExtra("come_from", "selectpackage")
+            intent.putExtra("position", dataList[p1].TestPackageName.substring(0, 1).single())
             context.startActivity(intent)
-
-//            val intent = Intent(context, PackageDetailActivity::class.java)
-//            intent.putExtra("pkgid", dataList[p1].TestPackageID)
-//            intent.putExtra("pname", dataList[p1].TestPackageName)
-//            intent.putExtra("sprice", dataList[p1].TestPackageSalePrice)
-//            intent.putExtra("lprice", dataList[p1].TestPackageListPrice)
-//            intent.putExtra("desc", dataList[p1].TestPackageDescription)
-//            intent.putExtra("test_type_list", dataList[p1].TestType)
-//            if (dataList[p1].InstituteName != "" && dataList[p1].InstituteName != null) {
-//                intent.putExtra("created_by", dataList[p1].InstituteName)
-//            } else {
-//                intent.putExtra("created_by", dataList[p1].TutorName)
-//            }
-//            intent.putExtra("tutor_id", dataList[p1].TutorID)
-//            intent.putExtra("come_from", "selectpackage")
-//            intent.putExtra("position", dataList[p1].TestPackageName.substring(0, 1).single())
-//            context.startActivity(intent)
 
         }
 
@@ -84,5 +80,4 @@ class TutorsAdapter(val context: Context, val dataList: ArrayList<PackageData.Pa
         var clMain: ConstraintLayout = itemView.findViewById(R.id.tutor_clMain)
     }
 }
-
 

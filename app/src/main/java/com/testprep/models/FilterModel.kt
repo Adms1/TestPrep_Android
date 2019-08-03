@@ -1,5 +1,7 @@
 package com.testprep.models
 
+import java.io.Serializable
+
 class FilterModel {
 
     var Status = ""
@@ -7,7 +9,16 @@ class FilterModel {
 
     var data: ArrayList<FilterData> = ArrayList()
 
-    class FilterData {
+    class FilterData(imageResId: Int, TestPackageName: String) : Serializable {
+
+        var imageResId = 0
+        var TestPackageName = ""
+
+        init {
+            this.imageResId = imageResId
+            this.TestPackageName = TestPackageName
+
+        }
 
         var CourseTypeID = 0
         var CourseTypeName = ""

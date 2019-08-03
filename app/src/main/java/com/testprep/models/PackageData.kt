@@ -8,10 +8,18 @@ class PackageData {
     var Msg = ""
     var data: ArrayList<PackageDataList> = ArrayList()
 
-    class PackageDataList : Serializable {
+    class PackageDataList(imageResId: Int, TestPackageName: String) : Serializable {
+
+        var imageResId = 0
+        var TestPackageName = ""
+
+        init {
+            this.imageResId = imageResId
+            this.TestPackageName = TestPackageName
+
+        }
 
         var TestPackageID = ""
-        var TestPackageName = ""
         var TestPackageSalePrice = ""
         var TestPackageListPrice = ""
         var TestPackageDescription = ""
@@ -31,6 +39,22 @@ class PackageData {
         var StudentTestPackageID = 0
         var PurchaseDate = ""
         var ExpirationDate = ""
+
+        var CourseTypeID = 0
+        var CourseTypeName = ""
+        var Icon = ""
+
+        var TutorEmail = ""
+        var TutorPhoneNumber = ""
+
+        var isSelected = false
+
+        var SubjectID = ""
+        var StandardID = ""
+        var StandardName = ""
+
+        var CourseID = ""
+        var CourseName = ""
     }
 
     class PackageTestType(var name: String, var qty: String) : Serializable {

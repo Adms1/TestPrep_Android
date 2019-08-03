@@ -11,11 +11,11 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.PrefrenceActivity
-import com.testprep.models.FilterModel
+import com.testprep.models.PackageData
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 
-class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<FilterModel.FilterData>) :
+class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
     RecyclerView.Adapter<NewChooseCoarseAdapter.viewholder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {

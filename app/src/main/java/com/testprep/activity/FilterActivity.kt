@@ -1,7 +1,6 @@
 package com.testprep.activity
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -253,8 +252,6 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 //    }
 
     override fun onBackPressed() {
-        val intent = Intent(this@FilterActivity, DashboardActivity::class.java)
-        startActivity(intent)
         finish()
     }
 

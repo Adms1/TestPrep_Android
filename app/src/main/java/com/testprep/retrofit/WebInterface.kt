@@ -1,7 +1,6 @@
 package com.testprep.retrofit
 
 import com.google.gson.JsonObject
-import com.testprep.models.FilterModel
 import com.testprep.models.PackageData
 import com.testprep.models.TestListModel
 import com.testprep.models.TutorModel
@@ -36,23 +35,23 @@ interface WebInterface {
     fun changePassword(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
     @GET("Get_CourseType_List")
-    fun getCourseList(): Call<FilterModel>
+    fun getCourseList(): Call<PackageData>
 
     @FormUrlEncoded
     @POST("Get_Course_List")
-    fun getCourseTypeList(@Field("CourseTypeID") coursetype: String): Call<FilterModel>
+    fun getCourseTypeList(@Field("CourseTypeID") coursetype: String): Call<PackageData>
 
     @FormUrlEncoded
     @POST("Get_CourseSubject_List")
-    fun getCourseSubjectList(@Field("CourseID") courseid: String): Call<FilterModel>
+    fun getCourseSubjectList(@Field("CourseID") courseid: String): Call<PackageData>
 
     @FormUrlEncoded
     @POST("Get_BoardStandard_List")
-    fun getBoardStandardList(@Field("BoardID") boardid: String): Call<FilterModel>
+    fun getBoardStandardList(@Field("BoardID") boardid: String): Call<PackageData>
 
     @FormUrlEncoded
     @POST("Get_BoardStandardSubject_List")
-    fun getBoardStandardSubjectList(@Field("BoardID") boardid: String, @Field("StandardID") standardid: String): Call<FilterModel>
+    fun getBoardStandardSubjectList(@Field("BoardID") boardid: String, @Field("StandardID") standardid: String): Call<PackageData>
 
     @FormUrlEncoded
     @POST("GeneratePaymentRequest")
@@ -95,13 +94,13 @@ interface WebInterface {
     fun getTutorSimilarPkgs(@Field("TutorID") stuid: String): Call<PackageData>
 
     @GET("Get_Tutor")
-    fun getTutorList(): Call<FilterModel>
+    fun getTutorList(): Call<PackageData>
 
     @GET("Get_Subject")
-    fun getSubjectList(): Call<FilterModel>
+    fun getSubjectList(): Call<PackageData>
 
     @GET("Get_Standard")
-    fun getStandardList(): Call<FilterModel>
+    fun getStandardList(): Call<PackageData>
 
     @FormUrlEncoded
     @POST("Get_TestPackageName_By_Search_Criteria")
@@ -109,7 +108,7 @@ interface WebInterface {
 
     @FormUrlEncoded
     @POST("Get_Course_List")
-    fun getExamList(@Field("CourseTypeID") coursetype: String): Call<FilterModel>
+    fun getExamList(@Field("CourseTypeID") coursetype: String): Call<PackageData>
 
     @FormUrlEncoded
     @POST("Add_StudentTestAnswer")

@@ -44,14 +44,17 @@
             android:textColor="@color/gray"/>
 
     <TextView
-            android:text="Bothra Classes"
-            android:layout_width="wrap_content"
+            android:text="Bothra Classes juybyjyjyjyjybjyjybjyj"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tutor_item_tvName"
             app:layout_constraintLeft_toRightOf="@+id/tutor_rlImage"
             app:layout_constraintTop_toTopOf="@+id/tutor_rlImage"
             app:layout_constraintBottom_toBottomOf="@+id/tutor_rlImage"
+            app:layout_constraintRight_toLeftOf="@+id/tutor_item_btnNext"
             android:textSize="@dimen/_13sdp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_marginLeft="@dimen/_10sdp"
             android:textColor="@color/black"/>
 

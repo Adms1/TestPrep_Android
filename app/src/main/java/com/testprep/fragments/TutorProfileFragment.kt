@@ -8,10 +8,9 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.testprep.R
 import com.testprep.activity.CartActivity
-import com.testprep.adapter.TutorsAdapter
+import com.testprep.adapter.TutorPackageAdapter
 import com.testprep.models.PackageData
 import com.testprep.models.TutorModel
 import com.testprep.retrofit.WebClient
@@ -107,11 +106,11 @@ class TutorProfileFragment : AppCompatActivity() {
 
                     } else {
 
-                        Toast.makeText(
-                            this@TutorProfileFragment,
-                            response.body()!!.Msg.replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            this@TutorProfileFragment,
+//                            response.body()!!.Msg.replace("\"", ""),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                     }
                 }
             }
@@ -144,15 +143,15 @@ class TutorProfileFragment : AppCompatActivity() {
                     if (response.body()!!.Status == "true") {
 
                         tutor_item_rvCuratorList.adapter =
-                            TutorsAdapter(this@TutorProfileFragment, response.body()!!.data)
+                            TutorPackageAdapter(this@TutorProfileFragment, response.body()!!.data)
 
                     } else {
 
-                        Toast.makeText(
-                            this@TutorProfileFragment,
-                            response.body()!!.Msg.replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            this@TutorProfileFragment,
+//                            response.body()!!.Msg.replace("\"", ""),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                     }
                 }
             }

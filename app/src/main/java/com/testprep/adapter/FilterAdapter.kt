@@ -10,11 +10,11 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.testprep.R
 import com.testprep.interfaces.filterInterface
-import com.testprep.models.FilterModel
+import com.testprep.models.PackageData
 
 class FilterAdapter(
     var cotext: Context,
-    private val mModelList: ArrayList<FilterModel.FilterData>?,
+    private val mModelList: ArrayList<PackageData.PackageDataList>?,
     val selectionType: String,
     val filterType: String,
     val filterInterface: filterInterface
@@ -139,7 +139,7 @@ class FilterAdapter(
         var img: ImageView = view.findViewById(R.id.imgSelect)
     }
 
-    fun sendArray(): ArrayList<FilterModel.FilterData> {
+    fun sendArray(): ArrayList<PackageData.PackageDataList> {
 
         return mModelList!!
     }

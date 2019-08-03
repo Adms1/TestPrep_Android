@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.testprep.R
-import com.testprep.models.FilterModel
+import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.DialogUtils
@@ -56,8 +56,8 @@ class SelectCoarseFragment : Fragment() {
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.getCourseList()
-        call.enqueue(object : Callback<FilterModel> {
-            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
+        call.enqueue(object : Callback<PackageData> {
+            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
                 if (response.body() != null) {
 
@@ -76,7 +76,7 @@ class SelectCoarseFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
+            override fun onFailure(call: Call<PackageData>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()

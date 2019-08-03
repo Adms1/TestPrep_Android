@@ -13,7 +13,7 @@ import com.testprep.R
 import com.testprep.activity.SelectBoardActivity
 import com.testprep.activity.SelectStandardActivity
 import com.testprep.activity.SelectSubjectActivity
-import com.testprep.models.FilterModel
+import com.testprep.models.PackageData
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 
@@ -21,7 +21,7 @@ import com.testprep.utils.Utils
 class ChooseCoarseAdapter(
     val context: Context,
     val type: String,
-    val dataList: ArrayList<FilterModel.FilterData>,
+    val dataList: ArrayList<PackageData.PackageDataList>,
     val selectType: String
 ) :
     RecyclerView.Adapter<ChooseCoarseAdapter.viewholder>() {

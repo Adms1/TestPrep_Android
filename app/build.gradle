@@ -62,5 +62,7 @@ dependencies {
 //    implementation 'com.github.alahammad:android-OTP-View:1.0.2'
     implementation 'com.github.GoodieBag:Pinview:v1.4'
 //    implementation 'com.chaos.view:pinview:1.4.3'
+    implementation 'com.github.moondroid.coverflow:library:1.0'
+
 
 }

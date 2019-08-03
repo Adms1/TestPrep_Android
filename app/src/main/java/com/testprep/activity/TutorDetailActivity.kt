@@ -1,12 +1,15 @@
 package com.testprep.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.testprep.R
 import com.testprep.adapter.TestPackagesAdapter
+import com.testprep.adapter.TutorsAdapter
 import com.testprep.models.PackageData
 import kotlinx.android.synthetic.main.activity_tutor_detail.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
@@ -37,12 +40,35 @@ class TutorDetailActivity : AppCompatActivity() {
 
         tutor_detail_header.text = intent.getStringExtra("pname")
 
-        tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+        if (intent.getStringExtra("type") == "pkg") {
 
-        tutor_packages_rvPopularPkg.adapter = TestPackagesAdapter(this@TutorDetailActivity, data)
+            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+            tutor_packages_rvPopularPkg.adapter = TestPackagesAdapter(this@TutorDetailActivity, data)
+
+        } else {
+
+            tutor_packages_rvPopularPkg.layoutManager =
+                LinearLayoutManager(this@TutorDetailActivity, LinearLayoutManager.VERTICAL, false)
+            tutor_packages_rvPopularPkg.adapter = TutorsAdapter(this@TutorDetailActivity, data)
+
+        }
+
+
 
 //        configureTabLayout()
 
+    }
+
+    fun onClick(v: View) {
+        when (v) {
+
+            tutor_detail_ivFilter -> {
+
+                val intent = Intent(this@TutorDetailActivity, FilterActivity::class.java)
+                startActivity(intent)
+
+            }
+        }
     }
 
 //    private fun configureTabLayout() {
