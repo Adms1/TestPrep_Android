@@ -79,6 +79,12 @@ class DashboardActivity : AppCompatActivity() {
 //        init()
 
 //        supportFragmentManager.beginTransaction().add(R.id.container, SelectCoarseFragment()).commit()
+
+        AppConstants.FILTER_STANDARD_ID = ""
+        AppConstants.FILTER_SUBJECT_ID = ""
+        AppConstants.FILTER_TUTOR_ID = ""
+        AppConstants.FILTER_BOARD_ID = ""
+
     }
 
     fun onClick(v: View) {
@@ -280,6 +286,11 @@ class DashboardActivity : AppCompatActivity() {
             DialogInterface.OnClickListener { dialog, which ->
                 clearPrefrence(this@DashboardActivity)
                 AppConstants.COURSE_FLOW_ARRAY.clear()
+
+                AppConstants.FILTER_STANDARD_ID = ""
+                AppConstants.FILTER_SUBJECT_ID = ""
+                AppConstants.FILTER_TUTOR_ID = ""
+                AppConstants.FILTER_BOARD_ID = ""
 
                 mGoogleSignInClient!!.signOut()
                     .addOnCompleteListener(this) {

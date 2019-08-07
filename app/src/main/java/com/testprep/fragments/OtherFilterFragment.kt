@@ -22,7 +22,6 @@ import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
-import kotlinx.android.synthetic.main.fragment_choose_market_place.*
 import kotlinx.android.synthetic.main.fragment_other_filter.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -72,21 +71,38 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         filterInterface = this
 
-        filterData_rvList.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+        filterData_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+        examids = Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
+        stdids = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
+        subids = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
+        tutorids = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
 
         filter_btnApply.setOnClickListener {
 
-            if (stdids != "")
-                Utils.setStringValue(activity!!, AppConstants.STANDARD_ID, stdids)
+            if (stdids != "") {
+                AppConstants.FILTER_STANDARD_ID = stdids
+            } else {
+                AppConstants.FILTER_STANDARD_ID = ""
+            }
 
-            if (subids != "")
-                Utils.setStringValue(activity!!, AppConstants.SUBJECT_ID, subids)
+            if (subids != "") {
+                AppConstants.FILTER_SUBJECT_ID = subids
+            } else {
+                AppConstants.FILTER_SUBJECT_ID = ""
+            }
 
-            if (tutorids != "")
-                Utils.setStringValue(activity!!, AppConstants.TUTOR_ID, tutorids)
+            if (tutorids != "") {
+                AppConstants.FILTER_TUTOR_ID = tutorids
+            } else {
+                AppConstants.FILTER_TUTOR_ID = ""
+            }
 
-            if (examids != "")
-                Utils.setStringValue(activity!!, AppConstants.COURSE_ID, examids)
+            if (examids != "") {
+                AppConstants.FILTER_BOARD_ID = examids
+            } else {
+                AppConstants.FILTER_BOARD_ID = ""
+            }
 
             callFilterListApi()
 //            callFilterListApi()
@@ -151,7 +167,14 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                         filterArray = response.body()!!.data
 
-                        val strArray = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!.split(",")
+                        if (AppConstants.FILTER_STANDARD_ID == "111") {
+//                        }else{
+                            AppConstants.FILTER_STANDARD_ID =
+                                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
+//                            stdids = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
+                        }
+
+                        val strArray = AppConstants.FILTER_STANDARD_ID.split(",")
 
                         for (i in 0 until filterArray.size) {
                             for (j in 0 until strArray.size) {
@@ -204,7 +227,13 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                         filterArray = response.body()!!.data
 
-                        val strArray = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!.split(",")
+                        if (AppConstants.FILTER_SUBJECT_ID == "111") {
+//                        }else{
+                            AppConstants.FILTER_SUBJECT_ID =
+                                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
+                        }
+
+                        val strArray = AppConstants.FILTER_SUBJECT_ID.split(",")
 
                         for (i in 0 until filterArray.size) {
                             for (j in 0 until strArray.size) {
@@ -260,7 +289,13 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                         filterArray = response.body()!!.data
 
-                        val strArray = Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!.split(",")
+                        if (AppConstants.FILTER_BOARD_ID == "111") {
+//                        }else{
+                            AppConstants.FILTER_BOARD_ID =
+                                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
+                        }
+
+                        val strArray = AppConstants.FILTER_BOARD_ID.split(",")
 
                         for (i in 0 until filterArray.size) {
                             for (j in 0 until strArray.size) {
@@ -312,7 +347,12 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                         filterArray = response.body()!!.data
 
-                        val strArray = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!.split(",")
+                        if (AppConstants.FILTER_TUTOR_ID == "111") {
+////                        }else{
+                            AppConstants.FILTER_TUTOR_ID = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
+                        }
+
+                        val strArray = AppConstants.FILTER_TUTOR_ID.split(",")
 
                         for (i in 0 until filterArray.size) {
                             for (j in 0 until strArray.size) {
@@ -440,31 +480,31 @@ class OtherFilterFragment : Fragment(), filterInterface {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getFilterData(
-            WebRequests.getFilterParams(
-                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
-                "",
-                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
-                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
-                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!,
-                Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!,
-                "",
-                ""
-            )
-        )
-
 //        val call = apiService.getFilterData(
 //            WebRequests.getFilterParams(
 //                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
 //                "",
-//                examids,
-//                stdids,
-//                subids,
-//                tutorids,
+//                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
+//                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
+//                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!,
+//                Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!,
 //                "",
 //                ""
 //            )
 //        )
+
+        val call = apiService.getFilterData(
+            WebRequests.getFilterParams(
+                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
+                "",
+                examids,
+                stdids,
+                subids,
+                tutorids,
+                "",
+                ""
+            )
+        )
 
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
@@ -482,11 +522,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
                         intent.putExtra("pname", "Packages")
                         intent.putExtra("parr", mDataList)
                         startActivity(intent)
+                        activity!!.finish()
 
                     } else {
 
                         Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
-                        choosemp_rvList.visibility = View.GONE
                     }
                 }
             }

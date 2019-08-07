@@ -5,13 +5,17 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.testprep.R
 import com.testprep.interfaces.FilterTypeSelectionInteface
+import com.testprep.models.PackageData
+import com.testprep.utils.AppConstants
+import com.testprep.utils.Utils
 
 class FilterListAdapter(
     val context: Context,
-    val dataList: ArrayList<String>,
+    val dataList: ArrayList<PackageData.PackageDataList>,
     var filterTypeSelectionInteface: FilterTypeSelectionInteface
 ) :
     RecyclerView.Adapter<FilterListAdapter.viewholder>() {
@@ -34,7 +38,41 @@ class FilterListAdapter(
     }
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
-        p0.title.text = dataList[p1]
+        p0.title.text = dataList[p1].TestPackageName
+
+        if (Utils.getStringValue(context, AppConstants.STANDARD_ID, "") != "" ||
+            Utils.getStringValue(context, AppConstants.SUBJECT_ID, "") != "" ||
+            Utils.getStringValue(context, AppConstants.TUTOR_ID, "") != "" ||
+            Utils.getStringValue(context, AppConstants.COURSE_ID, "") != ""
+        ) {
+            p0.select.visibility = View.VISIBLE
+        } else {
+            p0.select.visibility = View.GONE
+        }
+
+//        if (Utils.getStringValue(context, AppConstants.SUBJECT_ID, "") != ""){
+//            p0.select.visibility = View.VISIBLE
+//        }else {
+//            p0.select.visibility = View.GONE
+//        }
+//
+//        if (Utils.getStringValue(context, AppConstants.TUTOR_ID, "") != ""){
+//            p0.select.visibility = View.VISIBLE
+//        }else {
+//            p0.select.visibility = View.GONE
+//        }
+//
+//        if (Utils.getStringValue(context, AppConstants.COURSE_ID, "") != ""){
+//            p0.select.visibility = View.VISIBLE
+//        }else {
+//            p0.select.visibility = View.GONE
+//        }
+//
+//        if(dataList[p1].isSelected){
+//            p0.select.visibility = View.VISIBLE
+//        }else{
+//            p0.select.visibility = View.GONE
+//        }
 
         p0.title.setOnClickListener {
             filterTypeSelectionInteface.getType(p1)
@@ -58,6 +96,6 @@ class FilterListAdapter(
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var title: TextView = itemView.findViewById(R.id.filter_item_tvType)
-
+        var select: ImageView = itemView.findViewById(R.id.filter_item_ivSelect)
     }
 }

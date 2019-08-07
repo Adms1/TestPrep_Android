@@ -39,6 +39,15 @@ class AppConstants {
         var FROM_RICE = "from_price"
         var TO_PRICE = "to_price"
 
+        var FILTER_COURSE_TYPE_ID = ""
+        var FILTER_COURSE_ID = ""
+        var FILTER_BOARD_ID = "111"
+        var FILTER_STANDARD_ID = "111"
+        var FILTER_SUBJECT_ID = "111"
+        var FILTER_TUTOR_ID = "111"
+        var FILTER_FROM_RICE = ""
+        var FILTER_TO_PRICE = ""
+
 //        var API_KEY = "487f26cf-15cd-4497-a053-a4c5ac0e9a7f"
 //        var SECRET_KEY = "900249336e0680941326c99ff756b23e3e675efd"
     }

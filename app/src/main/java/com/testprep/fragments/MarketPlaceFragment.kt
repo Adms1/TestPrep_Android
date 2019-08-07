@@ -1,22 +1,24 @@
 package com.testprep.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.AdapterView
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.testprep.R
-import com.testprep.activity.PackageDetailActivity
 import com.testprep.activity.TutorDetailActivity
-import com.testprep.adapter.CoverFlowAdapter2
+import com.testprep.carouselPkg.CarouselParameters
+import com.testprep.carouselPkg.CarouselView1
+import com.testprep.carouselPkg.Metrics
 import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
@@ -24,11 +26,13 @@ import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
-import it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow
 import kotlinx.android.synthetic.main.fragment_market_place.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.set
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -49,10 +53,15 @@ class MarketPlaceFragment : Fragment() {
     private var myViewPagerAdapter: MyViewPagerAdapter? = null
     private var layouts: IntArray? = null
 
-    private var mAdapter: CoverFlowAdapter2? = null
-    private var mAdapterr: CoverFlowAdapter2? = null
+//    private var mAdapter: CoverFlowAdapter2? = null
+//    private var mAdapterr: CoverFlowAdapter2? = null
 //    private var mTitle: TextSwitcher? = null
 //    private var mCoverFlow: FeatureCoverFlow? = null
+
+    internal var lblSelectedIndex: TextView? = null
+
+    var carousel: CarouselView1? = null
+    var carousel1: CarouselView1? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,8 +69,8 @@ class MarketPlaceFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        callFilterListApi()
-        callTutorsListApi()
+//        callFilterListApi()
+//        callTutorsListApi()
 
         val vieww = inflater.inflate(R.layout.fragment_market_place, container, false)
 
@@ -77,16 +86,16 @@ class MarketPlaceFragment : Fragment() {
 
         layouts = intArrayOf(R.drawable.pp_2, R.drawable.pp_1, R.drawable.pp_2)
 
-        mDataList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packages"))
-        tutorList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packages"))
+//        mDataList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packages"))
+//        tutorList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packages"))
 
 //        mTitle = view.findViewById(R.id.title) as TextSwitcher
 //        mTitle!!.setFactory {
 //            val inflater = LayoutInflater.from(activity!!)
 //            inflater.inflate(R.layout.item_title, null) as TextView
 //        }
-        val `in` = AnimationUtils.loadAnimation(activity, R.anim.slide_in_top)
-        val out = AnimationUtils.loadAnimation(activity, R.anim.slide_out_bottom)
+//        val `in` = AnimationUtils.loadAnimation(activity, R.anim.slide_in_top)
+//        val out = AnimationUtils.loadAnimation(activity, R.anim.slide_out_bottom)
 //        mTitle!!.inAnimation = `in`
 //        mTitle!!.outAnimation = out
 
@@ -106,64 +115,218 @@ class MarketPlaceFragment : Fragment() {
             startActivity(intent)
         }
 
-        if (mDataList!!.size > 0) {
-
-            mAdapter = CoverFlowAdapter2(activity!!, "pkg")
-            mAdapterr = CoverFlowAdapter2(activity!!, "tutor")
-
-            mAdapter!!.setData(mDataList!!)
-            mAdapterr!!.setDataa(tutorList!!)
-
-//            mCoverFlow = view.findViewById(R.id.coverflow)
-            coverflow.adapter = mAdapter
-            tutorcoverflow.adapter = mAdapterr
-
-            coverflow.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-                val intent = Intent(context, PackageDetailActivity::class.java)
-                intent.putExtra("pkgid", mDataList!![position].TestPackageID)
-                intent.putExtra("pname", mDataList!![position].TestPackageName)
-                intent.putExtra("sprice", mDataList!![position].TestPackageSalePrice)
-                intent.putExtra("lprice", mDataList!![position].TestPackageListPrice)
-                intent.putExtra("desc", mDataList!![position].TestPackageDescription)
-                intent.putExtra("test_type_list", mDataList!![position].TestType)
-                if (mDataList!![position].InstituteName != "" && mDataList!![position].InstituteName != null) {
-                    intent.putExtra("created_by", mDataList!![position].InstituteName)
-                } else {
-                    intent.putExtra("created_by", mDataList!![position].TutorName)
-                }
-                intent.putExtra("tutor_id", mDataList!![position].TutorID)
-                intent.putExtra("come_from", "selectpackage")
-                intent.putExtra("position", mDataList!![position].TestPackageName.substring(0, 1).single())
-                context!!.startActivity(intent)
-            }
-
-            coverflow.setOnScrollPositionListener(object : FeatureCoverFlow.OnScrollPositionListener {
-                override fun onScrolledToPosition(position: Int) {
-//                mTitle!!.setText(mDataList!![position].TestPackageName)
-                }
-
-                override fun onScrolling() {
-//                    mTitle!!.setText("")
-                }
-            })
-
-            tutorcoverflow.setOnScrollPositionListener(object : FeatureCoverFlow.OnScrollPositionListener {
-                override fun onScrolledToPosition(position: Int) {
-//                mTitle!!.setText(mDataList!![position].TestPackageName)
-                }
-
-                override fun onScrolling() {
-//                    mTitle!!.setText("")
-                }
-            })
-        }
-
         myViewPagerAdapter = MyViewPagerAdapter()
         mp_view_pager!!.adapter = myViewPagerAdapter
         mp_view_pager!!.addOnPageChangeListener(introViewPagerListener)
 
+
+        //new carousel library
+        carousel = view.findViewById(R.id.carousel) as CarouselView1
+//        val rootView = layoutInflater.inflate(R.layout.fragment_main, vg, false) as View
+
+        carousel1 = view.findViewById(R.id.carousel1) as CarouselView1
+//        lblSelectedIndex = findViewById<View>(R.id.lblSelectedIndex) as TextView
+        val lp = carousel!!.layoutParams
+        //		https://github.com/davidschreiber/FancyCoverFlow.git
+        lp.width = Metrics.convertDpToPixel(400f, activity!!).toInt()
+        lp.height = Metrics.convertDpToPixel(400f, activity!!).toInt()
+        carousel!!.layoutParams = lp
+        carousel!!.requestLayout()
+
+        val isClipChildren = false
+        carousel!!.clipChildren = isClipChildren
+        (carousel!!.parent as ViewGroup).clipChildren = isClipChildren
+        (carousel!!.parent as ViewGroup).clipToPadding = isClipChildren
+
+        carousel!!.isInfinite = true
+        carousel!!.extraVisibleChilds = 0
+        carousel!!.layoutManager!!.setDrawOrder(CarouselView1.DrawOrder.values()[1])
+
+        carousel!!.gravity = 17
+
+        carousel!!.isScrollingAlignToViews = true
+
+        val lp1 = carousel1!!.layoutParams
+        //		https://github.com/davidschreiber/FancyCoverFlow.git
+        lp1.width = Metrics.convertDpToPixel(400f, activity!!).toInt()
+        lp1.height = Metrics.convertDpToPixel(400f, activity!!).toInt()
+        carousel1!!.layoutParams = lp
+        carousel1!!.requestLayout()
+
+        carousel1!!.clipChildren = isClipChildren
+        (carousel1!!.parent as ViewGroup).clipChildren = isClipChildren
+        (carousel1!!.parent as ViewGroup).clipToPadding = isClipChildren
+
+        carousel1!!.isInfinite = true
+        carousel1!!.extraVisibleChilds = 0
+        carousel1!!.layoutManager!!.setDrawOrder(CarouselView1.DrawOrder.values()[1])
+
+        carousel1!!.gravity = 17
+
+        carousel1!!.isScrollingAlignToViews = true
+
+//        carousel!!.setOnItemSelectedListener(object : CarouselView1.OnItemSelectedListener {
+//            override fun onItemSelected(carouselView: CarouselView1, position: Int, adapterPosition: Int, adapter: RecyclerView.Adapter<*>?) {
+//                lblSelectedIndex!!.text = "Selected Position $position"
+//            }
+//
+//            override fun onItemDeselected(carouselView: CarouselView1, position: Int, adapterPosition: Int, adapter: RecyclerView.Adapter<*>?) {
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//            }
+//
+//        })
+
+        val hashMap = HashMap<String, Number>()
+        hashMap["numPies"] = 5
+        hashMap["farScale"] = 0
+        hashMap["viewPerspective"] = 0.1
+        hashMap["horizontalViewPort"] = 0.75
+        hashMap["farAlpha"] = 0
+
+        val transformerSelectedPos = 1
+        var transformer: CarouselView1.ViewTransformer? = null
+        if (transformerSelectedPos < CarouselParameters.TRANSFORMER_CLASSES.size) {
+            // built-in transformer
+            transformer = CarouselParameters.createTransformer<CarouselView1.ViewTransformer>(
+                CarouselParameters.TRANSFORMER_CLASSES[transformerSelectedPos],
+                hashMap
+            )
+        }
+
+        carousel!!.transformer = transformer
+        carousel1!!.transformer = transformer
+
+        carousel!!.post {
+            // smooth scroll to the 'centermost' item
+            carousel!!.smoothScrollToPosition((5 - 1) / 2)
+        }
+
+
+        carousel1!!.post {
+            // smooth scroll to the 'centermost' item
+            carousel1!!.smoothScrollToPosition((5 - 1) / 2)
+        }
+
+        callFilterListApi()
+        callTutorsListApi()
     }
 
+    class PkgPageAdapter(
+        internal var size: Int,
+        internal var width: Int,
+        internal var height: Int,
+        internal var context: Context,
+        var mDataList: java.util.ArrayList<PackageData.PackageDataList>
+    ) : RecyclerView.Adapter<PkgPageAdapter.viewholder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewholder {
+
+            val view = LayoutInflater.from(context).inflate(R.layout.carousel_container, parent, false)
+            return viewholder(view)
+        }
+
+        override fun onBindViewHolder(holder: viewholder, position: Int) {
+//                RandomPageFragment.initializeTextView(holder.textView!!, position + 1)
+
+            holder.title1.text = mDataList[position].TestPackageName
+
+            holder.title.setOnClickListener {
+                //                val intent = Intent(context, PackageDetailActivity::class.java)
+//                intent.putExtra("pkgid", mDataList!![position].TestPackageID)
+//                intent.putExtra("pname", mDataList!![position].TestPackageName)
+//                intent.putExtra("sprice", mDataList!![position].TestPackageSalePrice)
+//                intent.putExtra("lprice", mDataList!![position].TestPackageListPrice)
+//                intent.putExtra("desc", mDataList!![position].TestPackageDescription)
+//                intent.putExtra("test_type_list", mDataList!![position].TestType)
+//                if (mDataList!![position].InstituteName != "" && mDataList!![position].InstituteName != null) {
+//                    intent.putExtra("created_by", mDataList!![position].InstituteName)
+//                } else {
+//                    intent.putExtra("created_by", mDataList!![position].TutorName)
+//                }
+//                intent.putExtra("tutor_id", mDataList!![position].TutorID)
+//                intent.putExtra("come_from", "selectpackage")
+//                intent.putExtra("position", mDataList!![position].TestPackageName.substring(0, 1).single())
+//                context!!.startActivity(intent)
+            }
+
+        }
+
+        override fun getItemCount(): Int {
+            return mDataList.size
+        }
+
+        class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+            var title: ImageView = itemView.findViewById(R.id.img)
+            var title1: TextView = itemView.findViewById(R.id.title11)
+
+        }
+
+
+//            class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//                @Bind(R.id.img)
+//                var textView: ImageView? = null
+//
+////                init {
+////                    ButterKnife.bind(this, itemView)
+//                }
+//            }
+
+    }
+
+    class TutorPageAdapter(
+        internal var size: Int,
+        internal var width: Int,
+        internal var height: Int,
+        internal var context: Context,
+        var mDataList: java.util.ArrayList<PackageData.PackageDataList>
+    ) : RecyclerView.Adapter<TutorPageAdapter.viewholder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewholder {
+
+            val view = LayoutInflater.from(context).inflate(R.layout.carousel_container, parent, false)
+            return viewholder(view)
+        }
+
+        override fun onBindViewHolder(holder: viewholder, position: Int) {
+//                RandomPageFragment.initializeTextView(holder.textView!!, position + 1)
+
+            holder.title1.text = mDataList[position].TutorName
+            holder.title.setImageDrawable(context.resources.getDrawable(R.drawable.pro_pic1))
+
+            holder.title.setOnClickListener {
+                //                val intent = Intent(context, PackageDetailActivity::class.java)
+//                intent.putExtra("pkgid", mDataList!![position].TestPackageID)
+//                intent.putExtra("pname", mDataList!![position].TestPackageName)
+//                intent.putExtra("sprice", mDataList!![position].TestPackageSalePrice)
+//                intent.putExtra("lprice", mDataList!![position].TestPackageListPrice)
+//                intent.putExtra("desc", mDataList!![position].TestPackageDescription)
+//                intent.putExtra("test_type_list", mDataList!![position].TestType)
+//                if (mDataList!![position].InstituteName != "" && mDataList!![position].InstituteName != null) {
+//                    intent.putExtra("created_by", mDataList!![position].InstituteName)
+//                } else {
+//                    intent.putExtra("created_by", mDataList!![position].TutorName)
+//                }
+//                intent.putExtra("tutor_id", mDataList!![position].TutorID)
+//                intent.putExtra("come_from", "selectpackage")
+//                intent.putExtra("position", mDataList!![position].TestPackageName.substring(0, 1).single())
+//                context!!.startActivity(intent)
+            }
+
+        }
+
+        override fun getItemCount(): Int {
+            return mDataList.size
+        }
+
+        class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+            var title: ImageView = itemView.findViewById(R.id.img)
+            var title1: TextView = itemView.findViewById(R.id.title11)
+
+        }
+
+    }
 
     private var introViewPagerListener: ViewPager.OnPageChangeListener = object : ViewPager.OnPageChangeListener {
 
@@ -263,8 +426,10 @@ class MarketPlaceFragment : Fragment() {
 
                         Log.d("dsize", "" + mDataList!!.size)
 
-                        mAdapter!!.setData(mDataList!!)
-                        coverflow.adapter = mAdapter
+//                        mAdapter!!.setData(mDataList!!)
+//                        coverflow.adapter = mAdapter
+
+                        carousel!!.adapter = PkgPageAdapter(5, 330, 160, activity!!, mDataList!!)
 
                     } else {
 
@@ -305,9 +470,9 @@ class MarketPlaceFragment : Fragment() {
                         tutorList = response.body()!!.data
 
                         Log.d("dsize", "" + tutorList!!.size)
-
-                        mAdapterr!!.setDataa(tutorList!!)
-                        tutorcoverflow.adapter = mAdapterr
+                        carousel1!!.adapter = TutorPageAdapter(5, 330, 160, activity!!, tutorList!!)
+//                        mAdapterr!!.setDataa(tutorList!!)
+//                        tutorcoverflow.adapter = mAdapterr
 
                     } else {
 

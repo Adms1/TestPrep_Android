@@ -20,7 +20,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
-    var filterTypeArr: ArrayList<String> = ArrayList()
+    var filterTypeArr: ArrayList<PackageData.PackageDataList> = ArrayList()
     var filterTypeSelectionInteface: FilterTypeSelectionInteface? = null
     var filterInterface: filterInterface? = null
     var filterAdapter: FilterListAdapter? = null
@@ -58,12 +58,25 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 //        filterTypeArr.add("discount")
 //        filterTypeArr.add("Promoted")
 
-        filterTypeArr.add("Boards")
-//            filterTypeArr.add("Competitive Exams")
-        filterTypeArr.add("Standard")
-        filterTypeArr.add("Subjects")
-        filterTypeArr.add("Tutor")
-        filterTypeArr.add("Price")
+        val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Boards")
+        pp1.isSelected = false
+        filterTypeArr.add(pp1)
+
+        val pp2: PackageData.PackageDataList = PackageData.PackageDataList(0, "Standard")
+        pp1.isSelected = false
+        filterTypeArr.add(pp2)
+
+        val pp3: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")
+        pp1.isSelected = false
+        filterTypeArr.add(pp3)
+
+        val pp4: PackageData.PackageDataList = PackageData.PackageDataList(0, "Tutor")
+        pp1.isSelected = false
+        filterTypeArr.add(pp4)
+
+        val pp5: PackageData.PackageDataList = PackageData.PackageDataList(0, "Price")
+        pp1.isSelected = false
+        filterTypeArr.add(pp5)
 
         filterAdapter = FilterListAdapter(this@FilterActivity, filterTypeArr, filterTypeSelectionInteface!!)
         filter_rvList.adapter = filterAdapter
@@ -92,12 +105,26 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                 Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)
 
-                filterTypeArr.add("Boards")
-//            filterTypeArr.add("Competitive Exams")
-                filterTypeArr.add("Standard")
-                filterTypeArr.add("Subjects")
-                filterTypeArr.add("Tutor")
-                filterTypeArr.add("Price")
+                val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Boards")
+                pp1.isSelected = false
+                filterTypeArr.add(pp1)
+
+                val pp2: PackageData.PackageDataList = PackageData.PackageDataList(0, "Standard")
+                pp1.isSelected = false
+                filterTypeArr.add(pp2)
+
+                val pp3: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")
+                pp1.isSelected = false
+                filterTypeArr.add(pp3)
+
+                val pp4: PackageData.PackageDataList = PackageData.PackageDataList(0, "Tutor")
+                pp1.isSelected = false
+                filterTypeArr.add(pp4)
+
+                val pp5: PackageData.PackageDataList = PackageData.PackageDataList(0, "Price")
+                pp1.isSelected = false
+                filterTypeArr.add(pp5)
+
 
                 filterAdapter = FilterListAdapter(this@FilterActivity, filterTypeArr, filterTypeSelectionInteface!!)
                 filter_rvList.adapter = filterAdapter
@@ -118,11 +145,21 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                 Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)
 
-                filterTypeArr.add("Competitive Exams")
-//            filterTypeArr.add("Standard")
-                filterTypeArr.add("Subjects")
-                filterTypeArr.add("Tutor")
-                filterTypeArr.add("Price")
+                val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Competitive Exams")
+                pp1.isSelected = false
+                filterTypeArr.add(pp1)
+
+                val pp3: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")
+                pp1.isSelected = false
+                filterTypeArr.add(pp3)
+
+                val pp4: PackageData.PackageDataList = PackageData.PackageDataList(0, "Tutor")
+                pp1.isSelected = false
+                filterTypeArr.add(pp4)
+
+                val pp5: PackageData.PackageDataList = PackageData.PackageDataList(0, "Price")
+                pp1.isSelected = false
+                filterTypeArr.add(pp5)
 
                 filterAdapter = FilterListAdapter(this@FilterActivity, filterTypeArr, filterTypeSelectionInteface!!)
                 filter_rvList.adapter = filterAdapter
@@ -160,14 +197,14 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 //                supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
 //            }
 
-            filterTypeArr[p0] == "Boards" -> {
+            filterTypeArr[p0].TestPackageName == "Boards" -> {
 
                 bundle.putString("type", "boards")
                 fragment.arguments = bundle
                 supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
             }
 
-            filterTypeArr[p0] == "Competitive Exams" -> {
+            filterTypeArr[p0].TestPackageName == "Competitive Exams" -> {
 
                 bundle.putString("type", "competitive_exams")
                 fragment.arguments = bundle
@@ -175,7 +212,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
             }
 
-            filterTypeArr[p0] == "Standard" -> {
+            filterTypeArr[p0].TestPackageName == "Standard" -> {
 
                 bundle.putString("type", "standards")
                 fragment.arguments = bundle
@@ -183,7 +220,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
             }
 
-            filterTypeArr[p0] == "Subjects" -> {
+            filterTypeArr[p0].TestPackageName == "Subjects" -> {
 
                 bundle.putString("type", "subjects")
                 fragment.arguments = bundle
@@ -191,7 +228,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
             }
 
-            filterTypeArr[p0] == "Tutor" -> {
+            filterTypeArr[p0].TestPackageName == "Tutor" -> {
 
                 bundle.putString("type", "tutor")
                 fragment.arguments = bundle
@@ -199,7 +236,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
             }
 
-            filterTypeArr[p0] == "Price" -> supportFragmentManager.beginTransaction().add(
+            filterTypeArr[p0].TestPackageName == "Price" -> supportFragmentManager.beginTransaction().add(
                 R.id.filter_container,
                 PriceFilterFragment()
             ).commit()
@@ -252,6 +289,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 //    }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         finish()
     }
 

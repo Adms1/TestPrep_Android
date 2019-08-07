@@ -42,18 +42,20 @@ class TutorDetailActivity : AppCompatActivity() {
 
         if (intent.getStringExtra("type") == "pkg") {
 
+            tutor_detail_ivFilter.visibility = View.VISIBLE
+
             tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
             tutor_packages_rvPopularPkg.adapter = TestPackagesAdapter(this@TutorDetailActivity, data)
 
         } else {
+
+            tutor_detail_ivFilter.visibility = View.GONE
 
             tutor_packages_rvPopularPkg.layoutManager =
                 LinearLayoutManager(this@TutorDetailActivity, LinearLayoutManager.VERTICAL, false)
             tutor_packages_rvPopularPkg.adapter = TutorsAdapter(this@TutorDetailActivity, data)
 
         }
-
-
 
 //        configureTabLayout()
 
@@ -66,7 +68,6 @@ class TutorDetailActivity : AppCompatActivity() {
 
                 val intent = Intent(this@TutorDetailActivity, FilterActivity::class.java)
                 startActivity(intent)
-
             }
         }
     }
@@ -100,5 +101,12 @@ class TutorDetailActivity : AppCompatActivity() {
 //        })
 //    }
 
+
+    override fun onBackPressed() {
+
+        val intent = Intent(this@TutorDetailActivity, DashboardActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
 }
