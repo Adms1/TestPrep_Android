@@ -1,6 +1,7 @@
 package com.testprep.adapter
 
 import android.content.Context
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,6 @@ import com.testprep.R
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.PackageData
 import com.testprep.utils.AppConstants
-import com.testprep.utils.Utils
 
 class FilterListAdapter(
     val context: Context,
@@ -40,39 +40,44 @@ class FilterListAdapter(
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
         p0.title.text = dataList[p1].TestPackageName
 
-        if (Utils.getStringValue(context, AppConstants.STANDARD_ID, "") != "" ||
-            Utils.getStringValue(context, AppConstants.SUBJECT_ID, "") != "" ||
-            Utils.getStringValue(context, AppConstants.TUTOR_ID, "") != "" ||
-            Utils.getStringValue(context, AppConstants.COURSE_ID, "") != ""
-        ) {
-            p0.select.visibility = View.VISIBLE
-        } else {
-            p0.select.visibility = View.GONE
-        }
+        when (dataList[p1].TestPackageName) {
+            "Boards" -> {
+                if (AppConstants.FILTER_BOARD_ID != "") {
+                    p0.select.visibility = View.VISIBLE
+                } else {
+                    p0.select.visibility = View.INVISIBLE
+                }
+            }
+            "Standard" -> {
 
-//        if (Utils.getStringValue(context, AppConstants.SUBJECT_ID, "") != ""){
-//            p0.select.visibility = View.VISIBLE
-//        }else {
-//            p0.select.visibility = View.GONE
-//        }
-//
-//        if (Utils.getStringValue(context, AppConstants.TUTOR_ID, "") != ""){
-//            p0.select.visibility = View.VISIBLE
-//        }else {
-//            p0.select.visibility = View.GONE
-//        }
-//
-//        if (Utils.getStringValue(context, AppConstants.COURSE_ID, "") != ""){
-//            p0.select.visibility = View.VISIBLE
-//        }else {
-//            p0.select.visibility = View.GONE
-//        }
-//
-//        if(dataList[p1].isSelected){
-//            p0.select.visibility = View.VISIBLE
-//        }else{
-//            p0.select.visibility = View.GONE
-//        }
+                if (AppConstants.FILTER_STANDARD_ID != "") {
+                    p0.select.visibility = View.VISIBLE
+                } else {
+                    p0.select.visibility = View.INVISIBLE
+                }
+            }
+            "Competitive Exams" -> {
+                if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_BOARD_ID != "111") {
+                    p0.select.visibility = View.VISIBLE
+                } else {
+                    p0.select.visibility = View.INVISIBLE
+                }
+            }
+            "Subjects" -> {
+                if (AppConstants.FILTER_SUBJECT_ID != "") {
+                    p0.select.visibility = View.VISIBLE
+                } else {
+                    p0.select.visibility = View.INVISIBLE
+                }
+            }
+            "Tutor" -> {
+                if (AppConstants.FILTER_TUTOR_ID != "") {
+                    p0.select.visibility = View.VISIBLE
+                } else {
+                    p0.select.visibility = View.INVISIBLE
+                }
+            }
+        }
 
         p0.title.setOnClickListener {
             filterTypeSelectionInteface.getType(p1)
@@ -83,11 +88,15 @@ class FilterListAdapter(
 
         if (row_index == p1) {
             p0.title.setTextColor(context.resources.getColor(R.color.white))
-            p0.title.setBackgroundColor(context.resources.getColor(R.color.colorPrimaryDark))
+            p0.mainll.setBackgroundColor(context.resources.getColor(R.color.colorPrimaryDark))
+
+            p0.select.setImageResource(R.drawable.white_ring_bg)
 
         } else {
             p0.title.setTextColor(context.resources.getColor(R.color.gray))
-            p0.title.setBackgroundColor(context.resources.getColor(R.color.light_blue))
+            p0.mainll.setBackgroundColor(context.resources.getColor(R.color.light_blue))
+
+            p0.select.setImageResource(R.drawable.blue_round)
 
         }
 
@@ -97,5 +106,6 @@ class FilterListAdapter(
 
         var title: TextView = itemView.findViewById(R.id.filter_item_tvType)
         var select: ImageView = itemView.findViewById(R.id.filter_item_ivSelect)
+        var mainll: ConstraintLayout = itemView.findViewById(R.id.filter_item_mainll)
     }
 }

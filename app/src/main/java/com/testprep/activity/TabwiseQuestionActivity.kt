@@ -446,7 +446,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                     Log.d("qid", "" + movies[0].QuestionID)
 
 //                    if (PageActivity.countt >= 0) {
-                        if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
+                    if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
 
 //                            var url = URL("http://content.testcraft.co.in/question/" + movies[pos].titleimg)
 //                            var bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
@@ -456,14 +456,12 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
 //                            Log.d("imgsize", "widht" + widhtx + "  height" + heightx)
 
-                            // setting list adapter
+                        // setting list adapter
 
-
-                            sectionList!!.add("Section 1")
+                        sectionList!!.add("Section 1")
 //                            sectionList.add("Section 2")
 //                            sectionList.add("Section 3")
 //                            sectionList.add("Section 4")
-
 
 //                            sectionList1.add("I")
 //                            sectionList1.add("II")
@@ -476,38 +474,38 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 //                            sectionList1.add("IX")
 //                            sectionList1.add("X")
 
-                            for (i in 0 until movies.size) {
-                                val questionTypeModel = QuestionTypeModel()
-                                questionTypeModel.qnumber = i
-                                questionTypeModel.type = 5
-                                sectionList1!!.add(questionTypeModel)
+                        for (i in 0 until movies.size) {
+                            val questionTypeModel = QuestionTypeModel()
+                            questionTypeModel.qnumber = i
+                            questionTypeModel.type = 5
+                            sectionList1!!.add(questionTypeModel)
 
-                                val answerModel = AnswerModel()
-                                answerModel.qid = movies[i].QuestionID
-                                answerModel.ansid = "0"
-                                answerModel.ansresult = false
-                                ansArr.add(answerModel)
+                            val answerModel = AnswerModel()
+                            answerModel.qid = movies[i].QuestionID
+                            answerModel.ansid = "0"
+                            answerModel.ansresult = false
+                            ansArr.add(answerModel)
 
-                            }
+                        }
 
-                            Log.d("header", "" + sectionList)
-                            Log.d("child", "" + childList)
+                        Log.d("header", "" + sectionList)
+                        Log.d("child", "" + childList)
 
-                            queTab_expQueList.layoutManager =
-                                LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
+                        queTab_expQueList.layoutManager =
+                            LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
-                            queTab_expQueList.adapter =
-                                QuestionListSideMenuAdapter(
-                                    this@TabwiseQuestionActivity,
-                                    sectionList!!,
-                                    sectionList1!!,
-                                    filterTypeSelectionInteface!!,
-                                    "question"
-                                )
+                        queTab_expQueList.adapter =
+                            QuestionListSideMenuAdapter(
+                                this@TabwiseQuestionActivity,
+                                sectionList!!,
+                                sectionList1!!,
+                                filterTypeSelectionInteface!!,
+                                "question"
+                            )
 
-                            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
+                        Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
 //                                .resize(page_img_que_img.width, page_img_que_img.height)
-                                .into(page_img_que_img)
+                            .into(page_img_que_img)
 //
 //                            PageViewFragment.qsize = page_img_que_img.width
 
@@ -523,43 +521,14 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 //                        val b = BitmapFactory.decodeFile(photoPath, options)
 //                        page_img_que_img.setImageBitmap(b)
 
-                            ansList!!.layoutManager =
-                                LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
-
-                            if (movies[0].QuestionTypeID != 3) {
-
-                                queTab_tvFillBlanks.visibility = View.GONE
-                                ansList!!.visibility = View.VISIBLE
-
-                                ansList!!.adapter = SelectImageOptionAdapter(
-                                    this@TabwiseQuestionActivity,
-                                    movies[0].StudentTestQuestionMCQ,
-                                    page_img_que_img.width,
-                                    movies[0].QuestionTypeID,
-                                    movies[0].QuestionID
-                                )
-                            } else {
-                                queTab_tvFillBlanks.visibility = View.VISIBLE
-                                ansList!!.visibility = View.GONE
-                            }
-
-
-                        }
-                    } else {
-                        if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
-                            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
-//                                .resize(page_img_que_img.width, page_img_que_img.height)
-                                .into(page_img_que_img)
-
-                        }
-
                         ansList!!.layoutManager =
                             LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
-                    if (movies[0].QuestionTypeID != 3) {
+                        if (movies[0].QuestionTypeID != 3) {
 
-                        queTab_tvFillBlanks.visibility = View.GONE
-                        ansList!!.visibility = View.VISIBLE
+
+                            queTab_tvFillBlanks.visibility = View.GONE
+                            ansList!!.visibility = View.VISIBLE
 
                             ansList!!.adapter = SelectImageOptionAdapter(
                                 this@TabwiseQuestionActivity,
@@ -569,12 +538,43 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                                 movies[0].QuestionID
                             )
                         } else {
-                        queTab_tvFillBlanks.visibility = View.VISIBLE
-                        ansList!!.visibility = View.GONE
-
+                            queTab_tvFillBlanks.visibility = View.VISIBLE
+                            ansList!!.visibility = View.GONE
                         }
 
+
                     }
+                }
+//                else {
+//                    if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
+//                        Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
+////                                .resize(page_img_que_img.width, page_img_que_img.height)
+//                            .into(page_img_que_img)
+//
+//                    }
+//
+//                    ansList!!.layoutManager =
+//                        LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
+//
+//                    if (movies[0].QuestionTypeID != 3) {
+//
+//                        queTab_tvFillBlanks.visibility = View.GONE
+//                        ansList!!.visibility = View.VISIBLE
+//
+//                        ansList!!.adapter = SelectImageOptionAdapter(
+//                            this@TabwiseQuestionActivity,
+//                            movies[0].StudentTestQuestionMCQ,
+//                            page_img_que_img.width,
+//                            movies[0].QuestionTypeID,
+//                            movies[0].QuestionID
+//                        )
+//                    } else {
+//                        queTab_tvFillBlanks.visibility = View.VISIBLE
+//                        ansList!!.visibility = View.GONE
+//
+//                    }
+//
+//                }
 
 //                    html_text.setHtml(movies[pos].titlehtml,
 //                        HtmlHttpImageGetter(html_text)
@@ -591,9 +591,9 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
 //                    page_img_que_img.setImageDrawable(activity!!.resources.getDrawable(R.drawable.pic))
 
-                    sortDialog.dismiss()
+                sortDialog.dismiss()
 
-                    Log.d("imgcall", "Number of movies received: " + movies.size)
+                Log.d("imgcall", "Number of movies received: " + movies.size)
 //                } else {
 //                    sortDialog.dismiss()
 //                    Toast.makeText(this@TabwiseQuestionActivity, "No Question at that time", Toast.LENGTH_LONG).show()
@@ -688,7 +688,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                 },
                 DialogInterface.OnClickListener { dialog, which ->
                     dialog.dismiss()
-
 
                 }).show()
         }

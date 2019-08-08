@@ -7,11 +7,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.testprep.R
 import com.testprep.adapter.FilterListAdapter
-import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.fragments.OtherFilterFragment
 import com.testprep.fragments.PriceFilterFragment
 import com.testprep.interfaces.FilterTypeSelectionInteface
-import com.testprep.interfaces.filterInterface
 import com.testprep.models.PackageData
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
@@ -22,18 +20,9 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
     var filterTypeArr: ArrayList<PackageData.PackageDataList> = ArrayList()
     var filterTypeSelectionInteface: FilterTypeSelectionInteface? = null
-    var filterInterface: filterInterface? = null
     var filterAdapter: FilterListAdapter? = null
 
-    private var testPackagesAdapter: TestPackagesAdapter? = null
-    private var mDataList: ArrayList<PackageData.PackageDataList>? = null
-
     var coursetypeid = "1"
-    var boardid = ""
-    var examids = ""
-    var stdids = ""
-    var subids = ""
-    var tutorids = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -81,13 +70,6 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         filterAdapter = FilterListAdapter(this@FilterActivity, filterTypeArr, filterTypeSelectionInteface!!)
         filter_rvList.adapter = filterAdapter
         filterAdapter!!.notifyDataSetChanged()
-
-        var fragment = OtherFilterFragment()
-        val bundle = Bundle()
-        bundle.putString("type", "boards")
-        bundle.putString("coursetype", coursetypeid)
-        fragment.arguments = bundle
-        supportFragmentManager.beginTransaction().add(R.id.filter_container, fragment).commit()
 
         if (Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, "") == "1") {
             filter_rbBoards.isChecked = true
@@ -175,6 +157,13 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
             }
 
         }
+
+//        var fragment = OtherFilterFragment()
+//        val bundle = Bundle()
+//        bundle.putString("type", "boards")
+//        bundle.putString("coursetype", coursetypeid)
+//        fragment.arguments = bundle
+//        supportFragmentManager.beginTransaction().add(R.id.filter_container, fragment).commit()
 
         filter_ivBack.setOnClickListener {
 

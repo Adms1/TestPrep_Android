@@ -80,10 +80,10 @@ class DashboardActivity : AppCompatActivity() {
 
 //        supportFragmentManager.beginTransaction().add(R.id.container, SelectCoarseFragment()).commit()
 
-        AppConstants.FILTER_STANDARD_ID = ""
-        AppConstants.FILTER_SUBJECT_ID = ""
-        AppConstants.FILTER_TUTOR_ID = ""
-        AppConstants.FILTER_BOARD_ID = ""
+        AppConstants.FILTER_STANDARD_ID = "111"
+        AppConstants.FILTER_SUBJECT_ID = "111"
+        AppConstants.FILTER_TUTOR_ID = "111"
+        AppConstants.FILTER_BOARD_ID = "111"
 
     }
 
@@ -287,10 +287,10 @@ class DashboardActivity : AppCompatActivity() {
                 clearPrefrence(this@DashboardActivity)
                 AppConstants.COURSE_FLOW_ARRAY.clear()
 
-                AppConstants.FILTER_STANDARD_ID = ""
-                AppConstants.FILTER_SUBJECT_ID = ""
-                AppConstants.FILTER_TUTOR_ID = ""
-                AppConstants.FILTER_BOARD_ID = ""
+                AppConstants.FILTER_STANDARD_ID = "111"
+                AppConstants.FILTER_SUBJECT_ID = "111"
+                AppConstants.FILTER_TUTOR_ID = "111"
+                AppConstants.FILTER_BOARD_ID = "111"
 
                 mGoogleSignInClient!!.signOut()
                     .addOnCompleteListener(this) {
