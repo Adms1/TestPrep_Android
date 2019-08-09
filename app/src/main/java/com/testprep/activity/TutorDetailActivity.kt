@@ -40,14 +40,14 @@ class TutorDetailActivity : AppCompatActivity() {
 
         tutor_detail_header.text = intent.getStringExtra("pname")
 
-        if (intent.getStringExtra("type") == "pkg") {
+        if (intent.getStringExtra("type") == "pkg" || intent.getStringExtra("type") == "explore") {
 
             tutor_detail_ivFilter.visibility = View.VISIBLE
 
             tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
             tutor_packages_rvPopularPkg.adapter = TestPackagesAdapter(this@TutorDetailActivity, data)
 
-        } else {
+        } else if (intent.getStringExtra("type") == "tutor") {
 
             tutor_detail_ivFilter.visibility = View.GONE
 
@@ -56,9 +56,7 @@ class TutorDetailActivity : AppCompatActivity() {
             tutor_packages_rvPopularPkg.adapter = TutorsAdapter(this@TutorDetailActivity, data)
 
         }
-
 //        configureTabLayout()
-
     }
 
     fun onClick(v: View) {
@@ -97,16 +95,17 @@ class TutorDetailActivity : AppCompatActivity() {
 //            override fun onTabReselected(tab: TabLayout.Tab) {
 //
 //            }
-//
 //        })
 //    }
 
-
     override fun onBackPressed() {
 
-        val intent = Intent(this@TutorDetailActivity, DashboardActivity::class.java)
-        startActivity(intent)
-        finish()
+        if (intent.getStringExtra("type") == "explore") {
+            finish()
+        } else {
+            val intent = Intent(this@TutorDetailActivity, DashboardActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
-
 }

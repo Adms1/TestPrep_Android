@@ -1,16 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@color/white"
-             android:paddingTop="@dimen/_15sdp"
-             tools:context=".fragments.ExploreFragment">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingTop="@dimen/_5sdp"
+        tools:context=".fragments.ExploreFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
+            android:id="@+id/explore_rlSearch"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:background="@drawable/gray_ring_bg"
+            android:layout_margin="@dimen/_10sdp"
+            android:padding="@dimen/_4sdp"
+            android:layout_height="wrap_content">
 
-</FrameLayout>
+        <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search test, tutors or packages"
+                android:textSize="@dimen/_14sdp"
+                android:background="@color/white"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:inputType="textAutoComplete"
+                android:id="@+id/explore_etSearch"
+                android:layout_toLeftOf="@+id/explore_ivSearch"
+                android:padding="@dimen/_7sdp"/>
+
+        <ImageView
+                android:id="@+id/explore_ivSearch"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/search"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_10sdp"/>
+
+    </RelativeLayout>
+
+    <TextView
+            android:id="@+id/explore_tvRecentsearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Recent Searches"
+            android:textSize="@dimen/_15sdp"
+            android:maxLines="1"
+            app:layout_constraintRight_toLeftOf="@+id/explore_ivSeeall"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:ellipsize="end"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/explore_rlSearch"/>
+
+    <TextView
+            android:id="@+id/explore_ivSeeall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="See all"
+            android:textSize="@dimen/_13sdp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:visibility="gone"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/explore_tvRecentsearch"
+            app:layout_constraintBottom_toBottomOf="@+id/explore_tvRecentsearch"
+            android:padding="@dimen/_7sdp"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/explore_rvList"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/explore_tvRecentsearch"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

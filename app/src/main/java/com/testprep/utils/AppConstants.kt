@@ -48,6 +48,8 @@ class AppConstants {
         var FILTER_FROM_RICE = ""
         var FILTER_TO_PRICE = ""
 
+        var recentSearchList: ArrayList<String> = ArrayList()
+
 //        var API_KEY = "487f26cf-15cd-4497-a053-a4c5ac0e9a7f"
 //        var SECRET_KEY = "900249336e0680941326c99ff756b23e3e675efd"
     }

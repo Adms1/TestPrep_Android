@@ -21,53 +21,52 @@
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".activity.ResultActivity">
+        <activity android:name=".activity.ResultActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.TutorDetailActivity">
+        <activity android:name=".activity.TutorDetailActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.ChangePasswordActivity">
+        <activity android:name=".activity.ChangePasswordActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.CartActivity">
+        <activity android:name=".activity.CartActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.ViewSolutionActivity">
+        <activity android:name=".activity.ViewSolutionActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.TestReviewActivity">
+        <activity android:name=".activity.TestReviewActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.CheckEmailActivity">
+        <activity android:name=".activity.CheckEmailActivity" android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".activity.TestListActivity"/>
-        <activity android:name=".activity.FilterActivity"/>
-        <activity android:name=".activity.MarketPlaceListActivity"/>
-        <activity android:name=".fragments.TutorPackagesFragment"/>
-        <activity android:name=".fragments.TutorProfileFragment"/>
-        <activity android:name=".fragments.TutorsReviewFragment"/>
-        <activity android:name=".activity.SelectCompititiveActivity"/>
-        <activity android:name=".activity.IntroActivity"/>
-        <activity android:name=".activity.PrefrenceActivity"/>
-        <activity android:name=".activity.NewActivity"/>
-        <activity android:name=".activity.PackageDetailActivity"/>
-        <activity android:name=".activity.SelectPackageActivity"/>
-        <activity android:name=".activity.PaymentSuccessScreen"/>
-        <activity android:name=".activity.TraknpayRequestActivity"/>
-        <activity android:name=".old.NewPageActivity"/>
-        <activity android:name=".activity.TabwiseQuestionActivity"/>
-        <activity android:name=".activity.SelectStandardActivity"/>
-        <activity android:name=".activity.SelectSubjectActivity"/>
-        <activity android:name=".activity.SelectBoardActivity"/>
-        <activity android:name=".activity.ForgotPasswordActivity"/>
+        <activity android:name=".activity.TestListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.FilterActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MarketPlaceListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".fragments.TutorPackagesFragment" android:screenOrientation="portrait"/>
+        <activity android:name=".fragments.TutorProfileFragment" android:screenOrientation="portrait"/>
+        <activity android:name=".fragments.TutorsReviewFragment" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SelectCompititiveActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.IntroActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PrefrenceActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.NewActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PackageDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SelectPackageActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PaymentSuccessScreen" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.TraknpayRequestActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.TabwiseQuestionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SelectStandardActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SelectSubjectActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SelectBoardActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.ForgotPasswordActivity" android:screenOrientation="portrait"/>
         <activity
                 android:name=".activity.OtpActivity"
-                android:windowSoftInputMode="adjustPan"/>
+                android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"/>
         <activity
                 android:name=".activity.DashboardActivity"
-                android:windowSoftInputMode="adjustPan"/>
+                android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"/>
         <activity
                 android:name=".activity.SignupActivity"
-                android:windowSoftInputMode="adjustPan"/>
+                android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"/>
         <activity
                 android:name=".activity.LoginActivity"
-                android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activity.SplashActivity">
+                android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.SplashActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -76,21 +75,23 @@
         </activity>
         <activity
                 android:name=".old.WebviewPageActivity"
-                android:theme="@style/AppTheme"/>
+                android:theme="@style/AppTheme" android:screenOrientation="portrait"/>
         <activity
                 android:name=".old.PageActivity"
-                android:theme="@style/AppTheme"/>
+                android:theme="@style/AppTheme" android:screenOrientation="portrait"/>
         <activity
                 android:name=".activity.UpdateProfileActivity"
-                android:windowSoftInputMode="adjustPan"/>
+                android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"/>
         <activity
                 android:name=".old.Main2Activity"
                 android:label="@string/title_activity_main2"
-                android:theme="@style/AppTheme.NoActionBar"/> <!-- <intent-filter> -->
-        <activity android:name=".activity.MyPaymentActivity"/>
+                android:theme="@style/AppTheme.NoActionBar"
+                android:screenOrientation="portrait"/> <!-- <intent-filter> -->
+        <activity android:name=".activity.MyPaymentActivity" android:screenOrientation="portrait"/>
         <activity
                 android:name=".activity.CoinActivity"
-                android:windowSoftInputMode="adjustPan"/> <!-- <action android:name="android.intent.action.MAIN"/> -->
+                android:windowSoftInputMode="adjustPan"
+                android:screenOrientation="portrait"/> <!-- <action android:name="android.intent.action.MAIN"/> -->
         <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
         <!-- </intent-filter> -->
         <meta-data
@@ -100,10 +101,10 @@
         <activity
                 android:name="com.facebook.FacebookActivity"
                 android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" android:screenOrientation="portrait"/>
         <activity
                 android:name="com.facebook.CustomTabActivity"
-                android:exported="true"/>
+                android:exported="true" android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
