@@ -40,12 +40,12 @@ class CoverFlowAdapter(private val mContext: Context) : BaseAdapter() {
             rowView = inflater.inflate(R.layout.item_coverflow, null)
 
             val viewHolder = ViewHolder()
-            viewHolder.text = rowView!!.findViewById<View>(R.id.label) as TextView
-            viewHolder.image = rowView.findViewById<View>(R.id.image) as ImageView
+//            viewHolder.text = rowView!!.findViewById<View>(R.id.choosemp_tvsujectname) as TextView
+//            viewHolder.image = rowView.findViewById<View>(R.id.image) as ImageView
             rowView.tag = viewHolder
         }
 
-        val holder = rowView.tag as ViewHolder
+        val holder = rowView!!.tag as ViewHolder
 
         holder.image!!.setImageResource(R.drawable.pp_1)
         holder.text!!.text = mData[position].TestPackageName

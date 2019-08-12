@@ -141,7 +141,7 @@ class ExploreFragment : Fragment() {
                         startActivity(intent)
 
 //                        explore_rvList.layoutManager = GridLayoutManager(activity, 2)
-//
+
 //                        if (mDataList!!.size > 0) {
 //                            explore_rvList.adapter = TestPackagesAdapter(activity!!, mDataList!!)
 //                        }
