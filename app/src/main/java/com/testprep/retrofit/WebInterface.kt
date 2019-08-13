@@ -1,9 +1,7 @@
 package com.testprep.retrofit
 
 import com.google.gson.JsonObject
-import com.testprep.models.PackageData
-import com.testprep.models.TestListModel
-import com.testprep.models.TutorModel
+import com.testprep.models.*
 import com.testprep.old.models.QuestionResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -63,7 +61,11 @@ interface WebInterface {
 
     @FormUrlEncoded
     @POST("Get_TestPackageName_By_ID")
-    fun getPackage(@FieldMap map: HashMap<String, String>): Call<PackageData>
+    fun getPackage(@FieldMap map: HashMap<String, String>): Call<GetMarketPlaceData>
+
+    @FormUrlEncoded
+    @POST("Get_TestPackage_By_ID")
+    fun getPackageDetail(@Field("TestPackageID") testPackageID: String): Call<JsonObject>
 
     @FormUrlEncoded
     @POST("Get_Student_PaymentTransaction_List")
@@ -73,9 +75,9 @@ interface WebInterface {
     @POST("Add_StudentTestPackage")
     fun addTestPackage(@Field("StudentID") stuid: String, @Field("TestPackageID") pkgid: String): Call<JsonObject>
 
-    @FormUrlEncoded
-    @POST("Get_StudentTestPackage")
-    fun myTestPackage(@Field("StudentID") stuid: String): Call<PackageData>
+//    @FormUrlEncoded
+//    @POST("Get_StudentTestPackage")
+//    fun myTestPackage(@Field("StudentID") stuid: String): Call<PackageData>
 
     @FormUrlEncoded
     @POST("Get_StudentTest")
@@ -105,6 +107,10 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Get_TestPackageName_By_Search_Criteria")
     fun getFilterData(@FieldMap map: HashMap<String, String>): Call<PackageData>
+
+    @FormUrlEncoded
+    @POST("Get_StudentTestPackage_By_Subject")
+    fun getMyPackages(@FieldMap map: HashMap<String, String>): Call<MyPackageModel>
 
     @FormUrlEncoded
     @POST("Get_Course_List")

@@ -4,27 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.testprep.R
 import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.models.PackageData
-import com.testprep.retrofit.WebClient
-import com.testprep.retrofit.WebInterface
-import com.testprep.utils.AppConstants
-import com.testprep.utils.DialogUtils
-import com.testprep.utils.Utils
-import com.testprep.utils.WebRequests
 import kotlinx.android.synthetic.main.activity_market_place_list.*
 import kotlinx.android.synthetic.main.activity_prefrence.package_btnNext
 import kotlinx.android.synthetic.main.activity_prefrence.package_btnNextt
 import kotlinx.android.synthetic.main.activity_prefrence.package_ivBack
 import kotlinx.android.synthetic.main.activity_prefrence.step1_arrow
 import kotlinx.android.synthetic.main.activity_prefrence.step2_arrow
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MarketPlaceListActivity : AppCompatActivity() {
 
@@ -47,7 +36,7 @@ class MarketPlaceListActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        mpList_rvPkgList.layoutManager = GridLayoutManager(this@MarketPlaceListActivity, 3)
+//        mpList_rvPkgList.layoutManager = GridLayoutManager(this@MarketPlaceListActivity, 3)
         mpList_rvStandardList.layoutManager = GridLayoutManager(this@MarketPlaceListActivity, 3)
 
         package_btnNext.setOnClickListener {
@@ -85,7 +74,7 @@ class MarketPlaceListActivity : AppCompatActivity() {
         }
 
         expand()
-        callPackageListApi()
+//        callPackageListApi()
 
     }
 
@@ -129,61 +118,61 @@ class MarketPlaceListActivity : AppCompatActivity() {
 
     }
 
-    fun callPackageListApi() {
-
-        if (!DialogUtils.isNetworkConnected(this@MarketPlaceListActivity)) {
-            Utils.ping(this@MarketPlaceListActivity, "Connetion not available")
-        }
-
-        DialogUtils.showDialog(this@MarketPlaceListActivity)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getPackage(
-            WebRequests.getPackageParams(
-                Utils.getStringValue(this@MarketPlaceListActivity, AppConstants.COURSE_TYPE_ID, "")!!,
-                Utils.getStringValue(this@MarketPlaceListActivity, AppConstants.COURSE_ID, "")!!,
-                Utils.getStringValue(this@MarketPlaceListActivity, AppConstants.STANDARD_ID, "")!!,
-                Utils.getStringValue(this@MarketPlaceListActivity, AppConstants.SUBJECT_ID, "")!!
-            )
-        )
-
+//    fun callPackageListApi() {
+//
+//        if (!DialogUtils.isNetworkConnected(this@MarketPlaceListActivity)) {
+//            Utils.ping(this@MarketPlaceListActivity, "Connetion not available")
+//        }
+//
+//        DialogUtils.showDialog(this@MarketPlaceListActivity)
+//        val apiService = WebClient.getClient().create(WebInterface::class.java)
+//
 //        val call = apiService.getPackage(
 //            WebRequests.getPackageParams(
-//                "1",
-//                "1",
-//                "9",
-//                "1"
+//                Utils.getStringValue(this@MarketPlaceListActivity, AppConstants.COURSE_TYPE_ID, "")!!,
+//                Utils.getStringValue(this@MarketPlaceListActivity, AppConstants.COURSE_ID, "")!!,
+//                Utils.getStringValue(this@MarketPlaceListActivity, AppConstants.STANDARD_ID, "")!!,
+//                Utils.getStringValue(this@MarketPlaceListActivity, AppConstants.SUBJECT_ID, "")!!
 //            )
 //        )
-
-        call.enqueue(object : Callback<PackageData> {
-            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
-
-                if (response.body() != null) {
-
-                    DialogUtils.dismissDialog()
-
-                    if (response.body()!!.Status == "true") {
-
-                        mDataList = response.body()!!.data
-
-                        mpList_rvPkgList.layoutManager = GridLayoutManager(this@MarketPlaceListActivity, 3)
-                        testPackagesAdapter = TestPackagesAdapter(this@MarketPlaceListActivity, mDataList!!)
-                        mpList_rvPkgList.adapter = testPackagesAdapter
-
-                    } else {
-
-                        Toast.makeText(this@MarketPlaceListActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<PackageData>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
-    }
+//
+////        val call = apiService.getPackage(
+////            WebRequests.getPackageParams(
+////                "1",
+////                "1",
+////                "9",
+////                "1"
+////            )
+////        )
+//
+//        call.enqueue(object : Callback<PackageData> {
+//            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
+//
+//                if (response.body() != null) {
+//
+//                    DialogUtils.dismissDialog()
+//
+//                    if (response.body()!!.Status == "true") {
+//
+//                        mDataList = response.body()!!.data
+//
+//                        mpList_rvPkgList.layoutManager = GridLayoutManager(this@MarketPlaceListActivity, 3)
+//                        testPackagesAdapter = TestPackagesAdapter(this@MarketPlaceListActivity, mDataList!!)
+//                        mpList_rvPkgList.adapter = testPackagesAdapter
+//
+//                    } else {
+//
+//                        Toast.makeText(this@MarketPlaceListActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<PackageData>, t: Throwable) {
+//                // Log error here since request failed
+//                Log.e("", t.toString())
+//                DialogUtils.dismissDialog()
+//            }
+//        })
+//    }
 
 }

@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
-import com.testprep.models.GetCourseListData
 import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
@@ -27,7 +26,6 @@ class SelectSubjectActivity : AppCompatActivity() {
 
     private var chooseCoarseAdapter: ChooseCoarseAdapter? = null
     private var selectType = "no"
-    private var standardList: ArrayList<GetCourseListData> = ArrayList()
     private var selectType1 = "no"
     private var stdId = ""
     var apitype = ""

@@ -118,8 +118,8 @@ class ExploreFragment : Fragment() {
                 "",
                 "",
                 "",
-                ""
-//                explore_etSearch.text.toString()
+                "",
+                explore_etSearch.text.toString()
             )
         )
 

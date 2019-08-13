@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.testprep.models.PackageData
+import com.google.gson.JsonArray
 
-class TestTypeAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageTestType>) :
+class TestTypeAdapter(val context: Context, val dataList: JsonArray) :
     RecyclerView.Adapter<TestTypeAdapter.viewholder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
@@ -19,13 +19,13 @@ class TestTypeAdapter(val context: Context, val dataList: ArrayList<PackageData.
     }
 
     override fun getItemCount(): Int {
-        return dataList.size
+        return dataList.size()
     }
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        p0.test_name.text = dataList[p1].TestTypeName
-        p0.test_quantity.text = "30"
+        p0.test_name.text = dataList[p1].asJsonObject["Name"].asString
+        p0.test_quantity.text = dataList[p1].asJsonObject["Marks"].asString
 
     }
 

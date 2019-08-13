@@ -494,13 +494,25 @@ class OtherFilterFragment : Fragment(), filterInterface {
 //        )
 
         val call = apiService.getFilterData(
+//            WebRequests.getFilterParams(
+//                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
+//                "",
+//                examids,
+//                stdids,
+//                subids,
+//                tutorids,
+//                "",
+//                "",
+//                ""
+//            )
             WebRequests.getFilterParams(
-                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
                 "",
-                examids,
-                stdids,
-                subids,
-                tutorids,
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
                 "",
                 ""
             )

@@ -4,22 +4,15 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import com.testprep.R
 import com.testprep.adapter.SelectPackageAdapter
 import com.testprep.models.PackageData
-import com.testprep.retrofit.WebClient
-import com.testprep.retrofit.WebInterface
-import com.testprep.utils.*
+import com.testprep.utils.AppConstants
+import com.testprep.utils.TextDrawablee
 import kotlinx.android.synthetic.main.activity_select_package.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
-
 
 class SelectPackageActivity : AppCompatActivity() {
 
@@ -69,61 +62,61 @@ class SelectPackageActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        callPackageListApi()
+//        callPackageListApi()
 
     }
 
 
-    fun callPackageListApi() {
-
-        if (!DialogUtils.isNetworkConnected(this@SelectPackageActivity)) {
-            Utils.ping(this@SelectPackageActivity, "Connetion not available")
-        }
-
-        DialogUtils.showDialog(this@SelectPackageActivity)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getPackage(
-            WebRequests.getPackageParams(
-//                Utils.getStringValue(this@SelectPackageActivity, "course_type_id", "0")!!,
-//                Utils.getStringValue(this@SelectPackageActivity, "course_id", "0")!!,
-//                Utils.getStringValue(this@SelectPackageActivity, "std_id", "0")!!,
-//                intent.getStringExtra("subject_id")
-
-                Utils.getStringValue(this@SelectPackageActivity, AppConstants.COURSE_TYPE_ID, "")!!,
-                Utils.getStringValue(this@SelectPackageActivity, AppConstants.COURSE_ID, "")!!,
-                Utils.getStringValue(this@SelectPackageActivity, AppConstants.STANDARD_ID, "")!!,
-                Utils.getStringValue(this@SelectPackageActivity, AppConstants.SUBJECT_ID, "")!!
-            )
-        )
-        call.enqueue(object : Callback<PackageData> {
-            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
-
-                if (response.body() != null) {
-
-                    DialogUtils.dismissDialog()
-
-                    if (response.body()!!.Status == "true") {
-
-                        mDataList = response.body()!!.data
-
-                        selectPackageAdapter = SelectPackageAdapter(this@SelectPackageActivity, mDataList!!)
-                        package_rvList.adapter = selectPackageAdapter
-
-                    } else {
-
-                        Toast.makeText(this@SelectPackageActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<PackageData>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
-    }
+//    fun callPackageListApi() {
+//
+//        if (!DialogUtils.isNetworkConnected(this@SelectPackageActivity)) {
+//            Utils.ping(this@SelectPackageActivity, "Connetion not available")
+//        }
+//
+//        DialogUtils.showDialog(this@SelectPackageActivity)
+//        val apiService = WebClient.getClient().create(WebInterface::class.java)
+//
+//        val call = apiService.getPackage(
+//            WebRequests.getPackageParams(
+////                Utils.getStringValue(this@SelectPackageActivity, "course_type_id", "0")!!,
+////                Utils.getStringValue(this@SelectPackageActivity, "course_id", "0")!!,
+////                Utils.getStringValue(this@SelectPackageActivity, "std_id", "0")!!,
+////                intent.getStringExtra("subject_id")
+//
+//                Utils.getStringValue(this@SelectPackageActivity, AppConstants.COURSE_TYPE_ID, "")!!,
+//                Utils.getStringValue(this@SelectPackageActivity, AppConstants.COURSE_ID, "")!!,
+//                Utils.getStringValue(this@SelectPackageActivity, AppConstants.STANDARD_ID, "")!!,
+//                Utils.getStringValue(this@SelectPackageActivity, AppConstants.SUBJECT_ID, "")!!
+//            )
+//        )
+//        call.enqueue(object : Callback<PackageData> {
+//            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
+//
+//                if (response.body() != null) {
+//
+//                    DialogUtils.dismissDialog()
+//
+//                    if (response.body()!!.Status == "true") {
+//
+//                        mDataList = response.body()!!.data
+//
+//                        selectPackageAdapter = SelectPackageAdapter(this@SelectPackageActivity, mDataList!!)
+//                        package_rvList.adapter = selectPackageAdapter
+//
+//                    } else {
+//
+//                        Toast.makeText(this@SelectPackageActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<PackageData>, t: Throwable) {
+//                // Log error here since request failed
+//                Log.e("", t.toString())
+//                DialogUtils.dismissDialog()
+//            }
+//        })
+//    }
 
     override fun onBackPressed() {
         super.onBackPressed()

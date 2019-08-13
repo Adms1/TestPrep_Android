@@ -12,11 +12,11 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.testprep.R
 import com.testprep.adapter.TestTypeAdapter
 import com.testprep.fragments.TutorProfileFragment
-import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
@@ -49,21 +49,7 @@ class PackageDetailActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_package_detail)
 
-        package_detail_tvPname.text = intent.getStringExtra("pname")
-        package_detail_tvsprice.text = "Sell Price : " + intent.getStringExtra("sprice")
-        package_detail_tvlprice.text = "List Price : " + intent.getStringExtra("lprice").trim()
-        package_detail_tvDesc.text = intent.getStringExtra("desc")
-        package_detail_name_short.text = intent.getStringExtra("pname").substring(0, 1)
-        package_detail_createdby.text =
-            Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + intent.getStringExtra("created_by") + "</font>")
-        Log.d("pkgid", intent.getStringExtra("pkgid"))
-
-        pkgid = intent.getStringExtra("pkgid")
-        tutor_id = intent.getStringExtra("tutor_id")
-
-        var pos = intent.getCharExtra("position", 'a')
-
-        Log.d("colr1", " " + pos + " " + package_detail_tvPname.text.length)
+//        Log.d("colr1", " " + pos + " " + package_detail_tvPname.text.length)
 
 //        package_detail_image1.setImageDrawable(Utils.createDrawable(pos, package_detail_tvPname.text.length))
         package_detail_tvlprice.paintFlags = package_detail_tvlprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
@@ -75,11 +61,6 @@ class PackageDetailActivity : AppCompatActivity() {
         if (intent.getStringExtra("come_from") == "mypackage") {
             package_detail_btnAddTocart.visibility = View.GONE
         }
-
-        package_detail_rvList.adapter = TestTypeAdapter(
-            this@PackageDetailActivity,
-            intent.getSerializableExtra("test_type_list") as ArrayList<PackageData.PackageTestType>
-        )
 
         package_detail_createdby.setOnClickListener {
 
@@ -111,6 +92,8 @@ class PackageDetailActivity : AppCompatActivity() {
 
                 }).show()
         }
+
+        callTestPackageDetailApi()
     }
 
     fun callAddTestPackageApi() {
@@ -147,6 +130,90 @@ class PackageDetailActivity : AppCompatActivity() {
                             this@PackageDetailActivity,
                             response.body()!!["Msg"].toString().replace("\"", ""),
                             Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+
+    fun callTestPackageDetailApi() {
+
+        if (!DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
+            Utils.ping(this@PackageDetailActivity, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(this@PackageDetailActivity)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getPackageDetail(intent.getStringExtra("pkgid"))
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        package_detail_tvPname.text =
+                            response.body()!!.get("data").asJsonObject.get("TestPackageName").asString
+                        package_detail_tvsprice.text =
+                            "Sell Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
+                        package_detail_tvlprice.text =
+                            "List Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageListPrice").asString.trim()
+                        package_detail_tvDesc.text =
+                            response.body()!!.get("data").asJsonObject.get("TestPackageDescription").asString
+                        package_detail_name_short.text =
+                            response.body()!!.get("data").asJsonObject.get("TestPackageName").asString.substring(0, 1)
+
+                        if (response.body()!!.get("data").asJsonObject.get("InstituteName").asString != "" && response.body()!!.get(
+                                "data"
+                            ).asJsonObject.get("InstituteName").asString != null
+                        ) {
+                            package_detail_createdby.text =
+                                Html.fromHtml(
+                                    "created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get("data").asJsonObject.get(
+                                        "InstituteName"
+                                    ).asString + "</font>"
+                                )
+                        } else {
+                            package_detail_createdby.text =
+                                Html.fromHtml(
+                                    "created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get("data").asJsonObject.get(
+                                        "TutorName"
+                                    ).asString + "</font>"
+                                )
+                        }
+
+
+                        Log.d("pkgid", intent.getStringExtra("pkgid"))
+
+                        pkgid = response.body()!!.get("data").asJsonObject.get("TestPackageID").asString
+                        tutor_id = response.body()!!.get("data").asJsonObject.get("TutorID").asString
+
+//                        var pos = intent.getCharExtra("position", 'a')
+
+
+                        var testList: JsonArray? =
+                            response.body()!!.get("data").asJsonObject.get("TestList").asJsonArray
+
+                        package_detail_rvList.adapter = TestTypeAdapter(
+                            this@PackageDetailActivity, testList!!
+                        )
+                    } else {
+
+                        Toast.makeText(
+                            this@PackageDetailActivity,
+                            response.body()!!["Msg"].toString().replace("\"", ""), Toast.LENGTH_SHORT
                         ).show()
                     }
                 }

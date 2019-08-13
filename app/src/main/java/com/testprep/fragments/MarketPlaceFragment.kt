@@ -19,6 +19,7 @@ import com.testprep.activity.TutorDetailActivity
 import com.testprep.carouselPkg.CarouselParameters
 import com.testprep.carouselPkg.CarouselView1
 import com.testprep.carouselPkg.Metrics
+import com.testprep.models.GetMarketPlaceData
 import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
@@ -208,7 +209,7 @@ class MarketPlaceFragment : Fragment() {
         }
 
         callFilterListApi()
-        callTutorsListApi()
+//        callTutorsListApi()
     }
 
     class PkgPageAdapter(
@@ -386,34 +387,22 @@ class MarketPlaceFragment : Fragment() {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getFilterData(
-            WebRequests.getFilterParams(
-                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
-                "",
-                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
-                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
-                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!,
-                Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!,
-                "",
-                ""
+        val call = apiService.getPackage(
+            WebRequests.getPackageParams(
+//                Utils.getStringValue(activity!!, "course_type_id", "0")!!,
+//                Utils.getStringValue(activity!!, "course_id", "0")!!,
+//                Utils.getStringValue(activity!!, "std_id", "0")!!,
+//                intent.getStringExtra("subject_id")
+
+                "", "", "", ""
+//                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
+//                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
+//                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
+//                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
             )
         )
-
-//        val call = apiService.getFilterData(
-//            WebRequests.getFilterParams(
-//                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
-//                "",
-//                examids,
-//                stdids,
-//                subids,
-//                tutorids,
-//                "",
-//                ""
-//            )
-//        )
-
-        call.enqueue(object : Callback<PackageData> {
-            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
+        call.enqueue(object : Callback<GetMarketPlaceData> {
+            override fun onResponse(call: Call<GetMarketPlaceData>, response: Response<GetMarketPlaceData>) {
 
                 if (response.body() != null) {
 
@@ -422,13 +411,16 @@ class MarketPlaceFragment : Fragment() {
                     if (response.body()!!.Status == "true") {
 
                         mDataList = ArrayList()
-                        mDataList = response.body()!!.data
+                        mDataList = response.body()!!.data.TestPackage
 
                         Log.d("dsize", "" + mDataList!!.size)
 
 //                        mAdapter!!.setData(mDataList!!)
 //                        coverflow.adapter = mAdapter
+                        tutorList = response.body()!!.data.Tutors
 
+                        Log.d("dtsize", "" + tutorList!!.size)
+                        carousel1!!.adapter = TutorPageAdapter(5, 330, 160, activity!!, tutorList!!)
                         carousel!!.adapter = PkgPageAdapter(5, 330, 160, activity!!, mDataList!!)
 
                     } else {
@@ -438,7 +430,7 @@ class MarketPlaceFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<PackageData>, t: Throwable) {
+            override fun onFailure(call: Call<GetMarketPlaceData>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()
@@ -446,48 +438,117 @@ class MarketPlaceFragment : Fragment() {
         })
     }
 
-    fun callTutorsListApi() {
+//    fun callFilterListApi() {
+//
+//        if (!DialogUtils.isNetworkConnected(activity!!)) {
+//            Utils.ping(activity!!, "Connetion not available")
+//        }
+//
+//        DialogUtils.showDialog(activity!!)
+//        val apiService = WebClient.getClient().create(WebInterface::class.java)
+//
+//        val call = apiService.getFilterData(
+//            WebRequests.getFilterParams(
+//                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
+//                "",
+//                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
+//                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
+//                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!,
+//                Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!,
+//                "",
+//                ""
+//            )
+//        )
+//
+////        val call = apiService.getFilterData(
+////            WebRequests.getFilterParams(
+////                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
+////                "",
+////                examids,
+////                stdids,
+////                subids,
+////                tutorids,
+////                "",
+////                ""
+////            )
+////        )
+//
+//        call.enqueue(object : Callback<PackageData> {
+//            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
+//
+//                if (response.body() != null) {
+//
+//                    DialogUtils.dismissDialog()
+//
+//                    if (response.body()!!.Status == "true") {
+//
+//                        mDataList = ArrayList()
+//                        mDataList = response.body()!!.data
+//
+//                        Log.d("dsize", "" + mDataList!!.size)
+//
+////                        mAdapter!!.setData(mDataList!!)
+////                        coverflow.adapter = mAdapter
+//
+//                        carousel!!.adapter = PkgPageAdapter(5, 330, 160, activity!!, mDataList!!)
+//
+//                    } else {
+//
+//                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<PackageData>, t: Throwable) {
+//                // Log error here since request failed
+//                Log.e("", t.toString())
+//                DialogUtils.dismissDialog()
+//            }
+//        })
+//    }
 
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
-        }
-
-        DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getTutorList()
-
-        call.enqueue(object : Callback<PackageData> {
-            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
-
-                if (response.body() != null) {
-
-                    DialogUtils.dismissDialog()
-
-                    if (response.body()!!.Status == "true") {
-
-                        tutorList = ArrayList()
-                        tutorList = response.body()!!.data
-
-                        Log.d("dsize", "" + tutorList!!.size)
-                        carousel1!!.adapter = TutorPageAdapter(5, 330, 160, activity!!, tutorList!!)
-//                        mAdapterr!!.setDataa(tutorList!!)
-//                        tutorcoverflow.adapter = mAdapterr
-
-                    } else {
-
-                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<PackageData>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
-    }
+//    fun callTutorsListApi() {
+//
+//        if (!DialogUtils.isNetworkConnected(activity!!)) {
+//            Utils.ping(activity!!, "Connetion not available")
+//        }
+//
+//        DialogUtils.showDialog(activity!!)
+//        val apiService = WebClient.getClient().create(WebInterface::class.java)
+//
+//        val call = apiService.getTutorList()
+//
+//        call.enqueue(object : Callback<PackageData> {
+//            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
+//
+//                if (response.body() != null) {
+//
+//                    DialogUtils.dismissDialog()
+//
+//                    if (response.body()!!.Status == "true") {
+//
+//                        tutorList = ArrayList()
+//                        tutorList = response.body()!!.data
+//
+//                        Log.d("dsize", "" + tutorList!!.size)
+//                        carousel1!!.adapter = TutorPageAdapter(5, 330, 160, activity!!, tutorList!!)
+////                        mAdapterr!!.setDataa(tutorList!!)
+////                        tutorcoverflow.adapter = mAdapterr
+//
+//                    } else {
+//
+//                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<PackageData>, t: Throwable) {
+//                // Log error here since request failed
+//                Log.e("", t.toString())
+//                DialogUtils.dismissDialog()
+//            }
+//        })
+//    }
 
 
 }
