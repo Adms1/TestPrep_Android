@@ -1,13 +1,30 @@
 package com.testprep.fragments
 
 
+import android.content.Context
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import com.testprep.R
+import com.testprep.adapter.MyPackageAdapter
+import com.testprep.adapter.TestPackagesAdapter
+import com.testprep.models.MyPackageModel
+import com.testprep.models.PackageData
+import com.testprep.retrofit.WebClient
+import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
+import com.testprep.utils.DialogUtils
+import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.fragment_my_packages.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,76 +38,65 @@ private const val ARG_PARAM2 = "param2"
 class MyPackagesFragment : AppCompatActivity() {
 
     private var packageSize: ArrayList<Int> = ArrayList()
+    private var subid = 0
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.fragment_my_packages)
 
-//    }
-//
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_my_packages, container, false)
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
+        subid = intent.getIntExtra("sub_id", 0)
 
-//        val heading = this@MyPackagesFragment.findViewById(R.id.dashboard_tvTitle) as TextView
-//        heading.text = "My Packages"
+        my_packages_ivBack.setOnClickListener { onBackPressed() }
 
-        my_packages_rvList.layoutManager =
-            LinearLayoutManager(this@MyPackagesFragment, LinearLayoutManager.VERTICAL, false)
+        my_packages_header.text = intent.getStringExtra("sub_name")
 
-//        val dividerItemDecoration = DividerItemDecoration(
-//            my_packages_rvList.context,
-//            LinearLayoutManager.VERTICAL
-//        )
-//        my_packages_rvList.addItemDecoration(dividerItemDecoration)
+        my_packages_rvList.layoutManager = LinearLayoutManager(this@MyPackagesFragment, LinearLayoutManager.HORIZONTAL, false)
 
-
-//        callMyPackagesApi()
+        callMyPackagesApi()
     }
 
-//    fun callMyPackagesApi() {
-//
-//        if (!DialogUtils.isNetworkConnected(this@MyPackagesFragment)) {
-//            Utils.ping(this@MyPackagesFragment, "Connetion not available")
-//        }
-//
-//        DialogUtils.showDialog(this@MyPackagesFragment)
-//        val apiService = WebClient.getClient().create(WebInterface::class.java)
-//
-//        val call = apiService.myTestPackage(Utils.getStringValue(this@MyPackagesFragment, AppConstants.USER_ID, "0")!!)
-//        call.enqueue(object : Callback<PackageData> {
-//            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
-//
-//                if (response.body() != null) {
-//
-//                    DialogUtils.dismissDialog()
-//
-//                    if (response.body()!!.Status == "true") {
-//
-//                        var pkgArr = response.body()!!.data
-//                        my_packages_rvList.adapter = MyPackageAdapter(this@MyPackagesFragment, pkgArr)
-//                    } else {
-//
-//                        Toast.makeText(this@MyPackagesFragment, response.body()!!.Msg.replace("\"", ""), Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<PackageData>, t: Throwable) {
-//                // Log error here since request failed
-//                Log.e("", t.toString())
-//                DialogUtils.dismissDialog()
-//            }
-//        })
-//    }
+    fun callMyPackagesApi() {
 
+        if (!DialogUtils.isNetworkConnected(this@MyPackagesFragment)) {
+            Utils.ping(this@MyPackagesFragment, "Connetion not available")
+        }
 
+        DialogUtils.showDialog(this@MyPackagesFragment)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getMyPackages(Utils.getStringValue(this@MyPackagesFragment, AppConstants.USER_ID, "0")!!, "2")
+
+        call.enqueue(object : Callback<MyPackageModel> {
+
+            override fun onResponse(call: Call<MyPackageModel>, response: Response<MyPackageModel>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.Status == "true") {
+
+                        val pkgArr = response.body()!!.data[0].PackageList
+                        my_packages_rvList.adapter = MyPackageAdapter(this@MyPackagesFragment, pkgArr)
+//                        my_packages_rvList.adapter = TestPackagesAdapter(this@MyPackagesFragment, pkgArr)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<MyPackageModel>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
 }

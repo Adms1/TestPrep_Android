@@ -110,7 +110,7 @@ interface WebInterface {
 
     @FormUrlEncoded
     @POST("Get_StudentTestPackage_By_Subject")
-    fun getMyPackages(@FieldMap map: HashMap<String, String>): Call<MyPackageModel>
+    fun getMyPackages(@Field("StudentID") stuid: String, @Field("SubjectID")subjectid: String): Call<MyPackageModel>
 
     @FormUrlEncoded
     @POST("Get_Course_List")

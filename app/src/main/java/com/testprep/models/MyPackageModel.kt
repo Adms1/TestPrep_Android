@@ -7,7 +7,7 @@ class MyPackageModel {
 
     class MyPkgData {
 
-        var ID = ""
+        var ID = 0
         var Name = ""
         var Icon = ""
         var isCompetitive = false
