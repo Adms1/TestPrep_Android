@@ -118,32 +118,32 @@ class CoinActivity : AppCompatActivity(), CoinInteface {
     fun coinList() {
 
         val coinModel = CoinModel()
-        coinModel.coin = "50"
+        coinModel.coin = "100"
         coinModel.rupees = "100"
         coinArr.add(coinModel)
 
         val coinModel1 = CoinModel()
-        coinModel1.coin = "100"
+        coinModel1.coin = "200"
         coinModel1.rupees = "200"
         coinArr.add(coinModel1)
 
         val coinModel2 = CoinModel()
-        coinModel2.coin = "200"
+        coinModel2.coin = "400"
         coinModel2.rupees = "400"
         coinArr.add(coinModel2)
 
         val coinModel3 = CoinModel()
-        coinModel3.coin = "300"
+        coinModel3.coin = "600"
         coinModel3.rupees = "600"
         coinArr.add(coinModel3)
 
         val coinModel4 = CoinModel()
-        coinModel4.coin = "400"
+        coinModel4.coin = "800"
         coinModel4.rupees = "800"
         coinArr.add(coinModel4)
 
         val coinModel5 = CoinModel()
-        coinModel5.coin = "500"
+        coinModel5.coin = "1000"
         coinModel5.rupees = "1000"
         coinArr.add(coinModel5)
 

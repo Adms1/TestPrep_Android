@@ -29,8 +29,6 @@
             app:layout_constraintRight_toLeftOf="@+id/test_item_btnStart"
             app:layout_constraintTop_toTopOf="parent"
             android:maxLines="1"
-            android:text="30"
-            android:visibility="gone"
             android:textColor="@color/gray"
             android:padding="@dimen/_5sdp"/>
 

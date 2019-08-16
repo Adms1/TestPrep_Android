@@ -371,6 +371,7 @@
                                             android:layout_height="wrap_content"
                                             app:layout_constraintBottom_toBottomOf="@+id/ll"
                                             android:nestedScrollingEnabled="false"
+                                            android:visibility="gone"
                                             app:layout_constraintTop_toBottomOf="@+id/page_img_que_img"/>
 
                                     <EditText
@@ -378,15 +379,37 @@
                                             android:layout_width="match_parent"
                                             android:layout_marginLeft="@dimen/_20sdp"
                                             android:layout_height="@dimen/_50sdp"
-                                            android:layout_marginTop="@dimen/_5sdp"
+                                            android:layout_marginTop="@dimen/_20sdp"
                                             android:layout_marginBottom="@dimen/_5sdp"
                                             android:layout_marginRight="@dimen/_20sdp"
                                             android:maxLines="1"
                                             android:gravity="top"
                                             android:textSize="@dimen/_12sdp"
+                                            android:visibility="gone"
                                             android:hint="Enter your answer here"
                                             android:background="@color/white"
                                             app:layout_constraintTop_toBottomOf="@+id/page_img_que_img"/>
+
+                                    <RadioGroup
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:visibility="gone"
+                                            android:id="@+id/queTab_rbTruefalse"
+                                            android:orientation="vertical">
+
+                                        <RadioButton
+                                                android:id="@+id/queTab_rbTrue"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:text="True"/>
+
+                                        <RadioButton
+                                                android:id="@+id/queTab_rbFalse"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:text="false"/>
+
+                                    </RadioGroup>
 
                                 </LinearLayout>
 

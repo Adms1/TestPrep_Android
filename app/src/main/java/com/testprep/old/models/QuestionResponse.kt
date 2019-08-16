@@ -7,11 +7,15 @@ class QuestionResponse {
     var data: ArrayList<QuestionList> = ArrayList()
 
     class QuestionList{
-        var QuestionID = ""
+        var QuestionID = 0
+        var TestQuestionID = 0
         var QuestionTypeID = 0
         var Marks = ""
         var QuestionImage = ""
         var QuestionAns = ""
+        var Answer = ""
+        var Answered = ""
+        var Review = ""
         var StudentTestAnswerMCQ: ArrayList<QuestionDataList> = ArrayList()
         var StudentTestQuestionMCQ: ArrayList<QuestionDataList> = ArrayList()
 

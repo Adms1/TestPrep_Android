@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.testprep.R
 import com.testprep.activity.TutorDetailActivity
 import com.testprep.carouselPkg.CarouselParameters
 import com.testprep.carouselPkg.CarouselView1
@@ -73,7 +72,7 @@ class MarketPlaceFragment : Fragment() {
 //        callFilterListApi()
 //        callTutorsListApi()
 
-        val vieww = inflater.inflate(R.layout.fragment_market_place, container, false)
+        val vieww = inflater.inflate(com.testprep.R.layout.fragment_market_place, container, false)
 
         activity!!.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
@@ -85,7 +84,7 @@ class MarketPlaceFragment : Fragment() {
 
         AppConstants.ON_BACK = 1
 
-        layouts = intArrayOf(R.drawable.pp_2, R.drawable.pp_1, R.drawable.pp_2)
+        layouts = intArrayOf(com.testprep.R.drawable.pp_2, com.testprep.R.drawable.pp_1, com.testprep.R.drawable.pp_2)
 
 //        mDataList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packages"))
 //        tutorList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packages"))
@@ -122,10 +121,10 @@ class MarketPlaceFragment : Fragment() {
 
 
         //new carousel library
-        carousel = view.findViewById(R.id.carousel) as CarouselView1
+        carousel = view.findViewById(com.testprep.R.id.carousel) as CarouselView1
 //        val rootView = layoutInflater.inflate(R.layout.fragment_main, vg, false) as View
 
-        carousel1 = view.findViewById(R.id.carousel1) as CarouselView1
+        carousel1 = view.findViewById(com.testprep.R.id.carousel1) as CarouselView1
 //        lblSelectedIndex = findViewById<View>(R.id.lblSelectedIndex) as TextView
         val lp = carousel!!.layoutParams
         //		https://github.com/davidschreiber/FancyCoverFlow.git
@@ -166,16 +165,33 @@ class MarketPlaceFragment : Fragment() {
 
         carousel1!!.isScrollingAlignToViews = true
 
-//        carousel!!.setOnItemSelectedListener(object : CarouselView1.OnItemSelectedListener {
-//            override fun onItemSelected(carouselView: CarouselView1, position: Int, adapterPosition: Int, adapter: RecyclerView.Adapter<*>?) {
-//                lblSelectedIndex!!.text = "Selected Position $position"
+//        carousel!!.setOnItemSelectedListener(object : CarouselView.OnItemSelectedListener() {
+//            fun onItemSelected(
+//                carouselView: CarouselView,
+//                position: Int,
+//                adapterPosition: Int,
+//                adapter: RecyclerView.Adapter<*>
+//            ) {
+//                lblSelectedIndex.setText("Selected Position $position")
 //            }
 //
-//            override fun onItemDeselected(carouselView: CarouselView1, position: Int, adapterPosition: Int, adapter: RecyclerView.Adapter<*>?) {
-//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//            }
+//            fun onItemDeselected(
+//                carouselView: CarouselView,
+//                position: Int,
+//                adapterPosition: Int,
+//                adapter: RecyclerView.Adapter<*>
+//            ) {
 //
+//            }
 //        })
+
+//        carousel!!.setOnItemClickListener { adapter, view, position, adapterPosition ->
+//
+//            val intent = Intent(activity, PackageDetailActivity::class.java)
+//            intent.putExtra("pkgid", )
+//            startActivity(intent)
+//
+//        }
 
         val hashMap = HashMap<String, Number>()
         hashMap["numPies"] = 5
@@ -202,7 +218,6 @@ class MarketPlaceFragment : Fragment() {
             carousel!!.smoothScrollToPosition((5 - 1) / 2)
         }
 
-
         carousel1!!.post {
             // smooth scroll to the 'centermost' item
             carousel1!!.smoothScrollToPosition((5 - 1) / 2)
@@ -222,7 +237,7 @@ class MarketPlaceFragment : Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewholder {
 
-            val view = LayoutInflater.from(context).inflate(R.layout.carousel_container, parent, false)
+            val view = LayoutInflater.from(context).inflate(com.testprep.R.layout.carousel_container, parent, false)
             return viewholder(view)
         }
 
@@ -258,8 +273,8 @@ class MarketPlaceFragment : Fragment() {
 
         class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-            var title: ImageView = itemView.findViewById(R.id.img)
-            var title1: TextView = itemView.findViewById(R.id.title11)
+            var title: ImageView = itemView.findViewById(com.testprep.R.id.img)
+            var title1: TextView = itemView.findViewById(com.testprep.R.id.title11)
 
         }
 
@@ -285,7 +300,7 @@ class MarketPlaceFragment : Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewholder {
 
-            val view = LayoutInflater.from(context).inflate(R.layout.carousel_container, parent, false)
+            val view = LayoutInflater.from(context).inflate(com.testprep.R.layout.carousel_container, parent, false)
             return viewholder(view)
         }
 
@@ -293,7 +308,7 @@ class MarketPlaceFragment : Fragment() {
 //                RandomPageFragment.initializeTextView(holder.textView!!, position + 1)
 
             holder.title1.text = mDataList[position].TutorName
-            holder.title.setImageDrawable(context.resources.getDrawable(R.drawable.pro_pic1))
+            holder.title.setImageDrawable(context.resources.getDrawable(com.testprep.R.drawable.pro_pic1))
 
             holder.title.setOnClickListener {
                 //                val intent = Intent(context, PackageDetailActivity::class.java)
@@ -322,8 +337,8 @@ class MarketPlaceFragment : Fragment() {
 
         class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-            var title: ImageView = itemView.findViewById(R.id.img)
-            var title1: TextView = itemView.findViewById(R.id.title11)
+            var title: ImageView = itemView.findViewById(com.testprep.R.id.img)
+            var title1: TextView = itemView.findViewById(com.testprep.R.id.title11)
 
         }
 
@@ -349,9 +364,9 @@ class MarketPlaceFragment : Fragment() {
     inner class MyViewPagerAdapter : PagerAdapter() {
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val layoutInflater: LayoutInflater = LayoutInflater.from(activity)
-            val view = layoutInflater.inflate(R.layout.slider_item_layout, container, false)
+            val view = layoutInflater.inflate(com.testprep.R.layout.slider_item_layout, container, false)
 
-            var iv: ImageView = view.findViewById(R.id.imageView)
+            var iv: ImageView = view.findViewById(com.testprep.R.id.imageView)
 
             iv.setImageResource(layouts!![position])
 

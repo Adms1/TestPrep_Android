@@ -9,7 +9,7 @@
         tools:context=".fragments.SelectCoarseFragment">
 
     <TextView
-            android:text="My Coin"
+            android:text="My Payments"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/my_payments_header"

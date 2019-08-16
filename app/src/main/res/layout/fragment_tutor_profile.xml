@@ -164,7 +164,7 @@
             android:textColor="@color/gray"/>
 
     <TextView
-            android:text="Simillar Packages"
+            android:text="My Packages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/_7sdp"

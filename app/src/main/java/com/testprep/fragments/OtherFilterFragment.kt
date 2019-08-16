@@ -13,7 +13,6 @@ import android.widget.Toast
 import com.testprep.R
 import com.testprep.activity.TutorDetailActivity
 import com.testprep.adapter.FilterAdapter
-import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.interfaces.filterInterface
 import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
@@ -42,7 +41,6 @@ class OtherFilterFragment : Fragment(), filterInterface {
     var finalfilterArray: ArrayList<PackageData.PackageDataList>? = null
     var recyclerviewAdapter: FilterAdapter? = null
 
-    private var testPackagesAdapter: TestPackagesAdapter? = null
     private var mDataList: ArrayList<PackageData.PackageDataList>? = null
 
     var filterInterface: filterInterface? = null

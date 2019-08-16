@@ -66,7 +66,7 @@ class WebviewFragment : Fragment() {
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getQuestions("2")
+        val call = apiService.getQuestions("2", "2")
         call.enqueue(object : Callback<QuestionResponse> {
             override fun onResponse(call: Call<QuestionResponse>, response: Response<QuestionResponse>) {
 

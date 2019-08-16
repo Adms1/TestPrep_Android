@@ -14,6 +14,8 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -35,12 +37,19 @@ import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
+import com.testprep.utils.WebRequests
 import kotlinx.android.synthetic.main.activity_tabwise_question.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.concurrent.TimeUnit
+
+/* 1. Single Selection(RadioButton)
+ * 2. Fill the blanks
+ * 3. Match the following
+ * 4. True/false
+ * 7. MCQ-Multiple Selection(Checkbox)*/
 
 class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
@@ -50,6 +59,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
     var where = ""
     var reviewQue: ArrayList<Int> = ArrayList()
 
+    var answer = ""
     var childList = HashMap<String, ArrayList<String>>()
 
     private var que_list: ArrayList<QuestionResponse.QuestionList> = ArrayList()
@@ -179,6 +189,43 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 //        })
 
 //        queTab_sliding_tabs.setupWithViewPager(queTab_viewpager)
+
+        queTab_rbTruefalse.setOnCheckedChangeListener { group, checkedId ->
+
+            if (checkedId == R.id.queTab_rbTrue) {
+                nextButton!!.text = "Next"
+                answer = "1"
+
+            } else if (checkedId == R.id.queTab_rbFalse) {
+                nextButton!!.text = "Next"
+                answer = "0"
+            }
+        }
+
+        queTab_tvFillBlanks.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+
+                if (queTab_tvFillBlanks.text.toString() == "") {
+                    nextButton!!.text = "Skip"
+                } else {
+                    nextButton!!.text = "Next"
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+
+            }
+        })
 
         queTab_btnNext.setOnClickListener {
             //            getLastPage()
@@ -427,7 +474,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getQuestions(intent.getStringExtra("testid"))
+        val call = apiService.getQuestions(testid, studenttestid)
         call.enqueue(object : Callback<QuestionResponse> {
             override fun onResponse(call: Call<QuestionResponse>, response: Response<QuestionResponse>) {
 
@@ -445,7 +492,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
                     Log.d("qid", "" + movies[0].QuestionID)
 
-//                    if (PageActivity.countt >= 0) {
                     if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
 
 //                            var url = URL("http://content.testcraft.co.in/question/" + movies[pos].titleimg)
@@ -480,11 +526,11 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                             questionTypeModel.type = 5
                             sectionList1!!.add(questionTypeModel)
 
-                            val answerModel = AnswerModel()
-                            answerModel.qid = movies[i].QuestionID
-                            answerModel.ansid = "0"
-                            answerModel.ansresult = false
-                            ansArr.add(answerModel)
+//                            val answerModel = AnswerModel()
+//                            answerModel.qid = movies[i].QuestionID
+//                            answerModel.ansid = ""
+//                            answerModel.ansresult = false
+//                            ansArr.add(answerModel)
 
                         }
 
@@ -524,11 +570,11 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                         ansList!!.layoutManager =
                             LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
-                        if (movies[0].QuestionTypeID != 3) {
-
+                        if (movies[0].QuestionTypeID == 1 || movies[0].QuestionTypeID == 7) {
 
                             queTab_tvFillBlanks.visibility = View.GONE
                             ansList!!.visibility = View.VISIBLE
+                            queTab_rbTruefalse.visibility = View.GONE
 
                             ansList!!.adapter = SelectImageOptionAdapter(
                                 this@TabwiseQuestionActivity,
@@ -537,12 +583,17 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                                 movies[0].QuestionTypeID,
                                 movies[0].QuestionID
                             )
-                        } else {
+
+                        } else if (movies[0].QuestionTypeID == 2) {
                             queTab_tvFillBlanks.visibility = View.VISIBLE
                             ansList!!.visibility = View.GONE
+                            queTab_rbTruefalse.visibility = View.GONE
+
+                        } else if (movies[0].QuestionTypeID == 4) {
+                            queTab_rbTruefalse.visibility = View.VISIBLE
+                            queTab_tvFillBlanks.visibility = View.GONE
+                            ansList!!.visibility = View.GONE
                         }
-
-
                     }
                 }
 //                else {
@@ -748,6 +799,53 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         })
     }
 
+    fun callSubmitAnswer(testqueid: Int, queid: Int, quetypeid: Int, answerr: String, time: String) {
+
+        DialogUtils.showDialog(this@TabwiseQuestionActivity)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.submitAnswer(
+            WebRequests.submitAnswerParams(
+                studenttestid,
+                testqueid,
+                queid,
+                quetypeid,
+                answerr,
+                time
+            )
+        )
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                DialogUtils.dismissDialog()
+
+                if (response.body()!!.get("Status").asString == "true") {
+
+                    answer = ""
+                    queTab_tvFillBlanks.setText("")
+                    ansArr = ArrayList()
+
+                    queTab_btnNext.visibility = View.VISIBLE
+
+                } else {
+
+                    Toast.makeText(
+                        this@TabwiseQuestionActivity,
+                        response.body()!!.get("Msg").asString,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
     override fun getType(p0: Int) {
 
         drawer_layout.closeDrawer(Gravity.END)
@@ -765,10 +863,11 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             ansList!!.layoutManager =
                 LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
-            if (movies[p0].QuestionTypeID != 3) {
+            if (movies[p0].QuestionTypeID == 1 || movies[p0].QuestionTypeID == 7) {
 
                 queTab_tvFillBlanks.visibility = View.GONE
                 ansList!!.visibility = View.VISIBLE
+                queTab_rbTruefalse.visibility = View.GONE
 
                 ansList!!.adapter = SelectImageOptionAdapter(
                     this@TabwiseQuestionActivity,
@@ -777,14 +876,35 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                     movies[p0].QuestionTypeID,
                     movies[p0].QuestionID
                 )
-            } else {
+
+                for (i in 0 until ansArr.size) {
+                    answer = answer + ansArr[i].ansid + "|"
+
+                }
+
+                answer = answer.substring(0, answer.length - 1)
+
+            } else if (movies[p0].QuestionTypeID == 2) {
                 queTab_tvFillBlanks.visibility = View.VISIBLE
                 ansList!!.visibility = View.GONE
+                queTab_rbTruefalse.visibility = View.GONE
+
+                answer = queTab_tvFillBlanks.text.toString()
+
+            } else if (movies[p0].QuestionTypeID == 4) {
+                queTab_rbTruefalse.visibility = View.VISIBLE
+                queTab_tvFillBlanks.visibility = View.GONE
+                ansList!!.visibility = View.GONE
             }
+
+            callSubmitAnswer(
+                movies[p0 - 1].TestQuestionID,
+                movies[p0 - 1].QuestionID,
+                movies[p0 - 1].QuestionTypeID,
+                answer,
+                "10"
+            )
         }
-
-        queTab_btnNext.visibility = View.VISIBLE
-
     }
 
     fun getNextQuestion() {
@@ -814,7 +934,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         var filterTypeSelectionInteface: FilterTypeSelectionInteface? = null
         var movies: ArrayList<QuestionResponse.QuestionList> = ArrayList()
         var ansArr: ArrayList<AnswerModel> = ArrayList()
-
         var context: Context? = null
 
         fun setSideMenu(type: Int) {
@@ -833,7 +952,8 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             )
         }
 
-        fun setButton(ansid: String, qid: String, result: Boolean) {
+        fun setButton(ansid: String, qid: Int) {
+
             nextButton!!.text = "Next"
 
 //            val answerModel = AnswerModel()

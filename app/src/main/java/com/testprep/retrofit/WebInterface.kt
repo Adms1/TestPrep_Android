@@ -85,7 +85,7 @@ interface WebInterface {
 
     @FormUrlEncoded
     @POST("Get_Student_TestQuestion")
-    fun getQuestions(@Field("TestID") testid: String): Call<QuestionResponse>
+    fun getQuestions(@Field("TestID") testid: String, @Field("StudentTestID") stu_testid: String): Call<QuestionResponse>
 
     @FormUrlEncoded
     @POST("Get_Tutor_By_TutorID")
@@ -119,6 +119,10 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Add_StudentTestAnswer")
     fun submitTest(@Field("StudentTestID") studenttest_id: String, @Field("QuestionIDAnswerID") que_ans_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Insert_Test_Answer")
+    fun submitAnswer(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
     @FormUrlEncoded
     @POST("Get_Student_StudentTestAnswer")

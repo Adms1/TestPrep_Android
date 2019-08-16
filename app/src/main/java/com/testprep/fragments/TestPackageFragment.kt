@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.testprep.R
-import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.models.PackageData
 import kotlinx.android.synthetic.main.fragment_test_package.*
 
@@ -24,7 +23,6 @@ private const val ARG_PARAM2 = "param2"
 class TestPackageFragment : Fragment() {
 
     private var mDataList: ArrayList<PackageData.PackageDataList>? = null
-    private var testPackagesAdapter: TestPackagesAdapter? = null
 
 //    var selectPackageAdapter: SelectPackageAdapter? = null
 //

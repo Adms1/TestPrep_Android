@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.testprep.R
-import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.models.PackageData
 import kotlinx.android.synthetic.main.activity_market_place_list.*
 import kotlinx.android.synthetic.main.activity_prefrence.package_btnNext
@@ -22,8 +21,6 @@ class MarketPlaceListActivity : AppCompatActivity() {
     var isOpen3: Boolean = false
 
     private var mDataList: ArrayList<PackageData.PackageDataList>? = null
-    private var testPackagesAdapter: TestPackagesAdapter? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

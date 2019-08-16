@@ -3,19 +3,13 @@ package com.testprep.adapter
 import android.content.Context
 import android.content.Intent
 import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import com.testprep.R
-import com.testprep.activity.PackageDetailActivity
 import com.testprep.activity.TestListActivity
-import com.testprep.models.MyPackageModel
 import com.testprep.models.PackageData
 
 class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
@@ -74,6 +68,7 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
 //
 //        }
 
+//        p0.std.setTextColor(context.resources.getColor(R.color.white))
         p0.std.text = dataList[p1].TestPackageName
 
     }

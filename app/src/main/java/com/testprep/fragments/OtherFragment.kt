@@ -42,7 +42,7 @@ class OtherFragment : Fragment() {
 
         menuList.add("Edit Profile")
         menuList.add("My Payments")
-        menuList.add("Add Coin")
+        menuList.add("Add Amount")
         menuList.add("Change Password")
 //        menuList.add("Logout")
 
@@ -61,7 +61,7 @@ class OtherFragment : Fragment() {
                     val intent = Intent(activity, MyPaymentActivity::class.java)
                     startActivity(intent)
                 }
-                menuList[position] == "Add Coin" -> {
+                menuList[position] == "Add Amount" -> {
 
                     val intent = Intent(activity, CoinActivity::class.java)
                     startActivity(intent)

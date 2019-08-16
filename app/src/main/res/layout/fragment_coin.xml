@@ -9,7 +9,7 @@
         tools:context=".activity.CoinActivity">
 
     <TextView
-            android:text="Add Coin"
+            android:text="Add Amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/_7sdp"
@@ -81,7 +81,7 @@
             android:layout_marginLeft="@dimen/_30sdp"
             android:layout_marginRight="@dimen/_30sdp"
             android:background="@drawable/login_round_bg"
-            android:text="Add Now!"
+            android:text="Pay Now!"
             android:paddingTop="@dimen/_5sdp"
             android:paddingBottom="@dimen/_5sdp"
             android:textColor="@color/white"

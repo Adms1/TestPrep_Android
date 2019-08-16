@@ -133,6 +133,25 @@ class WebRequests {
             return hashMap
         }
 
+        fun submitAnswerParams(
+            studenttestid: String,
+            testquestionid: Int,
+            questionid: Int,
+            questiontypeid: Int,
+            answer: String,
+            usetime: String
+        ): HashMap<String, String> {
+            val hashMap = java.util.HashMap<String, String>()
+            hashMap["StudentTestID"] = studenttestid
+            hashMap["TestQuestionID"] = testquestionid.toString()
+            hashMap["QuestionID"] = questionid.toString()
+            hashMap["QuestionTypeID"] = questiontypeid.toString()
+            hashMap["Answer"] = answer
+            hashMap["UseTime"] = usetime
+
+            return hashMap
+        }
+
     }
 
 }

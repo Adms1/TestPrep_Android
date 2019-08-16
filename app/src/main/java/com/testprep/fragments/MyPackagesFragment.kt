@@ -2,19 +2,15 @@ package com.testprep.fragments
 
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.View
-import android.widget.Toast
-import com.testprep.R
+import android.view.WindowManager
 import com.testprep.adapter.MyPackageAdapter
-import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.models.MyPackageModel
-import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
@@ -25,6 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,9 +45,17 @@ class MyPackagesFragment : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        setContentView(R.layout.fragment_my_packages)
+        setContentView(com.testprep.R.layout.fragment_my_packages)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            val w = window
+            w.setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
+        }
 
         subid = intent.getIntExtra("sub_id", 0)
 

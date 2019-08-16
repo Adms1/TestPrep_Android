@@ -17,7 +17,7 @@ class SelectImageOptionAdapter(
     val dataList: ArrayList<QuestionResponse.QuestionDataList>,
     var qsize: Int,
     var qtype: Int,
-    var qid: String
+    var qid: Int
 ) : RecyclerView.Adapter<SelectImageOptionAdapter.viewholder>() {
 
     private var lastCheckedRadioGroup: RadioGroup? = null
@@ -71,7 +71,7 @@ class SelectImageOptionAdapter(
                 p0.opone.addView(rb)
 
             }
-            2 -> {
+            7 -> {
 
                 p0.opone.visibility = View.GONE
                 p0.opone1.visibility = View.VISIBLE
@@ -87,7 +87,7 @@ class SelectImageOptionAdapter(
 
         p0.opone.setOnCheckedChangeListener { group, checkedId ->
 
-            TabwiseQuestionActivity.setButton(dataList[p1].MultipleChoiceQuestionAnswerID, qid, true)
+            TabwiseQuestionActivity.setButton(dataList[p1].MultipleChoiceQuestionAnswerID, qid)
 
             if (lastCheckedRadioGroup != null
                 && lastCheckedRadioGroup!!.checkedRadioButtonId
