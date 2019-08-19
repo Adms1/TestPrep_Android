@@ -78,7 +78,10 @@ class MyPackagesFragment : AppCompatActivity() {
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getMyPackages(Utils.getStringValue(this@MyPackagesFragment, AppConstants.USER_ID, "0")!!, "2")
+        val call = apiService.getMyPackages(
+            Utils.getStringValue(this@MyPackagesFragment, AppConstants.USER_ID, "0")!!,
+            subid.toString()
+        )
 
         call.enqueue(object : Callback<MyPackageModel> {
 

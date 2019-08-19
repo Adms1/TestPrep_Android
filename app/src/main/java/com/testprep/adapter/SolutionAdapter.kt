@@ -65,7 +65,7 @@ class SolutionAdapter(
 
         when {
             dataList[p1].IsCorrectAnswer -> p0.opone.setImageResource(R.drawable.wrong)
-            dataList[p1].StudentAnswer -> p0.opone.setImageResource(R.drawable.correct)
+            dataList[p1].IsUserSelected -> p0.opone.setImageResource(R.drawable.correct)
             else -> p0.opone.setImageResource(R.drawable.grey_round)
         }
 

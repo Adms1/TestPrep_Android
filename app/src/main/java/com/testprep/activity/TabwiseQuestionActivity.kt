@@ -53,42 +53,23 @@ import java.util.concurrent.TimeUnit
 
 class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
-    //    var questionpagerAdapret: QuestionsPagerAdapter? = null
-//    var mToolbar: Toolbar? = null
-
     var where = ""
     var reviewQue: ArrayList<Int> = ArrayList()
 
     var answer = ""
     var childList = HashMap<String, ArrayList<String>>()
 
-    private var que_list: ArrayList<QuestionResponse.QuestionList> = ArrayList()
-    private var que_num = 0
-    private var come = ""
     private var imgQue: ImageView? = null
     private var ansList: RecyclerView? = null
 
     var testid = ""
     var studenttestid = ""
 
-    var qsize = 0
-
     internal var mDrawerToggle: ActionBarDrawerToggle? = null
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
-
-//    override fun onPostCreate(savedInstanceState: Bundle?) {
-//        super.onPostCreate(savedInstanceState)
-//        mDrawerToggle!!.syncState()
-//    }
-
-//    override fun onConfigurationChanged(newConfig: Configuration) {
-//        super.onConfigurationChanged(newConfig)
-//        // Pass any configuration change to the drawer toggls
-//        mDrawerToggle!!.onConfigurationChanged(newConfig)
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +81,8 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         testid = intent.getStringExtra("testid")
         studenttestid = intent.getStringExtra("studenttestid")
 
+        queTab_header.text = intent.getStringExtra("testname")
+
         AppConstants.QUE_NUMBER = 0
 
         drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
@@ -107,10 +90,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         ansArr = ArrayList()
         sectionList = ArrayList()
         sectionList1 = ArrayList()
-
-//        mToolbar = (Toolbar) findViewById(R.id.sliding_tabs)
-//        sliding_tabs.setOnTabSelectedListener(this)
-//        setSupportActionBar(mToolbar)
 
         filterTypeSelectionInteface = this
 
@@ -159,21 +138,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         }
 
-//        mDrawerToggle = ActionBarDrawerToggle(
-//            this, drawer_layout, R.mipmap.tc_logo, // nav menu toggle icon
-//            R.string.app_name, // nav drawer open - description for accessibility
-//            R.string.app_name // nav drawer close - description for accessibility
-//        ) {
-//            @SuppressLint("NewApi")
-//            override fun onDrawerClosed(view: View?) {
-//                invalidateOptionsMenu()
-//            }
-//
-//            @SuppressLint("NewApi")
-//            override fun onDrawerOpened(drawerView: View?) {
-//                invalidateOptionsMenu()
-//            }
-//        }
         drawer_layout.setDrawerListener(mDrawerToggle)
 
 //        queTab_expQueList.setOnGroupClickListener(ExpandableListView.OnGroupClickListener { parent, v, groupPosition, id ->
@@ -188,17 +152,15 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 //            false
 //        })
 
-//        queTab_sliding_tabs.setupWithViewPager(queTab_viewpager)
-
         queTab_rbTruefalse.setOnCheckedChangeListener { group, checkedId ->
 
             if (checkedId == R.id.queTab_rbTrue) {
                 nextButton!!.text = "Next"
-                answer = "1"
+//                answer = "1"
 
             } else if (checkedId == R.id.queTab_rbFalse) {
                 nextButton!!.text = "Next"
-                answer = "0"
+//                answer = "0"
             }
         }
 
@@ -228,8 +190,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         })
 
         queTab_btnNext.setOnClickListener {
-            //            getLastPage()
-//            queTab_viewpager.currentItem = queTab_viewpager.currentItem + 1
 
             queTab_btnNext.visibility = View.GONE
 
@@ -311,81 +271,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         ansList!!.layoutManager = LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
-//        Handler().postDelayed(
-//            /* Runnable
-//                 * Showing splash screen with a timer. This will be useful when you
-//                 * want to show case your app logo / company
-//                 */
-//
-//            {
-//                // This method will be executed once the timer is over
-//                // Start your app main activity
-//                Log.d("sizeee", "" + imgQue!!.width + ", " + imgQue!!.height)
-//
-//                Picasso.get().load("http://content.testcraft.co.in/question/" + que_list[que_num].QuestionImage)
-//
-//                    .resize(imgQue!!.width, imgQue!!.height)
-////            .transform(imageTransform(200, true))
-//                    .into(imgQue)
-//
-////        qsize = page_img_que_img.width
-//
-//                if (this@TabwiseQuestionActivity != null) {
-//
-//                    if (come != "solution") {
-//
-//                        ansList!!.adapter = SelectImageOptionAdapter(
-//                            this@TabwiseQuestionActivity,
-//                            que_list[que_num].StudentTestQuestionMCQ,
-//                            imgQue!!.width
-//                        )
-//                    } else {
-//                        ansList!!.adapter = SolutionAdapter(
-//                            this@TabwiseQuestionActivity,
-//                            que_list[que_num].StudentTestQuestionMCQ,
-//                            imgQue!!.width
-//                        )
-//                    }
-//                }
-//
-//            }, 1000
-//        )
-
-
-//        queTab_viewpager.addOnPageChangeListener(object : OnPageChangeListener {
-//
-//            // This method will be invoked when a new page becomes selected.
-//            override fun onPageSelected(position: Int) {
-//                queTab_tvTotal.text = """${position + 1}/${movies.size}"""
-//
-////                for (i in 0 until reviewQue.size){
-////                    if(reviewQue.contains(position + 1)){
-////                        queTab_ivReview.background = resources.getDrawable(R.drawable.rotate_eye_blue)
-////                        queTab_ivReview.isSelected = true
-//
-////                }else{
-////                    queTab_ivReview.background = resources.getDrawable(R.drawable.rotate_eye_gray)
-////
-////                }
-////                }
-//
-//                getLastPage()
-//            }
-//
-//            // This method will be invoked when the current page is scrolled
-//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-//                // Code goes here
-////                getLastPage()
-//            }
-//
-//            // Called when the scroll state changes:
-//            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
-//            override fun onPageScrollStateChanged(state: Int) {
-//                // Code goes here
-////                getLastPage()
-//            }
-//        })
-
 //        queTab_ivReview.setOnClickListener {
 //
 //            queTab_sliding_tabs.getTabAt(queTab_viewpager.currentItem)!!.setCustomView(R.layout.custom_tab)
@@ -418,17 +303,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         queTab_tvSubmit.setOnClickListener {
 
-            //            DialogUtils.createConfirmDialog(this@TabwiseQuestionActivity, "Submit Test?", "are you sure you want to end this test?",
-//                "OK", "Cancel",
-//                DialogInterface.OnClickListener { dialog, which ->
-//
-//                       dialog.dismiss()
-//                },
-//            DialogInterface.OnClickListener { dialog, which ->
-//
-//                dialog.dismiss()
-//            }).show()
-
             onBackPressed()
 
         }
@@ -438,24 +312,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         }
     }
 
-//    var mTabLayout_config: Runnable = Runnable {
-//        if (queTab_sliding_tabs.width < this@TabwiseQuestionActivity.resources.displayMetrics.widthPixels) {
-//            queTab_sliding_tabs.tabMode = TabLayout.MODE_FIXED
-//            val mParams = queTab_sliding_tabs.layoutParams
-//            mParams.width = ViewGroup.LayoutParams.MATCH_PARENT
-//            queTab_sliding_tabs.layoutParams = mParams
-//
-//        } else {
-//            queTab_sliding_tabs.tabMode = TabLayout.MODE_SCROLLABLE
-//        }
-//    }
-
-//    fun onLeft() {
-//        // TODO Auto-generated method stub
-//        //        mDrawerList.setSelectionAfterHeaderView();
-//        drawer_layout.openDrawer(leftRl)
-//    }
-
     fun callQuestionApi() {
 
         val sortDialog = Dialog(this@TabwiseQuestionActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
@@ -464,8 +320,6 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         sortDialog.window!!.attributes.verticalMargin = 0.10f
         wlp.gravity = Gravity.BOTTOM
         window.attributes = wlp
-
-//        sortDialog.window!!.setBackgroundDrawableResource(R.drawable.filter1_1)
 
         sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         sortDialog.setCancelable(true)
@@ -576,79 +430,46 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                             ansList!!.visibility = View.VISIBLE
                             queTab_rbTruefalse.visibility = View.GONE
 
+                            val answerModel = AnswerModel()
+                            answerModel.ansid = movies[0].Answer
+                            answerModel.ansresult = true
+                            ansArr.add(answerModel)
+
                             ansList!!.adapter = SelectImageOptionAdapter(
                                 this@TabwiseQuestionActivity,
                                 movies[0].StudentTestQuestionMCQ,
                                 page_img_que_img.width,
                                 movies[0].QuestionTypeID,
-                                movies[0].QuestionID
+                                movies[0].QuestionID,
+                                movies[0].Answer
                             )
 
                         } else if (movies[0].QuestionTypeID == 2) {
+
                             queTab_tvFillBlanks.visibility = View.VISIBLE
                             ansList!!.visibility = View.GONE
                             queTab_rbTruefalse.visibility = View.GONE
+
+                            queTab_tvFillBlanks.setText(movies[0].Answer)
 
                         } else if (movies[0].QuestionTypeID == 4) {
                             queTab_rbTruefalse.visibility = View.VISIBLE
                             queTab_tvFillBlanks.visibility = View.GONE
                             ansList!!.visibility = View.GONE
+
+                            if (movies[0].Answer == "1") {
+                                queTab_rbTrue.isChecked = true
+                            } else {
+                                queTab_rbFalse.isChecked = true
+                            }
                         }
                     }
                 }
-//                else {
-//                    if ("http://content.testcraft.co.in/question/" + movies[0].QuestionImage != "") {
-//                        Picasso.get().load("http://content.testcraft.co.in/question/" + movies[0].QuestionImage)
-////                                .resize(page_img_que_img.width, page_img_que_img.height)
-//                            .into(page_img_que_img)
-//
-//                    }
-//
-//                    ansList!!.layoutManager =
-//                        LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
-//
-//                    if (movies[0].QuestionTypeID != 3) {
-//
-//                        queTab_tvFillBlanks.visibility = View.GONE
-//                        ansList!!.visibility = View.VISIBLE
-//
-//                        ansList!!.adapter = SelectImageOptionAdapter(
-//                            this@TabwiseQuestionActivity,
-//                            movies[0].StudentTestQuestionMCQ,
-//                            page_img_que_img.width,
-//                            movies[0].QuestionTypeID,
-//                            movies[0].QuestionID
-//                        )
-//                    } else {
-//                        queTab_tvFillBlanks.visibility = View.VISIBLE
-//                        ansList!!.visibility = View.GONE
-//
-//                    }
-//
-//                }
-
-//                    html_text.setHtml(movies[pos].titlehtml,
-//                        HtmlHttpImageGetter(html_text)
-//                    );
-
-//                    val url = URL("http://content.testcraft.co.in/question/9b734bff-db1d-42f5-8c54-0cf96612193d.jpeg")
-//                    val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-//
-//                    val drawable = BitmapDrawable(resources, bmp)
-//
-//                    page_img_que_img.setImageDrawable(drawable)
-
-//                    DownLoadImageTask(page_img_que_img).execute("https://www.jagranjosh.com/imported/images/E/Articles/JEE_integrals.jpg");
-
-//                    page_img_que_img.setImageDrawable(activity!!.resources.getDrawable(R.drawable.pic))
 
                 sortDialog.dismiss()
 
                 Log.d("imgcall", "Number of movies received: " + movies.size)
-//                } else {
-//                    sortDialog.dismiss()
-//                    Toast.makeText(this@TabwiseQuestionActivity, "No Question at that time", Toast.LENGTH_LONG).show()
-//                }
+
             }
 
             override fun onFailure(call: Call<QuestionResponse>, t: Throwable) {
@@ -761,7 +582,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.submitTest(studenttestid, ansstr)
+        val call = apiService.submitTest(studenttestid)
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
@@ -799,7 +620,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         })
     }
 
-    fun callSubmitAnswer(testqueid: Int, queid: Int, quetypeid: Int, answerr: String, time: String) {
+    fun callSubmitAnswer(testqueid: Int, queid: Int, quetypeid: Int, answerr: String, time: String, p0: Int) {
 
         DialogUtils.showDialog(this@TabwiseQuestionActivity)
 
@@ -822,11 +643,66 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
                 if (response.body()!!.get("Status").asString == "true") {
 
-                    answer = ""
-                    queTab_tvFillBlanks.setText("")
+//                    answer = ""
+//                    queTab_tvFillBlanks.setText("")
                     ansArr = ArrayList()
 
                     queTab_btnNext.visibility = View.VISIBLE
+
+                    queTab_tvTotal.text = """${p0 + 1}/${movies.size}"""
+
+                    if ("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage != "") {
+
+                        Picasso.get().load("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage)
+//                .resize(imgQue!!.width, qsize)
+                            .into(imgQue)
+
+//            PageViewFragment.qsize = page_img_que_img.width
+
+                        ansList!!.layoutManager =
+                            LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
+
+                        if (movies[p0].QuestionTypeID == 1 || movies[p0].QuestionTypeID == 7) {
+
+                            queTab_tvFillBlanks.visibility = View.GONE
+                            ansList!!.visibility = View.VISIBLE
+                            queTab_rbTruefalse.visibility = View.GONE
+
+                            ansList!!.adapter = SelectImageOptionAdapter(
+                                this@TabwiseQuestionActivity,
+                                movies[p0].StudentTestQuestionMCQ,
+                                imgQue!!.width,
+                                movies[p0].QuestionTypeID,
+                                movies[p0].QuestionID,
+                                movies[p0].Answer
+                            )
+
+                        } else if (movies[p0].QuestionTypeID == 2) {
+                            queTab_tvFillBlanks.visibility = View.VISIBLE
+                            ansList!!.visibility = View.GONE
+                            queTab_rbTruefalse.visibility = View.GONE
+
+//                            if (queTab_tvFillBlanks.text.toString() == "") {
+
+                            queTab_tvFillBlanks.setText(movies[p0].Answer)
+
+//                            } else {
+//                                answer = queTab_tvFillBlanks.text.toString()
+//                            }
+
+                        } else if (movies[p0].QuestionTypeID == 4) {
+                            queTab_rbTruefalse.visibility = View.VISIBLE
+                            queTab_tvFillBlanks.visibility = View.GONE
+                            ansList!!.visibility = View.GONE
+
+                            if (movies[p0].Answer == "1") {
+                                queTab_rbTrue.isChecked = true
+                            } else {
+                                queTab_rbFalse.isChecked = true
+                            }
+
+                        }
+                    }
 
                 } else {
 
@@ -846,64 +722,115 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         })
     }
 
-    override fun getType(p0: Int) {
+    override fun getType(itype: String, p0: Int) {
 
         drawer_layout.closeDrawer(Gravity.END)
+        //                            if (queTab_tvFillBlanks.text.toString() == "") {
 
-        queTab_tvTotal.text = """${p0 + 1}/${movies.size}"""
+//                            } else {
+//                                answer = queTab_tvFillBlanks.text.toString()
+//                            }
 
-        if ("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage != "") {
-
-            Picasso.get().load("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage)
-//                .resize(imgQue!!.width, qsize)
-                .into(imgQue)
+        //                .resize(imgQue!!.width, qsize)
 
 //            PageViewFragment.qsize = page_img_que_img.width
+        when {
+            movies[p0].QuestionTypeID == 1 -> {
 
-            ansList!!.layoutManager =
-                LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
+                if (itype == "activity") {
+                    answer = ansArr[0].ansid
+                }
 
-            if (movies[p0].QuestionTypeID == 1 || movies[p0].QuestionTypeID == 7) {
+//                answer = answer.substring(0, answer.length)
 
-                queTab_tvFillBlanks.visibility = View.GONE
-                ansList!!.visibility = View.VISIBLE
-                queTab_rbTruefalse.visibility = View.GONE
-
-                ansList!!.adapter = SelectImageOptionAdapter(
-                    this@TabwiseQuestionActivity,
-                    movies[p0].StudentTestQuestionMCQ,
-                    imgQue!!.width,
-                    movies[p0].QuestionTypeID,
-                    movies[p0].QuestionID
-                )
+            }
+            movies[p0].QuestionTypeID == 7 -> {
 
                 for (i in 0 until ansArr.size) {
                     answer = answer + ansArr[i].ansid + "|"
-
                 }
 
-                answer = answer.substring(0, answer.length - 1)
+                answer = answer.substring(0, answer.length)
 
-            } else if (movies[p0].QuestionTypeID == 2) {
-                queTab_tvFillBlanks.visibility = View.VISIBLE
-                ansList!!.visibility = View.GONE
-                queTab_rbTruefalse.visibility = View.GONE
+            }
+            movies[p0].QuestionTypeID == 2 -> {
 
                 answer = queTab_tvFillBlanks.text.toString()
 
-            } else if (movies[p0].QuestionTypeID == 4) {
-                queTab_rbTruefalse.visibility = View.VISIBLE
-                queTab_tvFillBlanks.visibility = View.GONE
-                ansList!!.visibility = View.GONE
             }
+            movies[p0].QuestionTypeID == 4 -> answer = if (queTab_rbFalse.isChecked) {
+                "0"
+            } else {
+                "1"
+            }
+        }
+
+        if (itype == "activity") {
+
+            movies[p0].Answer = answer
 
             callSubmitAnswer(
-                movies[p0 - 1].TestQuestionID,
-                movies[p0 - 1].QuestionID,
-                movies[p0 - 1].QuestionTypeID,
+                movies[p0].TestQuestionID,
+                movies[p0].QuestionID,
+                movies[p0].QuestionTypeID,
                 answer,
-                "10"
+                "10",
+                p0 + 1
             )
+        } else {
+            queTab_tvTotal.text = """${p0 + 1}/${movies.size}"""
+
+            if ("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage != "") {
+
+                Picasso.get().load("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage)
+//                .resize(imgQue!!.width, qsize)
+                    .into(imgQue)
+
+//            PageViewFragment.qsize = page_img_que_img.width
+
+                ansList!!.layoutManager =
+                    LinearLayoutManager(this@TabwiseQuestionActivity, LinearLayoutManager.VERTICAL, false)
+
+                if (movies[p0].QuestionTypeID == 1 || movies[p0].QuestionTypeID == 7) {
+
+                    queTab_tvFillBlanks.visibility = View.GONE
+                    ansList!!.visibility = View.VISIBLE
+                    queTab_rbTruefalse.visibility = View.GONE
+
+                    ansList!!.adapter = SelectImageOptionAdapter(
+                        this@TabwiseQuestionActivity,
+                        movies[p0].StudentTestQuestionMCQ,
+                        imgQue!!.width,
+                        movies[p0].QuestionTypeID,
+                        movies[p0].QuestionID,
+                        movies[p0].Answer
+                    )
+
+                } else if (movies[p0].QuestionTypeID == 2) {
+                    queTab_tvFillBlanks.visibility = View.VISIBLE
+                    ansList!!.visibility = View.GONE
+                    queTab_rbTruefalse.visibility = View.GONE
+
+//                            if (queTab_tvFillBlanks.text.toString() == "") {
+
+                    queTab_tvFillBlanks.setText(movies[p0].Answer)
+
+//                            } else {
+//                                answer = queTab_tvFillBlanks.text.toString()
+//                            }
+
+                } else if (movies[p0].QuestionTypeID == 4) {
+                    queTab_rbTruefalse.visibility = View.VISIBLE
+                    queTab_tvFillBlanks.visibility = View.GONE
+                    ansList!!.visibility = View.GONE
+
+                    if (movies[p0].Answer == "1") {
+                        queTab_rbTrue.isChecked = true
+                    } else {
+                        queTab_rbFalse.isChecked = true
+                    }
+                }
+            }
         }
     }
 
@@ -911,7 +838,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         if ((movies.size - 1) > AppConstants.QUE_NUMBER) {
             AppConstants.QUE_NUMBER = AppConstants.QUE_NUMBER + 1
 
-            getType(AppConstants.QUE_NUMBER)
+            getType("activity", AppConstants.QUE_NUMBER - 1)
 
             sideList!!.adapter = QuestionListSideMenuAdapter(
                 context!!,
@@ -952,7 +879,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             )
         }
 
-        fun setButton(ansid: String, qid: Int) {
+        fun setButton(position: Int, ansid: String, qid: Int) {
 
             nextButton!!.text = "Next"
 
@@ -961,15 +888,33 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 //            answerModel.qid = qid
 //            answerModel.ansresult = result
 
-            if (ansArr.size > 0) {
-                for (i in 0 until ansArr.size) {
-                    if (ansArr[i].qid == qid) {
-                        ansArr[i].ansid = ansid
-                        ansArr[i].ansresult = true
+            if (movies[position].QuestionTypeID == 1) {
+
+                ansArr = ArrayList()
+
+                val answerModel = AnswerModel()
+                answerModel.ansid = ansid
+                answerModel.ansresult = true
+                ansArr.add(answerModel)
+
+            } else {
+
+                if (ansArr.size > 0) {
+                    for (i in 0 until ansArr.size) {
+                        if (ansArr[i].qid == qid) {
+                            ansArr[i].ansid = ansid
+                            ansArr[i].ansresult = true
+                        }
                     }
+                } else {
+
+                    val answerModel = AnswerModel()
+                    answerModel.ansid = ansid
+                    answerModel.ansresult = true
+                    ansArr.add(answerModel)
+
                 }
             }
         }
     }
-
 }

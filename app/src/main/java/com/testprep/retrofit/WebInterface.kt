@@ -117,8 +117,8 @@ interface WebInterface {
     fun getExamList(@Field("CourseTypeID") coursetype: String): Call<PackageData>
 
     @FormUrlEncoded
-    @POST("Add_StudentTestAnswer")
-    fun submitTest(@Field("StudentTestID") studenttest_id: String, @Field("QuestionIDAnswerID") que_ans_id: String): Call<JsonObject>
+    @POST("Submit_Test")
+    fun submitTest(@Field("StudentTestID") studenttest_id: String): Call<JsonObject>
 
     @FormUrlEncoded
     @POST("Insert_Test_Answer")

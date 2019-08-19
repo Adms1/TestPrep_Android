@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.squareup.picasso.Picasso
-import com.testprep.R
 import com.testprep.activity.TabwiseQuestionActivity
 import com.testprep.old.models.QuestionResponse
 
@@ -17,7 +16,8 @@ class SelectImageOptionAdapter(
     val dataList: ArrayList<QuestionResponse.QuestionDataList>,
     var qsize: Int,
     var qtype: Int,
-    var qid: Int
+    var qid: Int,
+    var answer: String
 ) : RecyclerView.Adapter<SelectImageOptionAdapter.viewholder>() {
 
     private var lastCheckedRadioGroup: RadioGroup? = null
@@ -26,7 +26,7 @@ class SelectImageOptionAdapter(
 
         return viewholder(
             LayoutInflater.from(context).inflate(
-                R.layout.select_image_option_list_view,
+                com.testprep.R.layout.select_image_option_list_view,
                 p0,
                 false
             )
@@ -59,14 +59,22 @@ class SelectImageOptionAdapter(
                 p0.opone1.visibility = View.VISIBLE
                 p0.llCheckBox.visibility = View.GONE
 
-                val rb = RadioButton(this@SelectImageOptionAdapter.context)
+                var rb = RadioButton(this@SelectImageOptionAdapter.context)
 
                 rb.layoutParams = RadioGroup.LayoutParams(
                     RadioGroup.LayoutParams.MATCH_PARENT,
                     RadioGroup.LayoutParams.WRAP_CONTENT
                 )
 
-                rb.id = id++
+                rb.id = dataList[p1].MultipleChoiceQuestionAnswerID.toInt()
+
+                if (answer == dataList[p1].MultipleChoiceQuestionAnswerID) {
+                    lastCheckedRadioGroup = p0.opone
+////                   p0.opone.check(rb.id)
+                    rb.isChecked = true
+                }
+
+//                TabwiseQuestionActivity.setButton(p1, dataList[p1].MultipleChoiceQuestionAnswerID, qid)
 
                 p0.opone.addView(rb)
 
@@ -79,6 +87,18 @@ class SelectImageOptionAdapter(
 
                 val cb = CheckBox(this@SelectImageOptionAdapter.context)
 
+                cb.id = dataList[p1].MultipleChoiceQuestionAnswerID.toInt()
+
+                var ansstr = ""
+
+                cb.setOnCheckedChangeListener { buttonView, isChecked ->
+
+                    ansstr += cb.id
+
+                    TabwiseQuestionActivity.setButton(p1, ansstr, qid)
+
+                }
+
                 p0.llCheckBox.addView(cb)
 
             }
@@ -87,20 +107,28 @@ class SelectImageOptionAdapter(
 
         p0.opone.setOnCheckedChangeListener { group, checkedId ->
 
-            TabwiseQuestionActivity.setButton(dataList[p1].MultipleChoiceQuestionAnswerID, qid)
+            //            if(answer == dataList[p1].MultipleChoiceQuestionAnswerID){
+//
+//                p0.opone.checkedRadioButtonId
+//                p0.opone.check(dataList[p1].MultipleChoiceQuestionAnswerID.toInt())
+//            }
 
             if (lastCheckedRadioGroup != null
-                && lastCheckedRadioGroup!!.checkedRadioButtonId
-                != p0.opone.checkedRadioButtonId
+                && lastCheckedRadioGroup!!.checkedRadioButtonId != p0.opone.checkedRadioButtonId
                 && lastCheckedRadioGroup!!.checkedRadioButtonId != -1
-
             ) {
+                Log.d("grp", "clear")
                 lastCheckedRadioGroup!!.clearCheck()
+
+                TabwiseQuestionActivity.setButton(p1, dataList[p1].MultipleChoiceQuestionAnswerID, qid)
 
             } else if (lastCheckedRadioGroup == null) {
 
+                Log.d("grp", "null")
+
             } else {
 
+                Log.d("grp", "else")
             }
             lastCheckedRadioGroup = p0.opone
         }
@@ -109,10 +137,10 @@ class SelectImageOptionAdapter(
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var opone1: ImageView = itemView.findViewById(R.id.option_one1)
-        var opone: RadioGroup = itemView.findViewById(R.id.option_one)
-        var llmain: RelativeLayout = itemView.findViewById(R.id.option_lll)
-        var llCheckBox: LinearLayout = itemView.findViewById(R.id.option_llCheckbox)
+        var opone1: ImageView = itemView.findViewById(com.testprep.R.id.option_one1)
+        var opone: RadioGroup = itemView.findViewById(com.testprep.R.id.option_one)
+        var llmain: RelativeLayout = itemView.findViewById(com.testprep.R.id.option_lll)
+        var llCheckBox: LinearLayout = itemView.findViewById(com.testprep.R.id.option_llCheckbox)
     }
 
 }

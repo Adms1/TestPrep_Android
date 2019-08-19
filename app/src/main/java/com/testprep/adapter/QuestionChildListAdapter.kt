@@ -65,7 +65,7 @@ class QuestionChildListAdapter(
 
             Log.d("que_number", "" + AppConstants.QUE_NUMBER)
 
-            filterTypeSelectionInteface.getType(p1)
+            filterTypeSelectionInteface.getType("adapter", p1)
 
         }
 

@@ -60,6 +60,7 @@ class TestListAdapter(val context: Context, var dataList: ArrayList<TestListMode
                 val intent = Intent(context, TabwiseQuestionActivity::class.java)
                 intent.putExtra("testid", dataList[p1].TestID.toString())
                 intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
+                intent.putExtra("testname", dataList[p1].TestName)
                 context.startActivity(intent)
             }
         }

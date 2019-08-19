@@ -190,7 +190,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         })
     }
 
-    override fun getType(p0: Int) {
+    override fun getType(itype: String, p0: Int) {
 
         drawer_layout.closeDrawer(Gravity.END)
 
@@ -216,7 +216,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         if ((movies.size - 1) > AppConstants.QUE_NUMBER1) {
             AppConstants.QUE_NUMBER1 = AppConstants.QUE_NUMBER1 + 1
 
-            getType(AppConstants.QUE_NUMBER1)
+            getType("solution", AppConstants.QUE_NUMBER1)
 
             sideList!!.adapter = QuestionListSideMenuAdapter(
                 context!!,

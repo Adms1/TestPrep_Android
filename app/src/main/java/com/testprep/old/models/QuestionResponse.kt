@@ -25,7 +25,7 @@ class QuestionResponse {
         var MultipleChoiceQuestionAnswerID = ""
         var AnswerImage = ""
         var IsCorrectAnswer = false
-        var StudentAnswer = false
+        var IsUserSelected = false
 
     }
 
