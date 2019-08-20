@@ -20,6 +20,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.Window
+import android.webkit.WebView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -59,6 +60,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
     var answer = ""
     var childList = HashMap<String, ArrayList<String>>()
 
+    var hintData = ""
     private var imgQue: ImageView? = null
     private var ansList: RecyclerView? = null
 
@@ -132,10 +134,28 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
         queTab_ivReview.setOnClickListener {
 
-            setSideMenu(4)
+            val dialog = Dialog(this@TabwiseQuestionActivity)
+            dialog.setContentView(R.layout.hint_dialog)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.setCanceledOnTouchOutside(false)
 
-            getNextQuestion()
+//            var hintHeader: TextView = dialog.findViewById(R.id.dialog_hint_tvHint)
+            val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
+//            val hintExplanation: TextView = dialog.findViewById(R.id.dialog_hint_tvExplanation)
+//            val explanationWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvExplanation)
+//            val line1: View = dialog.findViewById(R.id.dialog_hint_viewLine1)
+            val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
 
+//            hintExplanation.visibility = View.GONE
+//            explanationWebview.visibility = View.GONE
+//            line1.visibility = View.GONE
+
+            hintWebview.settings.javaScriptEnabled = true
+            hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
+
+            closeBtn.setOnClickListener { dialog.dismiss() }
+
+            dialog.show()
         }
 
         drawer_layout.setDrawerListener(mDrawerToggle)
@@ -343,6 +363,9 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 //                    qno.text = "Q." + (countt+1)
 
                     queTab_tvTotal.text = "1/${movies.size}"
+
+                    hintData =
+                        "<html><body style='background-color:clear;'><p align=center><font size=4><b>" + "Hint" + "</b></font></p><p><font size=2>" + movies[0].Hint + "</font></p></body></html>"
 
                     Log.d("qid", "" + movies[0].QuestionID)
 
@@ -555,7 +578,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
                     Log.d("ansstr", ansstr)
 
-                    callSubmitAPI(ansstr.substring(0, ansstr.length - 1))
+                    callSubmitAPI()
 
                 },
                 DialogInterface.OnClickListener { dialog, which ->
@@ -565,7 +588,7 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         }
     }
 
-    fun callSubmitAPI(ansstr: String) {
+    fun callSubmitAPI() {
 //        val sortDialog = Dialog(this@TabwiseQuestionActivity)
 //        sortDialog.setContentView(R.layout.progressbar_dialog)//,R.style.PauseDialog);//, R.style.PauseDialog);
 //        val window = sortDialog.window
@@ -734,6 +757,10 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         //                .resize(imgQue!!.width, qsize)
 
 //            PageViewFragment.qsize = page_img_que_img.width
+
+        hintData =
+            "<html><body style='background-color:clear;'><p align=center><font size=4><b>" + "Hint" + "</b></font></p><p><font size=2>" + movies[p0].Hint + "</font></p></body></html>"
+
         when {
             movies[p0].QuestionTypeID == 1 -> {
 
@@ -746,11 +773,20 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             }
             movies[p0].QuestionTypeID == 7 -> {
 
-                for (i in 0 until ansArr.size) {
-                    answer = answer + ansArr[i].ansid + "|"
+//                for (i in 0 until ansArr.size) {
+//                    answer = answer + ansArr[i].ansid + "|"
+//                }
+
+                if (itype == "activity") {
+
+                    answer = if (ansArr.size > 0) {
+                        ansArr[0].ansid
+                    } else {
+                        movies[p0].Answer
+                    }
                 }
 
-                answer = answer.substring(0, answer.length)
+//                answer = answer.substring(0, answer.length)
 
             }
             movies[p0].QuestionTypeID == 2 -> {
@@ -888,9 +924,9 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 //            answerModel.qid = qid
 //            answerModel.ansresult = result
 
-            if (movies[position].QuestionTypeID == 1) {
+            ansArr = ArrayList()
 
-                ansArr = ArrayList()
+            if (movies[position].QuestionTypeID == 1) {
 
                 val answerModel = AnswerModel()
                 answerModel.ansid = ansid
@@ -899,20 +935,20 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
 
             } else {
 
-                if (ansArr.size > 0) {
-                    for (i in 0 until ansArr.size) {
-                        if (ansArr[i].qid == qid) {
-                            ansArr[i].ansid = ansid
-                            ansArr[i].ansresult = true
-                        }
-                    }
-                } else {
+//                if (ansArr.size > 0) {
+//                    for (i in 0 until ansArr.size) {
+//                        if (ansArr[i].qid == qid) {
+//                            ansArr[i].ansid = ansid
+//                            ansArr[i].ansresult = true
+//                        }
+//                    }
+//                } else {
 
+                if (ansid != "") {
                     val answerModel = AnswerModel()
                     answerModel.ansid = ansid
                     answerModel.ansresult = true
                     ansArr.add(answerModel)
-
                 }
             }
         }

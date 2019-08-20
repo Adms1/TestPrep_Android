@@ -81,10 +81,9 @@ class TestReviewActivity : AppCompatActivity() {
                     review_tvUnanswered.text =
                         response.body()!!.get("data").asJsonArray[0].asJsonObject.get("UnAnswered").asString + "    Unanswered"
                     review_ivCorrect.text =
-                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Correct").asString + "\n______\n" + response.body()!!.get(
+                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TotalGetMarks").asString + "\n______\n" + response.body()!!.get(
                             "data"
                         ).asJsonArray[0].asJsonObject.get("TotalMarks").asString
-
 
                 } else {
 

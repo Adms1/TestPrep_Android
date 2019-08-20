@@ -16,7 +16,8 @@ import com.testprep.old.models.QuestionResponse
 class SolutionAdapter(
     val context: Context,
     val dataList: ArrayList<QuestionResponse.QuestionDataList>,
-    var qsize: Int
+    var qsize: Int,
+    var qType: Int
 ) :
     RecyclerView.Adapter<SolutionAdapter.viewholder>() {
 
@@ -40,18 +41,19 @@ class SolutionAdapter(
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        if ("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage != "") {
+        if (qType == 1) {
+            if ("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage != "") {
 
-            Log.d("qsize", "" + qsize)
+                Log.d("qsize", "" + qsize)
 
-            var imgwidth: Int = 100
+                var imgwidth: Int = 100
 
-            Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage)
-                .resize(qsize, p0.opone1.height)
+                Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage)
+                    .resize(qsize, p0.opone1.height)
 //                .fit()
 //                .centerInside()
-                .into(p0.opone1)
-        }
+                    .into(p0.opone1)
+            }
 
 //        if(dataList[p1].IsCorrectAnswer){
 //
@@ -63,10 +65,13 @@ class SolutionAdapter(
 //
 //        }
 
-        when {
-            dataList[p1].IsCorrectAnswer -> p0.opone.setImageResource(R.drawable.wrong)
-            dataList[p1].IsUserSelected -> p0.opone.setImageResource(R.drawable.correct)
-            else -> p0.opone.setImageResource(R.drawable.grey_round)
+            when {
+                dataList[p1].IsCorrectAnswer -> p0.opone.setImageResource(R.drawable.wrong)
+                dataList[p1].IsUserSelected -> p0.opone.setImageResource(R.drawable.correct)
+                else -> p0.opone.setImageResource(R.drawable.grey_round)
+            }
+        } else {
+
         }
 
     }

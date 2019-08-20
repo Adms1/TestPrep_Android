@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.squareup.picasso.Picasso
 import com.testprep.activity.TabwiseQuestionActivity
+import com.testprep.models.SelectedCheckboxModel
 import com.testprep.old.models.QuestionResponse
 
 class SelectImageOptionAdapter(
@@ -21,6 +22,8 @@ class SelectImageOptionAdapter(
 ) : RecyclerView.Adapter<SelectImageOptionAdapter.viewholder>() {
 
     private var lastCheckedRadioGroup: RadioGroup? = null
+    var ansstr = ""
+    var ansArr: ArrayList<SelectedCheckboxModel> = ArrayList()
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
@@ -89,20 +92,72 @@ class SelectImageOptionAdapter(
 
                 cb.id = dataList[p1].MultipleChoiceQuestionAnswerID.toInt()
 
-                var ansstr = ""
+//                ansstr = answer
+                var tempArr = answer.split(",")
+
+                for (i in 0 until tempArr.size) {
+                    if (tempArr[i] == cb.id.toString()) {
+                        val selectedCheckboxModel = SelectedCheckboxModel()
+                        selectedCheckboxModel.ids = cb.id.toString()
+                        selectedCheckboxModel.selected = true
+                        ansArr.add(selectedCheckboxModel)
+
+                        cb.isChecked = true
+
+                    }/*else {
+                        val selectedCheckboxModel = SelectedCheckboxModel()
+                        selectedCheckboxModel.ids = cb.id.toString()
+                        selectedCheckboxModel.selected = false
+                        ansArr.add(selectedCheckboxModel)
+                    }*/
+                }
+
+//                if (ansArr.contains(dataList[p1].MultipleChoiceQuestionAnswerID)) {
+////                   p0.opone.check(rb.id)
+//                    cb.isChecked = true
+//                }
 
                 cb.setOnCheckedChangeListener { buttonView, isChecked ->
 
-                    ansstr += cb.id
+                    if (isChecked) {
+                        if (ansArr.size > 0) {
+                            for (i in 0 until ansArr.size) {
+                                if (ansArr[i].ids == cb.id.toString()) {
 
-                    TabwiseQuestionActivity.setButton(p1, ansstr, qid)
+                                    ansArr[i].selected = true
 
+                                } else {
+                                    val selectedCheckboxModel = SelectedCheckboxModel()
+                                    selectedCheckboxModel.ids = cb.id.toString()
+                                    selectedCheckboxModel.selected = true
+                                    ansArr.add(selectedCheckboxModel)
+                                }
+
+                                break
+                            }
+                        } else {
+                            val selectedCheckboxModel = SelectedCheckboxModel()
+                            selectedCheckboxModel.ids = cb.id.toString()
+                            selectedCheckboxModel.selected = true
+                            ansArr.add(selectedCheckboxModel)
+                        }
+
+                        multiSelection(p1)
+
+                    } else {
+                        for (i in 0 until ansArr.size) {
+                            if (ansArr[i].ids == cb.id.toString()) {
+                                ansArr[i].selected = false
+                            }
+                        }
+
+                        multiSelection(p1)
+                    }
                 }
 
                 p0.llCheckBox.addView(cb)
 
             }
-
         }
 
         p0.opone.setOnCheckedChangeListener { group, checkedId ->
@@ -132,7 +187,6 @@ class SelectImageOptionAdapter(
             }
             lastCheckedRadioGroup = p0.opone
         }
-
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -141,6 +195,16 @@ class SelectImageOptionAdapter(
         var opone: RadioGroup = itemView.findViewById(com.testprep.R.id.option_one)
         var llmain: RelativeLayout = itemView.findViewById(com.testprep.R.id.option_lll)
         var llCheckBox: LinearLayout = itemView.findViewById(com.testprep.R.id.option_llCheckbox)
+    }
+
+    fun multiSelection(p1: Int) {
+        for (i in 0 until ansArr.size) {
+            if (ansArr[i].selected) {
+                ansstr = ansstr + ansArr[i].ids + ","
+            }
+        }
+
+        TabwiseQuestionActivity.setButton(p1, ansstr, qid)
     }
 
 }

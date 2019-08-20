@@ -16,6 +16,10 @@ class QuestionResponse {
         var Answer = ""
         var Answered = ""
         var Review = ""
+        var CorrectAnswer = ""
+        var IsCorrect = "False"
+        var Hint = ""
+        var Explanation = ""
         var StudentTestAnswerMCQ: ArrayList<QuestionDataList> = ArrayList()
         var StudentTestQuestionMCQ: ArrayList<QuestionDataList> = ArrayList()
 
