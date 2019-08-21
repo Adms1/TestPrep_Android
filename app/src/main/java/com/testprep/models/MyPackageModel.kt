@@ -12,6 +12,14 @@ class MyPackageModel {
         var Icon = ""
         var isCompetitive = false
         var PackageList: ArrayList<PackageData.PackageDataList> = ArrayList()
+        var TestSummary: ArrayList<testSummary> = ArrayList()
+
+    }
+
+    class testSummary {
+
+        var count = 0
+        var status = ""
 
     }
 

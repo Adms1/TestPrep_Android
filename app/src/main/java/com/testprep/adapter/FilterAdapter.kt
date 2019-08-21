@@ -68,6 +68,8 @@ class FilterAdapter(
 
                 raw_index = position
 
+                holder.img.setBackgroundColor(cotext.resources.getColor(R.color.white))
+
                 when (filterType) {
                     "standard" -> {
                         strID = mModelList[position].StandardID
@@ -116,8 +118,10 @@ class FilterAdapter(
         }
 
         if (selectionType == "single") {
+
             if (raw_index == position) {
-                holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.right_white_bg))
+
+                holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.right_blue))
 //                holder.img.visibility = View.VISIBLE
                 model.isSelected = !model.isSelected
             } else {

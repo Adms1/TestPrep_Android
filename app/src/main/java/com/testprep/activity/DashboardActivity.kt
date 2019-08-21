@@ -54,13 +54,30 @@ class DashboardActivity : AppCompatActivity() {
 
 //        drawer_layout.setDrawerListener(mDrawerToggle)
 
-        supportFragmentManager.beginTransaction().add(R.id.container, MarketPlaceFragment()).commit()
-        dash_ivMarket.setImageResource(R.drawable.blue_list)
-        dashboard_ivBack.visibility = View.GONE
+        if (AppConstants.isFirst == 0) {
+
+            val fragment = MarketPlaceFragment()
+            var bundle = Bundle()
+            bundle.putString("subid", intent.getStringExtra("subject_id"))
+            fragment.arguments = bundle
+
+            supportFragmentManager.beginTransaction().add(R.id.container, fragment).commit()
+            dash_ivMarket.setImageResource(R.drawable.blue_list)
+            dashboard_ivBack.visibility = View.GONE
 //        dashboard_ivPencil.visibility = View.VISIBLE
 
-        dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
-        dashboard_header.text = "Market Place"
+            dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
+            dashboard_header.text = "Market Place"
+
+        } else if (AppConstants.isFirst == 1) {
+
+            supportFragmentManager.beginTransaction().add(R.id.container, ChooseMarketPlaceFragment()).commit()
+            dash_ivHome.setImageResource(R.drawable.blue_home)
+            dashboard_ivBack.visibility = View.GONE
+
+            dash_tvHome.setTextColor(resources.getColor(R.color.nfcolor))
+            dashboard_header.text = "My Packages"
+        }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -136,8 +153,12 @@ class DashboardActivity : AppCompatActivity() {
 
                 dashboard_header.text = "Market Place"
 
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, MarketPlaceFragment()).commit()
+                val fragment = MarketPlaceFragment()
+                var bundle = Bundle()
+                bundle.putString("subid", intent.getStringExtra("subject_id"))
+                fragment.arguments = bundle
+
+                supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
 
 //                dashboard_ivFilter.visibility = View.VISIBLE
                 dashboard_ivCart.visibility = View.VISIBLE

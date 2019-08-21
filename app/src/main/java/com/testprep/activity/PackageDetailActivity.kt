@@ -14,7 +14,6 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import com.testprep.R
 import com.testprep.adapter.TestTypeAdapter
 import com.testprep.fragments.TutorProfileFragment
 import com.testprep.retrofit.WebClient
@@ -22,16 +21,20 @@ import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
+import com.testprep.utils.WebRequests
 import kotlinx.android.synthetic.main.activity_package_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
+
 class PackageDetailActivity : AppCompatActivity() {
 
     var pkgid = ""
     var tutor_id = ""
+
+    var purchaseCoin = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -47,7 +50,7 @@ class PackageDetailActivity : AppCompatActivity() {
 
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        setContentView(R.layout.activity_package_detail)
+        setContentView(com.testprep.R.layout.activity_package_detail)
 
 //        Log.d("colr1", " " + pos + " " + package_detail_tvPname.text.length)
 
@@ -83,7 +86,20 @@ class PackageDetailActivity : AppCompatActivity() {
                 "Yes",
                 "No",
                 DialogInterface.OnClickListener { dialog, which ->
-                    callAddTestPackageApi()
+
+                    if (DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
+
+//            if (isVersionCodeUpdated) {
+                        chargeBtnLogic()
+
+//            } else {
+//                Utils.openVersionDialogCharge(this@CoinActivity)
+//
+//            }
+
+                    } else {
+                        Utils.ping(this@PackageDetailActivity, "Network not available")
+                    }
 
                 },
                 DialogInterface.OnClickListener { dialog, which ->
@@ -96,19 +112,102 @@ class PackageDetailActivity : AppCompatActivity() {
         callTestPackageDetailApi()
     }
 
-    fun callAddTestPackageApi() {
+    fun chargeBtnLogic() {
+//        com.testprep.utils.AppConstants.planid = "0"
+        if (AppConstants.API_KEY.length > 5 && AppConstants.SECRET_KEY.length > 5) {
+            var amount: Array<String>? = null
+            if (purchaseCoin.contains("."))
+                amount = purchaseCoin.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
+                    .toTypedArray()//to check decimal places
 
-        if (!DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
-            Utils.ping(this@PackageDetailActivity, "Connetion not available")
+            if (purchaseCoin.equals("", ignoreCase = true)) {
+                Utils.ping(this@PackageDetailActivity, resources.getString(com.testprep.R.string.enter_coin))
+            } else if (amount != null && amount[1].length > 2) {
+                Utils.ping(this@PackageDetailActivity, "Please provide upto 2 decimal places only.")
+            } else {
+                //SHRENIK IS HERE.....
+                /*if(1==2) {
+                        //Insta mojo code.
+                        fetchTokenAndTransactionID();
+                    }*/
+                try {
+                    //                            verifyCard();
+//                    val cardResult = verifyCardFromUSBReader()
+//                    if (cardResult.equals("NoReader", ignoreCase = true)) {
+//                        isCardPresent = false
+//                        openDialog(
+//                            "No Card Reader Found",
+//                            "If you have a card reader then please RETRY by inserting a card reader with a valid card or click OK to proceed to Manual Entry."
+//                        )
+//
+//                    } else if (cardResult.equals("NoCard", ignoreCase = true)) {
+//                        isCardPresent = false
+//                        openDialog(
+//                            "Card Not Found",
+//                            "Either the card is not inserted or the card you inserted is not supported so please RETRY by inserting a valid card with a chip or click OK to proceed for the manual entry."
+//                        )
+//
+//                    } else {
+//                        isCardPresent = true
+//                        Log.v("Carddetail: ", cardResult)
+//                        generateTrackNPayRequest()
+                    //                            fetchTokenAndTransactionID();
+                    //Custom UI
+
+                    var temp = purchaseCoin.replace(",", "")
+                    var temp1 = temp.toFloat()
+
+                    generateTrackNPayRequest(this@PackageDetailActivity, temp1.toString())
+
+//                    }
+                } catch (e: Exception) {
+                    //SendMessage(MESSAGE_ERROR, e.getMessage());
+                    Utils.ping(this@PackageDetailActivity, e.message.toString())
+                }
+
+            }/*else if (Double.parseDouble(edtAmount.getText().toString()) < 2.00) {
+                        com.testprep.utils.Utils.ping(this@CoinActivity, "Amount can't be more than Rs. 100000.00");
+                    }*/
+//            Instamojo.setLogLevel(Log.DEBUG)
+        } else {
+            Utils.openInvalidApiKeyDialog(this@PackageDetailActivity)
+        }
+    }
+
+    fun generateTrackNPayRequest(context: Context, coin: String) {
+        if (!DialogUtils.isNetworkConnected(context)) {
+            Utils.ping(context, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@PackageDetailActivity)
+        DialogUtils.showDialog(context)
+
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.addTestPackage(
-            Utils.getStringValue(this@PackageDetailActivity, AppConstants.USER_ID, "0")!!,
-            intent.getStringExtra("pkgid")
+//        if (isBoolean_permission_phoneState) {
+//            hashMap["IMEINumber"] = Utils.getIMEI(context)
+//        } else {
+//            hashMap["IMEINumber"] = ""
+//        }
+//
+//        if (isBoolean_permission_location) {
+//            val loc = Utils.getLocation(context)
+//            hashMap["Latitude"] = loc[0].toString()
+//            hashMap["Longitude"] = loc[1].toString()
+//        } else {
+//            hashMap["Latitude"] = ""
+//            hashMap["Longitude"] = ""
+//        }
+
+        val call = apiService.getPayment(
+            WebRequests.getPaymentParams(
+                "0", Utils.getStringValue(
+                    context,
+                    AppConstants.USER_ID,
+                    ""
+                )!!, coin
+            )
         )
+
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
@@ -116,21 +215,32 @@ class PackageDetailActivity : AppCompatActivity() {
 
                     DialogUtils.dismissDialog()
 
-                    if (response.body()!!["Status"].toString() == "true") {
+                    if (response.body()!!["Status"].asString == "true") {
 
-                        Toast.makeText(
-                            this@PackageDetailActivity,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        onBackPressed()
+                        Log.v(
+                            "order_id: ",
+                            "" + response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].toString().replace(
+                                "\"",
+                                ""
+                            )
+                        )
+
+                        val intent = Intent(context, TraknpayRequestActivity::class.java)
+                        intent.putExtra(
+                            "order_id",
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].toString().replace(
+                                "\"",
+                                ""
+                            )
+                        )
+                        intent.putExtra("amount", coin)
+                        intent.putExtra("pkgid", pkgid)
+                        context.startActivity(intent)
+                        finish()
+
                     } else {
+                        Toast.makeText(context, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
-                        Toast.makeText(
-                            this@PackageDetailActivity,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                 }
             }
@@ -141,8 +251,8 @@ class PackageDetailActivity : AppCompatActivity() {
                 DialogUtils.dismissDialog()
             }
         })
-    }
 
+    }
 
     fun callTestPackageDetailApi() {
 
@@ -163,6 +273,8 @@ class PackageDetailActivity : AppCompatActivity() {
                     DialogUtils.dismissDialog()
 
                     if (response.body()!!["Status"].asString == "true") {
+
+                        purchaseCoin = response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
 
                         package_detail_tvPname.text =
                             response.body()!!.get("data").asJsonObject.get("TestPackageName").asString

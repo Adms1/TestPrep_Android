@@ -10,9 +10,17 @@ import android.view.WindowManager
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
+import com.google.gson.JsonObject
+import com.testprep.retrofit.WebClient
+import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
+import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.io.UnsupportedEncodingException
 import java.security.MessageDigest
@@ -23,6 +31,7 @@ import kotlin.experimental.and
 class TraknpayRequestActivity : AppCompatActivity() {
 
     private val TAG = "TNPRequestDebugTag"
+    var pkgid = ""
 //    private var extras: Bundle? = null
 
     override fun attachBaseContext(newBase: Context?) {
@@ -39,6 +48,8 @@ class TraknpayRequestActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(com.testprep.R.layout.activity_traknpay_request)
+
+        pkgid = intent.getStringExtra("pkgid")
 
         val return_url = "https://biz.traknpay.in/tnp/return_page_android.php"
         var mode: String? = "TEST"
@@ -280,19 +291,26 @@ class TraknpayRequestActivity : AppCompatActivity() {
                 val resposeData = JSONObject(jsonResponse)
                 Log.d(TAG, "ResponseJson: $resposeData")
 
-                val intent = Intent(applicationContext, PaymentSuccessScreen::class.java)
-                intent.putExtra("transactionId", resposeData.getString("transaction_id"))
-                intent.putExtra("responseCode", resposeData.getString("response_code"))
-                intent.putExtra("amount", resposeData.getString("amount"))
-                intent.putExtra("description", resposeData.getString("description"))
-                intent.putExtra("order_id", resposeData.getString("order_id"))
+                if (resposeData.getString("response_code").equals("0", ignoreCase = true)) {
+                    callAddTestPackageApi()
+                } else {
+
+
+                    val intent = Intent(applicationContext, PaymentSuccessScreen::class.java)
+                    intent.putExtra("transactionId", resposeData.getString("transaction_id"))
+                    intent.putExtra("responseCode", resposeData.getString("response_code"))
+                    intent.putExtra("amount", resposeData.getString("amount"))
+                    intent.putExtra("description", resposeData.getString("description"))
+                    intent.putExtra("order_id", resposeData.getString("order_id"))
+                    intent.putExtra("pkgid", pkgid)
 //                if (extras!!.containsKey("CardDetails")) {
 //                    intent.putExtra("Trans_Type", "1")
 //                } else {
 //                    intent.putExtra("Trans_Type", "2")
 //                }
-                startActivity(intent)
-                finish()
+                    startActivity(intent)
+                    finish()
+                }
 
                 /*if (responseCode.equals("0")) {
                     Intent intent = new Intent(getApplicationContext(), PaymentSuccessScreen.class);
@@ -323,6 +341,61 @@ class TraknpayRequestActivity : AppCompatActivity() {
         val digest = MessageDigest.getInstance(algorithm)
         val bytes = digest.digest(this.toByteArray(Charsets.UTF_8))
         return bytes.fold("", { str, it -> str + "%02x".format(it) })
+    }
+
+    fun callAddTestPackageApi() {
+
+        if (!DialogUtils.isNetworkConnected(this@TraknpayRequestActivity)) {
+            Utils.ping(this@TraknpayRequestActivity, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(this@TraknpayRequestActivity)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.addTestPackage(
+            Utils.getStringValue(this@TraknpayRequestActivity, AppConstants.USER_ID, "0")!!,
+            intent.getStringExtra("pkgid")
+        )
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        AppConstants.isFirst = 1
+
+                        val intent = Intent(this@TraknpayRequestActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+//
+                        finish()
+//                        Toast.makeText(
+//                            this@TraknpayRequestActivity,
+//                            response.body()!!["Msg"].toString().replace("\"", ""),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        onBackPressed()
+                    } else {
+
+                        onBackPressed()
+
+                        Toast.makeText(
+                            this@TraknpayRequestActivity,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
     }
 
 }

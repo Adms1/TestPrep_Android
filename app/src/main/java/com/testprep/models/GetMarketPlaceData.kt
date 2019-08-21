@@ -9,6 +9,6 @@ class GetMarketPlaceData {
     class GetData {
         var TestPackage: ArrayList<PackageData.PackageDataList> = ArrayList()
         var Tutors: ArrayList<PackageData.PackageDataList> = ArrayList()
-
+        var FreeTestPackage: ArrayList<PackageData.PackageDataList> = ArrayList()
     }
 }

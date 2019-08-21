@@ -132,6 +132,10 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             dialog.show()
         }
 
+        ansList!!.setOnClickListener {
+            nextButton!!.text = "Next"
+        }
+
         queTab_ivReview.setOnClickListener {
 
             val dialog = Dialog(this@TabwiseQuestionActivity)
@@ -217,12 +221,12 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                 queTab_btnNext.text = "Skip"
 
                 setSideMenu(2)
-                getNextQuestion()
+                getNextQuestion("activity")
 
             } else {
 
                 setSideMenu(3)
-                getNextQuestion()
+                getNextQuestion("skip")
             }
         }
 
@@ -765,7 +769,9 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
             movies[p0].QuestionTypeID == 1 -> {
 
                 if (itype == "activity") {
-                    answer = ansArr[0].ansid
+                    if (ansArr.size > 0) {
+                        answer = ansArr[0].ansid
+                    }
                 }
 
 //                answer = answer.substring(0, answer.length)
@@ -814,6 +820,9 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
                 p0 + 1
             )
         } else {
+
+            queTab_btnNext.visibility = View.VISIBLE
+
             queTab_tvTotal.text = """${p0 + 1}/${movies.size}"""
 
             if ("http://content.testcraft.co.in/question/" + movies[p0].QuestionImage != "") {
@@ -870,11 +879,11 @@ class TabwiseQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface 
         }
     }
 
-    fun getNextQuestion() {
+    fun getNextQuestion(type: String) {
         if ((movies.size - 1) > AppConstants.QUE_NUMBER) {
             AppConstants.QUE_NUMBER = AppConstants.QUE_NUMBER + 1
 
-            getType("activity", AppConstants.QUE_NUMBER - 1)
+            getType(type, AppConstants.QUE_NUMBER - 1)
 
             sideList!!.adapter = QuestionListSideMenuAdapter(
                 context!!,

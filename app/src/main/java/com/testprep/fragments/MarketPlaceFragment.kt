@@ -11,9 +11,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.gson.JsonObject
+import com.testprep.R
 import com.testprep.activity.TutorDetailActivity
 import com.testprep.carouselPkg.CarouselParameters
 import com.testprep.carouselPkg.CarouselView1
@@ -26,6 +29,7 @@ import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
+import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.fragment_market_place.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -53,11 +57,6 @@ class MarketPlaceFragment : Fragment() {
     private var myViewPagerAdapter: MyViewPagerAdapter? = null
     private var layouts: IntArray? = null
 
-//    private var mAdapter: CoverFlowAdapter2? = null
-//    private var mAdapterr: CoverFlowAdapter2? = null
-//    private var mTitle: TextSwitcher? = null
-//    private var mCoverFlow: FeatureCoverFlow? = null
-
     internal var lblSelectedIndex: TextView? = null
 
     var carousel: CarouselView1? = null
@@ -72,7 +71,7 @@ class MarketPlaceFragment : Fragment() {
 //        callFilterListApi()
 //        callTutorsListApi()
 
-        val vieww = inflater.inflate(com.testprep.R.layout.fragment_market_place, container, false)
+        val vieww = inflater.inflate(R.layout.fragment_market_place, container, false)
 
         activity!!.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
@@ -83,8 +82,6 @@ class MarketPlaceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         AppConstants.ON_BACK = 1
-
-        layouts = intArrayOf(com.testprep.R.drawable.pp_2, com.testprep.R.drawable.pp_1, com.testprep.R.drawable.pp_2)
 
 //        mDataList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packages"))
 //        tutorList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packages"))
@@ -103,7 +100,10 @@ class MarketPlaceFragment : Fragment() {
             val intent = Intent(context, TutorDetailActivity::class.java)
             intent.putExtra("type", "pkg")
             intent.putExtra("pname", "Packages")
-            intent.putExtra("parr", mDataList)
+            intent.putExtra("boardid", "")
+            intent.putExtra("stdid", "")
+            intent.putExtra("subid", "")
+            intent.putExtra("tutorid", "")
             startActivity(intent)
         }
 
@@ -115,8 +115,6 @@ class MarketPlaceFragment : Fragment() {
             startActivity(intent)
         }
 
-        myViewPagerAdapter = MyViewPagerAdapter()
-        mp_view_pager!!.adapter = myViewPagerAdapter
         mp_view_pager!!.addOnPageChangeListener(introViewPagerListener)
 
 
@@ -361,21 +359,28 @@ class MarketPlaceFragment : Fragment() {
         }
     }
 
-    inner class MyViewPagerAdapter : PagerAdapter() {
+    inner class MyViewPagerAdapter(var arrList: ArrayList<PackageData.PackageDataList>) : PagerAdapter() {
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val layoutInflater: LayoutInflater = LayoutInflater.from(activity)
-            val view = layoutInflater.inflate(com.testprep.R.layout.slider_item_layout, container, false)
+            val view = layoutInflater.inflate(R.layout.slider_item_layout, container, false)
 
-            var iv: ImageView = view.findViewById(com.testprep.R.id.imageView)
+            var iv: ImageView = view.findViewById(R.id.imageView)
+            var tv: TextView = view.findViewById(R.id.testName)
+            var btn: Button = view.findViewById(R.id.btnBuy)
 
-            iv.setImageResource(layouts!![position])
+            btn.setOnClickListener {
+                callAddTestPackageApi(arrList[position].TestPackageID)
+            }
+
+            iv.setImageResource(R.drawable.free_test)
+            tv.text = arrList[position].TestPackageName
 
             container.addView(view)
             return view
         }
 
         override fun getCount(): Int {
-            return 3
+            return arrList.size
         }
 
         override fun isViewFromObject(view: View, obj: Any): Boolean {
@@ -410,6 +415,7 @@ class MarketPlaceFragment : Fragment() {
 //                intent.getStringExtra("subject_id")
 
                 "", "", "", ""
+
 //                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
 //                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
 //                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
@@ -427,6 +433,11 @@ class MarketPlaceFragment : Fragment() {
 
                         mDataList = ArrayList()
                         mDataList = response.body()!!.data.TestPackage
+
+                        var freeTestList = response.body()!!.data.FreeTestPackage
+
+                        myViewPagerAdapter = MyViewPagerAdapter(freeTestList)
+                        mp_view_pager!!.adapter = myViewPagerAdapter
 
                         Log.d("dsize", "" + mDataList!!.size)
 
@@ -446,6 +457,73 @@ class MarketPlaceFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<GetMarketPlaceData>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+    fun callAddTestPackageApi(pkgid: String) {
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(activity!!)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.addTestPackage(
+            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
+            pkgid
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        AppConstants.isFirst = 1
+
+                        fragmentManager!!.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment())
+                            .commit()
+//                        dashboard_ivCart.visibility = View.GONE
+//                dashboard_ivPencil.visibility = View.GONE
+                        dashboard_ivBack.visibility = View.GONE
+//                dashboard_ivFilter.visibility = View.GONE
+
+                        dash_ivHome.setImageResource(R.drawable.blue_home)
+                        dash_ivMarket.setImageResource(R.drawable.list)
+                        dash_ivSearch.setImageResource(R.drawable.search)
+                        dash_ivUser.setImageResource(R.drawable.menu_one)
+
+                        dash_tvHome.setTextColor(resources.getColor(R.color.nfcolor))
+                        dash_tvMarket.setTextColor(resources.getColor(R.color.light_gray))
+                        dash_tvSearch.setTextColor(resources.getColor(R.color.light_gray))
+                        dash_tvUser.setTextColor(resources.getColor(R.color.light_gray))
+//                        Toast.makeText(
+//                            activity,
+//                            response.body()!!["Msg"].toString().replace("\"", ""),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        onBackPressed()
+
+                    } else {
+
+                        Toast.makeText(
+                            activity,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()

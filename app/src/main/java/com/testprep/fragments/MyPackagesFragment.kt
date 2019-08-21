@@ -65,6 +65,8 @@ class MyPackagesFragment : AppCompatActivity() {
 
         my_packages_rvList.layoutManager = LinearLayoutManager(this@MyPackagesFragment, LinearLayoutManager.HORIZONTAL, false)
 
+        DialogUtils.showDialog(this@MyPackagesFragment)
+
         callMyPackagesApi()
     }
 
@@ -73,8 +75,6 @@ class MyPackagesFragment : AppCompatActivity() {
         if (!DialogUtils.isNetworkConnected(this@MyPackagesFragment)) {
             Utils.ping(this@MyPackagesFragment, "Connetion not available")
         }
-
-        DialogUtils.showDialog(this@MyPackagesFragment)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
@@ -92,6 +92,24 @@ class MyPackagesFragment : AppCompatActivity() {
                     DialogUtils.dismissDialog()
 
                     if (response.body()!!.Status == "true") {
+
+                        var summaryArr = response.body()!!.data[0].TestSummary
+
+                        var totalcount = 0
+                        var pendingcount = 0
+                        var completecount = 0
+                        for (i in 0 until summaryArr.size) {
+                            totalcount += summaryArr[i].count
+
+                            if (summaryArr[i].status == "Analyse") {
+                                completecount = summaryArr[i].count
+                            }
+                        }
+
+                        pendingcount = totalcount - completecount
+
+                        my_packages_tvPendingCount.text = pendingcount.toString()
+                        my_packages_tvTotalCount.text = totalcount.toString()
 
                         val pkgArr = response.body()!!.data[0].PackageList
                         my_packages_rvList.adapter = MyPackageAdapter(this@MyPackagesFragment, pkgArr)

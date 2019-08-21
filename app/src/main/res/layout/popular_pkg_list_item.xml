@@ -34,6 +34,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/round_cart_icon"
+                android:visibility="gone"
                 android:id="@+id/package_item_ivCart"/>
 
     </RelativeLayout>

@@ -27,6 +27,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class PaymentSuccessScreen : AppCompatActivity() {
 
+    var pkgid = ""
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
@@ -41,6 +43,8 @@ class PaymentSuccessScreen : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_payment_success_screen)
+
+        pkgid = intent.getStringExtra("pkgid")
 
         if (intent.getStringExtra("responseCode").equals("0", ignoreCase = true)) {
 
@@ -148,6 +152,54 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
     }
 
+    fun callAddTestPackageApi() {
+
+        if (!DialogUtils.isNetworkConnected(this@PaymentSuccessScreen)) {
+            Utils.ping(this@PaymentSuccessScreen, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(this@PaymentSuccessScreen)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.addTestPackage(
+            Utils.getStringValue(this@PaymentSuccessScreen, AppConstants.USER_ID, "0")!!,
+            intent.getStringExtra("pkgid")
+        )
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].toString() == "true") {
+
+                        Toast.makeText(
+                            this@PaymentSuccessScreen,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        onBackPressed()
+                    } else {
+
+                        Toast.makeText(
+                            this@PaymentSuccessScreen,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+
     fun generateTrackNPayRequest(context: Context, coin: String) {
         if (!DialogUtils.isNetworkConnected(context)) {
             Utils.ping(context, "Connetion not available")
@@ -208,8 +260,9 @@ class PaymentSuccessScreen : AppCompatActivity() {
                             )
                         )
                         intent.putExtra("amount", coin)
+                        intent.putExtra("pkgid", pkgid)
                         context.startActivity(intent)
-
+                        finish()
                     } else {
                         Toast.makeText(context, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 

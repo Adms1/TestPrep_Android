@@ -42,7 +42,7 @@ class OtherFragment : Fragment() {
 
         menuList.add("Edit Profile")
         menuList.add("My Payments")
-        menuList.add("Add Amount")
+//        menuList.add("Add Amount")
         menuList.add("Change Password")
 //        menuList.add("Logout")
 

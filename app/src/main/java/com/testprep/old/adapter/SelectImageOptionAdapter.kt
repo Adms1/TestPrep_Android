@@ -175,8 +175,6 @@ class SelectImageOptionAdapter(
                 Log.d("grp", "clear")
                 lastCheckedRadioGroup!!.clearCheck()
 
-                TabwiseQuestionActivity.setButton(p1, dataList[p1].MultipleChoiceQuestionAnswerID, qid)
-
             } else if (lastCheckedRadioGroup == null) {
 
                 Log.d("grp", "null")
@@ -186,6 +184,8 @@ class SelectImageOptionAdapter(
                 Log.d("grp", "else")
             }
             lastCheckedRadioGroup = p0.opone
+
+            TabwiseQuestionActivity.setButton(p1, dataList[p1].MultipleChoiceQuestionAnswerID, qid)
         }
     }
 

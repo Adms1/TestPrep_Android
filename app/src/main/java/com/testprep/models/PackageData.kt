@@ -19,6 +19,10 @@ class PackageData {
 
         }
 
+        var Name = ""
+        var PackageType = 0
+        var TestPackage: ArrayList<PackageDataList> = ArrayList()
+
         var TestPackageID = ""
         var TestPackageSalePrice = ""
         var TestPackageListPrice = ""

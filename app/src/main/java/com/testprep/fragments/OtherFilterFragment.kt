@@ -102,7 +102,17 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 AppConstants.FILTER_BOARD_ID = ""
             }
 
-            callFilterListApi()
+
+            val intent = Intent(context, TutorDetailActivity::class.java)
+            intent.putExtra("type", "pkg")
+            intent.putExtra("pname", "Packages")
+            intent.putExtra("boardid", examids)
+            intent.putExtra("stdid", stdids)
+            intent.putExtra("subid", subids)
+            intent.putExtra("tutorid", tutorids)
+            startActivity(intent)
+
+//            callFilterListApi()
 //            callFilterListApi()
         }
 
@@ -183,7 +193,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                         }
 
                         recyclerviewAdapter =
-                            FilterAdapter(activity!!, filterArray, "multiple", "standard", filterInterface!!)
+                            FilterAdapter(activity!!, filterArray, "single", "standard", filterInterface!!)
                         filterData_rvList.adapter = recyclerviewAdapter
 
                     } else {
@@ -388,19 +398,24 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 var str = ""
                 stdids = ""
 
-                val finalFilerArray = recyclerviewAdapter!!.sendArray()
+                val finalFilerArray = recyclerviewAdapter!!.sendStandard()
 
-                for (i in 0 until finalFilerArray.size) {
-                    if (finalFilerArray[i].isSelected) {
+//                for (i in 0 until finalFilerArray.size) {
+//                    if (finalFilerArray[i].isSelected) {
+//
+//                        str += finalFilerArray[i].StandardName + ","
+//                        stdids += finalFilerArray[i].StandardID + ","
+//                    }
+//                }
+//
+//                if (stdids != "") {
+//                    stdids = stdids.substring(0, stdids.length - 1)
+//                }
 
-                        str += finalFilerArray[i].StandardName + ","
-                        stdids += finalFilerArray[i].StandardID + ","
-                    }
+                if (finalFilerArray != "") {
+                    stdids = finalFilerArray
                 }
 
-                if (stdids != "") {
-                    stdids = stdids.substring(0, stdids.length - 1)
-                }
                 Log.d("stdid", "" + stdids)
 
             }
@@ -492,28 +507,28 @@ class OtherFilterFragment : Fragment(), filterInterface {
 //        )
 
         val call = apiService.getFilterData(
-//            WebRequests.getFilterParams(
-//                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
-//                "",
-//                examids,
-//                stdids,
-//                subids,
-//                tutorids,
-//                "",
-//                "",
-//                ""
-//            )
             WebRequests.getFilterParams(
+                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
                 "",
-                "",
-                "",
-                "",
-                "",
-                "",
+                examids,
+                stdids,
+                subids,
+                tutorids,
                 "",
                 "",
                 ""
             )
+//            WebRequests.getFilterParams(
+//                "",
+//                "",
+//                "",
+//                "",
+//                "",
+//                "",
+//                "",
+//                "",
+//                ""
+//            )
         )
 
         call.enqueue(object : Callback<PackageData> {
