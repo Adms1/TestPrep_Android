@@ -11,6 +11,7 @@
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#4DB0AC">
@@ -73,14 +74,47 @@
                     android:gravity="center"
                     android:textColor="@color/black"/>
 
-            <ImageView
+            <!--<ImageView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="@dimen/_160sdp"-->
+            <!--android:src="@drawable/progressicon"-->
+            <!--android:id="@+id/my_packages_ivProgress"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/my_packages_tvReport"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent"/>-->
+
+            <com.ramijemli.percentagechartview.PercentageChartView
+                    android:id="@+id/my_packages_ivProgress"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_160sdp"
-                    android:src="@drawable/progressicon"
-                    android:id="@+id/my_packages_ivProgress"
-                    app:layout_constraintTop_toBottomOf="@+id/my_packages_tvReport"
+                    app:pcv_mode="ring"
+                    app:pcv_orientation="counter_clockwise"
+                    app:pcv_animDuration="800"
+                    app:pcv_animInterpolator="anticipate_overshoot"
+                    app:pcv_progress="10"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/my_packages_tvReport"
+                    app:pcv_startAngle="300"/>
+
+            <!--<com.emredavarci.circleprogressbar.CircleProgressBar-->
+            <!--android:id="@+id/my_packages_ivProgress"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="@dimen/_160sdp"-->
+            <!--cpb:progressColor="#e76130"-->
+            <!--cpb:backgroundColor="#e7b330"-->
+            <!--cpb:dimension="14"-->
+            <!--cpb:backgroundWidth="8"-->
+            <!--cpb:textSize="18sp"-->
+            <!--cpb:roundedCorners="true"-->
+            <!--cpb:suffix="%"-->
+            <!--cpb:prefix=""-->
+            <!--cpb:progressText="Loading..."-->
+            <!--cpb:maxValue="100"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/my_packages_tvReport"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintRight_toRightOf="parent"-->
+            <!--cpb:progressTextColor="#f9916b"/>-->
 
             <TextView
                     android:text="10"

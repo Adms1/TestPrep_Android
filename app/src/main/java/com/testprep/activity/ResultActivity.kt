@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.WindowManager
 import com.testprep.R
 import com.testprep.models.AnswerModel
+import com.testprep.sectionmodule.NewTabQuestionActivity
 import kotlinx.android.synthetic.main.activity_result.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -41,7 +42,7 @@ class ResultActivity : AppCompatActivity() {
             )
         }
 
-        resultArr = TabwiseQuestionActivity.ansArr
+        resultArr = NewTabQuestionActivity.ansArr
         Log.d("arrresult", "" + resultArr)
 
 //        for (i in 0 until resultArr.size) {
@@ -66,10 +67,10 @@ class ResultActivity : AppCompatActivity() {
         }
 
         result_tvViewAnswer.setOnClickListener {
-            val intent = Intent(this@ResultActivity, ViewSolutionActivity::class.java)
-            intent.putExtra("testid", testid)
-            intent.putExtra("studenttestid", studenttestid)
-            startActivity(intent)
+            //            val intent = Intent(this@ResultActivity, ViewSolutionActivity::class.java)
+//            intent.putExtra("testid", testid)
+//            intent.putExtra("studenttestid", studenttestid)
+//            startActivity(intent)
         }
 
         result_tvReports.setOnClickListener {

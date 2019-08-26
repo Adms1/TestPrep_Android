@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.squareup.picasso.Picasso
-import com.testprep.activity.TabwiseQuestionActivity
 import com.testprep.models.SelectedCheckboxModel
-import com.testprep.old.models.QuestionResponse
+import com.testprep.sectionmodule.NewQuestionResponse
+import com.testprep.sectionmodule.NewTabQuestionActivity
 
 class SelectImageOptionAdapter(
     val context: Context,
-    val dataList: ArrayList<QuestionResponse.QuestionDataList>,
+    val dataList: ArrayList<NewQuestionResponse.QuestionDataList>,
     var qsize: Int,
     var qtype: Int,
     var qid: Int,
@@ -77,7 +77,7 @@ class SelectImageOptionAdapter(
                     rb.isChecked = true
                 }
 
-//                TabwiseQuestionActivity.setButton(p1, dataList[p1].MultipleChoiceQuestionAnswerID, qid)
+//                NewTabQuestionActivity.setButton(p1, dataList[p1].MultipleChoiceQuestionAnswerID, qid)
 
                 p0.opone.addView(rb)
 
@@ -185,7 +185,7 @@ class SelectImageOptionAdapter(
             }
             lastCheckedRadioGroup = p0.opone
 
-            TabwiseQuestionActivity.setButton(p1, dataList[p1].MultipleChoiceQuestionAnswerID, qid)
+            NewTabQuestionActivity.setButton(p1, dataList[p1].MultipleChoiceQuestionAnswerID, qid)
         }
     }
 
@@ -204,7 +204,7 @@ class SelectImageOptionAdapter(
             }
         }
 
-        TabwiseQuestionActivity.setButton(p1, ansstr, qid)
+        NewTabQuestionActivity.setButton(p1, ansstr, qid)
     }
 
 }

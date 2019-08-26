@@ -71,10 +71,29 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         filterData_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
-        examids = Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
-        stdids = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
-        subids = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
-        tutorids = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
+        examids = if (AppConstants.FILTER_BOARD_ID == "111") {
+            Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
+        } else {
+            AppConstants.FILTER_BOARD_ID
+        }
+
+        stdids = if (AppConstants.FILTER_STANDARD_ID == "111") {
+            Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
+        } else {
+            AppConstants.FILTER_STANDARD_ID
+        }
+
+        subids = if (AppConstants.FILTER_SUBJECT_ID == "111") {
+            Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
+        } else {
+            AppConstants.FILTER_SUBJECT_ID
+        }
+
+        tutorids = if (AppConstants.FILTER_TUTOR_ID == "111") {
+            Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
+        } else {
+            AppConstants.FILTER_TUTOR_ID
+        }
 
         filter_btnApply.setOnClickListener {
 
@@ -101,7 +120,6 @@ class OtherFilterFragment : Fragment(), filterInterface {
             } else {
                 AppConstants.FILTER_BOARD_ID = ""
             }
-
 
             val intent = Intent(context, TutorDetailActivity::class.java)
             intent.putExtra("type", "pkg")
@@ -182,13 +200,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
 //                            stdids = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
                         }
 
-                        val strArray = AppConstants.FILTER_STANDARD_ID.split(",")
+                        val strArray = AppConstants.FILTER_STANDARD_ID
 
                         for (i in 0 until filterArray.size) {
-                            for (j in 0 until strArray.size) {
-                                if (strArray[j] == filterArray[i].StandardID) {
-                                    filterArray[i].isSelected = true
-                                }
+                            if (filterArray[i].StandardID == strArray) {
+                                filterArray[i].isSelected = true
                             }
                         }
 
@@ -241,7 +257,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                                 Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
                         }
 
-                        val strArray = AppConstants.FILTER_SUBJECT_ID.split(",")
+                        val strArray = AppConstants.FILTER_SUBJECT_ID.replace(" ", "").split(",")
 
                         for (i in 0 until filterArray.size) {
                             for (j in 0 until strArray.size) {
@@ -303,7 +319,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                                 Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
                         }
 
-                        val strArray = AppConstants.FILTER_BOARD_ID.split(",")
+                        val strArray = AppConstants.FILTER_BOARD_ID.replace(" ", "").split(",")
 
                         for (i in 0 until filterArray.size) {
                             for (j in 0 until strArray.size) {
@@ -360,7 +376,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                             AppConstants.FILTER_TUTOR_ID = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
                         }
 
-                        val strArray = AppConstants.FILTER_TUTOR_ID.split(",")
+                        val strArray = AppConstants.FILTER_TUTOR_ID.replace(" ", "").split(",")
 
                         for (i in 0 until filterArray.size) {
                             for (j in 0 until strArray.size) {

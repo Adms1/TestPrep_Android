@@ -2,7 +2,6 @@ package com.testprep.activity
 
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -42,10 +41,10 @@ class TestReviewActivity : AppCompatActivity() {
         review_ivBack.setOnClickListener { onBackPressed() }
 
         review_btnSubmit.setOnClickListener {
-            val intent = Intent(this@TestReviewActivity, ViewSolutionActivity::class.java)
-            intent.putExtra("testid", testid)
-            intent.putExtra("studenttestid", studenttestid)
-            startActivity(intent)
+            //            val intent = Intent(this@TestReviewActivity, ViewSolutionActivity::class.java)
+//            intent.putExtra("testid", testid)
+//            intent.putExtra("studenttestid", studenttestid)
+//            startActivity(intent)
         }
 
         callSubmitAPI()

@@ -4,14 +4,24 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.google.gson.JsonObject
 import com.testprep.R
+import com.testprep.retrofit.WebClient
+import com.testprep.retrofit.WebInterface
+import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.activity_otp.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class OtpActivity : AppCompatActivity() {
+
+    var otp = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -24,6 +34,8 @@ class OtpActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_otp)
 
+        otp = intent.getStringExtra("otp")
+
         otp_ivBack.setOnClickListener { onBackPressed() }
 
         otp_tvResend.setOnClickListener {
@@ -33,11 +45,17 @@ class OtpActivity : AppCompatActivity() {
         otp_tvInstruction.text =
             "Please enter verification code \n sent to +91 " + intent.getStringExtra("mobile_number")
 
+        otp_tvResend.setOnClickListener {
+
+            callResend()
+
+        }
+
         otp_btnSubmit.setOnClickListener {
 
             if (otp_btnSubmit.text.toString() != "Done") {
 
-                if (otp_etOtp.value.toString() == intent.getStringExtra("otp")) {
+                if (otp_etOtp.value.toString() == otp) {
 
                     Utils.hideKeyboard(this@OtpActivity)
                     otp_tvVerificationSuccess.visibility = View.VISIBLE
@@ -77,4 +95,44 @@ class OtpActivity : AppCompatActivity() {
             }
         }
     }
+
+    fun callResend() {
+
+        if (!DialogUtils.isNetworkConnected(this@OtpActivity)) {
+            Utils.ping(this@OtpActivity, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(this@OtpActivity)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getResedOTP(intent.getStringExtra("mobile_number"))
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        otp = response.body()!!.get("data").asString
+                        otp_etOtp.value = ""
+
+                    } else {
+                        Toast.makeText(this@OtpActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+
+//                    Log.d("loginresponse", response.body()!!.asString)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
 }

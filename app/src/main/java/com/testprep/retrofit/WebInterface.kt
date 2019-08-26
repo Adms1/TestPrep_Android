@@ -3,6 +3,7 @@ package com.testprep.retrofit
 import com.google.gson.JsonObject
 import com.testprep.models.*
 import com.testprep.old.models.QuestionResponse
+import com.testprep.sectionmodule.NewQuestionResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -88,6 +89,10 @@ interface WebInterface {
     fun getQuestions(@Field("TestID") testid: String, @Field("StudentTestID") stu_testid: String): Call<QuestionResponse>
 
     @FormUrlEncoded
+    @POST("Get_Student_TestQuestion_New")
+    fun getNewQuestions(@Field("TestID") testid: String, @Field("StudentTestID") stu_testid: String): Call<NewQuestionResponse>
+
+    @FormUrlEncoded
     @POST("Get_Tutor_By_TutorID")
     fun getTutorProfile(@Field("TutorID") stuid: String): Call<TutorModel>
 
@@ -132,4 +137,7 @@ interface WebInterface {
     @POST("Get_StudentTestAnswer_Report")
     fun getAnalyse(@Field("StudentTestID") student_test_id: String): Call<JsonObject>
 
+    @FormUrlEncoded
+    @POST("ReSendOTP")
+    fun getResedOTP(@Field("studentmobile") StudentMobile: String): Call<JsonObject>
 }

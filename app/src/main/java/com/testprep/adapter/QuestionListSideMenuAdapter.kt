@@ -1,21 +1,21 @@
 package com.testprep.adapter
 
 import android.content.Context
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ExpandableListView
 import com.testprep.R
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.QuestionTypeModel
-import java.util.*
+import com.testprep.sectionmodule.NewSideMenuAdapter
+
 
 class QuestionListSideMenuAdapter(
     var context: Context,
-    var listDataHeader: ArrayList<String>,
-    var listChildData: ArrayList<QuestionTypeModel>,
+    var finalArr: HashMap<String, ArrayList<QuestionTypeModel>>,
+    var listChildData: ArrayList<String>,
     val filterTypeSelectionInteface: FilterTypeSelectionInteface,
     val come_from: String
 ) : RecyclerView.Adapter<QuestionListSideMenuAdapter.viewholder>() {
@@ -23,7 +23,7 @@ class QuestionListSideMenuAdapter(
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
         return viewholder(
             LayoutInflater.from(context).inflate(
-                R.layout.question_list_header,
+                R.layout.side_menu_layout,
                 p0,
                 false
             )
@@ -31,22 +31,27 @@ class QuestionListSideMenuAdapter(
     }
 
     override fun getItemCount(): Int {
-        return listDataHeader.size
+        return finalArr.size
     }
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        p0.title.text = listDataHeader[p1]
-        p0.list.layoutManager = GridLayoutManager(context, 5)
+        p0.list.setOnGroupClickListener { parent, v, groupPosition, id ->
+            true // This way the expander cannot be collapsed
+        }
 
-        p0.list.adapter = QuestionChildListAdapter(context, listChildData, filterTypeSelectionInteface, come_from)
+//        p0.title.text = finalArr
+//        p0.list.layoutManager = GridLayoutManager(context, 5)
+
+//        p0.list.adapter = QuestionChildListAdapter(context, listDataHeader, listChildData, filterTypeSelectionInteface, come_from)
+        p0.list.setAdapter(NewSideMenuAdapter(context, listChildData, finalArr, filterTypeSelectionInteface, come_from))
 
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var title: TextView = itemView.findViewById(R.id.queList_tvHeader)
-        var list: RecyclerView = itemView.findViewById(R.id.queList_tvList)
+        //        var title: TextView = itemView.findViewById(R.id.queList_tvHeader)
+        var list: ExpandableListView = itemView.findViewById(R.id.queList_rvList)
 
     }
 

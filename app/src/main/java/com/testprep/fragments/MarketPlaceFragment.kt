@@ -29,7 +29,6 @@ import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
-import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.fragment_market_place.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -116,13 +115,11 @@ class MarketPlaceFragment : Fragment() {
         }
 
         mp_view_pager!!.addOnPageChangeListener(introViewPagerListener)
-
-
         //new carousel library
-        carousel = view.findViewById(com.testprep.R.id.carousel) as CarouselView1
+        carousel = view.findViewById(R.id.carousel) as CarouselView1
 //        val rootView = layoutInflater.inflate(R.layout.fragment_main, vg, false) as View
 
-        carousel1 = view.findViewById(com.testprep.R.id.carousel1) as CarouselView1
+        carousel1 = view.findViewById(R.id.carousel1) as CarouselView1
 //        lblSelectedIndex = findViewById<View>(R.id.lblSelectedIndex) as TextView
         val lp = carousel!!.layoutParams
         //		https://github.com/davidschreiber/FancyCoverFlow.git
@@ -163,30 +160,40 @@ class MarketPlaceFragment : Fragment() {
 
         carousel1!!.isScrollingAlignToViews = true
 
-//        carousel!!.setOnItemSelectedListener(object : CarouselView.OnItemSelectedListener() {
-//            fun onItemSelected(
-//                carouselView: CarouselView,
-//                position: Int,
-//                adapterPosition: Int,
-//                adapter: RecyclerView.Adapter<*>
-//            ) {
-//                lblSelectedIndex.setText("Selected Position $position")
-//            }
-//
-//            fun onItemDeselected(
-//                carouselView: CarouselView,
-//                position: Int,
-//                adapterPosition: Int,
-//                adapter: RecyclerView.Adapter<*>
-//            ) {
-//
-//            }
-//        })
+        carousel!!.setOnItemSelectedListener(object : CarouselView1.OnItemSelectedListener {
+            override fun onItemSelected(
+                carouselView: CarouselView1,
+                position: Int,
+                adapterPosition: Int,
+                adapter: RecyclerView.Adapter<*>
+            ) {
+//                val intent = Intent(activity, PackageDetailActivity::class.java)
+//            intent.putExtra("pkgid", "1")
+//            startActivity(intent)
 
-//        carousel!!.setOnItemClickListener { adapter, view, position, adapterPosition ->
+//                lblSelectedIndex!!.text = "Selected Position $position"
+
+//                Toast.makeText(
+//                    activity,
+//                    "Selected Position $position",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+            }
+
+            override fun onItemDeselected(
+                carouselView: CarouselView1,
+                position: Int,
+                adapterPosition: Int,
+                adapter: RecyclerView.Adapter<*>
+            ) {
+
+            }
+        })
+//
+//        carousel!!.setOnItemSelectedListener() { adapter, view, position, adapterPosition ->
 //
 //            val intent = Intent(activity, PackageDetailActivity::class.java)
-//            intent.putExtra("pkgid", )
+//            intent.putExtra("pkgid", "1")
 //            startActivity(intent)
 //
 //        }
@@ -203,7 +210,7 @@ class MarketPlaceFragment : Fragment() {
         if (transformerSelectedPos < CarouselParameters.TRANSFORMER_CLASSES.size) {
             // built-in transformer
             transformer = CarouselParameters.createTransformer<CarouselView1.ViewTransformer>(
-                CarouselParameters.TRANSFORMER_CLASSES[transformerSelectedPos],
+                CarouselParameters.TRANSFORMER_CLASSES[1],
                 hashMap
             )
         }
@@ -489,27 +496,13 @@ class MarketPlaceFragment : Fragment() {
 
                         AppConstants.isFirst = 1
 
-                        fragmentManager!!.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment())
-                            .commit()
-//                        dashboard_ivCart.visibility = View.GONE
-//                dashboard_ivPencil.visibility = View.GONE
-                        dashboard_ivBack.visibility = View.GONE
-//                dashboard_ivFilter.visibility = View.GONE
+//                        fragmentManager!!.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
 
-                        dash_ivHome.setImageResource(R.drawable.blue_home)
-                        dash_ivMarket.setImageResource(R.drawable.list)
-                        dash_ivSearch.setImageResource(R.drawable.search)
-                        dash_ivUser.setImageResource(R.drawable.menu_one)
-
-                        dash_tvHome.setTextColor(resources.getColor(R.color.nfcolor))
-                        dash_tvMarket.setTextColor(resources.getColor(R.color.light_gray))
-                        dash_tvSearch.setTextColor(resources.getColor(R.color.light_gray))
-                        dash_tvUser.setTextColor(resources.getColor(R.color.light_gray))
-//                        Toast.makeText(
-//                            activity,
-//                            response.body()!!["Msg"].toString().replace("\"", ""),
-//                            Toast.LENGTH_SHORT
-//                        ).show()
+                        Toast.makeText(
+                            activity,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
 //                        onBackPressed()
 
                     } else {

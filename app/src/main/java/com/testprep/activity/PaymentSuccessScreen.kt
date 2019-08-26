@@ -3,7 +3,6 @@ package com.testprep.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
@@ -48,23 +47,27 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
         if (intent.getStringExtra("responseCode").equals("0", ignoreCase = true)) {
 
-            tvTry.visibility = GONE
             tvCancel.visibility = GONE
 
-            imvSuccessFail!!.setImageResource(R.drawable.success_icon)
+            imvSuccessFail!!.setImageResource(R.drawable.white_right_icn)
+            imvSuccessFail!!.background = resources.getDrawable(R.drawable.blue_round)
 //            Utils.ping(this@PaymentSuccessScreen, "Success")
-            tvMessage.text = "Transaction Successful"
-            updatePaymentStatus("Success")
+            tvMessage.text = "Your transaction has been successfully completed"
+
+            tvTry.text = "OK"
+            tvTry.background = resources.getDrawable(R.drawable.light_blue_round_bg)
 
         } else {
 
-            tvTry.visibility = VISIBLE
             tvCancel.visibility = VISIBLE
 
             imvSuccessFail!!.setImageResource(R.drawable.fail_icon)
+            imvSuccessFail!!.background = resources.getDrawable(R.drawable.fail_icon)
 //            Utils.ping(this@PaymentSuccessScreen, "fail")
-            tvMessage.text = "Transaction Fail"
-            updatePaymentStatus("Failed")
+            tvMessage.text = "Your last transaction is fail"
+
+            tvTry.text = "Try Again"
+            tvTry.background = resources.getDrawable(R.drawable.google_round_bg)
 
         }
 
@@ -79,7 +82,15 @@ class PaymentSuccessScreen : AppCompatActivity() {
         }
 
         tvTry.setOnClickListener {
-            generateTrackNPayRequest(this@PaymentSuccessScreen, intent.getStringExtra("amount"))
+
+            if (tvTry.text == "OK") {
+
+                updatePaymentStatus("Success")
+
+            } else {
+                updatePaymentStatus("Failed")
+                generateTrackNPayRequest(this@PaymentSuccessScreen, intent.getStringExtra("amount"))
+            }
         }
 
     }
@@ -112,25 +123,35 @@ class PaymentSuccessScreen : AppCompatActivity() {
                     if (response.body()!!["Status"].asString == "true") {
 
                         if (transaction_status == "Success") {
-                            Handler().postDelayed(
+//                            Handler().postDelayed(
+//
+//                                /* Runnable
+//                                 * Showing splash screen with a timer. This will be useful when you
+//                                 * want to show case your app logo / company
+//                                 */
+//
+//                                {
+//                                    // This method will be executed once the timer is over
+//                                    // Start your app main activity
+////                                    val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
+////                                    startActivity(intent)
+////                                    overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
+//
+//                                    // close this activity
+////                                    finish()
+//                                    onBackPressed()
+//                                }, 1500
 
-                                /* Runnable
-                                 * Showing splash screen with a timer. This will be useful when you
-                                 * want to show case your app logo / company
-                                 */
 
-                                {
-                                    // This method will be executed once the timer is over
-                                    // Start your app main activity
-//                                    val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
-//                                    startActivity(intent)
-//                                    overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
+//                            )
 
-                                    // close this activity
-//                                    finish()
-                                    onBackPressed()
-                                }, 1500
-                            )
+                            AppConstants.isFirst = 1
+
+                            val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
+                            startActivity(intent)
+                            finish()
+
+
                         }
 
                     } else {
@@ -179,7 +200,11 @@ class PaymentSuccessScreen : AppCompatActivity() {
                             response.body()!!["Msg"].toString().replace("\"", ""),
                             Toast.LENGTH_SHORT
                         ).show()
-                        onBackPressed()
+
+                        val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
                     } else {
 
                         Toast.makeText(

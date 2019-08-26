@@ -2,6 +2,18 @@ package com.testprep.carouselPkg;
 
 import android.view.View;
 
+/**
+ * A super-class implementation of ViewTransformer allowing to alter common transform properties.
+ * <p>
+ * Developers to choose what methods to be public for users to alter.
+ *
+ * @author sunny-chung
+ * @see ParameterizedViewTransformer
+ * @see LinearViewTransformer
+ * @see WheelViewTransformer
+ * @see CoverFlowViewTransformer
+ */
+
 public abstract class ParameterizableViewTransformer implements CarouselView1.ViewTransformer {
     protected static final float EPS = 1e-3f;
 
@@ -15,10 +27,6 @@ public abstract class ParameterizableViewTransformer implements CarouselView1.Vi
 
     protected ParameterizableViewTransformer() {
 
-    }
-
-    private static boolean isNonZero(float f) {
-        return f > EPS || f < -EPS;
     }
 
     @Override
@@ -127,6 +135,10 @@ public abstract class ParameterizableViewTransformer implements CarouselView1.Vi
 
     protected void setScaleLargestAtCenter(boolean scaleLargestAtCenter) {
         mScaleLargestAtCenter = scaleLargestAtCenter;
+    }
+
+    private static boolean isNonZero(float f) {
+        return f > EPS || f < -EPS;
     }
 
     @Override

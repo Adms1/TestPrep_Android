@@ -10,8 +10,7 @@ import android.view.View;
 
 /**
  * Carousel View, the main class of the library.
- * <p/>
- *
+ * <p />
  * @author sunny-chung
  */
 public class CarouselView1 extends RecyclerView {
@@ -124,17 +123,33 @@ public class CarouselView1 extends RecyclerView {
         init();
     }
 
+    private void init() {
+        mIsInfinite = false;
+        mScrollingAlignToViews = true;
+        mEnableFling = true;
+        mClickToScroll = true;
+        setLayoutManagerInternal(new CarouselLayoutManager());
+        mOnScrollListener = null;
+        mOnItemClickListener = null;
+        super.setOnScrollListener(mInternalOnScrollListener);
+    }
+
     public static boolean isDebug() {
         return sIsDebug;
     }
 
     /**
      * Set this parameter to control show debug logs from CarouselView1 or not.
-     *
      * @param debug
      */
     public static void setDebug(boolean debug) {
         sIsDebug = debug;
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        scrollToPosition(mLayoutManager.getCurrentPosition());
     }
 
     private static void log(String format, Object... args) {
@@ -155,23 +170,6 @@ public class CarouselView1 extends RecyclerView {
                 Log.v(TAG, format);
             }
         }
-    }
-
-    private void init() {
-        mIsInfinite = false;
-        mScrollingAlignToViews = true;
-        mEnableFling = true;
-        mClickToScroll = true;
-        setLayoutManagerInternal(new CarouselLayoutManager());
-        mOnScrollListener = null;
-        mOnItemClickListener = null;
-        super.setOnScrollListener(mInternalOnScrollListener);
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        scrollToPosition(mLayoutManager.getCurrentPosition());
     }
 
     private void setLayoutManagerInternal(CarouselLayoutManager layout) {
@@ -199,7 +197,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Returns a CarouselLayoutManager that is in use with this CarouselView1.
-     *
      * @return
      */
     @Override
@@ -208,30 +205,8 @@ public class CarouselView1 extends RecyclerView {
     }
 
     /**
-     * @param layout
-     * @hide DO NOT USE.
-     */
-    @Override
-    public final void setLayoutManager(LayoutManager layout) {
-        throw new UnsupportedOperationException("CarouselView1 doesn't support setLayoutManager(LayoutManager)");
-    }
-
-    /**
-     * @param layout
-     * @hide DO NOT USE.
-     */
-    // TODO to support custom CarouselLayoutManager
-    public void setLayoutManager(CarouselLayoutManager layout) {
-        if (layout == null) {
-            throw new NullPointerException("CarouselLayoutManager cannot be null");
-        }
-        throw new UnsupportedOperationException("setLayoutManager(CarouselLayoutManager) is not yet supported.");
-    }
-
-    /**
      * Returns the current position. It can be negative or very large if
      * the items are repeating.
-     *
      * @return
      * @see CarouselLayoutManager#getCurrentPosition()
      */
@@ -241,7 +216,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Returns the current adapter position, which is in the range of [0, itemCount).
-     *
      * @return
      * @see CarouselLayoutManager#translatePosition(int)
      * @see CarouselLayoutManager#getCurrentPosition()
@@ -252,7 +226,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Returns the scrolling position in pixel.
-     *
      * @return
      * @see CarouselLayoutManager#getCurrentOffset()
      */
@@ -262,7 +235,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Returns the current position in floating points.
-     *
      * @return
      * @see CarouselLayoutManager#getCurrentPositionPoint()
      */
@@ -272,7 +244,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Returns the last position in floating point when this CarouselView1 starts to scroll.
-     *
      * @return Last position in floating point.
      */
     public float getLastScrollStartPositionPoint() {
@@ -281,7 +252,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Returns whether the given position is valid.
-     *
      * @param position
      * @return
      * @see CarouselLayoutManager#isValidPosition(int)
@@ -292,7 +262,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Smooth scroll to a given position if it is valid. OnItemSelectedListener may be triggered at this point.
-     *
      * @param position
      */
     @Override
@@ -305,7 +274,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Scroll to a given position immediately. OnItemSelectedListener may be triggered at this point.
-     *
      * @param position
      */
     @Override
@@ -317,7 +285,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Trigger OnItemSelectedListener and update selected position.
-     *
      * @param position
      */
     private void dispatchPositionUpdateMessage(int position) {
@@ -334,7 +301,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Returns whether enableFling is set.
-     *
      * @return
      */
     public boolean isEnableFling() {
@@ -342,24 +308,18 @@ public class CarouselView1 extends RecyclerView {
     }
 
     /**
-     * Set enableFling. If enableFling is false, scrolling stops once users' finger releases;
-     * otherwise, leave the scrolling behaviour as is.
-     * <p>
-     * <p/>
-     * <p>
-     * Default value: true
+     * @hide
      *
-     * @param enableFling
-     * @return this
+     * DO NOT USE.
+     * @param layout
      */
-    public CarouselView1 setEnableFling(boolean enableFling) {
-        mEnableFling = enableFling;
-        return this;
+    @Override
+    public final void setLayoutManager(LayoutManager layout) {
+        throw new UnsupportedOperationException("CarouselView1 doesn't support setLayoutManager(LayoutManager)");
     }
 
     /**
      * Returns whether scrollingAlignToViews is set.
-     *
      * @return
      */
     public boolean isScrollingAlignToViews() {
@@ -367,24 +327,21 @@ public class CarouselView1 extends RecyclerView {
     }
 
     /**
-     * Set scrollingAlignToViews. If scrollingAlignToViews is true, the scrolling position will be
-     * "corrected" to the nearest integer position after a scrolling ends.
-     * <p>
-     * <p/>
-     * <p>
-     * Default value: true
+     * @hide
      *
-     * @param scrollingAlignToViews
-     * @return this
+     * DO NOT USE.
+     * @param layout
      */
-    public CarouselView1 setScrollingAlignToViews(boolean scrollingAlignToViews) {
-        mScrollingAlignToViews = scrollingAlignToViews;
-        return this;
+    // TODO to support custom CarouselLayoutManager
+    public void setLayoutManager(CarouselLayoutManager layout) {
+        if (layout == null) {
+            throw new NullPointerException("CarouselLayoutManager cannot be null");
+        }
+        throw new UnsupportedOperationException("setLayoutManager(CarouselLayoutManager) is not yet supported.");
     }
 
     /**
      * Returns if clickToScroll is set.
-     *
      * @return
      */
     public boolean isClickToScroll() {
@@ -392,16 +349,18 @@ public class CarouselView1 extends RecyclerView {
     }
 
     /**
-     * Set clickToScroll. If clickToScroll is true, this CarouselView1 will scroll to an item once it is clicked.
-     * Note that sometimes it may interfere with other touch events.
-     * <p>
+     * Set enableFling. If enableFling is false, scrolling stops once users' finger releases;
+     * otherwise, leave the scrolling behaviour as is.
+     *
+     * <p />
+     *
      * Default value: true
      *
-     * @param clickToScroll
+     * @param enableFling
      * @return this
      */
-    public CarouselView1 setClickToScroll(boolean clickToScroll) {
-        mClickToScroll = clickToScroll;
+    public CarouselView1 setEnableFling(boolean enableFling) {
+        mEnableFling = enableFling;
         return this;
     }
 
@@ -413,7 +372,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Set an OnItemClickListener.
-     *
      * @param onItemClickListener
      * @return this
      */
@@ -452,7 +410,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Set an OnScrollListener.
-     *
      * @param onScrollListener
      * @return this
      */
@@ -462,8 +419,40 @@ public class CarouselView1 extends RecyclerView {
     }
 
     /**
+     * Set scrollingAlignToViews. If scrollingAlignToViews is true, the scrolling position will be
+     * "corrected" to the nearest integer position after a scrolling ends.
+     *
+     * <p />
+     *
+     * Default value: true
+     *
+     * @param scrollingAlignToViews
+     * @return this
+     */
+    public CarouselView1 setScrollingAlignToViews(boolean scrollingAlignToViews) {
+        mScrollingAlignToViews = scrollingAlignToViews;
+        return this;
+    }
+
+    /**
+     * Set clickToScroll. If clickToScroll is true, this CarouselView1 will scroll to an item once it is clicked.
+     * Note that sometimes it may interfere with other touch events.
+     * <p>
+     * Default value: true
+     *
+     * @param clickToScroll
+     * @return this
+     */
+    public CarouselView1 setClickToScroll(boolean clickToScroll) {
+        mClickToScroll = clickToScroll;
+        return this;
+    }
+
+    /**
+     * @hide
+     *
+     * DO NOT USE.
      * @param listener
-     * @hide DO NOT USE.
      */
     @Deprecated
     @Override
@@ -473,7 +462,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Set an OnItemSelectedListener.
-     *
      * @param onItemSelectedListener
      * @return this
      */
@@ -489,23 +477,23 @@ public class CarouselView1 extends RecyclerView {
                     dispatchPositionUpdateMessage(pos);
                     mShouldPostUpdatePositionCall = false;
                 } else {
-                    getAdapter().registerAdapterDataObserver(new AdapterDataObserver() {
-                        @Override
-                        public void onChanged() {
-                            final AdapterDataObserver observer = this;
-                            post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    int pos = mLayoutManager.getCurrentPosition();
-                                    if (mLayoutManager.isValidPosition(pos)) {
-                                        getAdapter().unregisterAdapterDataObserver(observer);
-                                        mShouldPostUpdatePositionCall = false;
-                                        dispatchPositionUpdateMessage(pos);
-                                    }
-                                }
-                            });
-                        }
-                    });
+//						getAdapter().registerAdapterDataObserver(new AdapterDataObserver() {
+//							@Override
+//							public void onChanged() {
+//								final AdapterDataObserver observer = this;
+//								post(new Runnable() {
+//									@Override
+//									public void run() {
+//										int pos = mLayoutManager.getCurrentPosition();
+//										if (mLayoutManager.isValidPosition(pos)) {
+//											getAdapter().unregisterAdapterDataObserver(observer);
+//											mShouldPostUpdatePositionCall = false;
+//											dispatchPositionUpdateMessage(pos);
+//										}
+//									}
+//								});
+//							}
+//						});
                 }
             }
         });
@@ -516,8 +504,8 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Set display style of this CarouselView1.
-     *
      * @param mode
+     * @see com.gtomato.android.ui.widget.CarouselView1.DisplayMode
      */
     @Deprecated
     public void setDisplayMode(DisplayMode mode) {
@@ -527,13 +515,29 @@ public class CarouselView1 extends RecyclerView {
 //				setTransformerInternal(new LinearViewTransformer());
 //				break;
 //
+//			case Wheel:
+//				setTransformerInternal(new WheelViewTransformer());
+//				break;
+//
+//			case CoverFlow:
+//				setTransformerInternal(new CoverFlowViewTransformer());
+//				break;
+//
+//			case TimeMachine:
+//				setTransformerInternal(new TimeMachineViewTransformer());
+//				break;
+//
+//			case InverseTimeMachine:
+//				setTransformerInternal(new InverseTimeMachineViewTransformer());
+//				break;
+//
 //			case Parameterized:
 //				setTransformerInternal(new ParameterizedViewTransformer());
 //				break;
-
-            case Custom:
-                setTransformerInternal(mTransformer);
-                break;
+//
+//			case Custom:
+//				setTransformerInternal(mTransformer);
+//				break;
 
             default:
                 throw new UnsupportedOperationException("Mode " + mode + " is not supported");
@@ -547,20 +551,14 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Returns the transformer currently in use.
-     *
      * @return
      */
     public ViewTransformer getTransformer() {
         return mLayoutManager.getTransformer();
     }
 
-    public void setTransformer(ViewTransformer transformer) {
-        setTransformerInternal(transformer);
-    }
-
     /**
      * Returns whether the items are recurring.
-     *
      * @return
      */
     public boolean isInfinite() {
@@ -569,7 +567,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Set whether the items are recurring.
-     *
      * @param isInfinite
      * @return this
      * @see CarouselLayoutManager#setInfinite(boolean)
@@ -582,7 +579,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Returns the number of extra children per side to be preserved and managed by transformations.
-     *
      * @return
      */
     public int getExtraVisibleChilds() {
@@ -591,7 +587,6 @@ public class CarouselView1 extends RecyclerView {
 
     /**
      * Set the number of extra children per side to be preserved and managed by transformations.
-     *
      * @param num
      * @return this
      * @see CarouselLayoutManager#setExtraVisibleChilds(CarouselView1, int)
@@ -599,16 +594,6 @@ public class CarouselView1 extends RecyclerView {
     public CarouselView1 setExtraVisibleChilds(int num) {
         mLayoutManager.setExtraVisibleChilds(this, num);
         return this;
-    }
-
-    /**
-     * Returns how itemviews are positioned.
-     *
-     * @return
-     * @see android.view.Gravity
-     */
-    public int getGravity() {
-        return mLayoutManager.getGravity();
     }
 
     /**
@@ -622,10 +607,35 @@ public class CarouselView1 extends RecyclerView {
     }
 
     /**
+     * Set a view transformer.
+     *
+     * @param transformer
+     * @see LinearViewTransformer
+     * @see WheelViewTransformer
+     * @see CoverFlowViewTransformer
+     * @see TimeMachineViewTransformer
+     * @see InverseTimeMachineViewTransformer
+     * @see com.gtomato.android.ui.transformer.FlatMerryGoRoundTransformer
+     * @see ParameterizableViewTransformer
+     */
+    public void setTransformer(ViewTransformer transformer) {
+        setTransformerInternal(transformer);
+    }
+
+    /**
+     * Returns how itemviews are positioned.
+     * @return
+     * @see android.view.Gravity
+     */
+    public int getGravity() {
+        return mLayoutManager.getGravity();
+    }
+
+    /**
      * Display modes/styles of CarouselView1. Please refer to the CarouselView1 demo.
-     * <p>
-     * <p/>
-     * <p>
+     *
+     * <p />
+     *
      * Currently, there is only a very limited set of display styles. Please use {@link #Custom}
      * and provide a custom transformation implementation if they do not suit your need.
      */
@@ -660,6 +670,8 @@ public class CarouselView1 extends RecyclerView {
 
         /**
          * Simple carousel with customized parameters.
+         *
+         //		 * @see #setParameter(Parameter, float)
          */
         Parameterized,
 
@@ -672,7 +684,6 @@ public class CarouselView1 extends RecyclerView {
 
         /**
          * Returns an array contains all element names of this enum
-         *
          * @return
          */
         public static String[] names() {
@@ -720,13 +731,38 @@ public class CarouselView1 extends RecyclerView {
     public interface OnItemClickListener {
         /**
          * Callback method to be invoked when an item in CarouselView1 has been clicked.
-         *
          * @param adapter
          * @param view
-         * @param position        {@link #getCurrentPosition() Current position}.
+         * @param position {@link #getCurrentPosition() Current position}.
          * @param adapterPosition {@link #getCurrentAdapterPosition() Current adapter position}.
          */
         void onItemClick(Adapter adapter, View view, int position, int adapterPosition);
+    }
+
+    /**
+     * Interface definition of a view transformer based on position offset.
+     */
+    public interface ViewTransformer {
+        /**
+         * Called when attaching the transformer to a CarouselLayoutManager.
+         * Allowing to set behaviours of CarouselLayoutManager, e.g. drawOrder.
+         *
+         * @param layoutManager
+         *
+         * @see CarouselLayoutManager#setDrawOrder(DrawOrder)
+         * @see CarouselLayoutManager#setScroller(Scroller)
+         */
+        void onAttach(CarouselLayoutManager layoutManager);
+
+        /**
+         * Transform a given item view based on position. Usually translate, rotation, alpha, visibility, ... may be altered.
+         * @param view Item view
+         * @param position For example, 0 for the current center-most item at a stable position;
+         *                 4 for 4-th item at the right to the current item;
+         *                 -3 for 3-rd item at the left to the current item;
+         *                 0.1 for the current item with 10% offset right to its stable position.
+         */
+        void transform(View view, float position);
     }
 
     /**
@@ -752,86 +788,6 @@ public class CarouselView1 extends RecyclerView {
          * @param adapter
          */
         void onItemDeselected(CarouselView1 carouselView, int position, int adapterPosition, Adapter adapter);
-    }
-
-    /**
-     * Interface definition of a view transformer based on position offset.
-     */
-    public interface ViewTransformer {
-        /**
-         * Called when attaching the transformer to a CarouselLayoutManager.
-         * Allowing to set behaviours of CarouselLayoutManager, e.g. drawOrder.
-         *
-         * @param layoutManager
-         * @see CarouselLayoutManager#setDrawOrder(DrawOrder)
-         * @see CarouselLayoutManager#setScroller(Scroller)
-         */
-        void onAttach(CarouselLayoutManager layoutManager);
-
-        /**
-         * Transform a given item view based on position. Usually translate, rotation, alpha, visibility, ... may be altered.
-         *
-         * @param view     Item view
-         * @param position For example, 0 for the current center-most item at a stable position;
-         *                 4 for 4-th item at the right to the current item;
-         *                 -3 for 3-rd item at the left to the current item;
-         *                 0.1 for the current item with 10% offset right to its stable position.
-         */
-        void transform(View view, float position);
-    }
-
-    /**
-     * Implement this interface if you want to implement a custom scrolling behaviour.
-     * For example, inverse scrolling.
-     */
-    public interface Scroller {
-        /**
-         * Tweak the value of scroll delta X.
-         *
-         * @param dx
-         * @return new value of scroll delta X
-         */
-        int tweakScrollDx(int dx);
-
-        /**
-         * Tweak the value of scroll delta Y.
-         *
-         * @param dy
-         * @return new value of scroll delta Y
-         */
-        int tweakScrollDy(int dy);
-
-        /**
-         * Reverse the changes made to tweak the value of scroll delta X.
-         *
-         * @param dx
-         * @return new value of scroll delta X
-         */
-        int inverseTweakScrollDx(int dx);
-
-        /**
-         * Reverse the changes made to tweak the value of scroll delta Y.
-         *
-         * @param dy
-         * @return new value of scroll delta Y
-         */
-        int inverseTweakScrollDy(int dy);
-
-        /**
-         * Tweak the value of scroll delta X.
-         *
-         * @param dx
-         * @return new value of scroll delta X
-         */
-        float tweakScrollDx(float dx);
-
-        /**
-         * Tweak the value of scroll delta Y.
-         *
-         * @param dy
-         * @return new value of scroll delta Y
-         */
-        float tweakScrollDy(float dy);
     }
 
     /**
@@ -894,5 +850,53 @@ public class CarouselView1 extends RecyclerView {
          */
         public void onScrolled(CarouselView1 carouselView, int position, int adapterPosition, float offset) {
         }
+    }
+
+    /**
+     * Implement this interface if you want to implement a custom scrolling behaviour.
+     * For example, inverse scrolling.
+     */
+    public interface Scroller {
+        /**
+         * Tweak the value of scroll delta X.
+         * @param dx
+         * @return new value of scroll delta X
+         */
+        int tweakScrollDx(int dx);
+
+        /**
+         * Tweak the value of scroll delta Y.
+         * @param dy
+         * @return new value of scroll delta Y
+         */
+        int tweakScrollDy(int dy);
+
+        /**
+         * Reverse the changes made to tweak the value of scroll delta X.
+         * @param dx
+         * @return new value of scroll delta X
+         */
+        int inverseTweakScrollDx(int dx);
+
+        /**
+         * Reverse the changes made to tweak the value of scroll delta Y.
+         * @param dy
+         * @return new value of scroll delta Y
+         */
+        int inverseTweakScrollDy(int dy);
+
+        /**
+         * Tweak the value of scroll delta X.
+         * @param dx
+         * @return new value of scroll delta X
+         */
+        float tweakScrollDx(float dx);
+
+        /**
+         * Tweak the value of scroll delta Y.
+         * @param dy
+         * @return new value of scroll delta Y
+         */
+        float tweakScrollDy(float dy);
     }
 }

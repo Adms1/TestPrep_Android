@@ -6,10 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
@@ -44,14 +41,8 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
 
         if (dataList[p1].ExternalTransactionStatus.equals("Success", true)) {
             p0.status.setTextColor(context.resources.getColor(R.color.green))
-            p0.tryagain.visibility = GONE
         } else {
             p0.status.setTextColor(context.resources.getColor(R.color.red))
-            p0.tryagain.visibility = VISIBLE
-        }
-
-        p0.tryagain.setOnClickListener {
-            generateTrackNPayRequest(dataList[p1].PaymentAmount.toString(), dataList[p1].PaymentTransactionID)
         }
 
         p0.date.text = "Date : " + dataList[p1].PaymentDate
@@ -66,7 +57,6 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
         var id: TextView = itemView.findViewById(R.id.item_my_payment_id)
         var status: TextView = itemView.findViewById(R.id.item_my_payment_status)
         var amount: TextView = itemView.findViewById(R.id.item_my_payment_amount)
-        var tryagain: Button = itemView.findViewById(R.id.item_my_payment_btnTry)
     }
 
     fun generateTrackNPayRequest(coin: String, trans_id: String) {

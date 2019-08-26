@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
-import com.testprep.activity.TabwiseQuestionActivity
 import com.testprep.activity.TestReviewActivity
 import com.testprep.models.TestListModel
+import com.testprep.sectionmodule.NewTabQuestionActivity
 
 class TestListAdapter(val context: Context, var dataList: ArrayList<TestListModel.TestData>) :
     RecyclerView.Adapter<TestListAdapter.viewholder>() {
@@ -57,7 +57,7 @@ class TestListAdapter(val context: Context, var dataList: ArrayList<TestListMode
                 intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
                 context.startActivity(intent)
             } else {
-                val intent = Intent(context, TabwiseQuestionActivity::class.java)
+                val intent = Intent(context, NewTabQuestionActivity::class.java)
                 intent.putExtra("testid", dataList[p1].TestID.toString())
                 intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
                 intent.putExtra("testname", dataList[p1].TestName)

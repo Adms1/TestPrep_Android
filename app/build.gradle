@@ -15,6 +15,11 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -65,6 +70,7 @@ dependencies {
     implementation 'com.github.GoodieBag:Pinview:v1.4'
 //    implementation 'com.chaos.view:pinview:1.4.3'
     implementation 'com.github.moondroid.coverflow:library:1.0'
-
+//    implementation 'com.emredavarci:circleprogressbar:1.0.4'
+    implementation 'com.ramijemli.percentagechartview:percentagechartview:0.3.1'
 
 }

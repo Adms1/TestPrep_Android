@@ -65,7 +65,7 @@ class QuestionChildListAdapter(
 
             Log.d("que_number", "" + AppConstants.QUE_NUMBER)
 
-            filterTypeSelectionInteface.getType("adapter", p1)
+            filterTypeSelectionInteface.getType("adapter", 0, p1)
 
         }
 
@@ -105,7 +105,6 @@ class QuestionChildListAdapter(
                 p0.title.setBackgroundResource(R.drawable.blue_round)
             }
         }
-
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {

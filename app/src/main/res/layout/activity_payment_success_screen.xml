@@ -7,18 +7,20 @@
 
     <ImageView
             android:id="@+id/imvSuccessFail"
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_70sdp"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
             app:layout_constraintBottom_toTopOf="@+id/tvMessage"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:src="@drawable/success_icon"/>
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/blue_round"
+            android:src="@drawable/white_right_icn"/>
 
     <TextView
             android:id="@+id/tvMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Transaction Successful"
+            android:text="Your transaction has been completed successfully"
             android:gravity="center"
             android:textSize="@dimen/_18sdp"
             android:layout_marginTop="@dimen/_5sdp"
@@ -29,29 +31,62 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/black"/>
 
-    <TextView
+    <Button
             android:id="@+id/tvTry"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/try_again"
+            android:text="OK"
+            android:background="@drawable/google_round_bg"
             android:gravity="center"
             android:textSize="@dimen/_18sdp"
+            android:textAllCaps="false"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@+id/tvMessage"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:textColor="@color/red"/>
+            android:textColor="@color/white"/>
 
-    <TextView
+    <Button
             android:id="@+id/tvCancel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
+            android:text="Cancel"
+            android:background="@drawable/light_blue_round_bg"
             android:gravity="center"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="@dimen/_18sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@+id/tvTry"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textAllCaps="false"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/white"/>
+
+    <!--<TextView-->
+    <!--android:id="@+id/tvTry"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/try_again"-->
+    <!--android:gravity="center"-->
+    <!--android:textSize="@dimen/_18sdp"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/btnOk"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--android:textColor="@color/red"/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tvCancel"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/cancel"-->
+    <!--android:gravity="center"-->
+    <!--android:layout_marginTop="@dimen/_5sdp"-->
+    <!--android:textSize="@dimen/_15sdp"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/tvTry1"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent"/>-->
 
 </android.support.constraint.ConstraintLayout>

@@ -19,7 +19,7 @@ class CarouselParameters {
     companion object {
 
         val TRANSFORMER_CLASSES: List<Class<out CarouselView1.ViewTransformer>> = Arrays.asList(
-            ParameterizedViewTransformer::class.java,
+            LinearViewTransformer::class.java,
             FlatMerryGoRoundTransformer::class.java
         )
 

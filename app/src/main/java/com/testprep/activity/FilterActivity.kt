@@ -172,7 +172,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         }
     }
 
-    override fun getType(itype: String, p0: Int) {
+    override fun getType(itype: String, p0: Int, p1: Int) {
 
         var fragment = OtherFilterFragment()
         val bundle = Bundle()

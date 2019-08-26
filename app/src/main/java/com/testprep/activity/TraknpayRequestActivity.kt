@@ -292,9 +292,24 @@ class TraknpayRequestActivity : AppCompatActivity() {
                 Log.d(TAG, "ResponseJson: $resposeData")
 
                 if (resposeData.getString("response_code").equals("0", ignoreCase = true)) {
-                    callAddTestPackageApi()
-                } else {
+//                    callAddTestPackageApi()
 
+                    val intent = Intent(applicationContext, PaymentSuccessScreen::class.java)
+                    intent.putExtra("transactionId", resposeData.getString("transaction_id"))
+                    intent.putExtra("responseCode", resposeData.getString("response_code"))
+                    intent.putExtra("amount", resposeData.getString("amount"))
+                    intent.putExtra("description", resposeData.getString("description"))
+                    intent.putExtra("order_id", resposeData.getString("order_id"))
+                    intent.putExtra("pkgid", pkgid)
+//                if (extras!!.containsKey("CardDetails")) {
+//                    intent.putExtra("Trans_Type", "1")
+//                } else {
+//                    intent.putExtra("Trans_Type", "2")
+//                }
+                    startActivity(intent)
+                    finish()
+
+                } else {
 
                     val intent = Intent(applicationContext, PaymentSuccessScreen::class.java)
                     intent.putExtra("transactionId", resposeData.getString("transaction_id"))
@@ -312,19 +327,19 @@ class TraknpayRequestActivity : AppCompatActivity() {
                     finish()
                 }
 
-                /*if (responseCode.equals("0")) {
-                    Intent intent = new Intent(getApplicationContext(), PaymentSuccessScreen.class);
-                    intent.putExtra("transactionId", transactionId);
-                    intent.putExtra("responseCode", responseCode);
-                    intent.putExtra("responseMessage", responseMessage);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getApplicationContext(), TraknpayResponseActivity.class);
-                    intent.putExtra("transactionId", transactionId);
-                    intent.putExtra("responseCode", responseCode);
-                    intent.putExtra("responseMessage", responseMessage);
-                    startActivity(intent);
-                }*/
+//                if (responseCode.equals("0")) {
+//                    Intent intent = new Intent(getApplicationContext(), PaymentSuccessScreen.class);
+//                    intent.putExtra("transactionId", transactionId);
+//                    intent.putExtra("responseCode", responseCode);
+//                    intent.putExtra("responseMessage", responseMessage);
+//                    startActivity(intent);
+//                } else {
+//                    Intent intent = new Intent(getApplicationContext(), TraknpayResponseActivity.class);
+//                    intent.putExtra("transactionId", transactionId);
+//                    intent.putExtra("responseCode", responseCode);
+//                    intent.putExtra("responseMessage", responseMessage);
+//                    startActivity(intent);
+//                }
 
             } catch (ex: Exception) {
                 ex.printStackTrace()

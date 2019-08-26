@@ -50,6 +50,7 @@
         <activity android:name=".activity.PaymentSuccessScreen" android:screenOrientation="portrait"/>
         <activity android:name=".activity.TraknpayRequestActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.TabwiseQuestionActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".sectionmodule.NewTabQuestionActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.SelectStandardActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.SelectSubjectActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.SelectBoardActivity" android:screenOrientation="portrait"/>

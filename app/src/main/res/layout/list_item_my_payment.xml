@@ -61,21 +61,4 @@
             app:layout_constraintTop_toBottomOf="@id/item_my_payment_amount"
             android:text="Success"/>
 
-    <Button
-            android:id="@+id/item_my_payment_btnTry"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_25sdp"
-            android:gravity="center"
-            android:textSize="@dimen/_11sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:background="@color/colorPrimary"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:maxLines="1"
-            android:textAllCaps="false"
-            android:padding="@dimen/_5sdp"
-            android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/item_my_payment_status"
-            android:text="@string/try_again"/>
-
 </android.support.constraint.ConstraintLayout>

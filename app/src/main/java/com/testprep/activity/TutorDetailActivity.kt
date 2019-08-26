@@ -60,24 +60,29 @@ class TutorDetailActivity : AppCompatActivity() {
 
             tutor_detail_ivFilter.visibility = View.VISIBLE
 
+            tutor_detail_tvFilter.visibility = View.VISIBLE
             tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
             callFilterListApi()
 
         } else if (intent.getStringExtra("type") == "tutor") {
 
             tutor_detail_ivFilter.visibility = View.GONE
+            tutor_detail_tvFilter.visibility = View.GONE
 
             tutor_packages_rvPopularPkg.layoutManager =
                 LinearLayoutManager(this@TutorDetailActivity, LinearLayoutManager.VERTICAL, false)
             tutor_packages_rvPopularPkg.adapter = TutorsAdapter(this@TutorDetailActivity, data)
 
         }
+
+        setFilterCount()
+
     }
 
     fun onClick(v: View) {
         when (v) {
 
-            tutor_detail_ivFilter -> {
+            tutor_detail_rlFilter -> {
 
                 val intent = Intent(this@TutorDetailActivity, FilterActivity::class.java)
                 startActivity(intent)
@@ -170,5 +175,38 @@ class TutorDetailActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    fun setFilterCount() {
+
+        var filterCount = 0
+
+        if (AppConstants.FILTER_BOARD_ID != "") {
+            filterCount += 1
+        }
+
+        if (AppConstants.FILTER_STANDARD_ID != "") {
+            filterCount += 1
+        }
+
+        if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_BOARD_ID != "111") {
+            filterCount += 1
+        }
+
+        if (AppConstants.FILTER_SUBJECT_ID != "") {
+            filterCount += 1
+        }
+
+        if (AppConstants.FILTER_TUTOR_ID != "") {
+            filterCount += 1
+        }
+
+        if (filterCount > 0) {
+            tutor_detail_tvFilter.visibility = View.VISIBLE
+            tutor_detail_tvFilter.text = filterCount.toString()
+        } else {
+            tutor_detail_tvFilter.visibility = View.GONE
+        }
+
     }
 }

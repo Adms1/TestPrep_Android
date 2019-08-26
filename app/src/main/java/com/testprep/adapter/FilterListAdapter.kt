@@ -80,7 +80,7 @@ class FilterListAdapter(
         }
 
         p0.title.setOnClickListener {
-            filterTypeSelectionInteface.getType("adapter", p1)
+            filterTypeSelectionInteface.getType("adapter", 0, p1)
 
             row_index = p1
             notifyDataSetChanged()

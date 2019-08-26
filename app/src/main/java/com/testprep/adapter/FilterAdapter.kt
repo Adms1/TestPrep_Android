@@ -53,6 +53,9 @@ class FilterAdapter(
 //            holder.img.visibility = View.VISIBLE
             holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_right_icn))
             holder.img.background = cotext.resources.getDrawable(R.drawable.login_btn_bg)
+
+            raw_index = position
+
         } else {
 //            holder.view.setBackgroundColor(Color.WHITE)
 //            holder.img.visibility = View.GONE
@@ -74,6 +77,9 @@ class FilterAdapter(
                     "standard" -> {
                         strID = mModelList[position].StandardID
                         str = mModelList[position].StandardName
+
+                        filterInterface.filterData(filterType)
+
                     }
                     "subject" -> {
                         strID = mModelList[position].SubjectID
@@ -122,15 +128,16 @@ class FilterAdapter(
             if (raw_index == position) {
 
                 holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.right_blue))
+                holder.img.setBackgroundResource(R.drawable.gray_ring_bg)
 //                holder.img.visibility = View.VISIBLE
                 model.isSelected = !model.isSelected
             } else {
 //                holder.img.visibility = View.GONE
                 holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
+                holder.img.setBackgroundResource(R.drawable.gray_ring_bg)
                 model.isSelected = model.isSelected
             }
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -149,7 +156,7 @@ class FilterAdapter(
     }
 
     fun sendStandard(): String {
-        return "$strID-$str"
+        return strID
     }
 
 }

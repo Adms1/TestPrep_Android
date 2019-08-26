@@ -16,13 +16,4 @@
             android:textColor="@color/black"
             android:padding="@dimen/_3sdp"/>
 
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/queList_tvList"
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@+id/queList_tvHeader"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:layout_height="wrap_content"/>
-
 </android.support.constraint.ConstraintLayout>

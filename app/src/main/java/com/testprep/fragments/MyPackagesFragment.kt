@@ -108,6 +108,9 @@ class MyPackagesFragment : AppCompatActivity() {
 
                         pendingcount = totalcount - completecount
 
+//                        my_packages_ivProgress.progress = completecount.toFloat()
+//                        my_packages_ivProgress.maxValue = totalcount.toFloat()
+
                         my_packages_tvPendingCount.text = pendingcount.toString()
                         my_packages_tvTotalCount.text = totalcount.toString()
 

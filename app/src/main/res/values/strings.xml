@@ -84,7 +84,7 @@
     <string name="other">Other</string>
     <string name="enter_verification_code">Enter Verification Code</string>
     <string name="resend_code">
-        <font color="#9A9A9A">Didn\'t receive the code?</font>
+        <font color="#9A9A9A">Did not receive the code?</font>
         <font color="#10A8DD">Resend</font>
     </string>
     <string name="email_or_mobile_number">EMAIL or Mobile Number</string>
@@ -102,6 +102,9 @@
     </string>
     <string name="skip">Skip</string>
     <string name="analysis">Analysis</string>
+    <string name="please_select_the_type_of_exam_you_are_prepairing_for">Please select the type of exam you are
+        preparing for
+    </string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>
