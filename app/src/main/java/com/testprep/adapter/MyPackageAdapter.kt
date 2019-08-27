@@ -18,8 +18,8 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
         return viewholder(
-//            LayoutInflater.from(context).inflate(R.layout.list_item_my_package, p0, false)
-            LayoutInflater.from(context).inflate(R.layout.popular_pkg_list_item, p0, false)
+            LayoutInflater.from(context).inflate(R.layout.list_item_my_package, p0, false)
+//            LayoutInflater.from(context).inflate(R.layout.popular_pkg_list_item, p0, false)
         )
     }
 
@@ -29,12 +29,12 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-//        p0.sdate.text = dataList[p1].PurchaseDate
+        p0.sdate.text = dataList[p1].PurchaseDate
 //        p0.edate.text = dataList[p1].ExpirationDate
-//        p0.name.text = dataList[p1].TestPackageName
-//        p0.short_name.text = p0.name.text.substring(0, 1)
-//        p0.price.text = "Price: ₹" + dataList[p1].TestPackageSalePrice
-//        p0.test.text = dataList[p1].NumberOfTest + " Tests"
+        p0.name.text = dataList[p1].TestPackageName
+        p0.short_name.text = p0.name.text.substring(0, 1)
+        p0.price.text = "Price: ₹" + dataList[p1].TestPackageSalePrice
+        p0.test.text = dataList[p1].NumberOfTest + " Tests"
 //
 ////        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))
 //
@@ -69,23 +69,23 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
 //        }
 
 //        p0.std.setTextColor(context.resources.getColor(R.color.white))
-        p0.std.text = dataList[p1].TestPackageName
+//        p0.std.text = dataList[p1].TestPackageName
 
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-//        var sdate: TextView = itemView.findViewById(R.id.item_my_package_sdate)
+        var sdate: TextView = itemView.findViewById(R.id.item_my_package_sdate)
 //        var edate: TextView = itemView.findViewById(R.id.item_my_package_edate)
 //        var image: ImageView = itemView.findViewById(R.id.item_my_package_image)
-//        var name: TextView = itemView.findViewById(R.id.item_my_package_name)
-//        var short_name: TextView = itemView.findViewById(R.id.item_my_package_name_short)
-        var mainll: ConstraintLayout = itemView.findViewById(R.id.mall)
-//        var price: TextView = itemView.findViewById(R.id.item_my_package_price)
+var name: TextView = itemView.findViewById(R.id.item_my_package_name)
+        var short_name: TextView = itemView.findViewById(R.id.item_my_package_name_short)
+        var mainll: ConstraintLayout = itemView.findViewById(R.id.item_my_package_main)
+        var price: TextView = itemView.findViewById(R.id.item_my_package_price)
 //        var view: Button = itemView.findViewById(R.id.item_my_package_view)
-//        var test: TextView = itemView.findViewById(R.id.item_my_package_test)
+var test: TextView = itemView.findViewById(R.id.item_my_package_test)
 
-        var std: TextView = itemView.findViewById(R.id.package_item_tvStd)
+//        var std: TextView = itemView.findViewById(R.id.package_item_tvStd)
     }
 
 }

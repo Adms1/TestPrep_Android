@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
 import com.testprep.activity.PackageDetailActivity
@@ -142,19 +141,19 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
 
                     if (response.body()!!["Status"].toString() == "true") {
 
-                        Toast.makeText(
-                            context,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            context,
+//                            response.body()!!["Msg"].toString().replace("\"", ""),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
 //                        onBackPressed()
                     } else {
 
-                        Toast.makeText(
-                            context,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            context,
+//                            response.body()!!["Msg"].toString().replace("\"", ""),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                     }
                 }
             }

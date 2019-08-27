@@ -63,7 +63,10 @@ class MyPackagesFragment : AppCompatActivity() {
 
         my_packages_header.text = intent.getStringExtra("sub_name")
 
-        my_packages_rvList.layoutManager = LinearLayoutManager(this@MyPackagesFragment, LinearLayoutManager.HORIZONTAL, false)
+        my_packages_rvList.layoutManager =
+            LinearLayoutManager(this@MyPackagesFragment, LinearLayoutManager.VERTICAL, false)
+
+        my_packages_rvList.isNestedScrollingEnabled = false
 
         DialogUtils.showDialog(this@MyPackagesFragment)
 
@@ -108,7 +111,7 @@ class MyPackagesFragment : AppCompatActivity() {
 
                         pendingcount = totalcount - completecount
 
-//                        my_packages_ivProgress.progress = completecount.toFloat()
+                        my_packages_ivProgress.setProgress(completecount.toFloat(), true)
 //                        my_packages_ivProgress.maxValue = totalcount.toFloat()
 
                         my_packages_tvPendingCount.text = pendingcount.toString()

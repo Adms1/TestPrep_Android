@@ -58,16 +58,14 @@ class TutorDetailActivity : AppCompatActivity() {
 
         if (intent.getStringExtra("type") == "pkg" || intent.getStringExtra("type") == "explore") {
 
-            tutor_detail_ivFilter.visibility = View.VISIBLE
+            tutor_detail_rlFilter.visibility = View.VISIBLE
 
-            tutor_detail_tvFilter.visibility = View.VISIBLE
             tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
             callFilterListApi()
 
         } else if (intent.getStringExtra("type") == "tutor") {
 
-            tutor_detail_ivFilter.visibility = View.GONE
-            tutor_detail_tvFilter.visibility = View.GONE
+            tutor_detail_rlFilter.visibility = View.GONE
 
             tutor_packages_rvPopularPkg.layoutManager =
                 LinearLayoutManager(this@TutorDetailActivity, LinearLayoutManager.VERTICAL, false)

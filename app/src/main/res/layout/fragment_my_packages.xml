@@ -1,229 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--<ScrollView-->
-<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="match_parent"-->
-<!--android:background="#4DB0AC"-->
-<!--android:fillViewport="true">-->
-
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_10sdp"
         android:background="#4DB0AC">
 
     <TextView
             android:text="Test"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/my_packages_header"
-            app:layout_constraintTop_toTopOf="parent"
-            android:paddingTop="@dimen/_7sdp"
-            android:paddingBottom="@dimen/_7sdp"
-            app:layout_constraintLeft_toRightOf="@+id/my_packages_ivBack"
-            app:layout_constraintRight_toRightOf="parent"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_8sdp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:layout_marginTop="@dimen/_14sdp"
-            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_toRightOf="@+id/my_packages_ivBack"
             android:textSize="@dimen/regular_text_size"
             android:gravity="center_vertical"
             android:textColor="@color/white"/>
 
     <ImageView
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
             android:src="@drawable/back_white_icon"
             android:id="@+id/my_packages_ivBack"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/my_packages_header"
-            android:padding="@dimen/_7sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/my_packages_header"/>
+            android:padding="@dimen/_10sdp"/>
 
-    <android.support.v7.widget.CardView
-            android:id="@+id/card_view"
+    <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/_5sdp"
-            app:layout_constraintTop_toBottomOf="@+id/my_packages_header">
+            android:id="@+id/my_packages_scroll"
+            android:layout_below="@+id/my_packages_header"
+            android:fillViewport="true">
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
 
-            <TextView
-                    android:text="Test Reports"
+            <android.support.v7.widget.CardView
+                    android:id="@+id/card_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/_7sdp"
-                    android:paddingBottom="@dimen/_7sdp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:id="@+id/my_packages_tvReport"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textSize="@dimen/normal_header_size"
-                    android:gravity="center"
-                    android:textColor="@color/black"/>
-
-            <!--<ImageView-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="@dimen/_160sdp"-->
-            <!--android:src="@drawable/progressicon"-->
-            <!--android:id="@+id/my_packages_ivProgress"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/my_packages_tvReport"-->
-            <!--app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--app:layout_constraintRight_toRightOf="parent"/>-->
-
-            <com.ramijemli.percentagechartview.PercentageChartView
-                    android:id="@+id/my_packages_ivProgress"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_160sdp"
-                    app:pcv_mode="ring"
-                    app:pcv_orientation="counter_clockwise"
-                    app:pcv_animDuration="800"
-                    app:pcv_animInterpolator="anticipate_overshoot"
-                    app:pcv_progress="10"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/my_packages_tvReport"
-                    app:pcv_startAngle="300"/>
-
-            <!--<com.emredavarci.circleprogressbar.CircleProgressBar-->
-            <!--android:id="@+id/my_packages_ivProgress"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="@dimen/_160sdp"-->
-            <!--cpb:progressColor="#e76130"-->
-            <!--cpb:backgroundColor="#e7b330"-->
-            <!--cpb:dimension="14"-->
-            <!--cpb:backgroundWidth="8"-->
-            <!--cpb:textSize="18sp"-->
-            <!--cpb:roundedCorners="true"-->
-            <!--cpb:suffix="%"-->
-            <!--cpb:prefix=""-->
-            <!--cpb:progressText="Loading..."-->
-            <!--cpb:maxValue="100"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/my_packages_tvReport"-->
-            <!--app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--app:layout_constraintRight_toRightOf="parent"-->
-            <!--cpb:progressTextColor="#f9916b"/>-->
-
-            <TextView
-                    android:text="10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/my_packages_tvTotalCount"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    app:layout_constraintLeft_toRightOf="@+id/my_packages_ivTotalTest"
-                    app:layout_constraintTop_toTopOf="@+id/my_packages_ivTotalTest"
-                    android:textSize="@dimen/normal_header_size"/>
-
-            <TextView
-                    android:text="Available Test"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    app:layout_constraintLeft_toLeftOf="@+id/my_packages_tvTotalCount"
-                    android:id="@+id/my_packages_tvTotalTest"
-                    android:textSize="@dimen/extra_small_size"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/my_packages_tvTotalCount"
-                    app:layout_constraintBottom_toBottomOf="@+id/my_packages_ivTotalTest"
-                    android:gravity="center"/>
-
-            <ImageView
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:src="@drawable/total_test"
-                    android:id="@+id/my_packages_ivTotalTest"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:layout_marginLeft="@dimen/_15sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/my_packages_ivProgress"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <TextView
-                    android:text="03"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/my_packages_tvPendingCount"
-                    app:layout_constraintLeft_toLeftOf="@+id/my_packages_tvPendingTest"
-                    app:layout_constraintTop_toTopOf="@+id/my_packages_ivPendingTest"
-                    android:textSize="@dimen/normal_header_size"/>
-
-            <TextView
-                    android:text="Pending Test"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_15sdp"
-                    app:layout_constraintBottom_toBottomOf="@+id/my_packages_ivPendingTest"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/my_packages_tvPendingCount"
-                    android:id="@+id/my_packages_tvPendingTest"
-                    android:textSize="@dimen/extra_small_size"/>
-
-            <ImageView
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:src="@drawable/pending_test"
-                    android:id="@+id/my_packages_ivPendingTest"
-                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
-                    app:layout_constraintRight_toLeftOf="@+id/my_packages_tvPendingTest"
-                    app:layout_constraintTop_toBottomOf="@+id/my_packages_ivProgress"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_5sdp">
 
-        </android.support.constraint.ConstraintLayout>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-    </android.support.v7.widget.CardView>
+                    <TextView
+                            android:text="Test Reports"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/_7sdp"
+                            android:paddingBottom="@dimen/_7sdp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:id="@+id/my_packages_tvReport"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:textSize="@dimen/normal_header_size"
+                            android:gravity="center"
+                            android:textColor="@color/black"/>
 
-    <android.support.v7.widget.CardView
-            android:id="@+id/card_view1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/_5sdp"
-            android:layout_margin="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_view">
+                    <!--<ImageView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="@dimen/_160sdp"-->
+                    <!--android:src="@drawable/progressicon"-->
+                    <!--android:id="@+id/my_packages_ivProgress"-->
+                    <!--app:layout_constraintTop_toBottomOf="@+id/my_packages_tvReport"-->
+                    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                    <!--app:layout_constraintRight_toRightOf="parent"/>-->
 
-        <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                    <com.ramijemli.percentagechartview.PercentageChartView
+                            android:id="@+id/my_packages_ivProgress"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_130sdp"
+                            app:pcv_mode="ring"
+                            app:pcv_backgroundBarColor="@color/default_shimmer_color"
+                            app:pcv_progressBarThickness="@dimen/_3sdp"
+                            app:pcv_backgroundBarThickness="@dimen/_3sdp"
+                            app:pcv_progressColor="@color/gray"
+                            app:pcv_orientation="clockwise"
+                            app:pcv_animDuration="800"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            app:pcv_animInterpolator="anticipate_overshoot"
+                            app:pcv_textSize="@dimen/_35sdp"
+                            app:pcv_textColor="@color/gray"
+                            app:pcv_textStyle="bold"
+                            android:layout_below="@+id/my_packages_tvReport"
+                            app:pcv_startAngle="270"/>
 
-            <TextView
-                    android:text="Purchased Packages"
+                    <!--<com.emredavarci.circleprogressbar.CircleProgressBar-->
+                    <!--android:id="@+id/my_packages_ivProgress"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="@dimen/_160sdp"-->
+                    <!--cpb:progressColor="#e76130"-->
+                    <!--cpb:backgroundColor="#e7b330"-->
+                    <!--cpb:dimension="14"-->
+                    <!--cpb:backgroundWidth="8"-->
+                    <!--cpb:textSize="18sp"-->
+                    <!--cpb:roundedCorners="true"-->
+                    <!--cpb:suffix="%"-->
+                    <!--cpb:prefix=""-->
+                    <!--cpb:progressText="Loading..."-->
+                    <!--cpb:maxValue="100"-->
+                    <!--app:layout_constraintTop_toBottomOf="@+id/my_packages_tvReport"-->
+                    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                    <!--app:layout_constraintRight_toRightOf="parent"-->
+                    <!--cpb:progressTextColor="#f9916b"/>-->
+
+                    <TextView
+                            android:text="10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/my_packages_tvTotalCount"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_below="@+id/my_packages_ivProgress"
+                            android:layout_toRightOf="@+id/my_packages_ivTotalTest"
+                            android:textSize="@dimen/normal_header_size"/>
+
+                    <TextView
+                            android:text="Available Test"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:id="@+id/my_packages_tvTotalTest"
+                            android:textSize="@dimen/extra_small_size"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:layout_toRightOf="@+id/my_packages_ivTotalTest"
+                            android:layout_below="@+id/my_packages_tvTotalCount"
+                            android:gravity="center"/>
+
+                    <ImageView
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:src="@drawable/total_test"
+                            android:id="@+id/my_packages_ivTotalTest"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:layout_marginLeft="@dimen/_15sdp"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:layout_below="@+id/my_packages_ivProgress"/>
+
+                    <TextView
+                            android:text="03"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/my_packages_tvPendingCount"
+                            android:layout_below="@+id/my_packages_ivProgress"
+                            android:layout_toRightOf="@+id/my_packages_ivPendingTest"
+                            android:textSize="@dimen/normal_header_size"/>
+
+                    <TextView
+                            android:text="Pending Test"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:layout_marginRight="@dimen/_15sdp"
+                            android:layout_alignParentRight="true"
+                            android:id="@+id/my_packages_tvPendingTest"
+                            android:layout_below="@+id/my_packages_tvPendingCount"
+                            android:textSize="@dimen/extra_small_size"/>
+
+                    <ImageView
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:src="@drawable/pending_test"
+                            android:id="@+id/my_packages_ivPendingTest"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_toLeftOf="@+id/my_packages_tvPendingTest"
+                            android:layout_below="@+id/my_packages_ivProgress"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                    android:id="@+id/card_view1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/my_packages_pkgs"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:layout_margin="@dimen/_10sdp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textSize="@dimen/normal_header_size"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/black"/>
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    android:layout_margin="@dimen/_10sdp">
 
-            <android.support.v7.widget.RecyclerView
-                    android:id="@+id/my_packages_rvList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/my_packages_pkgs"
-                    android:layout_margin="@dimen/_5sdp"/>
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-        </android.support.constraint.ConstraintLayout>
+                    <TextView
+                            android:text="Purchased Packages"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/my_packages_pkgs"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:layout_margin="@dimen/_10sdp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:textSize="@dimen/normal_header_size"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"/>
 
-    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.RecyclerView
+                            android:id="@+id/my_packages_rvList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_margin="@dimen/_5sdp"
+                            app:layout_constraintTop_toBottomOf="@+id/my_packages_pkgs"/>
 
-</android.support.constraint.ConstraintLayout>
-        <!--</ScrollView>-->
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

@@ -57,6 +57,8 @@ class PaymentSuccessScreen : AppCompatActivity() {
             tvTry.text = "OK"
             tvTry.background = resources.getDrawable(R.drawable.light_blue_round_bg)
 
+            updatePaymentStatus("Success")
+
         } else {
 
             tvCancel.visibility = VISIBLE
@@ -69,6 +71,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
             tvTry.text = "Try Again"
             tvTry.background = resources.getDrawable(R.drawable.google_round_bg)
 
+            updatePaymentStatus("Failed")
         }
 
         tvCancel.setOnClickListener {
@@ -85,10 +88,14 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
             if (tvTry.text == "OK") {
 
-                updatePaymentStatus("Success")
+                AppConstants.isFirst = 1
+
+                val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
+                startActivity(intent)
+                finish()
 
             } else {
-                updatePaymentStatus("Failed")
+
                 generateTrackNPayRequest(this@PaymentSuccessScreen, intent.getStringExtra("amount"))
             }
         }
@@ -145,11 +152,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
 //                            )
 
-                            AppConstants.isFirst = 1
-
-                            val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
-                            startActivity(intent)
-                            finish()
+                            callAddTestPackageApi()
 
 
                         }
@@ -179,7 +182,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
             Utils.ping(this@PaymentSuccessScreen, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@PaymentSuccessScreen)
+//        DialogUtils.showDialog(this@PaymentSuccessScreen)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.addTestPackage(
@@ -191,27 +194,21 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
                 if (response.body() != null) {
 
-                    DialogUtils.dismissDialog()
-
                     if (response.body()!!["Status"].toString() == "true") {
 
-                        Toast.makeText(
-                            this@PaymentSuccessScreen,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
-                        startActivity(intent)
-                        finish()
+//                        Toast.makeText(
+//                            this@PaymentSuccessScreen,
+//                            response.body()!!["Msg"].toString().replace("\"", ""),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
 
                     } else {
 
-                        Toast.makeText(
-                            this@PaymentSuccessScreen,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            this@PaymentSuccessScreen,
+//                            response.body()!!["Msg"].toString().replace("\"", ""),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                     }
                 }
             }

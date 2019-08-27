@@ -38,15 +38,12 @@ class OtpActivity : AppCompatActivity() {
 
         otp_ivBack.setOnClickListener { onBackPressed() }
 
-        otp_tvResend.setOnClickListener {
-            Toast.makeText(this@OtpActivity, "OTP send to your registered mobile number", Toast.LENGTH_LONG).show()
-        }
-
         otp_tvInstruction.text =
             "Please enter verification code \n sent to +91 " + intent.getStringExtra("mobile_number")
 
         otp_tvResend.setOnClickListener {
-
+            Toast.makeText(this@OtpActivity, "OTP has been sent to your registered mobile number", Toast.LENGTH_LONG)
+                .show()
             callResend()
 
         }
@@ -68,7 +65,7 @@ class OtpActivity : AppCompatActivity() {
 
                     otp_ivLogo.setImageDrawable(resources.getDrawable(R.drawable.success_verification_icn))
                 } else {
-                    Toast.makeText(this@OtpActivity, "OTP not match", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@OtpActivity, "OTP does not match", Toast.LENGTH_LONG).show()
                 }
 //                Handler().postDelayed(
 //                    {
@@ -118,6 +115,8 @@ class OtpActivity : AppCompatActivity() {
 
                         otp = response.body()!!.get("data").asString
                         otp_etOtp.value = ""
+
+//                        Toast.makeText(this@OtpActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
                     } else {
                         Toast.makeText(this@OtpActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()

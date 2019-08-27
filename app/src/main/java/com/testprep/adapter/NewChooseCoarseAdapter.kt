@@ -42,7 +42,7 @@ class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<Packa
 
         Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
 
-        p0.title.text = dataList[p1].CourseTypeName
+        p0.title.text = dataList[p1].CourseTypeName.replace(" ", "\n")
 //        p0.stitle.text = p0.title.text.substring(0, 1)
 
         p0.image.setOnClickListener {

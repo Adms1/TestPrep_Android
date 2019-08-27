@@ -10,7 +10,6 @@ import android.view.WindowManager
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
@@ -396,11 +395,11 @@ class TraknpayRequestActivity : AppCompatActivity() {
 
                         onBackPressed()
 
-                        Toast.makeText(
-                            this@TraknpayRequestActivity,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            this@TraknpayRequestActivity,
+//                            response.body()!!["Msg"].toString().replace("\"", ""),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                     }
                 }
             }
