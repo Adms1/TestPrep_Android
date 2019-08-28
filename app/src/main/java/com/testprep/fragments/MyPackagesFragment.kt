@@ -101,17 +101,24 @@ class MyPackagesFragment : AppCompatActivity() {
                         var totalcount = 0
                         var pendingcount = 0
                         var completecount = 0
+                        var startCount = 0
+
                         for (i in 0 until summaryArr.size) {
                             totalcount += summaryArr[i].count
 
                             if (summaryArr[i].status == "Analyse") {
                                 completecount = summaryArr[i].count
+                            } else if (summaryArr[i].status == "Start") {
+                                startCount = summaryArr[i].count
                             }
                         }
 
                         pendingcount = totalcount - completecount
 
-                        my_packages_ivProgress.setProgress(completecount.toFloat(), true)
+                        var per = (((pendingcount + startCount) / totalcount) * 100)
+                        var final = 100 - per
+
+                        my_packages_ivProgress.setProgress(final.toFloat(), true)
 //                        my_packages_ivProgress.maxValue = totalcount.toFloat()
 
                         my_packages_tvPendingCount.text = pendingcount.toString()

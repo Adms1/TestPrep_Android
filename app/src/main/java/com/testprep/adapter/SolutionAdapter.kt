@@ -11,11 +11,11 @@ import android.widget.RadioGroup
 import android.widget.RelativeLayout
 import com.squareup.picasso.Picasso
 import com.testprep.R
-import com.testprep.old.models.QuestionResponse
+import com.testprep.sectionmodule.NewQuestionResponse
 
 class SolutionAdapter(
     val context: Context,
-    val dataList: ArrayList<QuestionResponse.QuestionDataList>,
+    val dataList: ArrayList<NewQuestionResponse.QuestionDataList>,
     var qsize: Int,
     var qType: Int
 ) :

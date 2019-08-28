@@ -125,7 +125,7 @@ class SignupActivity : AppCompatActivity() {
                 signup_etEmail.text.toString(),
                 signup_etPassword.text.toString(),
                 signup_etMobile.text.toString(),
-                "1"
+                "2"
             )
         )
 //        }
@@ -177,6 +177,10 @@ class SignupActivity : AppCompatActivity() {
                         Utils.setStringValue(
                             this@SignupActivity, AppConstants.USER_STATUSID,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@SignupActivity, AppConstants.OTP,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["OTP"].asString
                         )
 
                         val intent = Intent(this@SignupActivity, OtpActivity::class.java)

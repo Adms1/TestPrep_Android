@@ -130,8 +130,8 @@ interface WebInterface {
     fun submitAnswer(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
     @FormUrlEncoded
-    @POST("Get_Student_StudentTestAnswer")
-    fun getSolution(@Field("TestID") test_id: String, @Field("StudentTestID") student_test_id: String): Call<QuestionResponse>
+    @POST("Get_Student_StudentTestAnswer_New")
+    fun getSolution(@Field("TestID") test_id: String, @Field("StudentTestID") student_test_id: String): Call<NewQuestionResponse>
 
     @FormUrlEncoded
     @POST("Get_StudentTestAnswer_Report")
@@ -140,4 +140,12 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("ReSendOTP")
     fun getResedOTP(@Field("studentmobile") StudentMobile: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Verify_Account")
+    fun verifyAccount(@Field("MobileNumber") mobile_number: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Check_Verify_Account")
+    fun checkVerifyAccount(@Field("MobileNumber") mobile_number: String): Call<JsonObject>
 }

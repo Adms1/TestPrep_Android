@@ -246,7 +246,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="right">
 
-            <android.support.v7.widget.RecyclerView
+            <ExpandableListView
                     android:id="@+id/solution_expQueList"
                     android:layout_width="match_parent"
                     android:background="@color/white"

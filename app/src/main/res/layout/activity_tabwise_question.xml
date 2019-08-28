@@ -254,7 +254,7 @@
                                 android:id="@+id/queTab_btnNext"
                                 android:layout_width="@dimen/_75sdp"
                                 android:layout_height="@dimen/_35sdp"
-                                android:text="@string/skip"
+                                android:text="@string/next"
                                 android:textSize="@dimen/_13sdp"
                                 android:paddingLeft="@dimen/_10sdp"
                                 android:paddingRight="@dimen/_10sdp"

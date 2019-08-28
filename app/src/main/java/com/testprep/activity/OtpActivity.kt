@@ -11,6 +11,7 @@ import com.google.gson.JsonObject
 import com.testprep.R
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.activity_otp.*
@@ -54,16 +55,8 @@ class OtpActivity : AppCompatActivity() {
 
                 if (otp_etOtp.value.toString() == otp) {
 
-                    Utils.hideKeyboard(this@OtpActivity)
-                    otp_tvVerificationSuccess.visibility = View.VISIBLE
-                    otp_tvHeading.text = "Awesome!"
+                    callVerifyAccountApi()
 
-                    otp_tvInstruction.visibility = View.GONE
-                    otp_btnSubmit.text = "Done"
-                    otp_tvResend.visibility = View.GONE
-                    otp_etOtp.visibility = View.GONE
-
-                    otp_ivLogo.setImageDrawable(resources.getDrawable(R.drawable.success_verification_icn))
                 } else {
                     Toast.makeText(this@OtpActivity, "OTP does not match", Toast.LENGTH_LONG).show()
                 }
@@ -77,20 +70,79 @@ class OtpActivity : AppCompatActivity() {
 //                    }, 1000
 //                )
             } else {
-
                 if (intent.getStringExtra("come_from") == "forgot password") {
                     val intent = Intent(this@OtpActivity, ChangePasswordActivity::class.java)
                     intent.putExtra("come_from", "otp")
                     startActivity(intent)
                     finish()
                 } else {
+
+                    Utils.setStringValue(this@OtpActivity, "is_login", "true")
+
                     val intent = Intent(this@OtpActivity, NewActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
-
             }
         }
+    }
+
+
+    fun callVerifyAccountApi() {
+
+        if (!DialogUtils.isNetworkConnected(this@OtpActivity)) {
+            Utils.ping(this@OtpActivity, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(this@OtpActivity)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.verifyAccount(
+            Utils.getStringValue(this@OtpActivity, AppConstants.USER_MOBILE, "")!!
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        if (response.body()!!["data"].asJsonObject["AccountTypeID"].asInt == 1) {
+
+                            if (response.body()!!["data"].asJsonObject["StatusID"].asInt == 1) {
+//                        Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+
+                                Utils.hideKeyboard(this@OtpActivity)
+                                otp_tvVerificationSuccess.visibility = View.VISIBLE
+                                otp_tvHeading.text = "Awesome!"
+
+                                otp_tvInstruction.visibility = View.GONE
+                                otp_btnSubmit.text = "Done"
+                                otp_tvResend.visibility = View.GONE
+                                otp_etOtp.visibility = View.GONE
+
+                                otp_ivLogo.setImageDrawable(resources.getDrawable(R.drawable.success_verification_icn))
+                            }
+                        }
+                    }
+
+                } else {
+                    Toast.makeText(this@OtpActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+
+//                    Log.d("loginresponse", response.body()!!.asString)
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
     }
 
     fun callResend() {

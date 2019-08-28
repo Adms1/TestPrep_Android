@@ -19,6 +19,7 @@ class AppConstants {
         var USER_MOBILE = "usermobile"
         var USER_ACCOUNT_TYPE = "userlogintype"
         var USER_STATUSID = "userstatusid"
+        var OTP = ""
 
         var COURSE_FLOW = ""
         var ON_BACK = 0

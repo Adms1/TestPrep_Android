@@ -77,6 +77,8 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
             filter_rbCompetitive.isChecked = true
         }
 
+        getType("adapter", 0, 0)
+
         filter_rgCourseType.setOnCheckedChangeListener { group, checkedId ->
 
             if (checkedId == R.id.filter_rbBoards) {

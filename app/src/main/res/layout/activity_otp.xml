@@ -92,11 +92,13 @@
             app:hint="000000"
             app:pinBackground="@drawable/otp_bg"
             app:inputType="number"
-            android:layout_marginBottom="@dimen/_40sdp"
+            android:layout_marginBottom="@dimen/_60sdp"
+            android:layout_marginTop="@dimen/_40sdp"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/otp_tvInstruction"
             app:layout_constraintBottom_toTopOf="@+id/otp_tvResend"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:password="true"/>
+            app:password="false"/>
 
     <!--<com.chaos.view.PinView-->
     <!--android:id="@+id/otp_etOtp"-->
