@@ -113,6 +113,9 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
                             )
                         )
                         intent.putExtra("amount", coin)
+//                        intent.putExtra("pkgid", pkgid)
+//                        intent.putExtra("pkgname", tvPkgname.text.toString())
+//                        intent.putExtra("pkgprice", purchaseCoin)
                         context.startActivity(intent)
 
                     } else {

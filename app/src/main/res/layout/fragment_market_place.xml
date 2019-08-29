@@ -1,117 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
 
-    <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/main_pkg_item_mainll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:paddingBottom="@dimen/_20sdp">
+
+            <android.support.v4.view.ViewPager
+                    android:id="@+id/mp_view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+            <TextView android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/main_pkg_item_tvCategory"
+                      app:layout_constraintTop_toBottomOf="@+id/mp_view_pager"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      app:layout_constraintRight_toLeftOf="@+id/main_pkg_item_tvSeeall"
+                      android:layout_marginLeft="@dimen/_10sdp"
+                      android:textSize="@dimen/_15sdp"
+                      android:layout_marginTop="@dimen/_10sdp"
+                      android:textColor="@color/black"
+                      android:text="Packages"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/main_pkg_item_tvSeeall"
+                      app:layout_constraintTop_toTopOf="@+id/main_pkg_item_tvCategory"
+                      app:layout_constraintBottom_toBottomOf="@+id/main_pkg_item_tvCategory"
+                      app:layout_constraintRight_toRightOf="parent"
+                      android:layout_marginRight="@dimen/_10sdp"
+                      android:textSize="@dimen/_12sdp"
+                      android:textColor="@color/colorPrimaryDark"
+                      android:text="See All"/>
+
+            <RelativeLayout
+                    android:id="@+id/rlCoverflow"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_tvCategory"
+                    android:background="@android:color/white">
+
+                <com.testprep.carouselPkg.CarouselView1
+                        android:id="@+id/carousel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="#40ffffff"/>
+
+                <TextSwitcher
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="16dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerVertical="true"/>
+
+            </RelativeLayout>
+
+            <TextView android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/main_pkg_item_tvTutor"
+                      app:layout_constraintTop_toBottomOf="@+id/rlCoverflow"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      app:layout_constraintRight_toLeftOf="@+id/main_pkg_item_tvSeeall"
+                      android:layout_marginLeft="@dimen/_10sdp"
+                      android:layout_marginTop="@dimen/_10sdp"
+                      android:textSize="@dimen/_15sdp"
+                      android:textColor="@color/black"
+                      android:text="Tutor"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/main_pkg_item_tvTSeeall"
+                      app:layout_constraintTop_toTopOf="@+id/main_pkg_item_tvTutor"
+                      app:layout_constraintBottom_toBottomOf="@+id/main_pkg_item_tvTutor"
+                      app:layout_constraintRight_toRightOf="parent"
+                      android:layout_marginRight="@dimen/_10sdp"
+                      android:textSize="@dimen/_12sdp"
+                      android:textColor="@color/colorPrimaryDark"
+                      android:text="See All"/>
+
+            <RelativeLayout
+                    android:id="@+id/rltutorCoverflow"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_tvTutor"
+                    android:background="@android:color/white">
+
+                <com.testprep.carouselPkg.CarouselView1
+                        android:id="@+id/carousel1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="#40ffffff"/>
+            </RelativeLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <TextView
+            android:id="@+id/main_pkg_item_tvdatanotfound"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_20sdp">
+            android:text="No Data Found"
+            android:textColor="@color/red"
+            android:textSize="@dimen/_18sdp"
+            android:layout_centerInParent="true"/>
 
-        <android.support.v4.view.ViewPager
-                android:id="@+id/mp_view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+</RelativeLayout>
 
-        <TextView android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/main_pkg_item_tvCategory"
-                  app:layout_constraintTop_toBottomOf="@+id/mp_view_pager"
-                  app:layout_constraintLeft_toLeftOf="parent"
-                  app:layout_constraintRight_toLeftOf="@+id/main_pkg_item_tvSeeall"
-                  android:layout_marginLeft="@dimen/_10sdp"
-                  android:textSize="@dimen/_15sdp"
-                  android:layout_marginTop="@dimen/_10sdp"
-                  android:textColor="@color/black"
-                  android:text="Packages"/>
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/main_pkg_item_tvSeeall"
-                  app:layout_constraintTop_toTopOf="@+id/main_pkg_item_tvCategory"
-                  app:layout_constraintBottom_toBottomOf="@+id/main_pkg_item_tvCategory"
-                  app:layout_constraintRight_toRightOf="parent"
-                  android:layout_marginRight="@dimen/_10sdp"
-                  android:textSize="@dimen/_12sdp"
-                  android:textColor="@color/colorPrimaryDark"
-                  android:text="See All"/>
-
-        <RelativeLayout
-                android:id="@+id/rlCoverflow"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_tvCategory"
-                android:background="@android:color/white">
-
-            <com.testprep.carouselPkg.CarouselView1
-                    android:id="@+id/carousel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:background="#40ffffff"/>
-
-            <!--<TextSwitcher-->
-            <!--android:id="@+id/title"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingBottom="16dp"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_centerVertical="true"/>-->
-
-        </RelativeLayout>
-
-        <TextView android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/main_pkg_item_tvTutor"
-                  app:layout_constraintTop_toBottomOf="@+id/rlCoverflow"
-                  app:layout_constraintLeft_toLeftOf="parent"
-                  app:layout_constraintRight_toLeftOf="@+id/main_pkg_item_tvSeeall"
-                  android:layout_marginLeft="@dimen/_10sdp"
-                  android:layout_marginTop="@dimen/_10sdp"
-                  android:textSize="@dimen/_15sdp"
-                  android:textColor="@color/black"
-                  android:text="Tutor"/>
-
-        <TextView android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:id="@+id/main_pkg_item_tvTSeeall"
-                  app:layout_constraintTop_toTopOf="@+id/main_pkg_item_tvTutor"
-                  app:layout_constraintBottom_toBottomOf="@+id/main_pkg_item_tvTutor"
-                  app:layout_constraintRight_toRightOf="parent"
-                  android:layout_marginRight="@dimen/_10sdp"
-                  android:textSize="@dimen/_12sdp"
-                  android:textColor="@color/colorPrimaryDark"
-                  android:text="See All"/>
-
-        <RelativeLayout
-                android:id="@+id/rltutorCoverflow"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_10sdp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_tvTutor"
-                android:background="@android:color/white">
-
-            <com.testprep.carouselPkg.CarouselView1
-                    android:id="@+id/carousel1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:background="#40ffffff"/>
-        </RelativeLayout>
-
-    </android.support.constraint.ConstraintLayout>
-
-</ScrollView>
 

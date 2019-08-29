@@ -469,14 +469,14 @@ public class CarouselView1 extends RecyclerView {
         mOnItemSelectedListener = onItemSelectedListener;
 
 //		if (mShouldPostUpdatePositionCall) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-                int pos = mLayoutManager.getCurrentPosition();
-                if (mLayoutManager.isValidPosition(pos)) {
-                    dispatchPositionUpdateMessage(pos);
-                    mShouldPostUpdatePositionCall = false;
-                } else {
+//        post(new Runnable() {
+//            @Override
+//            public void run() {
+//                int pos = mLayoutManager.getCurrentPosition();
+//                if (mLayoutManager.isValidPosition(pos)) {
+//                    dispatchPositionUpdateMessage(pos);
+//                    mShouldPostUpdatePositionCall = false;
+//                } else {
 //						getAdapter().registerAdapterDataObserver(new AdapterDataObserver() {
 //							@Override
 //							public void onChanged() {
@@ -494,9 +494,9 @@ public class CarouselView1 extends RecyclerView {
 //								});
 //							}
 //						});
-                }
-            }
-        });
+//                }
+//            }
+//        });
 //		}
 
         return this;

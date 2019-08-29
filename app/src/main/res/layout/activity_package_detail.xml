@@ -10,7 +10,7 @@
         tools:context=".activity.PackageDetailActivity">
 
     <TextView
-            android:text="Packages Detail"
+            android:text="Package Details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/package_detail_header"
@@ -55,7 +55,6 @@
                 <ImageView
                         android:layout_width="@dimen/_65sdp"
                         android:layout_height="@dimen/_65sdp"
-                        android:src="@drawable/pp_1"
                         android:id="@+id/package_detail_image1"/>
 
                 <TextView
@@ -71,7 +70,6 @@
             </RelativeLayout>
 
             <TextView
-                    android:text="Packages name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/package_detail_tvPname"
@@ -87,7 +85,6 @@
                     android:textStyle="bold"/>
 
             <TextView
-                    android:text="created name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/package_detail_createdby"

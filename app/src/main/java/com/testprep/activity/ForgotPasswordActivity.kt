@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
@@ -50,6 +53,27 @@ class ForgotPasswordActivity : AppCompatActivity() {
             }
         }
 
+        forgot_pass_etEmail.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+
+            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                    when {
+                        TextUtils.isEmpty(forgot_pass_etEmail.text.toString()) -> forgot_pass_etEmail.error =
+                            "Please Enter Mobile Number"
+                        forgot_pass_etEmail.text!!.length != 10 -> forgot_pass_etEmail.error =
+                            "Please enter valid Mobile Number"
+                        else -> callForgotPasswordlApi()
+
+                        //                val intent = Intent(this@ForgotPasswordActivity, CheckEmailActivity::class.java)
+                        //                startActivity(intent)
+                        //                finish()
+                    }
+                }
+                return false
+            }
+        })
+
+
         forgot_pass_ivBack.setOnClickListener { onBackPressed() }
 
     }
@@ -91,6 +115,10 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         intent.putExtra("mobile_number", forgot_pass_etEmail.text.toString())
                         intent.putExtra("otp", response.body()!!["data"].asJsonArray[0].asJsonObject["OTP"].asString)
                         intent.putExtra("come_from", "forgot password")
+                        intent.putExtra("first_name", "")
+                        intent.putExtra("last_name", "")
+                        intent.putExtra("email", "")
+                        intent.putExtra("password", "")
                         startActivity(intent)
 
                     } else {

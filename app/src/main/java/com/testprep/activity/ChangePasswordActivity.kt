@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
@@ -67,6 +70,32 @@ class ChangePasswordActivity : AppCompatActivity() {
                 }
             }
         }
+
+        chngepass_etconfirmpass.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+
+            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                    if (intent.getStringExtra("come_from") == "other") {
+                        if (chngepass_etOldpass.text!!.length < 4) {
+                            chngepass_etOldpass.error = " you have to enter at least 4 digit!"
+                        }
+                    }
+
+                    if (chngepass_etNewpass.text!!.length < 4) {
+                        chngepass_etNewpass.error = " you have to enter at least 4 digit!"
+                    } else if (chngepass_etconfirmpass.text!!.length < 4) {
+                        chngepass_etconfirmpass.error = " you have to enter at least 4 digit!"
+                    } else {
+                        if (chngepass_etNewpass.text.toString() == chngepass_etconfirmpass.text.toString()) {
+                            callChangePasswordlApi()
+                        } else {
+                            chngepass_etconfirmpass.error = "Password not match"
+                        }
+                    }
+                }
+                return false
+            }
+        })
 
         chngepass_ivBack.setOnClickListener {
 

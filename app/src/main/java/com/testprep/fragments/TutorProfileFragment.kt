@@ -56,10 +56,10 @@ class TutorProfileFragment : AppCompatActivity() {
 
         tutor_profile_ivBack.setOnClickListener { onBackPressed() }
 
-        llRating.setOnClickListener {
-            val intent = Intent(this@TutorProfileFragment, TutorsReviewFragment::class.java)
-            startActivity(intent)
-        }
+//        llRating.setOnClickListener {
+//            val intent = Intent(this@TutorProfileFragment, TutorsReviewFragment::class.java)
+//            startActivity(intent)
+//        }
 
 //        tutor_profile_tvCount.setOnClickListener {
 //            val intent = Intent(this@TutorProfileFragment, TutorsReviewFragment::class.java)
@@ -97,7 +97,11 @@ class TutorProfileFragment : AppCompatActivity() {
 
                     if (response.body()!!.Status == "true") {
 
-                        tutor_profile_header.text = response.body()!!.data[0].InstituteName
+                        if (response.body()!!.data[0].InstituteName != "") {
+                            tutor_profile_header.text = response.body()!!.data[0].InstituteName
+                        } else {
+                            tutor_profile_header.text = response.body()!!.data[0].TutorName
+                        }
                         tutor_profile_tvName.text = response.body()!!.data[0].TutorName
                         tutor_profile_tvEmail.text = response.body()!!.data[0].TutorEmail
                         tutor_profile_tvMobile.text = response.body()!!.data[0].TutorPhoneNumber

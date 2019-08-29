@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Paint
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.squareup.picasso.Picasso
 import com.testprep.adapter.TestTypeAdapter
 import com.testprep.fragments.TutorProfileFragment
 import com.testprep.retrofit.WebClient
@@ -235,6 +237,8 @@ class PackageDetailActivity : AppCompatActivity() {
                         )
                         intent.putExtra("amount", coin)
                         intent.putExtra("pkgid", pkgid)
+                        intent.putExtra("pkgname", package_detail_tvPname.text.toString())
+                        intent.putExtra("pkgprice", purchaseCoin)
                         context.startActivity(intent)
                         finish()
 
@@ -278,12 +282,38 @@ class PackageDetailActivity : AppCompatActivity() {
 
                         package_detail_tvPname.text =
                             response.body()!!.get("data").asJsonObject.get("TestPackageName").asString
-                        package_detail_tvsprice.text =
-                            "Sell Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
-                        package_detail_tvlprice.text =
-                            "List Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageListPrice").asString.trim()
-                        package_detail_tvDesc.text =
-                            response.body()!!.get("data").asJsonObject.get("TestPackageDescription").asString
+
+                        if (response.body()!!.get("data").asJsonObject.get("Icon") != null) {
+                            Picasso.get()
+                                .load(AppConstants.IMAGE_BASE_URL + response.body()!!.get("data").asJsonObject.get("Icon"))
+                                .into(package_detail_image1)
+                        }
+
+                        if (!response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString.equals(
+                                response.body()!!.get("data").asJsonObject.get("TestPackageListPrice").asString.trim(),
+                                true
+                            )
+                        ) {
+                            package_detail_tvsprice.text =
+                                "Sell Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
+                            package_detail_tvlprice.text =
+                                "List Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageListPrice").asString.trim()
+                        } else {
+                            package_detail_tvsprice.text =
+                                "Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
+                            package_detail_tvlprice.text = ""
+                        }
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            package_detail_tvDesc.text = Html.fromHtml(
+                                response.body()!!.get("data").asJsonObject.get("TestPackageDescription").asString,
+                                Html.FROM_HTML_MODE_COMPACT
+                            )
+                        } else {
+                            package_detail_tvDesc.text =
+                                Html.fromHtml(response.body()!!.get("data").asJsonObject.get("TestPackageDescription").asString)
+                        }
+
                         package_detail_name_short.text =
                             response.body()!!.get("data").asJsonObject.get("TestPackageName").asString.substring(0, 1)
 

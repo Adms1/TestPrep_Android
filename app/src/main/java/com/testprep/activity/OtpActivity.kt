@@ -6,14 +6,15 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.gson.JsonObject
-import com.testprep.R
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
+import com.testprep.utils.WebRequests
 import kotlinx.android.synthetic.main.activity_otp.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,7 +34,7 @@ class OtpActivity : AppCompatActivity() {
 
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        setContentView(R.layout.activity_otp)
+        setContentView(com.testprep.R.layout.activity_otp)
 
         otp = intent.getStringExtra("otp")
 
@@ -55,7 +56,7 @@ class OtpActivity : AppCompatActivity() {
 
                 if (otp_etOtp.value.toString() == otp) {
 
-                    callVerifyAccountApi()
+                    callSignupApi()
 
                 } else {
                     Toast.makeText(this@OtpActivity, "OTP does not match", Toast.LENGTH_LONG).show()
@@ -87,62 +88,11 @@ class OtpActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
 
-    fun callVerifyAccountApi() {
-
-        if (!DialogUtils.isNetworkConnected(this@OtpActivity)) {
-            Utils.ping(this@OtpActivity, "Connetion not available")
-        }
-
-        DialogUtils.showDialog(this@OtpActivity)
-
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.verifyAccount(
-            Utils.getStringValue(this@OtpActivity, AppConstants.USER_MOBILE, "")!!
-        )
-
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-
-                if (response.body() != null) {
-
-                    DialogUtils.dismissDialog()
-
-                    if (response.body()!!["Status"].asString == "true") {
-
-                        if (response.body()!!["data"].asJsonObject["AccountTypeID"].asInt == 1) {
-
-                            if (response.body()!!["data"].asJsonObject["StatusID"].asInt == 1) {
-//                        Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
-
-                                Utils.hideKeyboard(this@OtpActivity)
-                                otp_tvVerificationSuccess.visibility = View.VISIBLE
-                                otp_tvHeading.text = "Awesome!"
-
-                                otp_tvInstruction.visibility = View.GONE
-                                otp_btnSubmit.text = "Done"
-                                otp_tvResend.visibility = View.GONE
-                                otp_etOtp.visibility = View.GONE
-
-                                otp_ivLogo.setImageDrawable(resources.getDrawable(R.drawable.success_verification_icn))
-                            }
-                        }
-                    }
-
-                } else {
-                    Toast.makeText(this@OtpActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
-
-//                    Log.d("loginresponse", response.body()!!.asString)
-                }
-            }
-
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(otp_etOtp.windowToken, 0)
     }
 
     fun callResend() {
@@ -168,6 +118,8 @@ class OtpActivity : AppCompatActivity() {
                         otp = response.body()!!.get("data").asString
                         otp_etOtp.value = ""
 
+                        Utils.setStringValue(this@OtpActivity, AppConstants.OTP, otp)
+
 //                        Toast.makeText(this@OtpActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
                     } else {
@@ -185,5 +137,114 @@ class OtpActivity : AppCompatActivity() {
             }
         })
     }
+
+    fun callSignupApi() {
+
+        if (!DialogUtils.isNetworkConnected(this@OtpActivity)) {
+            Utils.ping(this@OtpActivity, "Connetion not available")
+        }
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        DialogUtils.showDialog(this@OtpActivity)
+
+        val call = apiService.getSignup(
+            WebRequests.addSignupParams(
+                "1", "0",
+                intent.getStringExtra("first_name"),
+                intent.getStringExtra("last_name"),
+                intent.getStringExtra("email"),
+                intent.getStringExtra("password"),
+                intent.getStringExtra("mobile_number"),
+                "1"
+            )
+        )
+//        }
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.get("Status").asString == "true") {
+
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.FIRST_NAME,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.LAST_NAME,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.USER_ID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.USER_EMAIL,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.USER_PASSWORD,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.USER_MOBILE,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.USER_ACCOUNT_TYPE,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["AccountTypeID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity, AppConstants.USER_STATUSID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity, AppConstants.OTP,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["OTP"].asString
+                        )
+
+                        Utils.hideKeyboard(this@OtpActivity)
+                        otp_tvVerificationSuccess.visibility = View.VISIBLE
+                        otp_tvHeading.text = "Awesome!"
+
+                        otp_tvInstruction.visibility = View.GONE
+                        otp_btnSubmit.text = "Done"
+                        otp_tvResend.visibility = View.GONE
+                        otp_etOtp.visibility = View.GONE
+
+                        otp_ivLogo.setImageDrawable(resources.getDrawable(com.testprep.R.drawable.success_verification_icn))
+
+                        Log.d("websize", response.body()!!.get("Msg").asString)
+
+                    } else {
+
+                        Toast.makeText(this@OtpActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG)
+                            .show()
+
+                        Log.d("websize", response.body()!!.get("Msg").asString)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+
+    }
+
 
 }

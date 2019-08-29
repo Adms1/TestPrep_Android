@@ -39,7 +39,19 @@ class SplashActivity : AppCompatActivity() {
 
             {
 
-                callCheckVerifyAccountApi()
+                if (Utils.getStringValue(this@SplashActivity, "is_login", "") == "true") {
+                    // This method will be executed once the timer is over
+                    // Start your app main activity
+                    Utils.setStringValue(this@SplashActivity, "is_login", "true")
+
+                    val i = Intent(this@SplashActivity, DashboardActivity::class.java)
+                    startActivity(i)
+
+                } else {
+                    val i = Intent(this@SplashActivity, IntroActivity::class.java)
+                    startActivity(i)
+
+                }
 
             }, 3000
         )
@@ -101,9 +113,20 @@ class SplashActivity : AppCompatActivity() {
                                 startActivity(intent)
                             }
                         } else {
-                            val i = Intent(this@SplashActivity, IntroActivity::class.java)
-                            startActivity(i)
 
+                            if (Utils.getStringValue(this@SplashActivity, "is_login", "") == "true") {
+                                // This method will be executed once the timer is over
+                                // Start your app main activity
+                                Utils.setStringValue(this@SplashActivity, "is_login", "true")
+
+                                val i = Intent(this@SplashActivity, NewActivity::class.java)
+                                startActivity(i)
+
+                            } else {
+                                val i = Intent(this@SplashActivity, IntroActivity::class.java)
+                                startActivity(i)
+
+                            }
                         }
 
                         finish()

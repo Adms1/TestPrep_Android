@@ -31,6 +31,8 @@ class TraknpayRequestActivity : AppCompatActivity() {
 
     private val TAG = "TNPRequestDebugTag"
     var pkgid = ""
+    var pkgname = ""
+    var pkgprice = ""
 //    private var extras: Bundle? = null
 
     override fun attachBaseContext(newBase: Context?) {
@@ -49,6 +51,8 @@ class TraknpayRequestActivity : AppCompatActivity() {
         setContentView(com.testprep.R.layout.activity_traknpay_request)
 
         pkgid = intent.getStringExtra("pkgid")
+        pkgname = intent.getStringExtra("pkgname")
+        pkgprice = intent.getStringExtra("pkgprice")
 
         val return_url = "https://biz.traknpay.in/tnp/return_page_android.php"
         var mode: String? = "TEST"
@@ -300,6 +304,8 @@ class TraknpayRequestActivity : AppCompatActivity() {
                     intent.putExtra("description", resposeData.getString("description"))
                     intent.putExtra("order_id", resposeData.getString("order_id"))
                     intent.putExtra("pkgid", pkgid)
+                    intent.putExtra("pkgname", pkgname)
+                    intent.putExtra("pkgprice", pkgprice)
 //                if (extras!!.containsKey("CardDetails")) {
 //                    intent.putExtra("Trans_Type", "1")
 //                } else {
@@ -317,6 +323,8 @@ class TraknpayRequestActivity : AppCompatActivity() {
                     intent.putExtra("description", resposeData.getString("description"))
                     intent.putExtra("order_id", resposeData.getString("order_id"))
                     intent.putExtra("pkgid", pkgid)
+                    intent.putExtra("pkgname", pkgname)
+                    intent.putExtra("pkgprice", pkgprice)
 //                if (extras!!.containsKey("CardDetails")) {
 //                    intent.putExtra("Trans_Type", "1")
 //                } else {

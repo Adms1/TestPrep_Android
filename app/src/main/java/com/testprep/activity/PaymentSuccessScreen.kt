@@ -27,6 +27,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 class PaymentSuccessScreen : AppCompatActivity() {
 
     var pkgid = ""
+    var pkgname = ""
+    var pkgprice = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -44,13 +46,18 @@ class PaymentSuccessScreen : AppCompatActivity() {
         setContentView(R.layout.activity_payment_success_screen)
 
         pkgid = intent.getStringExtra("pkgid")
+        pkgname = intent.getStringExtra("pkgname")
+        pkgprice = intent.getStringExtra("pkgprice")
+
+        tvPkgname.text = pkgname
+        tvPrice.text = pkgprice
 
         if (intent.getStringExtra("responseCode").equals("0", ignoreCase = true)) {
 
             tvCancel.visibility = GONE
 
-            imvSuccessFail!!.setImageResource(R.drawable.white_right_icn)
-            imvSuccessFail!!.background = resources.getDrawable(R.drawable.blue_round)
+            imvSuccessFail!!.setImageResource(R.drawable.payment_success_icn)
+//            imvSuccessFail!!.background = resources.getDrawable(R.drawable.blue_round)
 //            Utils.ping(this@PaymentSuccessScreen, "Success")
             tvMessage.text = "Your transaction has been successfully completed"
 
@@ -63,8 +70,8 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
             tvCancel.visibility = VISIBLE
 
-            imvSuccessFail!!.setImageResource(R.drawable.fail_icon)
-            imvSuccessFail!!.background = resources.getDrawable(R.drawable.fail_icon)
+            imvSuccessFail!!.setImageResource(R.drawable.payment_fail_icn)
+//            imvSuccessFail!!.background = resources.getDrawable(R.drawable.fail_icon)
 //            Utils.ping(this@PaymentSuccessScreen, "fail")
             tvMessage.text = "Your last transaction is fail"
 
@@ -161,7 +168,6 @@ class PaymentSuccessScreen : AppCompatActivity() {
                         Toast.makeText(this@PaymentSuccessScreen, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
                             .show()
 
-                        onBackPressed()
 
                     }
                 }
@@ -283,6 +289,8 @@ class PaymentSuccessScreen : AppCompatActivity() {
                         )
                         intent.putExtra("amount", coin)
                         intent.putExtra("pkgid", pkgid)
+                        intent.putExtra("pkgname", pkgname)
+                        intent.putExtra("pkgprice", pkgprice)
                         context.startActivity(intent)
                         finish()
                     } else {

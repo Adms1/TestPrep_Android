@@ -8,7 +8,10 @@ import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
@@ -63,6 +66,19 @@ class LoginActivity : AppCompatActivity() {
 //            overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
         }
+
+        login_etPassword.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+
+            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                    if (isValid()) {
+                        callLoginApi()
+                    }
+                }
+                return false
+            }
+        })
+
     }
 
     fun callLoginApi() {

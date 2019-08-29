@@ -10,7 +10,7 @@ import retrofit2.http.*
 interface WebInterface {
 
     @FormUrlEncoded
-    @POST("Add_Student")
+    @POST("Add_Student_Mobile")
     fun getSignup(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
     @FormUrlEncoded
@@ -142,8 +142,8 @@ interface WebInterface {
     fun getResedOTP(@Field("studentmobile") StudentMobile: String): Call<JsonObject>
 
     @FormUrlEncoded
-    @POST("Verify_Account")
-    fun verifyAccount(@Field("MobileNumber") mobile_number: String): Call<JsonObject>
+    @POST("Verify_Account_Before_Registration")
+    fun verifyAccount(@Field("StudentMobile") mobile_number: String, @Field("StudentEmailAddress") email: String): Call<JsonObject>
 
     @FormUrlEncoded
     @POST("Check_Verify_Account")

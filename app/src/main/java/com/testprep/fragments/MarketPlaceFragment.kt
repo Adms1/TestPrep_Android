@@ -17,6 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
+import com.testprep.activity.PackageDetailActivity
 import com.testprep.activity.TutorDetailActivity
 import com.testprep.carouselPkg.CarouselParameters
 import com.testprep.carouselPkg.CarouselView1
@@ -33,9 +34,6 @@ import kotlinx.android.synthetic.main.fragment_market_place.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.set
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -80,7 +78,7 @@ class MarketPlaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        AppConstants.ON_BACK = 1
+//        AppConstants.ON_BACK = 1
 
 //        mDataList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packages"))
 //        tutorList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packages"))
@@ -99,10 +97,11 @@ class MarketPlaceFragment : Fragment() {
             val intent = Intent(context, TutorDetailActivity::class.java)
             intent.putExtra("type", "pkg")
             intent.putExtra("pname", "Packages")
-            intent.putExtra("boardid", "")
-            intent.putExtra("stdid", "")
-            intent.putExtra("subid", "")
+            intent.putExtra("boardid", Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!)
+            intent.putExtra("stdid", Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!)
+            intent.putExtra("subid", Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!)
             intent.putExtra("tutorid", "")
+
             startActivity(intent)
         }
 
@@ -115,10 +114,10 @@ class MarketPlaceFragment : Fragment() {
         }
 
         mp_view_pager!!.addOnPageChangeListener(introViewPagerListener)
-        //new carousel library
+//        //new carousel library
         carousel = view.findViewById(R.id.carousel) as CarouselView1
-//        val rootView = layoutInflater.inflate(R.layout.fragment_main, vg, false) as View
-
+////        val rootView = layoutInflater.inflate(R.layout.fragment_main, vg, false) as View
+//
         carousel1 = view.findViewById(R.id.carousel1) as CarouselView1
 //        lblSelectedIndex = findViewById<View>(R.id.lblSelectedIndex) as TextView
         val lp = carousel!!.layoutParams
@@ -127,7 +126,7 @@ class MarketPlaceFragment : Fragment() {
         lp.height = Metrics.convertDpToPixel(400f, activity!!).toInt()
         carousel!!.layoutParams = lp
         carousel!!.requestLayout()
-
+//
         val isClipChildren = false
         carousel!!.clipChildren = isClipChildren
         (carousel!!.parent as ViewGroup).clipChildren = isClipChildren
@@ -160,35 +159,59 @@ class MarketPlaceFragment : Fragment() {
 
         carousel1!!.isScrollingAlignToViews = true
 
-        carousel!!.setOnItemSelectedListener(object : CarouselView1.OnItemSelectedListener {
-            override fun onItemSelected(
-                carouselView: CarouselView1,
-                position: Int,
-                adapterPosition: Int,
-                adapter: RecyclerView.Adapter<*>
-            ) {
-//                val intent = Intent(activity, PackageDetailActivity::class.java)
-//            intent.putExtra("pkgid", "1")
-//            startActivity(intent)
-
-//                lblSelectedIndex!!.text = "Selected Position $position"
-
+//        carousel!!.setOnItemSelectedListener(object : CarouselView1.OnItemSelectedListener{
+//            override fun onItemSelected(
+//                carouselView: CarouselView1,
+//                position: Int,
+//                adapterPosition: Int,
+//                adapter: RecyclerView.Adapter<*>
+//            ) {
 //                Toast.makeText(
 //                    activity,
 //                    "Selected Position $position",
 //                    Toast.LENGTH_SHORT
 //                ).show()
-            }
+//            }
+//
+//            override fun onItemDeselected(
+//                carouselView: CarouselView1,
+//                position: Int,
+//                adapterPosition: Int,
+//                adapter: RecyclerView.Adapter<*>
+//            ) {
+//
+//            }
+//        })
 
-            override fun onItemDeselected(
-                carouselView: CarouselView1,
-                position: Int,
-                adapterPosition: Int,
-                adapter: RecyclerView.Adapter<*>
-            ) {
-
-            }
-        })
+//        carousel!!.setOnItemSelectedListener(object : CarouselView1.OnItemSelectedListener {
+//            override fun onItemSelected(
+//                carouselView: CarouselView1,
+//                position: Int,
+//                adapterPosition: Int,
+//                adapter: RecyclerView.Adapter<*>
+//            ) {
+//                val intent = Intent(activity, PackageDetailActivity::class.java)
+//            intent.putExtra("pkgid", "1")
+//            startActivity(intent)
+//
+//                lblSelectedIndex!!.text = "Selected Position $position"
+//
+//                Toast.makeText(
+//                    activity,
+//                    "Selected Position $position",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//
+//            override fun onItemDeselected(
+//                carouselView: CarouselView1,
+//                position: Int,
+//                adapterPosition: Int,
+//                adapter: RecyclerView.Adapter<*>
+//            ) {
+//
+//            }
+//        })
 //
 //        carousel!!.setOnItemSelectedListener() { adapter, view, position, adapterPosition ->
 //
@@ -252,22 +275,22 @@ class MarketPlaceFragment : Fragment() {
             holder.title1.text = mDataList[position].TestPackageName
 
             holder.title.setOnClickListener {
-                //                val intent = Intent(context, PackageDetailActivity::class.java)
-//                intent.putExtra("pkgid", mDataList!![position].TestPackageID)
-//                intent.putExtra("pname", mDataList!![position].TestPackageName)
-//                intent.putExtra("sprice", mDataList!![position].TestPackageSalePrice)
-//                intent.putExtra("lprice", mDataList!![position].TestPackageListPrice)
-//                intent.putExtra("desc", mDataList!![position].TestPackageDescription)
-//                intent.putExtra("test_type_list", mDataList!![position].TestType)
-//                if (mDataList!![position].InstituteName != "" && mDataList!![position].InstituteName != null) {
-//                    intent.putExtra("created_by", mDataList!![position].InstituteName)
-//                } else {
-//                    intent.putExtra("created_by", mDataList!![position].TutorName)
-//                }
-//                intent.putExtra("tutor_id", mDataList!![position].TutorID)
-//                intent.putExtra("come_from", "selectpackage")
-//                intent.putExtra("position", mDataList!![position].TestPackageName.substring(0, 1).single())
-//                context!!.startActivity(intent)
+                val intent = Intent(context, PackageDetailActivity::class.java)
+                intent.putExtra("pkgid", mDataList[position].TestPackageID)
+                intent.putExtra("pname", mDataList[position].TestPackageName)
+                intent.putExtra("sprice", mDataList[position].TestPackageSalePrice)
+                intent.putExtra("lprice", mDataList[position].TestPackageListPrice)
+                intent.putExtra("desc", mDataList[position].TestPackageDescription)
+                intent.putExtra("test_type_list", mDataList[position].TestType)
+                if (mDataList[position].InstituteName != "" && mDataList[position].InstituteName != null) {
+                    intent.putExtra("created_by", mDataList[position].InstituteName)
+                } else {
+                    intent.putExtra("created_by", mDataList[position].TutorName)
+                }
+                intent.putExtra("tutor_id", mDataList[position].TutorID)
+                intent.putExtra("come_from", "selectpackage")
+                intent.putExtra("position", mDataList[position].TestPackageName.substring(0, 1).single())
+                context.startActivity(intent)
             }
 
         }
@@ -305,7 +328,7 @@ class MarketPlaceFragment : Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewholder {
 
-            val view = LayoutInflater.from(context).inflate(com.testprep.R.layout.carousel_container, parent, false)
+            val view = LayoutInflater.from(context).inflate(R.layout.carousel_container, parent, false)
             return viewholder(view)
         }
 
@@ -313,25 +336,12 @@ class MarketPlaceFragment : Fragment() {
 //                RandomPageFragment.initializeTextView(holder.textView!!, position + 1)
 
             holder.title1.text = mDataList[position].TutorName
-            holder.title.setImageDrawable(context.resources.getDrawable(com.testprep.R.drawable.pro_pic1))
+            holder.title.setImageDrawable(context.resources.getDrawable(R.drawable.pro_pic1))
 
             holder.title.setOnClickListener {
-                //                val intent = Intent(context, PackageDetailActivity::class.java)
-//                intent.putExtra("pkgid", mDataList!![position].TestPackageID)
-//                intent.putExtra("pname", mDataList!![position].TestPackageName)
-//                intent.putExtra("sprice", mDataList!![position].TestPackageSalePrice)
-//                intent.putExtra("lprice", mDataList!![position].TestPackageListPrice)
-//                intent.putExtra("desc", mDataList!![position].TestPackageDescription)
-//                intent.putExtra("test_type_list", mDataList!![position].TestType)
-//                if (mDataList!![position].InstituteName != "" && mDataList!![position].InstituteName != null) {
-//                    intent.putExtra("created_by", mDataList!![position].InstituteName)
-//                } else {
-//                    intent.putExtra("created_by", mDataList!![position].TutorName)
-//                }
-//                intent.putExtra("tutor_id", mDataList!![position].TutorID)
-//                intent.putExtra("come_from", "selectpackage")
-//                intent.putExtra("position", mDataList!![position].TestPackageName.substring(0, 1).single())
-//                context!!.startActivity(intent)
+                val intent = Intent(context, TutorProfileFragment::class.java)
+                intent.putExtra("tutor_id", mDataList[position].TutorID)
+                context.startActivity(intent)
             }
 
         }
@@ -342,8 +352,8 @@ class MarketPlaceFragment : Fragment() {
 
         class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-            var title: ImageView = itemView.findViewById(com.testprep.R.id.img)
-            var title1: TextView = itemView.findViewById(com.testprep.R.id.title11)
+            var title: ImageView = itemView.findViewById(R.id.img)
+            var title1: TextView = itemView.findViewById(R.id.title11)
 
         }
 
@@ -416,12 +426,12 @@ class MarketPlaceFragment : Fragment() {
 
         val call = apiService.getPackage(
             WebRequests.getPackageParams(
-//                Utils.getStringValue(activity!!, "course_type_id", "0")!!,
-//                Utils.getStringValue(activity!!, "course_id", "0")!!,
-//                Utils.getStringValue(activity!!, "std_id", "0")!!,
-//                intent.getStringExtra("subject_id")
+                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "0")!!,
+                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!,
+                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!,
+                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!
 
-                "", "", "", ""
+//                "", "", "", ""
 
 //                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
 //                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
@@ -437,6 +447,9 @@ class MarketPlaceFragment : Fragment() {
                     DialogUtils.dismissDialog()
 
                     if (response.body()!!.Status == "true") {
+
+                        main_pkg_item_tvdatanotfound.visibility = View.GONE
+                        main_pkg_item_mainll.visibility = View.VISIBLE
 
                         mDataList = ArrayList()
                         mDataList = response.body()!!.data.TestPackage
@@ -457,6 +470,9 @@ class MarketPlaceFragment : Fragment() {
                         carousel!!.adapter = PkgPageAdapter(5, 330, 160, activity!!, mDataList!!)
 
                     } else {
+
+                        main_pkg_item_tvdatanotfound.visibility = View.VISIBLE
+                        main_pkg_item_mainll.visibility = View.GONE
 
                         Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
                     }

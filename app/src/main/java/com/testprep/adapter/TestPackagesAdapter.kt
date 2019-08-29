@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.gson.JsonObject
+import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.PackageDetailActivity
 import com.testprep.models.PackageData
@@ -51,6 +52,10 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
             p0.std.text = dataList[p1].TestPackageName
             p0.sub.text = dataList[p1].SubjectName
             p0.price.text = "₹" + dataList[p1].TestPackageSalePrice
+
+            if (dataList[p1].Icon != null) {
+                Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
+            }
 
 //        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))
 
@@ -106,7 +111,7 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-//        var image: ImageView = itemView.findViewById(R.id.package_image)
+        var image: ImageView = itemView.findViewById(R.id.package_item_ivImage)
 //        var title: TextView = itemView.findViewById(R.id.package_name)
 //        var stitle: TextView = itemView.findViewById(R.id.package_name_short)
 //        var p_select: ImageView = itemView.findViewById(R.id.package_select)

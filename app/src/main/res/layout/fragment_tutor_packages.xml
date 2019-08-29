@@ -49,12 +49,12 @@
     <ImageView
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:src="@drawable/cart_icon"
             android:id="@+id/tutor_packages_ivCart"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="@dimen/_10sdp"
             app:layout_constraintTop_toTopOf="@+id/tutor_packages_header"
             android:padding="@dimen/_5sdp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tutor_packages_header"/>
 
 

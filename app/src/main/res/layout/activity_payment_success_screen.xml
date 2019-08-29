@@ -13,8 +13,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginBottom="@dimen/_20sdp"
-            android:background="@drawable/blue_round"
-            android:src="@drawable/white_right_icn"/>
+            android:src="@drawable/payment_success_icn"/>
 
     <TextView
             android:id="@+id/tvMessage"
@@ -30,6 +29,35 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:textColor="@color/black"/>
+
+    <TextView
+            android:id="@+id/tvPkgname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Atoms"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/_20sdp"
+            app:layout_constraintBottom_toTopOf="@+id/tvTry"
+            app:layout_constraintRight_toLeftOf="@+id/tvPrice"
+            app:layout_constraintTop_toBottomOf="@+id/tvMessage"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textColor="@color/black"/>
+
+    <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500.00"
+            android:gravity="center"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="bold"
+            android:layout_marginRight="@dimen/_20sdp"
+            app:layout_constraintBottom_toTopOf="@+id/tvTry"
+            app:layout_constraintTop_toBottomOf="@+id/tvMessage"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/black"/>
+
 
     <Button
             android:id="@+id/tvTry"
