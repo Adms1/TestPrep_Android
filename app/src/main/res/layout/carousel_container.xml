@@ -31,6 +31,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:ellipsize="end"
+            android:textSize="@dimen/_13sdp"
             android:paddingLeft="@dimen/_10sdp"
             android:paddingRight="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"

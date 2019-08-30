@@ -299,7 +299,7 @@ class PrefrenceActivity : AppCompatActivity() {
 
         } else {
             apiService.getBoardStandardSubjectList(
-                Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_TYPE_ID, "")!!,
+                Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "")!!,
                 stdId
             )
         }

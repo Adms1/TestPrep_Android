@@ -115,10 +115,25 @@ class MyPackagesFragment : AppCompatActivity() {
 
                         pendingcount = totalcount - completecount
 
-//                        var per = (((pendingcount + startCount) / totalcount) * 100)
-//                        var final = 100 - per
+                        val amount = java.lang.Double.parseDouble(totalcount.toString())
+                        val res = amount / 100.0f * 10
 
-                        my_packages_ivProgress.setProgress(completecount.toFloat(), true)
+                        var final = 0F
+
+                        var per = (((pendingcount.toFloat()) / totalcount.toFloat()) * 100)
+
+                        if (per > 0) {
+                            final = 100 - per
+                        } else if (per == 0F) {
+                            final = 100.0F
+                        } else {
+                            final = 0F
+                        }
+
+//                        var per = (pendingcount.toFloat()/totalcount.toFloat())*100
+                        Log.d("percentage", "" + final.toFloat())
+
+                        my_packages_ivProgress.setProgress(final.toFloat(), true)
 //                        my_packages_ivProgress.maxValue = totalcount.toFloat()
 
                         my_packages_tvPendingCount.text = pendingcount.toString()

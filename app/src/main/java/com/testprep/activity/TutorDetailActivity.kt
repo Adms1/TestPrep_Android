@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import com.testprep.R
 import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.adapter.TutorsAdapter
 import com.testprep.models.PackageData
@@ -29,6 +28,9 @@ class TutorDetailActivity : AppCompatActivity() {
 
     var data: ArrayList<PackageData.PackageDataList> = ArrayList()
 
+    var tutorAdapter: TutorsAdapter? = null
+    var pkgAdapter: TestPackagesAdapter? = null
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
@@ -38,7 +40,7 @@ class TutorDetailActivity : AppCompatActivity() {
 
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        setContentView(R.layout.activity_tutor_detail)
+        setContentView(com.testprep.R.layout.activity_tutor_detail)
 
         if (intent.hasExtra("parr")) {
             data = intent.getSerializableExtra("parr") as ArrayList<PackageData.PackageDataList>
@@ -69,8 +71,23 @@ class TutorDetailActivity : AppCompatActivity() {
 
             tutor_packages_rvPopularPkg.layoutManager =
                 LinearLayoutManager(this@TutorDetailActivity, LinearLayoutManager.VERTICAL, false)
-            tutor_packages_rvPopularPkg.adapter = TutorsAdapter(this@TutorDetailActivity, data)
 
+            tutorAdapter = TutorsAdapter(this@TutorDetailActivity, data)
+
+            tutor_packages_rvPopularPkg.adapter = tutorAdapter
+
+        }
+
+        tutor_detail_ivSort.setOnClickListener {
+            if (intent.getStringExtra("type") == "pkg" || intent.getStringExtra("type") == "explore") {
+
+                sorting("pkg", data)
+
+            } else if (intent.getStringExtra("type") == "tutor") {
+
+                sorting("tutor", data)
+
+            }
         }
 
         setFilterCount()
@@ -147,7 +164,8 @@ class TutorDetailActivity : AppCompatActivity() {
                         data = response.body()!!.data[0].TestPackage
 
 //                        tutor_detail_header.text = response.body()!!.data[0].Name
-                        tutor_packages_rvPopularPkg.adapter = TestPackagesAdapter(this@TutorDetailActivity, data)
+                        pkgAdapter = TestPackagesAdapter(this@TutorDetailActivity, data)
+                        tutor_packages_rvPopularPkg.adapter = pkgAdapter
 
                     } else {
 
@@ -205,6 +223,32 @@ class TutorDetailActivity : AppCompatActivity() {
         } else {
             tutor_detail_tvFilter.visibility = View.GONE
         }
-
     }
+
+    fun sorting(type: String, modelList: ArrayList<PackageData.PackageDataList>) {
+        modelList.sortWith(Comparator { lhs, rhs ->
+            if (type != "tutor") {
+                lhs.TestPackageName.compareTo(rhs.TestPackageName)
+            } else {
+                lhs.TutorName.compareTo(rhs.TutorName)
+            }
+        })
+
+        if (type == "tutor") {
+
+            tutorAdapter = TutorsAdapter(this@TutorDetailActivity, modelList)
+            tutor_packages_rvPopularPkg.adapter = tutorAdapter
+            tutorAdapter!!.notifyDataSetChanged()
+
+
+        } else {
+
+            pkgAdapter = TestPackagesAdapter(this@TutorDetailActivity, modelList)
+            tutor_packages_rvPopularPkg.adapter = pkgAdapter
+            pkgAdapter!!.notifyDataSetChanged()
+
+
+        }
+    }
+
 }

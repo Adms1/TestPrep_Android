@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.testprep.R
+import com.testprep.utils.AppConstants
+import com.testprep.utils.Utils
 import io.apptik.widget.MultiSlider
 import kotlinx.android.synthetic.main.fragment_price_filter.*
 
@@ -43,8 +45,13 @@ class PriceFilterFragment : Fragment() {
                 value: Int
             ) {
                 if (thumbIndex == 0) {
+
+                    Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, value.toString())
                     price_filter_etMin.setText("₹ " + value.toString())
+
                 } else {
+
+                    Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, value.toString())
                     price_filter_etMax.setText("₹ " + value.toString())
                 }
             }

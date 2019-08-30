@@ -63,9 +63,9 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         pp1.isSelected = false
         filterTypeArr.add(pp4)
 
-        val pp5: PackageData.PackageDataList = PackageData.PackageDataList(0, "Price")
-        pp1.isSelected = false
-        filterTypeArr.add(pp5)
+//        val pp5: PackageData.PackageDataList = PackageData.PackageDataList(0, "Price")
+//        pp1.isSelected = false
+//        filterTypeArr.add(pp5)
 
         filterAdapter = FilterListAdapter(this@FilterActivity, filterTypeArr, filterTypeSelectionInteface!!)
         filter_rvList.adapter = filterAdapter

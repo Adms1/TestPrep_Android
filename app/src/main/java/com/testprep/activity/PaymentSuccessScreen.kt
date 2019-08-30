@@ -50,7 +50,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
         pkgprice = intent.getStringExtra("pkgprice")
 
         tvPkgname.text = pkgname
-        tvPrice.text = pkgprice
+        tvPrice.text = "₹" + pkgprice
 
         if (intent.getStringExtra("responseCode").equals("0", ignoreCase = true)) {
 

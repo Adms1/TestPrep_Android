@@ -26,7 +26,7 @@
             android:id="@+id/price_filter_etMin"
             rsb:layout_constraintTop_toBottomOf="@+id/price_filter_tvMin"
             rsb:layout_constraintLeft_toLeftOf="parent"
-            android:text="1000"
+            android:text="   0"
             android:paddingLeft="@dimen/_5sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/normal_header_size"
@@ -51,7 +51,7 @@
             android:id="@+id/price_filter_etMax"
             rsb:layout_constraintTop_toBottomOf="@+id/price_filter_tvMin"
             rsb:layout_constraintRight_toRightOf="parent"
-            android:text="5000"
+            android:text="1000"
             android:textColor="@color/black"
             android:paddingBottom="@dimen/_15sdp"
             android:textSize="@dimen/normal_header_size"
@@ -65,9 +65,8 @@
             android:layout_height="wrap_content"
             rsb:layout_constraintTop_toBottomOf="@+id/price_filter_etMin"
             android:layout_margin="@dimen/_20sdp"
-            rsb:scaleMin="1000"
-            rsb:scaleMax="5000"
-
+            rsb:scaleMin="0"
+            rsb:scaleMax="1000"
             rsb:rangeColor="@color/gray"
             app:trackColor="@color/gray"/>
 

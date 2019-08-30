@@ -178,7 +178,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 movies = response.body()!!.data
 
                 hintData =
-                    "<html><body style='background-color:clear;'><p align=center><font size=4><b>" + "Hint" + "</b></font></p><p><font size=2>" + movies[0].TestQuestion[0].Hint + "</font></p><br><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[0].TestQuestion[0].Explanation + "</font></p></body></html>"
+                    "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[0].TestQuestion[0].Explanation + "</font></p></body></html>"
 //                explanationData = movies[0].TestQuestion[0].Explanation
 
                 if (movies.size > 0) {
@@ -342,7 +342,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         drawer_layout.closeDrawer(Gravity.END)
 
         hintData =
-            "<html><body style='background-color:clear;'><p align=center><font size=4><b>" + "Hint" + "</b></font></p><p><font size=2>" + movies[p00].TestQuestion[p0].Hint + "</font></p><br><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[p00].TestQuestion[p0].Explanation + "</font></p></body></html>"
+            "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[p00].TestQuestion[p0].Explanation + "</font></p></body></html>"
 
         if ("http://content.testcraft.co.in/question/" + movies[p00].TestQuestion[p0].QuestionImage != "") {
 

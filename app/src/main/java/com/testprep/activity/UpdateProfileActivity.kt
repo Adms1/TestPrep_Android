@@ -155,6 +155,7 @@ class UpdateProfileActivity : AppCompatActivity() {
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
                         )
 
+                        finish()
                         Log.d("websize", response.body()!!.get("Msg").asString)
 
                     } else {
@@ -201,10 +202,10 @@ class UpdateProfileActivity : AppCompatActivity() {
             }
         }
 
-        if (TextUtils.isEmpty(signup_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(signup_etMobile.text.toString()).matches()) {
-            signup_etMobile.error = "Please enter valid mobile number"
-            isvalid = false
-        }
+//        if (TextUtils.isEmpty(signup_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(signup_etMobile.text.toString()).matches()) {
+//            signup_etMobile.error = "Please enter valid mobile number"
+//            isvalid = false
+//        }
 
         return isvalid
 

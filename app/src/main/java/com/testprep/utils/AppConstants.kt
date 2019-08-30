@@ -49,6 +49,9 @@ class AppConstants {
         var FILTER_FROM_RICE = ""
         var FILTER_TO_PRICE = ""
 
+        var MIN_PRICE = ""
+        var MAX_PRICE = ""
+
         var isFirst = 0
 
         var recentSearchList: ArrayList<String> = ArrayList()

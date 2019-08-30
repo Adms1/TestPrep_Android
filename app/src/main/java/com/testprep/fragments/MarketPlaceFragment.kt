@@ -16,6 +16,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
+import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.PackageDetailActivity
 import com.testprep.activity.TutorDetailActivity
@@ -272,6 +273,12 @@ class MarketPlaceFragment : Fragment() {
         override fun onBindViewHolder(holder: viewholder, position: Int) {
 //                RandomPageFragment.initializeTextView(holder.textView!!, position + 1)
 
+            if (mDataList[position].Icon != null) {
+                Picasso.get()
+                    .load(AppConstants.IMAGE_BASE_URL + mDataList[position].Icon)
+                    .into(holder.title)
+            }
+
             holder.title1.text = mDataList[position].TestPackageName
 
             holder.title.setOnClickListener {
@@ -334,6 +341,12 @@ class MarketPlaceFragment : Fragment() {
 
         override fun onBindViewHolder(holder: viewholder, position: Int) {
 //                RandomPageFragment.initializeTextView(holder.textView!!, position + 1)
+
+            if (mDataList[position].Icon != null) {
+                Picasso.get()
+                    .load(AppConstants.IMAGE_BASE_URL + mDataList[position].Icon)
+                    .into(holder.title)
+            }
 
             holder.title1.text = mDataList[position].TutorName
             holder.title.setImageDrawable(context.resources.getDrawable(R.drawable.pro_pic1))

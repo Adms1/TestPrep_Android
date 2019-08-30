@@ -9,10 +9,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import com.testprep.R
-import com.testprep.activity.ChangePasswordActivity
-import com.testprep.activity.CoinActivity
-import com.testprep.activity.MyPaymentActivity
-import com.testprep.activity.UpdateProfileActivity
+import com.testprep.activity.*
+import com.testprep.activity.NewActivity
 import kotlinx.android.synthetic.main.fragment_other.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,8 +40,8 @@ class OtherFragment : Fragment() {
 
         menuList.add("Edit Profile")
         menuList.add("My Payments")
-//        menuList.add("Add Amount")
         menuList.add("Change Password")
+        menuList.add("Change Prefrence")
 //        menuList.add("Logout")
 
         other_lvList.adapter = ArrayAdapter(activity, android.R.layout.simple_list_item_1, menuList)
@@ -70,6 +68,11 @@ class OtherFragment : Fragment() {
 
                     val intent = Intent(activity, ChangePasswordActivity::class.java)
                     intent.putExtra("come_from", "other")
+                    startActivity(intent)
+                }
+                menuList[position] == "Change Prefrence" -> {
+
+                    val intent = Intent(activity, NewActivity::class.java)
                     startActivity(intent)
                 }
             }

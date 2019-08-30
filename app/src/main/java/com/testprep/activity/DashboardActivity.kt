@@ -83,7 +83,7 @@ class DashboardActivity : AppCompatActivity() {
             dashboard_ivBack.visibility = View.GONE
 
             dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
-            dashboard_header.text = "My Packages"
+            dashboard_header.text = "My Dashboard"
         }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -136,7 +136,7 @@ class DashboardActivity : AppCompatActivity() {
 
             dash_llDashboard -> {
 
-                dashboard_header.text = "My Packages"
+                dashboard_header.text = "My Dashboard"
 
                 supportFragmentManager.beginTransaction()
                     .replace(com.testprep.R.id.container, ChooseMarketPlaceFragment()).commit()

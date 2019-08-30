@@ -44,7 +44,7 @@ class SplashActivity : AppCompatActivity() {
                     // Start your app main activity
                     Utils.setStringValue(this@SplashActivity, "is_login", "true")
 
-                    val i = Intent(this@SplashActivity, DashboardActivity::class.java)
+                    val i = Intent(this@SplashActivity, NewActivity::class.java)
                     startActivity(i)
 
                 } else {
