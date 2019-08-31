@@ -10,6 +10,7 @@ import android.view.WindowManager
 import com.testprep.R
 import com.testprep.models.AnswerModel
 import com.testprep.sectionmodule.NewTabQuestionActivity
+import com.testprep.utils.AppConstants
 import kotlinx.android.synthetic.main.activity_result.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -52,6 +53,13 @@ class ResultActivity : AppCompatActivity() {
 //        }
         result_tvMarks.text = "Marks : " + intent.getStringExtra("marks")
 
+        result_btnDashboard.setOnClickListener {
+            AppConstants.isFirst = 0
+            val intent = Intent(this@ResultActivity, DashboardActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         if (intent.getStringExtra("marks") <= "0") {
             result_card.background = resources.getDrawable(R.drawable.pink_bg)
             result_tvViewAnswer.setTextColor(resources.getColor(R.color.pink))
@@ -78,6 +86,7 @@ class ResultActivity : AppCompatActivity() {
             intent1.putExtra("testid", testid)
             intent1.putExtra("studenttestid", studenttestid)
             startActivity(intent1)
+            finish()
         }
 
         result_ivBack.setOnClickListener {

@@ -388,26 +388,28 @@
                                             android:padding="@dimen/_5sdp"
                                             app:layout_constraintTop_toBottomOf="@+id/page_img_que_img"/>
 
-                                    <RadioGroup
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:visibility="gone"
-                                            android:id="@+id/queTab_rbTruefalse"
-                                            android:orientation="vertical">
+                                    <!--<RadioGroup-->
+                                    <!--android:layout_width="match_parent"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:visibility="gone"-->
+                                    <!--android:id="@+id/queTab_rbTruefalse"-->
+                                    <!--android:orientation="vertical">-->
 
                                         <RadioButton
                                                 android:id="@+id/queTab_rbTrue"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
+                                                android:visibility="gone"
                                                 android:text="True"/>
 
                                         <RadioButton
                                                 android:id="@+id/queTab_rbFalse"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
+                                                android:visibility="gone"
                                                 android:text="false"/>
 
-                                    </RadioGroup>
+                                    <!--</RadioGroup>-->
 
                                 </LinearLayout>
 

@@ -295,9 +295,9 @@ class PackageDetailActivity : AppCompatActivity() {
                             )
                         ) {
                             package_detail_tvsprice.text =
-                                "Sell Price : ₹" + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
+                                "Sell Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
                             package_detail_tvlprice.text =
-                                "List Price : ₹" + response.body()!!.get("data").asJsonObject.get("TestPackageListPrice").asString.trim()
+                                "List Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageListPrice").asString.trim()
                         } else {
                             package_detail_tvsprice.text =
                                 "Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString

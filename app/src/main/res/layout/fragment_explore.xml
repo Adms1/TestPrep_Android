@@ -21,7 +21,7 @@
         <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Search test, tutors or packages"
+                android:hint="Search by subject"
                 android:textSize="@dimen/_14sdp"
                 android:background="@color/white"
                 android:maxLines="1"

@@ -25,6 +25,7 @@ import android.widget.*
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testprep.R
+import com.testprep.activity.DashboardActivity
 import com.testprep.activity.ResultActivity
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.AnswerModel
@@ -96,12 +97,34 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         imgQue!!.isDrawingCacheEnabled = true
 
         queTab_ivBack.setOnClickListener {
-            where = "testlist"
             onBackPressed()
         }
 
         queTab_ivSubmit.setOnClickListener {
-            onBackPressed()
+            DialogUtils.createConfirmDialog(
+                this@NewTabQuestionActivity,
+                "Done?",
+                "Are you sure you want to submit this test?",
+                "OK",
+                "Cancel",
+                DialogInterface.OnClickListener { dialog, which ->
+
+                    var ansstr = ""
+
+                    for (i in 0 until ansArr.size) {
+                        ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
+
+                    }
+
+                    Log.d("ansstr", ansstr)
+
+                    callSubmitAPI()
+
+                },
+                DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+
+                }).show()
         }
 
         mDrawerToggle = ActionBarDrawerToggle(
@@ -175,17 +198,37 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //            false
 //        })
 
-        queTab_rbTruefalse.setOnCheckedChangeListener { group, checkedId ->
+//        queTab_rbTruefalse.setOnCheckedChangeListener { group, checkedId ->
 
-            if (checkedId == R.id.queTab_rbTrue) {
-                nextButton!!.text = "Next"
-//                answer = "1"
+        queTab_rbTrue.setOnCheckedChangeListener { buttonView, isChecked ->
 
-            } else if (checkedId == R.id.queTab_rbFalse) {
+            if (isChecked) {
+                queTab_rbTrue.isChecked = true
+                queTab_rbFalse.isChecked = false
                 nextButton!!.text = "Next"
-//                answer = "0"
             }
+
         }
+
+        queTab_rbFalse.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if (isChecked) {
+                queTab_rbTrue.isChecked = false
+                queTab_rbFalse.isChecked = true
+                nextButton!!.text = "Next"
+            }
+
+        }
+
+//            if (checkedId == R.id.queTab_rbTrue) {
+//                nextButton!!.text = "Next"
+////                answer = "1"
+//
+//            } else if (checkedId == R.id.queTab_rbFalse) {
+//                nextButton!!.text = "Next"
+////                answer = "0"
+//            }
+//        }
 
         queTab_tvFillBlanks.addTextChangedListener(object : TextWatcher {
 
@@ -216,10 +259,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             //            queTab_btnNext.visibility = View.GONE
 
-            queTab_rbTrue.isChecked = false
-            queTab_rbFalse.isChecked = false
-
             if (queTab_btnNext.text == "Next") {
+
+                for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                    if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == AppConstants.QUE_NUMBER) {
+                        finalArr[sectionList!![q_grppos1]]!![i].type = 2
+                    }
+                }
 
 //                setSideMenu(2)
                 getNextQuestion("activity")
@@ -265,7 +311,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
 
             abortBtn.setOnClickListener {
-                where = "testlist"
                 onBackPressed()
             }
 
@@ -417,7 +462,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                                 queTab_tvFillBlanks.visibility = View.GONE
                                 ansList!!.visibility = View.VISIBLE
-                                queTab_rbTruefalse.visibility = View.GONE
+                                queTab_rbTrue.visibility = View.GONE
+                                queTab_rbFalse.visibility = View.GONE
 
                                 val answerModel = AnswerModel()
                                 answerModel.ansid = movies[0].TestQuestion[0].Answer
@@ -437,19 +483,27 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                                 queTab_tvFillBlanks.visibility = View.VISIBLE
                                 ansList!!.visibility = View.GONE
-                                queTab_rbTruefalse.visibility = View.GONE
+                                queTab_rbTrue.visibility = View.GONE
+                                queTab_rbFalse.visibility = View.GONE
 
                                 queTab_tvFillBlanks.setText(movies[0].TestQuestion[0].Answer)
 
                             } else if (movies[0].TestQuestion[0].QuestionTypeID == 4) {
-                                queTab_rbTruefalse.visibility = View.VISIBLE
+                                queTab_rbTrue.visibility = View.VISIBLE
+                                queTab_rbFalse.visibility = View.VISIBLE
                                 queTab_tvFillBlanks.visibility = View.GONE
                                 ansList!!.visibility = View.GONE
 
                                 if (movies[0].TestQuestion[0].Answer == "1") {
                                     queTab_rbTrue.isChecked = true
-                                } else {
+                                    queTab_rbFalse.isChecked = false
+
+                                } else if (movies[0].TestQuestion[0].Answer == "0") {
                                     queTab_rbFalse.isChecked = true
+                                    queTab_rbTrue.isChecked = false
+                                } else {
+                                    queTab_rbTrue.isChecked = false
+                                    queTab_rbFalse.isChecked = false
                                 }
                             }
                         }
@@ -529,34 +583,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
     override fun onBackPressed() {
 
-        if (where == "testlist") {
-            super.onBackPressed()
-        } else {
-            DialogUtils.createConfirmDialog(
-                this@NewTabQuestionActivity,
-                "Done?",
-                "Are you sure you want to submit this test?",
-                "OK",
-                "Cancel",
-                DialogInterface.OnClickListener { dialog, which ->
+        AppConstants.isFirst = 1
+        val intent = Intent(this@NewTabQuestionActivity, DashboardActivity::class.java)
+        startActivity(intent)
+        finish()
 
-                    var ansstr = ""
-
-                    for (i in 0 until ansArr.size) {
-                        ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
-
-                    }
-
-                    Log.d("ansstr", ansstr)
-
-                    callSubmitAPI()
-
-                },
-                DialogInterface.OnClickListener { dialog, which ->
-                    dialog.dismiss()
-
-                }).show()
-        }
     }
 
     fun callSubmitAPI() {
@@ -590,9 +621,15 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     intent.putExtra("testid", testid)
                     intent.putExtra(
                         "marks",
-                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Correct").asString
+                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Correct").asString + "/" + response.body()!!.get(
+                            "data"
+                        ).asJsonArray[0].asJsonObject.get("TotalMarks").asString
                     )
                     intent.putExtra("studenttestid", studenttestid)
+                    intent.putExtra(
+                        "totalmarks",
+                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TotalMarks").asString
+                    )
                     startActivity(intent)
                     finish()
 
@@ -667,7 +704,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                             queTab_tvFillBlanks.visibility = View.GONE
                             ansList!!.visibility = View.VISIBLE
-                            queTab_rbTruefalse.visibility = View.GONE
+                            queTab_rbTrue.visibility = View.GONE
+                            queTab_rbFalse.visibility = View.GONE
 
                             ansList!!.adapter = SelectImageOptionAdapter(
                                 this@NewTabQuestionActivity,
@@ -681,7 +719,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         } else if (movies[p0].TestQuestion[p1].QuestionTypeID == 2) {
                             queTab_tvFillBlanks.visibility = View.VISIBLE
                             ansList!!.visibility = View.GONE
-                            queTab_rbTruefalse.visibility = View.GONE
+                            queTab_rbTrue.visibility = View.GONE
+                            queTab_rbFalse.visibility = View.GONE
 
 //                            if (queTab_tvFillBlanks.text.toString() == "") {
 
@@ -692,14 +731,20 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                            }
 
                         } else if (movies[p0].TestQuestion[p1].QuestionTypeID == 4) {
-                            queTab_rbTruefalse.visibility = View.VISIBLE
+                            queTab_rbTrue.visibility = View.VISIBLE
+                            queTab_rbFalse.visibility = View.VISIBLE
                             queTab_tvFillBlanks.visibility = View.GONE
                             ansList!!.visibility = View.GONE
 
                             if (movies[p0].TestQuestion[p1].Answer == "1") {
                                 queTab_rbTrue.isChecked = true
-                            } else {
+                                queTab_rbFalse.isChecked = false
+                            } else if (movies[p0].TestQuestion[p1].Answer == "0") {
                                 queTab_rbFalse.isChecked = true
+                                queTab_rbTrue.isChecked = false
+                            } else {
+                                queTab_rbTrue.isChecked = false
+                                queTab_rbFalse.isChecked = false
                             }
 
                         }
@@ -727,13 +772,15 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         drawer_layout.closeDrawer(Gravity.END)
 
-        queTab_rbTrue.isChecked = false
-        queTab_rbFalse.isChecked = false
+//        queTab_rbTrue.isChecked = false
+//        queTab_rbFalse.isChecked = false
 
         if (movies[p00].TestQuestion[p1].Answer != "") {
             queTab_btnNext.text = "Next"
         } else {
             queTab_btnNext.text = "Skip"
+            queTab_rbTrue.isChecked = false
+            queTab_rbFalse.isChecked = false
         }
 
         hintData =
@@ -774,10 +821,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 answer = queTab_tvFillBlanks.text.toString()
 
             }
-            movies[p00].TestQuestion[p1].QuestionTypeID == 4 -> answer = if (queTab_rbFalse.isChecked) {
-                "0"
-            } else {
-                "1"
+            movies[p00].TestQuestion[p1].QuestionTypeID == 4 -> {
+                if (queTab_rbFalse.isChecked) {
+                    answer = "0"
+                } else if (queTab_rbTrue.isChecked) {
+                    answer = "1"
+                }
             }
         }
 
@@ -815,7 +864,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                     queTab_tvFillBlanks.visibility = View.GONE
                     ansList!!.visibility = View.VISIBLE
-                    queTab_rbTruefalse.visibility = View.GONE
+                    queTab_rbTrue.visibility = View.GONE
+                    queTab_rbFalse.visibility = View.GONE
 
                     ansList!!.adapter = SelectImageOptionAdapter(
                         this@NewTabQuestionActivity,
@@ -829,7 +879,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 } else if (movies[p00].TestQuestion[p1].QuestionTypeID == 2) {
                     queTab_tvFillBlanks.visibility = View.VISIBLE
                     ansList!!.visibility = View.GONE
-                    queTab_rbTruefalse.visibility = View.GONE
+                    queTab_rbTrue.visibility = View.GONE
+                    queTab_rbFalse.visibility = View.GONE
 
 //                            if (queTab_tvFillBlanks.text.toString() == "") {
 
@@ -840,14 +891,20 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                            }
 
                 } else if (movies[p00].TestQuestion[p1].QuestionTypeID == 4) {
-                    queTab_rbTruefalse.visibility = View.VISIBLE
+                    queTab_rbTrue.visibility = View.VISIBLE
+                    queTab_rbFalse.visibility = View.VISIBLE
                     queTab_tvFillBlanks.visibility = View.GONE
                     ansList!!.visibility = View.GONE
 
                     if (movies[p00].TestQuestion[p1].Answer == "1") {
                         queTab_rbTrue.isChecked = true
-                    } else {
+                        queTab_rbFalse.isChecked = false
+                    } else if (movies[p00].TestQuestion[p1].Answer == "0") {
                         queTab_rbFalse.isChecked = true
+                        queTab_rbTrue.isChecked = false
+                    } else {
+                        queTab_rbTrue.isChecked = false
+                        queTab_rbFalse.isChecked = false
                     }
                 }
             }

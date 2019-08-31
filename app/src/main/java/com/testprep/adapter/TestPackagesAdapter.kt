@@ -51,7 +51,7 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
         if (dataList != null && dataList.size > 0) {
             p0.std.text = dataList[p1].TestPackageName
             p0.sub.text = dataList[p1].SubjectName
-            p0.price.text = "₹" + dataList[p1].TestPackageSalePrice
+            p0.price.text = dataList[p1].TestPackageSalePrice
 
             if (dataList[p1].Icon != null) {
                 Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)

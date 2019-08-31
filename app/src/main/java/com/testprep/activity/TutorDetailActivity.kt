@@ -58,12 +58,19 @@ class TutorDetailActivity : AppCompatActivity() {
 
         tutor_detail_header.text = intent.getStringExtra("pname")
 
-        if (intent.getStringExtra("type") == "pkg" || intent.getStringExtra("type") == "explore") {
+        if (intent.getStringExtra("type") == "pkg") {
 
             tutor_detail_rlFilter.visibility = View.VISIBLE
 
             tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
-            callFilterListApi()
+            callFilterListApi("", "1")
+
+        } else if (intent.getStringExtra("type") == "explore") {
+
+            tutor_detail_rlFilter.visibility = View.VISIBLE
+
+            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+            callFilterListApi(intent.getStringExtra("search_name"), "-1")
 
         } else if (intent.getStringExtra("type") == "tutor") {
 
@@ -76,10 +83,18 @@ class TutorDetailActivity : AppCompatActivity() {
 
             tutor_packages_rvPopularPkg.adapter = tutorAdapter
 
+        } else if (intent.getStringExtra("type") == "single") {
+            tutor_detail_rlFilter.visibility = View.VISIBLE
+
+            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+            callFilterListApi("", "3")
         }
 
         tutor_detail_ivSort.setOnClickListener {
-            if (intent.getStringExtra("type") == "pkg" || intent.getStringExtra("type") == "explore") {
+            if (intent.getStringExtra("type") == "single" || intent.getStringExtra("type") == "pkg" || intent.getStringExtra(
+                    "type"
+                ) == "explore"
+            ) {
 
                 sorting("pkg", data)
 
@@ -105,7 +120,7 @@ class TutorDetailActivity : AppCompatActivity() {
         }
     }
 
-    fun callFilterListApi() {
+    fun callFilterListApi(name: String, type: String) {
 
         if (!DialogUtils.isNetworkConnected(this@TutorDetailActivity)) {
             Utils.ping(this@TutorDetailActivity, "Connetion not available")
@@ -137,7 +152,8 @@ class TutorDetailActivity : AppCompatActivity() {
                 intent.getStringExtra("tutorid"),
                 "",
                 "",
-                ""
+                name,
+                type
             )
 //            WebRequests.getFilterParams(
 //                "",
@@ -161,11 +177,20 @@ class TutorDetailActivity : AppCompatActivity() {
 
                     if (response.body()!!.Status == "true") {
 
-                        data = response.body()!!.data[0].TestPackage
+                        if (type == "pkg") {
+                            data = response.body()!!.data[0].TestPackage
 
 //                        tutor_detail_header.text = response.body()!!.data[0].Name
+
+                        } else {
+                            data = response.body()!!.data[0].TestPackage
+
+//                        tutor_detail_header.text = response.body()!!.data[0].Name
+                        }
+
                         pkgAdapter = TestPackagesAdapter(this@TutorDetailActivity, data)
                         tutor_packages_rvPopularPkg.adapter = pkgAdapter
+
 
                     } else {
 

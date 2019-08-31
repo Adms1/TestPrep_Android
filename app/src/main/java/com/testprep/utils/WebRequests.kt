@@ -88,7 +88,8 @@ class WebRequests {
             tutorid: String,
             fromprice: String,
             toprice: String,
-            name: String
+            name: String,
+            typeid: String
         ): HashMap<String, String> {
 
             val map = HashMap<String, String>()
@@ -102,7 +103,7 @@ class WebRequests {
             map["FromPrice"] = fromprice
             map["ToPrice"] = toprice
             map["Name"] = name
-
+            map["typeid"] = typeid
             return map
 
         }

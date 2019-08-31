@@ -110,7 +110,7 @@ interface WebInterface {
     fun getStandardList(): Call<PackageData>
 
     @FormUrlEncoded
-    @POST("Get_TestPackageName_By_Search_Criteria")
+    @POST("Get_TestPackageName_By_Search_Criteria_new")
     fun getFilterData(@FieldMap map: HashMap<String, String>): Call<PackageData>
 
     @FormUrlEncoded

@@ -152,7 +152,11 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         }
 
-        solution_ivBack.setOnClickListener { onBackPressed() }
+        solution_ivBack.setOnClickListener {
+
+            onBackPressed()
+
+        }
 
         if (testid != "") {
             callSolutionApi()
@@ -459,4 +463,5 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         }
 
     }
+
 }

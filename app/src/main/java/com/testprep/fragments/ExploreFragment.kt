@@ -61,15 +61,20 @@ class ExploreFragment : Fragment() {
 
             explore_etSearch.setText("")
 
-            callFilterListApi()
+            val intent = Intent(context, TutorDetailActivity::class.java)
+            intent.putExtra("type", "explore")
+            intent.putExtra("pname", "Packages")
+            intent.putExtra("boardid", "")
+            intent.putExtra("stdid", "")
+            intent.putExtra("subid", "")
+            intent.putExtra("tutorid", "")
+            intent.putExtra("search_name", explore_etSearch.text.toString())
+            startActivity(intent)
+
+//            callFilterListApi()
         }
 
-        val adapter = ArrayAdapter(
-            activity!!,
-            android.R.layout.simple_list_item_1,
-            resources.getStringArray(R.array.countries_array)
-        )
-        explore_etSearch.setAdapter(adapter)
+        callSubjectListApi()
 
 //        explore_etSearch.addTextChangedListener(object : TextWatcher {
 //
@@ -119,7 +124,7 @@ class ExploreFragment : Fragment() {
                 "",
                 "",
                 "",
-                explore_etSearch.text.toString()
+                explore_etSearch.text.toString(), "-1"
             )
         )
 
@@ -134,11 +139,11 @@ class ExploreFragment : Fragment() {
 
                         mDataList = response.body()!!.data
 
-                        val intent = Intent(context, TutorDetailActivity::class.java)
-                        intent.putExtra("type", "explore")
-                        intent.putExtra("pname", "Packages")
-                        intent.putExtra("parr", mDataList)
-                        startActivity(intent)
+//                        val intent = Intent(context, TutorDetailActivity::class.java)
+//                        intent.putExtra("type", "explore")
+//                        intent.putExtra("pname", "Packages")
+//                        intent.putExtra("parr", mDataList)
+//                        startActivity(intent)
 
 //                        explore_rvList.layoutManager = GridLayoutManager(activity, 2)
 
@@ -159,4 +164,64 @@ class ExploreFragment : Fragment() {
             }
         })
     }
+
+    fun callSubjectListApi(): ArrayList<PackageData.PackageDataList> {
+
+        var filterArray: ArrayList<PackageData.PackageDataList> = ArrayList()
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(activity!!)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getSubjectList()
+        call.enqueue(object : Callback<PackageData> {
+            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.Status == "true") {
+
+                        filterArray = response.body()!!.data
+
+                        var subArr: ArrayList<String> = ArrayList()
+                        for (i in 0 until filterArray.size) {
+                            subArr.add(filterArray[i].SubjectName)
+                        }
+
+                        val adapter = ArrayAdapter(
+                            activity!!,
+                            android.R.layout.simple_list_item_1,
+                            subArr
+                        )
+                        explore_etSearch.setAdapter(adapter)
+
+//                        recyclerviewAdapter =
+//                            FilterAdapter(activity!!, filterArray, "multiple", "subject", filterInterface!!)
+//                        filterData_rvList.adapter = recyclerviewAdapter
+//                        choosemp_filterSubject.text = subjectArr[0].SubjectName
+//                        subids = subjectArr[0].SubjectID
+
+                    } else {
+
+                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PackageData>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+
+        return filterArray
+    }
+
+
 }

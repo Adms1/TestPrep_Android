@@ -33,7 +33,7 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
 //        p0.edate.text = dataList[p1].ExpirationDate
         p0.name.text = dataList[p1].TestPackageName
         p0.short_name.text = p0.name.text.substring(0, 1)
-        p0.price.text = "Price: ₹" + dataList[p1].TestPackageSalePrice
+        p0.price.text = dataList[p1].TestPackageSalePrice
         p0.test.text = dataList[p1].NumberOfTest + " Tests"
 //
 ////        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))

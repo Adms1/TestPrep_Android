@@ -14,6 +14,7 @@ import com.google.gson.JsonObject
 import com.testprep.R
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
 import kotlinx.android.synthetic.main.activity_test_review.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,7 +40,14 @@ class TestReviewActivity : AppCompatActivity() {
         testid = intent.getStringExtra("testid")
         studenttestid = intent.getStringExtra("studenttestid")
 
-        review_ivBack.setOnClickListener { onBackPressed() }
+        review_ivBack.setOnClickListener {
+            AppConstants.isFirst = 0
+            val intent = Intent(this@TestReviewActivity, DashboardActivity::class.java)
+            startActivity(intent)
+            finish()
+//            onBackPressed()
+
+        }
 
         review_btnSubmit.setOnClickListener {
             val intent = Intent(this@TestReviewActivity, ViewSolutionActivity::class.java)
