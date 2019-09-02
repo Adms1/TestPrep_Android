@@ -173,7 +173,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getSolution(testid, studenttestid)
+        val call = apiService.getNewQuestions(testid, studenttestid)
         call.enqueue(object : Callback<NewQuestionResponse> {
             override fun onResponse(call: Call<NewQuestionResponse>, response: Response<NewQuestionResponse>) {
 
@@ -324,7 +324,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                         ansList!!.adapter = SolutionAdapter(
                             this@ViewSolutionActivity,
-                            movies[0].TestQuestion[0].StudentTestAnswerMCQ,
+                            movies[0].TestQuestion[0].StudentTestQuestionMCQ,
                             solution_page_img_que_img.width, 7
                         )
 
@@ -395,7 +395,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                 ansList!!.adapter = SolutionAdapter(
                     this@ViewSolutionActivity,
-                    movies[p00].TestQuestion[p0].StudentTestAnswerMCQ,
+                    movies[p00].TestQuestion[p0].StudentTestQuestionMCQ,
                     solution_page_img_que_img.width, 7
                 )
             }

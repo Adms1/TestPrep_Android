@@ -11,6 +11,8 @@ import android.widget.ArrayAdapter
 import com.testprep.R
 import com.testprep.activity.*
 import com.testprep.activity.NewActivity
+import com.testprep.utils.AppConstants
+import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.fragment_other.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -38,10 +40,16 @@ class OtherFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        menuList.add("Edit Profile")
-        menuList.add("My Payments")
-        menuList.add("Change Password")
-        menuList.add("Change Prefrence")
+        if (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") == "1") {
+            menuList.add("Edit Profile")
+            menuList.add("My Payments")
+            menuList.add("Change Password")
+            menuList.add("Change Prefrence")
+        } else {
+            menuList.add("Edit Profile")
+            menuList.add("My Payments")
+            menuList.add("Change Prefrence")
+        }
 //        menuList.add("Logout")
 
         other_lvList.adapter = ArrayAdapter(activity, android.R.layout.simple_list_item_1, menuList)

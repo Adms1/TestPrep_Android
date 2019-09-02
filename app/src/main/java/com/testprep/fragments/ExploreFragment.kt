@@ -1,14 +1,18 @@
 package com.testprep.fragments
 
 import android.content.Intent
+import android.opengl.ETC1.isValid
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import com.testprep.R
 import com.testprep.activity.TutorDetailActivity
@@ -20,6 +24,7 @@ import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
+import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.fragment_explore.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -51,6 +56,30 @@ class ExploreFragment : Fragment() {
             explore_rvList.adapter = RecentSearchAdapter(activity!!, AppConstants.recentSearchList)
         }
 
+        explore_etSearch.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+
+            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                if (event != null && event.keyCode == KeyEvent.KEYCODE_SEARCH || actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    for (i in 0..AppConstants.recentSearchList.size) {
+                        if (!AppConstants.recentSearchList.contains(explore_etSearch.text.toString())) {
+                            AppConstants.recentSearchList.add(explore_etSearch.text.toString())
+                        }
+                    }
+
+                    val intent = Intent(context, TutorDetailActivity::class.java)
+                    intent.putExtra("type", "explore")
+                    intent.putExtra("pname", "Packages")
+                    intent.putExtra("boardid", "")
+                    intent.putExtra("stdid", "")
+                    intent.putExtra("subid", "")
+                    intent.putExtra("tutorid", "")
+                    intent.putExtra("search_name", explore_etSearch.text.toString())
+                    startActivity(intent)
+                }
+                return false
+            }
+        })
+
         explore_ivSearch.setOnClickListener {
 
             for (i in 0..AppConstants.recentSearchList.size) {
@@ -59,7 +88,7 @@ class ExploreFragment : Fragment() {
                 }
             }
 
-            explore_etSearch.setText("")
+//            explore_etSearch.setText("")
 
             val intent = Intent(context, TutorDetailActivity::class.java)
             intent.putExtra("type", "explore")

@@ -56,7 +56,27 @@ class OtpActivity : AppCompatActivity() {
 
                 if (otp_etOtp.value.toString() == otp) {
 
-                    callSignupApi()
+                    Utils.hideKeyboard(this@OtpActivity)
+                    otp_tvVerificationSuccess.visibility = View.VISIBLE
+                    otp_tvHeading.text = "Awesome!"
+
+                    otp_tvInstruction.visibility = View.GONE
+                    otp_btnSubmit.text = "Done"
+                    otp_tvResend.visibility = View.GONE
+                    otp_etOtp.visibility = View.GONE
+
+                    otp_ivLogo.setImageDrawable(resources.getDrawable(com.testprep.R.drawable.success_verification_icn))
+
+                    if (intent.getStringExtra("come_from") == "forgot password") {
+
+//                        val intent = Intent(this@OtpActivity, ChangePasswordActivity::class.java)
+//                        intent.putExtra("come_from", "otp")
+//                        startActivity(intent)
+//                        finish()
+                    } else {
+
+                        callSignupApi()
+                    }
 
                 } else {
                     Toast.makeText(this@OtpActivity, "OTP does not match", Toast.LENGTH_LONG).show()
@@ -214,16 +234,16 @@ class OtpActivity : AppCompatActivity() {
                             response.body()!!["data"].asJsonArray[0].asJsonObject["OTP"].asString
                         )
 
-                        Utils.hideKeyboard(this@OtpActivity)
-                        otp_tvVerificationSuccess.visibility = View.VISIBLE
-                        otp_tvHeading.text = "Awesome!"
-
-                        otp_tvInstruction.visibility = View.GONE
-                        otp_btnSubmit.text = "Done"
-                        otp_tvResend.visibility = View.GONE
-                        otp_etOtp.visibility = View.GONE
-
-                        otp_ivLogo.setImageDrawable(resources.getDrawable(com.testprep.R.drawable.success_verification_icn))
+//                        Utils.hideKeyboard(this@OtpActivity)
+//                        otp_tvVerificationSuccess.visibility = View.VISIBLE
+//                        otp_tvHeading.text = "Awesome!"
+//
+//                        otp_tvInstruction.visibility = View.GONE
+//                        otp_btnSubmit.text = "Done"
+//                        otp_tvResend.visibility = View.GONE
+//                        otp_etOtp.visibility = View.GONE
+//
+//                        otp_ivLogo.setImageDrawable(resources.getDrawable(com.testprep.R.drawable.success_verification_icn))
 
                         Log.d("websize", response.body()!!.get("Msg").asString)
 

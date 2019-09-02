@@ -504,7 +504,7 @@ class MarketPlaceFragment : Fragment() {
                         Log.d("dtsize", "" + tutorList!!.size)
                         carousel1!!.adapter = TutorPageAdapter(5, 330, 160, activity!!, tutorList!!)
                         carousel!!.adapter = PkgPageAdapter(5, 330, 160, activity!!, mDataList!!)
-                        main_pkg_item_rvSingleTest.adapter = MyPackageAdapter(activity!!, mSingleDataList)
+                        main_pkg_item_rvSingleTest.adapter = MyPackageAdapter(activity!!, mSingleDataList, "market_place")
 
                     } else {
 
@@ -517,59 +517,6 @@ class MarketPlaceFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<GetMarketPlaceData>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
-    }
-
-    fun callAddTestPackageApi(pkgid: String) {
-
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
-        }
-
-        DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.addTestPackage(
-            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
-            pkgid
-        )
-
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-
-                if (response.body() != null) {
-
-                    DialogUtils.dismissDialog()
-
-                    if (response.body()!!["Status"].asString == "true") {
-
-                        AppConstants.isFirst = 1
-
-//                        fragmentManager!!.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
-
-                        Toast.makeText(
-                            activity,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
-//                        onBackPressed()
-
-                    } else {
-
-                        Toast.makeText(
-                            activity,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()

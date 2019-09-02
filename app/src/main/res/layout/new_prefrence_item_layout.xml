@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_20sdp"
+                android:textAllCaps="true"
                 android:layout_centerInParent="true"/>
 
     </RelativeLayout>

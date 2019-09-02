@@ -92,7 +92,12 @@ class PackageDetailActivity : AppCompatActivity() {
                     if (DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
 
 //            if (isVersionCodeUpdated) {
-                        chargeBtnLogic()
+
+                        if(!purchaseCoin.equals("free", true)) {
+                            chargeBtnLogic()
+                        }else{
+                            callAddTestPackageApi(intent.getStringExtra("pkgid"))
+                        }
 
 //            } else {
 //                Utils.openVersionDialogCharge(this@CoinActivity)
@@ -118,11 +123,14 @@ class PackageDetailActivity : AppCompatActivity() {
 //        com.testprep.utils.AppConstants.planid = "0"
         if (AppConstants.API_KEY.length > 5 && AppConstants.SECRET_KEY.length > 5) {
             var amount: Array<String>? = null
-            if (purchaseCoin.contains("."))
-                amount = purchaseCoin.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
+
+            var amt = purchaseCoin.toString().replace("₹", "").trim()
+
+            if (amt.contains("."))
+                amount = amt.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
                     .toTypedArray()//to check decimal places
 
-            if (purchaseCoin.equals("", ignoreCase = true)) {
+            if (amt.equals("", ignoreCase = true)) {
                 Utils.ping(this@PackageDetailActivity, resources.getString(com.testprep.R.string.enter_coin))
             } else if (amount != null && amount[1].length > 2) {
                 Utils.ping(this@PackageDetailActivity, "Please provide upto 2 decimal places only.")
@@ -156,7 +164,7 @@ class PackageDetailActivity : AppCompatActivity() {
                     //                            fetchTokenAndTransactionID();
                     //Custom UI
 
-                    var temp = purchaseCoin.replace(",", "")
+                    var temp = amt.replace(",", "")
                     var temp1 = temp.toFloat()
 
                     generateTrackNPayRequest(this@PackageDetailActivity, temp1.toString())
@@ -368,4 +376,63 @@ class PackageDetailActivity : AppCompatActivity() {
             }
         })
     }
+
+    fun callAddTestPackageApi(pkgid: String) {
+
+        if (!DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
+            Utils.ping(this@PackageDetailActivity, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(this@PackageDetailActivity)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.addTestPackage(
+            Utils.getStringValue(this@PackageDetailActivity, AppConstants.USER_ID, "0")!!,
+            pkgid
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        AppConstants.isFirst = 1
+
+//                        fragmentManager!!.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
+
+                        val intent = Intent(this@PackageDetailActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                        Toast.makeText(
+                            this@PackageDetailActivity,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
+//                        onBackPressed()
+
+                    } else {
+
+                        Toast.makeText(
+                            this@PackageDetailActivity,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+
 }

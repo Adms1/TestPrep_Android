@@ -32,34 +32,26 @@
 
     <TextView
             android:id="@+id/tvPkgname"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Atoms"
-            android:textSize="@dimen/_16sdp"
-            android:textStyle="bold"
+            android:textSize="@dimen/_14sdp"
             android:layout_marginRight="@dimen/_10sdp"
-            android:maxLines="2"
-            android:layout_marginLeft="@dimen/_20sdp"
             app:layout_constraintBottom_toTopOf="@+id/tvTry"
-            app:layout_constraintRight_toLeftOf="@+id/tvPrice"
             app:layout_constraintTop_toBottomOf="@+id/tvMessage"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            android:gravity="center"
             android:textColor="@color/black"/>
 
     <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="500.00"
             android:gravity="center"
-            android:textSize="@dimen/_16sdp"
-            android:textStyle="bold"
-            android:layout_marginRight="@dimen/_20sdp"
-            app:layout_constraintBottom_toTopOf="@+id/tvTry"
-            app:layout_constraintTop_toBottomOf="@+id/tvMessage"
-            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/tvPkgname"
+            app:layout_constraintTop_toBottomOf="@+id/tvPkgname"
             android:textColor="@color/black"/>
-
 
     <Button
             android:id="@+id/tvTry"

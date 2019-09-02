@@ -158,13 +158,25 @@
             android:id="@+id/main_pkg_item_tvdatanotfound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No matching packages were found, Please change search criteria."
+            android:text="No matching packages were found."
             android:textColor="@color/red"
             android:textSize="@dimen/_16sdp"
             android:visibility="gone"
             android:gravity="center"
             android:padding="@dimen/_25sdp"
             android:layout_centerInParent="true"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_pkg_item_tvChange"
+            android:layout_below="@+id/main_pkg_item_tvdatanotfound"
+            android:textSize="@dimen/_12sdp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            android:background="@drawable/blue_gradient_bg"
+            android:text="Change Search Criteria"/>
 
 </RelativeLayout>
 

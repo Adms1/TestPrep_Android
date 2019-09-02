@@ -26,6 +26,7 @@
                 android:background="@color/white"
                 android:maxLines="1"
                 android:ellipsize="end"
+                android:imeOptions="actionSearch"
                 android:inputType="textAutoComplete"
                 android:id="@+id/explore_etSearch"
                 android:layout_toLeftOf="@+id/explore_ivSearch"

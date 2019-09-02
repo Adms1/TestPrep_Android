@@ -48,6 +48,12 @@ class TestListActivity : AppCompatActivity() {
         callTestListApi()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        callTestListApi()
+    }
+
     fun callTestListApi() {
 
         if (!DialogUtils.isNetworkConnected(this@TestListActivity)) {

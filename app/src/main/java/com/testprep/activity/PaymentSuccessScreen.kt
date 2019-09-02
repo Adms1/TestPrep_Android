@@ -46,11 +46,11 @@ class PaymentSuccessScreen : AppCompatActivity() {
         setContentView(R.layout.activity_payment_success_screen)
 
         pkgid = intent.getStringExtra("pkgid")
-        pkgname = intent.getStringExtra("pkgname")
-        pkgprice = intent.getStringExtra("pkgprice")
+        pkgname = "Transaction Id : " + intent.getStringExtra("transactionId")
+        pkgprice = "Price                : " + intent.getStringExtra("pkgprice")
 
         tvPkgname.text = pkgname
-        tvPrice.text = "₹" + pkgprice
+        tvPrice.text = pkgprice
 
         if (intent.getStringExtra("responseCode").equals("0", ignoreCase = true)) {
 

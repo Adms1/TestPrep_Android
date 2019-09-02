@@ -51,25 +51,25 @@ class ResultActivity : AppCompatActivity() {
 //                marksCounter += 1
 //            }
 //        }
+
         result_tvMarks.text = "Marks : " + intent.getStringExtra("marks")
 
         result_btnDashboard.setOnClickListener {
-            AppConstants.isFirst = 0
-            val intent = Intent(this@ResultActivity, DashboardActivity::class.java)
-            startActivity(intent)
-            finish()
+           onBackPressed()
         }
 
         if (intent.getStringExtra("marks") <= "0") {
             result_card.background = resources.getDrawable(R.drawable.pink_bg)
             result_tvViewAnswer.setTextColor(resources.getColor(R.color.pink))
             result_tvReports.setTextColor(resources.getColor(R.color.pink))
+            result_btnDashboard.setTextColor(resources.getColor(R.color.pink))
             result_tvHeader.text = "Better luck next time"
             dialog_queinfo_tvResult.text = "FAIL"
         } else {
             result_card.background = resources.getDrawable(R.drawable.green_round_bg)
             result_tvViewAnswer.setTextColor(resources.getColor(R.color.green))
             result_tvReports.setTextColor(resources.getColor(R.color.green))
+            result_btnDashboard.setTextColor(resources.getColor(R.color.green))
             result_tvHeader.text = "Congratulations"
             dialog_queinfo_tvResult.text = "PASS"
         }
@@ -94,4 +94,12 @@ class ResultActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onBackPressed() {
+        AppConstants.isFirst = 0
+        val intent = Intent(this@ResultActivity, DashboardActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 }

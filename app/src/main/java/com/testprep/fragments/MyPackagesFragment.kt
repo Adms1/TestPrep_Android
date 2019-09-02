@@ -140,7 +140,7 @@ class MyPackagesFragment : AppCompatActivity() {
                         my_packages_tvTotalCount.text = totalcount.toString()
 
                         val pkgArr = response.body()!!.data[0].PackageList
-                        my_packages_rvList.adapter = MyPackageAdapter(this@MyPackagesFragment, pkgArr)
+                        my_packages_rvList.adapter = MyPackageAdapter(this@MyPackagesFragment, pkgArr, "my_pkgs")
 //                        my_packages_rvList.adapter = TestPackagesAdapter(this@MyPackagesFragment, pkgArr)
                     }
                 }

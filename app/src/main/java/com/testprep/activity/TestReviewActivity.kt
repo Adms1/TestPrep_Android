@@ -41,11 +41,11 @@ class TestReviewActivity : AppCompatActivity() {
         studenttestid = intent.getStringExtra("studenttestid")
 
         review_ivBack.setOnClickListener {
-            AppConstants.isFirst = 0
-            val intent = Intent(this@TestReviewActivity, DashboardActivity::class.java)
-            startActivity(intent)
-            finish()
-//            onBackPressed()
+//            AppConstants.isFirst = 0
+//            val intent = Intent(this@TestReviewActivity, DashboardActivity::class.java)
+//            startActivity(intent)
+//            finish()
+            onBackPressed()
 
         }
 
@@ -58,6 +58,10 @@ class TestReviewActivity : AppCompatActivity() {
 
         callSubmitAPI()
 
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 
     fun callSubmitAPI() {

@@ -98,13 +98,18 @@ class MyPaymentActivity : AppCompatActivity() {
 
                     if (response.body()!!.Status == "true") {
 
+                        my_payments_tvdatanotfound.visibility = View.GONE
+                        my_payments_rvList.visibility = View.VISIBLE
+
                         val mDataList = response.body()!!.data
 
                         my_payments_rvList.adapter = MyPaymentAdapter(this@MyPaymentActivity, mDataList)
 
                     } else {
 
-                        Toast.makeText(this@MyPaymentActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                        my_payments_rvList.visibility = View.GONE
+                        my_payments_tvdatanotfound.visibility = View.VISIBLE
+//                        Toast.makeText(this@MyPaymentActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

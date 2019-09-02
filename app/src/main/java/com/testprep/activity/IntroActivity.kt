@@ -423,7 +423,7 @@ class IntroActivity : AppCompatActivity() {
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call =
-            apiService.getSignup(WebRequests.addSignupParams(accounttype, "0", fname, lname, email, pass, cpass, "1"))
+            apiService.getSignup(WebRequests.addSignupParams(accounttype, "0", fname, lname, email, pass, cpass, "2"))
 
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {

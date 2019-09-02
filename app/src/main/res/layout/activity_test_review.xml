@@ -51,7 +51,6 @@
             android:background="@drawable/circle_icon"
             android:id="@+id/review_ivCorrect"
             android:textSize="@dimen/_15sdp"
-            android:text="23\n______\n30"
             android:gravity="center"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="@dimen/_10sdp"

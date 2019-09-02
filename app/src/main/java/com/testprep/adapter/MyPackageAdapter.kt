@@ -9,10 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
+import com.testprep.activity.PackageDetailActivity
 import com.testprep.activity.TestListActivity
 import com.testprep.models.PackageData
 
-class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
+class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>, val come_from: String) :
     RecyclerView.Adapter<MyPackageAdapter.viewholder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
@@ -29,21 +30,39 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        p0.sdate.text = dataList[p1].PurchaseDate
 //        p0.edate.text = dataList[p1].ExpirationDate
         p0.name.text = dataList[p1].TestPackageName
         p0.short_name.text = p0.name.text.substring(0, 1)
         p0.price.text = dataList[p1].TestPackageSalePrice
         p0.test.text = dataList[p1].NumberOfTest + " Tests"
 //
+
+        if(come_from == "market_place") {
+            p0.sdate.text = dataList[p1].SubjectName
+
+        }else if(come_from == "my_pkgs"){
+            p0.sdate.text = dataList[p1].PurchaseDate
+        }
+
 ////        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))
 //
         p0.mainll.setOnClickListener {
 
-            val intent = Intent(context, TestListActivity::class.java)
-            intent.putExtra("pkgid", dataList[p1].StudentTestPackageID.toString())
-            intent.putExtra("pname", dataList[p1].TestPackageName)
-            context.startActivity(intent)
+            if(come_from == "market_place") {
+
+                val intent = Intent(context, PackageDetailActivity::class.java)
+                intent.putExtra("pkgid", dataList[p1].TestPackageID)
+                intent.putExtra("tutor_id", dataList[p1].TutorID)
+                intent.putExtra("come_from", "selectpackage")
+                context.startActivity(intent)
+
+
+            }else if(come_from == "my_pkgs"){
+                val intent = Intent(context, TestListActivity::class.java)
+                intent.putExtra("pkgid", dataList[p1].StudentTestPackageID.toString())
+                intent.putExtra("pname", dataList[p1].TestPackageName)
+                context.startActivity(intent)
+            }
 
         }
 //

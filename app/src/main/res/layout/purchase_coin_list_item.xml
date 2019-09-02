@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="@dimen/normal_header_size"
+                android:textAllCaps="true"
                 android:layout_centerInParent="true"/>
 
     </RelativeLayout>

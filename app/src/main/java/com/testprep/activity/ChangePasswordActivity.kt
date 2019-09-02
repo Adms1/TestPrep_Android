@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -53,49 +54,47 @@ class ChangePasswordActivity : AppCompatActivity() {
         chngepass_btnChange.setOnClickListener {
 
             if (intent.getStringExtra("come_from") == "other") {
-                if (chngepass_etOldpass.text!!.length < 4) {
-                    chngepass_etOldpass.error = " you have to enter at least 4 digit!"
-                }
-            }
 
-            if (chngepass_etNewpass.text!!.length < 4) {
-                chngepass_etNewpass.error = " you have to enter at least 4 digit!"
-            } else if (chngepass_etconfirmpass.text!!.length < 4) {
-                chngepass_etconfirmpass.error = " you have to enter at least 4 digit!"
+                if (isValid1()) {
+                    if (isValid()) {
+                        callChangePasswordlApi()
+                    }
+                }
+
             } else {
-                if (chngepass_etNewpass.text.toString() == chngepass_etconfirmpass.text.toString()) {
+
+                if (isValid()) {
                     callChangePasswordlApi()
-                } else {
-                    chngepass_etconfirmpass.error = "Password not match"
                 }
             }
         }
 
-        chngepass_etconfirmpass.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+        chngepass_etconfirmpass.setOnEditorActionListener(
+            object : TextView.OnEditorActionListener {
 
-            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
-                if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
-                    if (intent.getStringExtra("come_from") == "other") {
-                        if (chngepass_etOldpass.text!!.length < 4) {
-                            chngepass_etOldpass.error = " you have to enter at least 4 digit!"
-                        }
-                    }
+                override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                    if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                        if (intent.getStringExtra("come_from") == "other") {
 
-                    if (chngepass_etNewpass.text!!.length < 4) {
-                        chngepass_etNewpass.error = " you have to enter at least 4 digit!"
-                    } else if (chngepass_etconfirmpass.text!!.length < 4) {
-                        chngepass_etconfirmpass.error = " you have to enter at least 4 digit!"
-                    } else {
-                        if (chngepass_etNewpass.text.toString() == chngepass_etconfirmpass.text.toString()) {
-                            callChangePasswordlApi()
+                            if (isValid1()) {
+                                if (isValid()) {
+                                    callChangePasswordlApi()
+                                }
+                            }
+
                         } else {
-                            chngepass_etconfirmpass.error = "Password not match"
+
+                            if (isValid()) {
+                                callChangePasswordlApi()
+                            }
                         }
+
                     }
+                    return false
+
                 }
-                return false
-            }
-        })
+
+            })
 
         chngepass_ivBack.setOnClickListener {
 
@@ -182,18 +181,26 @@ class ChangePasswordActivity : AppCompatActivity() {
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
                         )
 
-                        Handler().postDelayed(
-                            /* Runnable
-                                 * Showing splash screen with a timer. This will be useful when you
-                                 * want to show case your app logo / company
-                                 */
+//                        Handler().postDelayed(
+//                            /* Runnable
+//                                 * Showing splash screen with a timer. This will be useful when you
+//                                 * want to show case your app logo / company
+//                                 */
+//
+//                            {
 
-                            {
-                                val intent = Intent(this@ChangePasswordActivity, NewActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            }, 2500
-                        )
+                                if (intent.getStringExtra("come_from") == "other") {
+
+                                    finish()
+
+                                } else {
+                                    AppConstants.isFirst = 0
+                                    val intent = Intent(this@ChangePasswordActivity, LoginActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+//                            }, 2500
+//                        )
 
                     } else {
                         Toast.makeText(
@@ -212,6 +219,64 @@ class ChangePasswordActivity : AppCompatActivity() {
                 DialogUtils.dismissDialog()
             }
         })
+    }
+
+    fun isValid(): Boolean {
+
+        var isvalid = true
+
+//        if(TextUtils.isEmpty(login_etEmail.text.toString())){
+//            login_etEmail.error = "Email Address must not be null"
+//            isvalid = false
+//        }
+
+        if (TextUtils.isEmpty(chngepass_etNewpass.text.toString()) || chngepass_etNewpass.text!!.length < 6) {
+            chngepass_etNewpass.error = "you have to enter at least 6 digit!"
+            isvalid = false
+        }
+
+        if (TextUtils.isEmpty(chngepass_etconfirmpass.text.toString()) || chngepass_etconfirmpass.text!!.length < 6) {
+            chngepass_etconfirmpass.error = "you have to enter at least 6 digit!"
+            isvalid = false
+        }
+
+        if (chngepass_etNewpass.text.toString() != chngepass_etconfirmpass.text.toString()) {
+            chngepass_etconfirmpass.error = "Password does not match"
+            isvalid = false
+        }
+
+        return isvalid
+
+    }
+
+
+    fun isValid1(): Boolean {
+
+        var isvalid1 = true
+
+//        if(TextUtils.isEmpty(login_etEmail.text.toString())){
+//            login_etEmail.error = "Email Address must not be null"
+//            isvalid = false
+//        }
+
+        if (TextUtils.isEmpty(chngepass_etOldpass.text.toString()) || chngepass_etOldpass.text!!.length < 6) {
+            chngepass_etOldpass.error = "you have to enter at least 6 digit!"
+            isvalid1 = false
+        }
+
+        if (chngepass_etOldpass.text.toString() != Utils.getStringValue(
+                this@ChangePasswordActivity,
+                AppConstants.USER_PASSWORD,
+                ""
+            )!!
+        ) {
+
+            chngepass_etOldpass.error = "Old password does not matched."
+            isvalid1 = false
+        }
+
+        return isvalid1
+
     }
 
 

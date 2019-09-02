@@ -44,14 +44,16 @@ class SplashActivity : AppCompatActivity() {
                     // Start your app main activity
                     Utils.setStringValue(this@SplashActivity, "is_login", "true")
 
-                    val i = Intent(this@SplashActivity, NewActivity::class.java)
+                    val i = Intent(this@SplashActivity, DashboardActivity::class.java)
                     startActivity(i)
+
 
                 } else {
                     val i = Intent(this@SplashActivity, IntroActivity::class.java)
                     startActivity(i)
 
                 }
+                finish()
 
             }, 3000
         )

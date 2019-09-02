@@ -41,7 +41,7 @@ class SolutionAdapter(
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        if (qType == 1) {
+        if (qType == 1 || qType == 7) {
             if ("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage != "") {
 
                 Log.d("qsize", "" + qsize)
@@ -53,6 +53,10 @@ class SolutionAdapter(
 //                .fit()
 //                .centerInside()
                     .into(p0.opone1)
+            }else if (qType == 4) {
+
+            }else if(qType == 2){
+
             }
 
 //        if(dataList[p1].IsCorrectAnswer){
