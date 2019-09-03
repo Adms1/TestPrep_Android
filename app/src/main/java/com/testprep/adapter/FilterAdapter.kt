@@ -48,22 +48,24 @@ class FilterAdapter(
             "course_type" -> holder.textView.text = model.CourseTypeName
         }
 
-        if (model.isSelected) {
-//            holder.view.setBackgroundColor(cotext.resources.getColor(R.color.colorPrimaryDark))
-//            holder.img.visibility = View.VISIBLE
-            holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_right_icn))
-            holder.img.background = cotext.resources.getDrawable(R.drawable.login_btn_bg)
+        if (selectionType == "single") {
+            if (model.isSelected && raw_index == -1) {
 
-            raw_index = position
+//                holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.right_blue))
+//                holder.img.setBackgroundResource(R.drawable.gray_ring_bg)
 
-        } else {
-//            holder.view.setBackgroundColor(Color.WHITE)
-//            holder.img.visibility = View.GONE
-            holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
-            holder.img.background = cotext.resources.getDrawable(R.drawable.gray_ring_bg)
+                raw_index = position
+
+            } else {
+//                holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
+//                holder.img.setBackgroundResource(R.drawable.gray_ring_bg)
+
+
+            }
         }
 
         holder.mainll.setOnClickListener {
+
 
             str = ""
 
@@ -135,7 +137,19 @@ class FilterAdapter(
 //                holder.img.visibility = View.GONE
                 holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
                 holder.img.setBackgroundResource(R.drawable.gray_ring_bg)
-                model.isSelected = model.isSelected
+//                model.isSelected = model.isSelected
+
+            }
+
+        } else {
+            if (model.isSelected) {
+
+                holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_right_icn))
+                holder.img.background = cotext.resources.getDrawable(R.drawable.login_btn_bg)
+
+            } else {
+                holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
+                holder.img.background = cotext.resources.getDrawable(R.drawable.gray_ring_bg)
             }
         }
     }

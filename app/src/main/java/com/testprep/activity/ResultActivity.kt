@@ -52,7 +52,7 @@ class ResultActivity : AppCompatActivity() {
 //            }
 //        }
 
-        result_tvMarks.text = "Marks : " + intent.getStringExtra("marks")
+        result_tvMarks.text = "Marks : " + intent.getStringExtra("totalmarks")
 
         result_btnDashboard.setOnClickListener {
            onBackPressed()

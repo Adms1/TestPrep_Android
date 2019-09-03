@@ -149,7 +149,7 @@
                 android:textSize="@dimen/small_text_size"
                 android:layout_marginBottom="@dimen/_15sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:text="Back to Dashboard"/>
+                android:text="@string/back_to_dashboard"/>
 
 
         <TextView

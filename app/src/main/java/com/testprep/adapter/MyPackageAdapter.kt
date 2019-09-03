@@ -34,8 +34,12 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
         p0.name.text = dataList[p1].TestPackageName
         p0.short_name.text = p0.name.text.substring(0, 1)
         p0.price.text = dataList[p1].TestPackageSalePrice
-        p0.test.text = dataList[p1].NumberOfTest + " Tests"
-//
+
+        if (dataList[p1].NumberOfTest == "1") {
+            p0.test.text = dataList[p1].NumberOfTest + " Test"
+        } else {
+            p0.test.text = dataList[p1].NumberOfTest + " Tests"
+        }
 
         if(come_from == "market_place") {
             p0.sdate.text = dataList[p1].SubjectName

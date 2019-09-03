@@ -1,6 +1,5 @@
 package com.testprep.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -42,8 +41,8 @@ class MarketPlaceListActivity : AppCompatActivity() {
 //                var subIds = chooseCoarseAdapter!!.getIds()
 //
 //                if (subIds != "" && subIds != null) {
-            val mIntent = Intent(this@MarketPlaceListActivity, DashboardActivity::class.java)
-            startActivity(mIntent)
+//            val mIntent = Intent(this@MarketPlaceListActivity, DashboardActivity::class.java)
+//            startActivity(mIntent)
 //                } else {
 //                    Utils.ping(this@MarketPlaceListActivity, "Please Select Subject")
 //                }
@@ -59,8 +58,8 @@ class MarketPlaceListActivity : AppCompatActivity() {
 //                var subIds = chooseCoarseAdapter!!.getIds()
 //
 //                if (subIds != "" && subIds != null) {
-            val mIntent = Intent(this@MarketPlaceListActivity, DashboardActivity::class.java)
-            startActivity(mIntent)
+//            val mIntent = Intent(this@MarketPlaceListActivity, DashboardActivity::class.java)
+//            startActivity(mIntent)
 //                } else {
 //                    Utils.ping(this@MarketPlaceListActivity, "Please Select Subject")
 //                }

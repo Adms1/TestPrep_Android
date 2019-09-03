@@ -8,8 +8,10 @@ class AppConstants {
 //        var IMAGE_BASE_UR
 //        L = "http://103.204.192.187:7077/"
 
-        var BASE_URL = "https://testprep.testcraft.co.in/WebService.asmx/"
-        var IMAGE_BASE_URL = "https://testprep.testcraft.co.in/"
+            //        var BASE_URL = "https://testprep.testcraft.co.in/WebService.asmx/"
+            var BASE_URL = "http://webservice.testcraft.in/WebService.asmx/"
+            //        var IMAGE_BASE_URL = "https://testprep.testcraft.co.in/"
+            var IMAGE_BASE_URL = "http://webservice.testcraft.in/"
 
         var FIRST_NAME = "firstname"
         var LAST_NAME = "lastname"

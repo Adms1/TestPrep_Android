@@ -120,6 +120,12 @@ class TutorDetailActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        callFilterListApi("", "1")
+    }
+
     fun callFilterListApi(name: String, type: String) {
 
         if (!DialogUtils.isNetworkConnected(this@TutorDetailActivity)) {
@@ -205,17 +211,6 @@ class TutorDetailActivity : AppCompatActivity() {
                 DialogUtils.dismissDialog()
             }
         })
-    }
-
-    override fun onBackPressed() {
-
-        if (intent.getStringExtra("type") == "explore") {
-            finish()
-        } else {
-            val intent = Intent(this@TutorDetailActivity, DashboardActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
     }
 
     fun setFilterCount() {

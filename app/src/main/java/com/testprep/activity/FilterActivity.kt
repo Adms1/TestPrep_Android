@@ -169,7 +169,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         filter_ivBack.setOnClickListener {
 
-            onBackPressed()
+            finish()
 
         }
     }

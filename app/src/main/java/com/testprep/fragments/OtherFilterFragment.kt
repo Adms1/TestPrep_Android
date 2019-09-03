@@ -129,6 +129,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
             intent.putExtra("subid", subids)
             intent.putExtra("tutorid", tutorids)
             startActivity(intent)
+            activity!!.finish()
 
 //            callFilterListApi()
 //            callFilterListApi()

@@ -53,12 +53,7 @@ class SolutionAdapter(
 //                .fit()
 //                .centerInside()
                     .into(p0.opone1)
-            }else if (qType == 4) {
-
-            }else if(qType == 2){
-
             }
-
 //        if(dataList[p1].IsCorrectAnswer){
 //
 //                p0.opone.setImageResource(R.drawable.green_round)

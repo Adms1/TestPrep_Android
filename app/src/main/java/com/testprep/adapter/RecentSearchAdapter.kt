@@ -8,11 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
-import com.testprep.activity.DashboardActivity
 import com.testprep.activity.TutorDetailActivity
-import kotlinx.android.synthetic.main.fragment_explore.*
 
-class RecentSearchAdapter(val context: Context, val dataList: ArrayList<String>) :
+class RecentSearchAdapter(val context: Context, val dataList: List<String>) :
     RecyclerView.Adapter<RecentSearchAdapter.viewholder>() {
 
     var row_index = -1

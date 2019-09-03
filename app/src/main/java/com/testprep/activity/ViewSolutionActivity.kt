@@ -112,18 +112,12 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.setCanceledOnTouchOutside(false)
 
-//            var hintHeader: TextView = dialog.findViewById(R.id.dialog_hint_tvHint)
             val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
-//            val hintExplanation: TextView = dialog.findViewById(R.id.dialog_hint_tvExplanation)
-//            val explanationWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvExplanation)
-//            val line1: View = dialog.findViewById(R.id.dialog_hint_viewLine1)
+
             val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
 
             hintWebview.settings.javaScriptEnabled = true
             hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
-
-//            ex.settings.javaScriptEnabled = true
-//            hintWebview.loadDataWithBaseURL("", explanationData, "text/html", "UTF-8", "")
 
             closeBtn.setOnClickListener { dialog.dismiss() }
 
@@ -135,18 +129,6 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         solution_expQueList.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
 
             grppos1 = groupPosition
-
-//            var imageViewAdapter = ImageViewAdapter1(
-//                this@ViewSolutionActivity,
-//                groupPosition,
-//                NewTabQuestionActivity.finalArr,
-//                NewTabQuestionActivity.sectionList!!,
-//                NewTabQuestionActivity.filterTypeSelectionInteface!!,
-//                NewTabQuestionActivity.finalArr[NewTabQuestionActivity.sectionList!![groupPosition]]!!,
-//                "solution"
-//            )
-//
-//            imageViewAdapter.notifyDataSetChanged()
 
             false
 
@@ -186,35 +168,9 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 //                explanationData = movies[0].TestQuestion[0].Explanation
 
                 if (movies.size > 0) {
-//                    sectionList!!.add("Section 1")
-//                    for (i in 0 until movies.size) {
-//                        val questionTypeModel = QuestionTypeModel()
-//                        questionTypeModel.qnumber = i
-//
-////                        for (j in 0 until movies[i].StudentTestAnswerMCQ.size) {
-////                            if (movies[i].StudentTestAnswerMCQ[j].IsCorrectAnswer && movies[i].StudentTestAnswerMCQ[j].StudentAnswer) {
-////                                questionTypeModel.type = 2
-////                                break
-////                            } else {
-////                                questionTypeModel.type = 3
-////                            }
-//
-//                        when {
-//                            movies[i].QuestionAns == "1" -> questionTypeModel.type = 2
-//                            movies[i].QuestionAns == "0" -> questionTypeModel.type = 3
-//                            else -> questionTypeModel.type = 5
-//                        }
-////                        }
-//
-//                        sectionList1!!.add(questionTypeModel)
-//
-//                    }
 
                     Log.d("header", "" + sectionList)
                     Log.d("child", "" + childList)
-
-//                    solution_expQueList.layoutManager =
-//                        LinearLayoutManager(this@ViewSolutionActivity, LinearLayoutManager.VERTICAL, false)
 
                     Log.d("qid", "" + movies[0].SectionID)
 
@@ -224,14 +180,6 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                         ansmodel.ansid = movies[i].SectionName
                         sectionList!!.add(movies[i].SectionName)
                     }
-
-//                    sectionList!!.add("Section 1")
-//                    sectionList!!.add("Section 2")
-//                    sectionList!!.add("Section 3")
-//                    sectionList!!.add("Section 4")
-
-//                    queTab_expQueList.layoutManager =
-//                        LinearLayoutManager(this@NewTabQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
                     if ("http://content.testcraft.co.in/question/" + movies[0].TestQuestion[0].QuestionImage != "") {
 
@@ -305,18 +253,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                         solution_tvFillBlanks.visibility = View.GONE
                         ansList!!.visibility = View.GONE
 
-                        when {
-                            movies[0].TestQuestion[0].CorrectAnswer != "True" -> {
-                                solution_rbTrue.setImageResource(R.drawable.wrong)
-                            }
-                            movies[0].TestQuestion[0].CorrectAnswer != "False" -> {
-                                solution_rbFalse.setImageResource(R.drawable.wrong)
-                            }
-                            else -> {
-                                solution_rbTrue.setImageResource(R.drawable.grey_round)
-                                solution_rbFalse.setImageResource(R.drawable.grey_round)
-                            }
-                        }
+                        setTrueFalse(0, 0)
 
                     } else if (movies[0].TestQuestion[0].QuestionTypeID == 7) {
                         ansList!!.layoutManager =
@@ -327,7 +264,6 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                             movies[0].TestQuestion[0].StudentTestQuestionMCQ,
                             solution_page_img_que_img.width, 7
                         )
-
                     }
 
                 }
@@ -376,18 +312,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 solution_tvFillBlanks.visibility = View.GONE
                 ansList!!.visibility = View.GONE
 
-                when {
-                    movies[p00].TestQuestion[p0].CorrectAnswer != "True" -> {
-                        solution_rbTrue.setImageResource(R.drawable.wrong)
-                    }
-                    movies[p00].TestQuestion[p0].CorrectAnswer != "False" -> {
-                        solution_rbFalse.setImageResource(R.drawable.wrong)
-                    }
-                    else -> {
-                        solution_rbTrue.setImageResource(R.drawable.grey_round)
-                        solution_rbFalse.setImageResource(R.drawable.grey_round)
-                    }
-                }
+                setTrueFalse(p00, p0)
 
             } else if (movies[p00].TestQuestion[p0].QuestionTypeID == 7) {
                 ansList!!.layoutManager =
@@ -422,8 +347,6 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         }
 
         Log.d("que_number", "" + AppConstants.QUE_NUMBER1)
-
-//        setSideMenu1(1)
     }
 
     companion object {
@@ -437,31 +360,41 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         var finalArr: HashMap<String, ArrayList<QuestionTypeModel>> = HashMap()
         var grppos1 = 0
 
-        fun setSideMenu1(type: Int) {
-            for (i in 0 until finalArr[sectionList!![grppos1]]!!.size) {
-                if (finalArr[sectionList!![grppos1]]!![i].qnumber == AppConstants.QUE_NUMBER1) {
-                    finalArr[sectionList!![grppos1]]!![i].type = type
+    }
 
+    fun setTrueFalse(gr: Int, ch: Int) {
+
+        if (movies[gr].TestQuestion[ch].Answer != "") {
+
+            if (movies[gr].TestQuestion[ch].CorrectAnswer.equals("true", true)) {
+                if (movies[gr].TestQuestion[ch].Answer == "1") {
+                    solution_rbTrue.setImageResource(R.drawable.wrong)
+                    solution_rbFalse.setImageResource(R.drawable.grey_round)
                 } else {
-                    finalArr[sectionList!![grppos1]]!![i].type = 1
+                    solution_rbTrue.setImageResource(R.drawable.wrong)
+                    solution_rbFalse.setImageResource(R.drawable.correct)
                 }
-//
+            } else {
+                if (movies[gr].TestQuestion[ch].Answer == "1") {
+                    solution_rbTrue.setImageResource(R.drawable.correct)
+                    solution_rbFalse.setImageResource(R.drawable.wrong)
+                } else {
+                    solution_rbTrue.setImageResource(R.drawable.grey_round)
+                    solution_rbFalse.setImageResource(R.drawable.wrong)
+                }
             }
 
-            sideList!!.setAdapter(
-                SoutionSideMenuAdapter(
-                    context!!,
-                    sectionList!!,
-                    finalArr,
-                    filterTypeSelectionInteface!!,
-                    "solution"
-                )
-            )
-
-            Log.d("grpos", "" + grppos1)
-
+        } else {
+            if (movies[gr].TestQuestion[ch].CorrectAnswer.equals("true", true)) {
+                solution_rbTrue.setImageResource(R.drawable.wrong)
+                solution_rbFalse.setImageResource(R.drawable.grey_round)
+            } else {
+                solution_rbTrue.setImageResource(R.drawable.grey_round)
+                solution_rbFalse.setImageResource(R.drawable.wrong)
+            }
         }
 
     }
+
 
 }

@@ -25,12 +25,7 @@ import android.widget.*
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testprep.R
-import com.testprep.activity.DashboardActivity
 import com.testprep.activity.ResultActivity
-import com.testprep.activity.ViewSolutionActivity.Companion.context
-import com.testprep.activity.ViewSolutionActivity.Companion.filterTypeSelectionInteface
-import com.testprep.activity.ViewSolutionActivity.Companion.finalArr
-import com.testprep.activity.ViewSolutionActivity.Companion.sectionList
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.AnswerModel
 import com.testprep.models.QuestionTypeModel
@@ -61,6 +56,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
     var testid = ""
     var studenttestid = ""
+    var testtime = ""
 
     var newSideMenuAdapter: NewSideMenuAdapter? = null
     internal var mDrawerToggle: ActionBarDrawerToggle? = null
@@ -79,6 +75,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         setContentView(R.layout.activity_tabwise_question)
 
         testid = intent.getStringExtra("testid")
+        testtime = intent.getStringExtra("testtime")
         studenttestid = intent.getStringExtra("studenttestid")
 
         queTab_header.text = intent.getStringExtra("testname")
@@ -269,10 +266,19 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             when {
                 queTab_btnNext.text == "Next" -> {
 
-                    if((finalArr.size-1) == q_grppos1){
-                        if((finalArr[sectionList!![q_grppos1]]!!.size-1) == AppConstants.QUE_NUMBER) {
-                            queTab_btnNext.text = "Submit"
+                    if ((finalArr.size - 1) == q_grppos1) {
+                        if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == AppConstants.QUE_NUMBER) {
+                            queTab_btnNext.text = "Submit Test"
                         }
+                    }
+
+                    if ((finalArr.size - 1) > q_grppos1) {
+
+                        if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == AppConstants.QUE_NUMBER) {
+                            q_grppos1 += 1
+                            AppConstants.QUE_NUMBER = 0
+                        }
+
                     }
 
                     for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
@@ -281,16 +287,25 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         }
                     }
 
-        //                setSideMenu(2)
+                    //                setSideMenu(2)
                     getNextQuestion("activity")
 
                 }
                 queTab_btnNext.text == "Skip" -> {
 
-                    if((finalArr.size-1) == q_grppos1){
-                        if((finalArr[sectionList!![q_grppos1]]!!.size-1) == AppConstants.QUE_NUMBER) {
-                            queTab_btnNext.text = "Submit"
+                    if ((finalArr.size - 1) == q_grppos1) {
+                        if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == AppConstants.QUE_NUMBER) {
+                            queTab_btnNext.text = "Submit Test"
                         }
+                    }
+
+                    if ((finalArr.size - 1) > q_grppos1) {
+
+                        if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == AppConstants.QUE_NUMBER) {
+                            q_grppos1 += 1
+                            AppConstants.QUE_NUMBER = 0
+                        }
+
                     }
 
                     for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
@@ -299,11 +314,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         }
                     }
 
-        //                setSideMenu(3)
+                    //                setSideMenu(3)
                     getNextQuestion("skip")
 
                 }
-                queTab_btnNext.text == "Submit" -> {
+                queTab_btnNext.text == "Submit Test" -> {
                     DialogUtils.createConfirmDialog(
                         this@NewTabQuestionActivity,
                         "Done?",
@@ -395,7 +410,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 if (response.body()!!.Status == "true") {
 
-                    setCountdown(30 * 60 * 1000)
+                    setCountdown(testtime.toLong() * 60 * 1000)
 
                     movies = response.body()!!.data
 
@@ -403,12 +418,16 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
 //                    qno.text = "Q." + (countt+1)
 
-                    queTab_tvTotal.text = "1/${movies.size}"
-
-                    hintData =
-                        "<html><body style='background-color:clear;'><p align=center><font size=4><b>" + "Hint" + "</b></font></p><p><font size=2>" + movies[0].TestQuestion[0].Hint + "</font></p></body></html>"
-
                     if (movies.size > 0) {
+
+                        queTab_tvTotal.text = "1/${movies.size}"
+
+                        queTab_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
+
+                        hintData =
+                            "<html><body style='background-color:clear;'><p align=center><font size=4><b>" + "Hint" + "</b></font></p><p><font size=2>" + movies[0].TestQuestion[0].Hint + "</font></p></body></html>"
+
+
 
                         Log.d("qid", "" + movies[0].SectionID)
 
@@ -681,9 +700,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                     val intent = Intent(this@NewTabQuestionActivity, ResultActivity::class.java)
                     intent.putExtra("testid", testid)
+
                     intent.putExtra(
                         "marks",
-                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Correct").asString + "/" + response.body()!!.get(
+                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TotalGetMarks").asString
+                    )
+                    intent.putExtra(
+                        "totalmarks",
+                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TotalGetMarks").asString + "/" + response.body()!!.get(
                             "data"
                         ).asJsonArray[0].asJsonObject.get("TotalMarks").asString
                     )
@@ -751,6 +775,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                    }
 
                     queTab_tvTotal.text = """${p0 + 1}/${movies.size}"""
+
+                    queTab_tvQMarks.text = "Marks : " + movies[p0].TestQuestion[p1].Marks
 
                     if ("http://content.testcraft.co.in/question/" + movies[p0].TestQuestion[p1].QuestionImage != "") {
 
@@ -896,7 +922,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         if (itype == "activity") {
 
-            movies[p00].TestQuestion[p1-1].Answer = answer
+            movies[p00].TestQuestion[p1 - 1].Answer = answer
 
             queTab_rbTrue.isChecked = false
             queTab_rbFalse.isChecked = false
@@ -915,6 +941,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //            queTab_btnNext.visibility = View.VISIBLE
 
             queTab_tvTotal.text = """${0 + 1}/${movies.size}"""
+
+            queTab_tvQMarks.text = "Marks : " + movies[p00].TestQuestion[p1].Marks
 
             if ("http://content.testcraft.co.in/question/" + movies[p00].TestQuestion[p1].QuestionImage != "") {
 

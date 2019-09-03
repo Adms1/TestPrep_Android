@@ -39,11 +39,8 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
     }
 
     override fun getItemCount(): Int {
-        return if (dataList != null && dataList.size > 0) {
-            dataList.size
-        } else {
-            5
-        }
+        return dataList.size
+
     }
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
