@@ -93,11 +93,13 @@ class PackageDetailActivity : AppCompatActivity() {
 
 //            if (isVersionCodeUpdated) {
 
-                        if(!purchaseCoin.equals("free", true)) {
-                            chargeBtnLogic()
-                        }else{
-                            callAddTestPackageApi(intent.getStringExtra("pkgid"))
-                        }
+//                        if(!purchaseCoin.equals("free", true)) {
+
+                        callAddToCart(intent.getStringExtra("pkgid"))
+
+//                        }else{
+//                            callAddTestPackageApi(intent.getStringExtra("pkgid"))
+//                        }
 
 //            } else {
 //                Utils.openVersionDialogCharge(this@CoinActivity)
@@ -434,5 +436,199 @@ class PackageDetailActivity : AppCompatActivity() {
         })
     }
 
+    //    {"Status":"true","data":"24","Msg":"Package added into cart"}
+    fun callAddToCart(pkgid: String) {
+
+        if (!DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
+            Utils.ping(this@PackageDetailActivity, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(this@PackageDetailActivity)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.addToCart(
+            Utils.getStringValue(this@PackageDetailActivity, AppConstants.USER_ID, "0")!!,
+            pkgid
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+//                        fragmentManager!!.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
+
+                        callCheckout()
+
+                    } else {
+
+                        DialogUtils.dismissDialog()
+
+                        Toast.makeText(
+                            this@PackageDetailActivity,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+    //    {"Status":"true","data":[{"PaymentTransactionID":92,"OrderID":"TP190905112816426","PaymentAmount":"100"}],"Msg":"Generate New payment Order ID "}
+    fun callCheckout() {
+
+        if (!DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
+            Utils.ping(this@PackageDetailActivity, "Connetion not available")
+        }
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.checkout(
+            Utils.getStringValue(this@PackageDetailActivity, AppConstants.USER_ID, "0")!!
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        if (!response.body()!!["data"].asJsonArray[0].asJsonObject["PaymentAmount"].asString.equals(
+                                "0",
+                                true
+                            )
+                        ) {
+
+                            Log.v(
+                                "order_id: ",
+                                "" + response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
+                            )
+
+                            val intent = Intent(this@PackageDetailActivity, TraknpayRequestActivity::class.java)
+                            intent.putExtra(
+                                "order_id",
+                                response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
+                            )
+                            intent.putExtra(
+                                "amount",
+                                response.body()!!["data"].asJsonArray[0].asJsonObject["PaymentAmount"].asString
+                            )
+                            intent.putExtra("pkgid", pkgid)
+                            intent.putExtra("pkgname", package_detail_tvPname.text.toString())
+                            intent.putExtra("pkgprice", purchaseCoin)
+                            startActivity(intent)
+                            finish()
+
+                        } else {
+                            updatePaymentStatus(
+                                "Success",
+                                response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
+                            )
+                        }
+
+                    } else {
+
+                        Toast.makeText(
+                            this@PackageDetailActivity,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+    fun updatePaymentStatus(transaction_status: String, order_id: String) {
+        if (!DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
+            Utils.ping(this@PackageDetailActivity, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(this@PackageDetailActivity)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.updatePaymentStatus(
+            WebRequests.getPaymentStatusParams(
+                Utils.getStringValue(this@PackageDetailActivity, AppConstants.USER_ID, "")!!,
+                order_id,
+                "0",
+                transaction_status
+            )
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        if (transaction_status == "Success") {
+//                            Handler().postDelayed(
+//
+//                                /* Runnable
+//                                 * Showing splash screen with a timer. This will be useful when you
+//                                 * want to show case your app logo / company
+//                                 */
+//
+//                                {
+//                                    // This method will be executed once the timer is over
+//                                    // Start your app main activity
+////                                    val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
+////                                    startActivity(intent)
+////                                    overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
+//
+//                                    // close this activity
+////                                    finish()
+//                                    onBackPressed()
+//                                }, 1500
+
+
+//                            )
+
+//                            callAddTestPackageApi()
+
+
+                        }
+
+                    } else {
+                        Toast.makeText(this@PackageDetailActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
+                            .show()
+
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+
+    }
 
 }

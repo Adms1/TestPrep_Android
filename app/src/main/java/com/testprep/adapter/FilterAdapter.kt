@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.testprep.R
 import com.testprep.interfaces.filterInterface
 import com.testprep.models.PackageData
+import com.testprep.utils.AppConstants
 
 class FilterAdapter(
     var cotext: Context,
@@ -113,12 +114,46 @@ class FilterAdapter(
 //                holder.view.setBackgroundColor(cotext.resources.getColor(R.color.colorPrimaryDark))
 //                    holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.right_white_bg))
 //                    holder.img.visibility = View.VISIBLE
+
+//                    for (i in 0 until mModelList.size) {
+//                        when (filterType) {
+//                            "exam" -> {
+//                                AppConstants.FILTER_BOARD_ID =
+//                                    AppConstants.FILTER_BOARD_ID + "," + mModelList[position].isSelected
+//                            }
+//                            "subject" -> {
+//                                AppConstants.FILTER_SUBJECT_ID =
+//                                    AppConstants.FILTER_SUBJECT_ID + "," + mModelList[position].SubjectID
+//                            }
+//                            "tutor" -> {
+//                                AppConstants.FILTER_TUTOR_ID =
+//                                    AppConstants.FILTER_TUTOR_ID + "," + mModelList[position].TutorID
+//                            }
+//                        }
+//                    }
+
                     filterInterface.filterData(filterType)
 
                 } else {
 //                holder.view.setBackgroundColor(Color.WHITE)
 //                    holder.img.visibility = View.GONE
 //                    holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
+
+                    when (filterType) {
+                        "exam" -> {
+                            AppConstants.FILTER_BOARD_ID =
+                                AppConstants.FILTER_BOARD_ID + "," + mModelList[position].CourseID
+                        }
+                        "subject" -> {
+                            AppConstants.FILTER_SUBJECT_ID =
+                                AppConstants.FILTER_SUBJECT_ID + "," + mModelList[position].SubjectID
+                        }
+                        "tutor" -> {
+                            AppConstants.FILTER_TUTOR_ID =
+                                AppConstants.FILTER_TUTOR_ID + "," + mModelList[position].TutorID
+                        }
+                    }
+
                     filterInterface.filterData(filterType)
                 }
                 notifyDataSetChanged()

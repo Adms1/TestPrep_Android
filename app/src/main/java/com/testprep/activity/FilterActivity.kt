@@ -39,43 +39,40 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         filter_rvList.layoutManager = LinearLayoutManager(this@FilterActivity, LinearLayoutManager.VERTICAL, false)
 
-//        filterTypeArr.add("Standards")
-//        filterTypeArr.add("Subjects")
-//        filterTypeArr.add("Popular")
-//        filterTypeArr.add("Price")
-//        filterTypeArr.add("Reviews & Ratings")
-//        filterTypeArr.add("discount")
-//        filterTypeArr.add("Promoted")
+        if (Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, "") == "1") {
+            filter_rbBoards.isChecked = true
 
-        val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Boards")
-        pp1.isSelected = false
-        filterTypeArr.add(pp1)
+            val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Boards")
+            pp1.isSelected = false
+            filterTypeArr.add(pp1)
+
+        } else {
+            filter_rbCompetitive.isChecked = true
+
+            val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Competitive Exams")
+            pp1.isSelected = false
+            filterTypeArr.add(pp1)
+        }
 
         val pp2: PackageData.PackageDataList = PackageData.PackageDataList(0, "Standard")
-        pp1.isSelected = false
+        pp2.isSelected = false
         filterTypeArr.add(pp2)
 
         val pp3: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")
-        pp1.isSelected = false
+        pp3.isSelected = false
         filterTypeArr.add(pp3)
 
         val pp4: PackageData.PackageDataList = PackageData.PackageDataList(0, "Tutor")
-        pp1.isSelected = false
+        pp4.isSelected = false
         filterTypeArr.add(pp4)
 
-//        val pp5: PackageData.PackageDataList = PackageData.PackageDataList(0, "Price")
-//        pp1.isSelected = false
-//        filterTypeArr.add(pp5)
+        val pp5: PackageData.PackageDataList = PackageData.PackageDataList(0, "Price")
+        pp5.isSelected = false
+        filterTypeArr.add(pp5)
 
         filterAdapter = FilterListAdapter(this@FilterActivity, filterTypeArr, filterTypeSelectionInteface!!)
         filter_rvList.adapter = filterAdapter
         filterAdapter!!.notifyDataSetChanged()
-
-        if (Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, "") == "1") {
-            filter_rbBoards.isChecked = true
-        } else {
-            filter_rbCompetitive.isChecked = true
-        }
 
         getType("adapter", 0, 0)
 
@@ -94,19 +91,19 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 filterTypeArr.add(pp1)
 
                 val pp2: PackageData.PackageDataList = PackageData.PackageDataList(0, "Standard")
-                pp1.isSelected = false
+                pp2.isSelected = false
                 filterTypeArr.add(pp2)
 
                 val pp3: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")
-                pp1.isSelected = false
+                pp3.isSelected = false
                 filterTypeArr.add(pp3)
 
                 val pp4: PackageData.PackageDataList = PackageData.PackageDataList(0, "Tutor")
-                pp1.isSelected = false
+                pp4.isSelected = false
                 filterTypeArr.add(pp4)
 
                 val pp5: PackageData.PackageDataList = PackageData.PackageDataList(0, "Price")
-                pp1.isSelected = false
+                pp5.isSelected = false
                 filterTypeArr.add(pp5)
 
 
@@ -134,15 +131,15 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 filterTypeArr.add(pp1)
 
                 val pp3: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")
-                pp1.isSelected = false
+                pp3.isSelected = false
                 filterTypeArr.add(pp3)
 
                 val pp4: PackageData.PackageDataList = PackageData.PackageDataList(0, "Tutor")
-                pp1.isSelected = false
+                pp4.isSelected = false
                 filterTypeArr.add(pp4)
 
                 val pp5: PackageData.PackageDataList = PackageData.PackageDataList(0, "Price")
-                pp1.isSelected = false
+                pp5.isSelected = false
                 filterTypeArr.add(pp5)
 
                 filterAdapter = FilterListAdapter(this@FilterActivity, filterTypeArr, filterTypeSelectionInteface!!)
@@ -159,13 +156,6 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
             }
 
         }
-
-//        var fragment = OtherFilterFragment()
-//        val bundle = Bundle()
-//        bundle.putString("type", "boards")
-//        bundle.putString("coursetype", coursetypeid)
-//        fragment.arguments = bundle
-//        supportFragmentManager.beginTransaction().add(R.id.filter_container, fragment).commit()
 
         filter_ivBack.setOnClickListener {
 
@@ -227,57 +217,21 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
             }
 
-            filterTypeArr[p1].TestPackageName == "Price" -> supportFragmentManager.beginTransaction().add(
+            filterTypeArr[p1].TestPackageName == "Price" -> {
+
+                bundle.putString("type", "price")
+                fragment.arguments = bundle
+
+                supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
+            }
+
+
+            filterTypeArr[p1].TestPackageName == "Price1" -> supportFragmentManager.beginTransaction().add(
                 R.id.filter_container,
                 PriceFilterFragment()
             ).commit()
         }
     }
-
-//    fun callCourseListApi(): ArrayList<FilterModel.FilterData> {
-//
-//        var filterArray: ArrayList<FilterModel.FilterData> = ArrayList()
-//
-//        if (!DialogUtils.isNetworkConnected(activity!!)) {
-//            Utils.ping(activity!!, "Connetion not available")
-//        }
-//
-//        DialogUtils.showDialog(activity!!)
-//        val apiService = WebClient.getClient().create(WebInterface::class.java)
-//
-//        val call = apiService.getCourseList()
-//        call.enqueue(object : Callback<FilterModel> {
-//            override fun onResponse(call: Call<FilterModel>, response: Response<FilterModel>) {
-//
-//                if (response.body() != null) {
-//
-//                    DialogUtils.dismissDialog()
-//
-//                    if (response.body()!!.Status == "true") {
-//
-//                        filterArray = response.body()!!.data
-//
-//                        recyclerviewAdapter = FilterAdapter(activity!!, filterArray, "multiple", "course_type", filterInterface!!)
-//                        filterData_rvList.adapter = recyclerviewAdapter
-////                        filterArray!!.add("Boards")
-////                        filterArray!!.add("Competitve Exams")
-//
-//                    } else {
-//
-//                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<FilterModel>, t: Throwable) {
-//                // Log error here since request failed
-//                Log.e("", t.toString())
-//                DialogUtils.dismissDialog()
-//            }
-//        })
-//
-//        return filterArray
-//    }
 
     override fun onBackPressed() {
         super.onBackPressed()

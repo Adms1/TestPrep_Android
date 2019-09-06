@@ -46,13 +46,13 @@ class PriceFilterFragment : Fragment() {
             ) {
                 if (thumbIndex == 0) {
 
-                    Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, value.toString())
+//                    Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, value.toString())
                     price_filter_etMin.setText("₹ " + value.toString())
 
                 } else {
 
                     Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, value.toString())
-                    price_filter_etMax.setText("₹ " + value.toString())
+//                    price_filter_etMax.setText("₹ " + value.toString())
                 }
             }
         })

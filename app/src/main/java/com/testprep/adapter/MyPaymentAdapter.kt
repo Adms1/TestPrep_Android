@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
 import com.testprep.activity.TraknpayRequestActivity
+import com.testprep.activity.ViewInvoiceActivity
 import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
@@ -22,6 +23,7 @@ import com.testprep.utils.WebRequests
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
     RecyclerView.Adapter<MyPaymentAdapter.viewholder>() {
@@ -49,6 +51,13 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
         p0.id.text = "Transaction ID : " + dataList[p1].ExternalTransactionID
         p0.status.text = dataList[p1].ExternalTransactionStatus
         p0.amount.text = "₹" + dataList[p1].PaymentAmount.toString()
+
+        p0.invoice.setOnClickListener {
+
+            val intent = Intent(context, ViewInvoiceActivity::class.java)
+            intent.putExtra("invoice_id", dataList[p1].InvoiceID)
+            context.startActivity(intent)
+        }
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -57,6 +66,7 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
         var id: TextView = itemView.findViewById(R.id.item_my_payment_id)
         var status: TextView = itemView.findViewById(R.id.item_my_payment_status)
         var amount: TextView = itemView.findViewById(R.id.item_my_payment_amount)
+        var invoice: TextView = itemView.findViewById(R.id.item_my_payment_invoice)
     }
 
     fun generateTrackNPayRequest(coin: String, trans_id: String) {

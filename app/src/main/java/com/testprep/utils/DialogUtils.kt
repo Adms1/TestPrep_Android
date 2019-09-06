@@ -76,7 +76,7 @@ class DialogUtils {
             }
         }
 
-        fun createConfirmDialog(
+        fun createConfirmDialog1(
             context: Activity,
             positiveBtnTxt: String,
             titleId: String,
@@ -87,6 +87,8 @@ class DialogUtils {
             //        builder.setMessage(messageId);
             // builder.setView(view);
             builder.setPositiveButton(positiveBtnTxt, positiveClickListener)
+
+            builder.setCancelable(false)
 
             return builder.create()
         }

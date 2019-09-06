@@ -126,4 +126,19 @@
             android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@+id/tutor_detail_header"/>
 
+    <TextView
+            android:id="@+id/tutor_packages_tvdatanotfound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No matching packages were found."
+            android:textColor="@color/red"
+            android:textSize="@dimen/_16sdp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="center"
+            android:padding="@dimen/_25sdp"
+            android:layout_centerInParent="true"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

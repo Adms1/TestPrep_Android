@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.testprep.R
 import com.testprep.activity.TutorDetailActivity
 import com.testprep.adapter.FilterAdapter
 import com.testprep.interfaces.filterInterface
@@ -21,10 +20,12 @@ import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
+import io.apptik.widget.MultiSlider
 import kotlinx.android.synthetic.main.fragment_other_filter.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,7 +62,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
         filter_type = arguments!!.getString("type")
         coursetypeid = arguments!!.getString("coursetype")
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_other_filter, container, false)
+        return inflater.inflate(com.testprep.R.layout.fragment_other_filter, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,6 +71,12 @@ class OtherFilterFragment : Fragment(), filterInterface {
         filterInterface = this
 
         filterData_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+//        price_filter_etMin.setText(Utils.getStringValue(activity!!, AppConstants.MIN_PRICE, "0"))
+//        price_filter_etMax.setText(Utils.getStringValue(activity!!, AppConstants.MAX_PRICE, "0"))
+
+        Log.d("min_price", "" + Utils.getStringValue(activity!!, AppConstants.MIN_PRICE, "0"))
+        Log.d("max_price", "" + Utils.getStringValue(activity!!, AppConstants.MAX_PRICE, "0"))
 
         examids = if (AppConstants.FILTER_BOARD_ID == "111") {
             Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
@@ -95,7 +102,32 @@ class OtherFilterFragment : Fragment(), filterInterface {
             AppConstants.FILTER_TUTOR_ID
         }
 
+//        price_filter_range_slider.min = Utils.getStringValue(activity!!, AppConstants.MIN_PRICE, "0")!!.toInt()
+//        price_filter_range_slider.max = Utils.getStringValue(activity!!, AppConstants.MAX_PRICE, "0")!!.toInt()
+
+        price_filter_range_slider.setOnThumbValueChangeListener(object : MultiSlider.SimpleChangeListener() {
+            override fun onValueChanged(
+                multiSlider: MultiSlider?,
+                thumb: MultiSlider.Thumb?,
+                thumbIndex: Int,
+                value: Int
+            ) {
+                if (thumbIndex == 0) {
+
+                    price_filter_etMin.setText(value.toString())
+
+                } else {
+
+                    price_filter_etMax.setText(value.toString())
+
+                }
+            }
+        })
+
         filter_btnApply.setOnClickListener {
+
+            Log.d("min_price", "" + Utils.getStringValue(activity!!, AppConstants.MIN_PRICE, "0"))
+            Log.d("max_price", "" + Utils.getStringValue(activity!!, AppConstants.MAX_PRICE, "0"))
 
             if (stdids != "") {
                 AppConstants.FILTER_STANDARD_ID = stdids
@@ -122,13 +154,16 @@ class OtherFilterFragment : Fragment(), filterInterface {
             }
 
             val intent = Intent(context, TutorDetailActivity::class.java)
-            intent.putExtra("type", "pkg")
+            intent.putExtra("type", "filter")
             intent.putExtra("pname", "Packages")
-            intent.putExtra("boardid", examids)
-            intent.putExtra("stdid", stdids)
-            intent.putExtra("subid", subids)
-            intent.putExtra("tutorid", tutorids)
-            startActivity(intent)
+            intent.putExtra("boardid", AppConstants.FILTER_BOARD_ID)
+            intent.putExtra("stdid", AppConstants.FILTER_STANDARD_ID)
+            intent.putExtra("subid", AppConstants.FILTER_SUBJECT_ID)
+            intent.putExtra("tutorid", AppConstants.FILTER_TUTOR_ID)
+            intent.putExtra("minprice", price_filter_etMin.text.toString())
+            intent.putExtra("maxprice", price_filter_etMax.text.toString())
+
+            activity!!.setResult(101, intent)
             activity!!.finish()
 
 //            callFilterListApi()
@@ -145,28 +180,47 @@ class OtherFilterFragment : Fragment(), filterInterface {
 //            }
             "boards" -> {
 
+                filterData_rvList.visibility = View.VISIBLE
+                price_ll.visibility = View.GONE
+
                 callExamListApi("1")
 
             }
             "competitive_exams" -> {
+
+                filterData_rvList.visibility = View.VISIBLE
+                price_ll.visibility = View.GONE
 
                 callExamListApi("2")
 
             }
             "standards" -> {
 
+                filterData_rvList.visibility = View.VISIBLE
+                price_ll.visibility = View.GONE
+
                 callStandardListApi()
 
             }
             "tutor" -> {
+
+                filterData_rvList.visibility = View.VISIBLE
+                price_ll.visibility = View.GONE
 
                 callTutorListApi()
 
             }
             "subjects" -> {
 
+                filterData_rvList.visibility = View.VISIBLE
+                price_ll.visibility = View.GONE
+
                 callSubjectListApi()
 
+            }
+            "price" -> {
+                filterData_rvList.visibility = View.GONE
+                price_ll.visibility = View.VISIBLE
             }
         }
     }
@@ -433,6 +487,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                     stdids = finalFilerArray
                 }
 
+                AppConstants.FILTER_STANDARD_ID = stdids
                 Log.d("stdid", "" + stdids)
 
             }
@@ -454,6 +509,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 if (subids != "") {
                     subids = subids.substring(0, subids.length - 1)
                 }
+
+                AppConstants.FILTER_SUBJECT_ID = subids
                 Log.d("subids", "" + subids)
 
             }
@@ -475,6 +532,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 if (tutorids != "") {
                     tutorids = tutorids.substring(0, tutorids.length - 1)
                 }
+
+                AppConstants.FILTER_TUTOR_ID = tutorids
                 Log.d("tutorids", "" + tutorids)
 
             }
@@ -496,6 +555,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 if (examids != "") {
                     examids = examids.substring(0, examids.length - 1)
                 }
+
+                AppConstants.FILTER_BOARD_ID = examids
                 Log.d("examids", "" + examids)
             }
         }
@@ -563,8 +624,9 @@ class OtherFilterFragment : Fragment(), filterInterface {
                         intent.putExtra("type", "pkg")
                         intent.putExtra("pname", "Packages")
                         intent.putExtra("parr", mDataList)
-                        startActivity(intent)
+                        activity!!.setResult(101, intent)
                         activity!!.finish()
+
 
                     } else {
 

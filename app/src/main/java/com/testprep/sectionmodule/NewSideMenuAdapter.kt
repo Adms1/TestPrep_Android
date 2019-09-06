@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.testprep.R
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.QuestionTypeModel
+import com.testprep.sectionmodule.NewTabQuestionActivity.Companion.curr_index
 import com.testprep.sectionmodule.NewTabQuestionActivity.Companion.q_grppos1
 import com.testprep.utils.AppConstants
 import java.util.*
@@ -155,7 +156,7 @@ class ImageViewAdapter(
 //                finalArr[header[grpPos]]!![p1].type = 1
 
             AppConstants.QUE_NUMBER = p1
-
+            curr_index = p1
 //            } else {
 //
 //                AppConstants.QUE_NUMBER1 = p1
@@ -209,7 +210,7 @@ class ImageViewAdapter(
         }
 
         if (come_from1 == "question") {
-            if (q_grppos1 == grpPos && AppConstants.QUE_NUMBER == p1) {
+            if (q_grppos1 == grpPos && curr_index == p1) {
 
                 p0.childheader.setTextColor(context.resources.getColor(R.color.white))
                 p0.childheader.setBackgroundResource(R.drawable.blue_round)

@@ -36,6 +36,7 @@ class MyPackagesFragment : AppCompatActivity() {
 
     private var packageSize: ArrayList<Int> = ArrayList()
     private var subid = 0
+    private var iscompetitive = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -58,6 +59,14 @@ class MyPackagesFragment : AppCompatActivity() {
         }
 
         subid = intent.getIntExtra("sub_id", 0)
+
+        if (intent.hasExtra("isCompetitive")) {
+            iscompetitive = if (intent.getBooleanExtra("isCompetitive", false)) {
+                "1"
+            } else {
+                "0"
+            }
+        }
 
         my_packages_ivBack.setOnClickListener { onBackPressed() }
 
@@ -83,7 +92,7 @@ class MyPackagesFragment : AppCompatActivity() {
 
         val call = apiService.getMyPackages(
             Utils.getStringValue(this@MyPackagesFragment, AppConstants.USER_ID, "0")!!,
-            subid.toString()
+            subid.toString(), iscompetitive
         )
 
         call.enqueue(object : Callback<MyPackageModel> {

@@ -16,5 +16,11 @@ class TestListModel {
         var TestEndTime = ""
         var StatusName = ""
         var StudentTestID = 0
+        var IsCompetetive = ""
+        var TestPackageName = ""
+        var TutorName = ""
+        var SubjectName = ""
+        var CourseName = ""
+        var RemainTime = ""
     }
 }

@@ -42,7 +42,7 @@ class FilterListAdapter(
 
         when (dataList[p1].TestPackageName) {
             "Boards" -> {
-                if (AppConstants.FILTER_BOARD_ID != "") {
+                if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_BOARD_ID != "111") {
                     p0.select.visibility = View.VISIBLE
                 } else {
                     p0.select.visibility = View.INVISIBLE
@@ -50,7 +50,7 @@ class FilterListAdapter(
             }
             "Standard" -> {
 
-                if (AppConstants.FILTER_STANDARD_ID != "") {
+                if (AppConstants.FILTER_STANDARD_ID != "" && AppConstants.FILTER_STANDARD_ID != "111") {
                     p0.select.visibility = View.VISIBLE
                 } else {
                     p0.select.visibility = View.INVISIBLE
@@ -64,14 +64,14 @@ class FilterListAdapter(
                 }
             }
             "Subjects" -> {
-                if (AppConstants.FILTER_SUBJECT_ID != "") {
+                if (AppConstants.FILTER_SUBJECT_ID != "" && AppConstants.FILTER_SUBJECT_ID != "111") {
                     p0.select.visibility = View.VISIBLE
                 } else {
                     p0.select.visibility = View.INVISIBLE
                 }
             }
             "Tutor" -> {
-                if (AppConstants.FILTER_TUTOR_ID != "") {
+                if (AppConstants.FILTER_TUTOR_ID != "" && AppConstants.FILTER_TUTOR_ID != "111") {
                     p0.select.visibility = View.VISIBLE
                 } else {
                     p0.select.visibility = View.INVISIBLE

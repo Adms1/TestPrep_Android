@@ -7,11 +7,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.PackageDetailActivity
 import com.testprep.activity.TestListActivity
 import com.testprep.models.PackageData
+import com.testprep.utils.AppConstants
 
 class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>, val come_from: String) :
     RecyclerView.Adapter<MyPackageAdapter.viewholder>() {
@@ -30,9 +33,7 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-//        p0.edate.text = dataList[p1].ExpirationDate
         p0.name.text = dataList[p1].TestPackageName
-        p0.short_name.text = p0.name.text.substring(0, 1)
         p0.price.text = dataList[p1].TestPackageSalePrice
 
         if (dataList[p1].NumberOfTest == "1") {
@@ -41,11 +42,15 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
             p0.test.text = dataList[p1].NumberOfTest + " Tests"
         }
 
+        Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
+
         if(come_from == "market_place") {
             p0.sdate.text = dataList[p1].SubjectName
+            p0.test.visibility = View.GONE
 
         }else if(come_from == "my_pkgs"){
             p0.sdate.text = dataList[p1].PurchaseDate
+            p0.test.visibility = View.VISIBLE
         }
 
 ////        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))
@@ -59,7 +64,6 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
                 intent.putExtra("tutor_id", dataList[p1].TutorID)
                 intent.putExtra("come_from", "selectpackage")
                 context.startActivity(intent)
-
 
             }else if(come_from == "my_pkgs"){
                 val intent = Intent(context, TestListActivity::class.java)
@@ -107,6 +111,7 @@ var name: TextView = itemView.findViewById(R.id.item_my_package_name)
         var price: TextView = itemView.findViewById(R.id.item_my_package_price)
 //        var view: Button = itemView.findViewById(R.id.item_my_package_view)
 var test: TextView = itemView.findViewById(R.id.item_my_package_test)
+        var image: ImageView = itemView.findViewById(R.id.item_my_package_image)
 
 //        var std: TextView = itemView.findViewById(R.id.package_item_tvStd)
     }

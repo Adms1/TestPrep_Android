@@ -9,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.PackageDetailActivity
 import com.testprep.models.PackageData
+import com.testprep.utils.AppConstants
 
 class TutorPackageAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
     RecyclerView.Adapter<TutorPackageAdapter.viewholder>() {
@@ -36,14 +38,14 @@ class TutorPackageAdapter(val context: Context, val dataList: ArrayList<PackageD
 //            p0.p_select.visibility = View.VISIBLE
 //
 //        } else {
-//            Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
+        Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
 //
 //        }
 
-        p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
+//        p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
         p0.title.text = dataList[p1].TestPackageName
-        p0.stitle.text = dataList[p1].TestPackageName.substring(0, 1)
-        p0.std.text = dataList[p1].InstituteName
+//        p0.stitle.text = dataList[p1].TestPackageName.substring(0, 1)
+        p0.std.text = dataList[p1].SubjectName
         p0.price.text = "₹" + dataList[p1].TestPackageSalePrice
 
         p0.clMain.setOnClickListener {

@@ -16,7 +16,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.PackageDetailActivity
@@ -288,7 +287,11 @@ class MarketPlaceFragment : Fragment() {
         override fun onBindViewHolder(holder: viewholder, position: Int) {
 //                RandomPageFragment.initializeTextView(holder.textView!!, position + 1)
 
+//            images\\package/package_default.png
+//            images\\package/1567672611.png
+
             if (mDataList[position].Icon != null) {
+
                 Picasso.get()
                     .load(AppConstants.IMAGE_BASE_URL + mDataList[position].Icon)
                     .into(holder.title)
@@ -364,7 +367,7 @@ class MarketPlaceFragment : Fragment() {
             }
 
             holder.title1.text = mDataList[position].TutorName
-            holder.title.setImageDrawable(context.resources.getDrawable(R.drawable.pro_pic1))
+//            holder.title.setImageDrawable(context.resources.getDrawable(R.drawable.pro_pic1))
 
             holder.title.setOnClickListener {
                 val intent = Intent(context, TutorProfileFragment::class.java)
@@ -466,6 +469,7 @@ class MarketPlaceFragment : Fragment() {
                 Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!,
                 Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!
 
+
 //                "", "", "", ""
 
 //                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
@@ -489,11 +493,7 @@ class MarketPlaceFragment : Fragment() {
                         mDataList = ArrayList()
                         mDataList = response.body()!!.data.TestPackage
                         var mSingleDataList = response.body()!!.data.SingleTestPackage
-
                         var freeTestList = response.body()!!.data.FreeTestPackage
-
-                        myViewPagerAdapter = MyViewPagerAdapter(freeTestList)
-                        mp_view_pager!!.adapter = myViewPagerAdapter
 
                         Log.d("dsize", "" + mDataList!!.size)
 
@@ -503,8 +503,46 @@ class MarketPlaceFragment : Fragment() {
 
                         Log.d("dtsize", "" + tutorList!!.size)
                         carousel1!!.adapter = TutorPageAdapter(5, 330, 160, activity!!, tutorList!!)
-                        carousel!!.adapter = PkgPageAdapter(5, 330, 160, activity!!, mDataList!!)
-                        main_pkg_item_rvSingleTest.adapter = MyPackageAdapter(activity!!, mSingleDataList, "market_place")
+
+                        if (mSingleDataList.size > 0) {
+
+                            main_pkg_item_rvSingleTest.visibility = View.VISIBLE
+                            main_pkg_item_tvSingleTest.visibility = View.VISIBLE
+                            main_pkg_item_tvSSeeall.visibility = View.VISIBLE
+
+                            main_pkg_item_rvSingleTest.adapter =
+                                MyPackageAdapter(activity!!, mSingleDataList, "market_place")
+                        } else {
+                            main_pkg_item_rvSingleTest.visibility = View.GONE
+                            main_pkg_item_tvSingleTest.visibility = View.GONE
+                            main_pkg_item_tvSSeeall.visibility = View.GONE
+                        }
+
+                        if (freeTestList.size > 0) {
+
+                            mp_view_pager.visibility = View.VISIBLE
+
+                            myViewPagerAdapter = MyViewPagerAdapter(freeTestList)
+                            mp_view_pager!!.adapter = myViewPagerAdapter
+
+                        } else {
+                            mp_view_pager.visibility = View.GONE
+
+                        }
+
+                        if (mDataList!!.size > 0) {
+
+                            rlCoverflow!!.visibility = View.VISIBLE
+                            main_pkg_item_tvSeeall.visibility = View.VISIBLE
+                            main_pkg_item_tvCategory.visibility = View.VISIBLE
+
+                            carousel!!.adapter = PkgPageAdapter(5, 330, 160, activity!!, mDataList!!)
+
+                        } else {
+                            rlCoverflow!!.visibility = View.GONE
+                            main_pkg_item_tvSeeall.visibility = View.GONE
+                            main_pkg_item_tvCategory.visibility = View.GONE
+                        }
 
                     } else {
 

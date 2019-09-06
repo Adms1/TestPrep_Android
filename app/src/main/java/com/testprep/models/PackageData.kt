@@ -35,6 +35,7 @@ class PackageData {
         var PaymentDate = ""
         var ExternalTransactionID = ""
         var ExternalTransactionStatus = ""
+        var InvoiceID = ""
 
         var SubjectName = ""
         var InstituteName = ""

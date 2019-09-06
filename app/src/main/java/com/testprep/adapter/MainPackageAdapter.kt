@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.fragments.MyPackagesFragment
 import com.testprep.models.MyPackageModel
@@ -45,6 +44,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
             val intent = Intent(context, MyPackagesFragment::class.java)
             intent.putExtra("sub_id", list[p1].ID)
             intent.putExtra("sub_name", list[p1].Name)
+            intent.putExtra("isCompetitive", list[p1].isCompetitive)
             context.startActivity(intent)
         }
     }

@@ -57,11 +57,10 @@
             app:layout_constraintBottom_toBottomOf="@+id/tutor_profile_header"/>
 
 
-    <TextView
+    <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
             android:padding="@dimen/_6sdp"
-            android:background="@drawable/pink_round"
             app:layout_constraintTop_toBottomOf="@+id/tutor_profile_header"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginLeft="@dimen/_10sdp"

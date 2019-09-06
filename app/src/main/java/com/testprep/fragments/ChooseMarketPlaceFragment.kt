@@ -7,19 +7,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.testprep.R
 import com.testprep.adapter.MainPackageAdapter
-import com.testprep.adapter.MyPackageAdapter
 import com.testprep.models.MyPackageModel
-import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.fragment_choose_market_place.*
-import kotlinx.android.synthetic.main.fragment_my_packages.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -52,7 +48,7 @@ class ChooseMarketPlaceFragment : Fragment() {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getMyPackages(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!, "")
+        val call = apiService.getMyPackages(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!, "", "")
         call.enqueue(object : Callback<MyPackageModel> {
             override fun onResponse(call: Call<MyPackageModel>, response: Response<MyPackageModel>) {
 

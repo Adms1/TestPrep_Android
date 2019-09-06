@@ -46,11 +46,11 @@ class PaymentSuccessScreen : AppCompatActivity() {
         setContentView(R.layout.activity_payment_success_screen)
 
         pkgid = intent.getStringExtra("pkgid")
-        pkgname = "Transaction Id : " + intent.getStringExtra("transactionId")
-        pkgprice = "Price                : " + intent.getStringExtra("pkgprice")
+        pkgname = intent.getStringExtra("transactionId")
+        pkgprice = intent.getStringExtra("pkgprice")
 
-        tvPkgname.text = pkgname
-        tvPrice.text = pkgprice
+        tvPkgname.text = "Transaction Id : " + pkgname
+        tvPrice.text = "Price                : " + pkgprice
 
         if (intent.getStringExtra("responseCode").equals("0", ignoreCase = true)) {
 
@@ -78,7 +78,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
             tvTry.text = "Try Again"
             tvTry.background = resources.getDrawable(R.drawable.google_round_bg)
 
-            updatePaymentStatus("Failed")
+//            updatePaymentStatus("Failed")
         }
 
         tvCancel.setOnClickListener {
@@ -159,7 +159,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
 //                            )
 
-                            callAddTestPackageApi()
+//                            callAddTestPackageApi()
 
 
                         }
@@ -252,15 +252,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
 //            hashMap["Longitude"] = ""
 //        }
 
-        val call = apiService.getPayment(
-            WebRequests.getPaymentParams(
-                "0", Utils.getStringValue(
-                    context,
-                    AppConstants.USER_ID,
-                    ""
-                )!!, coin
-            )
-        )
+        val call = apiService.checkout(Utils.getStringValue(this@PaymentSuccessScreen, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {

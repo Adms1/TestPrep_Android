@@ -167,12 +167,11 @@ class SignupActivity : AppCompatActivity() {
                         intent.putExtra("password", signup_etPassword.text.toString())
                         startActivity(intent)
 
-                    }
-
-                } else {
-                    Toast.makeText(this@SignupActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@SignupActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
 //                    Log.d("loginresponse", response.body()!!.asString)
+                    }
                 }
             }
 

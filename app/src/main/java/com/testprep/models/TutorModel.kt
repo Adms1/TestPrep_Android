@@ -13,5 +13,6 @@ class TutorModel {
         var TutorEmail = ""
         var TutorPhoneNumber = ""
         var InstituteName = ""
+        var Icon = ""
     }
 }

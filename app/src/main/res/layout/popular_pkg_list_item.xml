@@ -23,7 +23,6 @@
         <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_130sdp"
-                android:src="@drawable/pp_1"
                 android:scaleType="fitXY"
                 android:id="@+id/package_item_ivImage"/>
 

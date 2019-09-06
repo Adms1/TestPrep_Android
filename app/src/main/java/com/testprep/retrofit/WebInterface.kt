@@ -115,7 +115,7 @@ interface WebInterface {
 
     @FormUrlEncoded
     @POST("Get_StudentTestPackage_By_Subject")
-    fun getMyPackages(@Field("StudentID") stuid: String, @Field("SubjectID")subjectid: String): Call<MyPackageModel>
+    fun getMyPackages(@Field("StudentID") stuid: String, @Field("SubjectID") subjectid: String, @Field("IsCompetitive") iscompetitive: String): Call<MyPackageModel>
 
     @FormUrlEncoded
     @POST("Get_Course_List")
@@ -148,4 +148,12 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Check_Verify_Account")
     fun checkVerifyAccount(@Field("MobileNumber") mobile_number: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Add_Cart")
+    fun addToCart(@Field("StudentID") student_id: String, @Field("TestPackageID") testpkgid: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("CheckOut")
+    fun checkout(@Field("StudentID") student_id: String): Call<JsonObject>
 }

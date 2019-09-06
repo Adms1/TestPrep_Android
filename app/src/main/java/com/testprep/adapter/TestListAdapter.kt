@@ -61,7 +61,13 @@ class TestListAdapter(val context: Context, var dataList: ArrayList<TestListMode
                 intent.putExtra("testid", dataList[p1].TestID.toString())
                 intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
                 intent.putExtra("testname", dataList[p1].TestName)
-                intent.putExtra("testtime", dataList[p1].TestDuration)
+                intent.putExtra("testtime", dataList[p1].RemainTime)
+                intent.putExtra("totalque", "")
+                intent.putExtra("subjectname", dataList[p1].SubjectName)
+                intent.putExtra("coursename", dataList[p1].CourseName)
+                intent.putExtra("totalmarks", dataList[p1].TestMarks)
+                intent.putExtra("tutorname", dataList[p1].TutorName)
+
                 context.startActivity(intent)
             }
         }

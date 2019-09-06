@@ -26,28 +26,37 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
 
-            <TextView android:layout_width="0dp"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/main_pkg_item_tvCategory"
-                      app:layout_constraintTop_toBottomOf="@+id/mp_view_pager"
-                      app:layout_constraintLeft_toLeftOf="parent"
-                      app:layout_constraintRight_toLeftOf="@+id/main_pkg_item_tvSeeall"
-                      android:layout_marginLeft="@dimen/_10sdp"
-                      android:textSize="@dimen/_15sdp"
-                      android:layout_marginTop="@dimen/_10sdp"
-                      android:textColor="@color/black"
-                      android:text="Packages"/>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/main_pkg_item_rlCategory"
+                    app:layout_constraintTop_toBottomOf="@+id/mp_view_pager"
+                    android:background="#C1FCFF"
+                    android:orientation="vertical">
+
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/main_pkg_item_tvCategory"
+                          android:layout_marginLeft="@dimen/_10sdp"
+                          android:layout_marginRight="@dimen/_10sdp"
+                          android:textSize="@dimen/_15sdp"
+                          android:layout_centerVertical="true"
+                          android:layout_marginTop="@dimen/_10sdp"
+                          android:textColor="@color/black"
+                          android:gravity="center"
+                          android:text="Packages"/>
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:id="@+id/main_pkg_item_tvSeeall"
-                      app:layout_constraintTop_toTopOf="@+id/main_pkg_item_tvCategory"
-                      app:layout_constraintBottom_toBottomOf="@+id/main_pkg_item_tvCategory"
-                      app:layout_constraintRight_toRightOf="parent"
                       android:layout_marginRight="@dimen/_10sdp"
                       android:textSize="@dimen/_12sdp"
+                      android:layout_centerVertical="true"
+                      android:layout_alignParentRight="true"
                       android:textColor="@color/colorPrimaryDark"
-                      android:text="See All"/>
+                      android:text="@string/view_all"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                     android:id="@+id/rlCoverflow"
@@ -57,7 +66,7 @@
                     android:layout_marginRight="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_tvCategory"
+                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlCategory"
                     android:background="@android:color/white">
 
                 <com.testprep.carouselPkg.CarouselView1
@@ -77,28 +86,38 @@
 
             </RelativeLayout>
 
-            <TextView android:layout_width="0dp"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/main_pkg_item_tvTutor"
-                      app:layout_constraintTop_toBottomOf="@+id/rlCoverflow"
-                      app:layout_constraintLeft_toLeftOf="parent"
-                      app:layout_constraintRight_toLeftOf="@+id/main_pkg_item_tvSeeall"
-                      android:layout_marginLeft="@dimen/_10sdp"
-                      android:layout_marginTop="@dimen/_10sdp"
-                      android:textSize="@dimen/_15sdp"
-                      android:textColor="@color/black"
-                      android:text="Tutor"/>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/main_pkg_item_rlTutor"
+                    app:layout_constraintTop_toBottomOf="@+id/rlCoverflow"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:background="#C1FCFF"
+                    android:orientation="vertical">
+
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/main_pkg_item_tvTutor"
+                          android:layout_marginLeft="@dimen/_10sdp"
+                          android:layout_marginRight="@dimen/_10sdp"
+                          android:textSize="@dimen/_15sdp"
+                          android:layout_centerVertical="true"
+                          android:layout_marginTop="@dimen/_10sdp"
+                          android:textColor="@color/black"
+                          android:gravity="center"
+                          android:text="Tutor"/>
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:id="@+id/main_pkg_item_tvTSeeall"
-                      app:layout_constraintTop_toTopOf="@+id/main_pkg_item_tvTutor"
-                      app:layout_constraintBottom_toBottomOf="@+id/main_pkg_item_tvTutor"
-                      app:layout_constraintRight_toRightOf="parent"
                       android:layout_marginRight="@dimen/_10sdp"
                       android:textSize="@dimen/_12sdp"
+                      android:layout_centerVertical="true"
+                      android:layout_alignParentRight="true"
                       android:textColor="@color/colorPrimaryDark"
-                      android:text="See All"/>
+                      android:text="@string/view_all"/>
+
+            </RelativeLayout>
 
             <RelativeLayout
                     android:id="@+id/rltutorCoverflow"
@@ -108,7 +127,7 @@
                     android:layout_marginRight="@dimen/_10sdp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_tvTutor"
+                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlTutor"
                     android:background="@android:color/white">
 
                 <com.testprep.carouselPkg.CarouselView1
@@ -119,28 +138,37 @@
                         android:background="#40ffffff"/>
             </RelativeLayout>
 
-            <TextView android:layout_width="0dp"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/main_pkg_item_tvSingleTest"
-                      app:layout_constraintTop_toBottomOf="@+id/rltutorCoverflow"
-                      app:layout_constraintLeft_toLeftOf="parent"
-                      app:layout_constraintRight_toLeftOf="@+id/main_pkg_item_tvSeeall"
-                      android:layout_marginLeft="@dimen/_10sdp"
-                      android:layout_marginTop="@dimen/_10sdp"
-                      android:textSize="@dimen/_15sdp"
-                      android:textColor="@color/black"
-                      android:text="Single Test"/>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/main_pkg_item_rlSingleTest"
+                    app:layout_constraintTop_toBottomOf="@+id/rltutorCoverflow"
+                    android:background="#C1FCFF"
+                    android:orientation="vertical">
+
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/main_pkg_item_tvSingleTest"
+                          android:layout_marginLeft="@dimen/_10sdp"
+                          android:layout_marginRight="@dimen/_10sdp"
+                          android:textSize="@dimen/_15sdp"
+                          android:layout_centerVertical="true"
+                          android:layout_marginTop="@dimen/_10sdp"
+                          android:textColor="@color/black"
+                          android:gravity="center"
+                          android:text="Single Test"/>
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:id="@+id/main_pkg_item_tvSSeeall"
-                      app:layout_constraintTop_toTopOf="@+id/main_pkg_item_tvSingleTest"
-                      app:layout_constraintBottom_toBottomOf="@+id/main_pkg_item_tvSingleTest"
-                      app:layout_constraintRight_toRightOf="parent"
                       android:layout_marginRight="@dimen/_10sdp"
                       android:textSize="@dimen/_12sdp"
+                      android:layout_centerVertical="true"
+                      android:layout_alignParentRight="true"
                       android:textColor="@color/colorPrimaryDark"
-                      android:text="See All"/>
+                      android:text="@string/view_all"/>
+
+            </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
                     android:id="@+id/main_pkg_item_rvSingleTest"
@@ -148,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
                     android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_tvSSeeall"/>
+                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlSingleTest"/>
 
         </android.support.constraint.ConstraintLayout>
 

@@ -52,7 +52,8 @@ class ResultActivity : AppCompatActivity() {
 //            }
 //        }
 
-        result_tvMarks.text = "Marks : " + intent.getStringExtra("totalmarks")
+        result_tvMarks.text = "Marks : " + intent.getStringExtra("display_totalmarks")
+        result_tvHeading.text = intent.getStringExtra("testname")
 
         result_btnDashboard.setOnClickListener {
            onBackPressed()
@@ -96,7 +97,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        AppConstants.isFirst = 0
+        AppConstants.isFirst = 1
         val intent = Intent(this@ResultActivity, DashboardActivity::class.java)
         startActivity(intent)
         finish()

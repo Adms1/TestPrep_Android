@@ -20,7 +20,7 @@
             android:text="Simply Dummy Text"/>
 
     <TextView
-            android:id="@+id/dialog_queinfo_tvChapter"
+            android:id="@+id/dialog_queinfo_tvSubject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
@@ -30,7 +30,40 @@
             android:maxLines="1"
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvHeader"
-            android:text="Chapter 1"/>
+            android:text="Subject Name"/>
+
+    <TextView
+            android:id="@+id/dialog_queinfo_tvSubjectName"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvSubject"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:maxLines="2"
+            android:textSize="@dimen/_13sdp"/>
+
+    <TextView
+            android:id="@+id/dialog_queinfo_tvCourseHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_gray"
+            android:textSize="@dimen/extra_small_size"
+            android:layout_marginRight="@dimen/_15sdp"
+            app:layout_constraintTop_toTopOf="@+id/dialog_queinfo_tvSubject"
+            app:layout_constraintRight_toRightOf="parent"
+            android:maxLines="1"
+            android:text="Course Type"/>
+
+    <TextView
+            android:id="@+id/dialog_queinfo_tvCourse"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvCourseHeader"
+            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvCourseHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"/>
 
     <TextView
             android:id="@+id/dialog_queinfo_tvTotalMarksHeader"
@@ -38,24 +71,12 @@
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
             android:textSize="@dimen/extra_small_size"
-            android:layout_marginRight="@dimen/_15sdp"
-            app:layout_constraintTop_toTopOf="@+id/dialog_queinfo_tvChapter"
-            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvSubjectName"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="@dimen/_5sdp"
             android:maxLines="1"
             android:text="Total Marks"/>
-
-    <TextView
-            android:id="@+id/dialog_queinfo_tvChapterName"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvChapter"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:maxLines="2"
-            android:textSize="@dimen/regular_text_size"
-            android:text="Chapter Name"/>
-
 
     <TextView
             android:id="@+id/dialog_queinfo_tvTotalMarks"
@@ -65,33 +86,53 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:maxLines="1"
-            android:textSize="@dimen/regular_text_size"
-            android:text="200"/>
+            android:textSize="@dimen/_13sdp"/>
 
     <TextView
-            android:id="@+id/dialog_queinfo_tvTeacher"
-            android:layout_width="match_parent"
+            android:id="@+id/dialog_queinfo_tvQueHeader"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
             android:textSize="@dimen/extra_small_size"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvCourseHeader"
             android:maxLines="1"
-            android:layout_margin="@dimen/_15sdp"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvChapterName"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvCourse"
+            android:text="Total Que"/>
+
+    <TextView
+            android:id="@+id/dialog_queinfo_tvQue"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvQueHeader"
+            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvQueHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:maxLines="1"
+            android:textSize="@dimen/_13sdp"/>
+
+    <TextView
+            android:id="@+id/dialog_queinfo_tvTeacher"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/light_gray"
+            android:textSize="@dimen/extra_small_size"
+            app:layout_constraintRight_toRightOf="@+id/dialog_queinfo_tvQueHeader"
+            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvTotalMarksHeader"
+            android:maxLines="1"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvTotalMarks"
             android:text="Teacher"/>
 
     <TextView
             android:id="@+id/dialog_queinfo_tvTeacherName"
             app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvTeacher"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_width="match_parent"
+            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvTeacher"
+            app:layout_constraintRight_toRightOf="@+id/dialog_queinfo_tvTeacher"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:maxLines="1"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginRight="@dimen/_15sdp"
-            android:textSize="@dimen/regular_text_size"
-            android:text="Hemang Mehta"/>
+            android:textSize="@dimen/_13sdp"/>
 
     <View
             android:id="@+id/dialog_queinfo_line"
@@ -195,7 +236,7 @@
             android:paddingLeft="@dimen/_5sdp"
             android:paddingRight="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:textSize="@dimen/extra_small_size"
             android:text="@string/review_later"/>
 
@@ -218,7 +259,7 @@
             android:maxLines="1"
             android:paddingLeft="@dimen/_5sdp"
             android:paddingRight="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvCurrent"
             android:text="@string/not_visited"/>
 

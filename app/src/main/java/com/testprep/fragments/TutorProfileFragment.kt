@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
+import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.CartActivity
 import com.testprep.adapter.TutorPackageAdapter
@@ -15,6 +16,7 @@ import com.testprep.models.PackageData
 import com.testprep.models.TutorModel
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.fragment_tutor_profile.*
@@ -47,7 +49,6 @@ class TutorProfileFragment : AppCompatActivity() {
 
         tutor_item_rvCuratorList.layoutManager =
             LinearLayoutManager(this@TutorProfileFragment, LinearLayoutManager.VERTICAL, false)
-
 
         tutor_profile_ivCart.setOnClickListener {
             val intent = Intent(this@TutorProfileFragment, CartActivity::class.java)
@@ -106,7 +107,12 @@ class TutorProfileFragment : AppCompatActivity() {
                         tutor_profile_tvEmail.text = response.body()!!.data[0].TutorEmail
                         tutor_profile_tvMobile.text = response.body()!!.data[0].TutorPhoneNumber
 
-                        tutor_profile_image.text = response.body()!!.data[0].TutorName.substring(0, 1)
+                        if (response.body()!!.data[0].TutorName != "") {
+                            Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data[0].Icon)
+                                .into(tutor_profile_image)
+                        }
+
+//                        tutor_profile_image.text = response.body()!!.data[0].TutorName.substring(0, 1)
 
                     } else {
 

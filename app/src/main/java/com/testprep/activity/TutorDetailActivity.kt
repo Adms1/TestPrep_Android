@@ -8,7 +8,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.adapter.TutorsAdapter
 import com.testprep.models.PackageData
@@ -31,6 +30,16 @@ class TutorDetailActivity : AppCompatActivity() {
     var tutorAdapter: TutorsAdapter? = null
     var pkgAdapter: TestPackagesAdapter? = null
 
+    var minprice = ""
+    var maxprice = ""
+
+    var boardid = ""
+    var stdid = ""
+    var subid = ""
+    var tutorid = ""
+    var ptype = ""
+    var pname = ""
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
@@ -41,6 +50,13 @@ class TutorDetailActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(com.testprep.R.layout.activity_tutor_detail)
+
+        boardid = intent.getStringExtra("boardid")
+        stdid = intent.getStringExtra("stdid")
+        subid = intent.getStringExtra("subid")
+        tutorid = intent.getStringExtra("tutorid")
+        pname = intent.getStringExtra("pname")
+        ptype = intent.getStringExtra("type")
 
         if (intent.hasExtra("parr")) {
             data = intent.getSerializableExtra("parr") as ArrayList<PackageData.PackageDataList>
@@ -64,6 +80,19 @@ class TutorDetailActivity : AppCompatActivity() {
 
             tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
             callFilterListApi("", "1")
+
+        } else if (intent.getStringExtra("type") == "filter") {
+
+            tutor_detail_rlFilter.visibility = View.VISIBLE
+
+            minprice = intent.getStringExtra("minprice")
+            maxprice = intent.getStringExtra("maxprice")
+
+            Utils.setStringValue(this@TutorDetailActivity, AppConstants.MIN_PRICE, minprice)
+            Utils.setStringValue(this@TutorDetailActivity, AppConstants.MAX_PRICE, maxprice)
+
+            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+            callFilterListApi("", "-1")
 
         } else if (intent.getStringExtra("type") == "explore") {
 
@@ -115,15 +144,78 @@ class TutorDetailActivity : AppCompatActivity() {
             tutor_detail_rlFilter -> {
 
                 val intent = Intent(this@TutorDetailActivity, FilterActivity::class.java)
-                startActivity(intent)
+                startActivityForResult(intent, 101)
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 101) {
+            ptype = data!!.getStringExtra("type")
+            pname = data.getStringExtra("pname")
+            boardid = data.getStringExtra("boardid")
+            stdid = data.getStringExtra("stdid")
+            subid = data.getStringExtra("subid")
+            tutorid = data.getStringExtra("tutorid")
+            minprice = data.getStringExtra("minprice")
+            maxprice = data.getStringExtra("maxprice")
+        }
+
+        callFilterListApi("", "-1")
+
     }
 
     override fun onResume() {
         super.onResume()
 
-        callFilterListApi("", "1")
+        setFilterCount()
+
+//        if (intent.getStringExtra("type") == "pkg") {
+//
+//            tutor_detail_rlFilter.visibility = View.VISIBLE
+//
+//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+//            callFilterListApi("", "1")
+//
+//        } else if (intent.getStringExtra("type") == "filter") {
+//
+//            tutor_detail_rlFilter.visibility = View.VISIBLE
+//
+//            minprice = intent.getStringExtra("minprice")
+//            maxprice = intent.getStringExtra("maxprice")
+//
+////            Utils.setStringValue(this@TutorDetailActivity, AppConstants.MIN_PRICE, minprice)
+////            Utils.setStringValue(this@TutorDetailActivity, AppConstants.MAX_PRICE, maxprice)
+//
+//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+//            callFilterListApi("", "-1")
+//
+//        } else if (intent.getStringExtra("type") == "explore") {
+//
+//            tutor_detail_rlFilter.visibility = View.VISIBLE
+//
+//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+//            callFilterListApi(intent.getStringExtra("search_name"), "-1")
+//
+//        } else if (intent.getStringExtra("type") == "tutor") {
+//
+//            tutor_detail_rlFilter.visibility = View.GONE
+//
+//            tutor_packages_rvPopularPkg.layoutManager =
+//                LinearLayoutManager(this@TutorDetailActivity, LinearLayoutManager.VERTICAL, false)
+//
+//            tutorAdapter = TutorsAdapter(this@TutorDetailActivity, data)
+//
+//            tutor_packages_rvPopularPkg.adapter = tutorAdapter
+//
+//        } else if (intent.getStringExtra("type") == "single") {
+//            tutor_detail_rlFilter.visibility = View.VISIBLE
+//
+//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+//            callFilterListApi("", "3")
+//        }
     }
 
     fun callFilterListApi(name: String, type: String) {
@@ -135,44 +227,39 @@ class TutorDetailActivity : AppCompatActivity() {
         DialogUtils.showDialog(this@TutorDetailActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-//        val call = apiService.getFilterData(
-//            WebRequests.getFilterParams(
-//                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
-//                "",
-//                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
-//                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
-//                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!,
-//                Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!,
-//                "",
-//                ""
-//            )
-//        )
+        var call: Call<PackageData>? = null
 
-        val call = apiService.getFilterData(
-            WebRequests.getFilterParams(
-                Utils.getStringValue(this@TutorDetailActivity, AppConstants.COURSE_TYPE_ID, "")!!,
-                "",
-                intent.getStringExtra("boardid"),
-                intent.getStringExtra("stdid"),
-                intent.getStringExtra("subid"),
-                intent.getStringExtra("tutorid"),
-                "",
-                "",
-                name,
-                type
+        if (Utils.getStringValue(this@TutorDetailActivity, AppConstants.COURSE_TYPE_ID, "")!! == "1") {
+            call = apiService.getFilterData(
+                WebRequests.getFilterParams(
+                    Utils.getStringValue(this@TutorDetailActivity, AppConstants.COURSE_TYPE_ID, "")!!,
+                    "",
+                    boardid,
+                    stdid,
+                    subid,
+                    tutorid,
+                    minprice,
+                    maxprice,
+                    name,
+                    type
+                )
             )
-//            WebRequests.getFilterParams(
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                ""
-//            )
-        )
+        } else {
+            call = apiService.getFilterData(
+                WebRequests.getFilterParams(
+                    Utils.getStringValue(this@TutorDetailActivity, AppConstants.COURSE_TYPE_ID, "")!!,
+                    intent.getStringExtra("boardid"),
+                    "",
+                    "",
+                    "",
+                    intent.getStringExtra("tutorid"),
+                    minprice,
+                    maxprice,
+                    name,
+                    type
+                )
+            )
+        }
 
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
@@ -183,16 +270,19 @@ class TutorDetailActivity : AppCompatActivity() {
 
                     if (response.body()!!.Status == "true") {
 
-                        if (type == "pkg") {
-                            data = response.body()!!.data[0].TestPackage
+                        tutor_packages_rvPopularPkg.visibility = View.VISIBLE
+                        tutor_packages_tvdatanotfound.visibility = View.GONE
+
+//                        if (type == "pkg") {
+//                            data = response.body()!!.data[0].TestPackage
 
 //                        tutor_detail_header.text = response.body()!!.data[0].Name
 
-                        } else {
+//                        } else {
                             data = response.body()!!.data[0].TestPackage
 
 //                        tutor_detail_header.text = response.body()!!.data[0].Name
-                        }
+//                        }
 
                         pkgAdapter = TestPackagesAdapter(this@TutorDetailActivity, data)
                         tutor_packages_rvPopularPkg.adapter = pkgAdapter
@@ -200,7 +290,9 @@ class TutorDetailActivity : AppCompatActivity() {
 
                     } else {
 
-                        Toast.makeText(this@TutorDetailActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                        tutor_packages_tvdatanotfound.visibility = View.VISIBLE
+                        tutor_packages_rvPopularPkg.visibility = View.GONE
+//                        Toast.makeText(this@TutorDetailActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -216,10 +308,6 @@ class TutorDetailActivity : AppCompatActivity() {
     fun setFilterCount() {
 
         var filterCount = 0
-
-        if (AppConstants.FILTER_BOARD_ID != "") {
-            filterCount += 1
-        }
 
         if (AppConstants.FILTER_STANDARD_ID != "") {
             filterCount += 1
@@ -248,9 +336,9 @@ class TutorDetailActivity : AppCompatActivity() {
     fun sorting(type: String, modelList: ArrayList<PackageData.PackageDataList>) {
         modelList.sortWith(Comparator { lhs, rhs ->
             if (type != "tutor") {
-                lhs.TestPackageName.compareTo(rhs.TestPackageName)
+                lhs.TestPackageName.toLowerCase().compareTo(rhs.TestPackageName.toLowerCase())
             } else {
-                lhs.TutorName.compareTo(rhs.TutorName)
+                lhs.TutorName.toLowerCase().compareTo(rhs.TutorName.toLowerCase())
             }
         })
 
