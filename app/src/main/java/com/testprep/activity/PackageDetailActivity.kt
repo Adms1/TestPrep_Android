@@ -30,7 +30,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-
 class PackageDetailActivity : AppCompatActivity() {
 
     var pkgid = ""
@@ -460,6 +459,12 @@ class PackageDetailActivity : AppCompatActivity() {
 
 //                        fragmentManager!!.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
 
+                        Toast.makeText(
+                            this@PackageDetailActivity,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
+                        ).show()
+
                         callCheckout()
 
                     } else {
@@ -583,9 +588,16 @@ class PackageDetailActivity : AppCompatActivity() {
 
                     DialogUtils.dismissDialog()
 
-                    if (response.body()!!["Status"].asString == "true") {
+//                    if (response.body()!!["Status"].asString == "true") {
 
-                        if (transaction_status == "Success") {
+//                        if (transaction_status == "Success") {
+
+//                            Toast.makeText(
+//                                this@PackageDetailActivity,
+//                               "Free package buy successfully",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+
 //                            Handler().postDelayed(
 //
 //                                /* Runnable
@@ -610,15 +622,20 @@ class PackageDetailActivity : AppCompatActivity() {
 
 //                            callAddTestPackageApi()
 
+//                        }
 
-                        }
+//                    } else {
 
-                    } else {
-                        Toast.makeText(this@PackageDetailActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
-                            .show()
+                    AppConstants.isFirst = 1
+
+                    val intent: Intent = Intent(this@PackageDetailActivity, DashboardActivity::class.java)
+                    startActivity(intent)
+
+//                        Toast.makeText(this@PackageDetailActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
+//                            .show()
 
 
-                    }
+//                    }
                 }
             }
 

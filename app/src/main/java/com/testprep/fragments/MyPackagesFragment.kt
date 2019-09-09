@@ -88,6 +88,8 @@ class MyPackagesFragment : AppCompatActivity() {
             Utils.ping(this@MyPackagesFragment, "Connetion not available")
         }
 
+        DialogUtils.showDialog(this@MyPackagesFragment)
+
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.getMyPackages(
@@ -100,8 +102,6 @@ class MyPackagesFragment : AppCompatActivity() {
             override fun onResponse(call: Call<MyPackageModel>, response: Response<MyPackageModel>) {
 
                 if (response.body() != null) {
-
-                    DialogUtils.dismissDialog()
 
                     if (response.body()!!.Status == "true") {
 
@@ -151,6 +151,8 @@ class MyPackagesFragment : AppCompatActivity() {
                         val pkgArr = response.body()!!.data[0].PackageList
                         my_packages_rvList.adapter = MyPackageAdapter(this@MyPackagesFragment, pkgArr, "my_pkgs")
 //                        my_packages_rvList.adapter = TestPackagesAdapter(this@MyPackagesFragment, pkgArr)
+
+                        DialogUtils.dismissDialog()
                     }
                 }
             }

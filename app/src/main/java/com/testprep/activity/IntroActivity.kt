@@ -69,6 +69,8 @@ class IntroActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_intro)
 
+//        intro_tvSignin.text = resources.getString(R.string.sign_in)
+
         callbackManager = CallbackManager.Factory.create()
         fb.setReadPermissions(listOf(EMAIL))
 

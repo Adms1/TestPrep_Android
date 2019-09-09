@@ -33,6 +33,17 @@
                 android:textAllCaps="true"
                 android:layout_centerInParent="true"/>
 
+        <ImageView
+                android:id="@+id/package_select"
+                android:layout_width="@dimen/_17sdp"
+                android:layout_height="@dimen/_17sdp"
+                android:src="@drawable/right_white_bg"
+                android:text="."
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_alignParentRight="true"/>
+
     </RelativeLayout>
 
     <!--<de.hdodenhof.circleimageview.CircleImageView-->
@@ -54,17 +65,17 @@
             android:text="GSEB(English Medium)"
             app:layout_constraintTop_toBottomOf="@+id/llImage"/>
 
-    <ImageView
-            android:id="@+id/package_select"
-            android:layout_width="@dimen/_3sdp"
-            android:layout_height="@dimen/_3sdp"
-            android:src="@drawable/dark_blue_gredient_bg"
-            android:text="."
-            android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@+id/package_name"/>
+    <!--<ImageView-->
+    <!--android:id="@+id/package_select"-->
+    <!--android:layout_width="@dimen/_3sdp"-->
+    <!--android:layout_height="@dimen/_3sdp"-->
+    <!--android:src="@drawable/dark_blue_gredient_bg"-->
+    <!--android:text="."-->
+    <!--android:visibility="gone"-->
+    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--app:layout_constraintRight_toRightOf="parent"-->
+    <!--android:layout_marginLeft="@dimen/_10sdp"-->
+    <!--android:layout_marginRight="@dimen/_10sdp"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/package_name"/>-->
 
 </android.support.constraint.ConstraintLayout>

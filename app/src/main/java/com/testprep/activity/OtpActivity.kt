@@ -56,6 +56,8 @@ class OtpActivity : AppCompatActivity() {
 
                 if (otp_etOtp.value.toString() == otp) {
 
+                    otp_tvInvalid.visibility = View.GONE
+
                     Utils.hideKeyboard(this@OtpActivity)
                     otp_tvVerificationSuccess.visibility = View.VISIBLE
                     otp_tvHeading.text = "Awesome!"
@@ -79,7 +81,11 @@ class OtpActivity : AppCompatActivity() {
                     }
 
                 } else {
-                    Toast.makeText(this@OtpActivity, "OTP does not match", Toast.LENGTH_LONG).show()
+
+                    otp_tvInvalid.visibility = View.VISIBLE
+                    otp_etOtp.value = ""
+
+//                    Toast.makeText(this@OtpActivity, "OTP does not match", Toast.LENGTH_LONG).show()
                 }
 //                Handler().postDelayed(
 //                    {

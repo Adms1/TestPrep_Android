@@ -261,22 +261,6 @@
                             android:layout_marginBottom="@dimen/_70sdp"
                             app:layout_constraintBottom_toBottomOf="parent">
 
-                        <Button
-                                android:id="@+id/queTab_btnNext"
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/_35sdp"
-                                android:text="@string/next"
-                                android:textSize="@dimen/_13sdp"
-                                android:paddingLeft="@dimen/_10sdp"
-                                android:paddingRight="@dimen/_10sdp"
-                                android:background="@drawable/login_round_bg"
-                                android:textColor="@color/white"
-                                android:textAllCaps="false"
-                                android:textStyle="bold"
-                                android:layout_marginBottom="@dimen/_3sdp"
-                                android:layout_centerHorizontal="true"
-                                android:layout_alignParentBottom="true"/>
-
                         <android.support.constraint.ConstraintLayout
                                 android:layout_width="match_parent"
                                 android:layout_marginLeft="@dimen/_10sdp"
@@ -429,10 +413,25 @@
 
                         </android.support.constraint.ConstraintLayout>
 
+                        <Button
+                                android:id="@+id/queTab_btnNext"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/_35sdp"
+                                android:text="@string/next"
+                                android:textSize="@dimen/_13sdp"
+                                android:paddingLeft="@dimen/_10sdp"
+                                android:paddingRight="@dimen/_10sdp"
+                                android:background="@drawable/login_round_bg"
+                                android:textColor="@color/white"
+                                android:textAllCaps="false"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="@dimen/_3sdp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentBottom="true"/>
+
                         <!-- question end -->
 
                     </RelativeLayout>
-
 
                     <ImageView
                             android:id="@+id/queTab_ivReport"
@@ -442,7 +441,7 @@
                             android:src="@drawable/risk_gray"
                             android:layout_marginBottom="@dimen/_5sdp"
                             android:visibility="gone"
-                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintLeft_toLeftOf=" parent"
                             app:layout_constraintTop_toBottomOf="@id/queTab_viewpager"
                             app:layout_constraintBottom_toTopOf="@+id/queTab_llBottom"
                             android:contentDescription="@string/logo"/>

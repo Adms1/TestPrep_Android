@@ -41,15 +41,15 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        if (dataList[p1].ExternalTransactionStatus.equals("Success", true)) {
-            p0.status.setTextColor(context.resources.getColor(R.color.green))
-        } else {
-            p0.status.setTextColor(context.resources.getColor(R.color.red))
-        }
+//        if (dataList[p1].ExternalTransactionStatus.equals("Success", true)) {
+//            p0.status.setTextColor(context.resources.getColor(R.color.green))
+//        } else {
+//            p0.status.setTextColor(context.resources.getColor(R.color.red))
+//        }
 
         p0.date.text = "Date : " + dataList[p1].PaymentDate
-        p0.id.text = "Transaction ID : " + dataList[p1].ExternalTransactionID
-        p0.status.text = dataList[p1].ExternalTransactionStatus
+        p0.id.text = "Order ID : " + dataList[p1].OrderID
+//        p0.status.text = dataList[p1].ExternalTransactionStatus
         p0.amount.text = "₹" + dataList[p1].PaymentAmount.toString()
 
         p0.invoice.setOnClickListener {
@@ -64,7 +64,7 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
 
         var date: TextView = itemView.findViewById(R.id.item_my_payment_date)
         var id: TextView = itemView.findViewById(R.id.item_my_payment_id)
-        var status: TextView = itemView.findViewById(R.id.item_my_payment_status)
+        //        var status: TextView = itemView.findViewById(R.id.item_my_payment_status)
         var amount: TextView = itemView.findViewById(R.id.item_my_payment_amount)
         var invoice: TextView = itemView.findViewById(R.id.item_my_payment_invoice)
     }

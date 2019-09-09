@@ -98,7 +98,7 @@
             android:maxLines="1"
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvCourse"
-            android:text="Total Que"/>
+            android:text="Total Question"/>
 
     <TextView
             android:id="@+id/dialog_queinfo_tvQue"

@@ -18,6 +18,7 @@
             android:maxLines="2"
             android:ellipsize="end"
             tools:text="TextView"
+            android:textSize="@dimen/_11sdp"
             android:layout_toStartOf="@+id/imgSelect"
             android:layout_toLeftOf="@+id/imgSelect"/>
 

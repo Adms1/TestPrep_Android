@@ -109,8 +109,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         imgQue = findViewById(R.id.page_img_que_img)
         ansList = findViewById(R.id.wv_question_list)
         nextButton = findViewById(R.id.queTab_btnNext)
-        sideList =
-            findViewById(R.id.queTab_expQueList)
+        sideList = findViewById(R.id.queTab_expQueList)
 
         imgQue!!.isDrawingCacheEnabled = true
 
@@ -190,7 +189,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         queTab_expQueList.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
 
-            q_grppos1 = groupPosition
+            //            q_grppos1 = groupPosition
 
             false
 
@@ -838,7 +837,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     if (type == "activity") {
                         if ((finalArr.size - 1) > q_grppos1) {
 
-                            if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
+                            if (finalArr[sectionList!![q_grppos1]]!!.size == curr_index && p1 == (curr_index - 1)) {
                                 q_grppos1 += 1
                                 curr_index = 0
                                 p1 = 0
@@ -877,12 +876,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
 //                    queTab_tvTotal.text = """${p0 + 1}/${movies.size}"""
 
-                            queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[p1].Marks
+                            queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
 
-                            if ("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[p1].QuestionImage != "") {
+                            if ("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[curr_index].QuestionImage != "") {
 
                                 Picasso.get()
-                                    .load("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[p1].QuestionImage)
+                                    .load("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
 //                .resize(imgQue!!.width, qsize)
                                     .into(imgQue)
 
@@ -895,7 +894,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                         false
                                     )
 
-                                if (movies[q_grppos1].TestQuestion[p1].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[p1].QuestionTypeID == 7) {
+                                if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 7) {
 
                                     queTab_tvFillBlanks.visibility = View.GONE
                                     ansList!!.visibility = View.VISIBLE
@@ -904,14 +903,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                                     ansList!!.adapter = SelectImageOptionAdapter(
                                         this@NewTabQuestionActivity,
-                                        movies[q_grppos1].TestQuestion[p1].StudentTestQuestionMCQ,
+                                        movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
                                         imgQue!!.width,
-                                        movies[q_grppos1].TestQuestion[p1].QuestionTypeID,
-                                        movies[q_grppos1].TestQuestion[p1].QuestionID,
-                                        movies[q_grppos1].TestQuestion[p1].Answer
+                                        movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                                        movies[q_grppos1].TestQuestion[curr_index].Answer
                                     )
 
-                                } else if (movies[q_grppos1].TestQuestion[p1].QuestionTypeID == 2) {
+                                } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 2) {
                                     queTab_tvFillBlanks.visibility = View.VISIBLE
                                     ansList!!.visibility = View.GONE
                                     queTab_rbTrue.visibility = View.GONE
@@ -919,22 +918,22 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
 //                            if (queTab_tvFillBlanks.text.toString() == "") {
 
-                                    queTab_tvFillBlanks.setText(movies[q_grppos1].TestQuestion[p1].Answer)
+                                    queTab_tvFillBlanks.setText(movies[q_grppos1].TestQuestion[curr_index].Answer)
 
 //                            } else {
 //                                answer = queTab_tvFillBlanks.text.toString()
 //                            }
 
-                                } else if (movies[q_grppos1].TestQuestion[p1].QuestionTypeID == 4) {
+                                } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 4) {
                                     queTab_rbTrue.visibility = View.VISIBLE
                                     queTab_rbFalse.visibility = View.VISIBLE
                                     queTab_tvFillBlanks.visibility = View.GONE
                                     ansList!!.visibility = View.GONE
 
-                                    if (movies[q_grppos1].TestQuestion[p1].Answer == "1") {
+                                    if (movies[q_grppos1].TestQuestion[curr_index].Answer == "1") {
                                         queTab_rbTrue.isChecked = true
                                         queTab_rbFalse.isChecked = false
-                                    } else if (movies[q_grppos1].TestQuestion[p1].Answer == "0") {
+                                    } else if (movies[q_grppos1].TestQuestion[curr_index].Answer == "0") {
                                         queTab_rbFalse.isChecked = true
                                         queTab_rbTrue.isChecked = false
                                     } else {
@@ -978,12 +977,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
 //                    queTab_tvTotal.text = """${p0 + 1}/${movies.size}"""
 
-                                queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[p1].Marks
+                                queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
 
-                                if ("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[p1].QuestionImage != "") {
+                                if ("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[curr_index].QuestionImage != "") {
 
                                     Picasso.get()
-                                        .load("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[p1].QuestionImage)
+                                        .load("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
 //                .resize(imgQue!!.width, qsize)
                                         .into(imgQue)
 
@@ -996,7 +995,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                             false
                                         )
 
-                                    if (movies[q_grppos1].TestQuestion[p1].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[p1].QuestionTypeID == 7) {
+                                    if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 7) {
 
                                         queTab_tvFillBlanks.visibility = View.GONE
                                         ansList!!.visibility = View.VISIBLE
@@ -1005,14 +1004,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                                         ansList!!.adapter = SelectImageOptionAdapter(
                                             this@NewTabQuestionActivity,
-                                            movies[q_grppos1].TestQuestion[p1].StudentTestQuestionMCQ,
+                                            movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
                                             imgQue!!.width,
-                                            movies[q_grppos1].TestQuestion[p1].QuestionTypeID,
-                                            movies[q_grppos1].TestQuestion[p1].QuestionID,
-                                            movies[q_grppos1].TestQuestion[p1].Answer
+                                            movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                                            movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                                            movies[q_grppos1].TestQuestion[curr_index].Answer
                                         )
 
-                                    } else if (movies[q_grppos1].TestQuestion[p1].QuestionTypeID == 2) {
+                                    } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 2) {
                                         queTab_tvFillBlanks.visibility = View.VISIBLE
                                         ansList!!.visibility = View.GONE
                                         queTab_rbTrue.visibility = View.GONE
@@ -1020,22 +1019,22 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
 //                            if (queTab_tvFillBlanks.text.toString() == "") {
 
-                                        queTab_tvFillBlanks.setText(movies[q_grppos1].TestQuestion[p1].Answer)
+                                        queTab_tvFillBlanks.setText(movies[q_grppos1].TestQuestion[curr_index].Answer)
 
 //                            } else {
 //                                answer = queTab_tvFillBlanks.text.toString()
 //                            }
 
-                                    } else if (movies[q_grppos1].TestQuestion[p1].QuestionTypeID == 4) {
+                                    } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 4) {
                                         queTab_rbTrue.visibility = View.VISIBLE
                                         queTab_rbFalse.visibility = View.VISIBLE
                                         queTab_tvFillBlanks.visibility = View.GONE
                                         ansList!!.visibility = View.GONE
 
-                                        if (movies[q_grppos1].TestQuestion[p1].Answer == "1") {
+                                        if (movies[q_grppos1].TestQuestion[curr_index].Answer == "1") {
                                             queTab_rbTrue.isChecked = true
                                             queTab_rbFalse.isChecked = false
-                                        } else if (movies[q_grppos1].TestQuestion[p1].Answer == "0") {
+                                        } else if (movies[q_grppos1].TestQuestion[curr_index].Answer == "0") {
                                             queTab_rbFalse.isChecked = true
                                             queTab_rbTrue.isChecked = false
                                         } else {
@@ -1150,7 +1149,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             Log.d("current_index_next", "" + curr_index)
 
-            movies[p00].TestQuestion[curr_index].Answer = answer
+            movies[q_grppos1].TestQuestion[curr_index].Answer = answer
 
             queTab_rbTrue.isChecked = false
             queTab_rbFalse.isChecked = false
@@ -1161,9 +1160,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             callSubmitAnswer(
                 itype,
-                movies[p00].TestQuestion[curr_index - 1].TestQuestionID,
-                movies[p00].TestQuestion[curr_index - 1].QuestionID,
-                movies[p00].TestQuestion[curr_index - 1].QuestionTypeID,
+                movies[q_grppos1].TestQuestion[curr_index - 1].TestQuestionID,
+                movies[q_grppos1].TestQuestion[curr_index - 1].QuestionID,
+                movies[q_grppos1].TestQuestion[curr_index - 1].QuestionTypeID,
                 answer,
                 "10",
                 curr_index - 1
@@ -1180,7 +1179,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             Log.d("current_index_next", "" + curr_index)
 
-            movies[p00].TestQuestion[curr_index].Answer = answer
+            movies[q_grppos1].TestQuestion[curr_index].Answer = answer
 
             queTab_rbTrue.isChecked = false
             queTab_rbFalse.isChecked = false
@@ -1191,9 +1190,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             callSubmitAnswer(
                 itype,
-                movies[p00].TestQuestion[curr_index - 1].TestQuestionID,
-                movies[p00].TestQuestion[curr_index - 1].QuestionID,
-                movies[p00].TestQuestion[curr_index - 1].QuestionTypeID,
+                movies[q_grppos1].TestQuestion[curr_index - 1].TestQuestionID,
+                movies[q_grppos1].TestQuestion[curr_index - 1].QuestionID,
+                movies[q_grppos1].TestQuestion[curr_index - 1].QuestionTypeID,
                 answer,
                 "10",
                 curr_index + 1
@@ -1211,7 +1210,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             if (itype == "skip") {
 
-                if (curr_index < finalArr[sectionList!![q_grppos1]]!!.size - 1) {
+                if (curr_index <= finalArr[sectionList!![q_grppos1]]!!.size - 1) {
                     curr_index += 1
                 }
 
@@ -1221,34 +1220,46 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                    }
 //                }
 
-                if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
-                    setNextSkipButtonText(1)
-                } else {
-                    setNextSkipButtonText(0)
-
-                }
-
                 if ((finalArr.size - 1) > q_grppos1) {
 
-                    if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
+                    if (finalArr[sectionList!![q_grppos1]]!!.size == curr_index) {
                         q_grppos1 += 1
                         curr_index = 0
                         finalArr[sectionList!![q_grppos1]]!![curr_index].type = 1
+                    }
+
+                    if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
+                        setNextSkipButtonText(1)
+                    } else {
+                        setNextSkipButtonText(0)
+                    }
+
+                } else {
+                    if (finalArr[sectionList!![q_grppos1]]!!.size - 1 == curr_index) {
+                        setNextSkipButtonText(2)
                     }
                 }
 
             } else {
 
-                if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
-                    setNextSkipButtonText(1)
-                } else {
-                    setNextSkipButtonText(0)
-                }
-            }
+                if ((finalArr.size - 1) > q_grppos1) {
 
-            if ((finalArr.size - 1) == q_grppos1) {
-                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
-                    setNextSkipButtonText(2)
+                    if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
+                        setNextSkipButtonText(1)
+                    } else {
+                        setNextSkipButtonText(0)
+                    }
+
+                } else {
+                    if (finalArr[sectionList!![q_grppos1]]!!.size - 1 == curr_index) {
+                        setNextSkipButtonText(2)
+                    } else {
+                        if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
+                            setNextSkipButtonText(1)
+                        } else {
+                            setNextSkipButtonText(0)
+                        }
+                    }
                 }
             }
 
@@ -1257,12 +1268,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             queTab_tvTotal.text = """${0 + 1}/${movies.size}"""
 
-            queTab_tvQMarks.text = "Marks : " + movies[p00].TestQuestion[curr_index].Marks
+            queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
 
-            if ("http://content.testcraft.co.in/question/" + movies[p00].TestQuestion[curr_index].QuestionImage != "") {
+            if ("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[curr_index].QuestionImage != "") {
 
                 Picasso.get()
-                    .load("http://content.testcraft.co.in/question/" + movies[p00].TestQuestion[curr_index].QuestionImage)
+                    .load("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
 //                .resize(imgQue!!.width, qsize)
                     .into(imgQue)
 
@@ -1271,7 +1282,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 ansList!!.layoutManager =
                     LinearLayoutManager(this@NewTabQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
-                if (movies[p00].TestQuestion[curr_index].QuestionTypeID == 1 || movies[p00].TestQuestion[curr_index].QuestionTypeID == 7) {
+                if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 7) {
 
                     queTab_tvFillBlanks.visibility = View.GONE
                     ansList!!.visibility = View.VISIBLE
@@ -1280,14 +1291,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                     ansList!!.adapter = SelectImageOptionAdapter(
                         this@NewTabQuestionActivity,
-                        movies[p00].TestQuestion[curr_index].StudentTestQuestionMCQ,
+                        movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
                         imgQue!!.width,
-                        movies[p00].TestQuestion[curr_index].QuestionTypeID,
-                        movies[p00].TestQuestion[curr_index].QuestionID,
-                        movies[p00].TestQuestion[curr_index].Answer
+                        movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                        movies[q_grppos1].TestQuestion[curr_index].Answer
                     )
 
-                } else if (movies[p00].TestQuestion[curr_index].QuestionTypeID == 2) {
+                } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 2) {
                     queTab_tvFillBlanks.visibility = View.VISIBLE
                     ansList!!.visibility = View.GONE
                     queTab_rbTrue.visibility = View.GONE
@@ -1295,22 +1306,22 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
 //                            if (queTab_tvFillBlanks.text.toString() == "") {
 
-                    queTab_tvFillBlanks.setText(movies[p00].TestQuestion[curr_index].Answer)
+                    queTab_tvFillBlanks.setText(movies[q_grppos1].TestQuestion[curr_index].Answer)
 
 //                            } else {
 //                                answer = queTab_tvFillBlanks.text.toString()
 //                            }
 
-                } else if (movies[p00].TestQuestion[curr_index].QuestionTypeID == 4) {
+                } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 4) {
                     queTab_rbTrue.visibility = View.VISIBLE
                     queTab_rbFalse.visibility = View.VISIBLE
                     queTab_tvFillBlanks.visibility = View.GONE
                     ansList!!.visibility = View.GONE
 
-                    if (movies[p00].TestQuestion[curr_index].Answer == "1") {
+                    if (movies[q_grppos1].TestQuestion[curr_index].Answer == "1") {
                         queTab_rbTrue.isChecked = true
                         queTab_rbFalse.isChecked = false
-                    } else if (movies[p00].TestQuestion[curr_index].Answer == "0") {
+                    } else if (movies[q_grppos1].TestQuestion[curr_index].Answer == "0") {
                         queTab_rbFalse.isChecked = true
                         queTab_rbTrue.isChecked = false
                     } else {

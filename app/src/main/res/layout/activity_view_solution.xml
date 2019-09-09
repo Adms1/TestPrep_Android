@@ -108,22 +108,6 @@
                             android:layout_marginBottom="@dimen/_70sdp"
                             app:layout_constraintBottom_toBottomOf="parent">
 
-                        <Button
-                                android:id="@+id/solution_btnNext"
-                                android:layout_width="@dimen/_75sdp"
-                                android:layout_height="@dimen/_35sdp"
-                                android:text="@string/next"
-                                android:textSize="@dimen/_13sdp"
-                                android:paddingLeft="@dimen/_10sdp"
-                                android:paddingRight="@dimen/_10sdp"
-                                android:background="@drawable/login_round_bg"
-                                android:textColor="@color/white"
-                                android:textAllCaps="false"
-                                android:textStyle="bold"
-                                android:layout_marginBottom="@dimen/_3sdp"
-                                android:layout_centerHorizontal="true"
-                                android:layout_alignParentBottom="true"/>
-
                         <android.support.constraint.ConstraintLayout
                                 android:layout_width="match_parent"
                                 android:layout_marginLeft="@dimen/_10sdp"
@@ -232,6 +216,22 @@
                             </android.support.v4.widget.NestedScrollView>
 
                         </android.support.constraint.ConstraintLayout>
+
+                        <Button
+                                android:id="@+id/solution_btnNext"
+                                android:layout_width="@dimen/_75sdp"
+                                android:layout_height="@dimen/_35sdp"
+                                android:text="@string/next"
+                                android:textSize="@dimen/_13sdp"
+                                android:paddingLeft="@dimen/_10sdp"
+                                android:paddingRight="@dimen/_10sdp"
+                                android:background="@drawable/login_round_bg"
+                                android:textColor="@color/white"
+                                android:textAllCaps="false"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="@dimen/_3sdp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_alignParentBottom="true"/>
 
                     </RelativeLayout>
 

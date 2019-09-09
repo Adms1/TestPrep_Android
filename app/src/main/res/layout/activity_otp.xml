@@ -67,6 +67,20 @@
             android:paddingRight="@dimen/_25sdp"
             app:layout_constraintTop_toBottomOf="@+id/otp_ivLogo"/>
 
+    <TextView
+            android:id="@+id/otp_tvInvalid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/regular_text_size"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="Invalid code, Please re-enter."
+            android:paddingLeft="@dimen/_25sdp"
+            android:paddingRight="@dimen/_25sdp"
+            app:layout_constraintBottom_toTopOf="@+id/otp_etOtp"/>
+
     <!--<com.goodiebag.pinview.Pinview-->
     <!--android:id="@+id/otp_etOtp"-->
     <!--android:layout_width="wrap_content"-->
@@ -145,7 +159,7 @@
             android:id="@+id/otp_tvVerificationSuccess"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your mobile number has been verified successfully"
+            android:text="Your mobile number has been successfully verified"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/regular_text_size"

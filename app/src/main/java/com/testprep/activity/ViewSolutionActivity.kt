@@ -128,7 +128,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         solution_expQueList.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
 
-            grppos1 = groupPosition
+            solution_grppos1 = groupPosition
 
             false
 
@@ -136,6 +136,8 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         solution_ivBack.setOnClickListener {
 
+            curr_index1 = 0
+            solution_grppos1 = 0
             onBackPressed()
 
         }
@@ -277,63 +279,58 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         })
     }
 
-    override fun getType(itype: String, p00: Int, p0: Int) {
+    override fun getType(itype: String, p010: Int, p10: Int) {
+
+        curr_index1 = p10
 
         drawer_layout.closeDrawer(Gravity.END)
 
         hintData =
-            "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[p00].TestQuestion[p0].Explanation + "</font></p></body></html>"
+            "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[solution_grppos1].TestQuestion[curr_index1].Explanation + "</font></p></body></html>"
 
-        if ("http://content.testcraft.co.in/question/" + movies[p00].TestQuestion[p0].QuestionImage != "") {
+        if ("http://content.testcraft.co.in/question/" + movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage != "") {
 
             Picasso.get()
-                .load("http://content.testcraft.co.in/question/" + movies[p00].TestQuestion[p0].QuestionImage)
+                .load("http://content.testcraft.co.in/question/" + movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage)
                 .into(imgQue)
 
             ansList!!.layoutManager =
                 LinearLayoutManager(this@ViewSolutionActivity, LinearLayoutManager.VERTICAL, false)
 
-            if (movies[p00].TestQuestion[p0].QuestionTypeID == 1) {
-                ansList!!.adapter = SolutionAdapter(
+            when (movies[solution_grppos1].TestQuestion[curr_index1].QuestionTypeID) {
+                1 -> ansList!!.adapter = SolutionAdapter(
                     this@ViewSolutionActivity,
-                    movies[p00].TestQuestion[p0].StudentTestQuestionMCQ,
+                    movies[solution_grppos1].TestQuestion[curr_index1].StudentTestQuestionMCQ,
                     solution_page_img_que_img.width, 1
                 )
-            } else if (movies[p00].TestQuestion[p0].QuestionTypeID == 2) {
+                2 -> {
 
-                solution_tvFillBlanks.visibility = View.VISIBLE
-                ansList!!.visibility = View.GONE
-                solution_rbTruefalse.visibility = View.GONE
+                    solution_tvFillBlanks.visibility = View.VISIBLE
+                    ansList!!.visibility = View.GONE
+                    solution_rbTruefalse.visibility = View.GONE
 
-                solution_tvFillBlanks.text = movies[p00].TestQuestion[p0].Answer
+                    solution_tvFillBlanks.text = movies[solution_grppos1].TestQuestion[curr_index1].Answer
 
-            } else if (movies[p00].TestQuestion[p0].QuestionTypeID == 4) {
-                solution_rbTruefalse.visibility = View.VISIBLE
-                solution_tvFillBlanks.visibility = View.GONE
-                ansList!!.visibility = View.GONE
+                }
+                4 -> {
+                    solution_rbTruefalse.visibility = View.VISIBLE
+                    solution_tvFillBlanks.visibility = View.GONE
+                    ansList!!.visibility = View.GONE
 
-                setTrueFalse(p00, p0)
+                    setTrueFalse(solution_grppos1, curr_index1)
 
-            } else if (movies[p00].TestQuestion[p0].QuestionTypeID == 7) {
-                ansList!!.layoutManager =
-                    LinearLayoutManager(this@ViewSolutionActivity, LinearLayoutManager.VERTICAL, false)
+                }
+                7 -> {
+                    ansList!!.layoutManager =
+                        LinearLayoutManager(this@ViewSolutionActivity, LinearLayoutManager.VERTICAL, false)
 
-                ansList!!.adapter = SolutionAdapter(
-                    this@ViewSolutionActivity,
-                    movies[p00].TestQuestion[p0].StudentTestQuestionMCQ,
-                    solution_page_img_que_img.width, 7
-                )
+                    ansList!!.adapter = SolutionAdapter(
+                        this@ViewSolutionActivity,
+                        movies[solution_grppos1].TestQuestion[curr_index1].StudentTestQuestionMCQ,
+                        solution_page_img_que_img.width, 7
+                    )
+                }
             }
-        }
-
-        solution_btnNext.visibility = View.VISIBLE
-    }
-
-    fun getNextQuestion1() {
-        if ((movies[grppos1].TestQuestion.size - 1) > AppConstants.QUE_NUMBER1) {
-            AppConstants.QUE_NUMBER1 = AppConstants.QUE_NUMBER1 + 1
-
-            getType("solution", grppos1, AppConstants.QUE_NUMBER1)
 
             sideList!!.setAdapter(
                 SoutionSideMenuAdapter(
@@ -344,9 +341,75 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                     "solution"
                 )
             )
+
         }
 
-        Log.d("que_number", "" + AppConstants.QUE_NUMBER1)
+        solution_btnNext.visibility = View.VISIBLE
+    }
+
+    fun getNextQuestion1() {
+
+//        if ((finalArr.size - 1) > solution_grppos1) {
+//
+//            if (finalArr[sectionList!![solution_grppos1]]!!.size == curr_index1 && p1 == (curr_index1 - 1)) {
+//                solution_grppos1 += 1
+//                curr_index1 = 0
+//                p1 = 0
+//                finalArr[sectionList!![solution_grppos1]]!![p1].type =
+//                    1
+//            }
+//
+//            sideList!!.setAdapter(
+//                SoutionSideMenuAdapter(
+//                    context!!,
+//                    sectionList!!,
+//                    finalArr,
+//                    filterTypeSelectionInteface!!,
+//                    "solution"
+//                )
+//            )
+//        }
+//
+//
+//        if ((movies[solution_grppos1].TestQuestion.size - 1) > AppConstants.QUE_NUMBER1) {
+//            AppConstants.QUE_NUMBER1 = AppConstants.QUE_NUMBER1 + 1
+//
+//            getType("solution", solution_grppos1, AppConstants.QUE_NUMBER1)
+//
+//            sideList!!.setAdapter(
+//                SoutionSideMenuAdapter(
+//                    context!!,
+//                    sectionList!!,
+//                    finalArr,
+//                    filterTypeSelectionInteface!!,
+//                    "solution"
+//                )
+//            )
+//        }
+//
+//        Log.d("que_number", "" + AppConstants.QUE_NUMBER1)
+
+        if (curr_index1 <= finalArr[sectionList!![solution_grppos1]]!!.size - 1) {
+            curr_index1 += 1
+        }
+
+//                if ((finalArr.size - 1) == solution_grppos1) {
+//                    if ((finalArr[sectionList!![solution_grppos1]]!!.size - 1) == (com.testprep.sectionmodule.Companion.curr_index1+1)) {
+//                        solution_btnNext.text = "Submit Test"
+//                    }
+//                }
+
+        if ((finalArr.size - 1) > solution_grppos1) {
+
+            if (finalArr[sectionList!![solution_grppos1]]!!.size == curr_index1) {
+                solution_grppos1 += 1
+                curr_index1 = 0
+                finalArr[sectionList!![solution_grppos1]]!![curr_index1].type = 1
+            }
+
+        }
+
+        getType("solution", solution_grppos1, curr_index1)
     }
 
     companion object {
@@ -358,7 +421,8 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         var filterTypeSelectionInteface: FilterTypeSelectionInteface? = null
         var context: Context? = null
         var finalArr: HashMap<String, ArrayList<QuestionTypeModel>> = HashMap()
-        var grppos1 = 0
+        var solution_grppos1 = 0
+        var curr_index1 = 0
 
     }
 

@@ -153,17 +153,20 @@ class TutorDetailActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 101) {
-            ptype = data!!.getStringExtra("type")
-            pname = data.getStringExtra("pname")
-            boardid = data.getStringExtra("boardid")
-            stdid = data.getStringExtra("stdid")
-            subid = data.getStringExtra("subid")
-            tutorid = data.getStringExtra("tutorid")
-            minprice = data.getStringExtra("minprice")
-            maxprice = data.getStringExtra("maxprice")
-        }
+            if (data != null) {
+                ptype = data.getStringExtra("type")
+                pname = data.getStringExtra("pname")
+                boardid = data.getStringExtra("boardid")
+                stdid = data.getStringExtra("stdid")
+                subid = data.getStringExtra("subid")
+                tutorid = data.getStringExtra("tutorid")
+                minprice = data.getStringExtra("minprice")
+                maxprice = data.getStringExtra("maxprice")
 
-        callFilterListApi("", "-1")
+                callFilterListApi("", "-1")
+
+            }
+        }
 
     }
 

@@ -106,6 +106,7 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:textColor="@color/white"
             android:layout_marginLeft="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp"
             android:layout_marginRight="@dimen/_5sdp"/>
 
 </android.support.constraint.ConstraintLayout>

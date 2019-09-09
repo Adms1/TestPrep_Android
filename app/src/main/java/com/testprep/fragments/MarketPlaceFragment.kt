@@ -113,18 +113,22 @@ class MarketPlaceFragment : Fragment() {
             val intent = Intent(context, TutorDetailActivity::class.java)
             intent.putExtra("type", "tutor")
             intent.putExtra("pname", "Tutors")
+            intent.putExtra("boardid", "")
+            intent.putExtra("stdid", "")
+            intent.putExtra("subid", "")
+            intent.putExtra("tutorid", "")
             intent.putExtra("parr", tutorList)
             startActivity(intent)
         }
 
         main_pkg_item_tvSSeeall.setOnClickListener {
             val intent = Intent(context, TutorDetailActivity::class.java)
+            intent.putExtra("type", "single")
+            intent.putExtra("pname", "Single Test")
             intent.putExtra("boardid", Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!)
             intent.putExtra("stdid", Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!)
             intent.putExtra("subid", Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!)
             intent.putExtra("tutorid", "")
-            intent.putExtra("type", "single")
-            intent.putExtra("pname", "Single Test")
             startActivity(intent)
         }
 
@@ -413,7 +417,7 @@ class MarketPlaceFragment : Fragment() {
             val view = layoutInflater.inflate(R.layout.slider_item_layout, container, false)
 
             var iv: ImageView = view.findViewById(R.id.imageView)
-            var tv: TextView = view.findViewById(R.id.testName)
+//            var tv: TextView = view.findViewById(R.id.testName)
             var btn: Button = view.findViewById(R.id.btnBuy)
 
             iv.setOnClickListener {
@@ -423,12 +427,13 @@ class MarketPlaceFragment : Fragment() {
                 intent.putExtra("tutor_id", arrList[position].TutorID)
                 intent.putExtra("come_from", "selectpackage")
                 context!!.startActivity(intent)
+                activity!!.finish()
 
 //                callAddTestPackageApi(arrList[position].TestPackageID)
             }
 
             iv.setImageResource(R.drawable.free_test)
-            tv.text = arrList[position].TestPackageName
+//            tv.text = arrList[position].TestPackageName
 
             container.addView(view)
             return view

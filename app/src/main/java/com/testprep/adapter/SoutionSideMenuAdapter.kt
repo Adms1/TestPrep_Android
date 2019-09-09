@@ -11,8 +11,9 @@ import android.widget.BaseExpandableListAdapter
 import android.widget.ExpandableListView
 import android.widget.TextView
 import com.testprep.R
-import com.testprep.activity.ViewSolutionActivity.Companion.grppos1
+import com.testprep.activity.ViewSolutionActivity.Companion.curr_index1
 import com.testprep.activity.ViewSolutionActivity.Companion.sideList
+import com.testprep.activity.ViewSolutionActivity.Companion.solution_grppos1
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.QuestionTypeModel
 import com.testprep.utils.AppConstants
@@ -142,9 +143,10 @@ internal class ImageViewAdapter1(
 
         p0.childheader.setOnClickListener {
 
-            grppos1 = grpPos
+            solution_grppos1 = grpPos
 
             AppConstants.QUE_NUMBER1 = p1
+            curr_index1 = p1
 
             for (i in 0..finalArr[header[grpPos]]!!.size) {
                 finalArr[header[grpPos]]!![p1].isTrue = finalArr[header[grpPos]]!![p1].qnumber == p1
@@ -192,7 +194,7 @@ internal class ImageViewAdapter1(
             }
         }
 
-        if (grppos1 == grpPos && AppConstants.QUE_NUMBER1 == p1) {
+        if (solution_grppos1 == grpPos && curr_index1 == p1) {
 
             p0.childheader.setTextColor(context.resources.getColor(R.color.white))
             p0.childheader.setBackgroundResource(R.drawable.blue_round)

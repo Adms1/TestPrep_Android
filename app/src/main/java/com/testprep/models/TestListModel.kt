@@ -22,5 +22,6 @@ class TestListModel {
         var SubjectName = ""
         var CourseName = ""
         var RemainTime = ""
+        var TotalQuestions = ""
     }
 }

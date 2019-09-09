@@ -3,7 +3,6 @@ package com.testprep.sectionmodule
 import android.content.Context
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -155,7 +154,7 @@ class ImageViewAdapter(
 //                dataList[old_que!!].type = 3
 //                finalArr[header[grpPos]]!![p1].type = 1
 
-            AppConstants.QUE_NUMBER = p1
+//            AppConstants.QUE_NUMBER = p1
             curr_index = p1
 //            } else {
 //
@@ -179,7 +178,7 @@ class ImageViewAdapter(
                 )
             )
 
-            Log.d("que_number", "" + AppConstants.QUE_NUMBER)
+//            Log.d("que_number", "" + AppConstants.QUE_NUMBER)
 
             filterTypeSelectionInteface.getType("adapter", grpPos, p1)
 
