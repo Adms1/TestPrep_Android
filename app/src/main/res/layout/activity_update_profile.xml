@@ -25,6 +25,7 @@
             android:paddingTop="@dimen/_7sdp"
             android:text="Profile"
             android:maxLines="1"
+            android:visibility="gone"
             android:textColor="@color/black"
             android:layout_toRightOf="@+id/signup_ivBack"
             android:textSize="@dimen/normal_header_size"

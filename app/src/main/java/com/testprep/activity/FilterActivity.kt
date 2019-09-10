@@ -84,7 +84,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                 coursetypeid = "1"
 
-                Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)
+//                Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)
 
                 val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Boards")
                 pp1.isSelected = false
@@ -124,7 +124,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                 coursetypeid = "2"
 
-                Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)
+//                Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)
 
                 val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Competitive Exams")
                 pp1.isSelected = false

@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.ActionBarDrawerToggle
+import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -13,7 +14,9 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.ExpandableListView
@@ -37,7 +40,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
+class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
     var mToolbar: Toolbar? = null
 
@@ -53,42 +56,55 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
     internal var mDrawerToggle: ActionBarDrawerToggle? = null
     var childList = HashMap<String, ArrayList<String>>()
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    var bundle: Bundle? = null
+
+//    override fun attachBaseContext(newBase: Context?) {
+//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+//    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        return inflater.inflate(com.testprep.R.layout.activity_view_solution, container, false)
+
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//
+//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//
+//        setContentView(R.layout.activity_view_solution)
 
-        setContentView(R.layout.activity_view_solution)
+//        activity.setSupportActionBar(mToolbar)
 
-        setSupportActionBar(mToolbar)
-
-        context = this@ViewSolutionActivity
+//        context = activity!!
 
         filterTypeSelectionInteface = this
 
         AppConstants.QUE_NUMBER1 = 0
 
-        testid = intent.getStringExtra("testid")
-        studenttestid = intent.getStringExtra("studenttestid")
+        bundle = this.arguments
+
+        testid = bundle!!.getString("testid")
+        studenttestid = bundle!!.getString("studenttestid")
 
         drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         sectionList = ArrayList()
 //        sectionList1 = ArrayList()
 
-        imgQue = findViewById(R.id.solution_page_img_que_img)
-        ansList = findViewById(R.id.solution_wv_question_list)
-        nextButton = findViewById(R.id.solution_btnNext)
-        sideList = findViewById(R.id.solution_expQueList)
+        imgQue = view.findViewById(R.id.solution_page_img_que_img)
+        ansList = view.findViewById(R.id.solution_wv_question_list)
+        nextButton = view.findViewById(R.id.solution_btnNext)
+        sideList = view.findViewById(R.id.solution_expQueList)
 
         imgQue!!.isDrawingCacheEnabled = true
 
         mDrawerToggle = ActionBarDrawerToggle(
-            this, drawer_layout, R.mipmap.tc_logo, // nav menu toggle icon
+            activity, drawer_layout, R.mipmap.tc_logo, // nav menu toggle icon
             R.string.app_name, // nav drawer open - description for accessibility
             R.string.app_name
         )
@@ -107,7 +123,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         solution_ivReview.setOnClickListener {
 
-            val dialog = Dialog(this@ViewSolutionActivity)
+            val dialog = Dialog(activity!!)
             dialog.setContentView(R.layout.hint_dialog)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.setCanceledOnTouchOutside(false)
@@ -124,7 +140,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
             dialog.show()
         }
 
-        ansList!!.layoutManager = LinearLayoutManager(this@ViewSolutionActivity, LinearLayoutManager.VERTICAL, false)
+        ansList!!.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
         solution_expQueList.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
 
@@ -138,7 +154,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
             curr_index1 = 0
             solution_grppos1 = 0
-            onBackPressed()
+//            onBackPressed()
 
         }
 
@@ -149,11 +165,11 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
     fun callSolutionApi() {
 
-        if (!DialogUtils.isNetworkConnected(this@ViewSolutionActivity)) {
-            Utils.ping(this@ViewSolutionActivity, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@ViewSolutionActivity)
+        DialogUtils.showDialog(activity!!)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
@@ -214,7 +230,7 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                         solution_expQueList.setAdapter(
                             SoutionSideMenuAdapter(
-                                this@ViewSolutionActivity,
+                                activity!!,
                                 sectionList!!,
                                 finalArr,
                                 filterTypeSelectionInteface!!,
@@ -234,10 +250,10 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                     if (movies[0].TestQuestion[0].QuestionTypeID == 1) {
                         ansList!!.layoutManager =
-                            LinearLayoutManager(this@ViewSolutionActivity, LinearLayoutManager.VERTICAL, false)
+                            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
                         ansList!!.adapter = SolutionAdapter(
-                            this@ViewSolutionActivity,
+                            activity!!,
                             movies[0].TestQuestion[0].StudentTestQuestionMCQ,
                             solution_page_img_que_img.width, 1
                         )
@@ -259,10 +275,10 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                     } else if (movies[0].TestQuestion[0].QuestionTypeID == 7) {
                         ansList!!.layoutManager =
-                            LinearLayoutManager(this@ViewSolutionActivity, LinearLayoutManager.VERTICAL, false)
+                            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
                         ansList!!.adapter = SolutionAdapter(
-                            this@ViewSolutionActivity,
+                            activity!!,
                             movies[0].TestQuestion[0].StudentTestQuestionMCQ,
                             solution_page_img_que_img.width, 7
                         )
@@ -285,66 +301,70 @@ class ViewSolutionActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         drawer_layout.closeDrawer(Gravity.END)
 
-        hintData =
-            "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[solution_grppos1].TestQuestion[curr_index1].Explanation + "</font></p></body></html>"
+        if (finalArr[sectionList!![solution_grppos1]]!!.size > curr_index1) {
+            hintData =
+                "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[solution_grppos1].TestQuestion[curr_index1].Explanation + "</font></p></body></html>"
 
-        if ("http://content.testcraft.co.in/question/" + movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage != "") {
+            if ("http://content.testcraft.co.in/question/" + movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage != "") {
 
-            Picasso.get()
-                .load("http://content.testcraft.co.in/question/" + movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage)
-                .into(imgQue)
+                Picasso.get()
+                    .load("http://content.testcraft.co.in/question/" + movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage)
+                    .into(imgQue)
 
-            ansList!!.layoutManager =
-                LinearLayoutManager(this@ViewSolutionActivity, LinearLayoutManager.VERTICAL, false)
+                ansList!!.layoutManager =
+                    LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
-            when (movies[solution_grppos1].TestQuestion[curr_index1].QuestionTypeID) {
-                1 -> ansList!!.adapter = SolutionAdapter(
-                    this@ViewSolutionActivity,
-                    movies[solution_grppos1].TestQuestion[curr_index1].StudentTestQuestionMCQ,
-                    solution_page_img_que_img.width, 1
-                )
-                2 -> {
-
-                    solution_tvFillBlanks.visibility = View.VISIBLE
-                    ansList!!.visibility = View.GONE
-                    solution_rbTruefalse.visibility = View.GONE
-
-                    solution_tvFillBlanks.text = movies[solution_grppos1].TestQuestion[curr_index1].Answer
-
-                }
-                4 -> {
-                    solution_rbTruefalse.visibility = View.VISIBLE
-                    solution_tvFillBlanks.visibility = View.GONE
-                    ansList!!.visibility = View.GONE
-
-                    setTrueFalse(solution_grppos1, curr_index1)
-
-                }
-                7 -> {
-                    ansList!!.layoutManager =
-                        LinearLayoutManager(this@ViewSolutionActivity, LinearLayoutManager.VERTICAL, false)
-
-                    ansList!!.adapter = SolutionAdapter(
-                        this@ViewSolutionActivity,
+                when (movies[solution_grppos1].TestQuestion[curr_index1].QuestionTypeID) {
+                    1 -> ansList!!.adapter = SolutionAdapter(
+                        activity!!,
                         movies[solution_grppos1].TestQuestion[curr_index1].StudentTestQuestionMCQ,
-                        solution_page_img_que_img.width, 7
+                        solution_page_img_que_img.width, 1
                     )
+                    2 -> {
+
+                        solution_tvFillBlanks.visibility = View.VISIBLE
+                        ansList!!.visibility = View.GONE
+                        solution_rbTruefalse.visibility = View.GONE
+
+                        solution_tvFillBlanks.text = movies[solution_grppos1].TestQuestion[curr_index1].Answer
+
+                    }
+                    4 -> {
+                        solution_rbTruefalse.visibility = View.VISIBLE
+                        solution_tvFillBlanks.visibility = View.GONE
+                        ansList!!.visibility = View.GONE
+
+                        setTrueFalse(solution_grppos1, curr_index1)
+
+                    }
+                    7 -> {
+                        ansList!!.layoutManager =
+                            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+
+                        ansList!!.adapter = SolutionAdapter(
+                            activity!!,
+                            movies[solution_grppos1].TestQuestion[curr_index1].StudentTestQuestionMCQ,
+                            solution_page_img_que_img.width, 7
+                        )
+                    }
                 }
+
+                sideList!!.setAdapter(
+                    SoutionSideMenuAdapter(
+                        context!!,
+                        sectionList!!,
+                        finalArr,
+                        filterTypeSelectionInteface!!,
+                        "solution"
+                    )
+                )
+
             }
 
-            sideList!!.setAdapter(
-                SoutionSideMenuAdapter(
-                    context!!,
-                    sectionList!!,
-                    finalArr,
-                    filterTypeSelectionInteface!!,
-                    "solution"
-                )
-            )
-
+            solution_btnNext.visibility = View.VISIBLE
+        }else{
+            solution_btnNext.visibility = View.GONE
         }
-
-        solution_btnNext.visibility = View.VISIBLE
     }
 
     fun getNextQuestion1() {

@@ -4,11 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
@@ -24,22 +27,31 @@ import kotlinx.android.synthetic.main.activity_change_password.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
+import android.view.inputmethod.InputMethodManager
 
-class ChangePasswordActivity : AppCompatActivity() {
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+class ChangePasswordActivity : Fragment() {
+
+//    override fun attachBaseContext(newBase: Context?) {
+//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+//    }
+
+    var bundle: Bundle? = null
+    var come: String = ""
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        return inflater.inflate(com.testprep.R.layout.activity_change_password, container, false)
+
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        bundle = this.arguments
+        come = bundle!!.getString("come_from")
 
-        setContentView(R.layout.activity_change_password)
-
-        if (intent.getStringExtra("come_from") == "other") {
+        if (come == "other") {
 
             chngepass_ivoldpass.visibility = View.VISIBLE
             chngepass_llOldpass.visibility = View.VISIBLE
@@ -53,7 +65,7 @@ class ChangePasswordActivity : AppCompatActivity() {
 
         chngepass_btnChange.setOnClickListener {
 
-            if (intent.getStringExtra("come_from") == "other") {
+            if (come == "other") {
 
                 if (isValid1()) {
                     if (isValid()) {
@@ -69,53 +81,47 @@ class ChangePasswordActivity : AppCompatActivity() {
             }
         }
 
-        chngepass_etconfirmpass.setOnEditorActionListener(
-            object : TextView.OnEditorActionListener {
+        chngepass_etconfirmpass.setOnEditorActionListener { v, actionId, event ->
+            if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                if (come == "other") {
 
-                override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
-                    if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
-                        if (intent.getStringExtra("come_from") == "other") {
-
-                            if (isValid1()) {
-                                if (isValid()) {
-                                    callChangePasswordlApi()
-                                }
-                            }
-
-                        } else {
-
-                            if (isValid()) {
-                                callChangePasswordlApi()
-                            }
+                    if (isValid1()) {
+                        if (isValid()) {
+                            callChangePasswordlApi()
                         }
-
                     }
-                    return false
 
+                } else {
+
+                    if (isValid()) {
+                        callChangePasswordlApi()
+                    }
                 }
 
-            })
+            }
+            false
+        }
 
         chngepass_ivBack.setOnClickListener {
 
-            onBackPressed()
+//            onBackPressed()
         }
 
     }
 
     fun callChangePasswordlApi() {
 
-        if (!DialogUtils.isNetworkConnected(this@ChangePasswordActivity)) {
-            Utils.ping(this@ChangePasswordActivity, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@ChangePasswordActivity)
+        DialogUtils.showDialog(activity!!)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.changePassword(
             WebRequests.changePasswordParams(
-                Utils.getStringValue(this@ChangePasswordActivity, AppConstants.USER_ID, "")!!,
+                Utils.getStringValue(activity!!, AppConstants.USER_ID, "")!!,
                 chngepass_etNewpass.text.toString()
             )
         )
@@ -130,53 +136,53 @@ class ChangePasswordActivity : AppCompatActivity() {
                     if (response.body()!!["Status"].asString == "true") {
 
                         Toast.makeText(
-                            this@ChangePasswordActivity,
+                            activity!!,
                             response.body()!!["Msg"].asString,
                             Toast.LENGTH_SHORT
                         )
                             .show()
 
-                        Utils.setStringValue(this@ChangePasswordActivity, "is_login", "true")
+                        Utils.setStringValue(activity!!, "is_login", "true")
 
 //                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
                         Utils.setStringValue(
-                            this@ChangePasswordActivity,
+                            activity!!,
                             AppConstants.FIRST_NAME,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
                         )
                         Utils.setStringValue(
-                            this@ChangePasswordActivity,
+                            activity!!,
                             AppConstants.LAST_NAME,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
                         )
                         Utils.setStringValue(
-                            this@ChangePasswordActivity,
+                            activity!!,
                             AppConstants.USER_ID,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
                         )
                         Utils.setStringValue(
-                            this@ChangePasswordActivity,
+                            activity!!,
                             AppConstants.USER_EMAIL,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
                         )
                         Utils.setStringValue(
-                            this@ChangePasswordActivity,
+                            activity!!,
                             AppConstants.USER_PASSWORD,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
                         )
                         Utils.setStringValue(
-                            this@ChangePasswordActivity,
+                            activity!!,
                             AppConstants.USER_MOBILE,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
                         )
                         Utils.setStringValue(
-                            this@ChangePasswordActivity,
+                            activity!!,
                             AppConstants.USER_ACCOUNT_TYPE,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["AccountTypeID"].asString
                         )
                         Utils.setStringValue(
-                            this@ChangePasswordActivity,
+                            activity!!,
                             AppConstants.USER_STATUSID,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
                         )
@@ -189,22 +195,26 @@ class ChangePasswordActivity : AppCompatActivity() {
 //
 //                            {
 
-                                if (intent.getStringExtra("come_from") == "other") {
+                                if (come == "other") {
 
-                                    finish()
+                                    AppConstants.isFirst = 4
+                                    val intent1 = Intent(activity, DashboardActivity::class.java)
+                                    intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    startActivity(intent1)
+                                    activity!!.finish()
 
                                 } else {
                                     AppConstants.isFirst = 0
-                                    val intent = Intent(this@ChangePasswordActivity, LoginActivity::class.java)
+                                    val intent = Intent(activity!!, LoginActivity::class.java)
                                     startActivity(intent)
-                                    finish()
+                                    activity!!.finish()
                                 }
 //                            }, 2500
 //                        )
 
                     } else {
                         Toast.makeText(
-                            this@ChangePasswordActivity,
+                            activity!!,
                             response.body()!!["Msg"].asString,
                             Toast.LENGTH_SHORT
                         )
@@ -265,7 +275,7 @@ class ChangePasswordActivity : AppCompatActivity() {
         }
 
         if (chngepass_etOldpass.text.toString() != Utils.getStringValue(
-                this@ChangePasswordActivity,
+                activity!!,
                 AppConstants.USER_PASSWORD,
                 ""
             )!!

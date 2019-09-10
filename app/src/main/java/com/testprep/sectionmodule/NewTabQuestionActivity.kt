@@ -1171,7 +1171,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //            curr_index = curr_index + 1
 
             if ((finalArr.size - 1) == q_grppos1) {
-                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
+                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) > curr_index) {
                     setNextSkipButtonText(2)
                 }
             }

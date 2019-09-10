@@ -15,6 +15,7 @@
             app:layout_constraintTop_toTopOf="@+id/review_tvHeading"
             app:layout_constraintBottom_toBottomOf="@+id/review_tvHeading"
             app:srcCompat="@drawable/back_button"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/review_ivBack"/>
 
@@ -26,6 +27,7 @@
             android:paddingTop="@dimen/_7sdp"
             android:gravity="center_vertical"
             android:text="@string/analysis"
+            android:visibility="gone"
             android:textColor="@color/black"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/review_ivBack"

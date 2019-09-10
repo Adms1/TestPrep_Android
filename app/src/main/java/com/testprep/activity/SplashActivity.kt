@@ -39,7 +39,9 @@ class SplashActivity : AppCompatActivity() {
 
             {
 
-                if (Utils.getStringValue(this@SplashActivity, "is_login", "") == "true") {
+                AppConstants.isFirst = 0
+
+                        if (Utils.getStringValue(this@SplashActivity, "is_login", "") == "true") {
                     // This method will be executed once the timer is over
                     // Start your app main activity
                     Utils.setStringValue(this@SplashActivity, "is_login", "true")

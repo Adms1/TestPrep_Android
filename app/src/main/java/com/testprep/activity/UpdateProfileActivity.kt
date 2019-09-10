@@ -1,12 +1,15 @@
 package com.testprep.activity
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
@@ -27,19 +30,22 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
  * A simple [Fragment] subclass.
  *
  */
-class UpdateProfileActivity : AppCompatActivity() {
+class UpdateProfileActivity : Fragment() {
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
-    }
+//    override fun attachBaseContext(newBase: Context?) {
+//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+//    }
 
     var userid = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        setContentView(R.layout.activity_update_profile)
+        return inflater.inflate(R.layout.activity_update_profile, container, false)
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
 
 //    }
@@ -53,19 +59,19 @@ class UpdateProfileActivity : AppCompatActivity() {
 //    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 //        super.onViewCreated(view, savedInstanceState)
 //
-//        val heading = this@UpdateProfileActivity.findViewById(R.id.dashboard_tvTitle) as TextView
+//        val heading = activity!!.findViewById(R.id.dashboard_tvTitle) as TextView
 //        heading.text = "Profile"
 
-        userid = Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_ID, "").toString()
-        signup_etFname.setText(Utils.getStringValue(this@UpdateProfileActivity, AppConstants.FIRST_NAME, ""))
-        signup_etLname.setText(Utils.getStringValue(this@UpdateProfileActivity, AppConstants.LAST_NAME, ""))
-        signup_etEmail.setText(Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_EMAIL, ""))
+        userid = Utils.getStringValue(activity!!, AppConstants.USER_ID, "").toString()
+        signup_etFname.setText(Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, ""))
+        signup_etLname.setText(Utils.getStringValue(activity!!, AppConstants.LAST_NAME, ""))
+        signup_etEmail.setText(Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, ""))
 
         signup_etEmail.isFocusable = false
 
-        signup_etPassword.setText(Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_PASSWORD, ""))
+        signup_etPassword.setText(Utils.getStringValue(activity!!, AppConstants.USER_PASSWORD, ""))
 
-        signup_etMobile.setText(Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_MOBILE, ""))
+        signup_etMobile.setText(Utils.getStringValue(activity!!, AppConstants.USER_MOBILE, ""))
 
         signup_btnSignup.text = getString(com.testprep.R.string.update)
 
@@ -76,27 +82,27 @@ class UpdateProfileActivity : AppCompatActivity() {
             }
         }
 
-        signup_ivBack.setOnClickListener { onBackPressed() }
+//        signup_ivBack.setOnClickListener { onBackPressed() }
     }
 
     fun callSignupApi() {
 
-        if (!DialogUtils.isNetworkConnected(this@UpdateProfileActivity)) {
-            Utils.ping(this@UpdateProfileActivity, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@UpdateProfileActivity)
+        DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
         val call = apiService.updateProfile(
             WebRequests.addSignupParams(
-                Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_ACCOUNT_TYPE, "")!!,
-                Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_ID, "")!!,
+                Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "")!!,
+                Utils.getStringValue(activity!!, AppConstants.USER_ID, "")!!,
                 signup_etFname.text.toString(),
                 signup_etLname.text.toString(),
                 signup_etEmail.text.toString(),
                 signup_etPassword.text.toString(),
                 signup_etMobile.text.toString(),
-                Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_STATUSID, "")!!
+                Utils.getStringValue(activity!!, AppConstants.USER_STATUSID, "")!!
             )
         )
 
@@ -109,59 +115,63 @@ class UpdateProfileActivity : AppCompatActivity() {
                     if (response.body()!!.get("Status").asString == "true") {
 
                         Toast.makeText(
-                            this@UpdateProfileActivity,
+                            activity!!,
                             response.body()!!.get("Msg").asString,
                             Toast.LENGTH_LONG
                         ).show()
 
                         Utils.setStringValue(
-                            this@UpdateProfileActivity,
+                            activity!!,
                             AppConstants.FIRST_NAME,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileActivity,
+                            activity!!,
                             AppConstants.LAST_NAME,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileActivity,
+                            activity!!,
                             AppConstants.USER_ID,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileActivity,
+                            activity!!,
                             AppConstants.USER_EMAIL,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileActivity,
+                            activity!!,
                             AppConstants.USER_PASSWORD,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileActivity,
+                            activity!!,
                             AppConstants.USER_MOBILE,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileActivity,
+                            activity!!,
                             AppConstants.USER_ACCOUNT_TYPE,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["AccountTypeID"].asString
                         )
                         Utils.setStringValue(
-                            this@UpdateProfileActivity,
+                            activity!!,
                             AppConstants.USER_STATUSID,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
                         )
 
-                        finish()
+                        AppConstants.isFirst = 4
+                        val intent1 = Intent(activity, DashboardActivity::class.java)
+                        intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent1)
+                        activity!!.finish()
                         Log.d("websize", response.body()!!.get("Msg").asString)
 
                     } else {
 
                         Toast.makeText(
-                            this@UpdateProfileActivity,
+                            activity!!,
                             response.body()!!.get("Msg").asString,
                             Toast.LENGTH_LONG
                         ).show()
@@ -194,7 +204,7 @@ class UpdateProfileActivity : AppCompatActivity() {
             isvalid = false
         }
 
-        if (Utils.getStringValue(this@UpdateProfileActivity, AppConstants.USER_ACCOUNT_TYPE, "") == "1") {
+        if (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") == "1") {
 
             if (TextUtils.isEmpty(signup_etPassword.text.toString())) {
                 signup_etPassword.error = "password must not be null"

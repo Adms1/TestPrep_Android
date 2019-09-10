@@ -15,6 +15,8 @@ import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.fragment_other.*
 
+
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -34,7 +36,7 @@ class OtherFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_other, container, false)
+        return inflater.inflate(com.testprep.R.layout.fragment_other, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,13 +61,24 @@ class OtherFragment : Fragment() {
             when {
                 menuList[position] == "Edit Profile" -> {
 
-                    val intent = Intent(activity, UpdateProfileActivity::class.java)
-                    startActivity(intent)
+                    AppConstants.isFirst = 8
+                    val intent1 = Intent(activity, DashboardActivity::class.java)
+                    intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent1)
+                    activity!!.finish()
+
+//                    val intent = Intent(activity, UpdateProfileActivity::class.java)
+//                    startActivity(intent)
                 }
                 menuList[position] == "My Payments" -> {
 
-                    val intent = Intent(activity, MyPaymentActivity::class.java)
-                    startActivity(intent)
+                    AppConstants.isFirst = 5
+                    val intent1 = Intent(activity, DashboardActivity::class.java)
+                    intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent1)
+                    activity!!.finish()
+//                    val intent = Intent(activity, MyPaymentActivity::class.java)
+//                    startActivity(intent)
                 }
                 menuList[position] == "Add Amount" -> {
 
@@ -74,9 +87,15 @@ class OtherFragment : Fragment() {
                 }
                 menuList[position] == "Change Password" -> {
 
-                    val intent = Intent(activity, ChangePasswordActivity::class.java)
-                    intent.putExtra("come_from", "other")
-                    startActivity(intent)
+                    AppConstants.isFirst = 6
+                    val intent1 = Intent(activity, DashboardActivity::class.java)
+                    intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent1)
+                    activity!!.finish()
+
+//                    val intent = Intent(activity, ChangePasswordActivity::class.java)
+//                    intent.putExtra("come_from", "other")
+//                    startActivity(intent)
                 }
                 menuList[position] == "Change Prefrence" -> {
 

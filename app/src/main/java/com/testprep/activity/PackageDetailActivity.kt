@@ -459,11 +459,11 @@ class PackageDetailActivity : AppCompatActivity() {
 
 //                        fragmentManager!!.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
 
-                        Toast.makeText(
-                            this@PackageDetailActivity,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            this@PackageDetailActivity,
+//                            response.body()!!["Msg"].toString().replace("\"", ""),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
 
                         callCheckout()
 

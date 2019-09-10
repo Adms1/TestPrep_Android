@@ -4,11 +4,10 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.Gravity
-import android.view.View
-import android.view.Window
+import android.view.*
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
@@ -21,51 +20,76 @@ import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-class TestReviewActivity : AppCompatActivity() {
+class TestReviewActivity : Fragment() {
 
     var testid = ""
     var studenttestid = ""
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    var bundle: Bundle? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        return inflater.inflate(R.layout.activity_test_review, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        setContentView(R.layout.activity_test_review)
+//    override fun attachBaseContext(newBase: Context?) {
+//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+//    }
+//
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//
+//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        testid = intent.getStringExtra("testid")
-        studenttestid = intent.getStringExtra("studenttestid")
+//        setContentView(R.layout.activity_test_review)
+
+        bundle = this.arguments
+
+        testid = bundle!!.getString("testid")
+        studenttestid = bundle!!.getString("studenttestid")
+
+//        testid = intent.getStringExtra("testid")
+//        studenttestid = intent.getStringExtra("studenttestid")
 
         review_ivBack.setOnClickListener {
 //            AppConstants.isFirst = 0
-//            val intent = Intent(this@TestReviewActivity, DashboardActivity::class.java)
+//            val intent = Intent(activity!!, DashboardActivity::class.java)
 //            startActivity(intent)
 //            finish()
-            onBackPressed()
+//            onBackPressed()
 
         }
 
         review_btnSubmit.setOnClickListener {
-            val intent = Intent(this@TestReviewActivity, ViewSolutionActivity::class.java)
-            intent.putExtra("testid", testid)
-            intent.putExtra("studenttestid", studenttestid)
-            startActivity(intent)
+
+            AppConstants.isFirst = 9
+            val intent1 = Intent(activity!!, DashboardActivity::class.java)
+            intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent1.putExtra("testid", testid)
+            intent1.putExtra("studenttestid", studenttestid)
+            startActivity(intent1)
+            activity!!.finish()
+
+//            val intent = Intent(activity!!, ViewSolutionActivity::class.java)
+//            intent.putExtra("testid", testid)
+//            intent.putExtra("studenttestid", studenttestid)
+//            startActivity(intent)
         }
 
         callSubmitAPI()
 
     }
 
-    override fun onBackPressed() {
-        finish()
-    }
+//    override fun onBackPressed() {
+//        finish()
+//    }
 
     fun callSubmitAPI() {
-        val sortDialog = Dialog(this@TestReviewActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
+        val sortDialog = Dialog(activity!!)//,R.style.PauseDialog);//, R.style.PauseDialog);
         val window = sortDialog.window
         val wlp = window!!.attributes
         sortDialog.window!!.attributes.verticalMargin = 0.10f
@@ -78,7 +102,7 @@ class TestReviewActivity : AppCompatActivity() {
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getAnalyse(intent.getStringExtra("studenttestid"))
+        val call = apiService.getAnalyse(studenttestid)
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
@@ -99,7 +123,7 @@ class TestReviewActivity : AppCompatActivity() {
 
                 } else {
 
-                    Toast.makeText(this@TestReviewActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG)
+                    Toast.makeText(activity!!, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG)
                         .show()
                 }
             }

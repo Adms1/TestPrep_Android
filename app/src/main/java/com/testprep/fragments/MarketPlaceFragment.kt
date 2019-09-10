@@ -304,6 +304,9 @@ class MarketPlaceFragment : Fragment() {
             holder.title1.text = mDataList[position].TestPackageName
 
             holder.title.setOnClickListener {
+
+
+
                 val intent = Intent(context, PackageDetailActivity::class.java)
                 intent.putExtra("pkgid", mDataList[position].TestPackageID)
 //                intent.putExtra("pname", mDataList[position].TestPackageName)
