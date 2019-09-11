@@ -2,6 +2,7 @@ package com.testprep.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,8 +12,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testprep.R
+import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.activity.PackageDetailActivity
-import com.testprep.activity.TestListActivity
 import com.testprep.models.PackageData
 import com.testprep.utils.AppConstants
 
@@ -66,10 +67,25 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
                 context.startActivity(intent)
 
             }else if(come_from == "my_pkgs"){
-                val intent = Intent(context, TestListActivity::class.java)
-                intent.putExtra("pkgid", dataList[p1].StudentTestPackageID.toString())
-                intent.putExtra("pname", dataList[p1].TestPackageName)
-                context.startActivity(intent)
+
+                AppConstants.isFirst = 12
+                val bundle = Bundle()
+                bundle.putString("pkgid", dataList[p1].StudentTestPackageID.toString())
+                bundle.putString("pname", dataList[p1].TestPackageName)
+                setFragments(bundle)
+
+//                val intent1 = Intent(context, DashboardActivity::class.java)
+//                intent1.putExtra("pkgid", dataList[p1].StudentTestPackageID.toString())
+//                intent1.putExtra("pname", dataList[p1].TestPackageName)
+//                intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                context.startActivity(intent1)
+//                (context as DashboardActivity).finish()
+
+
+//                val intent = Intent(context, TestListActivity::class.java)
+//                intent.putExtra("pkgid", dataList[p1].StudentTestPackageID.toString())
+//                intent.putExtra("pname", dataList[p1].TestPackageName)
+//                context.startActivity(intent)
             }
 
         }

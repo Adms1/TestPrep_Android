@@ -1,10 +1,7 @@
 package com.testprep.activity
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
+import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
@@ -23,7 +21,6 @@ import kotlinx.android.synthetic.main.activity_signup.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 
 /**
@@ -162,11 +159,7 @@ class UpdateProfileActivity : Fragment() {
                         )
 
                         AppConstants.isFirst = 4
-                        val intent1 = Intent(activity, DashboardActivity::class.java)
-                        intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent1)
-                        activity!!.finish()
-                        Log.d("websize", response.body()!!.get("Msg").asString)
+                        setFragments(null)
 
                     } else {
 

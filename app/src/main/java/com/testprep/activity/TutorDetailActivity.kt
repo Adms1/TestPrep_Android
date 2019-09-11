@@ -1,13 +1,15 @@
 package com.testprep.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import com.testprep.R
 import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.adapter.TutorsAdapter
 import com.testprep.models.PackageData
@@ -21,9 +23,8 @@ import kotlinx.android.synthetic.main.activity_tutor_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-class TutorDetailActivity : AppCompatActivity() {
+class TutorDetailActivity : Fragment() {
 
     var data: ArrayList<PackageData.PackageDataList> = ArrayList()
 
@@ -40,98 +41,102 @@ class TutorDetailActivity : AppCompatActivity() {
     var ptype = ""
     var pname = ""
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    var bundle: Bundle? = null
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        return inflater.inflate(R.layout.activity_tutor_detail, container, false)
+
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        bundle = this.arguments
+        boardid = bundle!!.getString("boardid")!!
+        stdid = bundle!!.getString("stdid")!!
+        subid = bundle!!.getString("subid")!!
+        tutorid = bundle!!.getString("tutorid")!!
+        pname = bundle!!.getString("pname")!!
+        ptype = bundle!!.getString("type")!!
 
-        setContentView(com.testprep.R.layout.activity_tutor_detail)
-
-        boardid = intent.getStringExtra("boardid")
-        stdid = intent.getStringExtra("stdid")
-        subid = intent.getStringExtra("subid")
-        tutorid = intent.getStringExtra("tutorid")
-        pname = intent.getStringExtra("pname")
-        ptype = intent.getStringExtra("type")
-
-        if (intent.hasExtra("parr")) {
-            data = intent.getSerializableExtra("parr") as ArrayList<PackageData.PackageDataList>
+        if (bundle!!.containsKey("parr")) {
+            data = bundle!!.getSerializable("parr") as ArrayList<PackageData.PackageDataList>
         }
 
-        tutor_detail_ivBack.setOnClickListener {
-            AppConstants.isFirst = 0
-            onBackPressed()
-        }
+//        tutor_detail_ivBack.setOnClickListener {
+//            AppConstants.isFirst = 0
+//            onBackPressed()
+//        }
 
 //        tutor_detail_ivCart.setOnClickListener {
-//            val intent = Intent(this@TutorDetailActivity, CartActivity::class.java)
+//            val intent = Intent(activity!!, CartActivity::class.java)
 //            startActivity(intent)
 //        }
 
-        tutor_detail_header.text = intent.getStringExtra("pname")
+        tutor_detail_header.text = pname
 
-        if (intent.getStringExtra("type") == "pkg") {
+        if (ptype == "pkg") {
 
             tutor_detail_rlFilter.visibility = View.VISIBLE
 
-            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
             callFilterListApi("", "1")
 
-        } else if (intent.getStringExtra("type") == "filter") {
+        } else if (ptype == "filter") {
 
             tutor_detail_rlFilter.visibility = View.VISIBLE
 
-            minprice = intent.getStringExtra("minprice")
-            maxprice = intent.getStringExtra("maxprice")
+            minprice = bundle!!.getString("minprice")!!
+            maxprice = bundle!!.getString("maxprice")!!
 
-            Utils.setStringValue(this@TutorDetailActivity, AppConstants.MIN_PRICE, minprice)
-            Utils.setStringValue(this@TutorDetailActivity, AppConstants.MAX_PRICE, maxprice)
+            Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+            Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
 
-            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
             callFilterListApi("", "-1")
 
-        } else if (intent.getStringExtra("type") == "explore") {
+        } else if (ptype == "explore") {
 
             tutor_detail_rlFilter.visibility = View.VISIBLE
 
-            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
-            callFilterListApi(intent.getStringExtra("search_name"), "-1")
+            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+            callFilterListApi(bundle!!.getString("search_name")!!, "-1")
 
-        } else if (intent.getStringExtra("type") == "tutor") {
+        } else if (ptype == "tutor") {
 
             tutor_detail_rlFilter.visibility = View.GONE
 
             tutor_packages_rvPopularPkg.layoutManager =
-                LinearLayoutManager(this@TutorDetailActivity, LinearLayoutManager.VERTICAL, false)
+                LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
-            tutorAdapter = TutorsAdapter(this@TutorDetailActivity, data)
+            tutorAdapter = TutorsAdapter(activity!!, data)
 
             tutor_packages_rvPopularPkg.adapter = tutorAdapter
 
-        } else if (intent.getStringExtra("type") == "single") {
+        } else if (ptype == "single") {
             tutor_detail_rlFilter.visibility = View.VISIBLE
 
-            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
             callFilterListApi("", "3")
         }
 
         tutor_detail_ivSort.setOnClickListener {
-            if (intent.getStringExtra("type") == "single" || intent.getStringExtra("type") == "pkg" || intent.getStringExtra(
-                    "type"
-                ) == "explore"
+            if (ptype == "single" || ptype == "pkg" || ptype == "explore"
             ) {
 
                 sorting("pkg", data)
 
-            } else if (intent.getStringExtra("type") == "tutor") {
+            } else if (ptype == "tutor") {
 
                 sorting("tutor", data)
 
             }
+        }
+
+        tutor_detail_rlFilter.setOnClickListener {
+            val intent = Intent(activity!!, FilterActivity::class.java)
+            startActivityForResult(intent, 101)
         }
 
         setFilterCount()
@@ -143,7 +148,7 @@ class TutorDetailActivity : AppCompatActivity() {
 
             tutor_detail_rlFilter -> {
 
-                val intent = Intent(this@TutorDetailActivity, FilterActivity::class.java)
+                val intent = Intent(activity!!, FilterActivity::class.java)
                 startActivityForResult(intent, 101)
             }
         }
@@ -179,7 +184,7 @@ class TutorDetailActivity : AppCompatActivity() {
 //
 //            tutor_detail_rlFilter.visibility = View.VISIBLE
 //
-//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
 //            callFilterListApi("", "1")
 //
 //        } else if (intent.getStringExtra("type") == "filter") {
@@ -189,17 +194,17 @@ class TutorDetailActivity : AppCompatActivity() {
 //            minprice = intent.getStringExtra("minprice")
 //            maxprice = intent.getStringExtra("maxprice")
 //
-////            Utils.setStringValue(this@TutorDetailActivity, AppConstants.MIN_PRICE, minprice)
-////            Utils.setStringValue(this@TutorDetailActivity, AppConstants.MAX_PRICE, maxprice)
+////            Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+////            Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
 //
-//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
 //            callFilterListApi("", "-1")
 //
 //        } else if (intent.getStringExtra("type") == "explore") {
 //
 //            tutor_detail_rlFilter.visibility = View.VISIBLE
 //
-//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
 //            callFilterListApi(intent.getStringExtra("search_name"), "-1")
 //
 //        } else if (intent.getStringExtra("type") == "tutor") {
@@ -207,35 +212,35 @@ class TutorDetailActivity : AppCompatActivity() {
 //            tutor_detail_rlFilter.visibility = View.GONE
 //
 //            tutor_packages_rvPopularPkg.layoutManager =
-//                LinearLayoutManager(this@TutorDetailActivity, LinearLayoutManager.VERTICAL, false)
+//                LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 //
-//            tutorAdapter = TutorsAdapter(this@TutorDetailActivity, data)
+//            tutorAdapter = TutorsAdapter(activity!!, data)
 //
 //            tutor_packages_rvPopularPkg.adapter = tutorAdapter
 //
 //        } else if (intent.getStringExtra("type") == "single") {
 //            tutor_detail_rlFilter.visibility = View.VISIBLE
 //
-//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorDetailActivity, 2)
+//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
 //            callFilterListApi("", "3")
 //        }
     }
 
     fun callFilterListApi(name: String, type: String) {
 
-        if (!DialogUtils.isNetworkConnected(this@TutorDetailActivity)) {
-            Utils.ping(this@TutorDetailActivity, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@TutorDetailActivity)
+        DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         var call: Call<PackageData>? = null
 
-        if (Utils.getStringValue(this@TutorDetailActivity, AppConstants.COURSE_TYPE_ID, "")!! == "1") {
+        if (Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!! == "1") {
             call = apiService.getFilterData(
                 WebRequests.getFilterParams(
-                    Utils.getStringValue(this@TutorDetailActivity, AppConstants.COURSE_TYPE_ID, "")!!,
+                    Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
                     "",
                     boardid,
                     stdid,
@@ -250,12 +255,12 @@ class TutorDetailActivity : AppCompatActivity() {
         } else {
             call = apiService.getFilterData(
                 WebRequests.getFilterParams(
-                    Utils.getStringValue(this@TutorDetailActivity, AppConstants.COURSE_TYPE_ID, "")!!,
-                    intent.getStringExtra("boardid"),
+                    Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
+                    boardid,
                     "",
                     "",
                     "",
-                    intent.getStringExtra("tutorid"),
+                    tutorid,
                     minprice,
                     maxprice,
                     name,
@@ -287,7 +292,7 @@ class TutorDetailActivity : AppCompatActivity() {
 //                        tutor_detail_header.text = response.body()!!.data[0].Name
 //                        }
 
-                        pkgAdapter = TestPackagesAdapter(this@TutorDetailActivity, data)
+                        pkgAdapter = TestPackagesAdapter(activity!!, data)
                         tutor_packages_rvPopularPkg.adapter = pkgAdapter
 
 
@@ -295,7 +300,7 @@ class TutorDetailActivity : AppCompatActivity() {
 
                         tutor_packages_tvdatanotfound.visibility = View.VISIBLE
                         tutor_packages_rvPopularPkg.visibility = View.GONE
-//                        Toast.makeText(this@TutorDetailActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -347,14 +352,14 @@ class TutorDetailActivity : AppCompatActivity() {
 
         if (type == "tutor") {
 
-            tutorAdapter = TutorsAdapter(this@TutorDetailActivity, modelList)
+            tutorAdapter = TutorsAdapter(activity!!, modelList)
             tutor_packages_rvPopularPkg.adapter = tutorAdapter
             tutorAdapter!!.notifyDataSetChanged()
 
 
         } else {
 
-            pkgAdapter = TestPackagesAdapter(this@TutorDetailActivity, modelList)
+            pkgAdapter = TestPackagesAdapter(activity!!, modelList)
             tutor_packages_rvPopularPkg.adapter = pkgAdapter
             pkgAdapter!!.notifyDataSetChanged()
 

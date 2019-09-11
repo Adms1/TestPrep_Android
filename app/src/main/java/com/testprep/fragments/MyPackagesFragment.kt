@@ -1,14 +1,12 @@
 package com.testprep.fragments
 
-
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import android.view.WindowManager
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.testprep.adapter.MyPackageAdapter
 import com.testprep.models.MyPackageModel
 import com.testprep.retrofit.WebClient
@@ -20,80 +18,67 @@ import kotlinx.android.synthetic.main.fragment_my_packages.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
-
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class MyPackagesFragment : AppCompatActivity() {
+class MyPackagesFragment : Fragment() {
 
-    private var packageSize: ArrayList<Int> = ArrayList()
     private var subid = 0
     private var iscompetitive = ""
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    var bundle: Bundle? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(com.testprep.R.layout.fragment_my_packages, container, false)
     }
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 //        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        setContentView(com.testprep.R.layout.fragment_my_packages)
+        bundle = this.arguments
+        subid = bundle!!.getInt("sub_id", 0)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            val w = window
-            w.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
-
-        subid = intent.getIntExtra("sub_id", 0)
-
-        if (intent.hasExtra("isCompetitive")) {
-            iscompetitive = if (intent.getBooleanExtra("isCompetitive", false)) {
+        if (bundle!!.containsKey("isCompetitive")) {
+            iscompetitive = if (bundle!!.getBoolean("isCompetitive", false)) {
                 "1"
             } else {
                 "0"
             }
         }
 
-        my_packages_ivBack.setOnClickListener { onBackPressed() }
+//        my_packages_ivBack.setOnClickListener { onBackPressed() }
 
-        my_packages_header.text = intent.getStringExtra("sub_name")
+//        my_packages_header.text = bundle!!.getString("sub_name")
 
         my_packages_rvList.layoutManager =
-            LinearLayoutManager(this@MyPackagesFragment, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
         my_packages_rvList.isNestedScrollingEnabled = false
 
-        DialogUtils.showDialog(this@MyPackagesFragment)
+        DialogUtils.showDialog(activity!!)
 
         callMyPackagesApi()
     }
 
     fun callMyPackagesApi() {
 
-        if (!DialogUtils.isNetworkConnected(this@MyPackagesFragment)) {
-            Utils.ping(this@MyPackagesFragment, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@MyPackagesFragment)
+        DialogUtils.showDialog(activity!!)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.getMyPackages(
-            Utils.getStringValue(this@MyPackagesFragment, AppConstants.USER_ID, "0")!!,
+            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
             subid.toString(), iscompetitive
         )
 
@@ -149,8 +134,8 @@ class MyPackagesFragment : AppCompatActivity() {
                         my_packages_tvTotalCount.text = totalcount.toString()
 
                         val pkgArr = response.body()!!.data[0].PackageList
-                        my_packages_rvList.adapter = MyPackageAdapter(this@MyPackagesFragment, pkgArr, "my_pkgs")
-//                        my_packages_rvList.adapter = TestPackagesAdapter(this@MyPackagesFragment, pkgArr)
+                        my_packages_rvList.adapter = MyPackageAdapter(activity!!, pkgArr, "my_pkgs")
+//                        my_packages_rvList.adapter = TestPackagesAdapter(activity!!, pkgArr)
 
                         DialogUtils.dismissDialog()
                     }

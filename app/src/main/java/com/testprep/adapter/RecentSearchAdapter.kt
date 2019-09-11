@@ -1,14 +1,15 @@
 package com.testprep.adapter
 
 import android.content.Context
-import android.content.Intent
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
-import com.testprep.activity.TutorDetailActivity
+import com.testprep.activity.DashboardActivity.Companion.setFragments
+import com.testprep.utils.AppConstants
 
 class RecentSearchAdapter(val context: Context, val dataList: List<String>) :
     RecyclerView.Adapter<RecentSearchAdapter.viewholder>() {
@@ -33,15 +34,20 @@ class RecentSearchAdapter(val context: Context, val dataList: List<String>) :
         p0.name.text = dataList[p1]
 
         p0.name.setOnClickListener {
-            val intent = Intent(context, TutorDetailActivity::class.java)
-            intent.putExtra("type", "explore")
-            intent.putExtra("pname", "Packages")
-            intent.putExtra("boardid", "")
-            intent.putExtra("stdid", "")
-            intent.putExtra("subid", "")
-            intent.putExtra("tutorid", "")
-            intent.putExtra("search_name", dataList[p1])
-            context.startActivity(intent)
+
+            AppConstants.isFirst = 13
+            val bundle = Bundle()
+            bundle.putString("type", "explore")
+            bundle.putString("pname", "Packages")
+            bundle.putString("boardid", "")
+            bundle.putString("stdid", "")
+            bundle.putString("subid", "")
+            bundle.putString("tutorid", "")
+            bundle.putString("search_name", dataList[p1])
+            bundle.putSerializable("parr", "")
+            bundle.putString("maxprice", "")
+            bundle.putString("minprice", "")
+            setFragments(bundle)
         }
 
     }

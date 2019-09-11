@@ -18,8 +18,8 @@ import android.widget.TextView
 import android.widget.Toast
 import com.squareup.picasso.Picasso
 import com.testprep.R
+import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.activity.PackageDetailActivity
-import com.testprep.activity.TutorDetailActivity
 import com.testprep.adapter.MyPackageAdapter
 import com.testprep.carouselPkg.CarouselParameters
 import com.testprep.carouselPkg.CarouselView1
@@ -98,38 +98,51 @@ class MarketPlaceFragment : Fragment() {
         main_pkg_item_rvSingleTest.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
         main_pkg_item_tvSeeall.setOnClickListener {
-            val intent = Intent(context, TutorDetailActivity::class.java)
-            intent.putExtra("type", "pkg")
-            intent.putExtra("pname", "Packages")
-            intent.putExtra("boardid", Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!)
-            intent.putExtra("stdid", Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!)
-            intent.putExtra("subid", Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!)
-            intent.putExtra("tutorid", "")
 
-            startActivity(intent)
+            AppConstants.isFirst = 13
+            val bundle = Bundle()
+            bundle.putString("type", "pkg")
+            bundle.putString("pname1", "Packages")
+            bundle.putString("boardid", Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!)
+            bundle.putString("stdid", Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!)
+            bundle.putString("subid", Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!)
+            bundle.putString("tutorid", "")
+            bundle.putString("maxprice", "")
+            bundle.putString("minprice", "")
+            bundle.putString("search_name", "")
+            setFragments(bundle)
+
         }
 
         main_pkg_item_tvTSeeall.setOnClickListener {
-            val intent = Intent(context, TutorDetailActivity::class.java)
-            intent.putExtra("type", "tutor")
-            intent.putExtra("pname", "Tutors")
-            intent.putExtra("boardid", "")
-            intent.putExtra("stdid", "")
-            intent.putExtra("subid", "")
-            intent.putExtra("tutorid", "")
-            intent.putExtra("parr", tutorList)
-            startActivity(intent)
+            AppConstants.isFirst = 13
+            val bundle = Bundle()
+            bundle.putString("type", "tutor")
+            bundle.putString("pname1", "Tutors")
+            bundle.putString("boardid", "")
+            bundle.putString("stdid", "")
+            bundle.putString("subid", "")
+            bundle.putString("tutorid", "")
+            bundle.putSerializable("parr", tutorList)
+            bundle.putString("maxprice", "")
+            bundle.putString("minprice", "")
+            bundle.putString("search_name", "")
+            setFragments(bundle)
         }
 
         main_pkg_item_tvSSeeall.setOnClickListener {
-            val intent = Intent(context, TutorDetailActivity::class.java)
-            intent.putExtra("type", "single")
-            intent.putExtra("pname", "Single Test")
-            intent.putExtra("boardid", Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!)
-            intent.putExtra("stdid", Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!)
-            intent.putExtra("subid", Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!)
-            intent.putExtra("tutorid", "")
-            startActivity(intent)
+            AppConstants.isFirst = 13
+            val bundle = Bundle()
+            bundle.putString("type", "single")
+            bundle.putString("pname1", "Single Test")
+            bundle.putString("boardid", Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!)
+            bundle.putString("stdid", Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!)
+            bundle.putString("subid", Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!)
+            bundle.putString("tutorid", "")
+            bundle.putString("maxprice", "")
+            bundle.putString("minprice", "")
+            bundle.putString("search_name", "")
+            setFragments(bundle)
         }
 
         mp_view_pager!!.addOnPageChangeListener(introViewPagerListener)

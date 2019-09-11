@@ -1,16 +1,14 @@
 package com.testprep.activity
 
 import android.app.Dialog
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.*
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
+import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
@@ -18,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_test_review.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class TestReviewActivity : Fragment() {
 
@@ -67,12 +64,10 @@ class TestReviewActivity : Fragment() {
         review_btnSubmit.setOnClickListener {
 
             AppConstants.isFirst = 9
-            val intent1 = Intent(activity!!, DashboardActivity::class.java)
-            intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-            intent1.putExtra("testid", testid)
-            intent1.putExtra("studenttestid", studenttestid)
-            startActivity(intent1)
-            activity!!.finish()
+            val bundle = Bundle()
+            bundle.putString("testid", testid)
+            bundle.putString("studenttestid", studenttestid)
+            setFragments(bundle)
 
 //            val intent = Intent(activity!!, ViewSolutionActivity::class.java)
 //            intent.putExtra("testid", testid)

@@ -19,6 +19,7 @@
             android:singleLine="true"
             android:layout_toRightOf="@+id/my_packages_ivBack"
             android:textSize="@dimen/regular_text_size"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:textColor="@color/white"/>
 

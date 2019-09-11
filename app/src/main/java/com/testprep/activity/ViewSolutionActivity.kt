@@ -1,23 +1,17 @@
 package com.testprep.activity
 
-import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
 import android.widget.Button
 import android.widget.ExpandableListView
 import android.widget.ImageView
@@ -38,11 +32,8 @@ import kotlinx.android.synthetic.main.activity_view_solution.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
-
-    var mToolbar: Toolbar? = null
 
     var testid = ""
     var studenttestid = ""
@@ -121,24 +112,24 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         }
 
-        solution_ivReview.setOnClickListener {
-
-            val dialog = Dialog(activity!!)
-            dialog.setContentView(R.layout.hint_dialog)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.setCanceledOnTouchOutside(false)
-
-            val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
-
-            val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
-
-            hintWebview.settings.javaScriptEnabled = true
-            hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
-
-            closeBtn.setOnClickListener { dialog.dismiss() }
-
-            dialog.show()
-        }
+//        solution_ivReview.setOnClickListener {
+//
+//            val dialog = Dialog(activity!!)
+//            dialog.setContentView(R.layout.hint_dialog)
+//            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//            dialog.setCanceledOnTouchOutside(false)
+//
+//            val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
+//
+//            val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+//
+//            hintWebview.settings.javaScriptEnabled = true
+//            hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
+//
+//            closeBtn.setOnClickListener { dialog.dismiss() }
+//
+//            dialog.show()
+//        }
 
         ansList!!.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
@@ -150,13 +141,13 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         }
 
-        solution_ivBack.setOnClickListener {
-
-            curr_index1 = 0
-            solution_grppos1 = 0
-//            onBackPressed()
-
-        }
+//        solution_ivBack.setOnClickListener {
+//
+//            curr_index1 = 0
+//            solution_grppos1 = 0
+////            onBackPressed()
+//
+//        }
 
         if (testid != "") {
             callSolutionApi()

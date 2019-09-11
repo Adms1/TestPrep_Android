@@ -1,7 +1,7 @@
 package com.testprep.adapter
 
 import android.content.Context
-import android.content.Intent
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.testprep.R
-import com.testprep.fragments.MyPackagesFragment
+import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.models.MyPackageModel
+import com.testprep.utils.AppConstants
 
 class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageModel.MyPkgData>) :
     RecyclerView.Adapter<MainPackageAdapter.viewholder>() {
@@ -41,11 +42,26 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
 //        Picasso.get().load("http://content.testcraft.co.in/question/" + list[p1].Icon).into(p0.ll)
 
         p0.ll.setOnClickListener {
-            val intent = Intent(context, MyPackagesFragment::class.java)
-            intent.putExtra("sub_id", list[p1].ID)
-            intent.putExtra("sub_name", list[p1].Name)
-            intent.putExtra("isCompetitive", list[p1].isCompetitive)
-            context.startActivity(intent)
+
+            AppConstants.isFirst = 11
+            val bundle = Bundle()
+            bundle.putInt("sub_id", list[p1].ID)
+            bundle.putString("sub_name", list[p1].Name)
+            bundle.putBoolean("isCompetitive", list[p1].isCompetitive)
+            setFragments(bundle)
+//            val intent1 = Intent(context, DashboardActivity::class.java)
+//            intent1.putExtra("sub_id", list[p1].ID)
+//            intent1.putExtra("sub_name", list[p1].Name)
+//            intent1.putExtra("isCompetitive", list[p1].isCompetitive)
+//            intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            context.startActivity(intent1)
+//            (context as DashboardActivity).finish()
+
+//            val intent = Intent(context, MyPackagesFragment::class.java)
+//            intent.putExtra("sub_id", list[p1].ID)
+//            intent.putExtra("sub_name", list[p1].Name)
+//            intent.putExtra("isCompetitive", list[p1].isCompetitive)
+//            context.startActivity(intent)
         }
     }
 

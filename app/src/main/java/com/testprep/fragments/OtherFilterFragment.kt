@@ -1,7 +1,6 @@
 package com.testprep.fragments
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -10,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.testprep.activity.TutorDetailActivity
+import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.adapter.FilterAdapter
 import com.testprep.interfaces.filterInterface
 import com.testprep.models.PackageData
@@ -153,18 +152,30 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 AppConstants.FILTER_BOARD_ID = ""
             }
 
-            val intent = Intent(context, TutorDetailActivity::class.java)
-            intent.putExtra("type", "filter")
-            intent.putExtra("pname", "Packages")
-            intent.putExtra("boardid", AppConstants.FILTER_BOARD_ID)
-            intent.putExtra("stdid", AppConstants.FILTER_STANDARD_ID)
-            intent.putExtra("subid", AppConstants.FILTER_SUBJECT_ID)
-            intent.putExtra("tutorid", AppConstants.FILTER_TUTOR_ID)
-            intent.putExtra("minprice", price_filter_etMin.text.toString())
-            intent.putExtra("maxprice", price_filter_etMax.text.toString())
+            AppConstants.isFirst = 13
 
-            activity!!.setResult(101, intent)
+            val bundle = Bundle()
+            bundle.putString("type", "filter")
+            bundle.putString("pname1", "Packages")
+            bundle.putString("boardid", AppConstants.FILTER_BOARD_ID)
+            bundle.putString("stdid", AppConstants.FILTER_STANDARD_ID)
+            bundle.putString("subid", AppConstants.FILTER_SUBJECT_ID)
+            bundle.putString("tutorid", AppConstants.FILTER_TUTOR_ID)
+            bundle.putString("search_name", "")
+            bundle.putString("maxprice", price_filter_etMax.text.toString())
+            bundle.putString("minprice", price_filter_etMin.text.toString())
+            setFragments(bundle)
             activity!!.finish()
+
+//            val intent = Intent(context, TutorDetailActivity::class.java)
+//            intent.putExtra("type", "filter")
+//            intent.putExtra("pname", "Packages")
+//
+//            intent.putExtra("minprice", price_filter_etMin.text.toString())
+//            intent.putExtra("maxprice", price_filter_etMax.text.toString())
+//
+//            activity!!.setResult(101, intent)
+//            activity!!.finish()
 
 //            callFilterListApi()
 //            callFilterListApi()
@@ -620,12 +631,12 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                         mDataList = response.body()!!.data
 
-                        val intent = Intent(context, TutorDetailActivity::class.java)
-                        intent.putExtra("type", "pkg")
-                        intent.putExtra("pname", "Packages")
-                        intent.putExtra("parr", mDataList)
-                        activity!!.setResult(101, intent)
-                        activity!!.finish()
+//                        val intent = Intent(context, TutorDetailActivity::class.java)
+//                        intent.putExtra("type", "pkg")
+//                        intent.putExtra("pname", "Packages")
+//                        intent.putExtra("parr", mDataList)
+//                        activity!!.setResult(101, intent)
+//                        activity!!.finish()
 
 
                     } else {

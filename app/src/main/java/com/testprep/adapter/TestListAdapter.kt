@@ -2,20 +2,24 @@ package com.testprep.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
-import com.testprep.activity.DashboardActivity
-import com.testprep.activity.TestListActivity
-import com.testprep.activity.TestReviewActivity
+import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.models.TestListModel
 import com.testprep.sectionmodule.NewTabQuestionActivity
 import com.testprep.utils.AppConstants
 
-class TestListAdapter(val context: Context, var dataList: ArrayList<TestListModel.TestData>) :
+class TestListAdapter(
+    val context: Context,
+    var dataList: ArrayList<TestListModel.TestData>,
+    var pkgid: String,
+    var name: String
+) :
     RecyclerView.Adapter<TestListAdapter.viewholder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
@@ -56,10 +60,12 @@ class TestListAdapter(val context: Context, var dataList: ArrayList<TestListMode
             if (dataList[p1].StatusName == "Analyse") {
 
                 AppConstants.isFirst = 10
-                val intent = Intent(context, DashboardActivity::class.java)
-                intent.putExtra("testid", dataList[p1].TestID.toString())
-                intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
-                context.startActivity(intent)
+                val bundle = Bundle()
+                bundle.putString("testid", dataList[p1].TestID.toString())
+                bundle.putString("studenttestid", dataList[p1].StudentTestID.toString())
+                bundle.putString("pkgid", pkgid)
+                bundle.putString("pname", name)
+                setFragments(bundle)
 
 //                val intent = Intent(context, TestReviewActivity::class.java)
 //                intent.putExtra("testid", dataList[p1].TestID.toString())
@@ -76,6 +82,8 @@ class TestListAdapter(val context: Context, var dataList: ArrayList<TestListMode
                 intent.putExtra("coursename", dataList[p1].CourseName)
                 intent.putExtra("totalmarks", dataList[p1].TestMarks)
                 intent.putExtra("tutorname", dataList[p1].TutorName)
+                intent.putExtra("pkgid", pkgid)
+                intent.putExtra("pname", name)
 
                 context.startActivity(intent)
             }

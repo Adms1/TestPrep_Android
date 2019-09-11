@@ -7,33 +7,29 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.testprep.R
 import com.testprep.adapter.DrawerMenuListAdapter
-import com.testprep.fragments.ChooseMarketPlaceFragment
-import com.testprep.fragments.ExploreFragment
-import com.testprep.fragments.MarketPlaceFragment
-import com.testprep.fragments.OtherFragment
+import com.testprep.fragments.*
+import com.testprep.models.PackageData
 import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.Utils.Companion.clearPrefrence
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
-import java.lang.System.exit
 import kotlin.system.exitProcess
 
-class DashboardActivity : AppCompatActivity() {
 
-    companion object {
-        var containerr: Int? = null
-    }
+class DashboardActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -44,9 +40,6 @@ class DashboardActivity : AppCompatActivity() {
     var drawerMenuListAdapter: DrawerMenuListAdapter? = null
     var menuList = arrayOf("Test", "Profile", "Logout")
     var ON_BACK = 0
-
-    var testid = ""
-    var studenttestid = ""
 
     var doubleBackToExitPressedOnce = false
 
@@ -59,9 +52,16 @@ class DashboardActivity : AppCompatActivity() {
 //        )
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        setContentView(R.layout.activity_dashboard)
+        setContentView(com.testprep.R.layout.activity_dashboard)
 
         ON_BACK = 0
+
+        main_header = findViewById(com.testprep.R.id.dashboard_header)
+        btnBack = findViewById(com.testprep.R.id.dashboard_ivBack)
+        btnLogout = findViewById(com.testprep.R.id.dashboard_ivLogout)
+
+        intent1 = intent
+        fragManager = this.supportFragmentManager
 
 //        containerr = findViewById(R.id.container)
 
@@ -74,7 +74,7 @@ class DashboardActivity : AppCompatActivity() {
 
 //        drawer_layout.setDrawerListener(mDrawerToggle)
 
-        setFragments()
+        setFragments(null)
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -126,25 +126,103 @@ class DashboardActivity : AppCompatActivity() {
             dash_llDashboard -> {
 
                 AppConstants.isFirst = 1
-                setFragments()
+
+                //                dashboard_ivFilter.visibility = View.GONE
+                dashboard_ivCart.visibility = View.GONE
+//                dashboard_ivPencil.visibility = View.GONE
+//                dashboard_ivBack.visibility = View.GONE
+//                dashboard_ivFilter.visibility = View.GONE
+
+                dash_ivHome.setImageResource(com.testprep.R.drawable.blue_home)
+                dash_ivMarket.setImageResource(com.testprep.R.drawable.list)
+                dash_ivSearch.setImageResource(com.testprep.R.drawable.search)
+                dash_ivUser.setImageResource(com.testprep.R.drawable.menu_one)
+
+                dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
+                dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+
+                setFragments(null)
             }
 
             dash_llMarket -> {
 
                 AppConstants.isFirst = 0
-                setFragments()
+
+                //                var bundle = Bundle()
+//                bundle.putString("subid", intent.getStringExtra("subject_id"))
+//                fragment.arguments = bundle
+
+//                dashboard_ivFilter.visibility = View.VISIBLE
+                dashboard_ivCart.visibility = View.GONE
+//                dashboard_ivPencil.visibility = View.VISIBLE
+//                dashboard_ivBack.visibility = View.VISIBLE
+//                dashboard_ivPencil.visibility = View.VISIBLE
+
+                dash_ivMarket.setImageResource(com.testprep.R.drawable.blue_list)
+                dash_ivHome.setImageResource(com.testprep.R.drawable.home)
+                dash_ivUser.setImageResource(com.testprep.R.drawable.menu_one)
+                dash_ivSearch.setImageResource(com.testprep.R.drawable.search)
+
+                dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
+                dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+
+                setFragments(null)
             }
 
             dash_llExplore -> {
 
                 AppConstants.isFirst = 3
-                setFragments()
+
+                //                supportFragmentManager.beginTransaction().replace(R.id.container, ExploreFragment())
+//                    .commit()
+
+//                dashboard_ivFilter.visibility = View.GONE
+                dashboard_ivCart.visibility = View.GONE
+//                dashboard_ivPencil.visibility = View.GONE
+//                dashboard_ivBack.visibility = View.GONE
+//                dashboard_ivFilter.visibility = View.GONE
+
+                dash_ivSearch.setImageResource(com.testprep.R.drawable.blue_search)
+                dash_ivUser.setImageResource(com.testprep.R.drawable.menu_one)
+                dash_ivMarket.setImageResource(com.testprep.R.drawable.list)
+                dash_ivHome.setImageResource(com.testprep.R.drawable.home)
+
+                dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
+                dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+
+                setFragments(null)
             }
 
             dash_llProfile -> {
 
                 AppConstants.isFirst = 4
-                setFragments()
+
+                //                dashboard_ivFilter.visibility = View.GONE
+                dashboard_ivCart.visibility = View.GONE
+//                dashboard_ivPencil.visibility = View.GONE
+//                dashboard_ivBack.visibility = View.GONE
+//                dashboard_ivFilter.visibility = View.GONE
+
+//                dashboard_ivLogout.visibility = View.GONE
+//                supportFragmentManager.beginTransaction().replace(R.id.container, OtherFragment()).commit()
+
+                dash_ivUser.setImageResource(com.testprep.R.drawable.blue_menu)
+                dash_ivSearch.setImageResource(com.testprep.R.drawable.search)
+                dash_ivMarket.setImageResource(com.testprep.R.drawable.list)
+                dash_ivHome.setImageResource(com.testprep.R.drawable.home)
+
+                dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+                dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
+
+                setFragments(null)
             }
         }
     }
@@ -185,218 +263,230 @@ class DashboardActivity : AppCompatActivity() {
             }).show()
     }
 
-    var fragment: Fragment? = null
-    fun setFragments() {
+    companion object {
+        var fragment: Fragment? = null
+        var testid = ""
+        var studenttestid = ""
+        var subid = 0
+        var subname = ""
+        var pkgid = ""
+        var pname = ""
+        var isCompetitive = false
+        var main_header: TextView? = null
+        var btnBack: ImageView? = null
+        var btnLogout: ImageView? = null
+        var boardid = ""
+        var stdid = ""
+        var tutorid = ""
+        var ptype = ""
+        var subid1 = ""
+        var parr: ArrayList<PackageData.PackageDataList> = ArrayList()
+        var maxprice = ""
+        var minprice = ""
+        var search_name = ""
 
-        when (AppConstants.isFirst) {
-            0 -> {
+        var intent1: Intent? = null
+        var fragManager: FragmentManager? = null
 
-                dashboard_header.text = "Market Place"
+        fun setFragments(bundle: Bundle?) {
 
-                fragment = MarketPlaceFragment()
-//                var bundle = Bundle()
-//                bundle.putString("subid", intent.getStringExtra("subject_id"))
-//                fragment.arguments = bundle
+//            var bundle = intent1!!.extras
 
-//                dashboard_ivFilter.visibility = View.VISIBLE
-                dashboard_ivCart.visibility = View.GONE
-//                dashboard_ivPencil.visibility = View.VISIBLE
-                dashboard_ivBack.visibility = View.VISIBLE
-//                dashboard_ivPencil.visibility = View.VISIBLE
+            when (AppConstants.isFirst) {
+                0 -> {
 
-                dash_ivMarket.setImageResource(R.drawable.blue_list)
-                dash_ivHome.setImageResource(R.drawable.home)
-                dash_ivUser.setImageResource(R.drawable.menu_one)
-                dash_ivSearch.setImageResource(R.drawable.search)
+                    fragment = MarketPlaceFragment()
 
-                dash_tvHome.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
-                dash_tvSearch.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvUser.setTextColor(resources.getColor(R.color.light_gray))
+                    main_header!!.text = "Market Place"
+                    btnBack!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.VISIBLE
+                    //        dashboard_ivPencil.visibility = View.VISIBLE
 
-                //        dashboard_ivPencil.visibility = View.VISIBLE
+                }
+                1 -> {
 
+                    fragment = ChooseMarketPlaceFragment()
+
+                    main_header!!.text = "My Dashboard"
+                    btnBack!!.visibility = View.GONE
+                    btnLogout!!.visibility = View.VISIBLE
+
+                }
+
+                3 -> {
+
+                    fragment = ExploreFragment()
+
+                    main_header!!.text = "Explore"
+                    btnBack!!.visibility = View.GONE
+                    btnLogout!!.visibility = View.VISIBLE
+                }
+                4 -> {
+
+                    fragment = OtherFragment()
+
+                    main_header!!.text = "Other"
+                    btnBack!!.visibility = View.GONE
+                    btnLogout!!.visibility = View.VISIBLE
+                }
+                5 -> {
+
+                    fragment = MyPaymentActivity()
+
+                    main_header!!.text = "My Payments"
+                    btnBack!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
+
+                }
+                6 -> {
+
+                    fragment = ChangePasswordActivity()
+                    val bundle1 = Bundle()
+                    bundle1.putString("come_from", "other")
+
+                    (fragment as ChangePasswordActivity).arguments = bundle1
+
+                    main_header!!.text = "Change Password"
+                    btnBack!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
+
+                }
+                7 -> {
+
+                    fragment = ChangePasswordActivity()
+                    val bundle2 = Bundle()
+                    bundle2.putString("come_from", "otp")
+
+                    (fragment as ChangePasswordActivity).arguments = bundle2
+
+                    main_header!!.text = "Change Password"
+                    btnBack!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
+
+                }
+                8 -> {
+
+                    fragment = UpdateProfileActivity()
+
+                    main_header!!.text = "Profile"
+                    btnBack!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
+
+                }
+                9 -> {
+
+                    testid = bundle!!.getString("testid")!!
+                    studenttestid = bundle.getString("studenttestid")!!
+
+                    fragment = ViewSolutionActivity()
+                    val bundle6 = Bundle()
+                    bundle6.putString("testid", testid)
+                    bundle6.putString("studenttestid", studenttestid)
+
+                    (fragment as ViewSolutionActivity).arguments = bundle6
+
+                    main_header!!.text = "View Solution"
+                    btnBack!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
+
+                }
+                10 -> {
+
+                    testid = bundle!!.getString("testid")!!
+                    studenttestid = bundle.getString("studenttestid")!!
+
+                    fragment = TestReviewActivity()
+                    val bundle5 = Bundle()
+                    bundle5.putString("testid", testid)
+                    bundle5.putString("studenttestid", studenttestid)
+
+                    (fragment as TestReviewActivity).arguments = bundle5
+
+                    main_header!!.text = "Analysis"
+                    btnBack!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
+
+                }
+                11 -> {
+
+                    subid = bundle!!.getInt("sub_id", 0)
+                    subname = bundle.getString("sub_name")!!
+                    isCompetitive = bundle.getBoolean("isCompetitive", false)
+
+                    fragment = MyPackagesFragment()
+                    val bundle3 = Bundle()
+                    bundle3.putInt("sub_id", subid)
+                    bundle3.putString("sub_name", subname)
+                    bundle3.putBoolean("isCompetitive", isCompetitive)
+
+                    (fragment as MyPackagesFragment).arguments = bundle3
+
+                    main_header!!.text = bundle.getString("sub_name")
+                    btnBack!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
+
+                }
+                12 -> {
+
+                    pkgid = bundle!!.getString("pkgid")!!
+                    pname = bundle.getString("pname")!!
+
+                    fragment = TestListActivity()
+                    val bundle4 = Bundle()
+                    bundle4.putString("pkgid", pkgid)
+                    bundle4.putString("pname", pname)
+
+                    (fragment as TestListActivity).arguments = bundle4
+
+                    main_header!!.text = pname
+                    btnBack!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
+
+                }
+                13 -> {
+
+                    ptype = bundle!!.getString("type")!!
+                    pname = bundle.getString("pname1")!!
+                    boardid = bundle.getString("boardid")!!
+                    stdid = bundle.getString("stdid")!!
+                    subid1 = bundle.getString("subid")!!
+                    tutorid = bundle.getString("tutorid")!!
+
+                    if (bundle.containsKey("parr")) {
+                        parr = (bundle.getSerializable("parr") as ArrayList<PackageData.PackageDataList>?)!!
+                    }
+                    maxprice = bundle.getString("maxprice")!!
+                    minprice = bundle.getString("minprice")!!
+                    search_name = bundle.getString("search_name")!!
+
+                    fragment = TutorDetailActivity()
+                    val bundle7 = Bundle()
+                    bundle7.putString("type", ptype)
+                    bundle7.putString("pname", pname)
+                    bundle7.putString("boardid", boardid)
+                    bundle7.putString("stdid", stdid)
+                    bundle7.putString("subid", subid1)
+                    bundle7.putString("tutorid", tutorid)
+
+                    if (parr.size > 0) {
+                        bundle7.putSerializable("parr", parr)
+                    }
+                    bundle7.putString("maxprice", maxprice)
+                    bundle7.putString("minprice", minprice)
+                    bundle7.putString("search_name", search_name)
+
+                    (fragment as TutorDetailActivity).arguments = bundle7
+
+                    main_header!!.text = pname
+                    btnBack!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
+
+                }
             }
-            1 -> {
 
-                dashboard_header.text = "My Dashboard"
+            fragManager!!.beginTransaction().replace(com.testprep.R.id.container, fragment!!).commitAllowingStateLoss()
 
-               fragment = ChooseMarketPlaceFragment()
-
-//                dashboard_ivFilter.visibility = View.GONE
-                dashboard_ivCart.visibility = View.GONE
-//                dashboard_ivPencil.visibility = View.GONE
-                dashboard_ivBack.visibility = View.GONE
-//                dashboard_ivFilter.visibility = View.GONE
-
-                dash_ivHome.setImageResource(R.drawable.blue_home)
-                dash_ivMarket.setImageResource(R.drawable.list)
-                dash_ivSearch.setImageResource(R.drawable.search)
-                dash_ivUser.setImageResource(R.drawable.menu_one)
-
-                dash_tvHome.setTextColor(resources.getColor(R.color.nfcolor))
-                dash_tvMarket.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvSearch.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvUser.setTextColor(resources.getColor(R.color.light_gray))
-
-            }
-
-            3 -> {
-                dashboard_header.text = "Explore"
-
-                fragment = ExploreFragment()
-
-//                supportFragmentManager.beginTransaction().replace(R.id.container, ExploreFragment())
-//                    .commit()
-
-//                dashboard_ivFilter.visibility = View.GONE
-                dashboard_ivCart.visibility = View.GONE
-//                dashboard_ivPencil.visibility = View.GONE
-                dashboard_ivBack.visibility = View.GONE
-//                dashboard_ivFilter.visibility = View.GONE
-
-                dash_ivSearch.setImageResource(R.drawable.blue_search)
-                dash_ivUser.setImageResource(R.drawable.menu_one)
-                dash_ivMarket.setImageResource(R.drawable.list)
-                dash_ivHome.setImageResource(R.drawable.home)
-
-                dash_tvHome.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvMarket.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvSearch.setTextColor(resources.getColor(R.color.nfcolor))
-                dash_tvUser.setTextColor(resources.getColor(R.color.light_gray))
-            }
-            4 -> {
-
-                dashboard_header.text = "Other"
-
-                fragment = OtherFragment()
-                //                dashboard_ivFilter.visibility = View.GONE
-                dashboard_ivCart.visibility = View.GONE
-//                dashboard_ivPencil.visibility = View.GONE
-                dashboard_ivBack.visibility = View.GONE
-//                dashboard_ivFilter.visibility = View.GONE
-
-//                dashboard_ivLogout.visibility = View.GONE
-//                supportFragmentManager.beginTransaction().replace(R.id.container, OtherFragment()).commit()
-
-                dash_ivUser.setImageResource(R.drawable.blue_menu)
-                dash_ivSearch.setImageResource(R.drawable.search)
-                dash_ivMarket.setImageResource(R.drawable.list)
-                dash_ivHome.setImageResource(R.drawable.home)
-
-                dash_tvHome.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvMarket.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvSearch.setTextColor(resources.getColor(R.color.light_gray))
-                dash_tvUser.setTextColor(resources.getColor(R.color.nfcolor))
-            }
-            5 -> {
-                dashboard_header.text = "My Payments"
-
-                fragment = MyPaymentActivity()
-//                supportFragmentManager.beginTransaction().add(R.id.container, MyPaymentActivity()).commit()
-                dash_ivUser.setImageResource(R.drawable.blue_menu)
-                dashboard_ivBack.visibility = View.VISIBLE
-                dashboard_ivLogout.visibility = View.GONE
-
-                dash_tvUser.setTextColor(resources.getColor(R.color.nfcolor))
-
-            }
-            6 -> {
-                dashboard_header.text = getString(R.string.change_pass)
-
-                fragment = ChangePasswordActivity()
-                val bundle = Bundle()
-                bundle.putString("come_from", "other")
-
-                (fragment as ChangePasswordActivity).arguments = bundle
-//                supportFragmentManager.beginTransaction().add(R.id.container, fragment).commit()
-
-                dash_ivUser.setImageResource(R.drawable.blue_menu)
-                dashboard_ivBack.visibility = View.VISIBLE
-                dashboard_ivLogout.visibility = View.GONE
-
-                dash_tvUser.setTextColor(resources.getColor(R.color.nfcolor))
-
-            }
-            7 -> {
-                dashboard_header.text = getString(R.string.change_pass)
-
-                fragment = ChangePasswordActivity()
-                val bundle = Bundle()
-                bundle.putString("come_from", "otp")
-
-                (fragment as ChangePasswordActivity).arguments = bundle
-//                supportFragmentManager.beginTransaction().add(R.id.container, fragment).commit()
-
-                dash_ivUser.setImageResource(R.drawable.blue_menu)
-                dashboard_ivBack.visibility = View.VISIBLE
-                dashboard_ivLogout.visibility = View.GONE
-
-                dash_tvUser.setTextColor(resources.getColor(R.color.nfcolor))
-
-            }
-            8 -> {
-                dashboard_header.text = "Profile"
-
-                fragment = UpdateProfileActivity()
-
-//                supportFragmentManager.beginTransaction().add(R.id.container, UpdateProfileActivity()).commit()
-
-                dash_ivUser.setImageResource(R.drawable.blue_menu)
-                dashboard_ivBack.visibility = View.VISIBLE
-                dashboard_ivLogout.visibility = View.GONE
-
-                dash_tvUser.setTextColor(resources.getColor(R.color.nfcolor))
-
-            }
-            9 -> {
-
-                testid = intent.getStringExtra("testid")
-                studenttestid = intent.getStringExtra("studenttestid")
-
-                dashboard_header.text = "View Solution"
-
-                fragment = ViewSolutionActivity()
-                val bundle = Bundle()
-                bundle.putString("testid", testid)
-                bundle.putString("studenttestid", studenttestid)
-
-                (fragment as ViewSolutionActivity).arguments = bundle
-//                supportFragmentManager.beginTransaction().add(R.id.container, UpdateProfileActivity()).commit()
-
-                dash_ivHome.setImageResource(R.drawable.blue_home)
-                dashboard_ivBack.visibility = View.VISIBLE
-                dashboard_ivLogout.visibility = View.GONE
-
-                dash_tvHome.setTextColor(resources.getColor(R.color.nfcolor))
-
-            }
-            10 -> {
-
-                testid = intent.getStringExtra("testid")
-                studenttestid = intent.getStringExtra("studenttestid")
-
-                dashboard_header.text = "Analysis"
-
-                fragment = TestReviewActivity()
-                val bundle = Bundle()
-                bundle.putString("testid", testid)
-                bundle.putString("studenttestid", studenttestid)
-
-                (fragment as TestReviewActivity).arguments = bundle
-//                supportFragmentManager.beginTransaction().add(R.id.container, UpdateProfileActivity()).commit()
-
-                dash_ivHome.setImageResource(R.drawable.blue_home)
-                dashboard_ivBack.visibility = View.VISIBLE
-                dashboard_ivLogout.visibility = View.GONE
-
-                dash_tvHome.setTextColor(resources.getColor(R.color.nfcolor))
-
-            }
         }
-
-        supportFragmentManager.beginTransaction().replace(R.id.container, fragment!!).commit()
-
     }
 
     override fun onBackPressed() {
@@ -420,29 +510,39 @@ class DashboardActivity : AppCompatActivity() {
         } else if (AppConstants.isFirst == 5 || AppConstants.isFirst == 6 || AppConstants.isFirst == 7 || AppConstants.isFirst == 8) {
 
             AppConstants.isFirst = 4
-            setFragments()
+            setFragments(null)
         } else if (AppConstants.isFirst == 9) {
 
             AppConstants.isFirst = 10
-            setFragments()
-        }else if (AppConstants.isFirst == 10) {
+            val bundle = Bundle()
+            bundle.putString("testid", testid)
+            bundle.putString("studenttestid", studenttestid)
+            setFragments(bundle)
+        } else if (AppConstants.isFirst == 10) {
 
-            super.onBackPressed()
+            AppConstants.isFirst = 12
+            val bundle4 = Bundle()
+            bundle4.putString("pkgid", pkgid)
+            bundle4.putString("pname", pname)
+            setFragments(bundle4)
+        } else if (AppConstants.isFirst == 11) {
+
+            AppConstants.isFirst = 1
+            setFragments(null)
+
+        } else if (AppConstants.isFirst == 12) {
+
+            AppConstants.isFirst = 11
+            val bundle3 = Bundle()
+            bundle3.putInt("sub_id", subid)
+            bundle3.putString("sub_name", subname)
+            bundle3.putBoolean("isCompetitive", isCompetitive)
+            setFragments(bundle3)
+        } else if (AppConstants.isFirst == 13) {
+
+            AppConstants.isFirst = 0
+            setFragments(null)
         }
 
-//        when {
-//            ON_BACK == 1 -> {
-//                super.onBackPressed()
-//            }
-//            ON_BACK == 2 ->
-//                supportFragmentManager.beginTransaction().replace(
-//                    R.id.container,
-//                    MarketPlaceFragment()
-//                ).commit()
-//            else -> {
-//
-//
-//            }
-//        }
     }
 }

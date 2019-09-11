@@ -9,7 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.gson.JsonObject
-import com.testprep.R
+import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
@@ -101,10 +101,7 @@ class OtpActivity : AppCompatActivity() {
                 if (intent.getStringExtra("come_from") == "forgot password") {
 
                     AppConstants.isFirst = 7
-                    val intent1 = Intent(this@OtpActivity, DashboardActivity::class.java)
-                    intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent1)
-                    finish()
+                    setFragments(null)
 
 //                    val intent = Intent(this@OtpActivity, ChangePasswordActivity::class.java)
 //                    intent.putExtra("come_from", "otp")

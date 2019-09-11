@@ -1,6 +1,5 @@
 package com.testprep.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -12,7 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import com.testprep.R
-import com.testprep.activity.TutorDetailActivity
+import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.adapter.RecentSearchAdapter
 import com.testprep.models.PackageData
 import com.testprep.retrofit.WebClient
@@ -63,15 +62,22 @@ class ExploreFragment : Fragment() {
                 }
 
                 if (explore_etSearch.text.toString() != "") {
-                    val intent = Intent(context, TutorDetailActivity::class.java)
-                    intent.putExtra("type", "explore")
-                    intent.putExtra("pname", "Packages")
-                    intent.putExtra("boardid", "")
-                    intent.putExtra("stdid", "")
-                    intent.putExtra("subid", "")
-                    intent.putExtra("tutorid", "")
-                    intent.putExtra("search_name", explore_etSearch.text.toString())
-                    startActivity(intent)
+
+                    AppConstants.isFirst = 13
+
+                    val bundle = Bundle()
+                    bundle.putString("type", "explore")
+                    bundle.putString("pname", "Packages")
+                    bundle.putString("boardid", "")
+                    bundle.putString("stdid", "")
+                    bundle.putString("subid", "")
+                    bundle.putString("tutorid", "")
+                    bundle.putString("search_name", explore_etSearch.text.toString())
+                    bundle.putSerializable("parr", "")
+                    bundle.putString("maxprice", "")
+                    bundle.putString("minprice", "")
+                    setFragments(bundle)
+
                 } else {
 
                 }
@@ -92,15 +98,22 @@ class ExploreFragment : Fragment() {
 //            explore_etSearch.setText("")
 
             if (explore_etSearch.text.toString() != "") {
-                val intent = Intent(context, TutorDetailActivity::class.java)
-                intent.putExtra("type", "explore")
-                intent.putExtra("pname", "Packages")
-                intent.putExtra("boardid", "")
-                intent.putExtra("stdid", "")
-                intent.putExtra("subid", "")
-                intent.putExtra("tutorid", "")
-                intent.putExtra("search_name", explore_etSearch.text.toString())
-                startActivity(intent)
+
+                AppConstants.isFirst = 13
+
+                val bundle = Bundle()
+                bundle.putString("type", "explore")
+                bundle.putString("pname", "Packages")
+                bundle.putString("boardid", "")
+                bundle.putString("stdid", "")
+                bundle.putString("subid", "")
+                bundle.putString("tutorid", "")
+                bundle.putString("search_name", explore_etSearch.text.toString())
+                bundle.putSerializable("parr", "")
+                bundle.putString("maxprice", "")
+                bundle.putString("minprice", "")
+                setFragments(bundle)
+
             } else {
 
             }

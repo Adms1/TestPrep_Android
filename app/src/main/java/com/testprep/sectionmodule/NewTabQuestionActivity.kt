@@ -25,6 +25,7 @@ import android.widget.*
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testprep.R
+import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.activity.ResultActivity
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.AnswerModel
@@ -32,6 +33,7 @@ import com.testprep.models.QuestionTypeModel
 import com.testprep.old.adapter.SelectImageOptionAdapter
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
+import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.WebRequests
 import kotlinx.android.synthetic.main.activity_tabwise_question.*
@@ -443,7 +445,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     var time = testtime.toFloat()
 
                     if (time > 0) {
-                        setCountdown(time.toLong() * 60 * 1000)
+                        setCountdown(time.toLong() * 1000)
                     } else {
                         DialogUtils.createConfirmDialog1(
                             this@NewTabQuestionActivity,
@@ -722,6 +724,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             "Cancel",
             DialogInterface.OnClickListener { dialog, which ->
 
+                AppConstants.isFirst = 12
+                val bundle = Bundle()
+                bundle.putString("pkgid", intent.getStringExtra("pkgid"))
+                bundle.putString("pname", intent.getStringExtra("pname"))
+                setFragments(bundle)
                 finish()
 
             },
@@ -1171,7 +1178,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //            curr_index = curr_index + 1
 
             if ((finalArr.size - 1) == q_grppos1) {
-                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) > curr_index) {
+                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
                     setNextSkipButtonText(2)
                 }
             }
@@ -1200,11 +1207,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
 //            curr_index = curr_index + 1
 
-            if ((finalArr.size - 1) == q_grppos1) {
-                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
-                    setNextSkipButtonText(2)
-                }
-            }
+//            if ((finalArr.size - 1) == q_grppos1) {
+//                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
+//                    setNextSkipButtonText(2)
+//                }
+//            }
 
         } else {
 

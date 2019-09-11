@@ -16,6 +16,7 @@ import android.widget.Toast
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
+import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.adapter.TestTypeAdapter
 import com.testprep.fragments.TutorProfileFragment
 import com.testprep.retrofit.WebClient
@@ -627,9 +628,7 @@ class PackageDetailActivity : AppCompatActivity() {
 //                    } else {
 
                     AppConstants.isFirst = 1
-
-                    val intent: Intent = Intent(this@PackageDetailActivity, DashboardActivity::class.java)
-                    startActivity(intent)
+                    setFragments(null)
 
 //                        Toast.makeText(this@PackageDetailActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
 //                            .show()
