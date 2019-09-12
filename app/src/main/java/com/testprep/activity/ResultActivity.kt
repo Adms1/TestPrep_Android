@@ -85,15 +85,13 @@ class ResultActivity : AppCompatActivity() {
         result_tvReports.setOnClickListener {
 
             AppConstants.isFirst = 10
-            val intent = Intent(this@ResultActivity, DashboardActivity::class.java)
-            startActivity(intent)
-            finish()
 
-//            val intent1 = Intent(this@ResultActivity, TestReviewActivity::class.java)
-//            intent1.putExtra("testid", testid)
-//            intent1.putExtra("studenttestid", studenttestid)
-//            startActivity(intent1)
-//            finish()
+//            setFragments(bundle)
+            val intent1 = Intent(this@ResultActivity, DashboardActivity::class.java)
+            intent1.putExtra("testid", testid)
+            intent1.putExtra("studenttestid", studenttestid)
+            startActivity(intent1)
+            finish()
         }
 
         result_ivBack.setOnClickListener {
@@ -103,7 +101,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        AppConstants.isFirst = 1
+        AppConstants.isFirst = 12
         val intent = Intent(this@ResultActivity, DashboardActivity::class.java)
         startActivity(intent)
         finish()

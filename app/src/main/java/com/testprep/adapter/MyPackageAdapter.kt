@@ -2,7 +2,6 @@ package com.testprep.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -68,11 +67,14 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
 
             }else if(come_from == "my_pkgs"){
 
+                AppConstants.PKG_ID = dataList[p1].StudentTestPackageID.toString()
+                AppConstants.PKG_NAME = dataList[p1].TestPackageName
+
                 AppConstants.isFirst = 12
-                val bundle = Bundle()
-                bundle.putString("pkgid", dataList[p1].StudentTestPackageID.toString())
-                bundle.putString("pname", dataList[p1].TestPackageName)
-                setFragments(bundle)
+//                val bundle = Bundle()
+//                bundle.putString("pkgid", dataList[p1].StudentTestPackageID.toString())
+//                bundle.putString("pname", dataList[p1].TestPackageName)
+                setFragments(null)
 
 //                val intent1 = Intent(context, DashboardActivity::class.java)
 //                intent1.putExtra("pkgid", dataList[p1].StudentTestPackageID.toString())

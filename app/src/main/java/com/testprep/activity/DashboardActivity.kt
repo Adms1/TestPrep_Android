@@ -57,11 +57,20 @@ class DashboardActivity : AppCompatActivity() {
         ON_BACK = 0
 
         main_header = findViewById(com.testprep.R.id.dashboard_header)
+        ivCart = findViewById(com.testprep.R.id.dashboard_ivCart)
+        ivHome = findViewById(com.testprep.R.id.dash_ivHome)
+        ivMarket = findViewById(com.testprep.R.id.dash_ivMarket)
+        ivExplore = findViewById(com.testprep.R.id.dash_ivSearch)
+        ivProfile = findViewById(com.testprep.R.id.dash_ivUser)
+        tvHome = findViewById(com.testprep.R.id.dash_tvHome)
+        tvMarket = findViewById(com.testprep.R.id.dash_tvMarket)
+        tvExplore = findViewById(com.testprep.R.id.dash_tvSearch)
+        tvProfile = findViewById(com.testprep.R.id.dash_tvUser)
         btnBack = findViewById(com.testprep.R.id.dashboard_ivBack)
         btnLogout = findViewById(com.testprep.R.id.dashboard_ivLogout)
 
-        intent1 = intent
         fragManager = this.supportFragmentManager
+        context = this@DashboardActivity
 
 //        containerr = findViewById(R.id.container)
 
@@ -74,7 +83,28 @@ class DashboardActivity : AppCompatActivity() {
 
 //        drawer_layout.setDrawerListener(mDrawerToggle)
 
-        setFragments(null)
+        if (intent != null && intent.hasExtra("testid") && intent.hasExtra("studenttestid")) {
+
+            val bundle = Bundle()
+            bundle.putString("testid", intent.getStringExtra("testid"))
+            bundle.putString("studenttestid", intent.getStringExtra("studenttestid"))
+//            bundle.putString("pname", intent.getStringExtra("testname"))
+            setFragments(bundle)
+
+        } else {
+
+            dash_ivMarket.setImageResource(com.testprep.R.drawable.blue_list)
+            dash_ivHome.setImageResource(com.testprep.R.drawable.home)
+            dash_ivUser.setImageResource(com.testprep.R.drawable.menu_one)
+            dash_ivSearch.setImageResource(com.testprep.R.drawable.search)
+
+            dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+            dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
+            dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+            dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+
+            setFragments(null)
+        }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
@@ -127,48 +157,12 @@ class DashboardActivity : AppCompatActivity() {
 
                 AppConstants.isFirst = 1
 
-                //                dashboard_ivFilter.visibility = View.GONE
-                dashboard_ivCart.visibility = View.GONE
-//                dashboard_ivPencil.visibility = View.GONE
-//                dashboard_ivBack.visibility = View.GONE
-//                dashboard_ivFilter.visibility = View.GONE
-
-                dash_ivHome.setImageResource(com.testprep.R.drawable.blue_home)
-                dash_ivMarket.setImageResource(com.testprep.R.drawable.list)
-                dash_ivSearch.setImageResource(com.testprep.R.drawable.search)
-                dash_ivUser.setImageResource(com.testprep.R.drawable.menu_one)
-
-                dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
-                dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-                dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-                dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-
                 setFragments(null)
             }
 
             dash_llMarket -> {
 
                 AppConstants.isFirst = 0
-
-                //                var bundle = Bundle()
-//                bundle.putString("subid", intent.getStringExtra("subject_id"))
-//                fragment.arguments = bundle
-
-//                dashboard_ivFilter.visibility = View.VISIBLE
-                dashboard_ivCart.visibility = View.GONE
-//                dashboard_ivPencil.visibility = View.VISIBLE
-//                dashboard_ivBack.visibility = View.VISIBLE
-//                dashboard_ivPencil.visibility = View.VISIBLE
-
-                dash_ivMarket.setImageResource(com.testprep.R.drawable.blue_list)
-                dash_ivHome.setImageResource(com.testprep.R.drawable.home)
-                dash_ivUser.setImageResource(com.testprep.R.drawable.menu_one)
-                dash_ivSearch.setImageResource(com.testprep.R.drawable.search)
-
-                dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-                dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
-                dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-                dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
 
                 setFragments(null)
             }
@@ -177,50 +171,12 @@ class DashboardActivity : AppCompatActivity() {
 
                 AppConstants.isFirst = 3
 
-                //                supportFragmentManager.beginTransaction().replace(R.id.container, ExploreFragment())
-//                    .commit()
-
-//                dashboard_ivFilter.visibility = View.GONE
-                dashboard_ivCart.visibility = View.GONE
-//                dashboard_ivPencil.visibility = View.GONE
-//                dashboard_ivBack.visibility = View.GONE
-//                dashboard_ivFilter.visibility = View.GONE
-
-                dash_ivSearch.setImageResource(com.testprep.R.drawable.blue_search)
-                dash_ivUser.setImageResource(com.testprep.R.drawable.menu_one)
-                dash_ivMarket.setImageResource(com.testprep.R.drawable.list)
-                dash_ivHome.setImageResource(com.testprep.R.drawable.home)
-
-                dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-                dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-                dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
-                dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-
                 setFragments(null)
             }
 
             dash_llProfile -> {
 
                 AppConstants.isFirst = 4
-
-                //                dashboard_ivFilter.visibility = View.GONE
-                dashboard_ivCart.visibility = View.GONE
-//                dashboard_ivPencil.visibility = View.GONE
-//                dashboard_ivBack.visibility = View.GONE
-//                dashboard_ivFilter.visibility = View.GONE
-
-//                dashboard_ivLogout.visibility = View.GONE
-//                supportFragmentManager.beginTransaction().replace(R.id.container, OtherFragment()).commit()
-
-                dash_ivUser.setImageResource(com.testprep.R.drawable.blue_menu)
-                dash_ivSearch.setImageResource(com.testprep.R.drawable.search)
-                dash_ivMarket.setImageResource(com.testprep.R.drawable.list)
-                dash_ivHome.setImageResource(com.testprep.R.drawable.home)
-
-                dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-                dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-                dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-                dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
 
                 setFragments(null)
             }
@@ -269,12 +225,24 @@ class DashboardActivity : AppCompatActivity() {
         var studenttestid = ""
         var subid = 0
         var subname = ""
-        var pkgid = ""
+        //        var pkgid = ""
         var pname = ""
         var isCompetitive = false
+
         var main_header: TextView? = null
+        var ivCart: ImageView? = null
+        var ivHome: ImageView? = null
+        var ivMarket: ImageView? = null
+        var ivExplore: ImageView? = null
+        var ivProfile: ImageView? = null
+        var tvHome: TextView? = null
+        var tvMarket: TextView? = null
+        var tvExplore: TextView? = null
+        var tvProfile: TextView? = null
         var btnBack: ImageView? = null
         var btnLogout: ImageView? = null
+
+        var course_type = ""
         var boardid = ""
         var stdid = ""
         var tutorid = ""
@@ -285,7 +253,8 @@ class DashboardActivity : AppCompatActivity() {
         var minprice = ""
         var search_name = ""
 
-        var intent1: Intent? = null
+        var context: Context? = null
+
         var fragManager: FragmentManager? = null
 
         fun setFragments(bundle: Bundle?) {
@@ -300,7 +269,26 @@ class DashboardActivity : AppCompatActivity() {
                     main_header!!.text = "Market Place"
                     btnBack!!.visibility = View.VISIBLE
                     btnLogout!!.visibility = View.VISIBLE
-                    //        dashboard_ivPencil.visibility = View.VISIBLE
+
+                    //                var bundle = Bundle()
+//                bundle.putString("subid", intent.getStringExtra("subject_id"))
+//                fragment.arguments = bundle
+
+//                dashboard_ivFilter.visibility = View.VISIBLE
+                    ivCart!!.visibility = View.GONE
+//                dashboard_ivPencil.visibility = View.VISIBLE
+//                dashboard_ivBack.visibility = View.VISIBLE
+//                dashboard_ivPencil.visibility = View.VISIBLE
+
+                    ivMarket!!.setImageResource(com.testprep.R.drawable.blue_list)
+                    ivHome!!.setImageResource(com.testprep.R.drawable.home)
+                    ivProfile!!.setImageResource(com.testprep.R.drawable.menu_one)
+                    ivExplore!!.setImageResource(com.testprep.R.drawable.search)
+
+                    tvHome!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.nfcolor))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
 
                 }
                 1 -> {
@@ -311,6 +299,24 @@ class DashboardActivity : AppCompatActivity() {
                     btnBack!!.visibility = View.GONE
                     btnLogout!!.visibility = View.VISIBLE
 
+                    //        dashboard_ivPencil.visibility = View.VISIBLE
+
+                    //                dashboard_ivFilter.visibility = View.GONE
+                    ivCart!!.visibility = View.GONE
+//                dashboard_ivPencil.visibility = View.GONE
+//                dashboard_ivBack.visibility = View.GONE
+//                dashboard_ivFilter.visibility = View.GONE
+
+                    ivHome!!.setImageResource(com.testprep.R.drawable.blue_home)
+                    ivMarket!!.setImageResource(com.testprep.R.drawable.list)
+                    ivExplore!!.setImageResource(com.testprep.R.drawable.search)
+                    ivProfile!!.setImageResource(com.testprep.R.drawable.menu_one)
+
+                    tvHome!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.nfcolor))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+
                 }
 
                 3 -> {
@@ -320,6 +326,25 @@ class DashboardActivity : AppCompatActivity() {
                     main_header!!.text = "Explore"
                     btnBack!!.visibility = View.GONE
                     btnLogout!!.visibility = View.VISIBLE
+
+                    //                supportFragmentManager.beginTransaction().replace(R.id.container, ExploreFragment())
+//                    .commit()
+
+//                dashboard_ivFilter.visibility = View.GONE
+                    ivCart!!.visibility = View.GONE
+//                dashboard_ivPencil.visibility = View.GONE
+//                dashboard_ivBack.visibility = View.GONE
+//                dashboard_ivFilter.visibility = View.GONE
+
+                    ivExplore!!.setImageResource(com.testprep.R.drawable.blue_search)
+                    ivProfile!!.setImageResource(com.testprep.R.drawable.menu_one)
+                    ivMarket!!.setImageResource(com.testprep.R.drawable.list)
+                    ivHome!!.setImageResource(com.testprep.R.drawable.home)
+
+                    tvHome!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.nfcolor))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
                 }
                 4 -> {
 
@@ -328,6 +353,26 @@ class DashboardActivity : AppCompatActivity() {
                     main_header!!.text = "Other"
                     btnBack!!.visibility = View.GONE
                     btnLogout!!.visibility = View.VISIBLE
+
+                    //                dashboard_ivFilter.visibility = View.GONE
+                    ivCart!!.visibility = View.GONE
+//                dashboard_ivPencil.visibility = View.GONE
+//                dashboard_ivBack.visibility = View.GONE
+//                dashboard_ivFilter.visibility = View.GONE
+
+//                dashboard_ivLogout.visibility = View.GONE
+//                supportFragmentManager.beginTransaction().replace(R.id.container, OtherFragment()).commit()
+
+                    ivProfile!!.setImageResource(com.testprep.R.drawable.blue_menu)
+                    ivExplore!!.setImageResource(com.testprep.R.drawable.search)
+                    ivMarket!!.setImageResource(com.testprep.R.drawable.list)
+                    ivHome!!.setImageResource(com.testprep.R.drawable.home)
+
+                    tvHome!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.nfcolor))
+
                 }
                 5 -> {
 
@@ -341,6 +386,7 @@ class DashboardActivity : AppCompatActivity() {
                 6 -> {
 
                     fragment = ChangePasswordActivity()
+
                     val bundle1 = Bundle()
                     bundle1.putString("come_from", "other")
 
@@ -354,6 +400,7 @@ class DashboardActivity : AppCompatActivity() {
                 7 -> {
 
                     fragment = ChangePasswordActivity()
+
                     val bundle2 = Bundle()
                     bundle2.putString("come_from", "otp")
 
@@ -379,6 +426,7 @@ class DashboardActivity : AppCompatActivity() {
                     studenttestid = bundle.getString("studenttestid")!!
 
                     fragment = ViewSolutionActivity()
+
                     val bundle6 = Bundle()
                     bundle6.putString("testid", testid)
                     bundle6.putString("studenttestid", studenttestid)
@@ -396,6 +444,7 @@ class DashboardActivity : AppCompatActivity() {
                     studenttestid = bundle.getString("studenttestid")!!
 
                     fragment = TestReviewActivity()
+
                     val bundle5 = Bundle()
                     bundle5.putString("testid", testid)
                     bundle5.putString("studenttestid", studenttestid)
@@ -414,6 +463,7 @@ class DashboardActivity : AppCompatActivity() {
                     isCompetitive = bundle.getBoolean("isCompetitive", false)
 
                     fragment = MyPackagesFragment()
+
                     val bundle3 = Bundle()
                     bundle3.putInt("sub_id", subid)
                     bundle3.putString("sub_name", subname)
@@ -428,17 +478,18 @@ class DashboardActivity : AppCompatActivity() {
                 }
                 12 -> {
 
-                    pkgid = bundle!!.getString("pkgid")!!
-                    pname = bundle.getString("pname")!!
+//                    pkgid = bundle!!.getString("pkgid")!!
+//                    pname = bundle.getString("pname")!!
 
                     fragment = TestListActivity()
-                    val bundle4 = Bundle()
-                    bundle4.putString("pkgid", pkgid)
-                    bundle4.putString("pname", pname)
 
-                    (fragment as TestListActivity).arguments = bundle4
+//                    val bundle4 = Bundle()
+//                    bundle4.putString("pkgid", pkgid)
+//                    bundle4.putString("pname", pname)
 
-                    main_header!!.text = pname
+//                    (fragment as TestListActivity).arguments = bundle4
+
+                    main_header!!.text = AppConstants.PKG_NAME
                     btnBack!!.visibility = View.VISIBLE
                     btnLogout!!.visibility = View.GONE
 
@@ -448,6 +499,7 @@ class DashboardActivity : AppCompatActivity() {
                     ptype = bundle!!.getString("type")!!
                     pname = bundle.getString("pname1")!!
                     boardid = bundle.getString("boardid")!!
+                    course_type = bundle.getString("course_type")!!
                     stdid = bundle.getString("stdid")!!
                     subid1 = bundle.getString("subid")!!
                     tutorid = bundle.getString("tutorid")!!
@@ -460,9 +512,11 @@ class DashboardActivity : AppCompatActivity() {
                     search_name = bundle.getString("search_name")!!
 
                     fragment = TutorDetailActivity()
+
                     val bundle7 = Bundle()
                     bundle7.putString("type", ptype)
                     bundle7.putString("pname", pname)
+                    bundle7.putString("course_type", course_type)
                     bundle7.putString("boardid", boardid)
                     bundle7.putString("stdid", stdid)
                     bundle7.putString("subid", subid1)
@@ -504,8 +558,9 @@ class DashboardActivity : AppCompatActivity() {
 
             Handler().postDelayed({
                 doubleBackToExitPressedOnce = false
-                exitProcess(0)
             }, 2000)
+
+            exitProcess(0)
 
         } else if (AppConstants.isFirst == 5 || AppConstants.isFirst == 6 || AppConstants.isFirst == 7 || AppConstants.isFirst == 8) {
 
@@ -521,10 +576,10 @@ class DashboardActivity : AppCompatActivity() {
         } else if (AppConstants.isFirst == 10) {
 
             AppConstants.isFirst = 12
-            val bundle4 = Bundle()
-            bundle4.putString("pkgid", pkgid)
-            bundle4.putString("pname", pname)
-            setFragments(bundle4)
+//            val bundle4 = Bundle()
+//            bundle4.putString("pkgid", pkgid)
+//            bundle4.putString("pname", pname)
+            setFragments(null)
         } else if (AppConstants.isFirst == 11) {
 
             AppConstants.isFirst = 1

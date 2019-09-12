@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.testprep.R
+import com.testprep.activity.DashboardActivity
 import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.models.TestListModel
 import com.testprep.sectionmodule.NewTabQuestionActivity
@@ -16,9 +17,7 @@ import com.testprep.utils.AppConstants
 
 class TestListAdapter(
     val context: Context,
-    var dataList: ArrayList<TestListModel.TestData>,
-    var pkgid: String,
-    var name: String
+    var dataList: ArrayList<TestListModel.TestData>
 ) :
     RecyclerView.Adapter<TestListAdapter.viewholder>() {
 
@@ -63,8 +62,9 @@ class TestListAdapter(
                 val bundle = Bundle()
                 bundle.putString("testid", dataList[p1].TestID.toString())
                 bundle.putString("studenttestid", dataList[p1].StudentTestID.toString())
-                bundle.putString("pkgid", pkgid)
-                bundle.putString("pname", name)
+
+//                bundle.putString("pkgid", pkgid)
+//                bundle.putString("pname", name)
                 setFragments(bundle)
 
 //                val intent = Intent(context, TestReviewActivity::class.java)
@@ -82,10 +82,8 @@ class TestListAdapter(
                 intent.putExtra("coursename", dataList[p1].CourseName)
                 intent.putExtra("totalmarks", dataList[p1].TestMarks)
                 intent.putExtra("tutorname", dataList[p1].TutorName)
-                intent.putExtra("pkgid", pkgid)
-                intent.putExtra("pname", name)
-
                 context.startActivity(intent)
+                (context as DashboardActivity).finish()
             }
         }
     }

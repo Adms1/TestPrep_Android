@@ -127,7 +127,7 @@
                                     android:layout_marginRight="@dimen/_10sdp"
                                     app:layout_constraintTop_toTopOf="parent"
                                     android:layout_marginBottom="@dimen/_20sdp"
-                                    android:overScrollMode="never"
+                                    android:fillViewport="true"
                                     app:layout_constraintBottom_toBottomOf="parent">
 
                                 <LinearLayout

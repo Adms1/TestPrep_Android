@@ -40,6 +40,9 @@ class TutorDetailActivity : Fragment() {
     var tutorid = ""
     var ptype = ""
     var pname = ""
+    var course_type = ""
+
+    var isSort = false
 
     var bundle: Bundle? = null
 
@@ -53,6 +56,7 @@ class TutorDetailActivity : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         bundle = this.arguments
+        course_type = bundle!!.getString("course_type")!!
         boardid = bundle!!.getString("boardid")!!
         stdid = bundle!!.getString("stdid")!!
         subid = bundle!!.getString("subid")!!
@@ -122,8 +126,10 @@ class TutorDetailActivity : Fragment() {
         }
 
         tutor_detail_ivSort.setOnClickListener {
-            if (ptype == "single" || ptype == "pkg" || ptype == "explore"
-            ) {
+
+            isSort = !isSort
+
+            if (ptype == "single" || ptype == "pkg" || ptype == "explore" || ptype == "filter") {
 
                 sorting("pkg", data)
 
@@ -132,6 +138,8 @@ class TutorDetailActivity : Fragment() {
                 sorting("tutor", data)
 
             }
+
+
         }
 
         tutor_detail_rlFilter.setOnClickListener {
@@ -237,10 +245,10 @@ class TutorDetailActivity : Fragment() {
 
         var call: Call<PackageData>? = null
 
-        if (Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!! == "1") {
+        if (course_type == "1") {
             call = apiService.getFilterData(
                 WebRequests.getFilterParams(
-                    Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
+                    course_type,
                     "",
                     boardid,
                     stdid,
@@ -255,7 +263,7 @@ class TutorDetailActivity : Fragment() {
         } else {
             call = apiService.getFilterData(
                 WebRequests.getFilterParams(
-                    Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
+                    course_type,
                     boardid,
                     "",
                     "",
@@ -342,28 +350,55 @@ class TutorDetailActivity : Fragment() {
     }
 
     fun sorting(type: String, modelList: ArrayList<PackageData.PackageDataList>) {
-        modelList.sortWith(Comparator { lhs, rhs ->
-            if (type != "tutor") {
-                lhs.TestPackageName.toLowerCase().compareTo(rhs.TestPackageName.toLowerCase())
+
+        if (isSort) {
+            modelList.sortWith(Comparator { lhs, rhs ->
+                if (type != "tutor") {
+                    lhs.TestPackageName.toLowerCase().compareTo(rhs.TestPackageName.toLowerCase())
+                } else {
+                    lhs.TutorName.toLowerCase().compareTo(rhs.TutorName.toLowerCase())
+                }
+            })
+
+            if (type == "tutor") {
+
+                tutorAdapter = TutorsAdapter(activity!!, modelList)
+                tutor_packages_rvPopularPkg.adapter = tutorAdapter
+                tutorAdapter!!.notifyDataSetChanged()
+
+
             } else {
-                lhs.TutorName.toLowerCase().compareTo(rhs.TutorName.toLowerCase())
+
+                pkgAdapter = TestPackagesAdapter(activity!!, modelList)
+                tutor_packages_rvPopularPkg.adapter = pkgAdapter
+                pkgAdapter!!.notifyDataSetChanged()
+
+
             }
-        })
-
-        if (type == "tutor") {
-
-            tutorAdapter = TutorsAdapter(activity!!, modelList)
-            tutor_packages_rvPopularPkg.adapter = tutorAdapter
-            tutorAdapter!!.notifyDataSetChanged()
-
-
         } else {
+            modelList.sortWith(Comparator { lhs, rhs ->
+                if (type != "tutor") {
+                    rhs.TestPackageName.toLowerCase().compareTo(lhs.TestPackageName.toLowerCase())
+                } else {
+                    rhs.TutorName.toLowerCase().compareTo(lhs.TutorName.toLowerCase())
+                }
+            })
 
-            pkgAdapter = TestPackagesAdapter(activity!!, modelList)
-            tutor_packages_rvPopularPkg.adapter = pkgAdapter
-            pkgAdapter!!.notifyDataSetChanged()
+            if (type == "tutor") {
+
+                tutorAdapter = TutorsAdapter(activity!!, modelList)
+                tutor_packages_rvPopularPkg.adapter = tutorAdapter
+                tutorAdapter!!.notifyDataSetChanged()
 
 
+            } else {
+
+                pkgAdapter = TestPackagesAdapter(activity!!, modelList)
+                tutor_packages_rvPopularPkg.adapter = pkgAdapter
+                pkgAdapter!!.notifyDataSetChanged()
+
+
+            }
         }
     }
 

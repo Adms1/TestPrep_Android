@@ -42,12 +42,16 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         if (Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, "") == "1") {
             filter_rbBoards.isChecked = true
 
+            AppConstants.FILTER_COURSE_TYPE_ID = "1"
+
             val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Boards")
             pp1.isSelected = false
             filterTypeArr.add(pp1)
 
         } else {
             filter_rbCompetitive.isChecked = true
+
+            AppConstants.FILTER_COURSE_TYPE_ID = "2"
 
             val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Competitive Exams")
             pp1.isSelected = false

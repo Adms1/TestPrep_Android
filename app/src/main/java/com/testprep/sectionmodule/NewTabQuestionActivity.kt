@@ -25,7 +25,7 @@ import android.widget.*
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testprep.R
-import com.testprep.activity.DashboardActivity.Companion.setFragments
+import com.testprep.activity.DashboardActivity
 import com.testprep.activity.ResultActivity
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.AnswerModel
@@ -102,6 +102,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         ansArr = ArrayList()
         sectionList = ArrayList()
+        finalArr = HashMap()
 //        sectionList1 = ArrayList()
 
         filterTypeSelectionInteface = this
@@ -182,6 +183,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             dialog.show()
         }
+
+        wv_question_list.isNestedScrollingEnabled = false
 
         ansList!!.setOnClickListener {
             if (nextButton!!.text != "Submit Test") {
@@ -725,10 +728,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             DialogInterface.OnClickListener { dialog, which ->
 
                 AppConstants.isFirst = 12
-                val bundle = Bundle()
-                bundle.putString("pkgid", intent.getStringExtra("pkgid"))
-                bundle.putString("pname", intent.getStringExtra("pname"))
-                setFragments(bundle)
+                val intent = Intent(this@NewTabQuestionActivity, DashboardActivity::class.java)
+                startActivity(intent)
                 finish()
 
             },

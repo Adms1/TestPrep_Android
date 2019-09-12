@@ -30,10 +30,13 @@ class ViewInvoiceActivity : AppCompatActivity() {
         invoice_view.webViewClient = MyWebViewClient()
 
         val url =
-            "https://docs.google.com/viewerng/viewer?url=http://admin.testcraft.in:8090/tutor/purchasePackages/detail/" + intent.getStringExtra(
+            "https://docs.google.com/viewer?embedded=true&url=http://admin.testcraft.in:8090/tutor/purchasePackages/detail/" + intent.getStringExtra(
                 "invoice_id"
             )
-        invoice_view.settings.javaScriptEnabled = true
+
+        invoice_view.settings.builtInZoomControls = true
+
+        invoice_view.settings.javaScriptEnabled = false
         invoice_view.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
         invoice_view.loadUrl(url)
 

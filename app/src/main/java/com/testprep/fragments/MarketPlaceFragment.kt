@@ -104,6 +104,7 @@ class MarketPlaceFragment : Fragment() {
             bundle.putString("type", "pkg")
             bundle.putString("pname1", "Packages")
             bundle.putString("boardid", Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!)
+            bundle.putString("course_type", Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1"))
             bundle.putString("stdid", Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!)
             bundle.putString("subid", Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!)
             bundle.putString("tutorid", "")
@@ -119,6 +120,7 @@ class MarketPlaceFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("type", "tutor")
             bundle.putString("pname1", "Tutors")
+            bundle.putString("course_type", Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1"))
             bundle.putString("boardid", "")
             bundle.putString("stdid", "")
             bundle.putString("subid", "")
@@ -136,6 +138,7 @@ class MarketPlaceFragment : Fragment() {
             bundle.putString("type", "single")
             bundle.putString("pname1", "Single Test")
             bundle.putString("boardid", Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!)
+            bundle.putString("course_type", Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1"))
             bundle.putString("stdid", Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!)
             bundle.putString("subid", Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!)
             bundle.putString("tutorid", "")
@@ -443,7 +446,6 @@ class MarketPlaceFragment : Fragment() {
                 intent.putExtra("tutor_id", arrList[position].TutorID)
                 intent.putExtra("come_from", "selectpackage")
                 context!!.startActivity(intent)
-                activity!!.finish()
 
 //                callAddTestPackageApi(arrList[position].TestPackageID)
             }
@@ -508,8 +510,8 @@ class MarketPlaceFragment : Fragment() {
 
                     if (response.body()!!.Status == "true") {
 
-                        main_pkg_item_tvdatanotfound.visibility = View.GONE
-                        main_pkg_item_mainll.visibility = View.VISIBLE
+                        main_pkg_item_tvdatanotfound!!.visibility = View.GONE
+                        main_pkg_item_mainll!!.visibility = View.VISIBLE
 
                         mDataList = ArrayList()
                         mDataList = response.body()!!.data.TestPackage

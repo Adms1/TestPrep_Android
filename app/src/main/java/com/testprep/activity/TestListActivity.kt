@@ -43,9 +43,12 @@ class TestListActivity : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        bundle = this.arguments
-        pname = bundle!!.getString("pname")
-        pkgid = bundle!!.getString("pkgid")
+//        bundle = this.arguments
+//        pname = bundle!!.getString("pname")
+//        pkgid = bundle!!.getString("pkgid")
+
+//        AppConstants.PKG_ID = pkgid
+//        AppConstants.PKG_NAME = pname
 
 //        test_header.text = intent.getStringExtra("pname")
 
@@ -74,7 +77,7 @@ class TestListActivity : Fragment() {
 
         val call = apiService.getTestList(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
-            pkgid
+            AppConstants.PKG_ID
         )
         call.enqueue(object : Callback<TestListModel> {
             override fun onResponse(call: Call<TestListModel>, response: Response<TestListModel>) {
@@ -86,7 +89,7 @@ class TestListActivity : Fragment() {
                     if (response.body()!!.Status == "true") {
 
                         val testArr = response.body()!!.data
-                        test_rvPkgList.adapter = TestListAdapter(activity!!, testArr, pkgid, pname)
+                        test_rvPkgList.adapter = TestListAdapter(activity!!, testArr)
 
                     } else {
                         Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()

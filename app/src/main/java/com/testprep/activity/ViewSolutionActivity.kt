@@ -1,6 +1,9 @@
 package com.testprep.activity
 
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v4.app.Fragment
@@ -12,6 +15,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.Button
 import android.widget.ExpandableListView
 import android.widget.ImageView
@@ -55,7 +59,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        return inflater.inflate(com.testprep.R.layout.activity_view_solution, container, false)
+        return inflater.inflate(R.layout.activity_view_solution, container, false)
 
     }
 
@@ -79,8 +83,8 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         bundle = this.arguments
 
-        testid = bundle!!.getString("testid")
-        studenttestid = bundle!!.getString("studenttestid")
+        testid = bundle!!.getString("testid")!!
+        studenttestid = bundle!!.getString("studenttestid")!!
 
         drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
@@ -112,24 +116,24 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         }
 
-//        solution_ivReview.setOnClickListener {
-//
-//            val dialog = Dialog(activity!!)
-//            dialog.setContentView(R.layout.hint_dialog)
-//            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//            dialog.setCanceledOnTouchOutside(false)
-//
-//            val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
-//
-//            val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
-//
-//            hintWebview.settings.javaScriptEnabled = true
-//            hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
-//
-//            closeBtn.setOnClickListener { dialog.dismiss() }
-//
-//            dialog.show()
-//        }
+        solution_ivReview.setOnClickListener {
+
+            val dialog = Dialog(activity!!)
+            dialog.setContentView(R.layout.hint_dialog)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.setCanceledOnTouchOutside(false)
+
+            val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
+
+            val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+
+            hintWebview.settings.javaScriptEnabled = true
+            hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
+
+            closeBtn.setOnClickListener { dialog.dismiss() }
+
+            dialog.show()
+        }
 
         ansList!!.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
@@ -306,11 +310,19 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                     LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
                 when (movies[solution_grppos1].TestQuestion[curr_index1].QuestionTypeID) {
-                    1 -> ansList!!.adapter = SolutionAdapter(
-                        activity!!,
-                        movies[solution_grppos1].TestQuestion[curr_index1].StudentTestQuestionMCQ,
-                        solution_page_img_que_img.width, 1
-                    )
+
+                    1 -> {
+
+                        solution_rbTruefalse.visibility = View.GONE
+                        solution_tvFillBlanks.visibility = View.GONE
+                        ansList!!.visibility = View.VISIBLE
+
+                        ansList!!.adapter = SolutionAdapter(
+                            activity!!,
+                            movies[solution_grppos1].TestQuestion[curr_index1].StudentTestQuestionMCQ,
+                            solution_page_img_que_img.width, 1
+                        )
+                    }
                     2 -> {
 
                         solution_tvFillBlanks.visibility = View.VISIBLE
@@ -329,6 +341,11 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
                     }
                     7 -> {
+
+                        solution_rbTruefalse.visibility = View.GONE
+                        solution_tvFillBlanks.visibility = View.GONE
+                        ansList!!.visibility = View.VISIBLE
+
                         ansList!!.layoutManager =
                             LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 

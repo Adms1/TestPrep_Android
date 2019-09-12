@@ -157,6 +157,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
             val bundle = Bundle()
             bundle.putString("type", "filter")
             bundle.putString("pname1", "Packages")
+            bundle.putString("course_type", AppConstants.FILTER_COURSE_TYPE_ID)
             bundle.putString("boardid", AppConstants.FILTER_BOARD_ID)
             bundle.putString("stdid", AppConstants.FILTER_STANDARD_ID)
             bundle.putString("subid", AppConstants.FILTER_SUBJECT_ID)
