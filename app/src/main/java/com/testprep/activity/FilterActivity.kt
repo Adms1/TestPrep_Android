@@ -48,6 +48,14 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
             pp1.isSelected = false
             filterTypeArr.add(pp1)
 
+            val pp2: PackageData.PackageDataList = PackageData.PackageDataList(0, "Standard")
+            pp2.isSelected = false
+            filterTypeArr.add(pp2)
+
+            val pp3: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")
+            pp3.isSelected = false
+            filterTypeArr.add(pp3)
+
         } else {
             filter_rbCompetitive.isChecked = true
 
@@ -57,14 +65,6 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
             pp1.isSelected = false
             filterTypeArr.add(pp1)
         }
-
-        val pp2: PackageData.PackageDataList = PackageData.PackageDataList(0, "Standard")
-        pp2.isSelected = false
-        filterTypeArr.add(pp2)
-
-        val pp3: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")
-        pp3.isSelected = false
-        filterTypeArr.add(pp3)
 
         val pp4: PackageData.PackageDataList = PackageData.PackageDataList(0, "Tutor")
         pp4.isSelected = false
@@ -134,9 +134,9 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 pp1.isSelected = false
                 filterTypeArr.add(pp1)
 
-                val pp3: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")
-                pp3.isSelected = false
-                filterTypeArr.add(pp3)
+//                val pp3: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")
+//                pp3.isSelected = false
+//                filterTypeArr.add(pp3)
 
                 val pp4: PackageData.PackageDataList = PackageData.PackageDataList(0, "Tutor")
                 pp4.isSelected = false

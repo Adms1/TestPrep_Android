@@ -106,6 +106,9 @@ interface WebInterface {
     @GET("Get_Subject")
     fun getSubjectList(): Call<PackageData>
 
+    @GET("Get_TestPackageName_AutoComplete")
+    fun getExplore(): Call<PackageData>
+
     @GET("Get_Standard")
     fun getStandardList(): Call<PackageData>
 

@@ -36,6 +36,7 @@ import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.WebRequests
+import com.testprep.utils.transform
 import kotlinx.android.synthetic.main.activity_tabwise_question.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -553,9 +554,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                             Picasso.get()
                                 .load("http://content.testcraft.co.in/question/" + movies[0].TestQuestion[0].QuestionImage)
-//                                .resize(page_img_que_img.width, page_img_que_img.height)
-                                .into(page_img_que_img)
+                                .transform(transform.getTransformation(imgQue!!))
+                                .into(imgQue)
 //
+                            Log.d("qsize", "width: " + page_img_que_img.width + ", height" + page_img_que_img.height)
+
 //                            PageViewFragment.qsize = page_img_que_img.width
 
 //                            Log.d("imgsize", "widht" + page_img_que_img.width + "  height" + page_img_que_img.height)
@@ -890,9 +893,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                                 Picasso.get()
                                     .load("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
-//                .resize(imgQue!!.width, qsize)
+                                    .transform(transform.getTransformation(imgQue!!))
                                     .into(imgQue)
 
+                                Log.d(
+                                    "qsize",
+                                    "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
+                                )
 //            PageViewFragment.qsize = page_img_que_img.width
 
                                 ansList!!.layoutManager =
@@ -991,9 +998,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                                     Picasso.get()
                                         .load("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
-//                .resize(imgQue!!.width, qsize)
+                                        .transform(transform.getTransformation(imgQue!!))
                                         .into(imgQue)
 
+                                    Log.d(
+                                        "qsize",
+                                        "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
+                                    )
 //            PageViewFragment.qsize = page_img_que_img.width
 
                                     ansList!!.layoutManager =
@@ -1245,6 +1256,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 } else {
                     if (finalArr[sectionList!![q_grppos1]]!!.size - 1 == curr_index) {
                         setNextSkipButtonText(2)
+                    } else {
+                        if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
+                            setNextSkipButtonText(1)
+                        } else {
+                            setNextSkipButtonText(0)
+                        }
                     }
                 }
 
@@ -1282,8 +1299,15 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 Picasso.get()
                     .load("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
-//                .resize(imgQue!!.width, qsize)
+                    .transform(transform.getTransformation(imgQue!!))
                     .into(imgQue)
+
+//                Picasso.get()
+//                    .load("http://content.testcraft.co.in/question/" + movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
+//                    .resize(936, imgQue!!.height)
+//                    .into(imgQue)
+
+                Log.d("qsize", "width: " + page_img_que_img.width + ", height" + page_img_que_img.height)
 
 //            PageViewFragment.qsize = page_img_que_img.width
 

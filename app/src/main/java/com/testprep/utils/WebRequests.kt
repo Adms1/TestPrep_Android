@@ -65,11 +65,13 @@ class WebRequests {
             coursetype: String,
             boardid: String,
             stdid: String,
-            subjectid: String
+            subjectid: String,
+            stu_id: String
         ): HashMap<String, String> {
 
             val map = HashMap<String, String>()
 
+            map["StudentID"] = stu_id
             map["CourseTypeID"] = coursetype
             map["BoardID"] = boardid
             map["StandardID"] = stdid

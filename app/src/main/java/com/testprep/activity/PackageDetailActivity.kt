@@ -16,7 +16,6 @@ import android.widget.Toast
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
-import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.adapter.TestTypeAdapter
 import com.testprep.fragments.TutorProfileFragment
 import com.testprep.retrofit.WebClient
@@ -307,7 +306,7 @@ class PackageDetailActivity : AppCompatActivity() {
                             package_detail_tvsprice.text =
                                 "Sell Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
                             package_detail_tvlprice.text =
-                                "List Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageListPrice").asString.trim()
+                                response.body()!!.get("data").asJsonObject.get("TestPackageListPrice").asString.trim()
                         } else {
                             package_detail_tvsprice.text =
                                 "Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
@@ -333,14 +332,14 @@ class PackageDetailActivity : AppCompatActivity() {
                         ) {
                             package_detail_createdby.text =
                                 Html.fromHtml(
-                                    "created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get("data").asJsonObject.get(
+                                    "Created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get("data").asJsonObject.get(
                                         "InstituteName"
                                     ).asString + "</font>"
                                 )
                         } else {
                             package_detail_createdby.text =
                                 Html.fromHtml(
-                                    "created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get("data").asJsonObject.get(
+                                    "Created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get("data").asJsonObject.get(
                                         "TutorName"
                                     ).asString + "</font>"
                                 )
@@ -628,7 +627,10 @@ class PackageDetailActivity : AppCompatActivity() {
 //                    } else {
 
                     AppConstants.isFirst = 1
-                    setFragments(null)
+
+                    var intent = Intent(this@PackageDetailActivity, DashboardActivity::class.java)
+                    startActivity(intent)
+                    finish()
 
 //                        Toast.makeText(this@PackageDetailActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
 //                            .show()

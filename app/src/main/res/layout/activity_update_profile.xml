@@ -34,7 +34,6 @@
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/default_shimmer_color"
             android:layout_below="@+id/signup_tvHeading">
 
         <RelativeLayout
@@ -44,6 +43,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:visibility="gone"
                 app:layout_constraintRight_toRightOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView

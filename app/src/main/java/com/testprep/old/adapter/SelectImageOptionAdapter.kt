@@ -44,7 +44,7 @@ class SelectImageOptionAdapter(
 
         if ("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage != "") {
 
-            Log.d("qsize", "" + qsize)
+//            Log.d("qsize", "" + qsize)
 
             Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage)
                 .resize(qsize, p0.opone1.height)

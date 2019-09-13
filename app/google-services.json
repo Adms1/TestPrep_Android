@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "598838894633",
+    "firebase_url": "https://testprep-8a472.firebaseio.com",
+    "project_id": "testprep-8a472",
+    "storage_bucket": "testprep-8a472.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598838894633:android:b0df7675a8ad6bb8403c38",
+        "android_client_info": {
+          "package_name": "com.testprep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598838894633-potgr1t7b4dnta56irrqp9fr387ublpk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2SpQjkA1w26lXA6aavhfMrbGKsDkqex4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598838894633-potgr1t7b4dnta56irrqp9fr387ublpk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

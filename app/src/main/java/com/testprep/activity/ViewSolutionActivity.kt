@@ -32,6 +32,7 @@ import com.testprep.sectionmodule.NewQuestionResponse
 import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
+import com.testprep.utils.transform
 import kotlinx.android.synthetic.main.activity_view_solution.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -180,6 +181,8 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                     "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[0].TestQuestion[0].Explanation + "</font></p></body></html>"
 //                explanationData = movies[0].TestQuestion[0].Explanation
 
+                solution_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
+
                 if (movies.size > 0) {
 
                     Log.d("header", "" + sectionList)
@@ -238,7 +241,12 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
                         Picasso.get()
                             .load("http://content.testcraft.co.in/question/" + movies[0].TestQuestion[0].QuestionImage)
+                            .transform(transform.getTransformation(imgQue!!))
                             .into(solution_page_img_que_img)
+
+//                        Picasso.get()
+//                            .load("http://content.testcraft.co.in/question/" + movies[0].TestQuestion[0].QuestionImage)
+//                            .into(solution_page_img_que_img)
 
                         Log.d("imgcall", "Number of movies received: " + movies.size)
                     }
@@ -300,10 +308,13 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
             hintData =
                 "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[solution_grppos1].TestQuestion[curr_index1].Explanation + "</font></p></body></html>"
 
+            solution_tvQMarks.text = "Marks : " + movies[solution_grppos1].TestQuestion[curr_index1].Marks
+
             if ("http://content.testcraft.co.in/question/" + movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage != "") {
 
                 Picasso.get()
                     .load("http://content.testcraft.co.in/question/" + movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage)
+                    .transform(transform.getTransformation(imgQue!!))
                     .into(imgQue)
 
                 ansList!!.layoutManager =

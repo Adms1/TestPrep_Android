@@ -9,7 +9,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.gson.JsonObject
-import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
@@ -53,60 +52,56 @@ class OtpActivity : AppCompatActivity() {
 
         otp_btnSubmit.setOnClickListener {
 
-            if (otp_btnSubmit.text.toString() != "Done") {
+            if (intent.getStringExtra("come_from") == "forgot password") {
 
-                if (otp_etOtp.value.toString() == otp) {
+                if (otp_btnSubmit.text.toString() != "Done") {
 
-                    otp_tvInvalid.visibility = View.GONE
+                    if (otp_etOtp.value.toString() == otp) {
 
-                    Utils.hideKeyboard(this@OtpActivity)
-                    otp_tvVerificationSuccess.visibility = View.VISIBLE
-                    otp_tvHeading.text = "Awesome!"
+                        otp_tvInvalid.visibility = View.GONE
 
-                    otp_tvInstruction.visibility = View.GONE
-                    otp_btnSubmit.text = "Done"
-                    otp_tvResend.visibility = View.GONE
-                    otp_etOtp.visibility = View.GONE
+                        AppConstants.isFirst = 7
 
-                    otp_ivLogo.setImageDrawable(resources.getDrawable(com.testprep.R.drawable.success_verification_icn))
+                        val intent = Intent(this@OtpActivity, DashboardActivity::class.java)
+                        intent.putExtra("come_from", "otp")
+                        startActivity(intent)
+                        finish()
 
-                    if (intent.getStringExtra("come_from") == "forgot password") {
-
-//                        val intent = Intent(this@OtpActivity, ChangePasswordActivity::class.java)
-//                        intent.putExtra("come_from", "otp")
-//                        startActivity(intent)
-//                        finish()
                     } else {
 
+                        otp_tvInvalid.visibility = View.VISIBLE
+                        otp_etOtp.value = ""
+
+                    }
+                }
+            } else {
+
+                if (otp_btnSubmit.text.toString() != "Done") {
+
+                    if (otp_etOtp.value.toString() == otp) {
+
+                        otp_tvInvalid.visibility = View.GONE
+
+                        Utils.hideKeyboard(this@OtpActivity)
+                        otp_tvVerificationSuccess.visibility = View.VISIBLE
+                        otp_tvHeading.text = "Awesome!"
+
+                        otp_tvInstruction.visibility = View.GONE
+                        otp_btnSubmit.text = "Done"
+                        otp_tvResend.visibility = View.GONE
+                        otp_etOtp.visibility = View.GONE
+
+                        otp_ivLogo.setImageDrawable(resources.getDrawable(com.testprep.R.drawable.success_verification_icn))
+
                         callSignupApi()
+
+                    } else {
+
+                        otp_tvInvalid.visibility = View.VISIBLE
+                        otp_etOtp.value = ""
+
                     }
 
-                } else {
-
-                    otp_tvInvalid.visibility = View.VISIBLE
-                    otp_etOtp.value = ""
-
-//                    Toast.makeText(this@OtpActivity, "OTP does not match", Toast.LENGTH_LONG).show()
-                }
-//                Handler().postDelayed(
-//                    {
-//                        val intent = Intent(this@OtpActivity, NewActivity::class.java)
-//                        startActivity(intent)
-//
-//                        // close this activity
-//                        finish()
-//                    }, 1000
-//                )
-            } else {
-                if (intent.getStringExtra("come_from") == "forgot password") {
-
-                    AppConstants.isFirst = 7
-                    setFragments(null)
-
-//                    val intent = Intent(this@OtpActivity, ChangePasswordActivity::class.java)
-//                    intent.putExtra("come_from", "otp")
-//                    startActivity(intent)
-//                    finish()
                 } else {
 
                     Utils.setStringValue(this@OtpActivity, "is_login", "true")
@@ -154,7 +149,8 @@ class OtpActivity : AppCompatActivity() {
 //                        Toast.makeText(this@OtpActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
                     } else {
-                        Toast.makeText(this@OtpActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@OtpActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
+                            .show()
 
 //                    Log.d("loginresponse", response.body()!!.asString)
                     }

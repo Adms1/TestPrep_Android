@@ -41,8 +41,9 @@ class NewSelectBoardAdapter(val context: Context, val dataList: ArrayList<Packag
         p0.title.text = dataList[p1].CourseName
 //        p0.stitle.text = p0.title.text.substring(0, 1)
 
-        if (dataList[p1].Icon != null) {
-            Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
+        if (dataList[p1].Icon != null && dataList[p1].Icon != "") {
+            Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).error(R.drawable.grey_round)
+                .into(p0.image)
         } else {
 //            p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].CourseName.substring(0, 1)))
             p0.stitle.text = p0.title.text.substring(0, 1)
@@ -62,7 +63,7 @@ class NewSelectBoardAdapter(val context: Context, val dataList: ArrayList<Packag
             if (Utils.getStringValue(context, AppConstants.COURSE_TYPE_ID, "") == "1") {
                 (context as PrefrenceActivity).callStandardList(dataList[p1].CourseID.toInt())
             } else {
-                (context as PrefrenceActivity).callSubjectList(dataList[p1].CourseID.toString())
+//                (context as PrefrenceActivity).callSubjectList(dataList[p1].CourseID.toString())
             }
             notifyDataSetChanged()
 

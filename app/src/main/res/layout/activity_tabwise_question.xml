@@ -344,6 +344,8 @@
                                             app:layout_constraintTop_toBottomOf="@+id/qno"
                                             android:layout_gravity="center_horizontal"
                                             app:layout_constraintLeft_toLeftOf="parent"
+                                            android:scaleType="fitStart"
+                                            android:adjustViewBounds="true"
                                             app:layout_constraintRight_toRightOf="parent"/>
 
                                     <!--<org.sufficientlysecure.htmltextview.HtmlTextView-->

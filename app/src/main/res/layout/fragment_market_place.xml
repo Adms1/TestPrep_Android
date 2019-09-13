@@ -195,7 +195,7 @@
             android:layout_centerInParent="true"/>
 
     <Button
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_150sdp"
             android:layout_height="wrap_content"
             android:id="@+id/main_pkg_item_tvChange"
             android:layout_below="@+id/main_pkg_item_tvdatanotfound"
@@ -203,7 +203,8 @@
             android:layout_centerHorizontal="true"
             android:textColor="@color/white"
             android:visibility="gone"
-            android:background="@drawable/blue_gradient_bg"
+            android:textAllCaps="false"
+            android:background="@drawable/login_round_bg"
             android:text="Change Search Criteria"/>
 
 </RelativeLayout>

@@ -10,7 +10,6 @@ import android.widget.TextView
 import com.testprep.R
 import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.utils.AppConstants
-import com.testprep.utils.Utils
 
 class RecentSearchAdapter(val context: Context, val dataList: List<String>) :
     RecyclerView.Adapter<RecentSearchAdapter.viewholder>() {
@@ -40,7 +39,7 @@ class RecentSearchAdapter(val context: Context, val dataList: List<String>) :
             val bundle = Bundle()
             bundle.putString("type", "explore")
             bundle.putString("pname1", "Packages")
-            bundle.putString("course_type", Utils.getStringValue(context, AppConstants.COURSE_TYPE_ID, "1"))
+            bundle.putString("course_type", "")
             bundle.putString("boardid", "")
             bundle.putString("stdid", "")
             bundle.putString("subid", "")

@@ -33,7 +33,9 @@ repositories {
     google()
     maven {
         url 'http://dl.bintray.com/amulyakhare/maven'
+
     }
+
 }
 
 dependencies {
@@ -71,6 +73,8 @@ dependencies {
 //    implementation 'com.chaos.view:pinview:1.4.3'
     implementation 'com.github.moondroid.coverflow:library:1.0'
 //    implementation 'com.emredavarci:circleprogressbar:1.0.4'
+    api files('libs/mint-5.2.5.jar')
     implementation 'com.ramijemli.percentagechartview:percentagechartview:0.3.1'
+//    Mint.initAndStartSession(this.getApplication(), "e460283d");
 
 }

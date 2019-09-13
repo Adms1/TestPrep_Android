@@ -68,7 +68,7 @@ class ExploreFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putString("type", "explore")
                     bundle.putString("pname1", "Packages")
-                    bundle.putString("course_type", Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1"))
+                    bundle.putString("course_type", "")
                     bundle.putString("boardid", "")
                     bundle.putString("stdid", "")
                     bundle.putString("subid", "")
@@ -104,7 +104,7 @@ class ExploreFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putString("type", "explore")
                 bundle.putString("pname1", "Packages")
-                bundle.putString("course_type", Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1"))
+                bundle.putString("course_type", "")
                 bundle.putString("boardid", "")
                 bundle.putString("stdid", "")
                 bundle.putString("subid", "")
@@ -163,7 +163,7 @@ class ExploreFragment : Fragment() {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getSubjectList()
+        val call = apiService.getExplore()
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
@@ -177,7 +177,7 @@ class ExploreFragment : Fragment() {
 
                         var subArr: ArrayList<String> = ArrayList()
                         for (i in 0 until filterArray.size) {
-                            subArr.add(filterArray[i].SubjectName)
+                            subArr.add(filterArray[i].Name)
                         }
 
                         val adapter = ArrayAdapter(

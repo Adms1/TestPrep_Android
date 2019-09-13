@@ -110,9 +110,10 @@ class PrefrenceActivity : AppCompatActivity() {
                 } else {
                     if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_TYPE_ID, "") == "1") {
                         Utils.ping(this@PrefrenceActivity, "Please Select Standard")
-                    } else {
-                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
                     }
+//                    else {
+//                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+//                    }
                 }
             }
         }
@@ -142,7 +143,9 @@ class PrefrenceActivity : AppCompatActivity() {
                     if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_TYPE_ID, "") == "1") {
                         Utils.ping(this@PrefrenceActivity, "Please Select Standard")
                     } else {
-                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+                        val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
+                        mIntent.putExtra("subject_id", "")
+                        startActivity(mIntent)
                     }
                 }
             }

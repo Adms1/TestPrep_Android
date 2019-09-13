@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -68,6 +69,7 @@ class DashboardActivity : AppCompatActivity() {
         tvProfile = findViewById(com.testprep.R.id.dash_tvUser)
         btnBack = findViewById(com.testprep.R.id.dashboard_ivBack)
         btnLogout = findViewById(com.testprep.R.id.dashboard_ivLogout)
+        llBottom = findViewById(com.testprep.R.id.dashboard_llBottom)
 
         fragManager = this.supportFragmentManager
         context = this@DashboardActivity
@@ -252,6 +254,7 @@ class DashboardActivity : AppCompatActivity() {
         var maxprice = ""
         var minprice = ""
         var search_name = ""
+        var llBottom: LinearLayout? = null
 
         var context: Context? = null
 
@@ -266,8 +269,10 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragment = MarketPlaceFragment()
 
+                    llBottom!!.visibility = View.VISIBLE
+
                     main_header!!.text = "Market Place"
-                    btnBack!!.visibility = View.VISIBLE
+                    btnBack!!.visibility = View.GONE
                     btnLogout!!.visibility = View.VISIBLE
 
                     //                var bundle = Bundle()
@@ -294,6 +299,8 @@ class DashboardActivity : AppCompatActivity() {
                 1 -> {
 
                     fragment = ChooseMarketPlaceFragment()
+
+                    llBottom!!.visibility = View.VISIBLE
 
                     main_header!!.text = "My Dashboard"
                     btnBack!!.visibility = View.GONE
@@ -323,6 +330,8 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragment = ExploreFragment()
 
+                    llBottom!!.visibility = View.VISIBLE
+
                     main_header!!.text = "Explore"
                     btnBack!!.visibility = View.GONE
                     btnLogout!!.visibility = View.VISIBLE
@@ -349,6 +358,8 @@ class DashboardActivity : AppCompatActivity() {
                 4 -> {
 
                     fragment = OtherFragment()
+
+                    llBottom!!.visibility = View.VISIBLE
 
                     main_header!!.text = "Other"
                     btnBack!!.visibility = View.GONE
@@ -378,6 +389,8 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragment = MyPaymentActivity()
 
+                    llBottom!!.visibility = View.VISIBLE
+
                     main_header!!.text = "My Payments"
                     btnBack!!.visibility = View.VISIBLE
                     btnLogout!!.visibility = View.GONE
@@ -386,6 +399,8 @@ class DashboardActivity : AppCompatActivity() {
                 6 -> {
 
                     fragment = ChangePasswordActivity()
+
+                    llBottom!!.visibility = View.VISIBLE
 
                     val bundle1 = Bundle()
                     bundle1.putString("come_from", "other")
@@ -401,6 +416,8 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragment = ChangePasswordActivity()
 
+                    llBottom!!.visibility = View.GONE
+
                     val bundle2 = Bundle()
                     bundle2.putString("come_from", "otp")
 
@@ -415,6 +432,8 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragment = UpdateProfileActivity()
 
+                    llBottom!!.visibility = View.VISIBLE
+
                     main_header!!.text = "Profile"
                     btnBack!!.visibility = View.VISIBLE
                     btnLogout!!.visibility = View.GONE
@@ -426,6 +445,8 @@ class DashboardActivity : AppCompatActivity() {
                     studenttestid = bundle.getString("studenttestid")!!
 
                     fragment = ViewSolutionActivity()
+
+                    llBottom!!.visibility = View.VISIBLE
 
                     val bundle6 = Bundle()
                     bundle6.putString("testid", testid)
@@ -444,6 +465,8 @@ class DashboardActivity : AppCompatActivity() {
                     studenttestid = bundle.getString("studenttestid")!!
 
                     fragment = TestReviewActivity()
+
+                    llBottom!!.visibility = View.VISIBLE
 
                     val bundle5 = Bundle()
                     bundle5.putString("testid", testid)
@@ -464,6 +487,8 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragment = MyPackagesFragment()
 
+                    llBottom!!.visibility = View.VISIBLE
+
                     val bundle3 = Bundle()
                     bundle3.putInt("sub_id", subid)
                     bundle3.putString("sub_name", subname)
@@ -483,6 +508,8 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragment = TestListActivity()
 
+                    llBottom!!.visibility = View.VISIBLE
+
 //                    val bundle4 = Bundle()
 //                    bundle4.putString("pkgid", pkgid)
 //                    bundle4.putString("pname", pname)
@@ -495,6 +522,8 @@ class DashboardActivity : AppCompatActivity() {
 
                 }
                 13 -> {
+
+                    llBottom!!.visibility = View.VISIBLE
 
                     ptype = bundle!!.getString("type")!!
                     pname = bundle.getString("pname1")!!
@@ -562,10 +591,18 @@ class DashboardActivity : AppCompatActivity() {
 
             exitProcess(0)
 
-        } else if (AppConstants.isFirst == 5 || AppConstants.isFirst == 6 || AppConstants.isFirst == 7 || AppConstants.isFirst == 8) {
+        } else if (AppConstants.isFirst == 5 || AppConstants.isFirst == 6 || AppConstants.isFirst == 8) {
 
             AppConstants.isFirst = 4
             setFragments(null)
+
+        } else if (AppConstants.isFirst == 7) {
+
+            AppConstants.isFirst = 0
+            val intent = Intent(this@DashboardActivity, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+            finish()
+
         } else if (AppConstants.isFirst == 9) {
 
             AppConstants.isFirst = 10

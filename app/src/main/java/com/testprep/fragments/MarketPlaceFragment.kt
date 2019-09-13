@@ -19,6 +19,7 @@ import android.widget.Toast
 import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.DashboardActivity.Companion.setFragments
+import com.testprep.activity.NewActivity
 import com.testprep.activity.PackageDetailActivity
 import com.testprep.adapter.MyPackageAdapter
 import com.testprep.carouselPkg.CarouselParameters
@@ -96,6 +97,13 @@ class MarketPlaceFragment : Fragment() {
 //        mTitle!!.outAnimation = out
 
         main_pkg_item_rvSingleTest.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+        main_pkg_item_tvChange.setOnClickListener {
+
+            val intent = Intent(activity, NewActivity::class.java)
+            startActivity(intent)
+            activity!!.finish()
+        }
 
         main_pkg_item_tvSeeall.setOnClickListener {
 
@@ -490,15 +498,8 @@ class MarketPlaceFragment : Fragment() {
                 Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "0")!!,
                 Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!,
                 Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!,
-                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!
-
-
-//                "", "", "", ""
-
-//                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
-//                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
-//                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
-//                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
+                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!,
+                Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!
             )
         )
         call.enqueue(object : Callback<GetMarketPlaceData> {
@@ -512,6 +513,7 @@ class MarketPlaceFragment : Fragment() {
 
                         main_pkg_item_tvdatanotfound!!.visibility = View.GONE
                         main_pkg_item_mainll!!.visibility = View.VISIBLE
+                        main_pkg_item_tvChange.visibility = View.GONE
 
                         mDataList = ArrayList()
                         mDataList = response.body()!!.data.TestPackage
@@ -570,6 +572,7 @@ class MarketPlaceFragment : Fragment() {
                     } else {
 
                         main_pkg_item_tvdatanotfound.visibility = View.VISIBLE
+                        main_pkg_item_tvChange.visibility = View.VISIBLE
                         main_pkg_item_mainll.visibility = View.GONE
 
                         Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()

@@ -65,6 +65,7 @@ class UpdateProfileActivity : Fragment() {
         signup_etEmail.setText(Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, ""))
 
         signup_etEmail.isFocusable = false
+        signup_etMobile.isFocusable = false
 
         signup_etPassword.setText(Utils.getStringValue(activity!!, AppConstants.USER_PASSWORD, ""))
 
