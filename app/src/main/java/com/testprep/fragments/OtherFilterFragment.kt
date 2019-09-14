@@ -19,7 +19,6 @@ import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
 import com.testprep.utils.WebRequests
-import io.apptik.widget.MultiSlider
 import kotlinx.android.synthetic.main.fragment_other_filter.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -101,27 +100,37 @@ class OtherFilterFragment : Fragment(), filterInterface {
             AppConstants.FILTER_TUTOR_ID
         }
 
+        // set listener
+        rangeSeekbar3.setOnRangeSeekbarChangeListener { minValue, maxValue ->
+
+            min = minValue.toString()
+            max = maxValue.toString()
+
+            price_filter_etMin.text = "₹ " + minValue.toString()
+            price_filter_etMax.text = "₹ " + maxValue.toString()
+        }
+
 //        price_filter_range_slider.min = Utils.getStringValue(activity!!, AppConstants.MIN_PRICE, "0")!!.toInt()
 //        price_filter_range_slider.max = Utils.getStringValue(activity!!, AppConstants.MAX_PRICE, "0")!!.toInt()
 
-        price_filter_range_slider.setOnThumbValueChangeListener(object : MultiSlider.SimpleChangeListener() {
-            override fun onValueChanged(
-                multiSlider: MultiSlider?,
-                thumb: MultiSlider.Thumb?,
-                thumbIndex: Int,
-                value: Int
-            ) {
-                if (thumbIndex == 0) {
-
-                    price_filter_etMin.setText(value.toString())
-
-                } else {
-
-                    price_filter_etMax.setText(value.toString())
-
-                }
-            }
-        })
+//        price_filter_range_slider.setOnThumbValueChangeListener(object : MultiSlider.SimpleChangeListener() {
+//            override fun onValueChanged(
+//                multiSlider: MultiSlider?,
+//                thumb: MultiSlider.Thumb?,
+//                thumbIndex: Int,
+//                value: Int
+//            ) {
+//                if (thumbIndex == 0) {
+//
+//                    price_filter_etMin.setText("₹ " + value.toString())
+//
+//                } else {
+//
+//                    price_filter_etMax.setText("₹ " + value.toString())
+//
+//                }
+//            }
+//        })
 
         filter_btnApply.setOnClickListener {
 
@@ -163,8 +172,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
             bundle.putString("subid", AppConstants.FILTER_SUBJECT_ID)
             bundle.putString("tutorid", AppConstants.FILTER_TUTOR_ID)
             bundle.putString("search_name", "")
-            bundle.putString("maxprice", price_filter_etMax.text.toString())
-            bundle.putString("minprice", price_filter_etMin.text.toString())
+            bundle.putString("maxprice", max)
+            bundle.putString("minprice", min)
             setFragments(bundle)
             activity!!.finish()
 

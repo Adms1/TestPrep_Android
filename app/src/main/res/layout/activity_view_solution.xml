@@ -3,65 +3,12 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/top_parent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true">
-
-    <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbar"
-            android:visibility="gone"
-            android:background="@color/white">
-
-        <TextView
-                android:text="View Solution"
-                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/solution_header"
-                app:layout_constraintTop_toTopOf="parent"
-                android:paddingTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:paddingBottom="@dimen/_10sdp"
-                android:visibility="gone"
-                app:layout_constraintLeft_toRightOf="@+id/solution_ivBack"
-                android:textSize="@dimen/normal_header_size"
-                android:gravity="center_vertical"
-                android:textColor="@color/black"/>
-
-        <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:src="@drawable/back_button"
-                android:id="@+id/solution_ivBack"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/solution_header"
-                android:padding="@dimen/_8sdp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/solution_header"/>
-
-        <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:id="@+id/solution_ivInfo"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:src="@drawable/info_icon"
-                android:visibility="gone"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/solution_header"
-                app:layout_constraintBottom_toBottomOf="@+id/solution_header"/>
-
-        <View
-                app:layout_constraintTop_toBottomOf="@+id/solution_header"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_2sdp"
-                android:background="@color/gray"/>
-
-    </android.support.constraint.ConstraintLayout>
+                android:fitsSystemWindows="true">
 
     <android.support.v4.widget.DrawerLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
             android:layout_below="@+id/toolbar"
             android:id="@+id/drawer_layout">
 

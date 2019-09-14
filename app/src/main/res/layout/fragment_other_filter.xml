@@ -5,7 +5,6 @@
         android:layout_width="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_height="match_parent"
-        xmlns:rsb="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:background="@color/white"
         tools:context=".fragments.OtherFilterFragment">
@@ -27,7 +26,7 @@
             android:id="@+id/price_ll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/filter_btnApply"
             android:background="@color/white">
@@ -35,9 +34,10 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                rsb:layout_constraintTop_toTopOf="parent"
-                rsb:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:text="Min."
+                android:visibility="gone"
                 android:textAllCaps="true"
                 android:textSize="@dimen/normal_text_size"
                 android:layout_margin="@dimen/_10sdp"
@@ -47,22 +47,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/price_filter_etMin"
-                rsb:layout_constraintTop_toBottomOf="@+id/price_filter_tvMin"
-                rsb:layout_constraintLeft_toLeftOf="parent"
-                android:text="0"
-                android:paddingLeft="@dimen/_5sdp"
+                app:layout_constraintTop_toBottomOf="@+id/price_filter_tvMin"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="₹ 0"
                 android:textColor="@color/black"
                 android:textSize="@dimen/normal_header_size"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:paddingBottom="@dimen/_15sdp"
-                android:paddingRight="@dimen/_10sdp"/>
+                android:layout_marginLeft="@dimen/_5sdp"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                rsb:layout_constraintTop_toTopOf="parent"
-                rsb:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/price_filter_etMin"
+                app:layout_constraintLeft_toRightOf="@+id/price_filter_etMin"
+                android:text="  -  "
+                app:layout_constraintBottom_toBottomOf="@+id/price_filter_etMin"
+                android:textAllCaps="true"
+                android:textSize="@dimen/normal_text_size"
+                android:id="@+id/price_filter_tvdash"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 android:text="Max."
+                android:visibility="gone"
                 android:textSize="@dimen/normal_text_size"
                 android:layout_margin="@dimen/_10sdp"
                 android:textAllCaps="true"
@@ -72,26 +81,49 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/price_filter_etMax"
-                rsb:layout_constraintTop_toBottomOf="@+id/price_filter_tvMin"
-                rsb:layout_constraintRight_toRightOf="parent"
-                android:text="1000"
+                app:layout_constraintTop_toBottomOf="@+id/price_filter_tvMin"
+                app:layout_constraintLeft_toRightOf="@+id/price_filter_tvdash"
+                android:text="₹ 5000"
                 android:textColor="@color/black"
-                android:paddingBottom="@dimen/_15sdp"
-                android:textSize="@dimen/normal_header_size"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:paddingLeft="@dimen/_10sdp"
-                android:paddingRight="@dimen/_5sdp"/>
+                android:textSize="@dimen/normal_header_size"/>
 
-        <io.apptik.widget.MultiSlider
-                android:id="@+id/price_filter_range_slider"
+
+        <!--<com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar-->
+        <!--android:id="@+id/rangeSeekbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/_100sdp"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/price_filter_etMin"-->
+        <!--app:absoluteMaxValue="5000"-->
+        <!--app:absoluteMinValue="0" />-->
+
+        <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
+                android:id="@+id/rangeSeekbar3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                rsb:layout_constraintTop_toBottomOf="@+id/price_filter_etMin"
-                android:layout_margin="@dimen/_20sdp"
-                rsb:scaleMin="0"
-                rsb:scaleMax="5000"
-                rsb:rangeColor="@color/gray"
-                app:trackColor="@color/gray"/>
+                app:corner_radius="10"
+                app:min_value="0"
+                app:max_value="5000"
+                app:bar_color="@color/default_shimmer_color"
+                app:bar_highlight_color="@color/gray"
+                app:left_thumb_color="@color/colorPrimaryDark"
+                app:layout_constraintTop_toBottomOf="@+id/price_filter_etMin"
+                app:right_thumb_color="@color/colorPrimaryDark"
+                app:left_thumb_color_pressed="@color/colorPrimaryDark"
+                app:right_thumb_color_pressed="@color/colorPrimaryDark"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:data_type="_integer"/>
+
+
+        <!--<io.apptik.widget.MultiSlider-->
+        <!--android:id="@+id/price_filter_range_slider"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/_60sdp"-->
+        <!--rsb:layout_constraintTop_toBottomOf="@+id/price_filter_etMin"-->
+        <!--android:layout_margin="@dimen/_20sdp"-->
+        <!--rsb:scaleMin="0"-->
+        <!--rsb:scaleMax="5000"-->
+        <!--rsb:rangeColor="@color/gray"-->
+        <!--app:trackColor="@color/gray"/>-->
 
     </android.support.constraint.ConstraintLayout>
 

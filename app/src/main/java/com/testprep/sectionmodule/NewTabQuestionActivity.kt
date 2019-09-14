@@ -119,7 +119,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         queTab_ivBack.setOnClickListener {
 
-            stopTimer()
+            //            stopTimer()
 
             onBackPressed()
         }

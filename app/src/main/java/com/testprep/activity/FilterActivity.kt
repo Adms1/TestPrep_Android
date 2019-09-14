@@ -8,7 +8,6 @@ import android.view.View
 import com.testprep.R
 import com.testprep.adapter.FilterListAdapter
 import com.testprep.fragments.OtherFilterFragment
-import com.testprep.fragments.PriceFilterFragment
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.PackageData
 import com.testprep.utils.AppConstants
@@ -61,7 +60,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
             AppConstants.FILTER_COURSE_TYPE_ID = "2"
 
-            val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Competitive Exams")
+            val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Course")
             pp1.isSelected = false
             filterTypeArr.add(pp1)
         }
@@ -86,6 +85,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                 filterTypeArr = ArrayList()
 
+                AppConstants.FILTER_COURSE_TYPE_ID = "1"
                 coursetypeid = "1"
 
 //                Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)
@@ -126,11 +126,12 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                 filterTypeArr = ArrayList()
 
+                AppConstants.FILTER_COURSE_TYPE_ID = "2"
                 coursetypeid = "2"
 
 //                Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)
 
-                val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Competitive Exams")
+                val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Course")
                 pp1.isSelected = false
                 filterTypeArr.add(pp1)
 
@@ -189,7 +190,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
             }
 
-            filterTypeArr[p1].TestPackageName == "Competitive Exams" -> {
+            filterTypeArr[p1].TestPackageName == "Course" -> {
 
                 bundle.putString("type", "competitive_exams")
                 fragment.arguments = bundle
@@ -230,10 +231,10 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
             }
 
 
-            filterTypeArr[p1].TestPackageName == "Price1" -> supportFragmentManager.beginTransaction().add(
-                R.id.filter_container,
-                PriceFilterFragment()
-            ).commit()
+//            filterTypeArr[p1].TestPackageName == "Price1" -> supportFragmentManager.beginTransaction().add(
+//                R.id.filter_container,
+////                PriceFilterFragment()
+//            ).commit()
         }
     }
 
