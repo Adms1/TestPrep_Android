@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
 import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v4.app.FragmentActivity
 import android.support.v4.widget.DrawerLayout
@@ -19,7 +20,6 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.view.Window
 import android.webkit.WebView
 import android.widget.*
 import com.google.gson.JsonObject
@@ -67,10 +67,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     var testtutor = ""
     var testsubject = ""
 
+    var shouldExecuteOnResume: Boolean? = null
+
     var newSideMenuAdapter: NewSideMenuAdapter? = null
     internal var mDrawerToggle: ActionBarDrawerToggle? = null
 
     var qtime = 0
+    var que_number = 1
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -82,6 +85,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_tabwise_question)
+
+        shouldExecuteOnResume = false
 
         testid = intent.getStringExtra("testid")
         testtime = intent.getStringExtra("testtime")
@@ -299,20 +304,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             when {
                 nextButton!!.text == "Next" -> {
 
-//                    if ((finalArr.size - 1) == q_grppos1) {
-//                        if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == com.testprep.sectionmodule.NewTabQuestionActivity.Companion.curr_index) {
-//                            queTab_btnNext.text = "Submit Test"
-//                        }
-//                    }
+                    que_number += 1
 
-//                    if ((finalArr.size - 1) > q_grppos1) {
-//
-//                        if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == com.testprep.sectionmodule.NewTabQuestionActivity.Companion.curr_index) {
-//                            q_grppos1 += 1
-//                            com.testprep.sectionmodule.NewTabQuestionActivity.Companion.curr_index = 0
-//                        }
-//
-//                    }
 
                     for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
                         if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
@@ -320,27 +313,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         }
                     }
 
-                    //                setSideMenu(2)
-//                    getNextQuestion("activity")
                     getType("activity", q_grppos1, curr_index)
 
                 }
                 nextButton!!.text == "Skip" -> {
 
-//                    if ((finalArr.size - 1) == q_grppos1) {
-//                        if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == com.testprep.sectionmodule.NewTabQuestionActivity.Companion.curr_index) {
-//                            queTab_btnNext.text = "Submit Test"
-//                        }
-//                    }
-
-//                    if ((finalArr.size - 1) > q_grppos1) {
-//
-//                        if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == com.testprep.sectionmodule.NewTabQuestionActivity.Companion.curr_index) {
-//                            q_grppos1 += 1
-//                            com.testprep.sectionmodule.NewTabQuestionActivity.Companion.curr_index = 0
-//                        }
-//
-//                    }
+                    que_number += 1
 
                     for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
                         if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
@@ -348,8 +326,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         }
                     }
 
-                    //                setSideMenu(3)
-//                    getNextQuestion("skip")
                     getType("skip", q_grppos1, curr_index)
                 }
                 nextButton!!.text == "Submit Test" -> {
@@ -372,6 +348,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         }).show()
                 }
             }
+
+//            queTab_tvCurrTotal.text = que_number.toString()
+
         }
 
         queTab_ivPlayPause.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -426,17 +405,19 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
     fun callQuestionApi() {
 
-        val sortDialog = Dialog(this@NewTabQuestionActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
-        val window = sortDialog.window
-        val wlp = window!!.attributes
-        sortDialog.window!!.attributes.verticalMargin = 0.10f
-        wlp.gravity = Gravity.BOTTOM
-        window.attributes = wlp
+//        val sortDialog = Dialog(this@NewTabQuestionActivity)//,R.style.PauseDialog);//, R.style.PauseDialog);
+//        val window = sortDialog.window
+//        val wlp = window!!.attributes
+//        sortDialog.window!!.attributes.verticalMargin = 0.10f
+//        wlp.gravity = Gravity.BOTTOM
+//        window.attributes = wlp
+//
+//        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        sortDialog.setCancelable(true)
+////        sortDialog.setContentView(getRoot())
+//        sortDialog.show()
 
-        sortDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        sortDialog.setCancelable(true)
-//        sortDialog.setContentView(getRoot())
-        sortDialog.show()
+        DialogUtils.showDialog(this@NewTabQuestionActivity)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
@@ -447,6 +428,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 if (response.body()!!.Status == "true") {
 
                     var time = testtime.toFloat()
+
+//                    queTab_tvCurrTotal.text = que_number.toString()
+//                    queTab_tvTotal.text = "/" + testque
 
                     if (time > 0) {
                         setCountdown(time.toLong() * 1000)
@@ -480,7 +464,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                     if (movies.size > 0) {
 
-                        queTab_tvTotal.text = "1/${movies.size}"
+//                        queTab_tvTotal.text = "1/${movies.size}"
 
                         queTab_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
 
@@ -628,8 +612,16 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     }
                 }
 
-                sortDialog.dismiss()
+                Handler().postDelayed(
+                    /* Runnable
+                         * Showing splash screen with a timer. This will be useful when you
+                         * want to show case your app logo / company
+                         */
 
+                    {
+                        DialogUtils.dismissDialog()
+                    }, 1500
+                )
                 Log.d("imgcall", "Number of movies received: " + movies.size)
 
             }
@@ -637,7 +629,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             override fun onFailure(call: Call<NewQuestionResponse>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
-                sortDialog.dismiss()
+                DialogUtils.dismissDialog()
             }
         })
     }
@@ -650,6 +642,24 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             waitTimer!!.cancel()
             waitTimer = null
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        stopTimer()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (shouldExecuteOnResume!!) {
+            timerResume()
+        } else {
+            shouldExecuteOnResume = true
+        }
+
+
     }
 
     private fun timerResume() {
@@ -838,8 +848,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         )
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-
-                DialogUtils.dismissDialog()
 
                 if (response.body()!!.get("Status").asString == "true") {
 
@@ -1083,6 +1091,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                            }).show()
                     }
 
+                    DialogUtils.dismissDialog()
+
                 } else {
 
                     Toast.makeText(
@@ -1227,6 +1237,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         } else {
 
+            DialogUtils.showDialog(this@NewTabQuestionActivity)
+
             if (itype == "skip") {
 
                 if (curr_index <= finalArr[sectionList!![q_grppos1]]!!.size - 1) {
@@ -1291,7 +1303,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             Log.d("current_index_skip", "" + curr_index)
 //            queTab_btnNext.visibility = View.VISIBLE
 
-            queTab_tvTotal.text = """${0 + 1}/${movies.size}"""
+//            queTab_tvTotal.text = """${0 + 1}/${movies.size}"""
 
             queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
 
@@ -1362,6 +1374,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     }
                 }
             }
+
+            DialogUtils.dismissDialog()
 
             sideList!!.setAdapter(
                 NewSideMenuAdapter(

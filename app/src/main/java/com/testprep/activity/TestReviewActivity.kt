@@ -116,6 +116,9 @@ class TestReviewActivity : Fragment() {
                             "data"
                         ).asJsonArray[0].asJsonObject.get("TotalMarks").asString
 
+                    review_tvTotalQue.text =
+                        "Total Questions : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TotalQue").asString
+
                 } else {
 
                     Toast.makeText(activity!!, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG)

@@ -48,6 +48,19 @@
             android:textColor="@color/nfcolor"/>
 
     <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/_8sdp"
+            android:id="@+id/review_tvTotalQue"
+            android:paddingBottom="@dimen/_8sdp"
+            android:textSize="@dimen/_14sdp"
+            android:background="#C1FCFF"
+            android:gravity="center"
+            android:layout_margin="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/review_tvTitle"
+            android:textColor="@color/black"/>
+
+    <TextView
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"
             android:background="@drawable/circle_icon"
@@ -70,9 +83,10 @@
             android:paddingLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="@color/light_green"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toRightOf="@id/review_ivCorrect"
-            app:layout_constraintTop_toBottomOf="@+id/review_tvTitle"/>
+            app:layout_constraintTop_toBottomOf="@+id/review_tvTotalQue"/>
 
     <TextView
             android:layout_width="0dp"
@@ -85,6 +99,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="@color/red"
             app:layout_constraintLeft_toRightOf="@id/review_ivCorrect"
             app:layout_constraintTop_toBottomOf="@+id/review_tvCorrect"/>
 
@@ -99,6 +114,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="@color/yellow"
             app:layout_constraintLeft_toRightOf="@id/review_ivCorrect"
             app:layout_constraintTop_toBottomOf="@+id/review_tvIncorrect"/>
 

@@ -295,7 +295,8 @@ class TutorDetailActivity : Fragment() {
 //                        tutor_detail_header.text = response.body()!!.data[0].Name
 
 //                        } else {
-                            data = response.body()!!.data[0].TestPackage
+
+                        data = response.body()!!.data[0].TestPackage
 
 //                        tutor_detail_header.text = response.body()!!.data[0].Name
 //                        }

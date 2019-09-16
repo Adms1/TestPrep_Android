@@ -90,7 +90,7 @@ class DashboardActivity : AppCompatActivity() {
             val bundle = Bundle()
             bundle.putString("testid", intent.getStringExtra("testid"))
             bundle.putString("studenttestid", intent.getStringExtra("studenttestid"))
-//            bundle.putString("pname", intent.getStringExtra("testname"))
+            bundle.putString("testname", intent.getStringExtra("testname"))
             setFragments(bundle)
 
         } else {
@@ -254,6 +254,7 @@ class DashboardActivity : AppCompatActivity() {
         var maxprice = ""
         var minprice = ""
         var search_name = ""
+        var testname = ""
         var llBottom: LinearLayout? = null
 
         var context: Context? = null
@@ -463,6 +464,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     testid = bundle!!.getString("testid")!!
                     studenttestid = bundle.getString("studenttestid")!!
+                    testname = bundle.getString("testname")!!
 
                     fragment = TestReviewActivity()
 
@@ -474,7 +476,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     (fragment as TestReviewActivity).arguments = bundle5
 
-                    main_header!!.text = "Analysis"
+                    main_header!!.text = testname
                     btnBack!!.visibility = View.VISIBLE
                     btnLogout!!.visibility = View.GONE
 
@@ -609,6 +611,8 @@ class DashboardActivity : AppCompatActivity() {
             val bundle = Bundle()
             bundle.putString("testid", testid)
             bundle.putString("studenttestid", studenttestid)
+            bundle.putString("testname", testname)
+
             setFragments(bundle)
         } else if (AppConstants.isFirst == 10) {
 

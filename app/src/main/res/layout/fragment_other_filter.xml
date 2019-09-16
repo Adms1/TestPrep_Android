@@ -102,6 +102,7 @@
                 android:layout_height="wrap_content"
                 app:corner_radius="10"
                 app:min_value="0"
+                android:layout_margin="@dimen/_10sdp"
                 app:max_value="5000"
                 app:bar_color="@color/default_shimmer_color"
                 app:bar_highlight_color="@color/gray"

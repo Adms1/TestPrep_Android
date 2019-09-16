@@ -90,6 +90,7 @@ class ResultActivity : AppCompatActivity() {
             val intent1 = Intent(this@ResultActivity, DashboardActivity::class.java)
             intent1.putExtra("testid", testid)
             intent1.putExtra("studenttestid", studenttestid)
+            intent1.putExtra("testname", result_tvHeading.text.toString())
             startActivity(intent1)
             finish()
         }

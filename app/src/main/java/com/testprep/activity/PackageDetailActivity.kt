@@ -257,7 +257,6 @@ class PackageDetailActivity : AppCompatActivity() {
                     }
                 }
             }
-
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
@@ -303,11 +302,15 @@ class PackageDetailActivity : AppCompatActivity() {
                                 true
                             )
                         ) {
+
                             package_detail_tvsprice.text =
                                 "Sell Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
                             package_detail_tvlprice.text =
                                 response.body()!!.get("data").asJsonObject.get("TestPackageListPrice").asString.trim()
                         } else {
+
+                            package_detail_tvlpricetxt.visibility = View.GONE
+
                             package_detail_tvsprice.text =
                                 "Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
                             package_detail_tvlprice.text = ""

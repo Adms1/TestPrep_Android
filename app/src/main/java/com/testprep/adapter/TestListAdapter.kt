@@ -62,6 +62,7 @@ class TestListAdapter(
                 val bundle = Bundle()
                 bundle.putString("testid", dataList[p1].TestID.toString())
                 bundle.putString("studenttestid", dataList[p1].StudentTestID.toString())
+                bundle.putString("testname", dataList[p1].TestName.toString())
 
 //                bundle.putString("pkgid", pkgid)
 //                bundle.putString("pname", name)
