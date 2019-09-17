@@ -48,12 +48,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Recent Searches"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="@dimen/_14sdp"
             android:maxLines="1"
             app:layout_constraintRight_toLeftOf="@+id/explore_ivSeeall"
             android:layout_marginTop="@dimen/_15sdp"
             android:ellipsize="end"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/_15sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/explore_rlSearch"/>
 

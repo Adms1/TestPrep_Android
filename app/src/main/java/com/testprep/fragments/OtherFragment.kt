@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import com.testprep.activity.CoinActivity
+import com.testprep.activity.DashboardActivity
 import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.activity.NewActivity
 import com.testprep.utils.AppConstants
@@ -46,10 +47,12 @@ class OtherFragment : Fragment() {
             menuList.add("My Payments")
             menuList.add("Change Password")
             menuList.add("Change Prefrence")
+            menuList.add("Logout")
         } else {
             menuList.add("Edit Profile")
             menuList.add("My Payments")
             menuList.add("Change Prefrence")
+            menuList.add("Logout")
         }
 //        menuList.add("Logout")
 
@@ -57,8 +60,8 @@ class OtherFragment : Fragment() {
 
         other_lvList.onItemClickListener = OnItemClickListener { parent, view, position, id ->
 
-            when {
-                menuList[position] == "Edit Profile" -> {
+            when (menuList[position]) {
+                "Edit Profile" -> {
 
                     AppConstants.isFirst = 8
                     setFragments(null)
@@ -71,7 +74,7 @@ class OtherFragment : Fragment() {
 //                    val intent = Intent(activity, UpdateProfileActivity::class.java)
 //                    startActivity(intent)
                 }
-                menuList[position] == "My Payments" -> {
+                "My Payments" -> {
 
                     AppConstants.isFirst = 5
                     setFragments(null)
@@ -84,12 +87,12 @@ class OtherFragment : Fragment() {
 //                    val intent = Intent(activity, MyPaymentActivity::class.java)
 //                    startActivity(intent)
                 }
-                menuList[position] == "Add Amount" -> {
+                "Add Amount" -> {
 
                     val intent = Intent(activity, CoinActivity::class.java)
                     startActivity(intent)
                 }
-                menuList[position] == "Change Password" -> {
+                "Change Password" -> {
 
                     AppConstants.isFirst = 6
                     setFragments(null)
@@ -103,11 +106,16 @@ class OtherFragment : Fragment() {
 //                    intent.putExtra("come_from", "other")
 //                    startActivity(intent)
                 }
-                menuList[position] == "Change Prefrence" -> {
+                "Change Prefrence" -> {
 
                     val intent = Intent(activity, NewActivity::class.java)
                     startActivity(intent)
                 }
+
+                "Logout" -> {
+                    DashboardActivity.signOut()
+                }
+
             }
         }
 

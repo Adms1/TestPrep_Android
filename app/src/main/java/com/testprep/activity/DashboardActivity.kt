@@ -36,7 +36,6 @@ class DashboardActivity : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
-    var mGoogleSignInClient: GoogleSignInClient? = null
     internal lateinit var mDrawerToggle: ActionBarDrawerToggle
     var drawerMenuListAdapter: DrawerMenuListAdapter? = null
     var menuList = arrayOf("Test", "Profile", "Logout")
@@ -185,42 +184,6 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun signOut() {
-
-        DialogUtils.createConfirmDialog(
-            this@DashboardActivity,
-            "Logout?",
-            "Are you sure you want to logout?",
-            "Yes",
-            "No",
-            DialogInterface.OnClickListener { dialog, which ->
-                clearPrefrence(this@DashboardActivity)
-                AppConstants.COURSE_FLOW_ARRAY.clear()
-
-                AppConstants.FILTER_STANDARD_ID = "111"
-                AppConstants.FILTER_SUBJECT_ID = "111"
-                AppConstants.FILTER_TUTOR_ID = "111"
-                AppConstants.FILTER_BOARD_ID = "111"
-
-                mGoogleSignInClient!!.signOut()
-                    .addOnCompleteListener(this) {
-                        // ...
-
-                        Utils.setStringValue(this@DashboardActivity, "is_login", "false")
-
-                        val intent = Intent(this@DashboardActivity, IntroActivity::class.java)
-                        startActivity(intent)
-//                overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
-                        finish()
-
-                    }
-            },
-            DialogInterface.OnClickListener { dialog, which ->
-                dialog.dismiss()
-
-            }).show()
-    }
-
     companion object {
         var fragment: Fragment? = null
         var testid = ""
@@ -259,7 +222,45 @@ class DashboardActivity : AppCompatActivity() {
 
         var context: Context? = null
 
+        var mGoogleSignInClient: GoogleSignInClient? = null
+
         var fragManager: FragmentManager? = null
+
+        fun signOut() {
+
+            DialogUtils.createConfirmDialog(
+                context!!,
+                "Logout?",
+                "Are you sure you want to logout?",
+                "Yes",
+                "No",
+                DialogInterface.OnClickListener { dialog, which ->
+                    clearPrefrence(context!!)
+                    AppConstants.COURSE_FLOW_ARRAY.clear()
+
+                    AppConstants.FILTER_STANDARD_ID = "111"
+                    AppConstants.FILTER_SUBJECT_ID = "111"
+                    AppConstants.FILTER_TUTOR_ID = "111"
+                    AppConstants.FILTER_BOARD_ID = "111"
+
+                    mGoogleSignInClient!!.signOut().addOnCompleteListener(context as DashboardActivity) {
+                        // ...
+
+                        Utils.setStringValue(context!!, "is_login", "false")
+
+                        val intent = Intent(context, IntroActivity::class.java)
+                        context!!.startActivity(intent)
+//                overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
+                        (context as DashboardActivity).finish()
+
+                    }
+                },
+                DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+
+                }).show()
+        }
+
 
         fun setFragments(bundle: Bundle?) {
 
@@ -274,7 +275,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = "Market Place"
                     btnBack!!.visibility = View.GONE
-                    btnLogout!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
 
                     //                var bundle = Bundle()
 //                bundle.putString("subid", intent.getStringExtra("subject_id"))
@@ -305,7 +306,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = "My Dashboard"
                     btnBack!!.visibility = View.GONE
-                    btnLogout!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
 
                     //        dashboard_ivPencil.visibility = View.VISIBLE
 
@@ -335,7 +336,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = "Explore"
                     btnBack!!.visibility = View.GONE
-                    btnLogout!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
 
                     //                supportFragmentManager.beginTransaction().replace(R.id.container, ExploreFragment())
 //                    .commit()
@@ -364,7 +365,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = "Other"
                     btnBack!!.visibility = View.GONE
-                    btnLogout!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
 
                     //                dashboard_ivFilter.visibility = View.GONE
                     ivCart!!.visibility = View.GONE

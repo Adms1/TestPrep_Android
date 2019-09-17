@@ -47,6 +47,7 @@ class DialogUtils {
             val builder = AlertDialog.Builder(context)
             builder.setTitle(titleId)
             builder.setMessage(messageId)
+            builder.setCancelable(false)
 
 //            builder.setView(view)
             builder.setPositiveButton(positiveBtnTxt, positiveClickListener)

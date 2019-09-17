@@ -32,7 +32,7 @@
             android:id="@+id/package_detail_ivBack"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/package_detail_header"
-            android:padding="@dimen/_5sdp"
+            android:padding="@dimen/_7sdp"
             app:layout_constraintBottom_toBottomOf="@+id/package_detail_header"/>
 
     <ScrollView android:layout_width="match_parent"
@@ -58,6 +58,7 @@
                 <ImageView
                         android:layout_width="@dimen/_65sdp"
                         android:layout_height="@dimen/_65sdp"
+                        android:scaleType="fitXY"
                         android:id="@+id/package_detail_image1"/>
 
                 <TextView
@@ -131,7 +132,6 @@
                     android:gravity="center"
                     android:textSize="@dimen/_11sdp"
                     android:maxLines="1"
-                    android:text="3456"
                     app:layout_constraintTop_toBottomOf="@+id/package_detail_tvsprice"
                     app:layout_constraintLeft_toRightOf="@+id/package_detail_tvlpricetxt"/>
 
@@ -223,6 +223,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:layout_height="wrap_content"/>
 
         </android.support.constraint.ConstraintLayout>

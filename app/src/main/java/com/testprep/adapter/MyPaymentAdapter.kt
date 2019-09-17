@@ -50,7 +50,7 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
         p0.date.text = "Date : " + dataList[p1].PaymentDate
         p0.id.text = "Order ID : " + dataList[p1].OrderID
 //        p0.status.text = dataList[p1].ExternalTransactionStatus
-        p0.amount.text = "₹" + dataList[p1].PaymentAmount.toString()
+        p0.amount.text = "₹ " + dataList[p1].PaymentAmount.toString()
 
         p0.invoice.setOnClickListener {
 

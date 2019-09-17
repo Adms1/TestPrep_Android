@@ -8,8 +8,7 @@
         android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:background="@color/white">
+                                                android:layout_height="wrap_content">
 
         <android.support.constraint.ConstraintLayout
                 android:id="@+id/main_pkg_item_mainll"
@@ -30,8 +29,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/main_pkg_item_rlCategory"
+                    android:layout_marginTop="@dimen/_5sdp"
                     app:layout_constraintTop_toBottomOf="@+id/mp_view_pager"
-                    android:background="#C1FCFF"
+                    android:background="@color/white"
                     android:orientation="vertical">
 
                 <TextView android:layout_width="match_parent"
@@ -64,17 +64,17 @@
                     android:layout_height="@dimen/_200sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlCategory"
-                    android:background="@android:color/white">
+                    android:background="#F5F5F5"
+                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlCategory">
 
                 <com.testprep.carouselPkg.CarouselView1
                         android:id="@+id/carousel"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:background="#40ffffff"/>
+                        android:layout_centerInParent="true"/>
 
                 <TextSwitcher
                         android:id="@+id/title"
@@ -92,7 +92,8 @@
                     android:id="@+id/main_pkg_item_rlTutor"
                     app:layout_constraintTop_toBottomOf="@+id/rlCoverflow"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:background="#C1FCFF"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@color/white"
                     android:orientation="vertical">
 
                 <TextView android:layout_width="match_parent"
@@ -105,7 +106,7 @@
                           android:layout_marginTop="@dimen/_10sdp"
                           android:textColor="@color/black"
                           android:gravity="center"
-                          android:text="Tutor"/>
+                          android:text="Tutors"/>
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
@@ -125,25 +126,26 @@
                     android:layout_height="@dimen/_200sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
+                    android:background="#F5F5F5"
+                    android:layout_marginTop="@dimen/_5sdp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlTutor"
-                    android:background="@android:color/white">
+                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlTutor">
 
                 <com.testprep.carouselPkg.CarouselView1
                         android:id="@+id/carousel1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:background="#40ffffff"/>
+                        android:layout_centerInParent="true"/>
+
             </RelativeLayout>
 
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/main_pkg_item_rlSingleTest"
+                    android:layout_marginTop="@dimen/_5sdp"
                     app:layout_constraintTop_toBottomOf="@+id/rltutorCoverflow"
-                    android:background="#C1FCFF"
                     android:orientation="vertical">
 
                 <TextView android:layout_width="match_parent"
@@ -175,7 +177,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="#F5F5F5"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlSingleTest"/>
 
         </android.support.constraint.ConstraintLayout>
