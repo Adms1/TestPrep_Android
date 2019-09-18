@@ -95,6 +95,8 @@ class FilterAdapter(
                     "exam" -> {
                         strID = mModelList[position].CourseID
                         str = mModelList[position].CourseName
+
+                        filterInterface.filterData(filterType)
                     }
                 }
 
@@ -164,14 +166,14 @@ class FilterAdapter(
 
             if (raw_index == position) {
 
-                holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.right_blue))
-                holder.img.setBackgroundResource(R.drawable.gray_ring_bg)
+                holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.close_cancel))
+                holder.img.setBackgroundResource(R.drawable.blue_ring_round)
 //                holder.img.visibility = View.VISIBLE
                 model.isSelected = !model.isSelected
             } else {
 //                holder.img.visibility = View.GONE
                 holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
-                holder.img.setBackgroundResource(R.drawable.gray_ring_bg)
+                holder.img.setBackgroundResource(R.drawable.gray_ring_round)
 //                model.isSelected = model.isSelected
 
             }

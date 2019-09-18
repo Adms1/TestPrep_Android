@@ -42,6 +42,8 @@ class SelectImageOptionAdapter(
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
+        p0.abcd.text = dataList[p1].optiontext
+
         if ("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage != "") {
 
 //            Log.d("qsize", "" + qsize)
@@ -192,8 +194,8 @@ class SelectImageOptionAdapter(
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var opone1: ImageView = itemView.findViewById(com.testprep.R.id.option_one1)
+        var abcd: TextView = itemView.findViewById(com.testprep.R.id.option_abcd)
         var opone: RadioGroup = itemView.findViewById(com.testprep.R.id.option_one)
-        var llmain: RelativeLayout = itemView.findViewById(com.testprep.R.id.option_lll)
         var llCheckBox: LinearLayout = itemView.findViewById(com.testprep.R.id.option_llCheckbox)
     }
 

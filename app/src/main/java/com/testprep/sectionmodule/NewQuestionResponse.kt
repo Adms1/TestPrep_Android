@@ -38,7 +38,7 @@ class NewQuestionResponse {
         var AnswerImage = ""
         var IsCorrectAnswer = false
         var IsUserSelected = false
-
+        var optiontext = ""
         var isIndex = false
 
     }

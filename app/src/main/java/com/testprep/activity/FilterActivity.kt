@@ -176,12 +176,6 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         bundle.putString("coursetype", coursetypeid)
 
         when {
-//            filterTypeArr[p0] == "Course Type" -> {
-//
-//                bundle.putString("type", "course_type")
-//                fragment.arguments = bundle
-//                supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
-//            }
 
             filterTypeArr[p1].TestPackageName == "Boards" -> {
 

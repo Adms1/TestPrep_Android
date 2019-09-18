@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_ring_bg">
+
+    <ImageView
+            android:id="@+id/queTab_ivIssue"
+            android:layout_width="@dimen/_65sdp"
+            android:layout_height="@dimen/_65sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/risk_blue"/>
+
+    <TextView
+            android:id="@+id/dialog_report_tvHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@+id/queTab_ivIssue"
+            android:textSize="@dimen/_16sdp"
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:text="Report an issue"/>
+
+    <View
+            android:id="@+id/dialog_report_line1"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_report_tvHeader"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/default_shimmer_color"
+            android:layout_marginTop="@dimen/_10sdp"/>
+
+    <TextView
+            android:id="@+id/dialog_report_tvQueProblem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/red"
+            android:textSize="@dimen/regular_text_size"
+            android:maxLines="1"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_report_line1"
+            android:text="@string/question_has_a_problem"/>
+
+    <View
+            android:id="@+id/dialog_report_line2"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_report_tvQueProblem"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/default_shimmer_color"
+            android:layout_marginTop="@dimen/_10sdp"/>
+
+    <TextView
+            android:id="@+id/dialog_report_tvAnsProblem"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_report_line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/red"
+            android:maxLines="1"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/answer_has_a_problem"
+            android:textSize="@dimen/regular_text_size"/>
+
+    <View
+            android:id="@+id/dialog_report_line3"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_report_tvAnsProblem"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/default_shimmer_color"
+            android:layout_marginTop="@dimen/_10sdp"/>
+
+    <TextView
+            android:id="@+id/dialog_report_tvHintProblem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textSize="@dimen/regular_text_size"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_report_line3"
+            android:maxLines="1"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/hint_has_a_problem"/>
+
+    <View
+            android:id="@+id/dialog_report_line4"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_report_tvHintProblem"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/default_shimmer_color"
+            android:layout_marginTop="@dimen/_10sdp"/>
+
+    <TextView
+            android:id="@+id/dialog_report_tvClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/regular_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:maxLines="1"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/dialog_report_line4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/cancel"/>
+
+</android.support.constraint.ConstraintLayout>

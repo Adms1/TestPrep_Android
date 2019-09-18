@@ -142,7 +142,8 @@ class WebRequests {
             questionid: Int,
             questiontypeid: Int,
             answer: String,
-            usetime: String
+            usetime: String,
+            review: String
         ): HashMap<String, String> {
             val hashMap = java.util.HashMap<String, String>()
             hashMap["StudentTestID"] = studenttestid
@@ -151,6 +152,7 @@ class WebRequests {
             hashMap["QuestionTypeID"] = questiontypeid.toString()
             hashMap["Answer"] = answer
             hashMap["UseTime"] = usetime
+            hashMap["Review"] = review
 
             return hashMap
         }

@@ -110,6 +110,9 @@
         preparing for
     </string>
     <string name="view_all">View All</string>
+    <string name="hint_has_a_problem">Hint has a problem</string>
+    <string name="answer_has_a_problem">Answer has a problem</string>
+    <string name="question_has_a_problem">Question has a problem</string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>

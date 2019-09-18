@@ -406,7 +406,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                         }
 
                         recyclerviewAdapter =
-                            FilterAdapter(activity!!, filterArray, "multiple", "exam", filterInterface!!)
+                            FilterAdapter(activity!!, filterArray, "single", "exam", filterInterface!!)
                         filterData_rvList.adapter = recyclerviewAdapter
 
                     } else {
@@ -563,19 +563,23 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 var str = ""
                 examids = ""
 
-                val finalFilerArray = recyclerviewAdapter!!.sendArray()
+                val finalFilerArray = recyclerviewAdapter!!.sendStandard()
 
-                for (i in 0 until finalFilerArray.size) {
-                    if (finalFilerArray[i].isSelected) {
-
-                        str += finalFilerArray[i].CourseName + ","
-                        examids += finalFilerArray[i].CourseID + ","
-                    }
+                if (finalFilerArray != "") {
+                    examids = finalFilerArray
                 }
 
-                if (examids != "") {
-                    examids = examids.substring(0, examids.length - 1)
-                }
+//                for (i in 0 until finalFilerArray.size) {
+//                    if (finalFilerArray[i].isSelected) {
+//
+//                        str += finalFilerArray[i].CourseName + ","
+//                        examids += finalFilerArray[i].CourseID + ","
+//                    }
+//                }
+//
+//                if (examids != "") {
+//                    examids = examids.substring(0, examids.length - 1)
+//                }
 
                 AppConstants.FILTER_BOARD_ID = examids
                 Log.d("examids", "" + examids)

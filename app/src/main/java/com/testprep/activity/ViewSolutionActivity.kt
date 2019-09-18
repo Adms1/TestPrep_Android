@@ -261,7 +261,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                             solution_page_img_que_img.width, 1
                         )
 
-                    } else if (movies[0].TestQuestion[0].QuestionTypeID == 2) {
+                    } else if (movies[0].TestQuestion[0].QuestionTypeID == 2 || movies[0].TestQuestion[0].QuestionTypeID == 8) {
 
                         solution_tvFillBlanks.visibility = View.VISIBLE
                         ansList!!.visibility = View.GONE
@@ -365,6 +365,15 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                             movies[solution_grppos1].TestQuestion[curr_index1].StudentTestQuestionMCQ,
                             solution_page_img_que_img.width, 7
                         )
+                    }
+                    8 -> {
+
+                        solution_tvFillBlanks.visibility = View.VISIBLE
+                        ansList!!.visibility = View.GONE
+                        solution_rbTruefalse.visibility = View.GONE
+
+                        solution_tvFillBlanks.text = movies[solution_grppos1].TestQuestion[curr_index1].Answer
+
                     }
                 }
 

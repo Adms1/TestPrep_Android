@@ -77,6 +77,13 @@ class FilterListAdapter(
                     p0.select.visibility = View.INVISIBLE
                 }
             }
+            "Price" -> {
+                if (AppConstants.FILTER_TO_PRICE != "" && AppConstants.FILTER_TO_PRICE != "111") {
+                    p0.select.visibility = View.VISIBLE
+                } else {
+                    p0.select.visibility = View.INVISIBLE
+                }
+            }
         }
 
         p0.title.setOnClickListener {

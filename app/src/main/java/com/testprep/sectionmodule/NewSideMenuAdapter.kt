@@ -144,6 +144,8 @@ class ImageViewAdapter(
 
         p0.childheader.setOnClickListener {
 
+            pgNum = dataList[p1].page_number
+
             q_grppos1 = grpPos
 
             for (i in 0..finalArr[header[grpPos]]!!.size) {
@@ -224,11 +226,22 @@ class ImageViewAdapter(
     }
 
     companion object {
+
+        var pgNum = 0
+
         class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             var childheader: TextView = itemView.findViewById(R.id.queList_tempvChild)
         }
+
+        fun getPageNumber(): Int {
+
+            return pgNum
+
+        }
+
     }
+
 }
 
 
