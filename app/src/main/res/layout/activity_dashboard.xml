@@ -50,11 +50,54 @@
     <ImageView
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/sort_down"
+            android:id="@+id/dashboard_ivSort"
+            android:padding="@dimen/_7sdp"
+            android:onClick="onClick"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/dashboard_header"
+            app:layout_constraintBottom_toBottomOf="@+id/dashboard_header"/>
+
+    <RelativeLayout
+            android:id="@+id/dashboard_rlFilter"
+            android:layout_width="@dimen/_33sdp"
+            android:layout_height="@dimen/_30sdp"
+            app:layout_constraintRight_toLeftOf="@id/dashboard_ivSort"
+            app:layout_constraintTop_toTopOf="@+id/dashboard_header"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toBottomOf="@+id/dashboard_header">
+
+        <ImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/filter_icon"
+                android:id="@+id/dashboard_ivFilter"
+                android:padding="@dimen/_7sdp"/>
+
+        <TextView
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:src="@drawable/filter_icon"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_alignParentRight="true"
+                android:visibility="gone"
+                android:textSize="@dimen/_10sdp"
+                android:id="@+id/dashboard_tvFilter"
+                android:background="@drawable/red_round"/>
+
+    </RelativeLayout>
+
+    <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
             android:src="@drawable/logout"
             android:rotation="90"
             android:id="@+id/dashboard_ivLogout"
             android:padding="@dimen/_5sdp"
             android:layout_marginRight="@dimen/_10sdp"
+            android:visibility="gone"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/dashboard_header"
             app:layout_constraintBottom_toBottomOf="@+id/dashboard_header"/>

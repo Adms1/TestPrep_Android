@@ -159,4 +159,8 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("CheckOut")
     fun checkout(@Field("StudentID") student_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Insert_IssueReport")
+    fun reportIssue(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 }

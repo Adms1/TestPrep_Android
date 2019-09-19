@@ -11,10 +11,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -69,6 +66,9 @@ class DashboardActivity : AppCompatActivity() {
         btnBack = findViewById(com.testprep.R.id.dashboard_ivBack)
         btnLogout = findViewById(com.testprep.R.id.dashboard_ivLogout)
         llBottom = findViewById(com.testprep.R.id.dashboard_llBottom)
+        rlFilter = findViewById(com.testprep.R.id.dashboard_rlFilter)
+        tvFilter = findViewById(com.testprep.R.id.dashboard_tvFilter)
+        ivSort = findViewById(com.testprep.R.id.dashboard_ivSort)
 
         fragManager = this.supportFragmentManager
         context = this@DashboardActivity
@@ -206,6 +206,9 @@ class DashboardActivity : AppCompatActivity() {
         var tvProfile: TextView? = null
         var btnBack: ImageView? = null
         var btnLogout: ImageView? = null
+        var rlFilter: RelativeLayout? = null
+        var tvFilter: TextView? = null
+        var ivSort: ImageView? = null
 
         var course_type = ""
         var boardid = ""
@@ -265,6 +268,9 @@ class DashboardActivity : AppCompatActivity() {
         fun setFragments(bundle: Bundle?) {
 
 //            var bundle = intent1!!.extras
+
+            rlFilter!!.visibility = View.GONE
+            ivSort!!.visibility = View.GONE
 
             when (AppConstants.isFirst) {
                 0 -> {
@@ -523,6 +529,16 @@ class DashboardActivity : AppCompatActivity() {
                     btnBack!!.visibility = View.VISIBLE
                     btnLogout!!.visibility = View.GONE
 
+                    ivHome!!.setImageResource(com.testprep.R.drawable.blue_home)
+                    ivMarket!!.setImageResource(com.testprep.R.drawable.list)
+                    ivExplore!!.setImageResource(com.testprep.R.drawable.search)
+                    ivProfile!!.setImageResource(com.testprep.R.drawable.menu_one)
+
+                    tvHome!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.nfcolor))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+
                 }
                 13 -> {
 
@@ -565,6 +581,8 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = pname
                     btnBack!!.visibility = View.VISIBLE
+                    btnLogout!!.visibility = View.GONE
+                    btnLogout!!.visibility = View.GONE
                     btnLogout!!.visibility = View.GONE
 
                 }

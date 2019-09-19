@@ -3,9 +3,9 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
 
     <gradient
-            android:startColor="#FF488E"
-            android:centerColor="#FF669F"
-            android:endColor="#FF85B1"
+            android:startColor="#61D397"
+            android:centerColor="#61D397"
+            android:endColor="#61D397"
             android:angle="90"/>
 
     <size android:width="@dimen/_250sdp" android:height="@dimen/_250sdp"/>

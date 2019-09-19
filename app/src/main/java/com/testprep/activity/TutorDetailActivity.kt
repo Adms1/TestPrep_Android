@@ -10,6 +10,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.testprep.R
+import com.testprep.activity.DashboardActivity.Companion.ivSort
+import com.testprep.activity.DashboardActivity.Companion.rlFilter
+import com.testprep.activity.DashboardActivity.Companion.tvFilter
 import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.adapter.TutorsAdapter
 import com.testprep.models.PackageData
@@ -55,6 +58,9 @@ class TutorDetailActivity : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        rlFilter!!.visibility = View.VISIBLE
+        ivSort!!.visibility = View.VISIBLE
+
         bundle = this.arguments
         course_type = bundle!!.getString("course_type")!!
         boardid = bundle!!.getString("boardid")!!
@@ -78,18 +84,16 @@ class TutorDetailActivity : Fragment() {
 //            startActivity(intent)
 //        }
 
-        tutor_detail_header.text = pname
-
         if (ptype == "pkg") {
 
-            tutor_detail_rlFilter.visibility = View.VISIBLE
+            rlFilter!!.visibility = View.VISIBLE
 
             tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
             callFilterListApi("", "1")
 
         } else if (ptype == "filter") {
 
-            tutor_detail_rlFilter.visibility = View.VISIBLE
+            rlFilter!!.visibility = View.VISIBLE
 
             minprice = bundle!!.getString("minprice")!!
             maxprice = bundle!!.getString("maxprice")!!
@@ -102,14 +106,14 @@ class TutorDetailActivity : Fragment() {
 
         } else if (ptype == "explore") {
 
-            tutor_detail_rlFilter.visibility = View.VISIBLE
+            rlFilter!!.visibility = View.VISIBLE
 
             tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
             callFilterListApi(bundle!!.getString("search_name")!!, "-1")
 
         } else if (ptype == "tutor") {
 
-            tutor_detail_rlFilter.visibility = View.GONE
+            rlFilter!!.visibility = View.GONE
 
             tutor_packages_rvPopularPkg.layoutManager =
                 LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
@@ -119,13 +123,13 @@ class TutorDetailActivity : Fragment() {
             tutor_packages_rvPopularPkg.adapter = tutorAdapter
 
         } else if (ptype == "single") {
-            tutor_detail_rlFilter.visibility = View.VISIBLE
+            rlFilter!!.visibility = View.VISIBLE
 
             tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
             callFilterListApi("", "3")
         }
 
-        tutor_detail_ivSort.setOnClickListener {
+        ivSort!!.setOnClickListener {
 
             isSort = !isSort
 
@@ -142,7 +146,7 @@ class TutorDetailActivity : Fragment() {
 
         }
 
-        tutor_detail_rlFilter.setOnClickListener {
+        rlFilter!!.setOnClickListener {
             val intent = Intent(activity!!, FilterActivity::class.java)
             startActivityForResult(intent, 101)
         }
@@ -151,16 +155,6 @@ class TutorDetailActivity : Fragment() {
 
     }
 
-    fun onClick(v: View) {
-        when (v) {
-
-            tutor_detail_rlFilter -> {
-
-                val intent = Intent(activity!!, FilterActivity::class.java)
-                startActivityForResult(intent, 101)
-            }
-        }
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -343,16 +337,19 @@ class TutorDetailActivity : Fragment() {
         }
 
         if (filterCount > 0) {
-            tutor_detail_tvFilter.visibility = View.VISIBLE
-            tutor_detail_tvFilter.text = filterCount.toString()
+            tvFilter!!.visibility = View.VISIBLE
+            tvFilter!!.text = filterCount.toString()
         } else {
-            tutor_detail_tvFilter.visibility = View.GONE
+            tvFilter!!.visibility = View.GONE
         }
     }
 
     fun sorting(type: String, modelList: ArrayList<PackageData.PackageDataList>) {
 
         if (isSort) {
+
+            ivSort!!.rotation = 180F
+
             modelList.sortWith(Comparator { lhs, rhs ->
                 if (type != "tutor") {
                     lhs.TestPackageName.toLowerCase().compareTo(rhs.TestPackageName.toLowerCase())
@@ -377,6 +374,9 @@ class TutorDetailActivity : Fragment() {
 
             }
         } else {
+
+            ivSort!!.rotation = 0F
+
             modelList.sortWith(Comparator { lhs, rhs ->
                 if (type != "tutor") {
                     rhs.TestPackageName.toLowerCase().compareTo(lhs.TestPackageName.toLowerCase())

@@ -36,10 +36,7 @@ import com.testprep.old.adapter.SelectImageOptionAdapter
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.sectionmodule.ImageViewAdapter.Companion.getPageNumber
-import com.testprep.utils.AppConstants
-import com.testprep.utils.DialogUtils
-import com.testprep.utils.WebRequests
-import com.testprep.utils.transform
+import com.testprep.utils.*
 import kotlinx.android.synthetic.main.activity_tabwise_question.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -277,6 +274,17 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                 setNextSkipButtonText(0)
                             }
 
+                            if (movies[0].TestQuestion[0].Review.equals("0", true)) {
+
+                                queTab_ivReview.isChecked = false
+                                queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
+
+                            } else {
+
+                                queTab_ivReview.isChecked = true
+                                queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
+                            }
+
                             var pagenumber = 0
 
                             for (i in 0 until movies.size) {
@@ -293,8 +301,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                                     if (movies[i].TestQuestion[j].Review.equals("0", true)) {
 
-                                        queTab_ivReview.isSelected = false
-                                        queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
+                                        Log.d("isreview1", "" + 0)
+
+//                                        queTab_ivReview.isChecked = false
+//                                        queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
 
                                         if (movies[i].TestQuestion[j].Answer != "") {
 
@@ -305,9 +315,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                             questionTypeModel.type = 5
                                         }
                                     } else {
+
+                                        Log.d("isreview2", "" + 1)
+
                                         questionTypeModel.type = 4
-                                        queTab_ivReview.isSelected = true
-                                        queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
+//                                        queTab_ivReview.isChecked = true
+//                                        queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
 
                                     }
 
@@ -476,10 +489,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                     Log.d("10 second", "" + qtime)
 
-                    if (queTab_ivReview.isChecked) {
+                    if (movies[q_grppos1].TestQuestion[curr_index].Review.equals("1", true)) {
                         getType("continue", 1, curr_index)
+                        queTab_ivReview.isChecked = true
+                        queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
                     } else {
-                        getType("continue", isReview, curr_index)
+                        getType("continue", 0, curr_index)
+                        queTab_ivReview.isChecked = false
+                        queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
                     }
 
 //                    callEvery10(
@@ -781,7 +798,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                     qtime = 0
 
-                    if (type != "continue") {
+                    ansArr = ArrayList()
+
+                    if (type != "continue" && type != "review") {
 
                         DialogUtils.showDialog(this@NewTabQuestionActivity)
 
@@ -812,8 +831,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                         "question"
                                     )
                                 )
-
-                                ansArr = ArrayList()
 
                                 queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
 
@@ -1036,7 +1053,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             1 -> {
 
-                if (itype == "activity" || itype == "submit" || itype == "continue") {
+                if (itype == "activity" || itype == "submit" || itype == "continue" || itype == "review") {
 
                     answer = if (ansArr.size > 0) {
                         ansArr[0].ansid
@@ -1049,7 +1066,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             7 -> {
 
-                if (itype == "activity" || itype == "submit" || itype == "continue") {
+                if (itype == "activity" || itype == "submit" || itype == "continue" || itype == "review") {
 
                     answer = if (ansArr.size > 0) {
                         ansArr[0].ansid
@@ -1179,10 +1196,18 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 movies[q_grppos1].TestQuestion[curr_index - 1].QuestionID,
                 movies[q_grppos1].TestQuestion[curr_index - 1].QuestionTypeID,
                 "",
-                curr_index + 1, p0.toString()
+                curr_index - 1, p0.toString()
             )
 
+            if ((finalArr.size - 1) == q_grppos1) {
+                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
+                    setNextSkipButtonText(2)
+                }
+            }
+
         } else {
+
+            continuetime = 0
 
             que_number = getPageNumber()
 
@@ -1299,12 +1324,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         if (movies[q_grppos1].TestQuestion[curr_index].Review.equals("0", true)) {
 
             queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
-            queTab_ivReview.isSelected = false
+            queTab_ivReview.isChecked = false
 
         } else {
 
             queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
-            queTab_ivReview.isSelected = true
+            queTab_ivReview.isChecked = true
 
         }
 
@@ -1316,43 +1341,54 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
     }
 
+
     fun clicks() {
 
         queTab_ivReview.setOnCheckedChangeListener { buttonView, isChecked ->
 
-            if (isChecked) {
+            if (finalArr.size > 0 && movies.size > 0) {
+                if (isChecked) {
 
-                queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
+                    Log.d("isreview3", "" + 1)
 
-                for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
-                    if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
+                    queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
 
-                        finalArr[sectionList!![q_grppos1]]!![i].type = 4
+//                    if (finalArr.size > 0) {
+                    for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                        if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
 
-                    }
-                }
+                            finalArr[sectionList!![q_grppos1]]!![i].type = 4
+                            movies[q_grppos1].TestQuestion[curr_index].Review = "1"
 
-                isReview = 1
-
-            } else {
-
-                queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
-
-                for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
-                    if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
-                        if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
-                            finalArr[sectionList!![q_grppos1]]!![i].type = 2
-                        } else {
-                            finalArr[sectionList!![q_grppos1]]!![i].type = 3
                         }
                     }
+//                    }
+
+                    getType("review", 1, curr_index)
+
+                } else {
+
+                    Log.d("isreview4", "" + 0)
+
+                    queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
+
+
+                    for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                        if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
+                            if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
+                                finalArr[sectionList!![q_grppos1]]!![curr_index].type = 2
+                            } else {
+                                finalArr[sectionList!![q_grppos1]]!![curr_index].type = 3
+                            }
+
+                            movies[q_grppos1].TestQuestion[curr_index].Review = "0"
+                        }
+                    }
+
+                    getType("review", 0, curr_index)
+
                 }
-
-                isReview = 0
-
             }
-
-            getType("review", isReview, curr_index)
         }
 
         nextButton!!.setOnClickListener {
@@ -1429,6 +1465,27 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             dialog.setCanceledOnTouchOutside(false)
 
             val close: TextView = dialog.findViewById(R.id.dialog_report_tvClose)
+            val queproblem: TextView = dialog.findViewById(R.id.dialog_report_tvQueProblem)
+            val ansproblem: TextView = dialog.findViewById(R.id.dialog_report_tvAnsProblem)
+            val hintexplanation: TextView = dialog.findViewById(R.id.dialog_report_tvHintProblem)
+
+            hintexplanation.text = getString(R.string.hint_has_a_problem)
+
+            queproblem.setOnClickListener {
+                callReportIssue("1", queproblem.text.toString())
+                dialog.dismiss()
+            }
+
+            ansproblem.setOnClickListener {
+                callReportIssue("2", ansproblem.text.toString())
+                dialog.dismiss()
+            }
+
+            hintexplanation.setOnClickListener {
+                callReportIssue("3", hintexplanation.text.toString())
+                dialog.dismiss()
+            }
+
 
             close.setOnClickListener {
                 dialog.dismiss()
@@ -1521,9 +1578,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
     }
 
-    var isReview = 0
-
     fun nextButtonClick() {
+
+        var isReview = 0
 
         if (queTab_ivReview.isSelected) {
 
@@ -1536,12 +1593,16 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 que_number += 1
 
+                continuetime = 0
+
                 for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
                     if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
                         if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
                             finalArr[sectionList!![q_grppos1]]!![i].type = 2
+                            movies[q_grppos1].TestQuestion[curr_index].Review = "0"
                         } else {
                             finalArr[sectionList!![q_grppos1]]!![i].type = 4
+                            movies[q_grppos1].TestQuestion[curr_index].Review = "1"
                         }
                     }
                 }
@@ -1551,14 +1612,18 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
             nextButton!!.text == "Skip" -> {
 
+                continuetime = 0
+
                 que_number += 1
 
                 for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
                     if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
                         if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
                             finalArr[sectionList!![q_grppos1]]!![i].type = 3
+                            movies[q_grppos1].TestQuestion[curr_index].Review = "0"
                         } else {
                             finalArr[sectionList!![q_grppos1]]!![i].type = 4
+                            movies[q_grppos1].TestQuestion[curr_index].Review = "1"
                         }
                     }
                 }
@@ -1609,7 +1674,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             ansArr = ArrayList()
 
-            if (movies[0].TestQuestion[position].QuestionTypeID == 1) {
+            if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1) {
 
                 val answerModel = AnswerModel()
                 answerModel.ansid = ansid
@@ -1627,4 +1692,51 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
         }
     }
+
+    fun callReportIssue(issueType: String, typename: String) {
+
+        if (!DialogUtils.isNetworkConnected(this@NewTabQuestionActivity)) {
+            Utils.ping(this@NewTabQuestionActivity, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(this@NewTabQuestionActivity)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.reportIssue(
+            WebRequests.addreportIssueParams(
+                issueType,
+                typename,
+                "Android",
+                Utils.getStringValue(this@NewTabQuestionActivity, AppConstants.USER_ID, "0")!!,
+                Utils.getStringValue(
+                    this@NewTabQuestionActivity,
+                    AppConstants.FIRST_NAME,
+                    "0"
+                )!! + " " + Utils.getStringValue(this@NewTabQuestionActivity, AppConstants.LAST_NAME, "0")!!,
+                movies[q_grppos1].TestQuestion[curr_index].QuestionID.toString(),
+                ""
+            )
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                DialogUtils.dismissDialog()
+
+                if (response.body() != null) {
+
+                    Toast.makeText(this@NewTabQuestionActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
 }

@@ -25,7 +25,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/option_one1"
             android:gravity="center"
             android:maxLines="1"
-            android:text="A"
             android:textColor="@color/black"/>
 
     <ImageView
@@ -53,9 +52,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="@dimen/_30sdp"
-            android:layout_marginLeft="@dimen/_30sdp"
+            app:layout_constraintTop_toTopOf="@+id/option_one1"
+            app:layout_constraintBottom_toBottomOf="@+id/option_one1"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
             android:layout_centerInParent="true"/>
 
 </android.support.constraint.ConstraintLayout>

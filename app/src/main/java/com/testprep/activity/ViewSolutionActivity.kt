@@ -16,9 +16,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
-import android.widget.Button
-import android.widget.ExpandableListView
-import android.widget.ImageView
+import android.widget.*
+import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.adapter.SoutionSideMenuAdapter
@@ -29,10 +28,7 @@ import com.testprep.old.adapter.SolutionAdapter
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.sectionmodule.NewQuestionResponse
-import com.testprep.utils.AppConstants
-import com.testprep.utils.DialogUtils
-import com.testprep.utils.Utils
-import com.testprep.utils.transform
+import com.testprep.utils.*
 import kotlinx.android.synthetic.main.activity_view_solution.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -106,6 +102,41 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
         )
 
         drawer_layout.setDrawerListener(mDrawerToggle)
+
+        solution_ivReporttxt.setOnClickListener {
+            val dialog = Dialog(activity!!)
+            dialog.setContentView(R.layout.dialog_report_issue)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.setCanceledOnTouchOutside(false)
+
+            val close: TextView = dialog.findViewById(R.id.dialog_report_tvClose)
+            val queproblem: TextView = dialog.findViewById(R.id.dialog_report_tvQueProblem)
+            val ansproblem: TextView = dialog.findViewById(R.id.dialog_report_tvAnsProblem)
+            val hintexplanation: TextView = dialog.findViewById(R.id.dialog_report_tvHintProblem)
+
+            hintexplanation.text = getString(R.string.explanation_has_a_problem)
+
+            queproblem.setOnClickListener {
+                callReportIssue("1", queproblem.text.toString())
+                dialog.dismiss()
+            }
+
+            ansproblem.setOnClickListener {
+                callReportIssue("2", ansproblem.text.toString())
+                dialog.dismiss()
+            }
+
+            hintexplanation.setOnClickListener {
+                callReportIssue("4", hintexplanation.text.toString())
+                dialog.dismiss()
+            }
+
+            close.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            dialog.show()
+        }
 
         solution_btnNextt.setOnClickListener {
             drawer_layout.openDrawer(Gravity.END)
@@ -223,7 +254,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
                             }
                             finalArr[movies[i].SectionName] = sectionList1
-//
+
                         }
 
                         solution_expQueList.setAdapter(
@@ -249,6 +280,23 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 //                            .into(solution_page_img_que_img)
 
                         Log.d("imgcall", "Number of movies received: " + movies.size)
+
+                        when {
+                            movies[0].TestQuestion[0].IsCorrect.equals("true", true) -> {
+                                solution_ivAnsimg.setImageResource(R.drawable.wrong)
+                            }
+                            movies[0].TestQuestion[0].IsCorrect.equals("false", true) -> {
+                                solution_ivAnsimg.setImageResource(R.drawable.correct)
+                            }
+                            else -> {
+                                solution_ivAnsimg.setImageResource(0)
+
+                            }
+                        }
+
+                        solution_tvYranswer.text = "Your Answer : " + movies[0].TestQuestion[0].YourAnswer
+                        solution_tvCorrectanswer.text = "Correct Answer : " + movies[0].TestQuestion[0].SystemAnswer
+
                     }
 
                     if (movies[0].TestQuestion[0].QuestionTypeID == 1) {
@@ -316,6 +364,24 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                     .load("http://content.testcraft.co.in/question/" + movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage)
                     .transform(transform.getTransformation(imgQue!!))
                     .into(imgQue)
+
+                when {
+                    movies[solution_grppos1].TestQuestion[curr_index1].IsCorrect.equals("true", true) -> {
+                        solution_ivAnsimg.setImageResource(R.drawable.wrong)
+                    }
+                    movies[solution_grppos1].TestQuestion[curr_index1].IsCorrect.equals("false", true) -> {
+                        solution_ivAnsimg.setImageResource(R.drawable.correct)
+                    }
+                    else -> {
+                        solution_ivAnsimg.setImageResource(0)
+
+                    }
+                }
+
+                solution_tvYranswer.text =
+                    "Your Answer : " + movies[solution_grppos1].TestQuestion[curr_index1].YourAnswer
+                solution_tvCorrectanswer.text =
+                    "Correct Answer : " + movies[solution_grppos1].TestQuestion[curr_index1].SystemAnswer
 
                 ansList!!.layoutManager =
                     LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
@@ -390,7 +456,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
             }
 
             solution_btnNext.visibility = View.VISIBLE
-        }else{
+        } else {
             solution_btnNext.visibility = View.GONE
         }
     }
@@ -508,5 +574,49 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
     }
 
+    fun callReportIssue(issueType: String, typename: String) {
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(activity!!)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.reportIssue(
+            WebRequests.addreportIssueParams(
+                issueType,
+                typename,
+                "Android",
+                Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
+                Utils.getStringValue(
+                    activity!!,
+                    AppConstants.FIRST_NAME,
+                    "0"
+                )!! + " " + Utils.getStringValue(activity!!, AppConstants.LAST_NAME, "0")!!,
+                movies[solution_grppos1].TestQuestion[curr_index1].QuestionID.toString(),
+                ""
+            )
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                DialogUtils.dismissDialog()
+
+                if (response.body() != null) {
+
+                    Toast.makeText(activity!!, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
 
 }

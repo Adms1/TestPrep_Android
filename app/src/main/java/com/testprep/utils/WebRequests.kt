@@ -157,6 +157,28 @@ class WebRequests {
             return hashMap
         }
 
+        fun addreportIssueParams(
+            reporttypeid: String,
+            reporttypename: String,
+            source: String,
+            stu_id: String,
+            stu_name: String,
+            q_id: String,
+            desc: String
+        ): HashMap<String, String> {
+            val map = HashMap<String, String>()
+            map["IssueReportTypeID"] = reporttypeid
+            map["IssueReportTypeName"] = reporttypename
+            map["SourceFrom"] = source
+            map["StudentID"] = stu_id
+            map["StudentName"] = stu_name
+            map["QuestionID"] = q_id
+            map["IssueDiscription"] = desc
+
+            return map
+        }
+
+
     }
 
 }

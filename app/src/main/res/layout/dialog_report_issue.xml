@@ -94,8 +94,7 @@
             android:textSize="@dimen/regular_text_size"
             app:layout_constraintTop_toBottomOf="@+id/dialog_report_line3"
             android:maxLines="1"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:text="@string/hint_has_a_problem"/>
+            android:layout_marginTop="@dimen/_10sdp"/>
 
     <View
             android:id="@+id/dialog_report_line4"

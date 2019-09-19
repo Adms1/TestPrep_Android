@@ -111,6 +111,7 @@
     </string>
     <string name="view_all">View All</string>
     <string name="hint_has_a_problem">Hint has a problem</string>
+    <string name="explanation_has_a_problem">Explanation has a problem</string>
     <string name="answer_has_a_problem">Answer has a problem</string>
     <string name="question_has_a_problem">Question has a problem</string>
 

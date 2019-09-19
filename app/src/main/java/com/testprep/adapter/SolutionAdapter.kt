@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RadioGroup
-import android.widget.RelativeLayout
+import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.sectionmodule.NewQuestionResponse
@@ -41,6 +41,8 @@ class SolutionAdapter(
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
+        p0.abcd.text = dataList[p1].optiontext
+
         if (qType == 1 || qType == 7) {
             if ("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage != "") {
 
@@ -49,7 +51,7 @@ class SolutionAdapter(
                 var imgwidth: Int = 100
 
                 Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage)
-                    .resize(qsize, p0.opone1.height)
+//                    .resize(qsize, p0.opone1.height)
 //                .fit()
 //                .centerInside()
                     .into(p0.opone1)
@@ -79,7 +81,7 @@ class SolutionAdapter(
 
         var opone1: ImageView = itemView.findViewById(R.id.option_one1)
         var opone: ImageView = itemView.findViewById(R.id.option_one)
-        var llmain: RelativeLayout = itemView.findViewById(R.id.option_lll)
+        var abcd: TextView = itemView.findViewById(R.id.option_abcd)
     }
 
 }

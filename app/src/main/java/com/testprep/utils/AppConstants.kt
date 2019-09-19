@@ -48,8 +48,8 @@ class AppConstants {
         var FILTER_STANDARD_ID = "111"
         var FILTER_SUBJECT_ID = "111"
         var FILTER_TUTOR_ID = "111"
-        var FILTER_FROM_RICE = ""
-        var FILTER_TO_PRICE = ""
+        var FILTER_FROM_PRICE = "0"
+        var FILTER_TO_PRICE = "5000"
 
         var MIN_PRICE = ""
         var MAX_PRICE = ""

@@ -28,6 +28,8 @@ class NewQuestionResponse {
         var IsCorrect = "False"
         var Hint = ""
         var Explanation = ""
+        var SystemAnswer = ""
+        var YourAnswer = ""
         var StudentTestAnswerMCQ: ArrayList<QuestionDataList> = ArrayList()
         var StudentTestQuestionMCQ: ArrayList<QuestionDataList> = ArrayList()
 

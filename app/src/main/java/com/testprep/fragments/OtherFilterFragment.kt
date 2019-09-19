@@ -70,12 +70,6 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         filterData_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
-//        price_filter_etMin.setText(Utils.getStringValue(activity!!, AppConstants.MIN_PRICE, "0"))
-//        price_filter_etMax.setText(Utils.getStringValue(activity!!, AppConstants.MAX_PRICE, "0"))
-
-        Log.d("min_price", "" + Utils.getStringValue(activity!!, AppConstants.MIN_PRICE, "0"))
-        Log.d("max_price", "" + Utils.getStringValue(activity!!, AppConstants.MAX_PRICE, "0"))
-
         examids = if (AppConstants.FILTER_BOARD_ID == "111") {
             Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
         } else {
@@ -163,6 +157,9 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
             AppConstants.isFirst = 13
 
+            AppConstants.FILTER_FROM_PRICE = min
+            AppConstants.FILTER_TO_PRICE = max
+
             val bundle = Bundle()
             bundle.putString("type", "filter")
             bundle.putString("pname1", "Packages")
@@ -240,8 +237,13 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
             }
             "price" -> {
+
+                rangeSeekbar3.setMinValue(0f)
+                rangeSeekbar3.setMaxValue(5000f)
+
                 filterData_rvList.visibility = View.GONE
                 price_ll.visibility = View.VISIBLE
+
             }
         }
     }
