@@ -316,15 +316,13 @@ class PackageDetailActivity : AppCompatActivity() {
                             package_detail_tvlprice.text = ""
                         }
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            package_detail_tvDesc.text = Html.fromHtml(
-                                response.body()!!.get("data").asJsonObject.get("TestPackageDescription").asString,
-                                Html.FROM_HTML_MODE_COMPACT
-                            )
-                        } else {
-                            package_detail_tvDesc.text =
-                                Html.fromHtml(response.body()!!.get("data").asJsonObject.get("TestPackageDescription").asString)
-                        }
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            package_detail_tvDesc.text = response.body()!!.get("data").asJsonObject.get("TestPackageDescription").asString
+
+//                        } else {
+//                            package_detail_tvDesc.text =
+//                                Html.fromHtml(response.body()!!.get("data").asJsonObject.get("TestPackageDescription").asString)
+//                        }
 
                         package_detail_name_short.text =
                             response.body()!!.get("data").asJsonObject.get("TestPackageName").asString.substring(0, 1)

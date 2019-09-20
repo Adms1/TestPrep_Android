@@ -320,7 +320,11 @@ class TutorDetailActivity : Fragment() {
 
         var filterCount = 0
 
-        if (AppConstants.FILTER_STANDARD_ID != "") {
+        if (AppConstants.FILTER_COURSE_TYPE_ID != "" && AppConstants.FILTER_COURSE_TYPE_ID != "111") {
+            filterCount += 1
+        }
+
+        if (AppConstants.FILTER_STANDARD_ID != "" && AppConstants.FILTER_STANDARD_ID != "111") {
             filterCount += 1
         }
 
@@ -328,11 +332,15 @@ class TutorDetailActivity : Fragment() {
             filterCount += 1
         }
 
-        if (AppConstants.FILTER_SUBJECT_ID != "") {
+        if (AppConstants.FILTER_SUBJECT_ID != "" && AppConstants.FILTER_SUBJECT_ID != "111") {
             filterCount += 1
         }
 
-        if (AppConstants.FILTER_TUTOR_ID != "") {
+        if (AppConstants.FILTER_TUTOR_ID != "" && AppConstants.FILTER_TUTOR_ID != "111") {
+            filterCount += 1
+        }
+
+        if (AppConstants.FILTER_FROM_PRICE != "0" && AppConstants.FILTER_TO_PRICE != "5000") {
             filterCount += 1
         }
 

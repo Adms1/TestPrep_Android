@@ -38,10 +38,8 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         filter_rvList.layoutManager = LinearLayoutManager(this@FilterActivity, LinearLayoutManager.VERTICAL, false)
 
-        if (Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, "") == "1") {
+        if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
             filter_rbBoards.isChecked = true
-
-            AppConstants.FILTER_COURSE_TYPE_ID = "1"
 
             val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Boards")
             pp1.isSelected = false
@@ -57,8 +55,6 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         } else {
             filter_rbCompetitive.isChecked = true
-
-            AppConstants.FILTER_COURSE_TYPE_ID = "2"
 
             val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Course")
             pp1.isSelected = false
@@ -84,6 +80,11 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
             if (checkedId == R.id.filter_rbBoards) {
 
                 filterTypeArr = ArrayList()
+
+                AppConstants.FILTER_STANDARD_ID = "111"
+                AppConstants.FILTER_SUBJECT_ID = "111"
+                AppConstants.FILTER_TUTOR_ID = "111"
+                AppConstants.FILTER_BOARD_ID = "111"
 
                 AppConstants.FILTER_COURSE_TYPE_ID = "1"
                 coursetypeid = "1"
@@ -126,13 +127,18 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                 filterTypeArr = ArrayList()
 
+                AppConstants.FILTER_STANDARD_ID = "111"
+                AppConstants.FILTER_SUBJECT_ID = "111"
+                AppConstants.FILTER_TUTOR_ID = "111"
+                AppConstants.FILTER_BOARD_ID = "111"
+
                 AppConstants.FILTER_COURSE_TYPE_ID = "2"
                 coursetypeid = "2"
 
 //                Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)
 
                 val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Course")
-                pp1.isSelected = false
+                pp1.isSelected = true
                 filterTypeArr.add(pp1)
 
 //                val pp3: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")

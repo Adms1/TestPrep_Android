@@ -26,7 +26,7 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textColor="@color/black"/>
+                android:textColor="@color/header_gray"/>
 
         <ImageView
                 android:layout_width="@dimen/_30sdp"
@@ -138,7 +138,8 @@
                                 android:id="@+id/queTab_tvTimer"
                                 android:textSize="@dimen/_13sdp"
                                 android:gravity="left"
-                                android:layout_weight="0.2"
+                                android:text="00 : 00 : 00"
+                                android:layout_weight="0.25"
                                 android:textColor="@color/dark_sky_blue"
                                 android:maxLines="1"/>
 
@@ -167,7 +168,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/gray"
                                 android:layout_centerInParent="true"
-                                android:layout_weight="0.36"/>
+                                android:layout_weight="0.31"/>
 
                         <CheckBox
                                 android:id="@+id/queTab_ivReview"
@@ -209,81 +210,81 @@
                             android:layout_marginTop="@dimen/_5sdp"
                             app:layout_constraintBottom_toBottomOf="parent">
 
-                            <android.support.v4.widget.NestedScrollView
+                        <android.support.v4.widget.NestedScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_marginBottom="@dimen/_20sdp"
+                                android:background="@drawable/white_ring_bg"
+                                android:fillViewport="true"
+                                app:layout_constraintBottom_toBottomOf="parent">
+
+                            <LinearLayout
+                                    android:id="@+id/ll"
+                                    android:layout_marginBottom="@dimen/_15sdp"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:orientation="vertical"
+                                    android:layout_marginTop="@dimen/_15sdp"
                                     android:layout_marginLeft="@dimen/_10sdp"
                                     android:layout_marginRight="@dimen/_10sdp"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    android:layout_marginBottom="@dimen/_20sdp"
-                                    android:background="@drawable/white_ring_bg"
-                                    android:fillViewport="true"
-                                    app:layout_constraintBottom_toBottomOf="parent">
+                                    android:layout_height="wrap_content">
 
-                                <LinearLayout
-                                        android:id="@+id/ll"
-                                        android:layout_marginBottom="@dimen/_15sdp"
+                                <ImageView
+                                        android:id="@+id/page_img_que_img"
                                         android:layout_width="match_parent"
-                                        android:orientation="vertical"
-                                        android:layout_marginTop="@dimen/_15sdp"
-                                        android:layout_marginLeft="@dimen/_10sdp"
-                                        android:layout_marginRight="@dimen/_10sdp"
-                                        android:layout_height="wrap_content">
+                                        android:layout_height="wrap_content"
+                                        app:layout_constraintTop_toBottomOf="@+id/qno"
+                                        android:layout_gravity="center_horizontal"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        android:scaleType="fitStart"
+                                        android:adjustViewBounds="true"
+                                        app:layout_constraintRight_toRightOf="parent"/>
 
-                                    <ImageView
-                                            android:id="@+id/page_img_que_img"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            app:layout_constraintTop_toBottomOf="@+id/qno"
-                                            android:layout_gravity="center_horizontal"
-                                            app:layout_constraintLeft_toLeftOf="parent"
-                                            android:scaleType="fitStart"
-                                            android:adjustViewBounds="true"
-                                            app:layout_constraintRight_toRightOf="parent"/>
+                                <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/wv_question_list"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        app:layout_constraintBottom_toBottomOf="@+id/ll"
+                                        android:nestedScrollingEnabled="false"
+                                        android:visibility="gone"
+                                        app:layout_constraintTop_toBottomOf="@+id/page_img_que_img"/>
 
-                                    <android.support.v7.widget.RecyclerView
-                                            android:id="@+id/wv_question_list"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            app:layout_constraintBottom_toBottomOf="@+id/ll"
-                                            android:nestedScrollingEnabled="false"
-                                            android:visibility="gone"
-                                            app:layout_constraintTop_toBottomOf="@+id/page_img_que_img"/>
+                                <EditText
+                                        android:id="@+id/queTab_tvFillBlanks"
+                                        android:layout_width="match_parent"
+                                        android:layout_marginLeft="@dimen/_20sdp"
+                                        android:layout_height="@dimen/_50sdp"
+                                        android:layout_marginTop="@dimen/_20sdp"
+                                        android:layout_marginBottom="@dimen/_5sdp"
+                                        android:layout_marginRight="@dimen/_20sdp"
+                                        android:gravity="top"
+                                        android:textSize="@dimen/_12sdp"
+                                        android:visibility="gone"
+                                        android:hint="Enter your answer here"
+                                        android:background="@drawable/gray_ring_bg"
+                                        android:padding="@dimen/_5sdp"
+                                        app:layout_constraintTop_toBottomOf="@+id/page_img_que_img"/>
 
-                                    <EditText
-                                            android:id="@+id/queTab_tvFillBlanks"
-                                            android:layout_width="match_parent"
-                                            android:layout_marginLeft="@dimen/_20sdp"
-                                            android:layout_height="@dimen/_50sdp"
-                                            android:layout_marginTop="@dimen/_20sdp"
-                                            android:layout_marginBottom="@dimen/_5sdp"
-                                            android:layout_marginRight="@dimen/_20sdp"
-                                            android:gravity="top"
-                                            android:textSize="@dimen/_12sdp"
-                                            android:visibility="gone"
-                                            android:hint="Enter your answer here"
-                                            android:background="@drawable/gray_ring_bg"
-                                            android:padding="@dimen/_5sdp"
-                                            app:layout_constraintTop_toBottomOf="@+id/page_img_que_img"/>
+                                <RadioButton
+                                        android:id="@+id/queTab_rbTrue"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone"
+                                        android:text="True"/>
 
-                                        <RadioButton
-                                                android:id="@+id/queTab_rbTrue"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:visibility="gone"
-                                                android:text="True"/>
+                                <RadioButton
+                                        android:id="@+id/queTab_rbFalse"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:visibility="gone"
+                                        android:text="false"/>
 
-                                        <RadioButton
-                                                android:id="@+id/queTab_rbFalse"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:visibility="gone"
-                                                android:text="false"/>
+                            </LinearLayout>
 
-                                </LinearLayout>
-
-                            </android.support.v4.widget.NestedScrollView>
+                        </android.support.v4.widget.NestedScrollView>
 
                         <Button
                                 android:id="@+id/queTab_btnNext"
@@ -308,7 +309,7 @@
                             android:layout_width="@dimen/_15sdp"
                             android:layout_height="@dimen/_15sdp"
                             android:layout_marginLeft="@dimen/_20sdp"
-                            android:src="@drawable/risk_gray"
+                            android:src="@drawable/risk_blue"
                             android:layout_marginBottom="@dimen/_5sdp"
                             app:layout_constraintLeft_toLeftOf=" parent"
                             app:layout_constraintTop_toBottomOf="@+id/queTab_llBottom"
@@ -319,7 +320,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/_15sdp"
                             android:text=" Report an issue"
-                            android:textColor="@color/gray"
+                            android:textColor="@color/colorPrimaryDark"
                             android:textSize="@dimen/extra_small_size"
                             android:gravity="center"
                             app:layout_constraintTop_toTopOf="@+id/queTab_ivReport"
@@ -334,142 +335,126 @@
 
         </FrameLayout>
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
                 android:id="@+id/whatYouWantInLeftDrawer"
                 android:layout_width="@dimen/_200sdp"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:layout_gravity="right">
 
-            <!--<TextView-->
-            <!--android:id="@+id/dashboard_dotCurrent"-->
-            <!--android:layout_width="@dimen/_6sdp"-->
-            <!--android:layout_height="@dimen/_6sdp"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_marginLeft="@dimen/_15sdp"-->
-            <!--android:layout_marginTop="@dimen/_3sdp"-->
-            <!--android:background="@drawable/select_exam_bg"/>-->
+            <TextView
+                    android:id="@+id/dashboard_dotCurrent"
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="@dimen/_6sdp"
+                    app:layout_constraintTop_toTopOf="@+id/dashboard_tvCurrent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvCurrent"
+                    android:background="@drawable/select_exam_bg"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/dashboard_tvCurrent"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/light_gray"-->
-            <!--android:textSize="@dimen/extra_small_size"-->
-            <!--android:layout_toRightOf="@+id/dashboard_dotCurrent"-->
-            <!--android:maxLines="1"-->
-            <!--android:paddingLeft="@dimen/_5sdp"-->
-            <!--android:paddingRight="@dimen/_5sdp"-->
-            <!--android:text="@string/current"/>-->
+            <TextView
+                    android:id="@+id/dashboard_tvCurrent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/extra_small_size"
+                    android:maxLines="1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    app:layout_constraintLeft_toRightOf="@+id/dashboard_dotCurrent"
+                    android:text="@string/current"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/dashboard_dotAnswered"-->
-            <!--android:layout_width="@dimen/_6sdp"-->
-            <!--android:layout_height="@dimen/_6sdp"-->
-            <!--android:layout_marginLeft="@dimen/_6sdp"-->
-            <!--android:layout_marginTop="@dimen/_3sdp"-->
-            <!--android:layout_toRightOf="@+id/dashboard_tvCurrent"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/dashboard_tvAnswered"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvAnswered"-->
-            <!--app:layout_constraintLeft_toRightOf="@+id/dashboard_tvCurrent"-->
-            <!--android:background="@drawable/green_round_bg"/>-->
+            <TextView
+                    android:id="@+id/dashboard_dotAnswered"
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="@dimen/_6sdp"
+                    app:layout_constraintLeft_toLeftOf="@+id/dashboard_dotReview"
+                    app:layout_constraintTop_toTopOf="@+id/dashboard_tvAnswered"
+                    app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvAnswered"
+                    android:background="@drawable/green_round_bg"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/dashboard_tvAnswered"-->
-            <!--app:layout_constraintLeft_toRightOf="@+id/dashboard_dotAnswered"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/light_gray"-->
-            <!--android:layout_toRightOf="@+id/dashboard_dotAnswered"-->
-            <!--android:maxLines="1"-->
-            <!--android:paddingLeft="@dimen/_5sdp"-->
-            <!--android:paddingRight="@dimen/_5sdp"-->
-            <!--android:textSize="@dimen/extra_small_size"-->
-            <!--android:text="@string/answered"/>-->
+            <TextView
+                    android:id="@+id/dashboard_tvAnswered"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_gray"
+                    android:maxLines="1"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layout_constraintLeft_toRightOf="@+id/dashboard_dotAnswered"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:textSize="@dimen/extra_small_size"
+                    android:text="@string/answered"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/dashboard_dotUnanswered"-->
-            <!--android:layout_width="@dimen/_6sdp"-->
-            <!--android:layout_height="@dimen/_6sdp"-->
-            <!--android:layout_marginLeft="@dimen/_6sdp"-->
-            <!--android:layout_marginTop="@dimen/_3sdp"-->
-            <!--android:layout_toRightOf="@+id/dashboard_tvAnswered"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/dashboard_tvUnanswered"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvUnanswered"-->
-            <!--app:layout_constraintLeft_toRightOf="@+id/dashboard_tvAnswered"-->
-            <!--android:background="@drawable/red_round_bg"/>-->
+            <TextView
+                    android:id="@+id/dashboard_dotUnanswered"
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="@dimen/_6sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    app:layout_constraintTop_toTopOf="@+id/dashboard_tvUnanswered"
+                    app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvUnanswered"
+                    android:background="@drawable/red_round_bg"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/dashboard_tvUnanswered"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/light_gray"-->
-            <!--android:textSize="@dimen/extra_small_size"-->
-            <!--app:layout_constraintLeft_toRightOf="@+id/dashboard_dotUnanswered"-->
-            <!--android:maxLines="1"-->
-            <!--android:paddingLeft="@dimen/_5sdp"-->
-            <!--android:paddingRight="@dimen/_5sdp"-->
-            <!--android:layout_toRightOf="@+id/dashboard_dotUnanswered"-->
-            <!--android:text="@string/un_answered"/>-->
+            <TextView
+                    android:id="@+id/dashboard_tvUnanswered"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/extra_small_size"
+                    android:maxLines="1"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layout_constraintLeft_toRightOf="@+id/dashboard_dotUnanswered"
+                    app:layout_constraintTop_toBottomOf="@+id/dashboard_dotCurrent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:text="@string/un_answered"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/dashboard_dotReview"-->
-            <!--android:layout_width="@dimen/_6sdp"-->
-            <!--android:layout_height="@dimen/_6sdp"-->
-            <!--android:layout_below="@+id/dashboard_tvUnanswered"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_marginTop="@dimen/_8sdp"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/dashboard_tvReview"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvReview"-->
-            <!--app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--android:layout_marginLeft="@dimen/_15sdp"-->
-            <!--android:background="@drawable/pink_round"/>-->
+            <TextView
+                    android:id="@+id/dashboard_dotReview"
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    app:layout_constraintLeft_toRightOf="@+id/dashboard_tvUnanswered"
+                    app:layout_constraintTop_toTopOf="@+id/dashboard_tvReview"
+                    app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvReview"
+                    android:background="@drawable/pink_round"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/dashboard_tvReview"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/dashboard_tvCurrent"-->
-            <!--app:layout_constraintLeft_toRightOf="@+id/dashboard_dotReview"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/light_gray"-->
-            <!--android:maxLines="1"-->
-            <!--android:layout_toRightOf="@+id/dashboard_dotReview"-->
-            <!--android:layout_below="@+id/dashboard_tvUnanswered"-->
-            <!--android:paddingLeft="@dimen/_5sdp"-->
-            <!--android:paddingRight="@dimen/_5sdp"-->
-            <!--android:layout_marginTop="@dimen/_5sdp"-->
-            <!--android:layout_marginBottom="@dimen/_15sdp"-->
-            <!--android:textSize="@dimen/extra_small_size"-->
-            <!--android:text="@string/review_later"/>-->
+            <TextView
+                    android:id="@+id/dashboard_tvReview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_gray"
+                    android:maxLines="1"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layout_constraintLeft_toRightOf="@+id/dashboard_dotReview"
+                    app:layout_constraintTop_toBottomOf="@+id/dashboard_dotCurrent"
+                    android:textSize="@dimen/extra_small_size"
+                    android:text="@string/review_later"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/dashboard_dotnotvisit"-->
-            <!--android:layout_width="@dimen/_6sdp"-->
-            <!--android:layout_height="@dimen/_6sdp"-->
-            <!--android:layout_marginTop="@dimen/_8sdp"-->
-            <!--android:layout_below="@+id/dashboard_tvUnanswered"-->
-            <!--android:layout_toRightOf="@+id/dashboard_tvReview"-->
-            <!--app:layout_constraintTop_toTopOf="@+id/dashboard_tvnotvisit"-->
-            <!--app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvnotvisit"-->
-            <!--app:layout_constraintLeft_toRightOf="@+id/dashboard_tvReview"-->
-            <!--android:background="@drawable/gray_bg"/>-->
+            <TextView
+                    android:id="@+id/dashboard_dotnotvisit"
+                    android:layout_width="@dimen/_6sdp"
+                    android:layout_height="@dimen/_6sdp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    app:layout_constraintTop_toTopOf="@+id/dashboard_tvnotvisit"
+                    app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvnotvisit"
+                    android:background="@drawable/gray_bg"/>
 
-            <!--<TextView-->
-            <!--android:id="@+id/dashboard_tvnotvisit"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/light_gray"-->
-            <!--android:textSize="@dimen/extra_small_size"-->
-            <!--android:layout_toRightOf="@+id/dashboard_dotnotvisit"-->
-            <!--app:layout_constraintLeft_toRightOf="@+id/dashboard_dotnotvisit"-->
-            <!--android:maxLines="1"-->
-            <!--android:layout_below="@+id/dashboard_tvUnanswered"-->
-            <!--android:paddingLeft="@dimen/_5sdp"-->
-            <!--android:paddingRight="@dimen/_5sdp"-->
-            <!--android:layout_marginTop="@dimen/_5sdp"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/dashboard_tvCurrent"-->
-            <!--android:text="@string/not_visited"/>-->
+            <TextView
+                    android:id="@+id/dashboard_tvnotvisit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/extra_small_size"
+                    android:maxLines="1"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    app:layout_constraintLeft_toRightOf="@+id/dashboard_dotnotvisit"
+                    app:layout_constraintTop_toBottomOf="@+id/dashboard_tvReview"
+                    android:text="@string/not_visited"/>
 
             <ExpandableListView
                     android:id="@+id/queTab_expQueList"
@@ -477,9 +462,11 @@
                     android:background="@color/white"
                     android:paddingLeft="@dimen/_10sdp"
                     android:paddingRight="@dimen/_10sdp"
-                    android:layout_height="match_parent"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dashboard_tvnotvisit"
+                    android:layout_height="0dp"/>
 
-        </RelativeLayout>
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.DrawerLayout>
 </RelativeLayout>

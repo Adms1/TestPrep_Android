@@ -56,7 +56,7 @@ class FilterListAdapter(
                     p0.select.visibility = View.INVISIBLE
                 }
             }
-            "Competitive Exams" -> {
+            "Course" -> {
                 if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_BOARD_ID != "111") {
                     p0.select.visibility = View.VISIBLE
                 } else {

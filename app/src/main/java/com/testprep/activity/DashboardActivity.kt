@@ -129,6 +129,8 @@ class DashboardActivity : AppCompatActivity() {
         AppConstants.FILTER_SUBJECT_ID = "111"
         AppConstants.FILTER_TUTOR_ID = "111"
         AppConstants.FILTER_BOARD_ID = "111"
+        AppConstants.FILTER_FROM_PRICE = "0"
+        AppConstants.FILTER_TO_PRICE = "5000"
 
     }
 

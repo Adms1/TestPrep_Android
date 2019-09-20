@@ -28,4 +28,5 @@
     <color name="dark_sky_blue">#1295BD</color>
     <color name="light_sky_blue">#54B8E3</color>
     <color name="yellow">#DFCB58</color>
+    <color name="header_gray">#5C5F6E</color>
 </resources>

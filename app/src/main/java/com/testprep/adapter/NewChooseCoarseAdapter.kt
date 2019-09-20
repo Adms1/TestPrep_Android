@@ -47,6 +47,7 @@ class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<Packa
 
         p0.image.setOnClickListener {
 
+            AppConstants.FILTER_COURSE_TYPE_ID = dataList[p1].CourseTypeID.toString()
             Utils.setStringValue(context, AppConstants.COURSE_TYPE_ID, dataList[p1].CourseTypeID.toString())
             Utils.setStringValue(context, "course_type_name", dataList[p1].CourseTypeName)
 

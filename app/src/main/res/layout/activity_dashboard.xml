@@ -23,7 +23,7 @@
             app:layout_constraintLeft_toRightOf="@+id/dashboard_ivBack"
             android:textSize="@dimen/normal_header_size"
             android:gravity="center_vertical"
-            android:textColor="@color/black"/>
+            android:textColor="@color/header_gray"/>
 
     <ImageView
             android:layout_width="@dimen/_30sdp"

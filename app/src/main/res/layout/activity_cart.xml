@@ -26,7 +26,7 @@
             android:paddingTop="@dimen/_7sdp"
             android:gravity="center_vertical"
             android:text="@string/cart"
-            android:textColor="@color/black"
+            android:textColor="@color/header_gray"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/cart_ivBack"
             android:textSize="@dimen/normal_header_size"/>

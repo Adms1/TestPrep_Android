@@ -49,6 +49,13 @@ class PrefrenceActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_prefrence)
 
+        AppConstants.FILTER_STANDARD_ID = "111"
+        AppConstants.FILTER_SUBJECT_ID = "111"
+        AppConstants.FILTER_TUTOR_ID = "111"
+        AppConstants.FILTER_BOARD_ID = "111"
+        AppConstants.FILTER_FROM_PRICE = "0"
+        AppConstants.FILTER_TO_PRICE = "5000"
+
         package_ivBack.setOnClickListener {
             onBackPressed()
         }

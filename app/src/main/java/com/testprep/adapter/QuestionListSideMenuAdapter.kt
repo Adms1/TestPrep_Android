@@ -10,6 +10,7 @@ import com.testprep.R
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.QuestionTypeModel
 import com.testprep.sectionmodule.NewSideMenuAdapter
+import com.testprep.sectionmodule.NewTabQuestionActivity
 
 
 class QuestionListSideMenuAdapter(
@@ -44,7 +45,15 @@ class QuestionListSideMenuAdapter(
 //        p0.list.layoutManager = GridLayoutManager(context, 5)
 
 //        p0.list.adapter = QuestionChildListAdapter(context, listDataHeader, listChildData, filterTypeSelectionInteface, come_from)
-        p0.list.setAdapter(NewSideMenuAdapter(context, listChildData, finalArr, filterTypeSelectionInteface, come_from))
+        p0.list.setAdapter(
+            NewSideMenuAdapter(
+                context,
+                listChildData,
+                finalArr,
+                filterTypeSelectionInteface,
+                come_from
+            )
+        )
 
     }
 

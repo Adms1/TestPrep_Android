@@ -21,7 +21,7 @@
             android:paddingRight="@dimen/_40sdp"
             android:maxWidth="@dimen/_150sdp"
             app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/black"
+            android:textColor="@color/header_gray"
             app:layout_constraintLeft_toRightOf="@+id/filter_ivBack"
             android:textSize="@dimen/normal_header_size"
             android:gravity="center_vertical"/>

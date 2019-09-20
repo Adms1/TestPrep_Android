@@ -131,16 +131,19 @@ class OtherFilterFragment : Fragment(), filterInterface {
             Log.d("min_price", "" + Utils.getStringValue(activity!!, AppConstants.MIN_PRICE, "0"))
             Log.d("max_price", "" + Utils.getStringValue(activity!!, AppConstants.MAX_PRICE, "0"))
 
-            if (stdids != "") {
-                AppConstants.FILTER_STANDARD_ID = stdids
-            } else {
-                AppConstants.FILTER_STANDARD_ID = ""
-            }
+            if(AppConstants.FILTER_COURSE_TYPE_ID == "1"){
 
-            if (subids != "") {
-                AppConstants.FILTER_SUBJECT_ID = subids
-            } else {
-                AppConstants.FILTER_SUBJECT_ID = ""
+                if (stdids != "") {
+                    AppConstants.FILTER_STANDARD_ID = stdids
+                } else {
+                    AppConstants.FILTER_STANDARD_ID = ""
+                }
+
+                if (subids != "") {
+                    AppConstants.FILTER_SUBJECT_ID = subids
+                } else {
+                    AppConstants.FILTER_SUBJECT_ID = ""
+                }
             }
 
             if (tutorids != "") {
