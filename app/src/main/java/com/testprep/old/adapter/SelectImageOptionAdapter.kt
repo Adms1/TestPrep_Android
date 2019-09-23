@@ -44,11 +44,11 @@ class SelectImageOptionAdapter(
 
         p0.abcd.text = dataList[p1].optiontext
 
-        if ("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage != "") {
+        if (dataList[p1].AnswerImage != "") {
 
 //            Log.d("qsize", "" + qsize)
 
-            Picasso.get().load("http://content.testcraft.co.in/question/" + dataList[p1].AnswerImage)
+            Picasso.get().load(dataList[p1].AnswerImage)
                 .resize(qsize, p0.opone1.height)
 //                .fit()
 //                .centerInside()

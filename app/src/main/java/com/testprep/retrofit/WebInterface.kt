@@ -89,7 +89,7 @@ interface WebInterface {
     fun getQuestions(@Field("TestID") testid: String, @Field("StudentTestID") stu_testid: String): Call<QuestionResponse>
 
     @FormUrlEncoded
-    @POST("Get_Student_StudentTestAnswer_New")
+    @POST("Get_Student_StudentTestAnswer_New_aws")
     fun getNewQuestions(@Field("TestID") testid: String, @Field("StudentTestID") stu_testid: String): Call<NewQuestionResponse>
 
     @FormUrlEncoded

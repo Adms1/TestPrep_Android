@@ -20,6 +20,7 @@ import android.widget.*
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testprep.R
+import com.testprep.adapter.ImageViewAdapter1.Companion.SolutionPageNumber
 import com.testprep.adapter.SoutionSideMenuAdapter
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.AnswerModel
@@ -50,6 +51,9 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
     var bundle: Bundle? = null
 
+    var solution_que_number = 1
+    var solution_testque = ""
+
 //    override fun attachBaseContext(newBase: Context?) {
 //        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
 //    }
@@ -78,12 +82,15 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         AppConstants.QUE_NUMBER1 = 0
 
+        finalArr1 = HashMap()
+
         bundle = this.arguments
 
         testid = bundle!!.getString("testid")!!
         studenttestid = bundle!!.getString("studenttestid")!!
+        solution_testque = bundle!!.getString("totalque")!!
 
-        drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        drawer_layout1.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         sectionList = ArrayList()
 //        sectionList1 = ArrayList()
@@ -96,12 +103,12 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
         imgQue!!.isDrawingCacheEnabled = true
 
         mDrawerToggle = ActionBarDrawerToggle(
-            activity, drawer_layout, R.mipmap.tc_logo, // nav menu toggle icon
+            activity, drawer_layout1, R.mipmap.tc_logo, // nav menu toggle icon
             R.string.app_name, // nav drawer open - description for accessibility
             R.string.app_name
         )
 
-        drawer_layout.setDrawerListener(mDrawerToggle)
+        drawer_layout1.setDrawerListener(mDrawerToggle)
 
         solution_ivReporttxt.setOnClickListener {
             val dialog = Dialog(activity!!)
@@ -139,7 +146,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
         }
 
         solution_btnNextt.setOnClickListener {
-            drawer_layout.openDrawer(Gravity.END)
+            drawer_layout1.openDrawer(Gravity.END)
         }
 
         solution_btnNext.setOnClickListener {
@@ -214,6 +221,9 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
                 solution_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
 
+                solution_tvCurrTotal.text = solution_que_number.toString()
+                solution_tvTotal.text = "/" + solution_testque
+
                 if (movies.size > 0) {
 
                     Log.d("header", "" + sectionList)
@@ -228,7 +238,9 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                         sectionList!!.add(movies[i].SectionName)
                     }
 
-                    if ("http://content.testcraft.co.in/question/" + movies[0].TestQuestion[0].QuestionImage != "") {
+                    if (movies[0].TestQuestion[0].QuestionImage != "") {
+
+                        var pagenumber1 = 0
 
                         for (i in 0 until movies.size) {
 //
@@ -237,6 +249,10 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                             for (j in 0 until movies[i].TestQuestion.size) {
                                 val questionTypeModel = QuestionTypeModel()
                                 questionTypeModel.qnumber = j
+
+                                pagenumber1++
+
+                                questionTypeModel.page_number = pagenumber1
 
                                 if (movies[i].TestQuestion[j].Answer != "") {
 
@@ -253,7 +269,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                                 sectionList1.add(questionTypeModel)
 
                             }
-                            finalArr[movies[i].SectionName] = sectionList1
+                            finalArr1[movies[i].SectionName] = sectionList1
 
                         }
 
@@ -261,22 +277,22 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                             SoutionSideMenuAdapter(
                                 activity!!,
                                 sectionList!!,
-                                finalArr,
+                                finalArr1,
                                 filterTypeSelectionInteface!!,
                                 "solution"
                             )
                         )
                     }
 
-                    if ("http://content.testcraft.co.in/question/" + movies[0].TestQuestion[0].QuestionImage != "") {
+                    if (movies[0].TestQuestion[0].QuestionImage != "") {
 
                         Picasso.get()
-                            .load("http://content.testcraft.co.in/question/" + movies[0].TestQuestion[0].QuestionImage)
+                            .load(movies[0].TestQuestion[0].QuestionImage)
                             .transform(transform.getTransformation(imgQue!!))
                             .into(solution_page_img_que_img)
 
 //                        Picasso.get()
-//                            .load("http://content.testcraft.co.in/question/" + movies[0].TestQuestion[0].QuestionImage)
+//                            .load(movies[0].TestQuestion[0].QuestionImage)
 //                            .into(solution_page_img_que_img)
 
                         Log.d("imgcall", "Number of movies received: " + movies.size)
@@ -350,18 +366,28 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         curr_index1 = p10
 
-        drawer_layout.closeDrawer(Gravity.END)
+        drawer_layout1.closeDrawer(Gravity.END)
 
-        if (finalArr[sectionList!![solution_grppos1]]!!.size > curr_index1) {
+        if (finalArr1[sectionList!![solution_grppos1]]!!.size > curr_index1) {
+
             hintData =
                 "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[solution_grppos1].TestQuestion[curr_index1].Explanation + "</font></p></body></html>"
 
             solution_tvQMarks.text = "Marks : " + movies[solution_grppos1].TestQuestion[curr_index1].Marks
 
-            if ("http://content.testcraft.co.in/question/" + movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage != "") {
+            if (itype == "adapter") {
+
+                solution_que_number = SolutionPageNumber()
+                solution_tvCurrTotal.text = solution_que_number.toString()
+
+            } else {
+                solution_tvCurrTotal.text = solution_que_number.toString()
+            }
+
+            if (movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage != "") {
 
                 Picasso.get()
-                    .load("http://content.testcraft.co.in/question/" + movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage)
+                    .load(movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage)
                     .transform(transform.getTransformation(imgQue!!))
                     .into(imgQue)
 
@@ -447,7 +473,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                     SoutionSideMenuAdapter(
                         context!!,
                         sectionList!!,
-                        finalArr,
+                        finalArr1,
                         filterTypeSelectionInteface!!,
                         "solution"
                     )
@@ -455,7 +481,19 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
             }
 
-            solution_btnNext.visibility = View.VISIBLE
+            if ((finalArr1.size - 1) > solution_grppos1) {
+
+                solution_btnNext.visibility = View.VISIBLE
+
+            } else {
+
+                if (finalArr1[sectionList!![solution_grppos1]]!!.size - 1 == curr_index1) {
+                    solution_btnNext.visibility = View.GONE
+                } else {
+                    solution_btnNext.visibility = View.VISIBLE
+                }
+            }
+
         } else {
             solution_btnNext.visibility = View.GONE
         }
@@ -463,13 +501,13 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
     fun getNextQuestion1() {
 
-//        if ((finalArr.size - 1) > solution_grppos1) {
+//        if ((finalArr1.size - 1) > solution_grppos1) {
 //
-//            if (finalArr[sectionList!![solution_grppos1]]!!.size == curr_index1 && p1 == (curr_index1 - 1)) {
+//            if (finalArr1[sectionList!![solution_grppos1]]!!.size == curr_index1 && p1 == (curr_index1 - 1)) {
 //                solution_grppos1 += 1
 //                curr_index1 = 0
 //                p1 = 0
-//                finalArr[sectionList!![solution_grppos1]]!![p1].type =
+//                finalArr1[sectionList!![solution_grppos1]]!![p1].type =
 //                    1
 //            }
 //
@@ -477,7 +515,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 //                SoutionSideMenuAdapter(
 //                    context!!,
 //                    sectionList!!,
-//                    finalArr,
+//                    finalArr1,
 //                    filterTypeSelectionInteface!!,
 //                    "solution"
 //                )
@@ -494,7 +532,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 //                SoutionSideMenuAdapter(
 //                    context!!,
 //                    sectionList!!,
-//                    finalArr,
+//                    finalArr1,
 //                    filterTypeSelectionInteface!!,
 //                    "solution"
 //                )
@@ -503,22 +541,25 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 //
 //        Log.d("que_number", "" + AppConstants.QUE_NUMBER1)
 
-        if (curr_index1 <= finalArr[sectionList!![solution_grppos1]]!!.size - 1) {
+        solution_que_number += 1
+
+        if (curr_index1 <= finalArr1[sectionList!![solution_grppos1]]!!.size - 1) {
             curr_index1 += 1
         }
 
-//                if ((finalArr.size - 1) == solution_grppos1) {
-//                    if ((finalArr[sectionList!![solution_grppos1]]!!.size - 1) == (com.testprep.sectionmodule.Companion.curr_index1+1)) {
+//                if ((finalArr1.size - 1) == solution_grppos1) {
+//                    if ((finalArr1[sectionList!![solution_grppos1]]!!.size - 1) == (com.testprep.sectionmodule.Companion.curr_index1+1)) {
 //                        solution_btnNext.text = "Submit Test"
 //                    }
 //                }
 
-        if ((finalArr.size - 1) > solution_grppos1) {
+        if ((finalArr1.size - 1) > solution_grppos1) {
 
-            if (finalArr[sectionList!![solution_grppos1]]!!.size == curr_index1) {
+            if (finalArr1[sectionList!![solution_grppos1]]!!.size == curr_index1) {
                 solution_grppos1 += 1
                 curr_index1 = 0
-                finalArr[sectionList!![solution_grppos1]]!![curr_index1].type = 1
+                finalArr1[sectionList!![solution_grppos1]]!![curr_index1].type = 1
+
             }
 
         }
@@ -534,7 +575,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
         var sectionList1: ArrayList<QuestionTypeModel>? = null
         var filterTypeSelectionInteface: FilterTypeSelectionInteface? = null
         var context: Context? = null
-        var finalArr: HashMap<String, ArrayList<QuestionTypeModel>> = HashMap()
+        var finalArr1: HashMap<String, ArrayList<QuestionTypeModel>> = HashMap()
         var solution_grppos1 = 0
         var curr_index1 = 0
 

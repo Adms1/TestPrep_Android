@@ -3,6 +3,7 @@ package com.testprep.sectionmodule
 import android.content.Context
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -180,7 +181,9 @@ class ImageViewAdapter(
                 )
             )
 
-//            Log.d("que_number", "" + AppConstants.QUE_NUMBER)
+            Log.d("adapter_que_number", "" + curr_index)
+
+            Log.d("itype", "adapter")
 
             filterTypeSelectionInteface.getType("adapter", grpPos, p1)
 

@@ -15,6 +15,8 @@ import android.widget.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.testprep.activity.ViewSolutionActivity.Companion.curr_index1
+import com.testprep.activity.ViewSolutionActivity.Companion.solution_grppos1
 import com.testprep.adapter.DrawerMenuListAdapter
 import com.testprep.fragments.*
 import com.testprep.models.PackageData
@@ -223,6 +225,7 @@ class DashboardActivity : AppCompatActivity() {
         var minprice = ""
         var search_name = ""
         var testname = ""
+        var testque = ""
         var llBottom: LinearLayout? = null
 
         var context: Context? = null
@@ -453,6 +456,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     testid = bundle!!.getString("testid")!!
                     studenttestid = bundle.getString("studenttestid")!!
+                    testque = bundle.getString("totalque")!!
 
                     fragment = ViewSolutionActivity()
 
@@ -461,6 +465,7 @@ class DashboardActivity : AppCompatActivity() {
                     val bundle6 = Bundle()
                     bundle6.putString("testid", testid)
                     bundle6.putString("studenttestid", studenttestid)
+                    bundle6.putString("totalque", testque)
 
                     (fragment as ViewSolutionActivity).arguments = bundle6
 
@@ -627,6 +632,9 @@ class DashboardActivity : AppCompatActivity() {
             finish()
 
         } else if (AppConstants.isFirst == 9) {
+
+            curr_index1 = 0
+            solution_grppos1 = 0
 
             AppConstants.isFirst = 10
             val bundle = Bundle()

@@ -21,6 +21,7 @@ class TestReviewActivity : Fragment() {
 
     var testid = ""
     var studenttestid = ""
+    var totalque = ""
 
     var bundle: Bundle? = null
 
@@ -67,6 +68,7 @@ class TestReviewActivity : Fragment() {
             val bundle = Bundle()
             bundle.putString("testid", testid)
             bundle.putString("studenttestid", studenttestid)
+            bundle.putString("totalque", totalque)
             setFragments(bundle)
 
 //            val intent = Intent(activity!!, ViewSolutionActivity::class.java)
@@ -104,6 +106,8 @@ class TestReviewActivity : Fragment() {
                 sortDialog.dismiss()
 
                 if (response.body()!!.get("Status").asString == "true") {
+
+                    totalque = response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TotalQue").asString
 
                     review_tvCorrect.text =
                         response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Correct").asString + "    Correct"

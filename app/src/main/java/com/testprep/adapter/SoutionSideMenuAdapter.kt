@@ -143,6 +143,8 @@ internal class ImageViewAdapter1(
 
         p0.childheader.setOnClickListener {
 
+            pgNum1 = dataList[p1].page_number
+
             solution_grppos1 = grpPos
 
             AppConstants.QUE_NUMBER1 = p1
@@ -203,10 +205,21 @@ internal class ImageViewAdapter1(
     }
 
     companion object {
+
+        var pgNum1 = 0
+
         class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             var childheader: TextView = itemView.findViewById(R.id.queList_tempvChild)
         }
+
+
+        fun SolutionPageNumber(): Int {
+
+            return pgNum1
+
+        }
+
     }
 }
 

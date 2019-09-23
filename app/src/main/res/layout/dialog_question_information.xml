@@ -49,10 +49,9 @@
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
             android:textSize="@dimen/extra_small_size"
-            android:layout_marginRight="@dimen/_15sdp"
             app:layout_constraintTop_toTopOf="@+id/dialog_queinfo_tvSubject"
-            app:layout_constraintRight_toRightOf="parent"
             android:maxLines="1"
+            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvQueHeader"
             android:text="Course Type"/>
 
     <TextView
@@ -94,11 +93,12 @@
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
             android:textSize="@dimen/extra_small_size"
-            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvCourseHeader"
             android:maxLines="1"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvCourse"
-            android:text="Total Question"/>
+            android:text="Total Questions"/>
 
     <TextView
             android:id="@+id/dialog_queinfo_tvQue"
@@ -121,7 +121,7 @@
             android:maxLines="1"
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvTotalMarks"
-            android:text="Teacher"/>
+            android:text="Tutor Name"/>
 
     <TextView
             android:id="@+id/dialog_queinfo_tvTeacherName"
