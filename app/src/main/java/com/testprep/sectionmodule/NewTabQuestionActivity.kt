@@ -112,6 +112,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         sectionList = ArrayList()
         finalArr = HashMap()
 
+        queTab_tvFillBlanks.setText("")
+
         filterTypeSelectionInteface = this
 
         context = this@NewTabQuestionActivity
@@ -835,6 +837,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     qtime = 0
 
                     ansArr = ArrayList()
+                    queTab_tvFillBlanks.setText("")
 
                     if (nextButton!!.text != "Submit Test") {
                         if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
@@ -847,6 +850,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     if (type != "continue" && type != "review") {
 
                         if (type == "activity" || type == "skip") {
+
+//                            DialogUtils.showDialog(this@NewTabQuestionActivity)
 
                             queTab_tvCurrTotal.text = que_number.toString()
 
@@ -980,6 +985,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     )
 
                                     ansArr = ArrayList()
+                                    queTab_tvFillBlanks.setText("")
 
                                     queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
 
@@ -1090,6 +1096,19 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         Toast.LENGTH_LONG
                     ).show()
                 }
+
+
+//                Handler().postDelayed(
+//                    /* Runnable
+//                         * Showing splash screen with a timer. This will be useful when you
+//                         * want to show case your app logo / company
+//                         */
+//
+//                    {
+//                        DialogUtils.dismissDialog()
+//                    }, 10000
+//                )
+
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -1161,9 +1180,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
         } else {
 
+            DialogUtils.showDialog(this@NewTabQuestionActivity)
+
             drawer_layout.closeDrawer(Gravity.RIGHT)
 
             continuetime = 0
+
+            ansArr = ArrayList()
 
             que_number = getPageNumber()
 
@@ -1273,7 +1296,17 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 )
             )
 
-//            timerResume()
+            Handler().postDelayed(
+                /* Runnable
+                     * Showing splash screen with a timer. This will be useful when you
+                     * want to show case your app logo / company
+                     */
+
+                {
+                    DialogUtils.dismissDialog()
+                }, 5000
+            )
+
         }
 
         if (itype == "activity") {
@@ -1289,6 +1322,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 curr_index += 1
             }
 
+            DialogUtils.showDialog(this@NewTabQuestionActivity)
+
             callSubmitAnswer(
                 itype,
                 movies[q_grppos1].TestQuestion[curr_index - 1].TestQuestionID,
@@ -1303,6 +1338,18 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     setNextSkipButtonText(2)
                 }
             }
+
+            Handler().postDelayed(
+                /* Runnable
+                     * Showing splash screen with a timer. This will be useful when you
+                     * want to show case your app logo / company
+                     */
+
+                {
+                    DialogUtils.dismissDialog()
+                }, 5000
+            )
+
 
         } else if (itype == "continue" || itype == "review") {
 
@@ -1375,6 +1422,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 curr_index += 1
             }
 
+            DialogUtils.showDialog(this@NewTabQuestionActivity)
+
             callSubmitAnswer(
                 itype,
                 movies[q_grppos1].TestQuestion[curr_index - 1].TestQuestionID,
@@ -1382,6 +1431,17 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 movies[q_grppos1].TestQuestion[curr_index - 1].QuestionTypeID,
                 "",
                 curr_index - 1, p0.toString()
+            )
+
+            Handler().postDelayed(
+                /* Runnable
+                     * Showing splash screen with a timer. This will be useful when you
+                     * want to show case your app logo / company
+                     */
+
+                {
+                    DialogUtils.dismissDialog()
+                }, 5000
             )
 
             if ((finalArr.size - 1) == q_grppos1) {
@@ -1435,6 +1495,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                             finalArr[sectionList!![q_grppos1]]!![i].type = 4
                             movies[q_grppos1].TestQuestion[curr_index].Review = "1"
 
+                            break
                         }
                     }
 //                    }
@@ -1657,6 +1718,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 }).show()
         }
     }
+
+    var dialog1: Dialog? = null
 
     fun nextButtonClick() {
 

@@ -67,7 +67,6 @@ class FilterAdapter(
 
         holder.mainll.setOnClickListener {
 
-
             str = ""
 
             if (selectionType == "single") {
@@ -83,6 +82,8 @@ class FilterAdapter(
 
                         filterInterface.filterData(filterType)
 
+//                        AppConstants.FILTER_STANDARD_ID = strID
+
                     }
                     "subject" -> {
                         strID = mModelList[position].SubjectID
@@ -97,6 +98,8 @@ class FilterAdapter(
                         str = mModelList[position].CourseName
 
                         filterInterface.filterData(filterType)
+
+//                        AppConstants.FILTER_BOARD_ID = strID
                     }
                 }
 
@@ -142,10 +145,10 @@ class FilterAdapter(
 //                    holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
 
                     when (filterType) {
-                        "exam" -> {
-                            AppConstants.FILTER_BOARD_ID =
-                                AppConstants.FILTER_BOARD_ID + "," + mModelList[position].CourseID
-                        }
+//                        "exam" -> {
+//                            AppConstants.FILTER_BOARD_ID =
+//                                AppConstants.FILTER_BOARD_ID + "," + mModelList[position].CourseID
+//                        }
                         "subject" -> {
                             AppConstants.FILTER_SUBJECT_ID =
                                 AppConstants.FILTER_SUBJECT_ID + "," + mModelList[position].SubjectID

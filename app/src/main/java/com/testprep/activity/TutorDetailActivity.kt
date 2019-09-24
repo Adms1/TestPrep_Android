@@ -320,23 +320,19 @@ class TutorDetailActivity : Fragment() {
 
         var filterCount = 0
 
-        if (AppConstants.FILTER_COURSE_TYPE_ID != "" && AppConstants.FILTER_COURSE_TYPE_ID != "111") {
+        if (AppConstants.FILTER_STANDARD_ID != "") {
             filterCount += 1
         }
 
-        if (AppConstants.FILTER_STANDARD_ID != "" && AppConstants.FILTER_STANDARD_ID != "111") {
+        if (AppConstants.FILTER_BOARD_ID != "") {
             filterCount += 1
         }
 
-        if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_BOARD_ID != "111") {
+        if (AppConstants.FILTER_SUBJECT_ID != "") {
             filterCount += 1
         }
 
-        if (AppConstants.FILTER_SUBJECT_ID != "" && AppConstants.FILTER_SUBJECT_ID != "111") {
-            filterCount += 1
-        }
-
-        if (AppConstants.FILTER_TUTOR_ID != "" && AppConstants.FILTER_TUTOR_ID != "111") {
+        if (AppConstants.FILTER_TUTOR_ID != "") {
             filterCount += 1
         }
 

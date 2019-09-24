@@ -42,12 +42,12 @@ class AppConstants {
         var FROM_RICE = "from_price"
         var TO_PRICE = "to_price"
 
-        var FILTER_COURSE_TYPE_ID = ""
-        var FILTER_COURSE_ID = ""
-        var FILTER_BOARD_ID = "111"
-        var FILTER_STANDARD_ID = "111"
-        var FILTER_SUBJECT_ID = "111"
-        var FILTER_TUTOR_ID = "111"
+        var FILTER_COURSE_TYPE_ID = "0"
+        var FILTER_COURSE_ID = "0"
+        var FILTER_BOARD_ID = "0"
+        var FILTER_STANDARD_ID = "0"
+        var FILTER_SUBJECT_ID = "0"
+        var FILTER_TUTOR_ID = "0"
         var FILTER_FROM_PRICE = "0"
         var FILTER_TO_PRICE = "5000"
 

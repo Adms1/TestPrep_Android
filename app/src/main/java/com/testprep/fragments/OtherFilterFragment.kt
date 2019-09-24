@@ -18,7 +18,6 @@ import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
-import com.testprep.utils.WebRequests
 import kotlinx.android.synthetic.main.fragment_other_filter.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,7 +47,6 @@ class OtherFilterFragment : Fragment(), filterInterface {
     var tutorids = ""
     var subids = ""
     var stdids = ""
-    var examids = ""
     var max = ""
     var min = ""
 
@@ -70,28 +68,32 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         filterData_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
-        examids = if (AppConstants.FILTER_BOARD_ID == "111") {
-            Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
+        if (AppConstants.FILTER_BOARD_ID == "0") {
+//           examids = Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
+            AppConstants.FILTER_BOARD_ID = Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
         } else {
-            AppConstants.FILTER_BOARD_ID
+//           examids = AppConstants.FILTER_BOARD_ID
         }
 
-        stdids = if (AppConstants.FILTER_STANDARD_ID == "111") {
-            Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
+        if (AppConstants.FILTER_STANDARD_ID == "0") {
+            stdids = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
+//            AppConstants.FILTER_STANDARD_ID = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
         } else {
-            AppConstants.FILTER_STANDARD_ID
+            stdids = AppConstants.FILTER_STANDARD_ID
         }
 
-        subids = if (AppConstants.FILTER_SUBJECT_ID == "111") {
-            Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
+        if (AppConstants.FILTER_SUBJECT_ID == "0") {
+            subids = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
+            AppConstants.FILTER_SUBJECT_ID = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
         } else {
-            AppConstants.FILTER_SUBJECT_ID
+            subids = AppConstants.FILTER_SUBJECT_ID
         }
 
-        tutorids = if (AppConstants.FILTER_TUTOR_ID == "111") {
-            Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
+        if (AppConstants.FILTER_TUTOR_ID == "0") {
+            tutorids = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
+            AppConstants.FILTER_TUTOR_ID = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
         } else {
-            AppConstants.FILTER_TUTOR_ID
+            tutorids = AppConstants.FILTER_TUTOR_ID
         }
 
         // set listener
@@ -131,7 +133,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
             Log.d("min_price", "" + Utils.getStringValue(activity!!, AppConstants.MIN_PRICE, "0"))
             Log.d("max_price", "" + Utils.getStringValue(activity!!, AppConstants.MAX_PRICE, "0"))
 
-            if(AppConstants.FILTER_COURSE_TYPE_ID == "1"){
+            if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
 
                 if (stdids != "") {
                     AppConstants.FILTER_STANDARD_ID = stdids
@@ -152,11 +154,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 AppConstants.FILTER_TUTOR_ID = ""
             }
 
-            if (examids != "") {
-                AppConstants.FILTER_BOARD_ID = examids
-            } else {
-                AppConstants.FILTER_BOARD_ID = ""
-            }
+//            if (examids != "") {
+//                AppConstants.FILTER_BOARD_ID = examids
+//            } else {
+//                AppConstants.FILTER_BOARD_ID = ""
+//            }
 
             AppConstants.isFirst = 13
 
@@ -262,7 +264,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getStandardList()
+        val call = apiService.getBoardStandardList(AppConstants.FILTER_BOARD_ID)
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
@@ -274,20 +276,13 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                         filterArray = response.body()!!.data
 
-                        if (AppConstants.FILTER_STANDARD_ID == "111") {
-//                        }else{
-                            AppConstants.FILTER_STANDARD_ID =
-                                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
-//                            stdids = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
-                        }
-
-                        val strArray = AppConstants.FILTER_STANDARD_ID
-
                         for (i in 0 until filterArray.size) {
-                            if (filterArray[i].StandardID == strArray) {
+                            if (filterArray[i].StandardID == AppConstants.FILTER_STANDARD_ID) {
                                 filterArray[i].isSelected = true
                             }
                         }
+
+//                        AppConstants.FILTER_STANDARD_ID = "0"
 
                         recyclerviewAdapter =
                             FilterAdapter(activity!!, filterArray, "single", "standard", filterInterface!!)
@@ -320,7 +315,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getSubjectList()
+        val call = apiService.getBoardStandardSubjectList(AppConstants.FILTER_BOARD_ID, AppConstants.FILTER_STANDARD_ID)
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
@@ -332,7 +327,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                         filterArray = response.body()!!.data
 
-                        if (AppConstants.FILTER_SUBJECT_ID == "111") {
+                        if (AppConstants.FILTER_SUBJECT_ID == "") {
 //                        }else{
                             AppConstants.FILTER_SUBJECT_ID =
                                 Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
@@ -348,6 +343,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
                             }
                         }
 
+//                        AppConstants.FILTER_SUBJECT_ID = "0"
+
                         recyclerviewAdapter =
                             FilterAdapter(activity!!, filterArray, "multiple", "subject", filterInterface!!)
                         filterData_rvList.adapter = recyclerviewAdapter
@@ -356,6 +353,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                     } else {
 
+                        AppConstants.FILTER_SUBJECT_ID = ""
                         Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -394,19 +392,14 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                         filterArray = response.body()!!.data
 
-                        if (AppConstants.FILTER_BOARD_ID == "111") {
-//                        }else{
+                        if (AppConstants.FILTER_BOARD_ID == "") {
                             AppConstants.FILTER_BOARD_ID =
                                 Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
                         }
 
-                        val strArray = AppConstants.FILTER_BOARD_ID.replace(" ", "").split(",")
-
                         for (i in 0 until filterArray.size) {
-                            for (j in 0 until strArray.size) {
-                                if (strArray[j] == filterArray[i].CourseID) {
-                                    filterArray[i].isSelected = true
-                                }
+                            if (filterArray[i].CourseID == AppConstants.FILTER_BOARD_ID) {
+                                filterArray[i].isSelected = true
                             }
                         }
 
@@ -492,9 +485,6 @@ class OtherFilterFragment : Fragment(), filterInterface {
         when (filterType) {
             "standard" -> {
 
-                var str = ""
-                stdids = ""
-
                 val finalFilerArray = recyclerviewAdapter!!.sendStandard()
 
 //                for (i in 0 until finalFilerArray.size) {
@@ -514,7 +504,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 }
 
                 AppConstants.FILTER_STANDARD_ID = stdids
-                Log.d("stdid", "" + stdids)
+//                Log.d("stdid", "" + stdids)
 
             }
             "subject" -> {
@@ -565,13 +555,10 @@ class OtherFilterFragment : Fragment(), filterInterface {
             }
             "exam" -> {
 
-                var str = ""
-                examids = ""
-
                 val finalFilerArray = recyclerviewAdapter!!.sendStandard()
 
                 if (finalFilerArray != "") {
-                    examids = finalFilerArray
+                    AppConstants.FILTER_BOARD_ID = finalFilerArray
                 }
 
 //                for (i in 0 until finalFilerArray.size) {
@@ -586,91 +573,90 @@ class OtherFilterFragment : Fragment(), filterInterface {
 //                    examids = examids.substring(0, examids.length - 1)
 //                }
 
-                AppConstants.FILTER_BOARD_ID = examids
-                Log.d("examids", "" + examids)
+//                Log.d("examids", "" + examids)
             }
         }
     }
 
-    fun callFilterListApi() {
-
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
-        }
-
-        DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
+//    fun callFilterListApi() {
+//
+//        if (!DialogUtils.isNetworkConnected(activity!!)) {
+//            Utils.ping(activity!!, "Connetion not available")
+//        }
+//
+//        DialogUtils.showDialog(activity!!)
+//        val apiService = WebClient.getClient().create(WebInterface::class.java)
+//
+////        val call = apiService.getFilterData(
+////            WebRequests.getFilterParams(
+////                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
+////                "",
+////                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
+////                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
+////                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!,
+////                Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!,
+////                "",
+////                ""
+////            )
+////        )
+//
 //        val call = apiService.getFilterData(
 //            WebRequests.getFilterParams(
 //                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
 //                "",
-//                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
-//                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
-//                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!,
-//                Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!,
+//                examids,
+//                stdids,
+//                subids,
+//                tutorids,
 //                "",
-//                ""
+//                "",
+//                "", ""
 //            )
+////            WebRequests.getFilterParams(
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                "",
+////                ""
+////            )
 //        )
-
-        val call = apiService.getFilterData(
-            WebRequests.getFilterParams(
-                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
-                "",
-                examids,
-                stdids,
-                subids,
-                tutorids,
-                "",
-                "",
-                "", ""
-            )
-//            WebRequests.getFilterParams(
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                "",
-//                ""
-//            )
-        )
-
-        call.enqueue(object : Callback<PackageData> {
-            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
-
-                if (response.body() != null) {
-
-                    DialogUtils.dismissDialog()
-
-                    if (response.body()!!.Status == "true") {
-
-                        mDataList = response.body()!!.data
-
-//                        val intent = Intent(context, TutorDetailActivity::class.java)
-//                        intent.putExtra("type", "pkg")
-//                        intent.putExtra("pname", "Packages")
-//                        intent.putExtra("parr", mDataList)
-//                        activity!!.setResult(101, intent)
-//                        activity!!.finish()
-
-
-                    } else {
-
-                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<PackageData>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
-    }
+//
+//        call.enqueue(object : Callback<PackageData> {
+//            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
+//
+//                if (response.body() != null) {
+//
+//                    DialogUtils.dismissDialog()
+//
+//                    if (response.body()!!.Status == "true") {
+//
+//                        mDataList = response.body()!!.data
+//
+////                        val intent = Intent(context, TutorDetailActivity::class.java)
+////                        intent.putExtra("type", "pkg")
+////                        intent.putExtra("pname", "Packages")
+////                        intent.putExtra("parr", mDataList)
+////                        activity!!.setResult(101, intent)
+////                        activity!!.finish()
+//
+//
+//                    } else {
+//
+//                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<PackageData>, t: Throwable) {
+//                // Log error here since request failed
+//                Log.e("", t.toString())
+//                DialogUtils.dismissDialog()
+//            }
+//        })
+//    }
 
 }

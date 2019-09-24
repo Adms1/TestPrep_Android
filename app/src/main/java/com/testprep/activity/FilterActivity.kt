@@ -11,7 +11,6 @@ import com.testprep.fragments.OtherFilterFragment
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.PackageData
 import com.testprep.utils.AppConstants
-import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.activity_filter.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -81,10 +80,10 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                 filterTypeArr = ArrayList()
 
-                AppConstants.FILTER_STANDARD_ID = "111"
-                AppConstants.FILTER_SUBJECT_ID = "111"
-                AppConstants.FILTER_TUTOR_ID = "111"
-                AppConstants.FILTER_BOARD_ID = "111"
+//                AppConstants.FILTER_STANDARD_ID = Utils.getStringValue(this@FilterActivity, AppConstants.STANDARD_ID, "")!!
+//                AppConstants.FILTER_SUBJECT_ID = Utils.getStringValue(this@FilterActivity, AppConstants.SUBJECT_ID, "")!!
+//                AppConstants.FILTER_TUTOR_ID = "111"
+//                AppConstants.FILTER_BOARD_ID = Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_ID, "")!!
 
                 AppConstants.FILTER_COURSE_TYPE_ID = "1"
                 coursetypeid = "1"
@@ -111,7 +110,6 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 pp5.isSelected = false
                 filterTypeArr.add(pp5)
 
-
                 filterAdapter = FilterListAdapter(this@FilterActivity, filterTypeArr, filterTypeSelectionInteface!!)
                 filter_rvList.adapter = filterAdapter
                 filterAdapter!!.notifyDataSetChanged()
@@ -127,10 +125,10 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                 filterTypeArr = ArrayList()
 
-                AppConstants.FILTER_STANDARD_ID = "111"
-                AppConstants.FILTER_SUBJECT_ID = "111"
-                AppConstants.FILTER_TUTOR_ID = "111"
-                AppConstants.FILTER_BOARD_ID = "111"
+//                AppConstants.FILTER_STANDARD_ID = "111"
+//                AppConstants.FILTER_SUBJECT_ID = "111"
+//                AppConstants.FILTER_TUTOR_ID = "111"
+//                AppConstants.FILTER_BOARD_ID = Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_ID, "")!!
 
                 AppConstants.FILTER_COURSE_TYPE_ID = "2"
                 coursetypeid = "2"
@@ -176,6 +174,11 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
     }
 
     override fun getType(itype: String, p0: Int, p1: Int) {
+
+//        AppConstants.FILTER_STANDARD_ID = Utils.getStringValue(this@FilterActivity, AppConstants.STANDARD_ID, "")!!
+//        AppConstants.FILTER_SUBJECT_ID = Utils.getStringValue(this@FilterActivity, AppConstants.SUBJECT_ID, "")!!
+//        AppConstants.FILTER_TUTOR_ID = "111"
+//        AppConstants.FILTER_BOARD_ID = Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_ID, "")!!
 
         var fragment = OtherFilterFragment()
         val bundle = Bundle()
