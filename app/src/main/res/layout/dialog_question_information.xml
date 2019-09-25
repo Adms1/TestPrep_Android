@@ -36,11 +36,13 @@
             android:id="@+id/dialog_queinfo_tvSubjectName"
             app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvSubject"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="@dimen/_14sdp"
-            android:layout_width="wrap_content"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:maxLines="2"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintRight_toLeftOf="@+id/dialog_queinfo_tvCourse"
             android:textSize="@dimen/_13sdp"/>
 
     <TextView
@@ -51,17 +53,19 @@
             android:textSize="@dimen/extra_small_size"
             app:layout_constraintTop_toTopOf="@+id/dialog_queinfo_tvSubject"
             android:maxLines="1"
-            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvQueHeader"
+            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvCourse"
             android:text="Course Type"/>
 
     <TextView
             android:id="@+id/dialog_queinfo_tvCourse"
             app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvCourseHeader"
-            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvCourseHeader"
-            android:layout_width="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:maxLines="1"
+            app:layout_constraintLeft_toRightOf="@+id/dialog_queinfo_tvSubjectName"
+            android:layout_marginRight="@dimen/_15sdp"
             android:textSize="@dimen/_13sdp"/>
 
     <TextView
@@ -94,7 +98,7 @@
             android:textColor="@color/light_gray"
             android:textSize="@dimen/extra_small_size"
             android:maxLines="1"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvCourse"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginRight="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvCourse"
@@ -103,7 +107,7 @@
     <TextView
             android:id="@+id/dialog_queinfo_tvQue"
             app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvQueHeader"
-            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvQueHeader"
+            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvCourse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -116,10 +120,13 @@
             android:layout_height="wrap_content"
             android:textColor="@color/light_gray"
             android:textSize="@dimen/extra_small_size"
-            app:layout_constraintRight_toRightOf="@+id/dialog_queinfo_tvQueHeader"
-            app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvTotalMarksHeader"
             android:maxLines="1"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:gravity="left"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvTotalMarks"
             android:text="Tutor Name"/>
 
@@ -132,6 +139,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:maxLines="1"
+            android:gravity="left"
             android:textSize="@dimen/_13sdp"/>
 
     <View

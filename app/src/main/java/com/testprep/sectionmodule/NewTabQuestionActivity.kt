@@ -433,7 +433,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                     {
                         DialogUtils.dismissDialog()
-                    }, 1500
+                    }, 1000
                 )
                 Log.d("imgcall", "Number of movies received: " + movies.size)
 
@@ -829,6 +829,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 qtime.toString(), reviewid
             )
         )
+
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
@@ -837,15 +838,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     qtime = 0
 
                     ansArr = ArrayList()
-                    queTab_tvFillBlanks.setText("")
-
-                    if (nextButton!!.text != "Submit Test") {
-                        if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
-                            setNextSkipButtonText(1)
-                        } else {
-                            setNextSkipButtonText(0)
-                        }
-                    }
 
                     if (type != "continue" && type != "review") {
 
@@ -985,7 +977,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     )
 
                                     ansArr = ArrayList()
-                                    queTab_tvFillBlanks.setText("")
+//                                    queTab_tvFillBlanks.setText("")
 
                                     queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
 
@@ -1086,6 +1078,33 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //
 //                            }).show()
 //                        }
+                    } else {
+
+                        if (reviewid != "0") {
+
+
+                            queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
+                            queTab_ivReview.isChecked = true
+
+                        } else {
+
+                            queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
+                            queTab_ivReview.isChecked = false
+
+                        }
+
+//                        if (nextButton!!.text != "Submit Test") {
+//                            if (answerr != "") {
+//
+//                                nextButton!!.setText("Next")
+//
+//                            } else {
+//
+//                                nextButton!!.setText("Skip")
+//
+//                            }
+//                        }
+
                     }
 
                 } else {
@@ -1138,7 +1157,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                             movies[q_grppos1].TestQuestion[curr_index].Answer
                         }
                     }
-
                 }
 
                 7 -> {
@@ -1173,6 +1191,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                             answer = "0"
                         } else if (queTab_rbTrue.isChecked) {
                             answer = "1"
+                        } else {
+                            answer = ""
                         }
                     }
 
@@ -1296,16 +1316,16 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 )
             )
 
-            Handler().postDelayed(
-                /* Runnable
-                     * Showing splash screen with a timer. This will be useful when you
-                     * want to show case your app logo / company
-                     */
-
-                {
-                    DialogUtils.dismissDialog()
-                }, 5000
-            )
+//            Handler().postDelayed(
+//                /* Runnable
+//                     * Showing splash screen with a timer. This will be useful when you
+//                     * want to show case your app logo / company
+//                     */
+//
+//                {
+//                    DialogUtils.dismissDialog()
+//                }, 5000
+//            )
 
         }
 
@@ -1314,9 +1334,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             Log.d("current_index_next", "" + curr_index)
 
             movies[q_grppos1].TestQuestion[curr_index].Answer = answer
-
-//            queTab_rbTrue.isChecked = false
-//            queTab_rbFalse.isChecked = false
 
             if (curr_index <= finalArr[sectionList!![q_grppos1]]!!.size - 1) {
                 curr_index += 1
@@ -1333,42 +1350,29 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 curr_index - 1, p0.toString()
             )
 
+
+
             if ((finalArr.size - 1) == q_grppos1) {
                 if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
                     setNextSkipButtonText(2)
                 }
             }
 
-            Handler().postDelayed(
-                /* Runnable
-                     * Showing splash screen with a timer. This will be useful when you
-                     * want to show case your app logo / company
-                     */
-
-                {
-                    DialogUtils.dismissDialog()
-                }, 5000
-            )
+//            Handler().postDelayed(
+//                /* Runnable
+//                     * Showing splash screen with a timer. This will be useful when you
+//                     * want to show case your app logo / company
+//                     */
+//
+//                {
+//                    DialogUtils.dismissDialog()
+//                }, 2500
+//            )
 
 
         } else if (itype == "continue" || itype == "review") {
 
             queTab_tvCurrTotal.text = que_number.toString()
-
-//            val json = JSONObject()
-//            json.put("StudentTestID", studenttestid)
-//            json.put("TestQuestionID", movies[q_grppos1].TestQuestion[curr_index].TestQuestionID)
-//            json.put("QuestionID", movies[q_grppos1].TestQuestion[curr_index].QuestionID)
-//            json.put("QuestionTypeID", movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID)
-//            json.put("Answer", answer)
-//            json.put("UseTime", qtime)
-
-//            callEvery10 {
-//                if (it == null) {
-//                    println("connection error")
-//                }
-//                println(it)
-//            }.execute("POST", AppConstants.BASE_URL + "Insert_Test_Answer ", json.toString())
 
             Log.d("current_index_next", "" + curr_index)
 
@@ -1415,9 +1419,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             Log.d("current_index_next", "" + curr_index)
 
-//            queTab_rbTrue.isChecked = false
-//            queTab_rbFalse.isChecked = false
-
             if (curr_index <= finalArr[sectionList!![q_grppos1]]!!.size - 1) {
                 curr_index += 1
             }
@@ -1433,16 +1434,16 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 curr_index - 1, p0.toString()
             )
 
-            Handler().postDelayed(
-                /* Runnable
-                     * Showing splash screen with a timer. This will be useful when you
-                     * want to show case your app logo / company
-                     */
-
-                {
-                    DialogUtils.dismissDialog()
-                }, 5000
-            )
+//            Handler().postDelayed(
+//                /* Runnable
+//                     * Showing splash screen with a timer. This will be useful when you
+//                     * want to show case your app logo / company
+//                     */
+//
+//                {
+//                    DialogUtils.dismissDialog()
+//                }, 2500
+//            )
 
             if ((finalArr.size - 1) == q_grppos1) {
                 if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
@@ -1476,56 +1477,57 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
     }
 
-
     fun clicks() {
 
         queTab_ivReview.setOnCheckedChangeListener { buttonView, isChecked ->
 
-            if (finalArr.size > 0 && movies.size > 0) {
-                if (isChecked) {
+            if (queTab_ivReview.isPressed) {
+                if (finalArr.size > 0 && movies.size > 0) {
+                    if (isChecked) {
 
-                    Log.d("isreview3", "" + 1)
+                        Log.d("isreview3", "" + 1)
 
-                    queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
+                        queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
 
 //                    if (finalArr.size > 0) {
-                    for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
-                        if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
+                        for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                            if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
 
-                            finalArr[sectionList!![q_grppos1]]!![i].type = 4
-                            movies[q_grppos1].TestQuestion[curr_index].Review = "1"
+                                finalArr[sectionList!![q_grppos1]]!![i].type = 4
+                                movies[q_grppos1].TestQuestion[curr_index].Review = "1"
 
-                            break
+                                break
+                            }
                         }
-                    }
 //                    }
 
-                    Log.d("itype", "review true")
+                        Log.d("itype", "review true")
 
-                    getType("review", 1, curr_index)
+                        getType("review", 1, curr_index)
 
-                } else {
+                    } else {
 
-                    Log.d("isreview4", "" + 0)
+                        Log.d("isreview4", "" + 0)
 
-                    queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
+                        queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
 
-                    for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
-                        if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
-                            if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
-                                finalArr[sectionList!![q_grppos1]]!![curr_index].type = 2
-                            } else {
-                                finalArr[sectionList!![q_grppos1]]!![curr_index].type = 3
+                        for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                            if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
+                                if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
+                                    finalArr[sectionList!![q_grppos1]]!![curr_index].type = 2
+                                } else {
+                                    finalArr[sectionList!![q_grppos1]]!![curr_index].type = 3
+                                }
+
+                                movies[q_grppos1].TestQuestion[curr_index].Review = "0"
                             }
-
-                            movies[q_grppos1].TestQuestion[curr_index].Review = "0"
                         }
+
+                        Log.d("itype", "review false")
+
+                        getType("review", 0, curr_index)
+
                     }
-
-                    Log.d("itype", "review false")
-
-                    getType("review", 0, curr_index)
-
                 }
             }
         }

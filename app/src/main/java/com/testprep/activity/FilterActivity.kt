@@ -11,6 +11,7 @@ import com.testprep.fragments.OtherFilterFragment
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.PackageData
 import com.testprep.utils.AppConstants
+import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.activity_filter.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -37,7 +38,14 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         filter_rvList.layoutManager = LinearLayoutManager(this@FilterActivity, LinearLayoutManager.VERTICAL, false)
 
+        if (AppConstants.FILTER_COURSE_TYPE_ID == "0" || AppConstants.FILTER_COURSE_TYPE_ID == "") {
+            AppConstants.FILTER_COURSE_TYPE_ID =
+                Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, "")!!
+        }
+
         if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
+
+            AppConstants.FILTER_COURSE_TYPE_ID = "1"
             filter_rbBoards.isChecked = true
 
             val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Boards")
@@ -54,6 +62,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         } else {
             filter_rbCompetitive.isChecked = true
+            AppConstants.FILTER_COURSE_TYPE_ID = "2"
 
             val pp1: PackageData.PackageDataList = PackageData.PackageDataList(0, "Course")
             pp1.isSelected = false

@@ -18,6 +18,7 @@ import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
 import com.testprep.utils.DialogUtils
 import com.testprep.utils.Utils
+import com.testprep.utils.WebRequests
 import kotlinx.android.synthetic.main.fragment_other_filter.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -76,11 +77,14 @@ class OtherFilterFragment : Fragment(), filterInterface {
         }
 
         if (AppConstants.FILTER_STANDARD_ID == "0") {
-            stdids = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
-//            AppConstants.FILTER_STANDARD_ID = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
-        } else {
-            stdids = AppConstants.FILTER_STANDARD_ID
+//            stdids = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
+            AppConstants.FILTER_STANDARD_ID = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
         }
+//        else if (AppConstants.FILTER_STANDARD_ID == ""){
+//            stdids = ""
+//        }else{
+//            stdids = AppConstants.FILTER_STANDARD_ID
+//        }
 
         if (AppConstants.FILTER_SUBJECT_ID == "0") {
             subids = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
@@ -138,7 +142,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 if (stdids != "") {
                     AppConstants.FILTER_STANDARD_ID = stdids
                 } else {
-                    AppConstants.FILTER_STANDARD_ID = ""
+                    if (AppConstants.FILTER_STANDARD_ID == "") {
+                        AppConstants.FILTER_STANDARD_ID = ""
+                    } else {
+                        AppConstants.FILTER_STANDARD_ID = AppConstants.FILTER_STANDARD_ID
+                    }
                 }
 
                 if (subids != "") {
@@ -165,19 +173,49 @@ class OtherFilterFragment : Fragment(), filterInterface {
             AppConstants.FILTER_FROM_PRICE = min
             AppConstants.FILTER_TO_PRICE = max
 
-            val bundle = Bundle()
-            bundle.putString("type", "filter")
-            bundle.putString("pname1", "Packages")
-            bundle.putString("course_type", AppConstants.FILTER_COURSE_TYPE_ID)
-            bundle.putString("boardid", AppConstants.FILTER_BOARD_ID)
-            bundle.putString("stdid", AppConstants.FILTER_STANDARD_ID)
-            bundle.putString("subid", AppConstants.FILTER_SUBJECT_ID)
-            bundle.putString("tutorid", AppConstants.FILTER_TUTOR_ID)
-            bundle.putString("search_name", "")
-            bundle.putString("maxprice", max)
-            bundle.putString("minprice", min)
-            setFragments(bundle)
-            activity!!.finish()
+            if (AppConstants.FILTER_BOARD_ID != "") {
+                if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
+
+                    if (AppConstants.FILTER_STANDARD_ID != "") {
+
+                        val bundle = Bundle()
+                        bundle.putString("type", "filter")
+                        bundle.putString("pname1", "Packages")
+                        bundle.putString("course_type", AppConstants.FILTER_COURSE_TYPE_ID)
+                        bundle.putString("boardid", AppConstants.FILTER_BOARD_ID)
+                        bundle.putString("stdid", AppConstants.FILTER_STANDARD_ID)
+                        bundle.putString("subid", AppConstants.FILTER_SUBJECT_ID)
+                        bundle.putString("tutorid", AppConstants.FILTER_TUTOR_ID)
+                        bundle.putString("search_name", "")
+                        bundle.putString("maxprice", max)
+                        bundle.putString("minprice", min)
+                        setFragments(bundle)
+                        activity!!.finish()
+
+                    } else {
+                        Toast.makeText(activity, "Please Select Standard", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+
+                    val bundle = Bundle()
+                    bundle.putString("type", "filter")
+                    bundle.putString("pname1", "Packages")
+                    bundle.putString("course_type", AppConstants.FILTER_COURSE_TYPE_ID)
+                    bundle.putString("boardid", AppConstants.FILTER_BOARD_ID)
+                    bundle.putString("stdid", AppConstants.FILTER_STANDARD_ID)
+                    bundle.putString("subid", AppConstants.FILTER_SUBJECT_ID)
+                    bundle.putString("tutorid", AppConstants.FILTER_TUTOR_ID)
+                    bundle.putString("search_name", "")
+                    bundle.putString("maxprice", max)
+                    bundle.putString("minprice", min)
+                    setFragments(bundle)
+                    activity!!.finish()
+
+                }
+
+            } else {
+                Toast.makeText(activity, "Please Select Board/Course", Toast.LENGTH_SHORT).show()
+            }
 
 //            val intent = Intent(context, TutorDetailActivity::class.java)
 //            intent.putExtra("type", "filter")
@@ -279,10 +317,15 @@ class OtherFilterFragment : Fragment(), filterInterface {
                         for (i in 0 until filterArray.size) {
                             if (filterArray[i].StandardID == AppConstants.FILTER_STANDARD_ID) {
                                 filterArray[i].isSelected = true
+                                AppConstants.FILTER_STANDARD_ID = filterArray[i].StandardID
+
+                                break
+                            } else {
+                                AppConstants.FILTER_STANDARD_ID = ""
                             }
                         }
 
-//                        AppConstants.FILTER_STANDARD_ID = "0"
+//                        AppConstants.FILTER_STANDARD_ID = ""
 
                         recyclerviewAdapter =
                             FilterAdapter(activity!!, filterArray, "single", "standard", filterInterface!!)
@@ -433,7 +476,31 @@ class OtherFilterFragment : Fragment(), filterInterface {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getTutorList()
+        var fil_courseid = ""
+        var fil_boardid = ""
+
+        if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
+
+            fil_courseid = ""
+            fil_boardid = AppConstants.FILTER_BOARD_ID
+
+        } else {
+
+            fil_courseid = AppConstants.FILTER_BOARD_ID
+            fil_boardid = ""
+
+        }
+
+        val call = apiService.getTutorFilterName(
+            WebRequests.getTutorFiltername(
+                AppConstants.FILTER_COURSE_TYPE_ID,
+                fil_boardid,
+                fil_courseid,
+                AppConstants.FILTER_STANDARD_ID,
+                AppConstants.FILTER_SUBJECT_ID
+
+            )
+        )
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
@@ -560,6 +627,9 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 if (finalFilerArray != "") {
                     AppConstants.FILTER_BOARD_ID = finalFilerArray
                 }
+
+                AppConstants.FILTER_STANDARD_ID = ""
+                AppConstants.FILTER_SUBJECT_ID = ""
 
 //                for (i in 0 until finalFilerArray.size) {
 //                    if (finalFilerArray[i].isSelected) {

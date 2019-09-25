@@ -97,6 +97,10 @@ interface WebInterface {
     fun getTutorProfile(@Field("TutorID") stuid: String): Call<TutorModel>
 
     @FormUrlEncoded
+    @POST("Get_TutorNameBy_Criteria")
+    fun getTutorFilterName(@FieldMap map: HashMap<String, String>): Call<PackageData>
+
+    @FormUrlEncoded
     @POST("Get_TestPackageName_By_TutorID")
     fun getTutorSimilarPkgs(@Field("TutorID") stuid: String): Call<PackageData>
 

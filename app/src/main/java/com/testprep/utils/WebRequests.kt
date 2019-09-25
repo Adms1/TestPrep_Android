@@ -61,6 +61,26 @@ class WebRequests {
             return map
         }
 
+        fun getTutorFiltername(
+            coursetype: String,
+            boardid: String,
+            courseid: String,
+            stdid: String,
+            subjectid: String
+        ): HashMap<String, String> {
+
+            val map = HashMap<String, String>()
+
+            map["CourseTypeID"] = coursetype
+            map["BoardID"] = boardid
+            map["CourseID"] = courseid
+            map["StandardID"] = stdid
+            map["SubjectID"] = subjectid
+
+            return map
+
+        }
+
         fun getPackageParams(
             coursetype: String,
             boardid: String,
