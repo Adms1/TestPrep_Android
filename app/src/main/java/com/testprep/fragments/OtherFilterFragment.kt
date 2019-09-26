@@ -137,30 +137,26 @@ class OtherFilterFragment : Fragment(), filterInterface {
             Log.d("min_price", "" + Utils.getStringValue(activity!!, AppConstants.MIN_PRICE, "0"))
             Log.d("max_price", "" + Utils.getStringValue(activity!!, AppConstants.MAX_PRICE, "0"))
 
-            if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
-
-                if (stdids != "") {
-                    AppConstants.FILTER_STANDARD_ID = stdids
-                } else {
-                    if (AppConstants.FILTER_STANDARD_ID == "") {
-                        AppConstants.FILTER_STANDARD_ID = ""
-                    } else {
-                        AppConstants.FILTER_STANDARD_ID = AppConstants.FILTER_STANDARD_ID
-                    }
-                }
-
-                if (subids != "") {
-                    AppConstants.FILTER_SUBJECT_ID = subids
-                } else {
-                    AppConstants.FILTER_SUBJECT_ID = ""
-                }
-            }
-
-            if (tutorids != "") {
-                AppConstants.FILTER_TUTOR_ID = tutorids
-            } else {
-                AppConstants.FILTER_TUTOR_ID = ""
-            }
+//            if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
+//
+//                if (stdids != "") {
+//                    AppConstants.FILTER_STANDARD_ID = stdids
+//                } else {
+//                    AppConstants.FILTER_STANDARD_ID = ""
+//                }
+//
+//                if (subids != "") {
+//                    AppConstants.FILTER_SUBJECT_ID = subids
+//                } else {
+//                    AppConstants.FILTER_SUBJECT_ID = ""
+//                }
+//            }
+//
+//            if (tutorids != "") {
+//                AppConstants.FILTER_TUTOR_ID = tutorids
+//            } else {
+//                AppConstants.FILTER_TUTOR_ID = ""
+//            }
 
 //            if (examids != "") {
 //                AppConstants.FILTER_BOARD_ID = examids
@@ -174,9 +170,13 @@ class OtherFilterFragment : Fragment(), filterInterface {
             AppConstants.FILTER_TO_PRICE = max
 
             if (AppConstants.FILTER_BOARD_ID != "") {
+
                 if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
 
                     if (AppConstants.FILTER_STANDARD_ID != "") {
+
+
+
 
                         val bundle = Bundle()
                         bundle.putString("type", "filter")
@@ -317,11 +317,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                         for (i in 0 until filterArray.size) {
                             if (filterArray[i].StandardID == AppConstants.FILTER_STANDARD_ID) {
                                 filterArray[i].isSelected = true
-                                AppConstants.FILTER_STANDARD_ID = filterArray[i].StandardID
 
-                                break
-                            } else {
-                                AppConstants.FILTER_STANDARD_ID = ""
                             }
                         }
 
@@ -370,11 +366,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                         filterArray = response.body()!!.data
 
-                        if (AppConstants.FILTER_SUBJECT_ID == "") {
-//                        }else{
-                            AppConstants.FILTER_SUBJECT_ID =
-                                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
-                        }
+//                        if (AppConstants.FILTER_SUBJECT_ID == "") {
+////                        }else{
+//                            AppConstants.FILTER_SUBJECT_ID =
+//                                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
+//                        }
 
                         val strArray = AppConstants.FILTER_SUBJECT_ID.replace(" ", "").split(",")
 
@@ -435,10 +431,10 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                         filterArray = response.body()!!.data
 
-                        if (AppConstants.FILTER_BOARD_ID == "") {
-                            AppConstants.FILTER_BOARD_ID =
-                                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
-                        }
+//                        if (AppConstants.FILTER_BOARD_ID == "") {
+//                            AppConstants.FILTER_BOARD_ID =
+//                                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
+//                        }
 
                         for (i in 0 until filterArray.size) {
                             if (filterArray[i].CourseID == AppConstants.FILTER_BOARD_ID) {
@@ -512,10 +508,10 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                         filterArray = response.body()!!.data
 
-                        if (AppConstants.FILTER_TUTOR_ID == "111") {
+//                        if (AppConstants.FILTER_TUTOR_ID == "111") {
 ////                        }else{
-                            AppConstants.FILTER_TUTOR_ID = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
-                        }
+//                            AppConstants.FILTER_TUTOR_ID = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
+//                        }
 
                         val strArray = AppConstants.FILTER_TUTOR_ID.replace(" ", "").split(",")
 
@@ -571,6 +567,9 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 }
 
                 AppConstants.FILTER_STANDARD_ID = stdids
+
+                AppConstants.FILTER_SUBJECT_ID = ""
+                AppConstants.FILTER_TUTOR_ID = ""
 //                Log.d("stdid", "" + stdids)
 
             }
@@ -594,6 +593,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 }
 
                 AppConstants.FILTER_SUBJECT_ID = subids
+                AppConstants.FILTER_TUTOR_ID = ""
                 Log.d("subids", "" + subids)
 
             }

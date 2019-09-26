@@ -32,7 +32,7 @@
 //import com.testprep.interfaces.FilterTypeSelectionInteface
 //import com.testprep.models.AnswerModel
 //import com.testprep.models.QuestionTypeModel
-//import com.testprep.old.adapter.SelectImageOptionAdapter
+//import com.testprep.adapter.SelectImageOptionAdapter
 //import com.testprep.old.models.QuestionResponse
 //import com.testprep.retrofit.WebClient
 //import com.testprep.retrofit.WebInterface

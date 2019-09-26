@@ -95,6 +95,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 //                AppConstants.FILTER_BOARD_ID = Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_ID, "")!!
 
                 AppConstants.FILTER_COURSE_TYPE_ID = "1"
+                AppConstants.FILTER_BOARD_ID = ""
                 coursetypeid = "1"
 
 //                Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)
@@ -140,6 +141,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 //                AppConstants.FILTER_BOARD_ID = Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_ID, "")!!
 
                 AppConstants.FILTER_COURSE_TYPE_ID = "2"
+                AppConstants.FILTER_BOARD_ID = ""
                 coursetypeid = "2"
 
 //                Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)

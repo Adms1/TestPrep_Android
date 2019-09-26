@@ -20,7 +20,7 @@
 //import com.testprep.R
 //import com.testprep.old.PageActivity
 //import com.testprep.old.PageViewFragment
-//import com.testprep.old.adapter.SelectImageOptionAdapter
+//import com.testprep.adapter.SelectImageOptionAdapter
 //import com.testprep.old.models.QuestionResponse
 //import com.testprep.retrofit.WebClient
 //import com.testprep.retrofit.WebInterface

@@ -18,7 +18,7 @@
 //import com.squareup.picasso.Picasso
 //import com.testprep.R
 //import com.testprep.old.PageActivity.Companion.countt
-//import com.testprep.old.adapter.SelectImageOptionAdapter
+//import com.testprep.adapter.SelectImageOptionAdapter
 //import com.testprep.old.adapter.SolutionAdapter
 //import com.testprep.old.models.QuestionResponse
 //import com.testprep.retrofit.WebClient

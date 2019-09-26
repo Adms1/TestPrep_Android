@@ -336,7 +336,7 @@ class TutorDetailActivity : Fragment() {
             filterCount += 1
         }
 
-        if (AppConstants.FILTER_FROM_PRICE != "0" && AppConstants.FILTER_TO_PRICE != "5000") {
+        if (AppConstants.FILTER_FROM_PRICE != "0" || AppConstants.FILTER_TO_PRICE != "5000") {
             filterCount += 1
         }
 

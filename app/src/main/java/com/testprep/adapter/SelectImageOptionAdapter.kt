@@ -1,4 +1,4 @@
-package com.testprep.old.adapter
+package com.testprep.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.squareup.picasso.Picasso
+import com.testprep.R
 import com.testprep.models.SelectedCheckboxModel
 import com.testprep.sectionmodule.NewQuestionResponse
 import com.testprep.sectionmodule.NewTabQuestionActivity
@@ -29,7 +30,7 @@ class SelectImageOptionAdapter(
 
         return viewholder(
             LayoutInflater.from(context).inflate(
-                com.testprep.R.layout.select_image_option_list_view,
+                R.layout.select_image_option_list_view,
                 p0,
                 false
             )
@@ -121,39 +122,41 @@ class SelectImageOptionAdapter(
 
                 cb.setOnCheckedChangeListener { buttonView, isChecked ->
 
-                    if (isChecked) {
-                        if (ansArr.size > 0) {
+                    if (cb.isPressed) {
+                        if (isChecked) {
+                            if (ansArr.size > 0) {
+                                for (i in 0 until ansArr.size) {
+                                    if (ansArr[i].ids == cb.id.toString()) {
+
+                                        ansArr[i].selected = true
+
+                                    } else {
+                                        val selectedCheckboxModel = SelectedCheckboxModel()
+                                        selectedCheckboxModel.ids = cb.id.toString()
+                                        selectedCheckboxModel.selected = true
+                                        ansArr.add(selectedCheckboxModel)
+                                    }
+
+                                    break
+                                }
+                            } else {
+                                val selectedCheckboxModel = SelectedCheckboxModel()
+                                selectedCheckboxModel.ids = cb.id.toString()
+                                selectedCheckboxModel.selected = true
+                                ansArr.add(selectedCheckboxModel)
+                            }
+
+                            multiSelection(p1)
+
+                        } else {
                             for (i in 0 until ansArr.size) {
                                 if (ansArr[i].ids == cb.id.toString()) {
-
-                                    ansArr[i].selected = true
-
-                                } else {
-                                    val selectedCheckboxModel = SelectedCheckboxModel()
-                                    selectedCheckboxModel.ids = cb.id.toString()
-                                    selectedCheckboxModel.selected = true
-                                    ansArr.add(selectedCheckboxModel)
+                                    ansArr[i].selected = false
                                 }
-
-                                break
                             }
-                        } else {
-                            val selectedCheckboxModel = SelectedCheckboxModel()
-                            selectedCheckboxModel.ids = cb.id.toString()
-                            selectedCheckboxModel.selected = true
-                            ansArr.add(selectedCheckboxModel)
+
+                            multiSelection(p1)
                         }
-
-                        multiSelection(p1)
-
-                    } else {
-                        for (i in 0 until ansArr.size) {
-                            if (ansArr[i].ids == cb.id.toString()) {
-                                ansArr[i].selected = false
-                            }
-                        }
-
-                        multiSelection(p1)
                     }
                 }
 
@@ -200,6 +203,9 @@ class SelectImageOptionAdapter(
     }
 
     fun multiSelection(p1: Int) {
+
+        ansstr = ""
+
         for (i in 0 until ansArr.size) {
             if (ansArr[i].selected) {
                 ansstr = ansstr + ansArr[i].ids + ","

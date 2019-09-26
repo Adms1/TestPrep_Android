@@ -29,10 +29,10 @@ import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.DashboardActivity
 import com.testprep.activity.ResultActivity
+import com.testprep.adapter.SelectImageOptionAdapter
 import com.testprep.interfaces.FilterTypeSelectionInteface
 import com.testprep.models.AnswerModel
 import com.testprep.models.QuestionTypeModel
-import com.testprep.old.adapter.SelectImageOptionAdapter
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.sectionmodule.ImageViewAdapter.Companion.getPageNumber
@@ -1200,7 +1200,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
         } else {
 
-            DialogUtils.showDialog(this@NewTabQuestionActivity)
+//            DialogUtils.showDialog(this@NewTabQuestionActivity)
 
             drawer_layout.closeDrawer(Gravity.RIGHT)
 
@@ -1339,7 +1339,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 curr_index += 1
             }
 
-            DialogUtils.showDialog(this@NewTabQuestionActivity)
+//            DialogUtils.showDialog(this@NewTabQuestionActivity)
 
             callSubmitAnswer(
                 itype,
@@ -1423,7 +1423,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 curr_index += 1
             }
 
-            DialogUtils.showDialog(this@NewTabQuestionActivity)
+//            DialogUtils.showDialog(this@NewTabQuestionActivity)
 
             callSubmitAnswer(
                 itype,
@@ -1838,6 +1838,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     answerModel.ansid = ansid
                     answerModel.ansresult = true
                     ansArr.add(answerModel)
+                } else {
+                    nextButton!!.text = "Skip"
                 }
             }
         }
