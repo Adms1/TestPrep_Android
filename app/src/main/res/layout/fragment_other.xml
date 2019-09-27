@@ -7,11 +7,58 @@
         android:id="@+id/other_container"
         android:background="@color/white">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/other_ivLogo"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            app:layout_constraintTop_toTopOf="@+id/other_tvUserName"
+            app:layout_constraintBottom_toBottomOf="@+id/other_tvUserEmail"
+            android:src="@drawable/person_placeholder"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:contentDescription="@string/logo"/>
+
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/other_ivLogo"
+            app:layout_constraintRight_toLeftOf="@+id/other_ivEdit"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:id="@+id/other_tvUserName"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp"/>
+
+
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/other_tvUserName"
+            app:layout_constraintLeft_toRightOf="@+id/other_ivLogo"
+            app:layout_constraintRight_toLeftOf="@+id/other_ivEdit"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:id="@+id/other_tvUserEmail"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/_14sdp"/>
+
+    <ImageView
+            android:id="@+id/other_ivEdit"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            app:layout_constraintTop_toTopOf="@+id/other_tvUserName"
+            app:layout_constraintBottom_toBottomOf="@+id/other_tvUserEmail"
+            android:src="@drawable/pencil_icon"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:contentDescription="@string/logo"/>
+
     <ListView
             android:id="@+id/other_lvList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/other_tvUserEmail"
             android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

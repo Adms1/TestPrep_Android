@@ -62,6 +62,7 @@ class TutorDetailActivity : Fragment() {
         ivSort!!.visibility = View.VISIBLE
 
         bundle = this.arguments
+
         course_type = bundle!!.getString("course_type")!!
         boardid = bundle!!.getString("boardid")!!
         stdid = bundle!!.getString("stdid")!!
@@ -151,7 +152,9 @@ class TutorDetailActivity : Fragment() {
             startActivityForResult(intent, 101)
         }
 
-        setFilterCount()
+        if (ptype == "filter") {
+            setFilterCount()
+        }
 
     }
 
@@ -175,57 +178,6 @@ class TutorDetailActivity : Fragment() {
             }
         }
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        setFilterCount()
-
-//        if (intent.getStringExtra("type") == "pkg") {
-//
-//            tutor_detail_rlFilter.visibility = View.VISIBLE
-//
-//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-//            callFilterListApi("", "1")
-//
-//        } else if (intent.getStringExtra("type") == "filter") {
-//
-//            tutor_detail_rlFilter.visibility = View.VISIBLE
-//
-//            minprice = intent.getStringExtra("minprice")
-//            maxprice = intent.getStringExtra("maxprice")
-//
-////            Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
-////            Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
-//
-//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-//            callFilterListApi("", "-1")
-//
-//        } else if (intent.getStringExtra("type") == "explore") {
-//
-//            tutor_detail_rlFilter.visibility = View.VISIBLE
-//
-//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-//            callFilterListApi(intent.getStringExtra("search_name"), "-1")
-//
-//        } else if (intent.getStringExtra("type") == "tutor") {
-//
-//            tutor_detail_rlFilter.visibility = View.GONE
-//
-//            tutor_packages_rvPopularPkg.layoutManager =
-//                LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
-//
-//            tutorAdapter = TutorsAdapter(activity!!, data)
-//
-//            tutor_packages_rvPopularPkg.adapter = tutorAdapter
-//
-//        } else if (intent.getStringExtra("type") == "single") {
-//            tutor_detail_rlFilter.visibility = View.VISIBLE
-//
-//            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-//            callFilterListApi("", "3")
-//        }
     }
 
     fun callFilterListApi(name: String, type: String) {

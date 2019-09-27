@@ -96,6 +96,8 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
                 AppConstants.FILTER_COURSE_TYPE_ID = "1"
                 AppConstants.FILTER_BOARD_ID = ""
+                AppConstants.FILTER_STANDARD_ID = ""
+                AppConstants.FILTER_SUBJECT_ID = ""
                 coursetypeid = "1"
 
 //                Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)

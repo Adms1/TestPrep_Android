@@ -43,20 +43,37 @@ class OtherFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") == "1") {
-            menuList.add("Edit Profile")
+//            menuList.add("Edit Profile")
             menuList.add("My Payments")
             menuList.add("Change Password")
             menuList.add("Change Prefrence")
+            menuList.add("Contact Us")
+            menuList.add("About Us")
             menuList.add("Logout")
         } else {
-            menuList.add("Edit Profile")
+//            menuList.add("Edit Profile")
             menuList.add("My Payments")
             menuList.add("Change Prefrence")
+            menuList.add("Contact Us")
+            menuList.add("About Us")
             menuList.add("Logout")
         }
 //        menuList.add("Logout")
 
         other_lvList.adapter = ArrayAdapter(activity, android.R.layout.simple_list_item_1, menuList)
+
+        other_ivEdit.setOnClickListener {
+            AppConstants.isFirst = 8
+            setFragments(null)
+        }
+
+        other_tvUserName.text =
+            Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, "") + " " + Utils.getStringValue(
+                activity!!,
+                AppConstants.LAST_NAME,
+                ""
+            )
+        other_tvUserEmail.text = Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, "")
 
         other_lvList.onItemClickListener = OnItemClickListener { parent, view, position, id ->
 

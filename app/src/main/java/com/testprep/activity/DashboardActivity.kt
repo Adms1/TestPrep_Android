@@ -447,9 +447,10 @@ class DashboardActivity : AppCompatActivity() {
 
                     llBottom!!.visibility = View.VISIBLE
 
-                    main_header!!.text = "Profile"
                     btnBack!!.visibility = View.VISIBLE
                     btnLogout!!.visibility = View.GONE
+
+                    main_header!!.text = "Profile"
 
                 }
                 9 -> {

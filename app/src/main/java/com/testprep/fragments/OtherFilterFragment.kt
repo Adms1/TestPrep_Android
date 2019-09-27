@@ -67,18 +67,25 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         filterInterface = this
 
+        if (min == "0" && max == "5000") {
+//        price_filter_tvMin.text = AppConstants.FILTER_FROM_PRICE
+            price_filter_tvMin.text = "0"
+//        price_filter_tvMax.text = AppConstants.FILTER_TO_PRICE
+            price_filter_tvMax.text = "144"
+        }
+
         filterData_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
         if (AppConstants.FILTER_BOARD_ID == "0") {
 //           examids = Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
-            AppConstants.FILTER_BOARD_ID = Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
+//            AppConstants.FILTER_BOARD_ID = Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
         } else {
 //           examids = AppConstants.FILTER_BOARD_ID
         }
 
         if (AppConstants.FILTER_STANDARD_ID == "0") {
 //            stdids = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
-            AppConstants.FILTER_STANDARD_ID = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
+//            AppConstants.FILTER_STANDARD_ID = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
         }
 //        else if (AppConstants.FILTER_STANDARD_ID == ""){
 //            stdids = ""
@@ -88,26 +95,35 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         if (AppConstants.FILTER_SUBJECT_ID == "0") {
             subids = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
-            AppConstants.FILTER_SUBJECT_ID = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
+//            AppConstants.FILTER_SUBJECT_ID = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
         } else {
             subids = AppConstants.FILTER_SUBJECT_ID
         }
 
         if (AppConstants.FILTER_TUTOR_ID == "0") {
-            tutorids = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
+//            tutorids = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
             AppConstants.FILTER_TUTOR_ID = Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!
         } else {
             tutorids = AppConstants.FILTER_TUTOR_ID
         }
 
         // set listener
+
         rangeSeekbar3.setOnRangeSeekbarChangeListener { minValue, maxValue ->
 
             min = minValue.toString()
             max = maxValue.toString()
 
-            price_filter_etMin.text = "₹ " + minValue.toString()
-            price_filter_etMax.text = "₹ " + maxValue.toString()
+            if (min == "0" && max == "5000") {
+//        price_filter_tvMin.text = AppConstants.FILTER_FROM_PRICE
+                price_filter_tvMin.text = "0"
+//        price_filter_tvMax.text = AppConstants.FILTER_TO_PRICE
+                price_filter_tvMax.text = "144"
+            } else {
+                price_filter_etMin.text = "₹ " + minValue.toString()
+                price_filter_etMax.text = "₹ " + maxValue.toString()
+            }
+
         }
 
 //        price_filter_range_slider.min = Utils.getStringValue(activity!!, AppConstants.MIN_PRICE, "0")!!.toInt()
@@ -169,14 +185,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
             AppConstants.FILTER_FROM_PRICE = min
             AppConstants.FILTER_TO_PRICE = max
 
-            if (AppConstants.FILTER_BOARD_ID != "") {
+            if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
 
-                if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
+                if (AppConstants.FILTER_BOARD_ID != "") {
 
                     if (AppConstants.FILTER_STANDARD_ID != "") {
-
-
-
 
                         val bundle = Bundle()
                         bundle.putString("type", "filter")
@@ -196,7 +209,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
                         Toast.makeText(activity, "Please Select Standard", Toast.LENGTH_SHORT).show()
                     }
                 } else {
+                    Toast.makeText(activity, "Please Select Board", Toast.LENGTH_SHORT).show()
+                }
 
+            } else {
+                if (AppConstants.FILTER_BOARD_ID != "") {
                     val bundle = Bundle()
                     bundle.putString("type", "filter")
                     bundle.putString("pname1", "Packages")
@@ -211,12 +228,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
                     setFragments(bundle)
                     activity!!.finish()
 
+                } else {
+                    Toast.makeText(activity, "Please Select Course", Toast.LENGTH_SHORT).show()
                 }
 
-            } else {
-                Toast.makeText(activity, "Please Select Board/Course", Toast.LENGTH_SHORT).show()
             }
-
 //            val intent = Intent(context, TutorDetailActivity::class.java)
 //            intent.putExtra("type", "filter")
 //            intent.putExtra("pname", "Packages")
@@ -260,7 +276,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 filterData_rvList.visibility = View.VISIBLE
                 price_ll.visibility = View.GONE
 
-                callStandardListApi()
+                if (AppConstants.FILTER_BOARD_ID != "") {
+                    callStandardListApi()
+                } else {
+                    Toast.makeText(activity, "Please Select Board", Toast.LENGTH_SHORT).show()
+                }
 
             }
             "tutor" -> {
@@ -276,7 +296,15 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 filterData_rvList.visibility = View.VISIBLE
                 price_ll.visibility = View.GONE
 
-                callSubjectListApi()
+                if (AppConstants.FILTER_BOARD_ID != "") {
+                    if (AppConstants.FILTER_STANDARD_ID != "") {
+                        callSubjectListApi()
+                    } else {
+                        Toast.makeText(activity, "Please Select Standard", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(activity, "Please Select Board", Toast.LENGTH_SHORT).show()
+                }
 
             }
             "price" -> {
