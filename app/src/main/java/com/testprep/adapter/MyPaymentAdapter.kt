@@ -55,7 +55,11 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
         p0.invoice.setOnClickListener {
 
             val intent = Intent(context, ViewInvoiceActivity::class.java)
-            intent.putExtra("invoice_id", dataList[p1].InvoiceID)
+            intent.putExtra(
+                "url",
+                "https://docs.google.com/viewer?embedded=true&url=" + AppConstants.INVOICE_URL + dataList[p1].InvoiceID
+            )
+            intent.putExtra("header", "Invoice")
             context.startActivity(intent)
         }
     }

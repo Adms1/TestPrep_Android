@@ -116,9 +116,13 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
             if (min == "0" && max == "5000") {
 //        price_filter_tvMin.text = AppConstants.FILTER_FROM_PRICE
-                price_filter_tvMin.text = "0"
+
+                rangeSeekbar3.setMinValue(AppConstants.FILTER_FROM_PRICE.toFloat())
+                rangeSeekbar3.setMaxValue(AppConstants.FILTER_TO_PRICE.toFloat())
+
+                price_filter_etMin.text = "₹ " + AppConstants.FILTER_FROM_PRICE
 //        price_filter_tvMax.text = AppConstants.FILTER_TO_PRICE
-                price_filter_tvMax.text = "144"
+                price_filter_etMax.text = "₹ " + AppConstants.FILTER_TO_PRICE
             } else {
                 price_filter_etMin.text = "₹ " + minValue.toString()
                 price_filter_etMax.text = "₹ " + maxValue.toString()

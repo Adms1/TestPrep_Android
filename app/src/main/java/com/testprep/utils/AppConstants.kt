@@ -2,16 +2,18 @@ package com.testprep.utils
 
 class AppConstants {
 
-    companion object{
+    companion object {
 
 //        var BASE_URL = "http://103.204.192.187:7077/WebService.asmx/"
 //        var IMAGE_BASE_UR
 //        L = "http://103.204.192.187:7077/"
 
-            //        var BASE_URL = "https://testprep.testcraft.co.in/WebService.asmx/"
-            var BASE_URL = "http://webservice.testcraft.in/WebService.asmx/"
-            //        var IMAGE_BASE_URL = "https://testprep.testcraft.co.in/"
-            var IMAGE_BASE_URL = "http://webservice.testcraft.in/"
+        //        var BASE_URL = "https://testprep.testcraft.co.in/WebService.asmx/"
+        var BASE_URL = "http://webservice.testcraft.in/WebService.asmx/"
+        //        var IMAGE_BASE_URL = "https://testprep.testcraft.co.in/"
+        var IMAGE_BASE_URL = "http://webservice.testcraft.in/"
+        var INVOICE_URL = "http://admin.testcraft.in:8090/tutor/purchasePackages/detail/"
+        var SUMMARY_REPORT_URL = "http://webservice.testcraft.in/TestSummaryReport.aspx?"
 
         var FIRST_NAME = "firstname"
         var LAST_NAME = "lastname"
@@ -24,7 +26,7 @@ class AppConstants {
         var OTP = ""
 
         var COURSE_FLOW = ""
-//        var ON_BACK = 0
+        //        var ON_BACK = 0
         var COURSE_FLOW_ARRAY: ArrayList<String> = ArrayList()
 
         var API_KEY = "535ee616-a161-4e16-88ed-a338582e841a"

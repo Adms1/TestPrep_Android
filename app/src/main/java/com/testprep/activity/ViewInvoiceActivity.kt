@@ -15,6 +15,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class ViewInvoiceActivity : AppCompatActivity() {
 
+    var url = ""
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
@@ -29,10 +31,11 @@ class ViewInvoiceActivity : AppCompatActivity() {
         DialogUtils.showDialog(this@ViewInvoiceActivity)
         invoice_view.webViewClient = MyWebViewClient()
 
-        val url =
-            "https://docs.google.com/viewer?embedded=true&url=http://admin.testcraft.in:8090/tutor/purchasePackages/detail/" + intent.getStringExtra(
-                "invoice_id"
-            )
+        invoice_header.text = intent.getStringExtra("header")
+
+        if (intent.hasExtra("url")) {
+            url = intent.getStringExtra("url")
+        }
 
         invoice_view.settings.builtInZoomControls = true
 
