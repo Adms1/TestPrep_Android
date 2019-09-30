@@ -40,7 +40,7 @@ class ViewInvoiceActivity : AppCompatActivity() {
         invoice_view.settings.builtInZoomControls = true
 
         invoice_view.settings.javaScriptEnabled = false
-        invoice_view.settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
+        invoice_view.settings.cacheMode = WebSettings.LOAD_NO_CACHE
         invoice_view.loadUrl(url)
 
 //        invoice_view.loadUrl(
@@ -51,6 +51,7 @@ class ViewInvoiceActivity : AppCompatActivity() {
 
         invoice_ivBack.setOnClickListener { finish() }
     }
+
 
     inner class MyWebViewClient : WebViewClient() {
 

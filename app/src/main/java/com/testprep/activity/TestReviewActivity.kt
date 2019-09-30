@@ -27,6 +27,7 @@ class TestReviewActivity : Fragment() {
     var testid = ""
     var studenttestid = ""
     var totalque = ""
+    var isCompetitive: Int? = null
 
     var bundle: Bundle? = null
 
@@ -69,9 +70,7 @@ class TestReviewActivity : Fragment() {
 
         review_btnReport.setOnClickListener {
 
-            val isCompetitive = "fasle"
-
-            if (isCompetitive == "fasle") {
+            if (isCompetitive == 0) {
                 val reportdialog = Dialog(activity)
                 reportdialog.setContentView(R.layout.dialog_report_issue)
                 reportdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -167,6 +166,8 @@ class TestReviewActivity : Fragment() {
                 if (response.body()!!.get("Status").asString == "true") {
 
                     totalque = response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TotalQue").asString
+
+                    isCompetitive = response.body()!!.get("data").asJsonArray[0].asJsonObject.get("IsCompetetive").asInt
 
                     review_tvCorrect.text =
                         response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Correct").asString + "    Correct"

@@ -27,6 +27,20 @@
             android:gravity="center_vertical"
             android:textColor="@color/black"/>
 
+    <TextView
+            android:id="@+id/test_tvKnowheader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_16sdp"
+            android:maxLines="1"
+            android:gravity="center"
+            android:text="Knowledge Gap"
+            android:textColor="@color/black"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintRight_toLeftOf="@+id/test_item_tvMarks"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/test_header"/>
+
     <ImageView
             android:layout_width="0dp"
             android:layout_height="@dimen/_110sdp"
@@ -34,7 +48,7 @@
             android:id="@+id/test_ivChart"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/test_header"/>
+            app:layout_constraintTop_toBottomOf="@+id/test_tvKnowheader"/>
 
     <android.support.constraint.ConstraintLayout
             app:layout_constraintTop_toBottomOf="@+id/test_ivChart"
