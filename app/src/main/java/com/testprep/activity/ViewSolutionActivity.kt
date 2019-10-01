@@ -15,7 +15,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
 import android.widget.*
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
@@ -155,23 +154,28 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         }
 
+        dialog_hint_wvHint.settings.javaScriptEnabled = true
+
         solution_ivReview.setOnClickListener {
 
-            val dialog = Dialog(activity!!)
-            dialog.setContentView(R.layout.hint_dialog)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.setCanceledOnTouchOutside(false)
+            //            dialog_hint_wvHint.visibility = View.VISIBLE
 
-            val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
 
-            val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
-
-            hintWebview.settings.javaScriptEnabled = true
-            hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
-
-            closeBtn.setOnClickListener { dialog.dismiss() }
-
-            dialog.show()
+//            val dialog = Dialog(activity!!)
+//            dialog.setContentView(R.layout.hint_dialog)
+//            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//            dialog.setCanceledOnTouchOutside(false)
+//
+//            val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
+//
+//            val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+//
+//            hintWebview.settings.javaScriptEnabled = true
+//            hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
+//
+//            closeBtn.setOnClickListener { dialog.dismiss() }
+//
+//            dialog.show()
         }
 
         ansList!!.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
@@ -218,6 +222,8 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                 hintData =
                     "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[0].TestQuestion[0].Explanation + "</font></p></body></html>"
 //                explanationData = movies[0].TestQuestion[0].Explanation
+
+                dialog_hint_wvHint.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
 
                 solution_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
 
@@ -366,12 +372,16 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         curr_index1 = p10
 
+//        dialog_hint_wvHint.visibility = View.GONE
+
         drawer_layout1.closeDrawer(Gravity.END)
 
         if (finalArr1[sectionList!![solution_grppos1]]!!.size > curr_index1) {
 
             hintData =
                 "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[solution_grppos1].TestQuestion[curr_index1].Explanation + "</font></p></body></html>"
+
+            dialog_hint_wvHint.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
 
             solution_tvQMarks.text = "Marks : " + movies[solution_grppos1].TestQuestion[curr_index1].Marks
 

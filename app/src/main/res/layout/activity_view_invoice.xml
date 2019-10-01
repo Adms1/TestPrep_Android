@@ -40,11 +40,63 @@
     <WebView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:src="@drawable/back_button"
             android:id="@+id/invoice_view"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/invoice_header"
             android:padding="@dimen/_9sdp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <LinearLayout
+            android:id="@+id/invoice_llContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/invoice_header"
+            android:orientation="vertical">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/invoice_tvAddressHeader"
+                android:text="@string/address"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp"/>
+
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/invoice_tvAddress"
+                android:gravity="center"
+                android:textSize="@dimen/_13sdp"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Testcraft EduTect Pvt.Ltd,\n12, Kalyanam Bunglow,\nLaxmi Nivas Society,\nNr Paldi Bus Stand,\nPaldi - 380006, Gujarat\nIndia "/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/invoice_tvContactHeader"
+                android:text="@string/contact_detail"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/_36sdp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/invoice_tvContact"
+                android:gravity="center"
+                android:textSize="@dimen/_13sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Phone : +91 75750-02450 \n\n Email : info@testcraft.in \n\n Website : info@testcraft.in"/>
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

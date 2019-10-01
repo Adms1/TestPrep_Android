@@ -39,6 +39,54 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
         p0.subject.text = list[p1].Name
         p0.test.text = list[p1].PackageList.size.toString() + " Packages"
 
+        //            val intent1 = Intent(context, DashboardActivity::class.java)
+//            intent1.putExtra("sub_id", list[p1].ID)
+//            intent1.putExtra("sub_name", list[p1].Name)
+//            intent1.putExtra("isCompetitive", list[p1].isCompetitive)
+//            intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            context.startActivity(intent1)
+//            (context as DashboardActivity).finish()
+
+//            val intent = Intent(context, MyPackagesFragment::class.java)
+//            intent.putExtra("sub_id", list[p1].ID)
+//            intent.putExtra("sub_name", list[p1].Name)
+//            intent.putExtra("isCompetitive", list[p1].isCompetitive)
+//            context.startActivity(intent)
+        when (list[p1].Name) {
+            "Social Science" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.social_science))
+            }
+            "Science" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.science))
+            }
+            "Statistics" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.stat))
+            }
+            "Hindi" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.hindi))
+            }
+            "English" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.english))
+            }
+            "Accountancy" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.account))
+            }
+            "Physics" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.physics))
+            }
+            "Gujarati" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.gujarati))
+            }
+            "Biology" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.biology))
+            }
+            else -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.pp_2))
+            }
+
+            //        Picasso.get().load("http://content.testcraft.co.in/question/" + list[p1].Icon).into(p0.ll)
+        }
+
 //        Picasso.get().load("http://content.testcraft.co.in/question/" + list[p1].Icon).into(p0.ll)
 
         p0.ll.setOnClickListener {

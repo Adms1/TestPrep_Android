@@ -12,6 +12,7 @@ import com.testprep.activity.CoinActivity
 import com.testprep.activity.DashboardActivity
 import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.activity.NewActivity
+import com.testprep.activity.ViewInvoiceActivity
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.fragment_other.*
@@ -47,15 +48,15 @@ class OtherFragment : Fragment() {
             menuList.add("My Payments")
             menuList.add("Change Password")
             menuList.add("Change Prefrence")
-            menuList.add("Contact Us")
-            menuList.add("About Us")
+//            menuList.add("Help")
+//            menuList.add("About Us")
             menuList.add("Logout")
         } else {
 //            menuList.add("Edit Profile")
             menuList.add("My Payments")
             menuList.add("Change Prefrence")
-            menuList.add("Contact Us")
-            menuList.add("About Us")
+//            menuList.add("Help")
+//            menuList.add("About Us")
             menuList.add("Logout")
         }
 //        menuList.add("Logout")
@@ -73,6 +74,7 @@ class OtherFragment : Fragment() {
                 AppConstants.LAST_NAME,
                 ""
             )
+
         other_tvUserEmail.text = Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, "")
 
         other_lvList.onItemClickListener = OnItemClickListener { parent, view, position, id ->
@@ -127,6 +129,14 @@ class OtherFragment : Fragment() {
 
                     val intent = Intent(activity, NewActivity::class.java)
                     startActivity(intent)
+                }
+
+                "Help" -> {
+
+                    val intent = Intent(context, ViewInvoiceActivity::class.java)
+                    intent.putExtra("header", "Help")
+                    startActivity(intent)
+
                 }
 
                 "Logout" -> {

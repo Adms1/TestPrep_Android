@@ -74,6 +74,7 @@
                             android:layout_marginTop="@dimen/_7sdp"
                             android:layout_gravity="right"
                             android:padding="@dimen/_5sdp"
+                            android:visibility="gone"
                             android:contentDescription="@string/logo"/>
 
                 </RelativeLayout>
@@ -125,7 +126,7 @@
                                         android:layout_marginBottom="@dimen/_15sdp"
                                         android:layout_width="match_parent"
                                         android:orientation="vertical"
-                                        android:layout_height="wrap_content">
+                                        android:layout_height="match_parent">
 
                                     <ImageView
                                             android:id="@+id/solution_page_img_que_img"
@@ -203,6 +204,12 @@
 
                                     </RelativeLayout>
 
+                                    <WebView
+                                            android:id="@+id/dialog_hint_wvHint"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="@dimen/_15sdp"
+                                            android:layout_marginTop="@dimen/_20sdp"/>
 
                                 </LinearLayout>
 

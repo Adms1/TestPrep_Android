@@ -135,6 +135,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         drawer_layout.setDrawerListener(mDrawerToggle)
 
+        queTab_expQueList.setOnGroupClickListener { parent, v, groupPosition, id ->
+
+            false
+
+        }
+
         queTab_tvFillBlanks.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {

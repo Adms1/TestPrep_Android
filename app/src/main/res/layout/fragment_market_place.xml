@@ -46,17 +46,30 @@
                           android:gravity="center"
                           android:text="Packages"/>
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/main_pkg_item_tvSeeall"
-                      android:layout_marginRight="@dimen/_10sdp"
-                      android:textSize="@dimen/_12sdp"
-                      android:layout_centerVertical="true"
-                      android:layout_alignParentRight="true"
-                      android:textColor="@color/colorPrimaryDark"
-                      android:text="@string/view_all"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/main_pkg_item_tvSeeall"
+                          android:layout_marginRight="@dimen/_10sdp"
+                          android:textSize="@dimen/_12sdp"
+                          android:layout_centerVertical="true"
+                          android:layout_alignParentRight="true"
+                          android:textColor="@color/colorPrimaryDark"
+                          android:text="@string/view_all"/>
 
             </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvPkgs"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    android:nestedScrollingEnabled="false"
+                    android:background="@drawable/carousel_bg"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlCategory"/>
+
 
             <RelativeLayout
                     android:id="@+id/rlCoverflow"
@@ -68,6 +81,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     android:background="@drawable/carousel_bg"
+                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlCategory">
 
                 <com.testprep.carouselPkg.CarouselView1
@@ -90,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/main_pkg_item_rlTutor"
-                    app:layout_constraintTop_toBottomOf="@+id/rlCoverflow"
+                    app:layout_constraintTop_toBottomOf="@+id/rvPkgs"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@color/white"
@@ -108,15 +122,15 @@
                           android:gravity="center"
                           android:text="Tutors"/>
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/main_pkg_item_tvTSeeall"
-                      android:layout_marginRight="@dimen/_10sdp"
-                      android:textSize="@dimen/_12sdp"
-                      android:layout_centerVertical="true"
-                      android:layout_alignParentRight="true"
-                      android:textColor="@color/colorPrimaryDark"
-                      android:text="@string/view_all"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/main_pkg_item_tvTSeeall"
+                          android:layout_marginRight="@dimen/_10sdp"
+                          android:textSize="@dimen/_12sdp"
+                          android:layout_centerVertical="true"
+                          android:layout_alignParentRight="true"
+                          android:textColor="@color/colorPrimaryDark"
+                          android:text="@string/view_all"/>
 
             </RelativeLayout>
 
@@ -160,15 +174,15 @@
                           android:gravity="center"
                           android:text="Single Test"/>
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:id="@+id/main_pkg_item_tvSSeeall"
-                      android:layout_marginRight="@dimen/_10sdp"
-                      android:textSize="@dimen/_12sdp"
-                      android:layout_centerVertical="true"
-                      android:layout_alignParentRight="true"
-                      android:textColor="@color/colorPrimaryDark"
-                      android:text="@string/view_all"/>
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/main_pkg_item_tvSSeeall"
+                          android:layout_marginRight="@dimen/_10sdp"
+                          android:textSize="@dimen/_12sdp"
+                          android:layout_centerVertical="true"
+                          android:layout_alignParentRight="true"
+                          android:textColor="@color/colorPrimaryDark"
+                          android:text="@string/view_all"/>
 
             </RelativeLayout>
 

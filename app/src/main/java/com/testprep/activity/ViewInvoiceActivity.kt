@@ -28,26 +28,30 @@ class ViewInvoiceActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_view_invoice)
 
-        DialogUtils.showDialog(this@ViewInvoiceActivity)
-        invoice_view.webViewClient = MyWebViewClient()
-
         invoice_header.text = intent.getStringExtra("header")
 
         if (intent.hasExtra("url")) {
+
+            DialogUtils.showDialog(this@ViewInvoiceActivity)
+            invoice_view.webViewClient = MyWebViewClient()
+
+            invoice_view.visibility = View.VISIBLE
+            invoice_llContact.visibility = View.GONE
+
             url = intent.getStringExtra("url")
+
+            invoice_view.settings.builtInZoomControls = true
+
+            invoice_view.settings.javaScriptEnabled = false
+            invoice_view.settings.cacheMode = WebSettings.LOAD_NO_CACHE
+            invoice_view.loadUrl(url)
+
+        } else {
+
+            invoice_view.visibility = View.GONE
+            invoice_llContact.visibility = View.VISIBLE
+
         }
-
-        invoice_view.settings.builtInZoomControls = true
-
-        invoice_view.settings.javaScriptEnabled = false
-        invoice_view.settings.cacheMode = WebSettings.LOAD_NO_CACHE
-        invoice_view.loadUrl(url)
-
-//        invoice_view.loadUrl(
-//            "https://docs.google.com/viewerng/viewer?url=http://admin.testcraft.in:8090/tutor/purchasePackages/detail/" + intent.getStringExtra(
-//                "invoice_id"
-//            )
-//        )
 
         invoice_ivBack.setOnClickListener { finish() }
     }

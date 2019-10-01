@@ -13,6 +13,7 @@ import com.testprep.R
 import com.testprep.activity.DashboardActivity.Companion.ivSort
 import com.testprep.activity.DashboardActivity.Companion.rlFilter
 import com.testprep.activity.DashboardActivity.Companion.tvFilter
+import com.testprep.adapter.MyPackageAdapter
 import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.adapter.TutorsAdapter
 import com.testprep.models.PackageData
@@ -126,7 +127,8 @@ class TutorDetailActivity : Fragment() {
         } else if (ptype == "single") {
             rlFilter!!.visibility = View.VISIBLE
 
-            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+            tutor_packages_rvPopularPkg.layoutManager =
+                LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
             callFilterListApi("", "3")
         }
 
@@ -247,8 +249,14 @@ class TutorDetailActivity : Fragment() {
 //                        tutor_detail_header.text = response.body()!!.data[0].Name
 //                        }
 
-                        pkgAdapter = TestPackagesAdapter(activity!!, data)
-                        tutor_packages_rvPopularPkg.adapter = pkgAdapter
+                        if (type != "3") {
+                            pkgAdapter = TestPackagesAdapter(activity!!, data)
+                            tutor_packages_rvPopularPkg.adapter = pkgAdapter
+                        } else {
+                            tutor_packages_rvPopularPkg.adapter = MyPackageAdapter(activity!!, data, "market_place")
+
+                        }
+
 
 
                     } else {

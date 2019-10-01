@@ -315,7 +315,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     llBottom!!.visibility = View.VISIBLE
 
-                    main_header!!.text = "My Dashboard"
+                    main_header!!.text = "Dashboard"
                     btnBack!!.visibility = View.GONE
                     btnLogout!!.visibility = View.GONE
 
