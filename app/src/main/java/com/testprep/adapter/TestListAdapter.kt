@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.testprep.R
 import com.testprep.activity.DashboardActivity
 import com.testprep.activity.DashboardActivity.Companion.setFragments
+import com.testprep.activity.QuestionInstructionActivity
 import com.testprep.models.TestListModel
 import com.testprep.sectionmodule.NewTabQuestionActivity
 import com.testprep.utils.AppConstants
@@ -72,7 +73,7 @@ class TestListAdapter(
 //                intent.putExtra("testid", dataList[p1].TestID.toString())
 //                intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
 //                context.startActivity(intent)
-            } else {
+            } else if (dataList[p1].StatusName == "Resume") {
                 val intent = Intent(context, NewTabQuestionActivity::class.java)
                 intent.putExtra("testid", dataList[p1].TestID.toString())
                 intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
@@ -85,6 +86,20 @@ class TestListAdapter(
                 intent.putExtra("tutorname", dataList[p1].TutorName)
                 context.startActivity(intent)
                 (context as DashboardActivity).finish()
+
+            } else if (dataList[p1].StatusName == "Start") {
+                val intent = Intent(context, QuestionInstructionActivity::class.java)
+                intent.putExtra("testid", dataList[p1].TestID.toString())
+                intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
+                intent.putExtra("testname", dataList[p1].TestName)
+                intent.putExtra("testtime", dataList[p1].RemainTime)
+                intent.putExtra("totalque", dataList[p1].TotalQuestions)
+                intent.putExtra("subjectname", dataList[p1].SubjectName)
+                intent.putExtra("coursename", dataList[p1].CourseName)
+                intent.putExtra("totalmarks", dataList[p1].TestMarks)
+                intent.putExtra("tutorname", dataList[p1].TutorName)
+                intent.putExtra("que_instruction", dataList[p1].TestInstruction)
+                context.startActivity(intent)
             }
         }
     }

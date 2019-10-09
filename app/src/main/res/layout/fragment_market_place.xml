@@ -67,6 +67,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
+                    android:visibility="gone"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlCategory"/>
 
@@ -81,7 +82,6 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     android:background="@drawable/carousel_bg"
-                    android:visibility="gone"
                     app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlCategory">
 
                 <com.testprep.carouselPkg.CarouselView1
@@ -104,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/main_pkg_item_rlTutor"
-                    app:layout_constraintTop_toBottomOf="@+id/rvPkgs"
+                    app:layout_constraintTop_toBottomOf="@+id/rlCoverflow"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@color/white"

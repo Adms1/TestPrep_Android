@@ -9,6 +9,7 @@ class NewQuestionResponse {
     class QuestionList {
         var SectionID = 0
         var SectionName = ""
+        var SectionInstruction = ""
 
         var TestQuestion: ArrayList<TestQuestions> = ArrayList()
     }

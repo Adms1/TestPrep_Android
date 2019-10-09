@@ -109,6 +109,7 @@ class PrefrenceActivity : AppCompatActivity() {
                         val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
                         mIntent.putExtra("subject_id", subIds)
                         startActivity(mIntent)
+                        finish()
 
                     } else {
                         Utils.ping(this@PrefrenceActivity, "Please Select Subject")
@@ -141,6 +142,7 @@ class PrefrenceActivity : AppCompatActivity() {
                         val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
                         mIntent.putExtra("subject_id", subIds)
                         startActivity(mIntent)
+                        finish()
                     } else {
                         Utils.ping(this@PrefrenceActivity, "Please Select Subject")
                     }
@@ -153,6 +155,7 @@ class PrefrenceActivity : AppCompatActivity() {
                         val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
                         mIntent.putExtra("subject_id", "")
                         startActivity(mIntent)
+                        finish()
                     }
                 }
             }

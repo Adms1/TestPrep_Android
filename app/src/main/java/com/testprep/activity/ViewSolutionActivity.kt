@@ -15,6 +15,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.*
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
@@ -108,6 +109,28 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
         )
 
         drawer_layout1.setDrawerListener(mDrawerToggle)
+
+        solution_expQueList.setOnGroupClickListener { parent, v, groupPosition, id ->
+
+            val dialog = Dialog(activity)
+            dialog.setContentView(R.layout.hint_dialog)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.setCanceledOnTouchOutside(false)
+
+            val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
+
+            val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+
+            hintWebview.settings.javaScriptEnabled = true
+            hintWebview.loadDataWithBaseURL("", movies[solution_grppos1].SectionInstruction, "text/html", "UTF-8", "")
+
+            closeBtn.setOnClickListener { dialog.dismiss() }
+
+            dialog.show()
+
+            false
+
+        }
 
         solution_ivReporttxt.setOnClickListener {
             val dialog = Dialog(activity!!)

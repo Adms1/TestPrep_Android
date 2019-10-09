@@ -3,6 +3,7 @@ package com.testprep.activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
@@ -41,6 +42,7 @@ import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import kotlin.system.exitProcess
 
 class IntroActivity : AppCompatActivity() {
 
@@ -69,7 +71,9 @@ class IntroActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_intro)
 
-//        intro_tvSignin.text = resources.getString(R.string.sign_in)
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            intro_tvSignin.text = "ALREADY HAVE AN ACCOUNT?SIGN IN"
+        }
 
         callbackManager = CallbackManager.Factory.create()
         fb.setReadPermissions(listOf(EMAIL))
@@ -116,12 +120,13 @@ class IntroActivity : AppCompatActivity() {
 
             val i = Intent(this@IntroActivity, LoginActivity::class.java)
             startActivity(i)
-
+            finish()
         }
 
         intro_btnEmail.setOnClickListener {
             val intent = Intent(this@IntroActivity, SignupActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         fb.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
@@ -503,6 +508,12 @@ class IntroActivity : AppCompatActivity() {
                 DialogUtils.dismissDialog()
             }
         })
+
+    }
+
+    override fun onBackPressed() {
+
+        exitProcess(0)
 
     }
 

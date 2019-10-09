@@ -67,6 +67,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     var testtutor = ""
     var testsubject = ""
 
+    var groupInstruction = ""
+
     var shouldExecuteOnResume: Boolean? = null
 
     internal var mDrawerToggle: ActionBarDrawerToggle? = null
@@ -136,6 +138,22 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         drawer_layout.setDrawerListener(mDrawerToggle)
 
         queTab_expQueList.setOnGroupClickListener { parent, v, groupPosition, id ->
+
+            val dialog = Dialog(this@NewTabQuestionActivity)
+            dialog.setContentView(R.layout.hint_dialog)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.setCanceledOnTouchOutside(false)
+
+            val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
+
+            val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+
+            hintWebview.settings.javaScriptEnabled = true
+            hintWebview.loadDataWithBaseURL("", movies[q_grppos1].SectionInstruction, "text/html", "UTF-8", "")
+
+            closeBtn.setOnClickListener { dialog.dismiss() }
+
+            dialog.show()
 
             false
 

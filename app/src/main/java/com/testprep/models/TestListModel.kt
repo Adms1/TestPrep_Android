@@ -23,5 +23,6 @@ class TestListModel {
         var CourseName = ""
         var RemainTime = ""
         var TotalQuestions = ""
+        var TestInstruction = ""
     }
 }

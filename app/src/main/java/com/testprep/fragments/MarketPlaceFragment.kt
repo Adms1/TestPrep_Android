@@ -21,7 +21,9 @@ import android.widget.Toast
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testprep.R
+import com.testprep.activity.DashboardActivity.Companion.rlFilter
 import com.testprep.activity.DashboardActivity.Companion.setFragments
+import com.testprep.activity.FilterActivity
 import com.testprep.activity.NewActivity
 import com.testprep.activity.PackageDetailActivity
 import com.testprep.adapter.MyPackageAdapter
@@ -88,9 +90,11 @@ class MarketPlaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        rlFilter!!.visibility = View.VISIBLE
+
 //        AppConstants.ON_BACK = 1
 
-//        mDataList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packages"))
+//        mDataList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packagies"))
 //        tutorList!!.add(PackageData.PackageDataList(R.drawable.pp_1, "Packages"))
 
 //        mTitle = view.findViewById(R.id.title) as TextSwitcher
@@ -112,6 +116,11 @@ class MarketPlaceFragment : Fragment() {
             val intent = Intent(activity, NewActivity::class.java)
             startActivity(intent)
             activity!!.finish()
+        }
+
+        rlFilter!!.setOnClickListener {
+            val intent = Intent(activity!!, FilterActivity::class.java)
+            startActivityForResult(intent, 101)
         }
 
         main_pkg_item_tvSeeall.setOnClickListener {
@@ -564,7 +573,7 @@ class MarketPlaceFragment : Fragment() {
 
                         if (mDataList!!.size > 0) {
 
-                            rlCoverflow!!.visibility = View.GONE
+                            rlCoverflow!!.visibility = View.VISIBLE
                             main_pkg_item_tvSeeall.visibility = View.VISIBLE
                             main_pkg_item_tvCategory.visibility = View.VISIBLE
 
@@ -725,6 +734,7 @@ class MarketPlaceFragment : Fragment() {
             return viewholder(view)
 
 //            return viewholder(
+
 
 //            LayoutInflater.from(context).inflate(R.layout.list_item_test_package, p0, false)
 //                LayoutInflater.from(context).inflate(R.layout.marketplace_pkg_list_item, p0, false)

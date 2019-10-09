@@ -65,6 +65,7 @@
             app:layout_constraintRight_toLeftOf="@id/dashboard_ivSort"
             app:layout_constraintTop_toTopOf="@+id/dashboard_header"
             android:onClick="onClick"
+            android:layout_marginRight="@dimen/_3sdp"
             app:layout_constraintBottom_toBottomOf="@+id/dashboard_header">
 
         <ImageView

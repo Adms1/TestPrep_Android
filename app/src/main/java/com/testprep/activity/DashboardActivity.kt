@@ -28,7 +28,6 @@ import kotlinx.android.synthetic.main.activity_dashboard.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import kotlin.system.exitProcess
 
-
 class DashboardActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
@@ -49,6 +48,7 @@ class DashboardActivity : AppCompatActivity() {
 //            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
 //            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 //        )
+
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(com.testprep.R.layout.activity_dashboard)

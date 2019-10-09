@@ -288,12 +288,10 @@
 
                         <Button
                                 android:id="@+id/queTab_btnNext"
-                                android:layout_width="wrap_content"
+                                android:layout_width="@dimen/_90sdp"
                                 android:layout_height="@dimen/_35sdp"
                                 android:text="@string/next"
                                 android:textSize="@dimen/_13sdp"
-                                android:paddingLeft="@dimen/_10sdp"
-                                android:paddingRight="@dimen/_10sdp"
                                 android:background="@drawable/login_round_bg"
                                 android:textColor="@color/white"
                                 android:textAllCaps="false"

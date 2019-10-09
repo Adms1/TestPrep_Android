@@ -127,7 +127,7 @@ class MyPackagesFragment : Fragment() {
 //                        var per = (pendingcount.toFloat()/totalcount.toFloat())*100
                         Log.d("percentage", "" + final.toFloat())
 
-                        my_packages_ivProgress.setProgress(final.toFloat(), true)
+                        my_packages_ivProgress.setProgress(final, true)
 //                        my_packages_ivProgress.maxValue = totalcount.toFloat()
 
                         my_packages_tvPendingCount.text = pendingcount.toString()

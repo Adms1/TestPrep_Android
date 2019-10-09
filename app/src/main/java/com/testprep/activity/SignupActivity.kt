@@ -2,6 +2,7 @@ package com.testprep.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -38,6 +39,10 @@ class SignupActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(com.testprep.R.layout.activity_signup)
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            signup_btnLogin.text = "ALREADY HAVE AN ACCOUNT?SIGN IN"
+        }
 
         signup_btnSignup.setOnClickListener {
 

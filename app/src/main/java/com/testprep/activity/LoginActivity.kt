@@ -3,6 +3,7 @@ package com.testprep.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -42,6 +43,11 @@ class LoginActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_login)
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            login_btnSignup.text = "DON\'T HAVE AN ACCOUNT? SIGN UP"
+        }
+
 
         login_btnSignup.setOnClickListener {
 

@@ -2,6 +2,7 @@ package com.testprep.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -35,6 +36,10 @@ class OtpActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(com.testprep.R.layout.activity_otp)
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            otp_tvResend.text = "Did not receive the code? Resend"
+        }
 
         otp = intent.getStringExtra("otp")
 
