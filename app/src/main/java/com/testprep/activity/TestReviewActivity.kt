@@ -29,6 +29,8 @@ class TestReviewActivity : Fragment() {
     var totalque = ""
     var isCompetitive: Int? = null
 
+    var testname = ""
+
     var bundle: Bundle? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -55,6 +57,7 @@ class TestReviewActivity : Fragment() {
 
         testid = bundle!!.getString("testid")
         studenttestid = bundle!!.getString("studenttestid")
+        testname = bundle!!.getString("testname")
 
 //        testid = intent.getStringExtra("testid")
 //        studenttestid = intent.getStringExtra("studenttestid")
@@ -127,6 +130,7 @@ class TestReviewActivity : Fragment() {
             bundle.putString("testid", testid)
             bundle.putString("studenttestid", studenttestid)
             bundle.putString("totalque", totalque)
+            bundle.putString("testname", testname)
             setFragments(bundle)
 
 //            val intent = Intent(activity!!, ViewSolutionActivity::class.java)

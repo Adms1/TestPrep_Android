@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/queinstruction_btnStart"
             android:background="@drawable/login_round_bg"
-            android:text="Start Test"
+            android:text="Start"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:textSize="@dimen/_14sdp"

@@ -243,7 +243,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                 movies = response.body()!!.data
 
                 hintData =
-                    "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[0].TestQuestion[0].Explanation + "</font></p></body></html>"
+                    "<html><body style='background-color:clear;'><p align=center><font size=4px  align=center>" + "Explanation" + "</font></p><p>" + movies[0].TestQuestion[0].Explanation + "</p></body></html>"
 //                explanationData = movies[0].TestQuestion[0].Explanation
 
                 dialog_hint_wvHint.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
@@ -402,7 +402,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
         if (finalArr1[sectionList!![solution_grppos1]]!!.size > curr_index1) {
 
             hintData =
-                "<html><body style='background-color:clear;'><p align=center><font size=4  align=center><b>" + "Explanation" + "</b></font></p><p><font size=2>" + movies[solution_grppos1].TestQuestion[curr_index1].Explanation + "</font></p></body></html>"
+                "<html><body style='background-color:clear;'><p align=center><font size=4px  align=center>" + "Explanation" + "</font></p><p>" + movies[solution_grppos1].TestQuestion[curr_index1].Explanation + "</p></body></html>"
 
             dialog_hint_wvHint.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
 

@@ -2,6 +2,7 @@ package com.testprep.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -9,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import com.squareup.picasso.Picasso
-import com.testprep.R
 import com.testprep.activity.CartActivity
 import com.testprep.adapter.TutorPackageAdapter
 import com.testprep.models.PackageData
@@ -45,7 +45,7 @@ class TutorProfileFragment : AppCompatActivity() {
         // Inflate the layout for this fragment
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        setContentView(R.layout.fragment_tutor_profile)
+        setContentView(com.testprep.R.layout.fragment_tutor_profile)
 
         tutor_item_rvCuratorList.layoutManager =
             LinearLayoutManager(this@TutorProfileFragment, LinearLayoutManager.VERTICAL, false)
@@ -62,17 +62,20 @@ class TutorProfileFragment : AppCompatActivity() {
 //            startActivity(intent)
 //        }
 
-//        tutor_profile_tvCount.setOnClickListener {
-//            val intent = Intent(this@TutorProfileFragment, TutorsReviewFragment::class.java)
-//            startActivity(intent)
-//        }
+        tutor_profile_tvMobile.setOnClickListener {
+            val u = Uri.parse("tel:" + tutor_profile_tvMobile.text.toString())
+            startActivity(Intent(Intent.ACTION_DIAL, u))
+        }
 
-//        tutor_profile_tvViewProfile.setOnClickListener {
-//
-//            val intent = Intent(this@TutorProfileFragment, TutorProfileFragment::class.java)
-//            startActivity(intent)
-//
-//        }
+        tutor_profile_tvEmail.setOnClickListener {
+
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "plain/text"
+            intent.putExtra(Intent.ACTION_SENDTO, Uri.fromParts("mailto", tutor_profile_tvEmail.text.toString(), null))
+            intent.putExtra(Intent.EXTRA_SUBJECT, "")
+            intent.putExtra(Intent.EXTRA_TEXT, "Sent from android")
+            startActivity(intent)
+        }
 
         callTutorPrfile()
         callSmilarPkgs()

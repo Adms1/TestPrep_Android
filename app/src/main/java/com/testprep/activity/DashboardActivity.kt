@@ -458,6 +458,7 @@ class DashboardActivity : AppCompatActivity() {
                     testid = bundle!!.getString("testid")!!
                     studenttestid = bundle.getString("studenttestid")!!
                     testque = bundle.getString("totalque")!!
+                    testname = bundle.getString("testname")!!
 
                     fragment = ViewSolutionActivity()
 
@@ -470,7 +471,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     (fragment as ViewSolutionActivity).arguments = bundle6
 
-                    main_header!!.text = "View Solution"
+                    main_header!!.text = testname
                     btnBack!!.visibility = View.VISIBLE
                     btnLogout!!.visibility = View.GONE
 
@@ -488,6 +489,7 @@ class DashboardActivity : AppCompatActivity() {
                     val bundle5 = Bundle()
                     bundle5.putString("testid", testid)
                     bundle5.putString("studenttestid", studenttestid)
+                    bundle5.putString("testname", testname)
 
                     (fragment as TestReviewActivity).arguments = bundle5
 

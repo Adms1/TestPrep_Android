@@ -112,31 +112,53 @@
 
     </LinearLayout>
 
+    <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/phone"
+            android:id="@+id/tutor_profile_ivPhn"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
+            app:layout_constraintTop_toTopOf="@+id/tutor_profile_tvMobile"
+            app:layout_constraintBottom_toBottomOf="@+id/tutor_profile_tvMobile"/>
+
+
     <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tutor_profile_tvMobile"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tutor_profile_tvName"
-            app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_profile_ivPhn"
             android:textSize="@dimen/small_text_size"
-            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:gravity="center_vertical"
             android:maxLines="1"
+            android:layout_marginLeft="@dimen/_3sdp"
             android:textColor="@color/gray"/>
+
+    <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:src="@drawable/email"
+            android:id="@+id/tutor_profile_ivEmail"
+            android:layout_marginLeft="@dimen/_10sdp"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
+            app:layout_constraintTop_toTopOf="@+id/tutor_profile_tvEmail"
+            app:layout_constraintBottom_toBottomOf="@+id/tutor_profile_tvEmail"/>
+
 
     <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/tutor_profile_tvEmail"
             app:layout_constraintTop_toBottomOf="@+id/tutor_profile_tvMobile"
-            app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_profile_ivEmail"
             android:textSize="@dimen/extra_small_size"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
             android:gravity="top"
+            android:layout_marginLeft="@dimen/_3sdp"
             android:maxLines="1"
             android:textColor="@color/gray"/>
 

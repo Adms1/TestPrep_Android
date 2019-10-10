@@ -283,7 +283,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         queTab_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
 
                         hintData =
-                            "<html><body style='background-color:clear;'><p align=center><font size=4><b>" + "Hint" + "</b></font></p><p><font size=2>" + movies[0].TestQuestion[0].Hint + "</font></p></body></html>"
+                            "<html><body style='background-color:clear;'><p align=center><font size=4px>" + "Hint" + "</font></p><p>" + movies[0].TestQuestion[0].Hint + "</p></body></html>"
 
                         Log.d("qid", "" + movies[0].SectionID)
 
@@ -1166,7 +1166,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         curr_index = p1
 
         hintData =
-            "<html><body style='background-color:clear;'><p align=center><font size=4><b>" + "Hint" + "</b></font></p><p><font size=2>" + movies[q_grppos1].TestQuestion[curr_index].Hint + "</font></p></body></html>"
+            "<html><body style='background-color:clear;'><p align=center><font size=4px>" + "Hint" + "</font></p><p>" + movies[q_grppos1].TestQuestion[curr_index].Hint + "</p></body></html>"
 
         if (itype != "adapter") {
             when (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID) {
