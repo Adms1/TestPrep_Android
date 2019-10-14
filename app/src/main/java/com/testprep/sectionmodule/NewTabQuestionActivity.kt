@@ -149,7 +149,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
 
             hintWebview.settings.javaScriptEnabled = true
-            hintWebview.loadDataWithBaseURL("", movies[q_grppos1].SectionInstruction, "text/html", "UTF-8", "")
+            hintWebview.loadDataWithBaseURL(
+                "",
+                "<html><body style='background-color:clear;'><p align=center><font size=4px>" + movies[groupPosition].SectionName + "</font></p><p>" + movies[groupPosition].SectionInstruction + "</p></body></html>",
+                "text/html",
+                "UTF-8",
+                ""
+            )
 
             closeBtn.setOnClickListener { dialog.dismiss() }
 

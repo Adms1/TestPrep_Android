@@ -57,10 +57,11 @@ class TutorProfileFragment : AppCompatActivity() {
 
         tutor_profile_ivBack.setOnClickListener { onBackPressed() }
 
-//        llRating.setOnClickListener {
-//            val intent = Intent(this@TutorProfileFragment, TutorsReviewFragment::class.java)
-//            startActivity(intent)
-//        }
+        llRating.setOnClickListener {
+            val intent = Intent(this@TutorProfileFragment, TutorsReviewFragment::class.java)
+            intent.putExtra("header", tutor_profile_tvName.text.toString())
+            startActivity(intent)
+        }
 
         tutor_profile_tvMobile.setOnClickListener {
             val u = Uri.parse("tel:" + tutor_profile_tvMobile.text.toString())

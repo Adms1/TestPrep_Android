@@ -439,7 +439,7 @@
                     android:layout_marginLeft="@dimen/_15sdp"
                     app:layout_constraintTop_toTopOf="@+id/dashboard_tvnotvisit"
                     app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvnotvisit"
-                    android:background="@drawable/gray_bg"/>
+                    android:background="@drawable/light_gray_round_bg" />
 
             <TextView
                     android:id="@+id/dashboard_tvnotvisit"

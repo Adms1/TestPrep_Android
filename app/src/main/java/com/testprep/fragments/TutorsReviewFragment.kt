@@ -1,15 +1,16 @@
 package com.testprep.fragments
 
 
+import android.app.Dialog
 import android.content.Context
-import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.testprep.R
-import com.testprep.activity.CartActivity
 import com.testprep.adapter.TutorReviewAdapter
 import kotlinx.android.synthetic.main.fragment_tutors_review.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
@@ -36,9 +37,21 @@ class TutorsReviewFragment : AppCompatActivity() {
 
         setContentView(R.layout.fragment_tutors_review)
 
-        tutor_review_ivCart.setOnClickListener {
-            val intent = Intent(this@TutorsReviewFragment, CartActivity::class.java)
-            startActivity(intent)
+        tutor_review_header.text = intent.getStringExtra("header")
+
+        tutor_review_btnWritereview.setOnClickListener {
+            val dialog = Dialog(this@TutorsReviewFragment)
+            dialog.setContentView(R.layout.review_dialog)
+            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.setCanceledOnTouchOutside(false)
+
+            val closeBtn: View = dialog.findViewById(R.id.dialog_review_btnClose)
+            val submitBtn: View = dialog.findViewById(R.id.dialog_review_btnSubmit)
+
+            closeBtn.setOnClickListener { dialog.dismiss() }
+            submitBtn.setOnClickListener { dialog.dismiss() }
+
+            dialog.show()
         }
 
         tutor_review_ivBack.setOnClickListener { onBackPressed() }
