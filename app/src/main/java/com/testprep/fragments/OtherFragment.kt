@@ -1,18 +1,13 @@
 package com.testprep.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
-import android.widget.ArrayAdapter
-import com.testprep.activity.CoinActivity
-import com.testprep.activity.DashboardActivity
 import com.testprep.activity.DashboardActivity.Companion.setFragments
-import com.testprep.activity.NewActivity
-import com.testprep.activity.ViewInvoiceActivity
+import com.testprep.adapter.OtherListAdapter
 import com.testprep.utils.AppConstants
 import com.testprep.utils.Utils
 import kotlinx.android.synthetic.main.fragment_other.*
@@ -61,7 +56,9 @@ class OtherFragment : Fragment() {
         }
 //        menuList.add("Logout")
 
-        other_lvList.adapter = ArrayAdapter(activity, android.R.layout.simple_list_item_1, menuList)
+        other_lvList.layoutManager =
+            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+        other_lvList.adapter = OtherListAdapter(activity!!, menuList)
 
         other_ivEdit.setOnClickListener {
             AppConstants.isFirst = 8
@@ -76,75 +73,6 @@ class OtherFragment : Fragment() {
             )
 
         other_tvUserEmail.text = Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, "")
-
-        other_lvList.onItemClickListener = OnItemClickListener { parent, view, position, id ->
-
-            when (menuList[position]) {
-                "Edit Profile" -> {
-
-                    AppConstants.isFirst = 8
-                    setFragments(null)
-
-//                    val intent1 = Intent(activity, DashboardActivity::class.java)
-//                    intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                    startActivity(intent1)
-//                    activity!!.finish()
-
-//                    val intent = Intent(activity, UpdateProfileActivity::class.java)
-//                    startActivity(intent)
-                }
-                "My Payments" -> {
-
-                    AppConstants.isFirst = 5
-                    setFragments(null)
-
-//                    val intent1 = Intent(activity, DashboardActivity::class.java)
-//                    intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                    startActivity(intent1)
-//                    activity!!.finish()
-
-//                    val intent = Intent(activity, MyPaymentActivity::class.java)
-//                    startActivity(intent)
-                }
-                "Add Amount" -> {
-
-                    val intent = Intent(activity, CoinActivity::class.java)
-                    startActivity(intent)
-                }
-                "Change Password" -> {
-
-                    AppConstants.isFirst = 6
-                    setFragments(null)
-
-//                    val intent1 = Intent(activity, DashboardActivity::class.java)
-//                    intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                    startActivity(intent1)
-//                    activity!!.finish()
-
-//                    val intent = Intent(activity, ChangePasswordActivity::class.java)
-//                    intent.putExtra("come_from", "other")
-//                    startActivity(intent)
-                }
-                "Change Prefrence" -> {
-
-                    val intent = Intent(activity, NewActivity::class.java)
-                    startActivity(intent)
-                }
-
-                "Help" -> {
-
-                    val intent = Intent(context, ViewInvoiceActivity::class.java)
-                    intent.putExtra("header", "Help")
-                    startActivity(intent)
-
-                }
-
-                "Logout" -> {
-                    DashboardActivity.signOut()
-                }
-
-            }
-        }
 
     }
 

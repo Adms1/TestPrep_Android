@@ -118,14 +118,16 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
             dialog.setCanceledOnTouchOutside(false)
 
             val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
-
+            val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
             val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+
+            header.text = movies[groupPosition].SectionName
 
             hintWebview.settings.javaScriptEnabled = true
 //            hintWebview.loadDataWithBaseURL("", movies[solution_grppos1].SectionInstruction, "text/html", "UTF-8", "")
             hintWebview.loadDataWithBaseURL(
                 "",
-                "<html><body style='background-color:clear;'><p align=center><font size=4px>" + movies[groupPosition].SectionName + "</font></p><p>" + movies[groupPosition].SectionInstruction + "</p></body></html>",
+                "<html><body style='background-color:clear;'><p>" + movies[groupPosition].SectionInstruction + "</p></body></html>",
                 "text/html",
                 "UTF-8",
                 ""
@@ -156,7 +158,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                 callReportIssue("1", queproblem.text.toString())
                 dialog.dismiss()
             }
-
+            0
             ansproblem.setOnClickListener {
                 callReportIssue("2", ansproblem.text.toString())
                 dialog.dismiss()

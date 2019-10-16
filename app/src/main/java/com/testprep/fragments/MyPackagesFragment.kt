@@ -26,6 +26,7 @@ import retrofit2.Response
 class MyPackagesFragment : Fragment() {
 
     private var subid = 0
+    private var stdid = ""
     private var iscompetitive = ""
 
     var bundle: Bundle? = null
@@ -44,6 +45,7 @@ class MyPackagesFragment : Fragment() {
 
         bundle = this.arguments
         subid = bundle!!.getInt("sub_id", 0)
+        stdid = bundle!!.getString("std_id", "")
 
         if (bundle!!.containsKey("isCompetitive")) {
             iscompetitive = if (bundle!!.getBoolean("isCompetitive", false)) {
@@ -51,6 +53,16 @@ class MyPackagesFragment : Fragment() {
             } else {
                 "0"
             }
+        }
+
+        my_packages_ivReport.setOnClickListener {
+            //            val intent = Intent(context, ViewInvoiceActivity::class.java)
+//            intent.putExtra("header", "Knowledge Gap")
+//            intent.putExtra(
+//                "url",
+//                "http://webservice.testcraft.in/TestPackageSummaryReport.aspx?STPID=" + AppConstants.PKG_ID
+//            )
+//            startActivity(intent)
         }
 
 //        my_packages_ivBack.setOnClickListener { onBackPressed() }
@@ -79,7 +91,7 @@ class MyPackagesFragment : Fragment() {
 
         val call = apiService.getMyPackages(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
-            subid.toString(), iscompetitive
+            subid.toString(), stdid.toString(), iscompetitive
         )
 
         call.enqueue(object : Callback<MyPackageModel> {

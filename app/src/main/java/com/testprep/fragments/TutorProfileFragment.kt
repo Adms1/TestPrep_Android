@@ -1,16 +1,17 @@
 package com.testprep.fragments
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import com.testprep.activity.CartActivity
+import com.testprep.activity.DashboardActivity
 import com.testprep.adapter.TutorPackageAdapter
 import com.testprep.models.PackageData
 import com.testprep.models.TutorModel
@@ -23,7 +24,6 @@ import kotlinx.android.synthetic.main.fragment_tutor_profile.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,31 +34,41 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class TutorProfileFragment : AppCompatActivity() {
+class TutorProfileFragment : Fragment() {
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    var bundle: Bundle? = null
+
+    var tutorid = ""
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        return inflater.inflate(com.testprep.R.layout.fragment_tutor_profile, container, false)
+
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // Inflate the layout for this fragment
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        setContentView(com.testprep.R.layout.fragment_tutor_profile)
+        bundle = this.arguments
+
+        tutorid = bundle!!.getString("tutor_id")!!
 
         tutor_item_rvCuratorList.layoutManager =
-            LinearLayoutManager(this@TutorProfileFragment, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
         tutor_profile_ivCart.setOnClickListener {
-            val intent = Intent(this@TutorProfileFragment, CartActivity::class.java)
+            val intent = Intent(activity!!, CartActivity::class.java)
             startActivity(intent)
         }
 
-        tutor_profile_ivBack.setOnClickListener { onBackPressed() }
+//        tutor_profile_ivBack.setOnClickListener { onBackPressed() }
 
         llRating.setOnClickListener {
-            val intent = Intent(this@TutorProfileFragment, TutorsReviewFragment::class.java)
+            val intent = Intent(activity!!, TutorsReviewFragment::class.java)
             intent.putExtra("header", tutor_profile_tvName.text.toString())
             startActivity(intent)
         }
@@ -85,14 +95,14 @@ class TutorProfileFragment : AppCompatActivity() {
 
     fun callTutorPrfile() {
 
-        if (!DialogUtils.isNetworkConnected(this@TutorProfileFragment)) {
-            Utils.ping(this@TutorProfileFragment, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@TutorProfileFragment)
+        DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getTutorProfile(intent.getStringExtra("tutor_id"))
+        val call = apiService.getTutorProfile(tutorid)
         call.enqueue(object : Callback<TutorModel> {
             override fun onResponse(call: Call<TutorModel>, response: Response<TutorModel>) {
 
@@ -103,9 +113,13 @@ class TutorProfileFragment : AppCompatActivity() {
                     if (response.body()!!.Status == "true") {
 
                         if (response.body()!!.data[0].InstituteName != "") {
-                            tutor_profile_header.text = response.body()!!.data[0].InstituteName
+                            DashboardActivity.main_header!!.text =
+                                response.body()!!.data[0].InstituteName
+//                            tutor_profile_header.text = response.body()!!.data[0].InstituteName
                         } else {
-                            tutor_profile_header.text = response.body()!!.data[0].TutorName
+                            DashboardActivity.main_header!!.text =
+                                response.body()!!.data[0].TutorName
+//                            tutor_profile_header.text = response.body()!!.data[0].TutorName
                         }
                         tutor_profile_tvName.text = response.body()!!.data[0].TutorName
                         tutor_profile_tvEmail.text = response.body()!!.data[0].TutorEmail
@@ -121,7 +135,7 @@ class TutorProfileFragment : AppCompatActivity() {
                     } else {
 
 //                        Toast.makeText(
-//                            this@TutorProfileFragment,
+//                            activity!!,
 //                            response.body()!!.Msg.replace("\"", ""),
 //                            Toast.LENGTH_SHORT
 //                        ).show()
@@ -139,14 +153,14 @@ class TutorProfileFragment : AppCompatActivity() {
 
     fun callSmilarPkgs() {
 
-        if (!DialogUtils.isNetworkConnected(this@TutorProfileFragment)) {
-            Utils.ping(this@TutorProfileFragment, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@TutorProfileFragment)
+        DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getTutorSimilarPkgs(intent.getStringExtra("tutor_id"))
+        val call = apiService.getTutorSimilarPkgs(tutorid)
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
@@ -157,12 +171,12 @@ class TutorProfileFragment : AppCompatActivity() {
                     if (response.body()!!.Status == "true") {
 
                         tutor_item_rvCuratorList.adapter =
-                            TutorPackageAdapter(this@TutorProfileFragment, response.body()!!.data)
+                            TutorPackageAdapter(activity!!, response.body()!!.data)
 
                     } else {
 
 //                        Toast.makeText(
-//                            this@TutorProfileFragment,
+//                            activity!!,
 //                            response.body()!!.Msg.replace("\"", ""),
 //                            Toast.LENGTH_SHORT
 //                        ).show()

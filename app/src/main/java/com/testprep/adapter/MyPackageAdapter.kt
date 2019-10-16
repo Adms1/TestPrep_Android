@@ -1,7 +1,7 @@
 package com.testprep.adapter
 
 import android.content.Context
-import android.content.Intent
+import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,7 +12,6 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testprep.R
 import com.testprep.activity.DashboardActivity.Companion.setFragments
-import com.testprep.activity.PackageDetailActivity
 import com.testprep.models.PackageData
 import com.testprep.utils.AppConstants
 
@@ -59,11 +58,18 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
 
             if(come_from == "market_place") {
 
-                val intent = Intent(context, PackageDetailActivity::class.java)
-                intent.putExtra("pkgid", dataList[p1].TestPackageID)
-                intent.putExtra("tutor_id", dataList[p1].TutorID)
-                intent.putExtra("come_from", "selectpackage")
-                context.startActivity(intent)
+                AppConstants.isFirst = 14
+                val bundle = Bundle()
+                bundle.putString("pkgid", dataList[p1].TestPackageID)
+                bundle.putString("come_from", "selectpackage")
+                setFragments(bundle)
+
+
+//                val intent = Intent(context, PackageDetailActivity::class.java)
+//                intent.putExtra("pkgid", dataList[p1].TestPackageID)
+//                intent.putExtra("tutor_id", dataList[p1].TutorID)
+//                intent.putExtra("come_from", "selectpackage")
+//                context.startActivity(intent)
 
             }else if(come_from == "my_pkgs"){
 

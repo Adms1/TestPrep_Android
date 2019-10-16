@@ -37,6 +37,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
 //        p0.rvList.adapter = TestPackagesAdapter(context, dataList)
 
         p0.subject.text = list[p1].Name
+        p0.standard.text = list[p1].StandardName
         p0.test.text = list[p1].PackageList.size.toString() + " Packages"
 
         //            val intent1 = Intent(context, DashboardActivity::class.java)
@@ -94,6 +95,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
             AppConstants.isFirst = 11
             val bundle = Bundle()
             bundle.putInt("sub_id", list[p1].ID)
+            bundle.putString("std_id", list[p1].StandardID)
             bundle.putString("sub_name", list[p1].Name)
             bundle.putBoolean("isCompetitive", list[p1].isCompetitive)
             setFragments(bundle)
@@ -117,6 +119,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        var standard: TextView = itemView.findViewById(R.id.choosemp_tvstandardname)
         var subject: TextView = itemView.findViewById(R.id.choosemp_tvsujectname)
         var test: TextView = itemView.findViewById(R.id.choosemp_tvTest)
         var ll: ImageView = itemView.findViewById(R.id.image)

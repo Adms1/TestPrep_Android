@@ -34,6 +34,7 @@ class TutorDetailActivity : Fragment() {
 
     var tutorAdapter: TutorsAdapter? = null
     var pkgAdapter: TestPackagesAdapter? = null
+    var singleAdapter: MyPackageAdapter? = null
 
     var minprice = ""
     var maxprice = ""
@@ -50,7 +51,11 @@ class TutorDetailActivity : Fragment() {
 
     var bundle: Bundle? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
         return inflater.inflate(R.layout.activity_tutor_detail, container, false)
 
@@ -58,6 +63,11 @@ class TutorDetailActivity : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        DashboardActivity.main_header!!.text = DashboardActivity.pname
+        DashboardActivity.btnBack!!.visibility = View.VISIBLE
+
+
 
         rlFilter!!.visibility = View.VISIBLE
         ivSort!!.visibility = View.VISIBLE
@@ -86,57 +96,63 @@ class TutorDetailActivity : Fragment() {
 //            startActivity(intent)
 //        }
 
-        if (ptype == "pkg") {
+        when (ptype) {
+            "pkg" -> {
 
-            rlFilter!!.visibility = View.VISIBLE
+                rlFilter!!.visibility = View.VISIBLE
 
-            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-            callFilterListApi("", "1")
+                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+                callFilterListApi("", "1")
 
-        } else if (ptype == "filter") {
+            }
+            "filter" -> {
 
-            rlFilter!!.visibility = View.VISIBLE
+                rlFilter!!.visibility = View.VISIBLE
 
-            minprice = bundle!!.getString("minprice")!!
-            maxprice = bundle!!.getString("maxprice")!!
+                minprice = bundle!!.getString("minprice")!!
+                maxprice = bundle!!.getString("maxprice")!!
 
-            Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
-            Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
+                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
 
-            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-            callFilterListApi("", "-1")
+                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+                callFilterListApi("", "-1")
 
-        } else if (ptype == "explore") {
+            }
+            "explore" -> {
 
-            rlFilter!!.visibility = View.VISIBLE
+                rlFilter!!.visibility = View.VISIBLE
 
-            tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-            callFilterListApi(bundle!!.getString("search_name")!!, "-1")
+                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+                callFilterListApi(bundle!!.getString("search_name")!!, "-1")
 
-        } else if (ptype == "tutor") {
+            }
+            "tutor" -> {
 
-            rlFilter!!.visibility = View.GONE
+                rlFilter!!.visibility = View.GONE
 
-            tutor_packages_rvPopularPkg.layoutManager =
-                LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+                tutor_packages_rvPopularPkg.layoutManager =
+                    LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
-            tutorAdapter = TutorsAdapter(activity!!, data)
+                tutorAdapter = TutorsAdapter(activity!!, data)
 
-            tutor_packages_rvPopularPkg.adapter = tutorAdapter
+                tutor_packages_rvPopularPkg.adapter = tutorAdapter
 
-        } else if (ptype == "single") {
-            rlFilter!!.visibility = View.VISIBLE
+            }
+            "single" -> {
+                rlFilter!!.visibility = View.VISIBLE
 
-            tutor_packages_rvPopularPkg.layoutManager =
-                LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-            callFilterListApi("", "3")
+                tutor_packages_rvPopularPkg.layoutManager =
+                    LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+                callFilterListApi("", "3")
+            }
         }
 
         ivSort!!.setOnClickListener {
 
             isSort = !isSort
 
-            if (ptype == "single" || ptype == "pkg" || ptype == "explore" || ptype == "filter") {
+            if (ptype == "pkg" || ptype == "explore" || ptype == "filter") {
 
                 sorting("pkg", data)
 
@@ -144,8 +160,11 @@ class TutorDetailActivity : Fragment() {
 
                 sorting("tutor", data)
 
-            }
+            } else if (ptype == "single") {
 
+                sorting("single", data)
+
+            }
 
         }
 
@@ -159,7 +178,6 @@ class TutorDetailActivity : Fragment() {
         }
 
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -253,10 +271,11 @@ class TutorDetailActivity : Fragment() {
                             pkgAdapter = TestPackagesAdapter(activity!!, data)
                             tutor_packages_rvPopularPkg.adapter = pkgAdapter
                         } else {
-                            tutor_packages_rvPopularPkg.adapter = MyPackageAdapter(activity!!, data, "market_place")
+
+                            singleAdapter = MyPackageAdapter(activity!!, data, "market_place")
+                            tutor_packages_rvPopularPkg.adapter = singleAdapter
 
                         }
-
 
 
                     } else {
@@ -315,11 +334,13 @@ class TutorDetailActivity : Fragment() {
             ivSort!!.rotation = 180F
 
             modelList.sortWith(Comparator { lhs, rhs ->
-                if (type != "tutor") {
-                    lhs.TestPackageName.toLowerCase().compareTo(rhs.TestPackageName.toLowerCase())
-                } else {
+
+                if (type == "tutor") {
                     lhs.TutorName.toLowerCase().compareTo(rhs.TutorName.toLowerCase())
+                } else {
+                    lhs.TestPackageName.toLowerCase().compareTo(rhs.TestPackageName.toLowerCase())
                 }
+
             })
 
             if (type == "tutor") {
@@ -329,12 +350,17 @@ class TutorDetailActivity : Fragment() {
                 tutorAdapter!!.notifyDataSetChanged()
 
 
-            } else {
+            } else if (type == "pkg" || type == "explore" || type == "filter") {
 
                 pkgAdapter = TestPackagesAdapter(activity!!, modelList)
                 tutor_packages_rvPopularPkg.adapter = pkgAdapter
                 pkgAdapter!!.notifyDataSetChanged()
 
+            } else if (type == "single") {
+
+                singleAdapter = MyPackageAdapter(activity!!, modelList, "market_place")
+                tutor_packages_rvPopularPkg.adapter = singleAdapter
+                singleAdapter!!.notifyDataSetChanged()
 
             }
         } else {
@@ -342,11 +368,13 @@ class TutorDetailActivity : Fragment() {
             ivSort!!.rotation = 0F
 
             modelList.sortWith(Comparator { lhs, rhs ->
-                if (type != "tutor") {
-                    rhs.TestPackageName.toLowerCase().compareTo(lhs.TestPackageName.toLowerCase())
-                } else {
+
+                if (type == "tutor") {
                     rhs.TutorName.toLowerCase().compareTo(lhs.TutorName.toLowerCase())
+                } else {
+                    rhs.TestPackageName.toLowerCase().compareTo(lhs.TestPackageName.toLowerCase())
                 }
+
             })
 
             if (type == "tutor") {
@@ -355,13 +383,18 @@ class TutorDetailActivity : Fragment() {
                 tutor_packages_rvPopularPkg.adapter = tutorAdapter
                 tutorAdapter!!.notifyDataSetChanged()
 
-
-            } else {
+            } else if (type == "pkg" || type == "explore" || type == "filter") {
 
                 pkgAdapter = TestPackagesAdapter(activity!!, modelList)
                 tutor_packages_rvPopularPkg.adapter = pkgAdapter
                 pkgAdapter!!.notifyDataSetChanged()
 
+
+            } else if (type == "single") {
+
+                singleAdapter = MyPackageAdapter(activity!!, modelList, "market_place")
+                tutor_packages_rvPopularPkg.adapter = singleAdapter
+                singleAdapter!!.notifyDataSetChanged()
 
             }
         }

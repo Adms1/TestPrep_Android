@@ -4,20 +4,20 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Paint
-import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
+import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
+import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.adapter.TestTypeAdapter
-import com.testprep.fragments.TutorProfileFragment
 import com.testprep.retrofit.WebClient
 import com.testprep.retrofit.WebInterface
 import com.testprep.utils.AppConstants
@@ -28,73 +28,87 @@ import kotlinx.android.synthetic.main.activity_package_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-class PackageDetailActivity : AppCompatActivity() {
+class PackageDetailActivity : Fragment() {
 
     var pkgid = ""
     var tutor_id = ""
 
     var purchaseCoin = ""
+    var come = ""
+    var oldpkgid = ""
+    var bundle: Bundle? = null
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        return inflater.inflate(com.testprep.R.layout.activity_package_detail, container, false)
+
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        DashboardActivity.main_header!!.text = "Package Details"
+        DashboardActivity.btnBack!!.visibility = View.VISIBLE
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        bundle = this.arguments
 
-        setContentView(com.testprep.R.layout.activity_package_detail)
+        come = bundle!!.getString("come_from")!!
+        oldpkgid = bundle!!.getString("pkgid")!!
+
 
 //        Log.d("colr1", " " + pos + " " + package_detail_tvPname.text.length)
 
 //        package_detail_image1.setImageDrawable(Utils.createDrawable(pos, package_detail_tvPname.text.length))
-        package_detail_tvlprice.paintFlags = package_detail_tvlprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+        package_detail_tvlprice.paintFlags =
+            package_detail_tvlprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
         package_detail_rvList.isNestedScrollingEnabled = false
         package_detail_rvList.layoutManager =
-            LinearLayoutManager(this@PackageDetailActivity, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
-        if (intent.getStringExtra("come_from") == "mypackage") {
+        if (come == "mypackage") {
             package_detail_btnAddTocart.visibility = View.GONE
         }
 
         package_detail_createdby.setOnClickListener {
 
-            val intent = Intent(this@PackageDetailActivity, TutorProfileFragment::class.java)
-            intent.putExtra("tutor_id", tutor_id)
-            startActivity(intent)
+            //            val intent = Intent(activity!!, TutorProfileFragment::class.java)
+//            intent.putExtra("tutor_id", tutor_id)
+//            startActivity(intent)
+
+            AppConstants.isFirst = 15
+            val bundle = Bundle()
+            bundle.putString("tutor_id", tutor_id)
+            setFragments(bundle)
 
         }
-
-        package_detail_ivBack.setOnClickListener {
-            onBackPressed()
-        }
+//
+//        package_detail_ivBack.setOnClickListener {
+//            onBackPressed()
+//        }
 
         package_detail_btnAddTocart.setOnClickListener {
 
             DialogUtils.createConfirmDialog(
-                this@PackageDetailActivity,
+                activity!!,
                 "",
                 "Are you sure you want to buy this package?",
                 "Yes",
                 "No",
                 DialogInterface.OnClickListener { dialog, which ->
 
-                    if (DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
+                    if (DialogUtils.isNetworkConnected(activity!!)) {
 
 //            if (isVersionCodeUpdated) {
 
 //                        if(!purchaseCoin.equals("free", true)) {
 
-                        callAddToCart(intent.getStringExtra("pkgid"))
+                        callAddToCart(oldpkgid)
 
 //                        }else{
 //                            callAddTestPackageApi(intent.getStringExtra("pkgid"))
@@ -106,7 +120,7 @@ class PackageDetailActivity : AppCompatActivity() {
 //            }
 
                     } else {
-                        Utils.ping(this@PackageDetailActivity, "Network not available")
+                        Utils.ping(activity!!, "Network not available")
                     }
 
                 },
@@ -132,9 +146,9 @@ class PackageDetailActivity : AppCompatActivity() {
                     .toTypedArray()//to check decimal places
 
             if (amt.equals("", ignoreCase = true)) {
-                Utils.ping(this@PackageDetailActivity, resources.getString(com.testprep.R.string.enter_coin))
+                Utils.ping(activity!!, resources.getString(com.testprep.R.string.enter_coin))
             } else if (amount != null && amount[1].length > 2) {
-                Utils.ping(this@PackageDetailActivity, "Please provide upto 2 decimal places only.")
+                Utils.ping(activity!!, "Please provide upto 2 decimal places only.")
             } else {
                 //SHRENIK IS HERE.....
                 /*if(1==2) {
@@ -168,12 +182,12 @@ class PackageDetailActivity : AppCompatActivity() {
                     var temp = amt.replace(",", "")
                     var temp1 = temp.toFloat()
 
-                    generateTrackNPayRequest(this@PackageDetailActivity, temp1.toString())
+                    generateTrackNPayRequest(activity!!, temp1.toString())
 
 //                    }
                 } catch (e: Exception) {
                     //SendMessage(MESSAGE_ERROR, e.getMessage());
-                    Utils.ping(this@PackageDetailActivity, e.message.toString())
+                    Utils.ping(activity!!, e.message.toString())
                 }
 
             }/*else if (Double.parseDouble(edtAmount.getText().toString()) < 2.00) {
@@ -181,7 +195,7 @@ class PackageDetailActivity : AppCompatActivity() {
                     }*/
 //            Instamojo.setLogLevel(Log.DEBUG)
         } else {
-            Utils.openInvalidApiKeyDialog(this@PackageDetailActivity)
+            Utils.openInvalidApiKeyDialog(activity!!)
         }
     }
 
@@ -249,14 +263,19 @@ class PackageDetailActivity : AppCompatActivity() {
                         intent.putExtra("pkgname", package_detail_tvPname.text.toString())
                         intent.putExtra("pkgprice", purchaseCoin)
                         context.startActivity(intent)
-                        finish()
+                        (context as DashboardActivity).finish()
 
                     } else {
-                        Toast.makeText(context, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            context,
+                            response.body()!!["Msg"].asString,
+                            Toast.LENGTH_LONG
+                        ).show()
 
                     }
                 }
             }
+
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
@@ -268,14 +287,14 @@ class PackageDetailActivity : AppCompatActivity() {
 
     fun callTestPackageDetailApi() {
 
-        if (!DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
-            Utils.ping(this@PackageDetailActivity, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@PackageDetailActivity)
+        DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getPackageDetail(intent.getStringExtra("pkgid"))
+        val call = apiService.getPackageDetail(oldpkgid)
 
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -286,14 +305,21 @@ class PackageDetailActivity : AppCompatActivity() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-                        purchaseCoin = response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
+                        purchaseCoin =
+                            response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice")
+                                .asString
 
                         package_detail_tvPname.text =
-                            response.body()!!.get("data").asJsonObject.get("TestPackageName").asString
+                            response.body()!!.get("data").asJsonObject.get("TestPackageName")
+                                .asString
 
                         if (response.body()!!.get("data").asJsonObject.get("Icon").asString != null) {
                             Picasso.get()
-                                .load(AppConstants.IMAGE_BASE_URL + response.body()!!.get("data").asJsonObject.get("Icon").asString)
+                                .load(
+                                    AppConstants.IMAGE_BASE_URL + response.body()!!.get("data").asJsonObject.get(
+                                        "Icon"
+                                    ).asString
+                                )
                                 .into(package_detail_image1)
                         }
 
@@ -306,7 +332,8 @@ class PackageDetailActivity : AppCompatActivity() {
                             package_detail_tvsprice.text =
                                 "Sell Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
                             package_detail_tvlprice.text =
-                                response.body()!!.get("data").asJsonObject.get("TestPackageListPrice").asString.trim()
+                                response.body()!!.get("data")
+                                    .asJsonObject.get("TestPackageListPrice").asString.trim()
                         } else {
 
                             package_detail_tvlpricetxt.visibility = View.GONE
@@ -317,7 +344,9 @@ class PackageDetailActivity : AppCompatActivity() {
                         }
 
 //                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            package_detail_tvDesc.text = response.body()!!.get("data").asJsonObject.get("TestPackageDescription").asString
+                        package_detail_tvDesc.text =
+                            response.body()!!.get("data").asJsonObject.get("TestPackageDescription")
+                                .asString
 
 //                        } else {
 //                            package_detail_tvDesc.text =
@@ -325,7 +354,8 @@ class PackageDetailActivity : AppCompatActivity() {
 //                        }
 
                         package_detail_name_short.text =
-                            response.body()!!.get("data").asJsonObject.get("TestPackageName").asString.substring(0, 1)
+                            response.body()!!.get("data").asJsonObject.get("TestPackageName")
+                                .asString.substring(0, 1)
 
                         if (response.body()!!.get("data").asJsonObject.get("InstituteName").asString != "" && response.body()!!.get(
                                 "data"
@@ -333,24 +363,30 @@ class PackageDetailActivity : AppCompatActivity() {
                         ) {
                             package_detail_createdby.text =
                                 Html.fromHtml(
-                                    "Created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get("data").asJsonObject.get(
+                                    "Created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get(
+                                        "data"
+                                    ).asJsonObject.get(
                                         "InstituteName"
                                     ).asString + "</font>"
                                 )
                         } else {
                             package_detail_createdby.text =
                                 Html.fromHtml(
-                                    "Created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get("data").asJsonObject.get(
+                                    "Created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get(
+                                        "data"
+                                    ).asJsonObject.get(
                                         "TutorName"
                                     ).asString + "</font>"
                                 )
                         }
 
 
-                        Log.d("pkgid", intent.getStringExtra("pkgid"))
+                        Log.d("pkgid", oldpkgid)
 
-                        pkgid = response.body()!!.get("data").asJsonObject.get("TestPackageID").asString
-                        tutor_id = response.body()!!.get("data").asJsonObject.get("TutorID").asString
+                        pkgid =
+                            response.body()!!.get("data").asJsonObject.get("TestPackageID").asString
+                        tutor_id =
+                            response.body()!!.get("data").asJsonObject.get("TutorID").asString
 
 //                        var pos = intent.getCharExtra("position", 'a')
 
@@ -359,13 +395,14 @@ class PackageDetailActivity : AppCompatActivity() {
                             response.body()!!.get("data").asJsonObject.get("TestList").asJsonArray
 
                         package_detail_rvList.adapter = TestTypeAdapter(
-                            this@PackageDetailActivity, testList!!
+                            activity!!, testList!!
                         )
                     } else {
 
                         Toast.makeText(
-                            this@PackageDetailActivity,
-                            response.body()!!["Msg"].toString().replace("\"", ""), Toast.LENGTH_SHORT
+                            activity!!,
+                            response.body()!!["Msg"].toString().replace("\"", ""),
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
@@ -381,15 +418,15 @@ class PackageDetailActivity : AppCompatActivity() {
 
     fun callAddTestPackageApi(pkgid: String) {
 
-        if (!DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
-            Utils.ping(this@PackageDetailActivity, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@PackageDetailActivity)
+        DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.addTestPackage(
-            Utils.getStringValue(this@PackageDetailActivity, AppConstants.USER_ID, "0")!!,
+            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
             pkgid
         )
 
@@ -406,12 +443,12 @@ class PackageDetailActivity : AppCompatActivity() {
 
 //                        fragmentManager!!.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
 
-                        val intent = Intent(this@PackageDetailActivity, DashboardActivity::class.java)
+                        val intent = Intent(activity!!, DashboardActivity::class.java)
                         startActivity(intent)
-                        finish()
+                        (context as DashboardActivity).finish()
 
                         Toast.makeText(
-                            this@PackageDetailActivity,
+                            activity!!,
                             response.body()!!["Msg"].toString().replace("\"", ""),
                             Toast.LENGTH_SHORT
                         ).show()
@@ -420,7 +457,7 @@ class PackageDetailActivity : AppCompatActivity() {
                     } else {
 
                         Toast.makeText(
-                            this@PackageDetailActivity,
+                            activity!!,
                             response.body()!!["Msg"].toString().replace("\"", ""),
                             Toast.LENGTH_SHORT
                         ).show()
@@ -439,15 +476,15 @@ class PackageDetailActivity : AppCompatActivity() {
     //    {"Status":"true","data":"24","Msg":"Package added into cart"}
     fun callAddToCart(pkgid: String) {
 
-        if (!DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
-            Utils.ping(this@PackageDetailActivity, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@PackageDetailActivity)
+        DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.addToCart(
-            Utils.getStringValue(this@PackageDetailActivity, AppConstants.USER_ID, "0")!!,
+            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
             pkgid
         )
 
@@ -461,7 +498,7 @@ class PackageDetailActivity : AppCompatActivity() {
 //                        fragmentManager!!.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
 
 //                        Toast.makeText(
-//                            this@PackageDetailActivity,
+//                            activity!!,
 //                            response.body()!!["Msg"].toString().replace("\"", ""),
 //                            Toast.LENGTH_SHORT
 //                        ).show()
@@ -473,7 +510,7 @@ class PackageDetailActivity : AppCompatActivity() {
                         DialogUtils.dismissDialog()
 
                         Toast.makeText(
-                            this@PackageDetailActivity,
+                            activity!!,
                             response.body()!!["Msg"].toString().replace("\"", ""),
                             Toast.LENGTH_SHORT
                         ).show()
@@ -492,14 +529,14 @@ class PackageDetailActivity : AppCompatActivity() {
     //    {"Status":"true","data":[{"PaymentTransactionID":92,"OrderID":"TP190905112816426","PaymentAmount":"100"}],"Msg":"Generate New payment Order ID "}
     fun callCheckout() {
 
-        if (!DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
-            Utils.ping(this@PackageDetailActivity, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
         }
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.checkout(
-            Utils.getStringValue(this@PackageDetailActivity, AppConstants.USER_ID, "0")!!
+            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!
         )
 
         call.enqueue(object : Callback<JsonObject> {
@@ -522,7 +559,7 @@ class PackageDetailActivity : AppCompatActivity() {
                                 "" + response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
                             )
 
-                            val intent = Intent(this@PackageDetailActivity, TraknpayRequestActivity::class.java)
+                            val intent = Intent(activity!!, TraknpayRequestActivity::class.java)
                             intent.putExtra(
                                 "order_id",
                                 response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
@@ -535,7 +572,7 @@ class PackageDetailActivity : AppCompatActivity() {
                             intent.putExtra("pkgname", package_detail_tvPname.text.toString())
                             intent.putExtra("pkgprice", purchaseCoin)
                             startActivity(intent)
-                            finish()
+                            (context as DashboardActivity).finish()
 
                         } else {
                             updatePaymentStatus(
@@ -547,7 +584,7 @@ class PackageDetailActivity : AppCompatActivity() {
                     } else {
 
                         Toast.makeText(
-                            this@PackageDetailActivity,
+                            activity!!,
                             response.body()!!["Msg"].toString().replace("\"", ""),
                             Toast.LENGTH_SHORT
                         ).show()
@@ -565,17 +602,17 @@ class PackageDetailActivity : AppCompatActivity() {
     }
 
     fun updatePaymentStatus(transaction_status: String, order_id: String) {
-        if (!DialogUtils.isNetworkConnected(this@PackageDetailActivity)) {
-            Utils.ping(this@PackageDetailActivity, "Connetion not available")
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
         }
 
-        DialogUtils.showDialog(this@PackageDetailActivity)
+        DialogUtils.showDialog(activity!!)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.updatePaymentStatus(
             WebRequests.getPaymentStatusParams(
-                Utils.getStringValue(this@PackageDetailActivity, AppConstants.USER_ID, "")!!,
+                Utils.getStringValue(activity!!, AppConstants.USER_ID, "")!!,
                 order_id,
                 "0",
                 transaction_status
@@ -594,7 +631,7 @@ class PackageDetailActivity : AppCompatActivity() {
 //                        if (transaction_status == "Success") {
 
 //                            Toast.makeText(
-//                                this@PackageDetailActivity,
+//                                activity!!,
 //                               "Free package buy successfully",
 //                                Toast.LENGTH_SHORT
 //                            ).show()
@@ -629,11 +666,11 @@ class PackageDetailActivity : AppCompatActivity() {
 
                     AppConstants.isFirst = 1
 
-                    var intent = Intent(this@PackageDetailActivity, DashboardActivity::class.java)
+                    var intent = Intent(activity!!, DashboardActivity::class.java)
                     startActivity(intent)
-                    finish()
+                    (context as DashboardActivity).finish()
 
-//                        Toast.makeText(this@PackageDetailActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
+//                        Toast.makeText(activity!!, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
 //                            .show()
 
 

@@ -145,13 +145,16 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             dialog.setCanceledOnTouchOutside(false)
 
             val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
+            val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
 
             val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+
+            header.text = movies[groupPosition].SectionName
 
             hintWebview.settings.javaScriptEnabled = true
             hintWebview.loadDataWithBaseURL(
                 "",
-                "<html><body style='background-color:clear;'><p align=center><font size=4px>" + movies[groupPosition].SectionName + "</font></p><p>" + movies[groupPosition].SectionInstruction + "</p></body></html>",
+                "<html><body style='background-color:clear;'><p>" + movies[groupPosition].SectionInstruction + "</p></body></html>",
                 "text/html",
                 "UTF-8",
                 ""
@@ -289,7 +292,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         queTab_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
 
                         hintData =
-                            "<html><body style='background-color:clear;'><p align=center><font size=4px>" + "Hint" + "</font></p><p>" + movies[0].TestQuestion[0].Hint + "</p></body></html>"
+                            "<html><body style='background-color:clear;'><p>" + movies[0].TestQuestion[0].Hint + "</p></body></html>"
 
                         Log.d("qid", "" + movies[0].SectionID)
 
@@ -415,7 +418,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                 if (movies[0].TestQuestion[0].QuestionTypeID == 8) {
 
                                     queTab_tvFillBlanks.inputType =
-                                        InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL + InputType.TYPE_NUMBER_FLAG_SIGNED
+                                        InputType.TYPE_NUMBER_FLAG_SIGNED + InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL
                                 }
 
                                 queTab_tvFillBlanks.visibility = View.VISIBLE
@@ -1172,7 +1175,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         curr_index = p1
 
         hintData =
-            "<html><body style='background-color:clear;'><p align=center><font size=4px>" + "Hint" + "</font></p><p>" + movies[q_grppos1].TestQuestion[curr_index].Hint + "</p></body></html>"
+            "<html><body style='background-color:clear;'><p>" + movies[q_grppos1].TestQuestion[curr_index].Hint + "</p></body></html>"
 
         if (itype != "adapter") {
             when (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID) {
@@ -1613,7 +1616,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             dialog.setCanceledOnTouchOutside(false)
 
             val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
+            val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
             val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+
+            header.text = "Hint"
 
             hintWebview.settings.javaScriptEnabled = true
             hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")

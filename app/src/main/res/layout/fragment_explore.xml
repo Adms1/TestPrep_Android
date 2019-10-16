@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/gray_ring_bg"
             android:layout_margin="@dimen/_10sdp"
-            android:padding="@dimen/_4sdp"
+            android:padding="@dimen/_2sdp"
             android:layout_height="wrap_content">
 
         <AutoCompleteTextView
@@ -30,12 +30,12 @@
                 android:inputType="textAutoComplete"
                 android:id="@+id/explore_etSearch"
                 android:layout_toLeftOf="@+id/explore_ivSearch"
-                android:padding="@dimen/_7sdp"/>
+                android:padding="@dimen/_5sdp" />
 
         <ImageView
                 android:id="@+id/explore_ivSearch"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/search"
                 android:layout_centerVertical="true"
@@ -48,7 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Recent Searches"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_13sdp"
             android:maxLines="1"
             app:layout_constraintRight_toLeftOf="@+id/explore_ivSeeall"
             android:layout_marginTop="@dimen/_15sdp"

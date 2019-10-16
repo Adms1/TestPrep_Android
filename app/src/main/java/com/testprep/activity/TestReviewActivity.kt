@@ -2,14 +2,10 @@ package com.testprep.activity
 
 import android.app.Dialog
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testprep.R
@@ -73,53 +69,53 @@ class TestReviewActivity : Fragment() {
 
         review_btnReport.setOnClickListener {
 
-            if (isCompetitive == 0) {
-                val reportdialog = Dialog(activity)
-                reportdialog.setContentView(R.layout.dialog_report_issue)
-                reportdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                reportdialog.setCanceledOnTouchOutside(false)
-
-                val ivIssue: ImageView = reportdialog.findViewById(R.id.queTab_ivIssue)
-                val tvHeader: TextView = reportdialog.findViewById(R.id.dialog_report_tvHeader)
-                val close: TextView = reportdialog.findViewById(R.id.dialog_report_tvClose)
-                val queproblem: TextView = reportdialog.findViewById(R.id.dialog_report_tvQueProblem)
-                val ansproblem: TextView = reportdialog.findViewById(R.id.dialog_report_tvAnsProblem)
-                val hintexplanation: TextView = reportdialog.findViewById(R.id.dialog_report_tvHintProblem)
-                val line: View = reportdialog.findViewById(R.id.dialog_report_line2)
-
-                tvHeader.text = getString(R.string.test_summary_report)
-                hintexplanation.text = "Chpater wise"
-                ansproblem.text = "Topic wise"
-                queproblem.visibility = View.GONE
-                ivIssue.visibility = View.GONE
-                line.visibility = View.GONE
-
-                ansproblem.setOnClickListener {
-                    val intent = Intent(context, ViewInvoiceActivity::class.java)
-                    intent.putExtra("header", getString(R.string.test_summary_report))
-                    intent.putExtra("url", AppConstants.SUMMARY_REPORT_URL + "STID=" + studenttestid)
-                    startActivity(intent)
-                }
-
-                hintexplanation.setOnClickListener {
+            //            if (isCompetitive == 0) {
+//                val reportdialog = Dialog(activity)
+//                reportdialog.setContentView(R.layout.dialog_report_issue)
+//                reportdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//                reportdialog.setCanceledOnTouchOutside(false)
+//
+//                val ivIssue: ImageView = reportdialog.findViewById(R.id.queTab_ivIssue)
+//                val tvHeader: TextView = reportdialog.findViewById(R.id.dialog_report_tvHeader)
+//                val close: TextView = reportdialog.findViewById(R.id.dialog_report_tvClose)
+//                val queproblem: TextView = reportdialog.findViewById(R.id.dialog_report_tvQueProblem)
+//                val ansproblem: TextView = reportdialog.findViewById(R.id.dialog_report_tvAnsProblem)
+//                val hintexplanation: TextView = reportdialog.findViewById(R.id.dialog_report_tvHintProblem)
+//                val line: View = reportdialog.findViewById(R.id.dialog_report_line2)
+//
+//                tvHeader.text = getString(R.string.test_summary_report)
+//                hintexplanation.text = "Chpater wise"
+//                ansproblem.text = "Topic wise"
+//                queproblem.visibility = View.GONE
+//                ivIssue.visibility = View.GONE
+//                line.visibility = View.GONE
+//
+//                ansproblem.setOnClickListener {
+//                    val intent = Intent(context, ViewInvoiceActivity::class.java)
+//                    intent.putExtra("header", getString(R.string.test_summary_report))
+//                    intent.putExtra("url", AppConstants.SUMMARY_REPORT_URL + "STID=" + studenttestid)
+//                    startActivity(intent)
+//                }
+//
+//                hintexplanation.setOnClickListener {
                     val intent = Intent(context, ViewInvoiceActivity::class.java)
                     intent.putExtra("header", getString(R.string.test_summary_report))
                     intent.putExtra("url", AppConstants.SUMMARY_REPORT_URL + "STID=" + studenttestid + "&CHAP=1")
                     startActivity(intent)
-                }
+//                }
 
-                close.setOnClickListener {
-                    reportdialog.dismiss()
-                }
-
-                reportdialog.show()
-
-            } else {
-                val intent = Intent(context, ViewInvoiceActivity::class.java)
-                intent.putExtra("header", getString(R.string.test_summary_report))
-                intent.putExtra("url", AppConstants.SUMMARY_REPORT_URL + "STID=" + studenttestid)
-                startActivity(intent)
-            }
+//                close.setOnClickListener {
+//                    reportdialog.dismiss()
+//                }
+//
+//                reportdialog.show()
+//
+//            } else {
+//                val intent = Intent(context, ViewInvoiceActivity::class.java)
+//                intent.putExtra("header", getString(R.string.test_summary_report))
+//                intent.putExtra("url", AppConstants.SUMMARY_REPORT_URL + "STID=" + studenttestid)
+//                startActivity(intent)
+//            }
 
         }
 

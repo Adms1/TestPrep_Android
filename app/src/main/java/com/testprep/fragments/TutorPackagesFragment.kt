@@ -11,9 +11,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.testprep.R
 import com.testprep.activity.CartActivity
+import com.testprep.activity.DashboardActivity
 import com.testprep.adapter.PopularPackagesAdapter
 import com.testprep.adapter.TestPackagesAdapter
 import com.testprep.models.PackageData
+import com.testprep.utils.AppConstants
 import kotlinx.android.synthetic.main.fragment_tutor_packages.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -60,8 +62,12 @@ class TutorPackagesFragment : AppCompatActivity() {
 
         tutor_packages_tvViewProfile.setOnClickListener {
 
-            val intent = Intent(this@TutorPackagesFragment, TutorProfileFragment::class.java)
-            startActivity(intent)
+            AppConstants.isFirst = 15
+            DashboardActivity.setFragments(null)
+
+
+//            val intent = Intent(this@TutorPackagesFragment, TutorProfileFragment::class.java)
+//            startActivity(intent)
 
         }
 

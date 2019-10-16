@@ -48,7 +48,12 @@ class ChooseMarketPlaceFragment : Fragment() {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getMyPackages(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!, "", "")
+        val call = apiService.getMyPackages(
+            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
+            "",
+            "",
+            ""
+        )
         call.enqueue(object : Callback<MyPackageModel> {
             override fun onResponse(call: Call<MyPackageModel>, response: Response<MyPackageModel>) {
 

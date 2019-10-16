@@ -1,6 +1,5 @@
 package com.testprep.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -55,15 +54,15 @@ class TestListActivity : Fragment() {
 
         test_rvPkgList.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
-        test_ivChart.setOnClickListener {
-            val intent = Intent(context, ViewInvoiceActivity::class.java)
-            intent.putExtra("header", "Knowledge Gap")
-            intent.putExtra(
-                "url",
-                "http://webservice.testcraft.in/TestPackageSummaryReport.aspx?STPID=" + AppConstants.PKG_ID
-            )
-            startActivity(intent)
-        }
+//        test_ivChart.setOnClickListener {
+//            val intent = Intent(context, ViewInvoiceActivity::class.java)
+//            intent.putExtra("header", "Knowledge Gap")
+//            intent.putExtra(
+//                "url",
+//                "http://webservice.testcraft.in/TestPackageSummaryReport.aspx?STPID=" + AppConstants.PKG_ID
+//            )
+//            startActivity(intent)
+//        }
 
         callTestListApi()
     }

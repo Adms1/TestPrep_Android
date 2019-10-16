@@ -87,7 +87,7 @@ class TestListAdapter(
                 context.startActivity(intent)
                 (context as DashboardActivity).finish()
 
-            } else if (dataList[p1].StatusName == "Start") {
+            } else if (dataList[p1].StatusName == "Start Test") {
                 val intent = Intent(context, QuestionInstructionActivity::class.java)
                 intent.putExtra("testid", dataList[p1].TestID.toString())
                 intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())

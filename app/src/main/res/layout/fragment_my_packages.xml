@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#4DB0AC"
         android:orientation="vertical"
-        android:paddingTop="@dimen/_10sdp"
-        android:background="#4DB0AC">
+        android:paddingTop="@dimen/_10sdp">
 
     <TextView
-            android:text="Test"
+            android:id="@+id/my_packages_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/my_packages_header"
+            android:layout_toRightOf="@+id/my_packages_ivBack"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
             android:paddingTop="@dimen/_8sdp"
             android:paddingBottom="@dimen/_8sdp"
-            android:ellipsize="end"
             android:singleLine="true"
-            android:layout_toRightOf="@+id/my_packages_ivBack"
+            android:text="Test"
+            android:textColor="@color/white"
             android:textSize="@dimen/regular_text_size"
-            android:visibility="gone"
-            android:gravity="center_vertical"
-            android:textColor="@color/white"/>
+            android:visibility="gone" />
 
     <ImageView
+            android:id="@+id/my_packages_ivBack"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
-            android:src="@drawable/back_white_icon"
-            android:id="@+id/my_packages_ivBack"
-            android:padding="@dimen/_10sdp"/>
+            android:padding="@dimen/_10sdp"
+            android:src="@drawable/back_white_icon" />
 
     <android.support.v4.widget.NestedScrollView
+            android:id="@+id/my_packages_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/my_packages_scroll"
             android:layout_below="@+id/my_packages_header"
             android:fillViewport="true">
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <android.support.v7.widget.CardView
                     android:id="@+id/card_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_5sdp">
 
@@ -57,46 +56,47 @@
                         android:layout_height="match_parent">
 
                     <TextView
-                            android:text="Test Reports"
+                            android:id="@+id/my_packages_tvReport"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:ellipsize="end"
+                            android:gravity="center"
                             android:paddingTop="@dimen/_7sdp"
                             android:paddingBottom="@dimen/_7sdp"
-                            android:ellipsize="end"
                             android:singleLine="true"
-                            android:id="@+id/my_packages_tvReport"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:textSize="@dimen/normal_header_size"
-                            android:gravity="center"
-                            android:textColor="@color/black"/>
+                            android:text="Test Completion"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/normal_header_size" />
 
-                    <!--<ImageView-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="@dimen/_160sdp"-->
-                    <!--android:src="@drawable/progressicon"-->
-                    <!--android:id="@+id/my_packages_ivProgress"-->
-                    <!--app:layout_constraintTop_toBottomOf="@+id/my_packages_tvReport"-->
-                    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                    <!--app:layout_constraintRight_toRightOf="parent"/>-->
+                    <ImageView
+                            android:id="@+id/my_packages_ivReport"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:padding="@dimen/_2sdp"
+                            android:src="@drawable/diagram" />
 
                     <com.ramijemli.percentagechartview.PercentageChartView
                             android:id="@+id/my_packages_ivProgress"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_130sdp"
-                            app:pcv_mode="ring"
-                            app:pcv_backgroundBarColor="@color/default_shimmer_color"
-                            app:pcv_progressBarThickness="@dimen/_5sdp"
-                            app:pcv_backgroundBarThickness="@dimen/_5sdp"
-                            app:pcv_progressColor="@color/green"
-                            app:pcv_orientation="clockwise"
-                            app:pcv_animDuration="800"
-                            android:layout_marginTop="@dimen/_20sdp"
-                            app:pcv_animInterpolator="anticipate_overshoot"
-                            app:pcv_textSize="@dimen/_35sdp"
-                            app:pcv_textColor="@color/gray"
-                            app:pcv_textStyle="bold"
                             android:layout_below="@+id/my_packages_tvReport"
-                            app:pcv_startAngle="270"/>
+                            android:layout_marginTop="@dimen/_20sdp"
+                            app:pcv_animDuration="800"
+                            app:pcv_animInterpolator="anticipate_overshoot"
+                            app:pcv_backgroundBarColor="@color/default_shimmer_color"
+                            app:pcv_backgroundBarThickness="@dimen/_5sdp"
+                            app:pcv_mode="ring"
+                            app:pcv_orientation="clockwise"
+                            app:pcv_progressBarThickness="@dimen/_5sdp"
+                            app:pcv_progressColor="@color/green"
+                            app:pcv_startAngle="270"
+                            app:pcv_textColor="@color/gray"
+                            app:pcv_textSize="@dimen/_35sdp"
+                            app:pcv_textStyle="bold" />
 
                     <!--<com.emredavarci.circleprogressbar.CircleProgressBar-->
                     <!--android:id="@+id/my_packages_ivProgress"-->
@@ -118,67 +118,67 @@
                     <!--cpb:progressTextColor="#f9916b"/>-->
 
                     <TextView
+                            android:id="@+id/my_packages_tvTotalCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/my_packages_tvTotalCount"
-                            android:layout_marginLeft="@dimen/_10sdp"
                             android:layout_below="@+id/my_packages_ivProgress"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:layout_toRightOf="@+id/my_packages_ivTotalTest"
-                            android:textSize="@dimen/normal_header_size"/>
+                            android:textSize="@dimen/normal_header_size" />
 
                     <TextView
-                            android:text="Available Test"
+                            android:id="@+id/my_packages_tvTotalTest"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:singleLine="true"
+                            android:layout_below="@+id/my_packages_tvTotalCount"
                             android:layout_marginLeft="@dimen/_10sdp"
-                            android:id="@+id/my_packages_tvTotalTest"
-                            android:textSize="@dimen/extra_small_size"
                             android:layout_marginBottom="@dimen/_5sdp"
                             android:layout_toRightOf="@+id/my_packages_ivTotalTest"
-                            android:layout_below="@+id/my_packages_tvTotalCount"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:text="Available Test"
+                            android:textSize="@dimen/extra_small_size" />
 
                     <ImageView
+                            android:id="@+id/my_packages_ivTotalTest"
                             android:layout_width="@dimen/_25sdp"
                             android:layout_height="@dimen/_30sdp"
-                            android:src="@drawable/total_test"
-                            android:id="@+id/my_packages_ivTotalTest"
-                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:layout_below="@+id/my_packages_ivProgress"
                             android:layout_marginLeft="@dimen/_15sdp"
                             android:layout_marginTop="@dimen/_3sdp"
-                            android:layout_below="@+id/my_packages_ivProgress"/>
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:src="@drawable/total_test" />
 
                     <TextView
+                            android:id="@+id/my_packages_tvPendingCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/my_packages_tvPendingCount"
                             android:layout_below="@+id/my_packages_ivProgress"
                             android:layout_toRightOf="@+id/my_packages_ivPendingTest"
-                            android:textSize="@dimen/normal_header_size"/>
+                            android:textSize="@dimen/normal_header_size" />
 
                     <TextView
-                            android:text="Pending Test"
+                            android:id="@+id/my_packages_tvPendingTest"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:layout_marginBottom="@dimen/_5sdp"
-                            android:layout_marginRight="@dimen/_15sdp"
-                            android:layout_alignParentRight="true"
-                            android:id="@+id/my_packages_tvPendingTest"
                             android:layout_below="@+id/my_packages_tvPendingCount"
-                            android:textSize="@dimen/extra_small_size"/>
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/_15sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:singleLine="true"
+                            android:text="Pending Test"
+                            android:textSize="@dimen/extra_small_size" />
 
                     <ImageView
+                            android:id="@+id/my_packages_ivPendingTest"
                             android:layout_width="@dimen/_25sdp"
                             android:layout_height="@dimen/_30sdp"
-                            android:src="@drawable/pending_test"
-                            android:id="@+id/my_packages_ivPendingTest"
-                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:layout_below="@+id/my_packages_ivProgress"
                             android:layout_marginTop="@dimen/_3sdp"
                             android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
                             android:layout_toLeftOf="@+id/my_packages_tvPendingTest"
-                            android:layout_below="@+id/my_packages_ivProgress"/>
+                            android:src="@drawable/pending_test" />
 
                 </RelativeLayout>
 
@@ -188,34 +188,34 @@
                     android:id="@+id/card_view1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_10sdp"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/_5sdp"
-                    android:layout_margin="@dimen/_10sdp">
+                    app:cardCornerRadius="@dimen/_5sdp">
 
                 <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                     <TextView
-                            android:text="Purchased Packages"
+                            android:id="@+id/my_packages_pkgs"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/my_packages_pkgs"
-                            android:ellipsize="end"
-                            android:singleLine="true"
                             android:layout_margin="@dimen/_10sdp"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:textSize="@dimen/normal_header_size"
+                            android:ellipsize="end"
                             android:gravity="center_vertical"
-                            android:textColor="@color/black"/>
+                            android:singleLine="true"
+                            android:text="Purchased Packages"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/normal_header_size"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     <android.support.v7.widget.RecyclerView
                             android:id="@+id/my_packages_rvList"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="parent"
                             android:layout_margin="@dimen/_5sdp"
-                            app:layout_constraintTop_toBottomOf="@+id/my_packages_pkgs"/>
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/my_packages_pkgs" />
 
                 </android.support.constraint.ConstraintLayout>
 

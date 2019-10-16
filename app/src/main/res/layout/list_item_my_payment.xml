@@ -12,7 +12,7 @@
             android:id="@+id/item_my_payment_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_12sdp"
             android:textColor="@color/black"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
@@ -29,6 +29,8 @@
             android:textSize="@dimen/_12sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:maxLines="1"
+            android:text="fvdefecfefc"
+            android:textColor="@color/light_gray"
             android:layout_marginTop="@dimen/_3sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/item_my_payment_invoice"
@@ -39,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_12sdp"
             app:layout_constraintRight_toRightOf="parent"
             android:maxLines="1"
             android:layout_marginTop="@dimen/_5sdp"
@@ -53,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_12sdp"
             android:layout_marginRight="@dimen/_10sdp"
             app:layout_constraintRight_toRightOf="parent"
             android:maxLines="1"
@@ -67,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_12sdp"
             android:layout_marginRight="@dimen/_10sdp"
             app:layout_constraintRight_toRightOf="parent"
             android:maxLines="1"
@@ -75,5 +77,14 @@
             android:textColor="@android:color/holo_blue_dark"
             app:layout_constraintTop_toBottomOf="@id/item_my_payment_status"
             android:text="View"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@color/default_shimmer_color"
+            app:layout_constraintTop_toBottomOf="@+id/item_my_payment_invoice" />
 
 </android.support.constraint.ConstraintLayout>

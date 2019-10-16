@@ -1,8 +1,8 @@
 package com.testprep.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Paint
+import android.os.Bundle
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -12,8 +12,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.testprep.R
-import com.testprep.activity.PackageDetailActivity
+import com.testprep.activity.DashboardActivity
 import com.testprep.models.PackageData
+import com.testprep.utils.AppConstants
 
 
 class SelectPackageAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
@@ -77,9 +78,15 @@ class SelectPackageAdapter(val context: Context, val dataList: ArrayList<Package
 
         p0.llmain.setOnClickListener {
 
-            val intent = Intent(context, PackageDetailActivity::class.java)
-            intent.putExtra("pkgid", dataList[p1].TestPackageID)
-            context.startActivity(intent)
+            AppConstants.isFirst = 14
+            val bundle = Bundle()
+            bundle.putString("pkgid", dataList[p1].TestPackageID)
+            DashboardActivity.setFragments(bundle)
+
+
+//            val intent = Intent(context, PackageDetailActivity::class.java)
+//            intent.putExtra("pkgid", dataList[p1].TestPackageID)
+//            context.startActivity(intent)
 
         }
 

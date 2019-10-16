@@ -27,8 +27,9 @@
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:id="@+id/other_tvUserName"
+            android:layout_marginTop="@dimen/_5sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_15sdp"/>
+            android:textSize="@dimen/_14sdp" />
 
 
     <TextView
@@ -41,25 +42,36 @@
             android:layout_marginRight="@dimen/_10sdp"
             android:id="@+id/other_tvUserEmail"
             android:textColor="@color/gray"
-            android:textSize="@dimen/_14sdp"/>
+            android:textSize="@dimen/_13sdp" />
 
     <ImageView
             android:id="@+id/other_ivEdit"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            app:layout_constraintTop_toTopOf="@+id/other_tvUserName"
+            android:layout_width="@dimen/_19sdp"
+            android:layout_height="@dimen/_19sdp"
+            android:layout_marginRight="@dimen/_15sdp"
             app:layout_constraintBottom_toBottomOf="@+id/other_tvUserEmail"
             android:src="@drawable/pencil_icon"
+            android:padding="@dimen/_1sdp"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="@dimen/_10sdp"
+            app:layout_constraintTop_toTopOf="@+id/other_tvUserEmail"
             android:contentDescription="@string/logo"/>
 
-    <ListView
+    <View
+            android:id="@+id/other_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@color/default_shimmer_color"
+            android:text="subject"
+            app:layout_constraintTop_toBottomOf="@+id/other_tvUserEmail" />
+
+    <android.support.v7.widget.RecyclerView
             android:id="@+id/other_lvList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/other_tvUserEmail"
-            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@+id/other_line"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

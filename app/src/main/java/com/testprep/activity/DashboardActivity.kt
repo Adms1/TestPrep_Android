@@ -15,6 +15,7 @@ import android.widget.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.testprep.R
 import com.testprep.activity.ViewSolutionActivity.Companion.curr_index1
 import com.testprep.activity.ViewSolutionActivity.Companion.solution_grppos1
 import com.testprep.adapter.DrawerMenuListAdapter
@@ -51,26 +52,26 @@ class DashboardActivity : AppCompatActivity() {
 
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        setContentView(com.testprep.R.layout.activity_dashboard)
+        setContentView(R.layout.activity_dashboard)
 
         ON_BACK = 0
 
-        main_header = findViewById(com.testprep.R.id.dashboard_header)
-        ivCart = findViewById(com.testprep.R.id.dashboard_ivCart)
-        ivHome = findViewById(com.testprep.R.id.dash_ivHome)
-        ivMarket = findViewById(com.testprep.R.id.dash_ivMarket)
-        ivExplore = findViewById(com.testprep.R.id.dash_ivSearch)
-        ivProfile = findViewById(com.testprep.R.id.dash_ivUser)
-        tvHome = findViewById(com.testprep.R.id.dash_tvHome)
-        tvMarket = findViewById(com.testprep.R.id.dash_tvMarket)
-        tvExplore = findViewById(com.testprep.R.id.dash_tvSearch)
-        tvProfile = findViewById(com.testprep.R.id.dash_tvUser)
-        btnBack = findViewById(com.testprep.R.id.dashboard_ivBack)
-        btnLogout = findViewById(com.testprep.R.id.dashboard_ivLogout)
-        llBottom = findViewById(com.testprep.R.id.dashboard_llBottom)
-        rlFilter = findViewById(com.testprep.R.id.dashboard_rlFilter)
-        tvFilter = findViewById(com.testprep.R.id.dashboard_tvFilter)
-        ivSort = findViewById(com.testprep.R.id.dashboard_ivSort)
+        main_header = findViewById(R.id.dashboard_header)
+//        ivCart = findViewById(R.id.dashboard_ivCart)
+        ivHome = findViewById(R.id.dash_ivHome)
+        ivMarket = findViewById(R.id.dash_ivMarket)
+        ivExplore = findViewById(R.id.dash_ivSearch)
+        ivProfile = findViewById(R.id.dash_ivUser)
+        tvHome = findViewById(R.id.dash_tvHome)
+        tvMarket = findViewById(R.id.dash_tvMarket)
+        tvExplore = findViewById(R.id.dash_tvSearch)
+        tvProfile = findViewById(R.id.dash_tvUser)
+        btnBack = findViewById(R.id.dashboard_ivBack)
+//        btnLogout = findViewById(R.id.dashboard_ivLogout)
+        llBottom = findViewById(R.id.dashboard_llBottom)
+        rlFilter = findViewById(R.id.dashboard_rlFilter)
+        tvFilter = findViewById(R.id.dashboard_tvFilter)
+        ivSort = findViewById(R.id.dashboard_ivSort)
 
         fragManager = this.supportFragmentManager
         context = this@DashboardActivity
@@ -96,15 +97,15 @@ class DashboardActivity : AppCompatActivity() {
 
         } else {
 
-            dash_ivMarket.setImageResource(com.testprep.R.drawable.blue_list)
-            dash_ivHome.setImageResource(com.testprep.R.drawable.home)
-            dash_ivUser.setImageResource(com.testprep.R.drawable.menu_one)
-            dash_ivSearch.setImageResource(com.testprep.R.drawable.search)
+            dash_ivMarket.setImageResource(R.drawable.blue_list)
+            dash_ivHome.setImageResource(R.drawable.home)
+            dash_ivUser.setImageResource(R.drawable.menu_one)
+            dash_ivSearch.setImageResource(R.drawable.search)
 
-            dash_tvHome.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-            dash_tvMarket.setTextColor(resources.getColor(com.testprep.R.color.nfcolor))
-            dash_tvSearch.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
-            dash_tvUser.setTextColor(resources.getColor(com.testprep.R.color.light_gray))
+            dash_tvHome.setTextColor(resources.getColor(R.color.light_gray))
+            dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
+            dash_tvSearch.setTextColor(resources.getColor(R.color.light_gray))
+            dash_tvUser.setTextColor(resources.getColor(R.color.light_gray))
 
             setFragments(null)
         }
@@ -121,7 +122,7 @@ class DashboardActivity : AppCompatActivity() {
 
         }
 
-        dashboard_ivLogout.setOnClickListener { signOut() }
+//        dashboard_ivLogout.setOnClickListener { signOut() }
 
 //        init()
 
@@ -154,9 +155,9 @@ class DashboardActivity : AppCompatActivity() {
 //
 //            }
 
-            dashboard_ivLogout -> {
-                signOut()
-            }
+//            dashboard_ivLogout -> {
+//                signOut()
+//            }
 
             dash_llDashboard -> {
 
@@ -199,7 +200,7 @@ class DashboardActivity : AppCompatActivity() {
         var isCompetitive = false
 
         var main_header: TextView? = null
-        var ivCart: ImageView? = null
+        //        var ivCart: ImageView? = null
         var ivHome: ImageView? = null
         var ivMarket: ImageView? = null
         var ivExplore: ImageView? = null
@@ -209,7 +210,7 @@ class DashboardActivity : AppCompatActivity() {
         var tvExplore: TextView? = null
         var tvProfile: TextView? = null
         var btnBack: ImageView? = null
-        var btnLogout: ImageView? = null
+        //        var btnLogout: ImageView? = null
         var rlFilter: RelativeLayout? = null
         var tvFilter: TextView? = null
         var ivSort: ImageView? = null
@@ -218,6 +219,7 @@ class DashboardActivity : AppCompatActivity() {
         var boardid = ""
         var stdid = ""
         var tutorid = ""
+        var tutorpid = ""
         var ptype = ""
         var subid1 = ""
         var parr: ArrayList<PackageData.PackageDataList> = ArrayList()
@@ -226,6 +228,7 @@ class DashboardActivity : AppCompatActivity() {
         var search_name = ""
         var testname = ""
         var testque = ""
+        var pkgid = ""
         var llBottom: LinearLayout? = null
 
         var context: Context? = null
@@ -251,17 +254,18 @@ class DashboardActivity : AppCompatActivity() {
                     AppConstants.FILTER_TUTOR_ID = "0"
                     AppConstants.FILTER_BOARD_ID = "0"
 
-                    mGoogleSignInClient!!.signOut().addOnCompleteListener(context as DashboardActivity) {
-                        // ...
+                    mGoogleSignInClient!!.signOut()
+                        .addOnCompleteListener(context as DashboardActivity) {
+                            // ...
 
-                        Utils.setStringValue(context!!, "is_login", "false")
+                            Utils.setStringValue(context!!, "is_login", "false")
 
-                        val intent = Intent(context, IntroActivity::class.java)
-                        context!!.startActivity(intent)
+                            val intent = Intent(context, IntroActivity::class.java)
+                            context!!.startActivity(intent)
 //                overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
-                        (context as DashboardActivity).finish()
+                            (context as DashboardActivity).finish()
 
-                    }
+                        }
                 },
                 DialogInterface.OnClickListener { dialog, which ->
                     dialog.dismiss()
@@ -286,27 +290,31 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = "Market Place"
                     btnBack!!.visibility = View.GONE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
 
                     //                var bundle = Bundle()
 //                bundle.putString("subid", intent.getStringExtra("subject_id"))
 //                fragment.arguments = bundle
 
 //                dashboard_ivFilter.visibility = View.VISIBLE
-                    ivCart!!.visibility = View.GONE
+//                    ivCart!!.visibility = View.GONE
 //                dashboard_ivPencil.visibility = View.VISIBLE
 //                dashboard_ivBack.visibility = View.VISIBLE
 //                dashboard_ivPencil.visibility = View.VISIBLE
 
-                    ivMarket!!.setImageResource(com.testprep.R.drawable.blue_list)
-                    ivHome!!.setImageResource(com.testprep.R.drawable.home)
-                    ivProfile!!.setImageResource(com.testprep.R.drawable.menu_one)
-                    ivExplore!!.setImageResource(com.testprep.R.drawable.search)
+                    ivMarket!!.setImageResource(R.drawable.blue_list)
+                    ivHome!!.setImageResource(R.drawable.home)
+                    ivProfile!!.setImageResource(R.drawable.menu_one)
+                    ivExplore!!.setImageResource(R.drawable.search)
 
-                    tvHome!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
-                    tvMarket!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.nfcolor))
-                    tvExplore!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
-                    tvProfile!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvHome!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
 
                 }
                 1 -> {
@@ -317,25 +325,29 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = "Dashboard"
                     btnBack!!.visibility = View.GONE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
 
                     //        dashboard_ivPencil.visibility = View.VISIBLE
 
                     //                dashboard_ivFilter.visibility = View.GONE
-                    ivCart!!.visibility = View.GONE
+//                    ivCart!!.visibility = View.GONE
 //                dashboard_ivPencil.visibility = View.GONE
 //                dashboard_ivBack.visibility = View.GONE
 //                dashboard_ivFilter.visibility = View.GONE
 
-                    ivHome!!.setImageResource(com.testprep.R.drawable.blue_home)
-                    ivMarket!!.setImageResource(com.testprep.R.drawable.list)
-                    ivExplore!!.setImageResource(com.testprep.R.drawable.search)
-                    ivProfile!!.setImageResource(com.testprep.R.drawable.menu_one)
+                    ivHome!!.setImageResource(R.drawable.blue_home)
+                    ivMarket!!.setImageResource(R.drawable.list)
+                    ivExplore!!.setImageResource(R.drawable.search)
+                    ivProfile!!.setImageResource(R.drawable.menu_one)
 
-                    tvHome!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.nfcolor))
-                    tvMarket!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
-                    tvExplore!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
-                    tvProfile!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvHome!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
 
                 }
 
@@ -347,26 +359,31 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = "Explore"
                     btnBack!!.visibility = View.GONE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
 
                     //                supportFragmentManager.beginTransaction().replace(R.id.container, ExploreFragment())
 //                    .commit()
 
 //                dashboard_ivFilter.visibility = View.GONE
-                    ivCart!!.visibility = View.GONE
+//                    ivCart!!.visibility = View.GONE
 //                dashboard_ivPencil.visibility = View.GONE
 //                dashboard_ivBack.visibility = View.GONE
 //                dashboard_ivFilter.visibility = View.GONE
 
-                    ivExplore!!.setImageResource(com.testprep.R.drawable.blue_search)
-                    ivProfile!!.setImageResource(com.testprep.R.drawable.menu_one)
-                    ivMarket!!.setImageResource(com.testprep.R.drawable.list)
-                    ivHome!!.setImageResource(com.testprep.R.drawable.home)
+                    ivExplore!!.setImageResource(R.drawable.blue_search)
+                    ivProfile!!.setImageResource(R.drawable.menu_one)
+                    ivMarket!!.setImageResource(R.drawable.list)
+                    ivHome!!.setImageResource(R.drawable.home)
 
-                    tvHome!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
-                    tvMarket!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
-                    tvExplore!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.nfcolor))
-                    tvProfile!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvHome!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
+
                 }
                 4 -> {
 
@@ -376,10 +393,10 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = "Other"
                     btnBack!!.visibility = View.GONE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
 
                     //                dashboard_ivFilter.visibility = View.GONE
-                    ivCart!!.visibility = View.GONE
+//                    ivCart!!.visibility = View.GONE
 //                dashboard_ivPencil.visibility = View.GONE
 //                dashboard_ivBack.visibility = View.GONE
 //                dashboard_ivFilter.visibility = View.GONE
@@ -387,15 +404,19 @@ class DashboardActivity : AppCompatActivity() {
 //                dashboard_ivLogout.visibility = View.GONE
 //                supportFragmentManager.beginTransaction().replace(R.id.container, OtherFragment()).commit()
 
-                    ivProfile!!.setImageResource(com.testprep.R.drawable.blue_menu)
-                    ivExplore!!.setImageResource(com.testprep.R.drawable.search)
-                    ivMarket!!.setImageResource(com.testprep.R.drawable.list)
-                    ivHome!!.setImageResource(com.testprep.R.drawable.home)
+                    ivProfile!!.setImageResource(R.drawable.blue_menu)
+                    ivExplore!!.setImageResource(R.drawable.search)
+                    ivMarket!!.setImageResource(R.drawable.list)
+                    ivHome!!.setImageResource(R.drawable.home)
 
-                    tvHome!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
-                    tvMarket!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
-                    tvExplore!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
-                    tvProfile!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.nfcolor))
+                    tvHome!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
 
                 }
                 5 -> {
@@ -406,7 +427,11 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = "My Payments"
                     btnBack!!.visibility = View.VISIBLE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
 
                 }
                 6 -> {
@@ -422,7 +447,11 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = "Change Password"
                     btnBack!!.visibility = View.VISIBLE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
 
                 }
                 7 -> {
@@ -438,7 +467,11 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = "Change Password"
                     btnBack!!.visibility = View.VISIBLE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
 
                 }
                 8 -> {
@@ -448,9 +481,13 @@ class DashboardActivity : AppCompatActivity() {
                     llBottom!!.visibility = View.VISIBLE
 
                     btnBack!!.visibility = View.VISIBLE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
 
                     main_header!!.text = "Profile"
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
 
                 }
                 9 -> {
@@ -473,7 +510,11 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = testname
                     btnBack!!.visibility = View.VISIBLE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
 
                 }
                 10 -> {
@@ -495,7 +536,11 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = testname
                     btnBack!!.visibility = View.VISIBLE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
 
                 }
                 11 -> {
@@ -517,7 +562,11 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = bundle.getString("sub_name")
                     btnBack!!.visibility = View.VISIBLE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
 
                 }
                 12 -> {
@@ -537,17 +586,21 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = AppConstants.PKG_NAME
                     btnBack!!.visibility = View.VISIBLE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
 
-                    ivHome!!.setImageResource(com.testprep.R.drawable.blue_home)
-                    ivMarket!!.setImageResource(com.testprep.R.drawable.list)
-                    ivExplore!!.setImageResource(com.testprep.R.drawable.search)
-                    ivProfile!!.setImageResource(com.testprep.R.drawable.menu_one)
+                    ivHome!!.setImageResource(R.drawable.blue_home)
+                    ivMarket!!.setImageResource(R.drawable.list)
+                    ivExplore!!.setImageResource(R.drawable.search)
+                    ivProfile!!.setImageResource(R.drawable.menu_one)
 
-                    tvHome!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.nfcolor))
-                    tvMarket!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
-                    tvExplore!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
-                    tvProfile!!.setTextColor(context!!.resources.getColor(com.testprep.R.color.light_gray))
+                    tvHome!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
 
                 }
                 13 -> {
@@ -563,7 +616,8 @@ class DashboardActivity : AppCompatActivity() {
                     tutorid = bundle.getString("tutorid")!!
 
                     if (bundle.containsKey("parr")) {
-                        parr = (bundle.getSerializable("parr") as ArrayList<PackageData.PackageDataList>?)!!
+                        parr =
+                            (bundle.getSerializable("parr") as ArrayList<PackageData.PackageDataList>?)!!
                     }
                     maxprice = bundle.getString("maxprice")!!
                     minprice = bundle.getString("minprice")!!
@@ -591,14 +645,86 @@ class DashboardActivity : AppCompatActivity() {
 
                     main_header!!.text = pname
                     btnBack!!.visibility = View.VISIBLE
-                    btnLogout!!.visibility = View.GONE
-                    btnLogout!!.visibility = View.GONE
-                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
+//                    btnLogout!!.visibility = View.GONE
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
+
+                }
+                14 -> {
+
+                    pkgid = bundle!!.getString("pkgid")!!
+//                    pname = bundle.getString("pname")!!
+
+                    fragment = PackageDetailActivity()
+
+                    llBottom!!.visibility = View.VISIBLE
+
+                    val bundle10 = Bundle()
+                    bundle10.putString("pkgid", pkgid)
+                    bundle10.putString("come_from", pname)
+
+                    (fragment as PackageDetailActivity).arguments = bundle10
+
+                    main_header!!.text = "Package Details"
+                    btnBack!!.visibility = View.VISIBLE
+//                    btnLogout!!.visibility = View.GONE
+
+                    ivHome!!.setImageResource(R.drawable.home)
+                    ivMarket!!.setImageResource(R.drawable.blue_list)
+                    ivExplore!!.setImageResource(R.drawable.search)
+                    ivProfile!!.setImageResource(R.drawable.menu_one)
+
+                    tvHome!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+                        .addToBackStack(null)
+                        .commit()
+
+                }
+                15 -> {
+
+                    tutorpid = bundle!!.getString("tutor_id")!!
+//                    pname = bundle.getString("pname")!!
+
+                    fragment = TutorProfileFragment()
+
+                    llBottom!!.visibility = View.VISIBLE
+
+                    val bundle9 = Bundle()
+                    bundle9.putString("tutor_id", tutorpid)
+
+                    (fragment as TutorProfileFragment).arguments = bundle9
+
+                    btnBack!!.visibility = View.VISIBLE
+//                    btnLogout!!.visibility = View.GONE
+
+                    ivHome!!.setImageResource(R.drawable.home)
+                    ivMarket!!.setImageResource(R.drawable.blue_list)
+                    ivExplore!!.setImageResource(R.drawable.search)
+                    ivProfile!!.setImageResource(R.drawable.menu_one)
+
+                    tvHome!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+                        .addToBackStack(null)
+                        .commit()
 
                 }
             }
 
-            fragManager!!.beginTransaction().replace(com.testprep.R.id.container, fragment!!).commitAllowingStateLoss()
+//            fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+//                .commitNowAllowingStateLoss()
 
         }
     }
@@ -670,6 +796,9 @@ class DashboardActivity : AppCompatActivity() {
 
             AppConstants.isFirst = 0
             setFragments(null)
+
+        } else if (AppConstants.isFirst == 14 || AppConstants.isFirst == 15) {
+            supportFragmentManager.popBackStack()
         }
 
     }

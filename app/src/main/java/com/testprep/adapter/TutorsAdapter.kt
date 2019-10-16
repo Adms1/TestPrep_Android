@@ -1,7 +1,7 @@
 package com.testprep.adapter
 
 import android.content.Context
-import android.content.Intent
+import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testprep.R
-import com.testprep.fragments.TutorProfileFragment
+import com.testprep.activity.DashboardActivity
 import com.testprep.models.PackageData
 import com.testprep.utils.AppConstants
 
@@ -50,9 +50,14 @@ class TutorsAdapter(val context: Context, val dataList: ArrayList<PackageData.Pa
 
         p0.clMain.setOnClickListener {
 
-            val intent = Intent(context, TutorProfileFragment::class.java)
-            intent.putExtra("tutor_id", dataList[p1].TutorID)
-            context.startActivity(intent)
+            AppConstants.isFirst = 15
+            val bundle = Bundle()
+            bundle.putString("tutor_id", dataList[p1].TutorID)
+            DashboardActivity.setFragments(bundle)
+
+//            val intent = Intent(context, TutorProfileFragment::class.java)
+//            intent.putExtra("tutor_id", dataList[p1].TutorID)
+//            context.startActivity(intent)
 
 //            val intent = Intent(context, PackageDetailActivity::class.java)
 //            intent.putExtra("pkgid", dataList[p1].TestPackageID)
