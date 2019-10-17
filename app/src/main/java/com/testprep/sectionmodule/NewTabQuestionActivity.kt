@@ -291,8 +291,15 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                         queTab_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
 
-                        hintData =
-                            "<html><body style='background-color:clear;'><p>" + movies[0].TestQuestion[0].Hint + "</p></body></html>"
+                        if (movies[0].TestQuestion[0].Hint != "") {
+
+                            queTab_ivHint.visibility = View.VISIBLE
+
+                            hintData =
+                                "<html><body style='background-color:clear;'><p>" + movies[0].TestQuestion[0].Hint + "</p></body></html>"
+                        } else {
+                            queTab_ivHint.visibility = View.GONE
+                        }
 
                         Log.d("qid", "" + movies[0].SectionID)
 
@@ -1174,8 +1181,15 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         curr_index = p1
 
-        hintData =
-            "<html><body style='background-color:clear;'><p>" + movies[q_grppos1].TestQuestion[curr_index].Hint + "</p></body></html>"
+        if (movies[q_grppos1].TestQuestion[curr_index].Hint != "") {
+
+            queTab_ivHint.visibility = View.VISIBLE
+
+            hintData =
+                "<html><body style='background-color:clear;'><p>" + movies[q_grppos1].TestQuestion[curr_index].Hint + "</p></body></html>"
+        } else {
+            queTab_ivHint.visibility = View.GONE
+        }
 
         if (itype != "adapter") {
             when (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID) {

@@ -92,6 +92,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
 
         p0.ll.setOnClickListener {
 
+
             AppConstants.isFirst = 11
             val bundle = Bundle()
             bundle.putInt("sub_id", list[p1].ID)

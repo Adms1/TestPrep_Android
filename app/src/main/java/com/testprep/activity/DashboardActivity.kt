@@ -546,6 +546,7 @@ class DashboardActivity : AppCompatActivity() {
                 11 -> {
 
                     subid = bundle!!.getInt("sub_id", 0)
+                    stdid = bundle.getString("std_id", "")
                     subname = bundle.getString("sub_name")!!
                     isCompetitive = bundle.getBoolean("isCompetitive", false)
 
@@ -555,6 +556,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     val bundle3 = Bundle()
                     bundle3.putInt("sub_id", subid)
+                    bundle3.putString("std_id", stdid)
                     bundle3.putString("sub_name", subname)
                     bundle3.putBoolean("isCompetitive", isCompetitive)
 
@@ -648,6 +650,16 @@ class DashboardActivity : AppCompatActivity() {
 //                    btnLogout!!.visibility = View.GONE
 //                    btnLogout!!.visibility = View.GONE
 //                    btnLogout!!.visibility = View.GONE
+
+                    ivHome!!.setImageResource(R.drawable.home)
+                    ivMarket!!.setImageResource(R.drawable.blue_list)
+                    ivExplore!!.setImageResource(R.drawable.search)
+                    ivProfile!!.setImageResource(R.drawable.menu_one)
+
+                    tvHome!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvMarket!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
+                    tvExplore!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                    tvProfile!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
@@ -798,6 +810,7 @@ class DashboardActivity : AppCompatActivity() {
             setFragments(null)
 
         } else if (AppConstants.isFirst == 14 || AppConstants.isFirst == 15) {
+            AppConstants.isFirst = 13
             supportFragmentManager.popBackStack()
         }
 

@@ -65,8 +65,16 @@ class OtherFragment : Fragment() {
             setFragments(null)
         }
 
+        other_tvLogo.text =
+            Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, "").toString()
+                .substring(0, 1)
+
         other_tvUserName.text =
-            Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, "") + " " + Utils.getStringValue(
+            Utils.getStringValue(
+                activity!!,
+                AppConstants.FIRST_NAME,
+                ""
+            ) + " " + Utils.getStringValue(
                 activity!!,
                 AppConstants.LAST_NAME,
                 ""
@@ -75,5 +83,4 @@ class OtherFragment : Fragment() {
         other_tvUserEmail.text = Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, "")
 
     }
-
 }

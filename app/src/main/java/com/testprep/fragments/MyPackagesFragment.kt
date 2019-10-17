@@ -1,5 +1,6 @@
 package com.testprep.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -7,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.testprep.activity.ViewInvoiceActivity
 import com.testprep.adapter.MyPackageAdapter
 import com.testprep.models.MyPackageModel
 import com.testprep.retrofit.WebClient
@@ -56,6 +58,33 @@ class MyPackagesFragment : Fragment() {
         }
 
         my_packages_ivReport.setOnClickListener {
+
+            if (iscompetitive == "1") {
+                val intent = Intent(context, ViewInvoiceActivity::class.java)
+                intent.putExtra("header", "Knowledge Gap")
+                intent.putExtra(
+                    "url",
+                    "http://webservice.testcraft.in/SubjectSummaryReport.aspx?IsCompetitive=1&CourseID=" + subid.toString() + "&StudentID=" + Utils.getStringValue(
+                        activity!!,
+                        AppConstants.USER_ID,
+                        "0"
+                    )!!
+                )
+                startActivity(intent)
+            } else {
+                val intent = Intent(context, ViewInvoiceActivity::class.java)
+                intent.putExtra("header", "Knowledge Gap")
+                intent.putExtra(
+                    "url",
+                    "http://webservice.testcraft.in/SubjectSummaryReport.aspx?IsCompetitive=0&StandardID=" + stdid + "&SubjectID=" + subid.toString() + "&StudentID=" + Utils.getStringValue(
+                        activity!!,
+                        AppConstants.USER_ID,
+                        "0"
+                    )!!
+                )
+                startActivity(intent)
+            }
+
             //            val intent = Intent(context, ViewInvoiceActivity::class.java)
 //            intent.putExtra("header", "Knowledge Gap")
 //            intent.putExtra(
@@ -96,7 +125,10 @@ class MyPackagesFragment : Fragment() {
 
         call.enqueue(object : Callback<MyPackageModel> {
 
-            override fun onResponse(call: Call<MyPackageModel>, response: Response<MyPackageModel>) {
+            override fun onResponse(
+                call: Call<MyPackageModel>,
+                response: Response<MyPackageModel>
+            ) {
 
                 if (response.body() != null) {
 
