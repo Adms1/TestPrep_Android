@@ -42,7 +42,7 @@ class ViewInvoiceActivity : AppCompatActivity() {
 
             invoice_view.settings.builtInZoomControls = true
 
-            invoice_view.settings.javaScriptEnabled = false
+            invoice_view.settings.javaScriptEnabled = true
             invoice_view.settings.cacheMode = WebSettings.LOAD_NO_CACHE
             invoice_view.loadUrl(url)
 

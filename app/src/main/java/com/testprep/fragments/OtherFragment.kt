@@ -67,7 +67,7 @@ class OtherFragment : Fragment() {
 
         other_tvLogo.text =
             Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, "").toString()
-                .substring(0, 1)
+                .substring(0, 1).toUpperCase()
 
         other_tvUserName.text =
             Utils.getStringValue(

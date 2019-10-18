@@ -70,7 +70,9 @@ class MyPackagesFragment : Fragment() {
                         "0"
                     )!!
                 )
+
                 startActivity(intent)
+
             } else {
                 val intent = Intent(context, ViewInvoiceActivity::class.java)
                 intent.putExtra("header", "Knowledge Gap")

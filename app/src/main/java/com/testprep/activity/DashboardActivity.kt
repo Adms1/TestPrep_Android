@@ -801,6 +801,7 @@ class DashboardActivity : AppCompatActivity() {
             AppConstants.isFirst = 11
             val bundle3 = Bundle()
             bundle3.putInt("sub_id", subid)
+            bundle3.putString("std_id", stdid)
             bundle3.putString("sub_name", subname)
             bundle3.putBoolean("isCompetitive", isCompetitive)
             setFragments(bundle3)
