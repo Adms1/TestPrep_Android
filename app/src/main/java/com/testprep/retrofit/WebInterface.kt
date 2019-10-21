@@ -104,6 +104,15 @@ interface WebInterface {
     @POST("Get_TestPackageName_By_TutorID")
     fun getTutorSimilarPkgs(@Field("TutorID") stuid: String): Call<PackageData>
 
+    @FormUrlEncoded
+    @POST("Get_TutorRating")
+    fun getTutorRating(@Field("TutorID") stuid: String): Call<TutorModel>
+
+    @FormUrlEncoded
+    @POST("Insert_TutorRating")
+    fun writeRating(@FieldMap map: HashMap<String, String>): Call<TutorModel>
+
+
     @GET("Get_Tutor")
     fun getTutorList(): Call<PackageData>
 

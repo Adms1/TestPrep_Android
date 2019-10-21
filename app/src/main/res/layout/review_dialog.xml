@@ -28,6 +28,7 @@
                 style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="@dimen/_150sdp"
                 android:layout_height="wrap_content"
+                android:id="@+id/tutor_profile_ratingbar"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:isIndicator="false"
@@ -43,7 +44,6 @@
                 android:background="@drawable/gray_ring_bg"
                 android:gravity="top"
                 android:hint="Enter your review here..."
-                android:maxLines="5"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12sdp" />

@@ -66,6 +66,19 @@
             app:layout_constraintTop_toBottomOf="@+id/tutor_review_header"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <TextView
+            android:id="@+id/tutor_review_tvNoReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:text="No Review"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     <Button
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_25sdp"

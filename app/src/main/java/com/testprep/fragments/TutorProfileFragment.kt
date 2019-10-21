@@ -70,6 +70,7 @@ class TutorProfileFragment : Fragment() {
         llRating.setOnClickListener {
             val intent = Intent(activity!!, TutorsReviewFragment::class.java)
             intent.putExtra("header", tutor_profile_tvName.text.toString())
+            intent.putExtra("tutorid", tutorid)
             startActivity(intent)
         }
 
@@ -124,6 +125,10 @@ class TutorProfileFragment : Fragment() {
                         tutor_profile_tvName.text = response.body()!!.data[0].TutorName
                         tutor_profile_tvEmail.text = response.body()!!.data[0].TutorEmail
                         tutor_profile_tvMobile.text = response.body()!!.data[0].TutorPhoneNumber
+
+                        tutor_profile_tvCount.text =
+                            "(" + response.body()!!.data[0].TotalRateCount + ")"
+                        tutor_profile_rating.rating = response.body()!!.data[0].TutorStars.toFloat()
 
                         if (response.body()!!.data[0].TutorName != "") {
                             Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data[0].Icon)

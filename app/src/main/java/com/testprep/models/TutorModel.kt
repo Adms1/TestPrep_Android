@@ -14,5 +14,13 @@ class TutorModel {
         var TutorPhoneNumber = ""
         var InstituteName = ""
         var Icon = ""
+
+        var StudentName = ""
+        var Remarks = ""
+        var Rating = ""
+        var DateTime = ""
+
+        var TotalRateCount = ""
+        var TutorStars = ""
     }
 }

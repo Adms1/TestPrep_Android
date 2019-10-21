@@ -1,84 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp">
 
-    <ImageView
+    <RelativeLayout
+            android:id="@+id/tutor_review_llImage"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:src="@drawable/pink_round"
             android:layout_marginTop="@dimen/_5sdp"
-            android:id="@+id/tutor_review_image"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+                android:id="@+id/tutor_review_image"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:src="@drawable/blue_round" />
+
+        <TextView
+                android:id="@+id/tutor_review_tvLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="A"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18sdp" />
+
+    </RelativeLayout>
 
     <TextView
-            android:text="Hemang Mehta"
+            android:id="@+id/tutor_item_tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tutor_item_tvName"
-            app:layout_constraintLeft_toRightOf="@+id/tutor_review_image"
-            app:layout_constraintTop_toTopOf="@+id/tutor_review_image"
-            app:layout_constraintBottom_toBottomOf="@+id/tutor_review_image"
-            android:textSize="@dimen/small_text_size"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:textColor="@color/black"/>
+            android:text="Hemang Mehta"
+            android:textColor="@color/black"
+            android:textSize="@dimen/small_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/tutor_review_llImage"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_review_llImage"
+            app:layout_constraintTop_toTopOf="@+id/tutor_review_llImage" />
 
     <RatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:rating="5"
             android:id="@+id/tutor_review_rating"
-            app:layout_constraintLeft_toLeftOf="@+id/tutor_review_image"
             style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintTop_toBottomOf="@+id/tutor_review_image"/>
+            android:rating="4"
+            app:layout_constraintLeft_toLeftOf="@+id/tutor_review_llImage"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_review_llImage" />
 
     <TextView
-            android:text="16/06/2019"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/tutor_item_tvDate"
-            app:layout_constraintLeft_toRightOf="@+id/tutor_review_rating"
-            app:layout_constraintTop_toTopOf="@+id/tutor_review_rating"
-            app:layout_constraintBottom_toBottomOf="@+id/tutor_review_rating"
-            android:textSize="@dimen/small_text_size"
-            android:layout_marginLeft="@dimen/_10sdp"/>
-
-    <TextView
-            android:text="Hemang Mehta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tutor_item_tvName1"
-            app:layout_constraintLeft_toLeftOf="@+id/tutor_review_image"
-            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDate"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:text="16/06/2019"
             android:textSize="@dimen/small_text_size"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textColor="@color/black"/>
+            app:layout_constraintBottom_toBottomOf="@+id/tutor_review_rating"
+            app:layout_constraintLeft_toRightOf="@+id/tutor_review_rating"
+            app:layout_constraintTop_toTopOf="@+id/tutor_review_rating" />
 
     <TextView
-            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            android:id="@+id/tutor_item_tvName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Hemang Mehta"
+            android:textColor="@color/black"
+            android:textSize="@dimen/small_text_size"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="@+id/tutor_review_llImage"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDate" />
+
+    <TextView
+            android:id="@+id/tutor_item_tvDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/tutor_item_tvDesc"
-            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvName1"
-            app:layout_constraintLeft_toLeftOf="@+id/tutor_review_image"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textSize="@dimen/extra_small_size"
-            android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:maxLines="5"
+            android:layout_marginRight="@dimen/_10sdp"
             android:gravity="center_vertical"
-            android:textColor="@color/light_gray"/>
+            android:textColor="@color/light_gray"
+            android:textSize="@dimen/extra_small_size"
+            app:layout_constraintLeft_toLeftOf="@+id/tutor_review_llImage"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvName1" />
 
     <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDesc"
-            android:background="#EFEFEF"/>
+            android:background="#EFEFEF"
+            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDesc" />
 
 </android.support.constraint.ConstraintLayout>

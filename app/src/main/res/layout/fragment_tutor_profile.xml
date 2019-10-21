@@ -108,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tutor_profile_tvCount"
                 android:textSize="@dimen/small_text_size"
+                android:text="(43)"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_marginLeft="@dimen/_5sdp"/>
@@ -115,8 +116,8 @@
     </LinearLayout>
 
     <ImageView
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_10sdp"
+            android:layout_width="@dimen/_11sdp"
+            android:layout_height="@dimen/_11sdp"
             android:src="@drawable/phone"
             android:id="@+id/tutor_profile_ivPhn"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -160,6 +161,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="@dimen/_10sdp"
             android:gravity="top"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginLeft="@dimen/_3sdp"
             android:maxLines="1"
             android:textColor="@color/gray"/>

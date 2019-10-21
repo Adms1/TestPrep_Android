@@ -61,6 +61,22 @@ class WebRequests {
             return map
         }
 
+        fun writeRatingParams(
+            stu_id: String,
+            tutor_id: String,
+            remark: String,
+            rating: String
+        ): HashMap<String, String> {
+            val map = HashMap<String, String>()
+
+            map["StudentID"] = stu_id
+            map["TutorID"] = tutor_id
+            map["Remarks"] = remark
+            map["Rating"] = rating
+
+            return map
+        }
+
         fun getTutorFiltername(
             coursetype: String,
             boardid: String,
