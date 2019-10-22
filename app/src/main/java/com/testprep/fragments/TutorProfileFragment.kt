@@ -57,6 +57,8 @@ class TutorProfileFragment : Fragment() {
 
         tutorid = bundle!!.getString("tutor_id")!!
 
+        AppConstants.isFirst = 14
+
         tutor_item_rvCuratorList.layoutManager =
             LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
@@ -72,6 +74,7 @@ class TutorProfileFragment : Fragment() {
             intent.putExtra("header", tutor_profile_tvName.text.toString())
             intent.putExtra("tutorid", tutorid)
             startActivity(intent)
+            activity!!.finish()
         }
 
         tutor_profile_tvMobile.setOnClickListener {

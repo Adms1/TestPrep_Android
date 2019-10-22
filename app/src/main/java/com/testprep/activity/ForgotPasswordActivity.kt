@@ -119,6 +119,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         intent.putExtra("last_name", "")
                         intent.putExtra("email", "")
                         intent.putExtra("password", "")
+                        intent.putExtra("account_type", "1")
                         startActivity(intent)
 
                     } else {

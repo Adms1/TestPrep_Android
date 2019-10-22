@@ -170,6 +170,7 @@ class SignupActivity : AppCompatActivity() {
                         intent.putExtra("last_name", signup_etLname.text.toString())
                         intent.putExtra("email", signup_etEmail.text.toString())
                         intent.putExtra("password", signup_etPassword.text.toString())
+                        intent.putExtra("account_type", "1")
                         startActivity(intent)
 
                     } else {

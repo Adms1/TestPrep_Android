@@ -67,8 +67,6 @@ class TutorDetailActivity : Fragment() {
         DashboardActivity.main_header!!.text = DashboardActivity.pname
         DashboardActivity.btnBack!!.visibility = View.VISIBLE
 
-
-
         rlFilter!!.visibility = View.VISIBLE
         ivSort!!.visibility = View.VISIBLE
 
@@ -384,7 +382,6 @@ class TutorDetailActivity : Fragment() {
                 tutorAdapter!!.notifyDataSetChanged()
 
             } else if (type == "pkg" || type == "explore" || type == "filter") {
-
                 pkgAdapter = TestPackagesAdapter(activity!!, modelList)
                 tutor_packages_rvPopularPkg.adapter = pkgAdapter
                 pkgAdapter!!.notifyDataSetChanged()

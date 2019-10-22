@@ -96,6 +96,7 @@ class PrefrenceActivity : AppCompatActivity() {
         package_btnNext.setOnClickListener {
 
             AppConstants.isFirst = 0
+            Utils.setStringValue(this@PrefrenceActivity, AppConstants.isPrefrence, "1")
 
             if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "") == "") {
                 Utils.ping(this@PrefrenceActivity, "Please Select Board")
@@ -129,6 +130,7 @@ class PrefrenceActivity : AppCompatActivity() {
         package_btnNextt.setOnClickListener {
 
             AppConstants.isFirst = 0
+            Utils.setStringValue(this@PrefrenceActivity, AppConstants.isPrefrence, "1")
 
             if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "") == "") {
                 Utils.ping(this@PrefrenceActivity, "Please Select Board")

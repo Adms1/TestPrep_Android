@@ -95,6 +95,12 @@ class DashboardActivity : AppCompatActivity() {
             bundle.putString("testname", intent.getStringExtra("testname"))
             setFragments(bundle)
 
+        } else if (intent != null && intent.hasExtra("tutor_id")) {
+
+            val bundle = Bundle()
+            bundle.putString("tutor_id", intent.getStringExtra("tutor_id"))
+            setFragments(bundle)
+
         } else {
 
             dash_ivMarket.setImageResource(R.drawable.blue_list)
@@ -621,6 +627,7 @@ class DashboardActivity : AppCompatActivity() {
                         parr =
                             (bundle.getSerializable("parr") as ArrayList<PackageData.PackageDataList>?)!!
                     }
+
                     maxprice = bundle.getString("maxprice")!!
                     minprice = bundle.getString("minprice")!!
                     search_name = bundle.getString("search_name")!!
@@ -805,13 +812,19 @@ class DashboardActivity : AppCompatActivity() {
             bundle3.putString("sub_name", subname)
             bundle3.putBoolean("isCompetitive", isCompetitive)
             setFragments(bundle3)
+
         } else if (AppConstants.isFirst == 13) {
 
             AppConstants.isFirst = 0
             setFragments(null)
 
-        } else if (AppConstants.isFirst == 14 || AppConstants.isFirst == 15) {
-            AppConstants.isFirst = 13
+        } else if (AppConstants.isFirst == 14) {
+
+            AppConstants.isFirst = 0
+            setFragments(null)
+
+        } else if (AppConstants.isFirst == 15) {
+
             supportFragmentManager.popBackStack()
         }
 

@@ -21,6 +21,11 @@ interface WebInterface {
     @POST("SP_Check_Student_Duplicate_Email")
     fun checkEmail(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
+    //    http://webservice.testcraft.in/WebService.asmx/SP_Check_Student_Duplicate_Mobile
+    @FormUrlEncoded
+    @POST("SP_Check_Student_Duplicate_Mobile")
+    fun checkMobile(@Field("Mobile") mobile: String): Call<JsonObject>
+
     @FormUrlEncoded
     @POST("Update_Student")
     fun updateProfile(@FieldMap map: HashMap<String, String>): Call<JsonObject>

@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testprep.R
-import com.testprep.activity.NewActivity
 import com.testprep.activity.PrefrenceActivity
 import com.testprep.models.PackageData
 import com.testprep.utils.AppConstants
@@ -55,7 +54,7 @@ class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<Packa
             val intent = Intent(context, PrefrenceActivity::class.java)
             intent.putExtra("examtype", dataList[p1].CourseTypeID.toString())
             context.startActivity(intent)
-            (context as NewActivity).finish()
+//            (context as NewActivity).finish()
             notifyDataSetChanged()
         }
 

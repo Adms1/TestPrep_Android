@@ -27,6 +27,8 @@ class AppConstants {
         var USER_STATUSID = "userstatusid"
         var OTP = ""
 
+        var isPrefrence = "0"
+
         var COURSE_FLOW = ""
         //        var ON_BACK = 0
         var COURSE_FLOW_ARRAY: ArrayList<String> = ArrayList()

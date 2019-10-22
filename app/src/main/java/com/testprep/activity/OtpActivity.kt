@@ -98,7 +98,11 @@ class OtpActivity : AppCompatActivity() {
 
                         otp_ivLogo.setImageDrawable(resources.getDrawable(com.testprep.R.drawable.success_verification_icn))
 
-                        callSignupApi()
+                        if (intent.getStringExtra("come_from") == "signup") {
+                            callSignupApi()
+                        } else {
+                            callupdateApi()
+                        }
 
                     } else {
 
@@ -188,7 +192,7 @@ class OtpActivity : AppCompatActivity() {
                 intent.getStringExtra("email"),
                 intent.getStringExtra("password"),
                 intent.getStringExtra("mobile_number"),
-                "1"
+                intent.getStringExtra("account_type")
             )
         )
 //        }
@@ -263,6 +267,114 @@ class OtpActivity : AppCompatActivity() {
 
                         Toast.makeText(this@OtpActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG)
                             .show()
+
+                        Log.d("websize", response.body()!!.get("Msg").asString)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+
+    }
+
+    fun callupdateApi() {
+
+        if (!DialogUtils.isNetworkConnected(this@OtpActivity)) {
+            Utils.ping(this@OtpActivity, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(this@OtpActivity)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+        val call = apiService.updateProfile(
+            WebRequests.addSignupParams(
+                intent.getStringExtra("account_type"),
+                Utils.getStringValue(this@OtpActivity, AppConstants.USER_ID, "")!!,
+                intent.getStringExtra("first_name"),
+                intent.getStringExtra("last_name"),
+                intent.getStringExtra("email"),
+                intent.getStringExtra("password"),
+                intent.getStringExtra("mobile_number"),
+                Utils.getStringValue(this@OtpActivity, AppConstants.USER_STATUSID, "")!!
+            )
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.get("Status").asString == "true") {
+
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.FIRST_NAME,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentFirstName"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.LAST_NAME,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentLastName"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.USER_ID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.USER_EMAIL,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.USER_PASSWORD,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentPassword"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.USER_MOBILE,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentMobile"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity,
+                            AppConstants.USER_ACCOUNT_TYPE,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["AccountTypeID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity, AppConstants.USER_STATUSID,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
+                        )
+                        Utils.setStringValue(
+                            this@OtpActivity, AppConstants.OTP,
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["OTP"].asString
+                        )
+
+//                        Utils.hideKeyboard(this@OtpActivity)
+//                        otp_tvVerificationSuccess.visibility = View.VISIBLE
+//                        otp_tvHeading.text = "Awesome!"
+//
+//                        otp_tvInstruction.visibility = View.GONE
+//                        otp_btnSubmit.text = "Done"
+//                        otp_tvResend.visibility = View.GONE
+//                        otp_etOtp.visibility = View.GONE
+//
+//                        otp_ivLogo.setImageDrawable(resources.getDrawable(com.testprep.R.drawable.success_verification_icn))
+
+                        Log.d("websize", response.body()!!.get("Msg").asString)
+
+                    } else {
+
+                        Toast.makeText(
+                            this@OtpActivity,
+                            response.body()!!.get("Msg").asString,
+                            Toast.LENGTH_LONG
+                        ).show()
 
                         Log.d("websize", response.body()!!.get("Msg").asString)
                     }

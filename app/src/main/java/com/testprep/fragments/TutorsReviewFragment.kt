@@ -3,6 +3,7 @@ package com.testprep.fragments
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -16,6 +17,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RatingBar
 import com.testprep.R
+import com.testprep.activity.DashboardActivity
 import com.testprep.adapter.TutorReviewAdapter
 import com.testprep.models.TutorModel
 import com.testprep.retrofit.WebClient
@@ -119,7 +121,15 @@ class TutorsReviewFragment : AppCompatActivity() {
 
         }
 
-        tutor_review_ivBack.setOnClickListener { onBackPressed() }
+        tutor_review_ivBack.setOnClickListener {
+            //            onBackPressed()
+
+            AppConstants.isFirst = 15
+            val intent = Intent(this@TutorsReviewFragment, DashboardActivity::class.java)
+            intent.putExtra("tutor_id", tutorid)
+            startActivity(intent)
+
+        }
 
         tutor_review_rvReview.layoutManager =
             LinearLayoutManager(this@TutorsReviewFragment, LinearLayoutManager.VERTICAL, false)

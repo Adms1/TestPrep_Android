@@ -355,6 +355,8 @@ class MarketPlaceFragment : Fragment() {
 
             holder.title.setOnClickListener {
 
+                //                AppConstants.isBackFirst = 0
+
                 AppConstants.isFirst = 14
                 val bundle = Bundle()
                 bundle.putString("pkgid", testid)
@@ -485,6 +487,8 @@ class MarketPlaceFragment : Fragment() {
 
             iv.setOnClickListener {
 
+                //                AppConstants.isBackFirst = 0
+
                 AppConstants.isFirst = 14
                 val bundle = Bundle()
                 bundle.putString("pkgid", arrList[position].TestPackageID)
@@ -572,6 +576,8 @@ class MarketPlaceFragment : Fragment() {
                         carousel1!!.adapter = TutorPageAdapter(5, 330, 160, activity!!, tutorList!!)
 
                         if (mSingleDataList.size > 0) {
+
+//                            AppConstants.isBackFirst = 0
 
                             main_pkg_item_rvSingleTest.visibility = View.VISIBLE
                             main_pkg_item_tvSingleTest.visibility = View.VISIBLE
@@ -828,6 +834,8 @@ class MarketPlaceFragment : Fragment() {
 
                 p0.mainll.setOnClickListener {
 
+                    //                    AppConstants.isBackFirst = 0
+
                     AppConstants.isFirst = 14
                     val bundle = Bundle()
                     bundle.putString("pkgid", dataList[p1].TestPackageID)
@@ -937,12 +945,13 @@ class MarketPlaceFragment : Fragment() {
 
                 mainll.setOnClickListener {
 
+                    //                    AppConstants.isBackFirst = 0
+
                     AppConstants.isFirst = 14
                     val bundle = Bundle()
                     bundle.putString("pkgid", arrList[position].TestPackageID)
                     bundle.putString("come_from", "selectpackage")
                     setFragments(bundle)
-
 
 //                    val intent = Intent(context, PackageDetailActivity::class.java)
 //                    intent.putExtra("pkgid", arrList[position].TestPackageID)
