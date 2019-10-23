@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
+import com.testprep.R
 import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.adapter.OtherListAdapter
 import com.testprep.utils.AppConstants
@@ -65,10 +67,21 @@ class OtherFragment : Fragment() {
             setFragments(null)
         }
 
-        other_tvLogo.text =
-            Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, "").toString()
-                .substring(0, 1).toUpperCase()
+        if (Utils.getStringValue(activity!!, AppConstants.user_profile, "") != "") {
 
+            other_tvLogo.visibility = View.GONE
+            Picasso.get().load(Utils.getStringValue(activity!!, AppConstants.user_profile, ""))
+                .into(other_ivLogo)
+
+        } else {
+
+            other_tvLogo.visibility = View.VISIBLE
+
+            other_ivLogo.setImageResource(R.drawable.blue_round)
+            other_tvLogo.text =
+                Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, "").toString()
+                    .substring(0, 1).toUpperCase()
+        }
         other_tvUserName.text =
             Utils.getStringValue(
                 activity!!,

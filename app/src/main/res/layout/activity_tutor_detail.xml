@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -49,17 +48,12 @@
 
     <!--</RelativeLayout>-->
 
-    <!--<ImageView-->
-    <!--android:layout_width="@dimen/_30sdp"-->
-    <!--android:layout_height="@dimen/_30sdp"-->
-    <!--android:src="@drawable/cart_icon"-->
-    <!--android:id="@+id/tutor_detail_ivCart"-->
-    <!--app:layout_constraintRight_toRightOf="parent"-->
-    <!--android:layout_marginRight="@dimen/_10sdp"-->
-    <!--app:layout_constraintTop_toTopOf="@+id/tutor_detail_header"-->
-    <!--android:padding="@dimen/_5sdp"-->
-    <!--android:visibility="gone"-->
-    <!--app:layout_constraintBottom_toBottomOf="@+id/tutor_detail_header"/>-->
+    <ImageView
+            android:id="@+id/tutor_detail_ivNoPkg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/no_package_found" />
 
     <!--<android.support.design.widget.TabLayout-->
     <!--android:id="@+id/tutor_detail_tabs"-->
@@ -91,26 +85,26 @@
             android:id="@+id/tutor_packages_rvPopularPkg"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="@dimen/_10sdp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
             android:id="@+id/tutor_packages_tvdatanotfound"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:padding="@dimen/_25sdp"
             android:text="No matching packages were found."
             android:textColor="@color/red"
             android:textSize="@dimen/_16sdp"
             android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:gravity="center"
-            android:padding="@dimen/_25sdp"
-            android:layout_centerInParent="true"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

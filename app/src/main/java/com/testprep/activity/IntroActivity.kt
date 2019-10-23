@@ -132,6 +132,7 @@ class IntroActivity : AppCompatActivity() {
         fb.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 setResult(RESULT_OK)
+
 //                Toast.makeText(this@IntroActivity, "Welcome" + loginResult.accessToken.userId, Toast.LENGTH_LONG).show()
 
                 val request: GraphRequest = GraphRequest.newMeRequest(
@@ -140,20 +141,28 @@ class IntroActivity : AppCompatActivity() {
                     Log.d("IntroActivity", graphResponse.toString())
 
                     // Application code
+                    val userID = jsonObject.get("id")
                     val email = jsonObject.getString("email")
                     val name = jsonObject.getString("name")
+
+                    Utils.setStringValue(
+                        this@IntroActivity,
+                        AppConstants.user_profile,
+                        "https://graph.facebook.com/" + userID + "/picture?type=large"
+                    )
+
 //                    var last_name = jsonObject.getString("last_name");
 //                    var birthday = jsonObject.getString("birthday") // 01/31/1980 format
 
                     callCheckEmailApi("3", name, "", email, "", "")
 //                    callSignupApi("3", name, "", email, "", "")
 
-                    if (AccessToken.getCurrentAccessToken() != null) {
-                        LoginManager.getInstance().logOut()
-                    }
+//                    if (AccessToken.getCurrentAccessToken() != null) {
+//                        LoginManager.getInstance().logOut()
+//                    }
                 }
                 val parameters = Bundle()
-                parameters.putString("fields", "id,name,email,gender,birthday")
+                parameters.putString("fields", "id,name,email,gender,birthday,picture")
                 request.parameters = parameters
                 request.executeAsync()
 
@@ -205,21 +214,22 @@ class IntroActivity : AppCompatActivity() {
         return TextView(applicationContext)
     }
 
-    private var introViewPagerListener: ViewPager.OnPageChangeListener = object : ViewPager.OnPageChangeListener {
-        override fun onPageSelected(position: Int) {
+    private var introViewPagerListener: ViewPager.OnPageChangeListener =
+        object : ViewPager.OnPageChangeListener {
+            override fun onPageSelected(position: Int) {
 //            addBottomDots(position)
-            /*Based on the page position change the button text*/
+                /*Based on the page position change the button text*/
 
-        }
+            }
 
-        override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
-            //Do nothing for now
-        }
+            override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
+                //Do nothing for now
+            }
 
-        override fun onPageScrollStateChanged(arg0: Int) {
-            //Do nothing for now
+            override fun onPageScrollStateChanged(arg0: Int) {
+                //Do nothing for now
+            }
         }
-    }
 
     inner class MyViewPagerAdapter : PagerAdapter() {
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
@@ -297,6 +307,12 @@ class IntroActivity : AppCompatActivity() {
                 account!!.givenName.toString() + " " + account!!.familyName.toString() + " " + account!!.email.toString()
             )
 
+            Utils.setStringValue(
+                this@IntroActivity,
+                AppConstants.user_profile,
+                account!!.photoUrl.toString()
+            )
+
             callCheckEmailApi(
                 "2",
                 account!!.givenName.toString(),
@@ -318,7 +334,14 @@ class IntroActivity : AppCompatActivity() {
 
     }
 
-    fun callCheckEmailApi(logintype: String, fname: String, lname: String, email: String, pass: String, cpass: String) {
+    fun callCheckEmailApi(
+        logintype: String,
+        fname: String,
+        lname: String,
+        email: String,
+        pass: String,
+        cpass: String
+    ) {
 
         if (!DialogUtils.isNetworkConnected(this@IntroActivity)) {
             Utils.ping(this@IntroActivity, "Connetion not available")
@@ -419,7 +442,14 @@ class IntroActivity : AppCompatActivity() {
         })
     }
 
-    fun callSignupApi(accounttype: String, fname: String, lname: String, email: String, pass: String, cpass: String) {
+    fun callSignupApi(
+        accounttype: String,
+        fname: String,
+        lname: String,
+        email: String,
+        pass: String,
+        cpass: String
+    ) {
 
         if (!DialogUtils.isNetworkConnected(this@IntroActivity)) {
             Utils.ping(this@IntroActivity, "Connetion not available")
@@ -430,7 +460,18 @@ class IntroActivity : AppCompatActivity() {
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call =
-            apiService.getSignup(WebRequests.addSignupParams(accounttype, "0", fname, lname, email, pass, cpass, "2"))
+            apiService.getSignup(
+                WebRequests.addSignupParams(
+                    accounttype,
+                    "0",
+                    fname,
+                    lname,
+                    email,
+                    pass,
+                    cpass,
+                    "2"
+                )
+            )
 
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -494,7 +535,11 @@ class IntroActivity : AppCompatActivity() {
 //                        LoginManager.getInstance().logOut()
                     } else {
 
-                        Toast.makeText(this@IntroActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG)
+                        Toast.makeText(
+                            this@IntroActivity,
+                            response.body()!!.get("Msg").asString,
+                            Toast.LENGTH_LONG
+                        )
                             .show()
 
                         Log.d("websize", response.body()!!.get("Msg").asString)
@@ -517,19 +562,29 @@ class IntroActivity : AppCompatActivity() {
 
     }
 
-//    fun disconnectFromFacebook() {
-//
-//    if (AccessToken.getCurrentAccessToken() == null) {
-//        return; // already logged out
-//    }
-//
-//    GraphRequest(AccessToken.getCurrentAccessToken(), "/me/permissions/", null, HttpMethod.DELETE, GraphRequest
-//            .Callback() {
-//
-//            LoginManager.getInstance().logOut();
-//
-//        }
-//
-//}
+    companion object {
+
+        private var loginManager: LoginManager = LoginManager.getInstance()
+        var context: Context? = null
+
+        fun disconnectFromFacebook() {
+
+//            if (Utils.getStringValue(context!!, AppConstants.FB_ACCESS_TOKEN, "") == "") {
+//                return // already logged out
+//                }
+
+            GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me/permissions/",
+                null,
+                HttpMethod.DELETE,
+                GraphRequest
+                    .Callback {
+
+                        loginManager.logOut()
+
+                    })
+        }
+    }
 
 }

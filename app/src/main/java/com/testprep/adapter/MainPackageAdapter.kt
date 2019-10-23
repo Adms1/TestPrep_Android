@@ -67,7 +67,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
                 p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.hindi))
             }
             "English" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.english))
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.english_2))
             }
             "Accountancy" -> {
                 p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.account))

@@ -26,6 +26,8 @@ class AppConstants {
         var USER_ACCOUNT_TYPE = "userlogintype"
         var USER_STATUSID = "userstatusid"
         var OTP = ""
+        var user_profile = ""
+        var FB_ACCESS_TOKEN = ""
 
         var isPrefrence = "0"
 

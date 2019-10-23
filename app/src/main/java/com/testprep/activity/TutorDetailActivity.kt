@@ -250,9 +250,6 @@ class TutorDetailActivity : Fragment() {
 
                     if (response.body()!!.Status == "true") {
 
-                        tutor_packages_rvPopularPkg.visibility = View.VISIBLE
-                        tutor_packages_tvdatanotfound.visibility = View.GONE
-
 //                        if (type == "pkg") {
 //                            data = response.body()!!.data[0].TestPackage
 
@@ -265,21 +262,31 @@ class TutorDetailActivity : Fragment() {
 //                        tutor_detail_header.text = response.body()!!.data[0].Name
 //                        }
 
-                        if (type != "3") {
-                            pkgAdapter = TestPackagesAdapter(activity!!, data)
-                            tutor_packages_rvPopularPkg.adapter = pkgAdapter
+                        if (data.size > 0) {
+
+                            tutor_packages_rvPopularPkg.visibility = View.VISIBLE
+                            tutor_detail_ivNoPkg.visibility = View.GONE
+
+                            if (type != "3") {
+                                pkgAdapter = TestPackagesAdapter(activity!!, data)
+                                tutor_packages_rvPopularPkg.adapter = pkgAdapter
+                            } else {
+
+                                singleAdapter = MyPackageAdapter(activity!!, data, "market_place")
+                                tutor_packages_rvPopularPkg.adapter = singleAdapter
+
+                            }
                         } else {
 
-                            singleAdapter = MyPackageAdapter(activity!!, data, "market_place")
-                            tutor_packages_rvPopularPkg.adapter = singleAdapter
-
+                            tutor_packages_rvPopularPkg.visibility = View.GONE
+                            tutor_detail_ivNoPkg.visibility = View.VISIBLE
                         }
 
 
                     } else {
 
-                        tutor_packages_tvdatanotfound.visibility = View.VISIBLE
                         tutor_packages_rvPopularPkg.visibility = View.GONE
+                        tutor_detail_ivNoPkg.visibility = View.VISIBLE
 //                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
                     }
                 }

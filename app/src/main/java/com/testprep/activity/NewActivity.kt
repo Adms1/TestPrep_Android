@@ -179,12 +179,12 @@ class NewActivity : AppCompatActivity() {
 
                     DialogUtils.dismissDialog()
 
-                    if (response.body()!!["Status"].asString == "false") {
+                    if (response.body()!!["Status"].asString == "true") {
                         val intent = Intent(this@NewActivity, OtpActivity::class.java)
                         intent.putExtra("mobile_number", phone)
                         intent.putExtra(
                             "otp",
-                            "123456"
+                            response.body()!!.get("data").asString
                         )
                         intent.putExtra("come_from", "phnverify")
                         intent.putExtra(

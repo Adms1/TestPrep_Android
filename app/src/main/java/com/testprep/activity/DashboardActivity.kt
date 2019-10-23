@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.testprep.R
+import com.testprep.activity.IntroActivity.Companion.disconnectFromFacebook
 import com.testprep.activity.ViewSolutionActivity.Companion.curr_index1
 import com.testprep.activity.ViewSolutionActivity.Companion.solution_grppos1
 import com.testprep.adapter.DrawerMenuListAdapter
@@ -259,6 +260,8 @@ class DashboardActivity : AppCompatActivity() {
                     AppConstants.FILTER_SUBJECT_ID = "0"
                     AppConstants.FILTER_TUTOR_ID = "0"
                     AppConstants.FILTER_BOARD_ID = "0"
+
+                    disconnectFromFacebook()
 
                     mGoogleSignInClient!!.signOut()
                         .addOnCompleteListener(context as DashboardActivity) {
