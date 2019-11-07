@@ -94,7 +94,7 @@ class MarketPlaceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rlFilter!!.visibility = View.VISIBLE
+        rlFilter!!.visibility = View.GONE
 
         rlCoverflow!!.setPadding(35, 0, 35, 0)
         rlCoverflow!!.clipToPadding = false
@@ -117,7 +117,8 @@ class MarketPlaceFragment : Fragment() {
 
         rv = view.findViewById(R.id.rvPkgs)
 
-        main_pkg_item_rvSingleTest.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        main_pkg_item_rvSingleTest.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
         main_pkg_item_tvChange.setOnClickListener {
 
@@ -137,10 +138,22 @@ class MarketPlaceFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("type", "pkg")
             bundle.putString("pname1", "Packages")
-            bundle.putString("boardid", Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!)
-            bundle.putString("course_type", Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1"))
-            bundle.putString("stdid", Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!)
-            bundle.putString("subid", Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!)
+            bundle.putString(
+                "boardid",
+                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!
+            )
+            bundle.putString(
+                "course_type",
+                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1")
+            )
+            bundle.putString(
+                "stdid",
+                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!
+            )
+            bundle.putString(
+                "subid",
+                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!
+            )
             bundle.putString("tutorid", "")
             bundle.putString("maxprice", "")
             bundle.putString("minprice", "")
@@ -154,7 +167,10 @@ class MarketPlaceFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("type", "tutor")
             bundle.putString("pname1", "Tutors")
-            bundle.putString("course_type", Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1"))
+            bundle.putString(
+                "course_type",
+                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1")
+            )
             bundle.putString("boardid", "")
             bundle.putString("stdid", "")
             bundle.putString("subid", "")
@@ -171,10 +187,22 @@ class MarketPlaceFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("type", "single")
             bundle.putString("pname1", "Single Test")
-            bundle.putString("boardid", Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!)
-            bundle.putString("course_type", Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1"))
-            bundle.putString("stdid", Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!)
-            bundle.putString("subid", Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!)
+            bundle.putString(
+                "boardid",
+                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!
+            )
+            bundle.putString(
+                "course_type",
+                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1")
+            )
+            bundle.putString(
+                "stdid",
+                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!
+            )
+            bundle.putString(
+                "subid",
+                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!
+            )
             bundle.putString("tutorid", "")
             bundle.putString("maxprice", "")
             bundle.putString("minprice", "")
@@ -334,7 +362,8 @@ class MarketPlaceFragment : Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewholder {
 
-            val view = LayoutInflater.from(context).inflate(R.layout.carousel_container, parent, false)
+            val view =
+                LayoutInflater.from(context).inflate(R.layout.carousel_container, parent, false)
             return viewholder(view)
         }
 
@@ -349,6 +378,7 @@ class MarketPlaceFragment : Fragment() {
                 Picasso.get()
                     .load(AppConstants.IMAGE_BASE_URL + mDataList[position].Icon)
                     .into(holder.title)
+
             }
 
             holder.title1.text = mDataList[position].TestPackageName
@@ -416,7 +446,8 @@ class MarketPlaceFragment : Fragment() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewholder {
 
-            val view = LayoutInflater.from(context).inflate(R.layout.carousel_container, parent, false)
+            val view =
+                LayoutInflater.from(context).inflate(R.layout.carousel_container, parent, false)
             return viewholder(view)
         }
 
@@ -459,24 +490,26 @@ class MarketPlaceFragment : Fragment() {
 
     }
 
-    private var introViewPagerListener: ViewPager.OnPageChangeListener = object : ViewPager.OnPageChangeListener {
+    private var introViewPagerListener: ViewPager.OnPageChangeListener =
+        object : ViewPager.OnPageChangeListener {
 
-        override fun onPageSelected(position: Int) {
+            override fun onPageSelected(position: Int) {
 //            addBottomDots(position)
-            /*Based on the page position change the button text*/
+                /*Based on the page position change the button text*/
 
+            }
+
+            override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
+                //Do nothing for now
+            }
+
+            override fun onPageScrollStateChanged(arg0: Int) {
+                //Do nothing for now
+            }
         }
 
-        override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
-            //Do nothing for now
-        }
-
-        override fun onPageScrollStateChanged(arg0: Int) {
-            //Do nothing for now
-        }
-    }
-
-    inner class MyViewPagerAdapter(var arrList: ArrayList<PackageData.PackageDataList>) : PagerAdapter() {
+    inner class MyViewPagerAdapter(var arrList: ArrayList<PackageData.PackageDataList>) :
+        PagerAdapter() {
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
             val layoutInflater: LayoutInflater = LayoutInflater.from(activity)
             val view = layoutInflater.inflate(R.layout.slider_item_layout, container, false)
@@ -549,7 +582,10 @@ class MarketPlaceFragment : Fragment() {
             )
         )
         call.enqueue(object : Callback<GetMarketPlaceData> {
-            override fun onResponse(call: Call<GetMarketPlaceData>, response: Response<GetMarketPlaceData>) {
+            override fun onResponse(
+                call: Call<GetMarketPlaceData>,
+                response: Response<GetMarketPlaceData>
+            ) {
 
                 if (response.body() != null) {
 
@@ -609,9 +645,11 @@ class MarketPlaceFragment : Fragment() {
                             main_pkg_item_tvSeeall.visibility = View.VISIBLE
                             main_pkg_item_tvCategory.visibility = View.VISIBLE
 
-                            carousel!!.adapter = PkgPageAdapter(5, 330, 160, activity!!, mDataList!!)
+                            carousel!!.adapter =
+                                PkgPageAdapter(5, 330, 160, activity!!, mDataList!!)
 
-                            rvPkgs.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                            rvPkgs.layoutManager =
+                                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 //                            rvPkgs.adapter = MarketPlacePkgAdapter(activity!!, mDataList!!)
                             rlCoverflow!!.adapter = MyViewPagerAdapter1(mDataList!!)
 
@@ -752,14 +790,18 @@ class MarketPlaceFragment : Fragment() {
 //        })
 //    }
 
-    class MarketPlacePkgAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
+    class MarketPlacePkgAdapter(
+        val context: Context,
+        val dataList: ArrayList<PackageData.PackageDataList>
+    ) :
         RecyclerView.Adapter<MarketPlacePkgAdapter.viewholder>() {
 
         var row_index = -1
 
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
-            val view = LayoutInflater.from(p0.context).inflate(R.layout.marketplace_pkg_list_item, p0, false)
+            val view = LayoutInflater.from(p0.context)
+                .inflate(R.layout.marketplace_pkg_list_item, p0, false)
 //            val width = rv!!.width
 //            val params = view.layoutParams
 //            params.width = (width * 0.9).toInt()
@@ -787,7 +829,8 @@ class MarketPlaceFragment : Fragment() {
                 p0.price.text = "Created by " + dataList[p1].TutorName
 
                 if (dataList[p1].Icon != null) {
-                    Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
+                    Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon)
+                        .into(p0.image)
                 }
 
 //        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))
@@ -925,6 +968,7 @@ class MarketPlaceFragment : Fragment() {
             val view = layoutInflater.inflate(R.layout.marketplace_pkg_list_item, container, false)
 
             val image: ImageView = view.findViewById(R.id.package_item_ivImage)
+            val imagebg: ImageView = view.findViewById(R.id.package_item_ivBg)
 
             val pkgname: TextView = view.findViewById(R.id.package_item_tvPkgname)
             val sub: TextView = view.findViewById(R.id.package_item_tvSub)
@@ -941,6 +985,14 @@ class MarketPlaceFragment : Fragment() {
                 if (arrList[position].Icon != null) {
                     Picasso.get().load(AppConstants.IMAGE_BASE_URL + arrList[position].Icon)
                         .into(image)
+
+                    Picasso.get().load(AppConstants.IMAGE_BASE_URL + arrList[position].Icon)
+                        .into(imagebg)
+
+//                    AsyncCaller(image, arrList[position].Icon).execute()
+//                    BlurImage.with(getApplicationContext()).load(R.drawable.pp_1).intensity(20F).Async(true).into(image)
+//                    arrList[position].Icon
+
                 }
 
                 mainll.setOnClickListener {
@@ -983,4 +1035,32 @@ class MarketPlaceFragment : Fragment() {
 //        }
 
     }
+
+//    private class AsyncCaller(imv: ImageView, url: String): AsyncTask<Object, Void, Bitmap>() {
+//
+//        var imv: ImageView = imv
+//        var path: String = url
+//
+//        override fun doInBackground(vararg params: Object?): Bitmap {
+//            var image1: Bitmap? = null
+//
+//            try {
+//                val url = URL(AppConstants.IMAGE_BASE_URL + path)
+//                image1 = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+//
+//            } catch (e: IOException) {
+//                println(e)
+//            }
+//
+//            return image1!!
+//        }
+//
+//        override fun onPostExecute(result: Bitmap?) {
+//
+//            if(result != null){
+//                BlurImage.with(getApplicationContext()).load(result).intensity(20F).Async(true).into(imv)
+//            }
+//        }
+//    }
+
 }

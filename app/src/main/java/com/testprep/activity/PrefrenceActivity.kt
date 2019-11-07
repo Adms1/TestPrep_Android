@@ -57,7 +57,8 @@ class PrefrenceActivity : AppCompatActivity() {
         AppConstants.FILTER_TO_PRICE = "5000"
 
         package_ivBack.setOnClickListener {
-            onBackPressed()
+            val intent = Intent(this@PrefrenceActivity, NewActivity::class.java)
+            startActivity(intent)
         }
 
 //        coarse_rvCoarseList.layoutManager = LinearLayoutManager(this@PrefrenceActivity, LinearLayoutManager.HORIZONTAL, false)
