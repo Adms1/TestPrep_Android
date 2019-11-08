@@ -128,6 +128,7 @@ class TutorDetailActivity : Fragment() {
             "tutor" -> {
 
                 rlFilter!!.visibility = View.GONE
+                tutor_detail_ivNoPkg.visibility = View.GONE
 
                 tutor_packages_rvPopularPkg.layoutManager =
                     LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)

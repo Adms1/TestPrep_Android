@@ -36,9 +36,11 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
         p0.price.text = dataList[p1].TestPackageSalePrice
 
         if (dataList[p1].NumberOfTest == "1") {
-            p0.test.text = dataList[p1].NumberOfTest + " Test"
+            p0.test.text =
+                dataList[p1].NumberOfComletedTest + "/" + dataList[p1].NumberOfTest + " Test"
         } else {
-            p0.test.text = dataList[p1].NumberOfTest + " Tests"
+            p0.test.text =
+                dataList[p1].NumberOfComletedTest + "/" + dataList[p1].NumberOfTest + " Tests"
         }
 
         Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)

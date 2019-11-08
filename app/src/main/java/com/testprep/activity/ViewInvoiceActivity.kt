@@ -41,6 +41,7 @@ class ViewInvoiceActivity : AppCompatActivity() {
             url = intent.getStringExtra("url")
 
             invoice_view.settings.builtInZoomControls = true
+            invoice_view.settings.useWideViewPort = true
 
             invoice_view.settings.javaScriptEnabled = true
             invoice_view.settings.cacheMode = WebSettings.LOAD_NO_CACHE

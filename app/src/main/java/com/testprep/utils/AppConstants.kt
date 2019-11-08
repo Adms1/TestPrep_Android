@@ -13,8 +13,10 @@ class AppConstants {
         //        var BASE_URL = "https://testprep.testcraft.co.in/WebService.asmx/"
         var BASE_URL = "http://webservice.testcraft.in/WebService.asmx/"
         //        var IMAGE_BASE_URL = "https://testprep.testcraft.co.in/"
-        var IMAGE_BASE_URL = "http://webservice.testcraft.in/"
-        var INVOICE_URL = "http://admin.testcraft.in:8090/tutor/purchasePackages/detail/"
+//        var IMAGE_BASE_URL = "http://webservice.testcraft.in/"
+        var IMAGE_BASE_URL = "http://testcraft.in/upload/"
+            //        var INVOICE_URL = "http://admin.testcraft.in:8090/tutor/purchasePackages/detail/"
+            var INVOICE_URL = "http://testcraft.in/InvoiceDetail.aspx?ID="
         var SUMMARY_REPORT_URL = "http://webservice.testcraft.in/TestSummaryReport.aspx?"
 
         var FIRST_NAME = "firstname"

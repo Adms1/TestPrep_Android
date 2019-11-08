@@ -28,6 +28,7 @@ class NewQuestionResponse {
         var CorrectAnswer = ""
         var IsCorrect = "False"
         var Hint = ""
+        var HintUsed = ""
         var Explanation = ""
         var SystemAnswer = ""
         var YourAnswer = ""

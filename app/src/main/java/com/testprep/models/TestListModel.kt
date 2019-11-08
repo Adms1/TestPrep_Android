@@ -24,5 +24,7 @@ class TestListModel {
         var RemainTime = ""
         var TotalQuestions = ""
         var TestInstruction = ""
+        var NumberOfHint = ""
+        var NumberOfHintUsed = ""
     }
 }

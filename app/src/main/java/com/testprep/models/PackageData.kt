@@ -28,6 +28,7 @@ class PackageData {
         var TestPackageListPrice = ""
         var TestPackageDescription = ""
         var NumberOfTest = ""
+        var NumberOfComletedTest = ""
         var TestType: ArrayList<PackageTestType> = ArrayList()
 
         var PaymentTransactionID = ""
@@ -37,6 +38,7 @@ class PackageData {
         var ExternalTransactionStatus = ""
         var InvoiceID = ""
         var OrderID = ""
+        var InvoiceGUID = ""
 
         var SubjectName = ""
         var InstituteName = ""

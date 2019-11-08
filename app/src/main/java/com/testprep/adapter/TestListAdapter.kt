@@ -11,7 +11,6 @@ import android.widget.TextView
 import com.testprep.R
 import com.testprep.activity.DashboardActivity
 import com.testprep.activity.DashboardActivity.Companion.setFragments
-import com.testprep.activity.QuestionInstructionActivity
 import com.testprep.models.TestListModel
 import com.testprep.sectionmodule.NewTabQuestionActivity
 import com.testprep.utils.AppConstants
@@ -84,11 +83,14 @@ class TestListAdapter(
                 intent.putExtra("coursename", dataList[p1].CourseName)
                 intent.putExtra("totalmarks", dataList[p1].TestMarks)
                 intent.putExtra("tutorname", dataList[p1].TutorName)
+                intent.putExtra("totalhint", dataList[p1].NumberOfHint)
+                intent.putExtra("totalhintused", dataList[p1].NumberOfHintUsed)
+                intent.putExtra("que_instruction", dataList[p1].TestInstruction)
                 context.startActivity(intent)
                 (context as DashboardActivity).finish()
 
             } else if (dataList[p1].StatusName == "Start Test") {
-                val intent = Intent(context, QuestionInstructionActivity::class.java)
+                val intent = Intent(context, NewTabQuestionActivity::class.java)
                 intent.putExtra("testid", dataList[p1].TestID.toString())
                 intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
                 intent.putExtra("testname", dataList[p1].TestName)
@@ -98,6 +100,8 @@ class TestListAdapter(
                 intent.putExtra("coursename", dataList[p1].CourseName)
                 intent.putExtra("totalmarks", dataList[p1].TestMarks)
                 intent.putExtra("tutorname", dataList[p1].TutorName)
+                intent.putExtra("totalhint", dataList[p1].NumberOfHint)
+                intent.putExtra("totalhintused", dataList[p1].NumberOfHintUsed)
                 intent.putExtra("que_instruction", dataList[p1].TestInstruction)
                 context.startActivity(intent)
             }

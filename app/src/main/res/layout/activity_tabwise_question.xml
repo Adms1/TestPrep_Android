@@ -200,10 +200,9 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:gravity="center"
-                                    android:text="2/5"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/_9sdp"
-                                    android:visibility="gone"
+                                    android:visibility="visible"
                                     app:layout_constraintLeft_toLeftOf="@+id/queTab_ivHint"
                                     app:layout_constraintRight_toRightOf="@+id/queTab_ivHint"
                                     app:layout_constraintTop_toBottomOf="@+id/queTab_ivHint" />

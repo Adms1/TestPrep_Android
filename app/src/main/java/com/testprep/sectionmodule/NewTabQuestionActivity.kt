@@ -66,8 +66,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     var testque = ""
     var testtutor = ""
     var testsubject = ""
+    var total_hint = ""
+    var total_hint_used = ""
 
     var groupInstruction = ""
+
+    var hintCount = 0
 
     var shouldExecuteOnResume: Boolean? = null
 
@@ -104,6 +108,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         testcourse = intent.getStringExtra("coursename")
         testmarks = intent.getStringExtra("totalmarks")
         testtutor = intent.getStringExtra("tutorname")
+        total_hint = intent.getStringExtra("totalhint")
+        total_hint_used = intent.getStringExtra("totalhintused")
+
+        if (total_hint_used != "") {
+            hintCount = total_hint_used.toInt()
+        }
 
         curr_index = 0
         q_grppos1 = 0
@@ -290,6 +300,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                        queTab_tvTotal.text = "1/${movies.size}"
 
                         queTab_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
+                        queTab_tvCurrHint.text = hintCount.toString() + "/" + total_hint
 
                         if (movies[0].TestQuestion[0].Hint != "") {
 
@@ -297,6 +308,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                             hintData =
                                 "<html><body style='background-color:clear;'><p>" + movies[0].TestQuestion[0].Hint + "</p></body></html>"
+
                         } else {
                             queTab_ivHint.visibility = View.GONE
                         }
@@ -304,6 +316,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         Log.d("qid", "" + movies[0].SectionID)
 
                         for (i in 0 until movies.size) {
+
                             val ansmodel = AnswerModel()
 //                        ansmodel.qid = movies[i].SectionID
                             ansmodel.ansid = movies[i].SectionName
@@ -1293,8 +1306,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 Log.d("qsize", "width: " + page_img_que_img.width + ", height" + page_img_que_img.height)
 
-                ansList!!.layoutManager =
-                    LinearLayoutManager(this@NewTabQuestionActivity, LinearLayoutManager.VERTICAL, false)
+                ansList!!.layoutManager = LinearLayoutManager(
+                    this@NewTabQuestionActivity,
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
 
                 if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 7) {
 
@@ -1573,7 +1589,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         Log.d("itype", "review false")
 
                         getType("review", 0, curr_index)
-
                     }
                 }
             }
@@ -1594,7 +1609,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     setNextSkipButtonText(1)
                 }
             }
-
         }
 
         queTab_rbFalse.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -1619,28 +1633,44 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         queTab_expQueList.setOnChildClickListener { parent, v, groupPosition, childPosition, id ->
 
             false
-
         }
 
         queTab_ivHint.setOnClickListener {
 
-            val dialog = Dialog(this@NewTabQuestionActivity)
-            dialog.setContentView(R.layout.hint_dialog)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.setCanceledOnTouchOutside(false)
+            if (movies[q_grppos1].TestQuestion[curr_index].HintUsed == "0") {
 
-            val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
-            val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
-            val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+                if (hintCount < total_hint.toInt()) {
+                    hintCount += 1
+                    callInsertHint()
+                } else {
+                    Toast.makeText(
+                        this@NewTabQuestionActivity,
+                        "Sorry! Your hint limit is over",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-            header.text = "Hint"
+            } else {
 
-            hintWebview.settings.javaScriptEnabled = true
-            hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
+                val dialog = Dialog(this@NewTabQuestionActivity)
+                dialog.setContentView(R.layout.hint_dialog)
+                dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.setCanceledOnTouchOutside(false)
 
-            closeBtn.setOnClickListener { dialog.dismiss() }
+                val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
+                val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
+                val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
 
-            dialog.show()
+                header.text = "Hint"
+
+                hintWebview.settings.javaScriptEnabled = true
+                hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
+
+                closeBtn.setOnClickListener { dialog.dismiss() }
+
+                dialog.show()
+
+            }
         }
 
         queTab_btnNextt.setOnClickListener {
@@ -1940,5 +1970,61 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
         })
     }
+
+    fun callInsertHint() {
+
+        if (!DialogUtils.isNetworkConnected(this@NewTabQuestionActivity)) {
+            Utils.ping(this@NewTabQuestionActivity, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(this@NewTabQuestionActivity)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.Inserttesthint(
+            testid,
+            movies[q_grppos1].TestQuestion[curr_index].QuestionID.toString()
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                DialogUtils.dismissDialog()
+
+                if (response.body() != null) {
+
+                    val dialog = Dialog(this@NewTabQuestionActivity)
+                    dialog.setContentView(R.layout.hint_dialog)
+                    dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    dialog.setCanceledOnTouchOutside(false)
+
+                    val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
+                    val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
+                    val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+
+                    header.text = "Hint"
+
+                    hintWebview.settings.javaScriptEnabled = true
+                    hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
+
+                    closeBtn.setOnClickListener {
+                        queTab_tvCurrHint.text = hintCount.toString() + "/" + total_hint
+                        dialog.dismiss()
+                    }
+
+                    dialog.show()
+
+//                    Toast.makeText(this@NewTabQuestionActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
 
 }

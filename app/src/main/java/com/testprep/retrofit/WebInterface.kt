@@ -117,6 +117,9 @@ interface WebInterface {
     @POST("Insert_TutorRating")
     fun writeRating(@FieldMap map: HashMap<String, String>): Call<TutorModel>
 
+    @FormUrlEncoded
+    @POST("Insert_Test_Hint")
+    fun Inserttesthint(@Field("StudentTestID") stutestid: String, @Field("QuestionID") queid: String): Call<JsonObject>
 
     @GET("Get_Tutor")
     fun getTutorList(): Call<PackageData>
