@@ -92,6 +92,7 @@
             android:paddingRight="@dimen/_10sdp"
             android:id="@+id/tutor_review_btnWritereview"
             android:textAllCaps="false"
+            android:textSize="@dimen/_13sdp"
             android:text="Write a review"/>
 
 </android.support.constraint.ConstraintLayout>

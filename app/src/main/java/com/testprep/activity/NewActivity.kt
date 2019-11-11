@@ -61,6 +61,13 @@ class NewActivity : AppCompatActivity() {
             val etMobile: EditText = dialog!!.findViewById(R.id.dialog_verify_etMobile)
             val submit: TextView = dialog!!.findViewById(R.id.dialog_verify_btnSubmit)
 
+            val skip: TextView =
+                dialog!!.findViewById(R.id.dialog_verify_btnSkip)
+
+            skip.setOnClickListener {
+                dialog!!.dismiss()
+            }
+
             submit.setOnClickListener {
 
                 if (etMobile.text.toString() != "") {
@@ -89,40 +96,46 @@ class NewActivity : AppCompatActivity() {
 
     }
 
-    override fun onResume() {
-
-        super.onResume()
-
-        if (resumeblock) {
-
-            if (Utils.getStringValue(this@NewActivity, AppConstants.USER_MOBILE, "")!! == "") {
-
-                dialog = Dialog(this@NewActivity)
-                dialog!!.setContentView(R.layout.dialog_verify_number)
-                dialog!!.setCanceledOnTouchOutside(false)
-                dialog!!.setCancelable(false)
-
-                val etMobile: EditText =
-                    dialog!!.findViewById(R.id.dialog_verify_etMobile)
-                val submit: TextView =
-                    dialog!!.findViewById(R.id.dialog_verify_btnSubmit)
-
-                submit.setOnClickListener {
-
-                    if (etMobile.text.toString() != "") {
-                        callCheckPhoneApi(etMobile.text.toString())
-                    }
-
-                }
-
-                dialog!!.show()
-
-            }
-        }
-
-        resumeblock = true
-
-    }
+//    override fun onResume() {
+//
+//        super.onResume()
+//
+//        if (resumeblock) {
+//
+//            if (Utils.getStringValue(this@NewActivity, AppConstants.USER_MOBILE, "")!! == "") {
+//
+//                dialog = Dialog(this@NewActivity)
+//                dialog!!.setContentView(R.layout.dialog_verify_number)
+//                dialog!!.setCanceledOnTouchOutside(false)
+//                dialog!!.setCancelable(false)
+//
+//                val etMobile: EditText =
+//                    dialog!!.findViewById(R.id.dialog_verify_etMobile)
+//                val submit: TextView =
+//                    dialog!!.findViewById(R.id.dialog_verify_btnSubmit)
+//                val skip: TextView =
+//                    dialog!!.findViewById(R.id.dialog_verify_btnSkip)
+//
+//                skip.setOnClickListener{
+//                    dialog!!.dismiss()
+//                }
+//
+//                submit.setOnClickListener {
+//
+//                    if (etMobile.text.toString() != "") {
+//                        callCheckPhoneApi(etMobile.text.toString())
+//                    }
+//
+//                }
+//
+//                dialog!!.show()
+//
+//            }
+//        }
+//
+//        resumeblock = true
+//
+//    }
 
     fun callCourseListApi() {
 
