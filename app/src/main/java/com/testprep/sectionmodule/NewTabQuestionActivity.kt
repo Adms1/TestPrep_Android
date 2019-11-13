@@ -7,10 +7,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.AsyncTask
-import android.os.Bundle
-import android.os.CountDownTimer
-import android.os.Handler
+import android.os.*
 import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v4.app.FragmentActivity
 import android.support.v4.widget.DrawerLayout
@@ -70,6 +67,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     var total_hint_used = ""
 
     var groupInstruction = ""
+
+    private var mLastClickTime: Long = 0
 
     var hintCount = 0
 
@@ -267,7 +266,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     val time = testtime.toFloat()
 
                     queTab_tvCurrTotal.text = que_number.toString()
-                    queTab_tvTotal.text = "/" + testque
+                    queTab_tvCurrHint.text = hintCount.toString() + "/" + total_hint
+
+                    queTab_tvCurrHint.text = "0/" + total_hint
 
                     if (time > 0) {
                         setCountdown(time.toLong() * 1000)
@@ -302,17 +303,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         queTab_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
                         queTab_tvCurrHint.text = hintCount.toString() + "/" + total_hint
 
-                        if (movies[0].TestQuestion[0].Hint != "") {
-
-                            queTab_ivHint.visibility = View.VISIBLE
-
-                            hintData =
-                                "<html><body style='background-color:clear;'><p>" + movies[0].TestQuestion[0].Hint + "</p></body></html>"
-
-                        } else {
-                            queTab_ivHint.visibility = View.GONE
-                        }
-
                         Log.d("qid", "" + movies[0].SectionID)
 
                         for (i in 0 until movies.size) {
@@ -332,6 +322,27 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                             } else {
 
                                 setNextSkipButtonText(0)
+                            }
+
+                            if (movies[0].TestQuestion[0].Hint != "") {
+
+                                queTab_ivHint.visibility = View.VISIBLE
+
+                                if (movies[0].TestQuestion[0].HintUsed == "0") {
+
+                                    queTab_ivHint.setImageResource(R.drawable.hint_bulb)
+
+                                } else {
+
+                                    queTab_ivHint.setImageResource(R.drawable.hint_bulb_yellow)
+
+                                }
+
+                                hintData =
+                                    "<html><body style='background-color:clear;'><p>" + movies[0].TestQuestion[0].Hint + "</p></body></html>"
+
+                            } else {
+                                queTab_ivHint.visibility = View.GONE
                             }
 
                             if (movies[0].TestQuestion[0].Review.equals("0", true)) {
@@ -363,8 +374,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                                         Log.d("isreview1", "" + 0)
 
-//                                        queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
-
                                         if (movies[i].TestQuestion[j].Answer != "") {
 
                                             questionTypeModel.type = 2
@@ -378,7 +387,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                         Log.d("isreview2", "" + 1)
 
                                         questionTypeModel.type = 4
-//                                        queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
 
                                     }
 
@@ -1194,17 +1202,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         curr_index = p1
 
-        if (movies[q_grppos1].TestQuestion[curr_index].Hint != "") {
-
-            queTab_ivHint.visibility = View.VISIBLE
-
-            hintData =
-                "<html><body style='background-color:clear;'><p>" + movies[q_grppos1].TestQuestion[curr_index].Hint + "</p></body></html>"
-        } else {
-            queTab_ivHint.visibility = View.GONE
-        }
-
         if (itype != "adapter") {
+
             when (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID) {
 
                 1 -> {
@@ -1255,12 +1254,31 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                             answer = ""
                         }
                     }
-
                 }
             }
         } else {
 
 //            DialogUtils.showDialog(this@NewTabQuestionActivity)
+
+            if (movies[q_grppos1].TestQuestion[curr_index].Hint != "") {
+
+                queTab_ivHint.visibility = View.VISIBLE
+
+                if (movies[q_grppos1].TestQuestion[curr_index].HintUsed == "0") {
+
+                    queTab_ivHint.setImageResource(R.drawable.hint_bulb)
+
+                } else {
+
+                    queTab_ivHint.setImageResource(R.drawable.hint_bulb_yellow)
+
+                }
+
+                hintData =
+                    "<html><body style='background-color:clear;'><p>" + movies[q_grppos1].TestQuestion[curr_index].Hint + "</p></body></html>"
+            } else {
+                queTab_ivHint.visibility = View.GONE
+            }
 
             drawer_layout.closeDrawer(Gravity.RIGHT)
 
@@ -1521,6 +1539,28 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
     fun setNextSkipButtonText(type: Int) {
 
+        if (movies[q_grppos1].TestQuestion[curr_index].Hint != "") {
+
+            queTab_ivHint.visibility = View.VISIBLE
+
+            if (movies[q_grppos1].TestQuestion[curr_index].HintUsed == "0") {
+
+                queTab_ivHint.setImageResource(R.drawable.hint_bulb)
+
+            } else {
+
+                queTab_ivHint.setImageResource(R.drawable.hint_bulb_yellow)
+
+            }
+
+            hintData =
+                "<html><body style='background-color:clear;'><p>" + movies[q_grppos1].TestQuestion[curr_index].Hint + "</p></body></html>"
+
+        } else {
+            queTab_ivHint.visibility = View.GONE
+        }
+
+
         if (movies[q_grppos1].TestQuestion[curr_index].Review.equals("0", true)) {
 
             queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
@@ -1636,6 +1676,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
 
         queTab_ivHint.setOnClickListener {
+
+            if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                return@setOnClickListener
+            }
+            mLastClickTime = SystemClock.elapsedRealtime()
 
             if (movies[q_grppos1].TestQuestion[curr_index].HintUsed == "0") {
 
@@ -1992,6 +2037,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 DialogUtils.dismissDialog()
 
                 if (response.body() != null) {
+
+                    movies[q_grppos1].TestQuestion[curr_index].HintUsed = "1"
 
                     val dialog = Dialog(this@NewTabQuestionActivity)
                     dialog.setContentView(R.layout.hint_dialog)

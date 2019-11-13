@@ -15,7 +15,11 @@ class TutorReviewAdapter(val context: Context, val dataList: ArrayList<TutorMode
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
         return viewholder(
-            LayoutInflater.from(context).inflate(com.testprep.R.layout.list_item_tutor_review, p0, false)
+            LayoutInflater.from(context).inflate(
+                com.testprep.R.layout.list_item_tutor_review,
+                p0,
+                false
+            )
         )
     }
 
@@ -42,5 +46,4 @@ class TutorReviewAdapter(val context: Context, val dataList: ArrayList<TutorMode
         var rating: RatingBar = itemView.findViewById(com.testprep.R.id.tutor_review_rating)
 
     }
-
 }

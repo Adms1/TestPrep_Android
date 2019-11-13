@@ -35,6 +35,12 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
         p0.name.text = dataList[p1].TestPackageName
         p0.price.text = dataList[p1].TestPackageSalePrice
 
+        if (dataList[p1].NumberOfComletedTest == dataList[p1].NumberOfTest) {
+            p0.ivComplete.visibility = View.VISIBLE
+        } else {
+            p0.ivComplete.visibility = View.GONE
+        }
+
         if (dataList[p1].NumberOfTest == "1") {
             p0.test.text =
                 dataList[p1].NumberOfComletedTest + "/" + dataList[p1].NumberOfTest + " Test"
@@ -130,7 +136,7 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
 
         var sdate: TextView = itemView.findViewById(R.id.item_my_package_sdate)
 //        var edate: TextView = itemView.findViewById(R.id.item_my_package_edate)
-//        var image: ImageView = itemView.findViewById(R.id.item_my_package_image)
+var ivComplete: ImageView = itemView.findViewById(R.id.main_package_select)
 var name: TextView = itemView.findViewById(R.id.item_my_package_name)
         var short_name: TextView = itemView.findViewById(R.id.item_my_package_name_short)
         var mainll: ConstraintLayout = itemView.findViewById(R.id.item_my_package_main)

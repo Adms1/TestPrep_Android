@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.testprep.R
 import com.testprep.activity.DashboardActivity
 import com.testprep.activity.DashboardActivity.Companion.setFragments
+import com.testprep.activity.QuestionInstructionActivity
 import com.testprep.models.TestListModel
 import com.testprep.sectionmodule.NewTabQuestionActivity
 import com.testprep.utils.AppConstants
@@ -90,7 +91,7 @@ class TestListAdapter(
                 (context as DashboardActivity).finish()
 
             } else if (dataList[p1].StatusName == "Start Test") {
-                val intent = Intent(context, NewTabQuestionActivity::class.java)
+                val intent = Intent(context, QuestionInstructionActivity::class.java)
                 intent.putExtra("testid", dataList[p1].TestID.toString())
                 intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
                 intent.putExtra("testname", dataList[p1].TestName)

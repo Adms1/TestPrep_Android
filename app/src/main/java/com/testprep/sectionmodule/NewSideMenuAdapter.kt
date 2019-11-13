@@ -38,7 +38,6 @@ class NewSideMenuAdapter(
         return header.get(groupPosition)
     }
 
-
     override fun getChild(groupPosition: Int, childPosition: Int): Any {
         return 1
     }

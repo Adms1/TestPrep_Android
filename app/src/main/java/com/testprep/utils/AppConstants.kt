@@ -6,18 +6,20 @@ class AppConstants {
 
     companion object {
 
-//        var BASE_URL = "http://103.204.192.187:7077/WebService.asmx/"
-//        var IMAGE_BASE_UR
-//        L = "http://103.204.192.187:7077/"
 
-        //        var BASE_URL = "https://testprep.testcraft.co.in/WebService.asmx/"
+        //live
+
         var BASE_URL = "http://webservice.testcraft.in/WebService.asmx/"
-        //        var IMAGE_BASE_URL = "https://testprep.testcraft.co.in/"
-//        var IMAGE_BASE_URL = "http://webservice.testcraft.in/"
         var IMAGE_BASE_URL = "http://testcraft.in/upload/"
-            //        var INVOICE_URL = "http://admin.testcraft.in:8090/tutor/purchasePackages/detail/"
-            var INVOICE_URL = "http://testcraft.in/InvoiceDetail.aspx?ID="
+        var INVOICE_URL = "http://testcraft.in/InvoiceDetail.aspx?ID="
         var SUMMARY_REPORT_URL = "http://webservice.testcraft.in/TestSummaryReport.aspx?"
+//
+//        local
+
+//        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
+//        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
+//        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
+//        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
 
         var FIRST_NAME = "firstname"
         var LAST_NAME = "lastname"

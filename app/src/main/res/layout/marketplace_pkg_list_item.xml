@@ -68,16 +68,18 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:gravity="center"
             android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             app:layout_constraintRight_toRightOf="parent">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/package_item_ivBg"
                 android:layout_width="match_parent"
-                android:layout_marginRight="@dimen/_10sdp"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:alpha="0.3"
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius="@dimen/_8sdp" />
 
         <ImageView
                 android:id="@+id/package_item_ivImage"

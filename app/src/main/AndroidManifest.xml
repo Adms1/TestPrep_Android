@@ -23,6 +23,8 @@
 
         <activity android:name=".activity.ViewInvoiceActivity"/>
 
+        <activity android:name=".activity.QuestionInstructionActivity" />
+
         <activity android:name=".activity.ResultActivity" android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.CartActivity" android:screenOrientation="portrait"/>

@@ -38,6 +38,7 @@
             android:id="@+id/queinstruction_wb"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="@color/gray"
             app:layout_constraintTop_toBottomOf="@+id/queinstruction_header"
             android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintBottom_toTopOf="@+id/queinstruction_btnStart"/>
