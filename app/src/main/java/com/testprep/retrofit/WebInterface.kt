@@ -38,6 +38,10 @@ interface WebInterface {
     @POST("Change_Password")
     fun changePassword(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
+    @FormUrlEncoded
+    @POST("Add_Student_Preference")
+    fun AddPrefrence(@FieldMap map: HashMap<String, String>): Call<JsonObject>
+
     @GET("Get_CourseType_List")
     fun getCourseList(): Call<PackageData>
 
@@ -58,6 +62,14 @@ interface WebInterface {
     fun getBoardStandardSubjectList(@Field("BoardID") boardid: String, @Field("StandardID") standardid: String): Call<PackageData>
 
     @FormUrlEncoded
+    @POST("Add_Seach_History")
+    fun addSearchHistory(@Field("StudentID") stuid: String, @Field("SearchText") searchtxt: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Get_Seach_History")
+    fun getSearchHistory(@Field("StudentID") boardid: String): Call<JsonObject>
+
+    @FormUrlEncoded
     @POST("GeneratePaymentRequest")
     fun getPayment(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
@@ -68,6 +80,7 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Get_TestPackageName_By_ID")
     fun getPackage(@FieldMap map: HashMap<String, String>): Call<GetMarketPlaceData>
+
 
     @FormUrlEncoded
     @POST("Get_TestPackage_By_ID")

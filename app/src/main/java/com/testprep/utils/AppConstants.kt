@@ -6,7 +6,6 @@ class AppConstants {
 
     companion object {
 
-
         //live
 
         var BASE_URL = "http://webservice.testcraft.in/WebService.asmx/"

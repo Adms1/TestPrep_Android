@@ -365,8 +365,38 @@ class IntroActivity : AppCompatActivity() {
 
                         Utils.setStringValue(this@IntroActivity, "is_login", "true")
 
-                        val intent = Intent(this@IntroActivity, NewActivity::class.java)
-                        startActivity(intent)
+                        if (response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray.size() > 0) {
+
+                            Utils.setStringValue(
+                                this@IntroActivity,
+                                AppConstants.COURSE_TYPE_ID,
+                                response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray[0].asJsonObject["CourseTypeID"].asString
+                            )
+                            Utils.setStringValue(
+                                this@IntroActivity,
+                                AppConstants.COURSE_ID,
+                                response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray[0].asJsonObject["BoardID"].asString
+                            )
+                            Utils.setStringValue(
+                                this@IntroActivity,
+                                AppConstants.STANDARD_ID,
+                                response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray[0].asJsonObject["StandardID"].asString
+                            )
+                            Utils.setStringValue(
+                                this@IntroActivity,
+                                AppConstants.SUBJECT_ID,
+                                response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray[0].asJsonObject["SubjectID"].asString
+                            )
+
+                            val mIntent = Intent(this@IntroActivity, DashboardActivity::class.java)
+                            mIntent.putExtra("subject_id", "")
+                            startActivity(mIntent)
+                            finish()
+
+                        } else {
+                            val intent = Intent(this@IntroActivity, NewActivity::class.java)
+                            startActivity(intent)
+                        }
 //                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
                         Utils.setStringValue(

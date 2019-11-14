@@ -2,6 +2,7 @@ package com.testprep.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -46,7 +47,7 @@ class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<Packa
         p0.title.text = dataList[p1].CourseTypeName.replace(" ", "\n")
 //        p0.stitle.text = p0.title.text.substring(0, 1)
 
-        p0.image.setOnClickListener {
+        p0.mainll.setOnClickListener {
 
             AppConstants.FILTER_COURSE_TYPE_ID = dataList[p1].CourseTypeID.toString()
             Utils.setStringValue(context, AppConstants.COURSE_TYPE_ID, dataList[p1].CourseTypeID.toString())
@@ -65,7 +66,7 @@ class NewChooseCoarseAdapter(val context: Context, val dataList: ArrayList<Packa
 
         var image: ImageView = itemView.findViewById(R.id.package_image)
         var title: TextView = itemView.findViewById(R.id.package_name)
-        var stitle: TextView = itemView.findViewById(R.id.package_name_short)
+        var mainll: ConstraintLayout = itemView.findViewById(R.id.chose_course_mainll)
 
     }
 }

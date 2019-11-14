@@ -260,6 +260,7 @@ class DashboardActivity : AppCompatActivity() {
                     AppConstants.FILTER_SUBJECT_ID = "0"
                     AppConstants.FILTER_TUTOR_ID = "0"
                     AppConstants.FILTER_BOARD_ID = "0"
+                    AppConstants.isFirst = 0
 
                     disconnectFromFacebook()
 

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
+import com.google.gson.JsonObject
 import com.testprep.R
 import com.testprep.activity.DashboardActivity.Companion.setFragments
 import com.testprep.adapter.RecentSearchAdapter
@@ -44,84 +45,65 @@ class ExploreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (AppConstants.recentSearchList.size > 0) {
-            explore_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-
-            var arr: List<String> = AppConstants.recentSearchList.reversed()
-            explore_rvList.adapter = RecentSearchAdapter(activity!!, arr)
-        }
-
         explore_etSearch.setOnEditorActionListener { v, actionId, event ->
+
             if (event != null && event.keyCode == KeyEvent.KEYCODE_SEARCH || actionId == EditorInfo.IME_ACTION_SEARCH) {
-                for (i in 0..AppConstants.recentSearchList.size) {
-                    if (!AppConstants.recentSearchList.contains(explore_etSearch.text.toString())) {
-                        if (explore_etSearch.text.toString() != "") {
-                            AppConstants.recentSearchList.add(explore_etSearch.text.toString())
-                        }
-                    }
-                }
 
-                if (explore_etSearch.text.toString() != "") {
+                callAddHitoryApi()
 
-                    AppConstants.isFirst = 13
-
-                    val bundle = Bundle()
-                    bundle.putString("type", "explore")
-                    bundle.putString("pname1", "Packages")
-                    bundle.putString("course_type", "")
-                    bundle.putString("boardid", "")
-                    bundle.putString("stdid", "")
-                    bundle.putString("subid", "")
-                    bundle.putString("tutorid", "")
-                    bundle.putString("search_name", explore_etSearch.text.toString())
-                    bundle.putString("maxprice", "")
-                    bundle.putString("minprice", "")
-                    setFragments(bundle)
-
-                } else {
-
-                }
+//                for (i in 0..AppConstants.recentSearchList.size) {
+//                    if (!AppConstants.recentSearchList.contains(explore_etSearch.text.toString())) {
+//                        if (explore_etSearch.text.toString() != "") {
+//                            AppConstants.recentSearchList.add(explore_etSearch.text.toString())
+//                        }
+//                    }
+//                }
             }
+
             false
         }
 
         explore_ivSearch.setOnClickListener {
 
-            for (i in 0..AppConstants.recentSearchList.size) {
-                if (!AppConstants.recentSearchList.contains(explore_etSearch.text.toString())) {
-                    if (explore_etSearch.text.toString() != "") {
-                        AppConstants.recentSearchList.add(explore_etSearch.text.toString())
-                    }
-                }
-            }
+            callAddHitoryApi()
+
+//            for (i in 0..AppConstants.recentSearchList.size) {
+//                if (!AppConstants.recentSearchList.contains(explore_etSearch.text.toString())) {
+//                    if (explore_etSearch.text.toString() != "") {
+//                        AppConstants.recentSearchList.add(explore_etSearch.text.toString())
+//                    }
+//                }
+//            }
 
 //            explore_etSearch.setText("")
 
-            if (explore_etSearch.text.toString() != "") {
-
-                AppConstants.isFirst = 13
-
-                val bundle = Bundle()
-                bundle.putString("type", "explore")
-                bundle.putString("pname1", "Packages")
-                bundle.putString("course_type", "")
-                bundle.putString("boardid", "")
-                bundle.putString("stdid", "")
-                bundle.putString("subid", "")
-                bundle.putString("tutorid", "")
-                bundle.putString("search_name", explore_etSearch.text.toString())
-                bundle.putString("maxprice", "")
-                bundle.putString("minprice", "")
-                setFragments(bundle)
-
-            } else {
-
-            }
+//            if (explore_etSearch.text.toString() != "") {
+//
+//                AppConstants.isFirst = 13
+//
+//                val bundle = Bundle()
+//                bundle.putString("type", "explore")
+//                bundle.putString("pname1", "Packages")
+//                bundle.putString("course_type", "")
+//                bundle.putString("boardid", "")
+//                bundle.putString("stdid", "")
+//                bundle.putString("subid", "")
+//                bundle.putString("tutorid", "")
+//                bundle.putString("search_name", explore_etSearch.text.toString())
+//                bundle.putString("maxprice", "")
+//                bundle.putString("minprice", "")
+//                setFragments(bundle)
+//
+//            } else {
+//
+//            }
 
 //            callFilterListApi()
         }
 
         callSubjectListApi()
+
+        callGetHistoryApi()
 
 //        explore_etSearch.addTextChangedListener(object : TextWatcher {
 //
@@ -210,5 +192,117 @@ class ExploreFragment : Fragment() {
         return filterArray
     }
 
+    fun callAddHitoryApi() {
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(activity!!)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.addSearchHistory(
+            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
+            explore_etSearch.text.toString()
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(
+                call: Call<JsonObject>,
+                response: Response<JsonObject>
+            ) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        if (explore_etSearch.text.toString() != "") {
+
+                            AppConstants.isFirst = 13
+
+                            val bundle = Bundle()
+                            bundle.putString("type", "explore")
+                            bundle.putString("pname1", "Packages")
+                            bundle.putString("course_type", "")
+                            bundle.putString("boardid", "")
+                            bundle.putString("stdid", "")
+                            bundle.putString("subid", "")
+                            bundle.putString("tutorid", "")
+                            bundle.putString("search_name", explore_etSearch.text.toString())
+                            bundle.putString("maxprice", "")
+                            bundle.putString("minprice", "")
+                            setFragments(bundle)
+
+                        }
+                    }
+
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+    fun callGetHistoryApi() {
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, "Connetion not available")
+        }
+
+        DialogUtils.showDialog(activity!!)
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getSearchHistory(
+            Utils.getStringValue(
+                activity!!,
+                AppConstants.USER_ID,
+                "0"
+            )!!
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(
+                call: Call<JsonObject>,
+                response: Response<JsonObject>
+            ) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        var recentSearchList: ArrayList<String> = ArrayList()
+
+                        if (response.body()!!["data"].asJsonArray.size() > 0) {
+
+                            for (i in 0 until response.body()!!["data"].asJsonArray.size()) {
+                                recentSearchList.add(response.body()!!["data"].asJsonArray[i].asJsonObject["SearchText"].asString)
+                            }
+
+                            explore_rvList.layoutManager =
+                                LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+//                            var arr: List<String> = recentSearchList
+                            explore_rvList.adapter =
+                                RecentSearchAdapter(activity!!, recentSearchList)
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
 
 }

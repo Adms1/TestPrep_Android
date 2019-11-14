@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_160sdp"
             android:scaleType="fitXY"
+            android:background="@color/white"
             app:riv_corner_radius="@dimen/_5sdp"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_centerHorizontal="true"/>
