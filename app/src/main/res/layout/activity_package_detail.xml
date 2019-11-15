@@ -112,7 +112,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/package_detail_createdby"
                     app:layout_constraintLeft_toRightOf="@+id/package_detail_llImage"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:textColor="@color/green"/>
+                    android:textColor="@color/price_green" />
 
             <TextView
                     android:layout_width="wrap_content"
@@ -175,8 +175,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginRight="@dimen/_20sdp"
                     app:layout_constraintTop_toBottomOf="@+id/package_detail_tvDesctitle"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:textColor="@color/black"/>
+                    android:layout_marginLeft="@dimen/_20sdp" />
 
             <View
                     android:id="@+id/package_detail_view"

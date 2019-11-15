@@ -831,6 +831,5 @@ class DashboardActivity : AppCompatActivity() {
 
             supportFragmentManager.popBackStack()
         }
-
     }
 }

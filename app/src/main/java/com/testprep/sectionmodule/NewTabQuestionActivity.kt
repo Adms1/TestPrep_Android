@@ -160,6 +160,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             header.text = movies[groupPosition].SectionName
 
+//            hintWebview.text = movies[groupPosition].SectionInstruction
+
             hintWebview.settings.javaScriptEnabled = true
             hintWebview.loadDataWithBaseURL(
                 "",
@@ -265,10 +267,16 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                     val time = testtime.toFloat()
 
-                    queTab_tvCurrTotal.text = que_number.toString()
-                    queTab_tvCurrHint.text = hintCount.toString() + "/" + total_hint
+                    queTab_tvCurrTotal.text = que_number.toString() + "/" + testque
 
-                    queTab_tvCurrHint.text = "0/" + total_hint
+                    if (total_hint != "0") {
+                        queTab_tvCurrHint.text = hintCount.toString() + "/" + total_hint
+                        queTab_ivHint.visibility = View.VISIBLE
+                    } else {
+                        queTab_tvCurrHint.text = ""
+                        queTab_ivHint.visibility = View.GONE
+                    }
+
 
                     if (time > 0) {
                         setCountdown(time.toLong() * 1000)
@@ -301,7 +309,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                        queTab_tvTotal.text = "1/${movies.size}"
 
                         queTab_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
-                        queTab_tvCurrHint.text = hintCount.toString() + "/" + total_hint
+
+                        if (total_hint != "0") {
+                            queTab_tvCurrHint.text = hintCount.toString() + "/" + total_hint
+                            queTab_ivHint.visibility = View.VISIBLE
+                        } else {
+                            queTab_tvCurrHint.text = ""
+                            queTab_ivHint.visibility = View.GONE
+                        }
 
                         Log.d("qid", "" + movies[0].SectionID)
 
@@ -906,7 +921,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
 //                            DialogUtils.showDialog(this@NewTabQuestionActivity)
 
-                            queTab_tvCurrTotal.text = que_number.toString()
+                            queTab_tvCurrTotal.text = que_number.toString() + "/" + testque
 
                             if ((finalArr.size - 1) > q_grppos1) {
 
@@ -1288,7 +1303,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             que_number = getPageNumber()
 
-            queTab_tvCurrTotal.text = que_number.toString()
+            queTab_tvCurrTotal.text = que_number.toString() + "/" + testque
 
             if ((finalArr.size - 1) > q_grppos1) {
 
@@ -1453,7 +1468,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         } else if (itype == "continue" || itype == "review") {
 
-            queTab_tvCurrTotal.text = que_number.toString()
+            queTab_tvCurrTotal.text = que_number.toString() + "/" + testque
 
             Log.d("current_index_next", "" + curr_index)
 
@@ -2039,6 +2054,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 if (response.body() != null) {
 
                     movies[q_grppos1].TestQuestion[curr_index].HintUsed = "1"
+                    queTab_ivHint.setImageResource(R.drawable.hint_bulb_yellow)
 
                     val dialog = Dialog(this@NewTabQuestionActivity)
                     dialog.setContentView(R.layout.hint_dialog)
@@ -2055,7 +2071,15 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
 
                     closeBtn.setOnClickListener {
-                        queTab_tvCurrHint.text = hintCount.toString() + "/" + total_hint
+
+                        if (total_hint != "0") {
+                            queTab_tvCurrHint.text = hintCount.toString() + "/" + total_hint
+                            queTab_ivHint.visibility = View.VISIBLE
+                        } else {
+                            queTab_tvCurrHint.text = ""
+                            queTab_ivHint.visibility = View.GONE
+                        }
+
                         dialog.dismiss()
                     }
 

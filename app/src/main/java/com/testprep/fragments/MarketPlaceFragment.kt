@@ -132,6 +132,36 @@ class MarketPlaceFragment : Fragment() {
             startActivityForResult(intent, 101)
         }
 
+        main_freetest_item_tvSeeall.setOnClickListener {
+
+            AppConstants.isFirst = 13
+            val bundle = Bundle()
+            bundle.putString("type", "free")
+            bundle.putString("pname1", "Packages")
+            bundle.putString(
+                "boardid",
+                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!
+            )
+            bundle.putString(
+                "course_type",
+                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1")
+            )
+            bundle.putString(
+                "stdid",
+                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!
+            )
+            bundle.putString(
+                "subid",
+                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!
+            )
+            bundle.putString("tutorid", "")
+            bundle.putString("maxprice", "")
+            bundle.putString("minprice", "")
+            bundle.putString("search_name", "")
+            setFragments(bundle)
+
+        }
+
         main_pkg_item_tvSeeall.setOnClickListener {
 
             AppConstants.isFirst = 13
@@ -609,7 +639,21 @@ class MarketPlaceFragment : Fragment() {
                         tutorList = response.body()!!.data.Tutors
 
                         Log.d("dtsize", "" + tutorList!!.size)
-                        carousel1!!.adapter = TutorPageAdapter(5, 330, 160, activity!!, tutorList!!)
+
+                        if (tutorList!!.size > 0) {
+
+                            main_pkg_item_rlTutor.visibility = View.VISIBLE
+                            rltutorCoverflow.visibility = View.VISIBLE
+
+                            carousel1!!.adapter =
+                                TutorPageAdapter(5, 330, 160, activity!!, tutorList!!)
+
+                        } else {
+
+                            main_pkg_item_rlTutor.visibility = View.GONE
+                            rltutorCoverflow.visibility = View.GONE
+
+                        }
 
                         if (mSingleDataList.size > 0) {
 
@@ -630,31 +674,35 @@ class MarketPlaceFragment : Fragment() {
                         if (freeTestList.size > 0) {
 
                             mp_view_pager.visibility = View.VISIBLE
+                            main_freetest_item_tvSeeall.visibility = View.VISIBLE
 
                             myViewPagerAdapter = MyViewPagerAdapter(freeTestList)
                             mp_view_pager!!.adapter = myViewPagerAdapter
 
                         } else {
                             mp_view_pager.visibility = View.GONE
+                            main_freetest_item_tvSeeall.visibility = View.GONE
 
                         }
 
                         if (mDataList!!.size > 0) {
 
                             rlCoverflow!!.visibility = View.VISIBLE
+                            rlCoverflow1.visibility = View.VISIBLE
                             main_pkg_item_tvSeeall.visibility = View.VISIBLE
                             main_pkg_item_tvCategory.visibility = View.VISIBLE
 
                             carousel!!.adapter =
                                 PkgPageAdapter(5, 330, 160, activity!!, mDataList!!)
 
-                            rvPkgs.layoutManager =
-                                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+//                            rvPkgs.layoutManager =
+//                                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 //                            rvPkgs.adapter = MarketPlacePkgAdapter(activity!!, mDataList!!)
                             rlCoverflow!!.adapter = MyViewPagerAdapter1(mDataList!!)
 
                         } else {
                             rlCoverflow!!.visibility = View.GONE
+                            rlCoverflow1.visibility = View.GONE
                             main_pkg_item_tvSeeall.visibility = View.GONE
                             main_pkg_item_tvCategory.visibility = View.GONE
                         }

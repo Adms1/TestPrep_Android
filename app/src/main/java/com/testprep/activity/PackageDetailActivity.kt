@@ -60,7 +60,6 @@ class PackageDetailActivity : Fragment() {
         come = bundle!!.getString("come_from")!!
         oldpkgid = bundle!!.getString("pkgid")!!
 
-
 //        Log.d("colr1", " " + pos + " " + package_detail_tvPname.text.length)
 
 //        package_detail_image1.setImageDrawable(Utils.createDrawable(pos, package_detail_tvPname.text.length))
@@ -357,19 +356,19 @@ class PackageDetailActivity : Fragment() {
                             response.body()!!.get("data").asJsonObject.get("TestPackageName")
                                 .asString.substring(0, 1)
 
-                        if (response.body()!!.get("data").asJsonObject.get("InstituteName").asString != "" && response.body()!!.get(
-                                "data"
-                            ).asJsonObject.get("InstituteName").asString != null
-                        ) {
-                            package_detail_createdby.text =
-                                Html.fromHtml(
-                                    "Created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get(
-                                        "data"
-                                    ).asJsonObject.get(
-                                        "InstituteName"
-                                    ).asString + "</font>"
-                                )
-                        } else {
+//                        if (response.body()!!.get("data").asJsonObject.get("InstituteName").asString != "" && response.body()!!.get(
+//                                "data"
+//                            ).asJsonObject.get("InstituteName").asString != null
+//                        ) {
+//                            package_detail_createdby.text =
+//                                Html.fromHtml(
+//                                    "Created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get(
+//                                        "data"
+//                                    ).asJsonObject.get(
+//                                        "InstituteName"
+//                                    ).asString + "</font>"
+//                                )
+//                        } else {
                             package_detail_createdby.text =
                                 Html.fromHtml(
                                     "Created by " + "<font color=\"#3ea7e0\">" + response.body()!!.get(
@@ -378,7 +377,7 @@ class PackageDetailActivity : Fragment() {
                                         "TutorName"
                                     ).asString + "</font>"
                                 )
-                        }
+//                        }
 
 
                         Log.d("pkgid", oldpkgid)

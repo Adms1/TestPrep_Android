@@ -95,6 +95,16 @@ class TutorDetailActivity : Fragment() {
 //        }
 
         when (ptype) {
+
+            "free" -> {
+
+                rlFilter!!.visibility = View.VISIBLE
+
+                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+                callFilterListApi("", "0")
+
+            }
+
             "pkg" -> {
 
                 rlFilter!!.visibility = View.VISIBLE
@@ -151,7 +161,7 @@ class TutorDetailActivity : Fragment() {
 
             isSort = !isSort
 
-            if (ptype == "pkg" || ptype == "explore" || ptype == "filter") {
+            if (ptype == "free" || ptype == "pkg" || ptype == "explore" || ptype == "filter") {
 
                 sorting("pkg", data)
 
@@ -356,7 +366,7 @@ class TutorDetailActivity : Fragment() {
                 tutorAdapter!!.notifyDataSetChanged()
 
 
-            } else if (type == "pkg" || type == "explore" || type == "filter") {
+            } else if (type == "free" || type == "pkg" || type == "explore" || type == "filter") {
 
                 pkgAdapter = TestPackagesAdapter(activity!!, modelList)
                 tutor_packages_rvPopularPkg.adapter = pkgAdapter
@@ -389,7 +399,7 @@ class TutorDetailActivity : Fragment() {
                 tutor_packages_rvPopularPkg.adapter = tutorAdapter
                 tutorAdapter!!.notifyDataSetChanged()
 
-            } else if (type == "pkg" || type == "explore" || type == "filter") {
+            } else if (type == "free" || type == "pkg" || type == "explore" || type == "filter") {
                 pkgAdapter = TestPackagesAdapter(activity!!, modelList)
                 tutor_packages_rvPopularPkg.adapter = pkgAdapter
                 pkgAdapter!!.notifyDataSetChanged()

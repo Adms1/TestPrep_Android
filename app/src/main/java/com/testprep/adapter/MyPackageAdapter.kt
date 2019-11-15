@@ -33,7 +33,6 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
         p0.name.text = dataList[p1].TestPackageName
-        p0.price.text = dataList[p1].TestPackageSalePrice
 
         if (dataList[p1].NumberOfComletedTest == dataList[p1].NumberOfTest) {
             p0.ivComplete.visibility = View.VISIBLE
@@ -52,10 +51,16 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
         Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
 
         if(come_from == "market_place") {
+
+            p0.price.text = dataList[p1].TestPackageSalePrice
+
             p0.sdate.text = dataList[p1].SubjectName
             p0.test.visibility = View.GONE
 
         }else if(come_from == "my_pkgs"){
+
+            p0.price.text = ""
+
             p0.sdate.text = dataList[p1].PurchaseDate
             p0.test.visibility = View.VISIBLE
         }
