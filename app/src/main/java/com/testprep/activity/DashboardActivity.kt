@@ -236,6 +236,7 @@ class DashboardActivity : AppCompatActivity() {
         var testname = ""
         var testque = ""
         var pkgid = ""
+        var filtertypeid = ""
         var llBottom: LinearLayout? = null
 
         var context: Context? = null
@@ -626,6 +627,7 @@ class DashboardActivity : AppCompatActivity() {
                     stdid = bundle.getString("stdid")!!
                     subid1 = bundle.getString("subid")!!
                     tutorid = bundle.getString("tutorid")!!
+                    filtertypeid = bundle.getString("filtertypeid")!!
 
                     if (bundle.containsKey("parr")) {
                         parr =
@@ -646,6 +648,7 @@ class DashboardActivity : AppCompatActivity() {
                     bundle7.putString("stdid", stdid)
                     bundle7.putString("subid", subid1)
                     bundle7.putString("tutorid", tutorid)
+                    bundle7.putString("filtertypeid", filtertypeid)
 
                     if (parr.size > 0) {
                         bundle7.putSerializable("parr", parr)

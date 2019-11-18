@@ -44,8 +44,11 @@ class TutorDetailActivity : Fragment() {
     var subid = ""
     var tutorid = ""
     var ptype = ""
-    var pname = ""
+    //    var pname = ""
     var course_type = ""
+    var filtypeid = ""
+
+//    var typeid = "4"
 
     var isSort = false
 
@@ -77,8 +80,9 @@ class TutorDetailActivity : Fragment() {
         stdid = bundle!!.getString("stdid")!!
         subid = bundle!!.getString("subid")!!
         tutorid = bundle!!.getString("tutorid")!!
-        pname = bundle!!.getString("pname")!!
+//        pname = bundle!!.getString("pname")!!
         ptype = bundle!!.getString("type")!!
+        filtypeid = bundle!!.getString("filtertypeid")!!
 
         if (bundle!!.containsKey("parr")) {
             data = bundle!!.getSerializable("parr") as ArrayList<PackageData.PackageDataList>
@@ -94,23 +98,25 @@ class TutorDetailActivity : Fragment() {
 //            startActivity(intent)
 //        }
 
-        when (ptype) {
+        when (filtypeid) {
 
-            "free" -> {
+            "0" -> {
 
                 rlFilter!!.visibility = View.VISIBLE
 
                 tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-                callFilterListApi("", "0")
+
+                callFilterListApi("", filtypeid)
 
             }
 
-            "pkg" -> {
+            "1" -> {
 
                 rlFilter!!.visibility = View.VISIBLE
 
                 tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-                callFilterListApi("", "1")
+
+                callFilterListApi("", filtypeid)
 
             }
             "filter" -> {
@@ -123,19 +129,28 @@ class TutorDetailActivity : Fragment() {
                 Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
                 Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
 
-                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-                callFilterListApi("", "-1")
+                if (ptype == "single") {
+
+                    tutor_packages_rvPopularPkg.layoutManager =
+                        LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+                } else {
+                    tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+                }
+
+                callFilterListApi("", filtypeid)
 
             }
-            "explore" -> {
+            "-1" -> {
 
                 rlFilter!!.visibility = View.VISIBLE
 
                 tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-                callFilterListApi(bundle!!.getString("search_name")!!, "-1")
+
+                callFilterListApi(bundle!!.getString("search_name")!!, filtypeid)
 
             }
-            "tutor" -> {
+            "2" -> {
 
                 rlFilter!!.visibility = View.GONE
                 tutor_detail_ivNoPkg.visibility = View.GONE
@@ -148,12 +163,13 @@ class TutorDetailActivity : Fragment() {
                 tutor_packages_rvPopularPkg.adapter = tutorAdapter
 
             }
-            "single" -> {
+            "3" -> {
                 rlFilter!!.visibility = View.VISIBLE
 
                 tutor_packages_rvPopularPkg.layoutManager =
                     LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-                callFilterListApi("", "3")
+
+                callFilterListApi("", filtypeid)
             }
         }
 
@@ -179,35 +195,41 @@ class TutorDetailActivity : Fragment() {
 
         rlFilter!!.setOnClickListener {
             val intent = Intent(activity!!, FilterActivity::class.java)
+            intent.putExtra("filtertype", ptype)
+            intent.putExtra("filtertypeid", filtypeid)
             startActivityForResult(intent, 101)
         }
 
-        if (ptype == "filter") {
+        if (ptype == "free" || ptype == "pkg" || ptype == "single" || ptype == "filter") {
             setFilterCount()
         }
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == 101) {
-            if (data != null) {
-                ptype = data.getStringExtra("type")
-                pname = data.getStringExtra("pname")
-                boardid = data.getStringExtra("boardid")
-                stdid = data.getStringExtra("stdid")
-                subid = data.getStringExtra("subid")
-                tutorid = data.getStringExtra("tutorid")
-                minprice = data.getStringExtra("minprice")
-                maxprice = data.getStringExtra("maxprice")
-
-                callFilterListApi("", "-1")
-
-            }
-        }
-
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if (requestCode == 101) {
+//
+//            var filtypeid = ""
+//
+//            if (data != null) {
+//                ptype = data.getStringExtra("type")
+//                pname = data.getStringExtra("pname")
+//                filtypeid = data.getStringExtra("filtertypeid")
+//                boardid = data.getStringExtra("boardid")
+//                stdid = data.getStringExtra("stdid")
+//                subid = data.getStringExtra("subid")
+//                tutorid = data.getStringExtra("tutorid")
+//                minprice = data.getStringExtra("minprice")
+//                maxprice = data.getStringExtra("maxprice")
+//
+//                callFilterListApi("", filtypeid)
+//
+//            }
+//        }
+//
+//    }
 
     fun callFilterListApi(name: String, type: String) {
 
@@ -292,7 +314,6 @@ class TutorDetailActivity : Fragment() {
                             tutor_packages_rvPopularPkg.visibility = View.GONE
                             tutor_detail_ivNoPkg.visibility = View.VISIBLE
                         }
-
 
                     } else {
 
@@ -414,5 +435,4 @@ class TutorDetailActivity : Fragment() {
             }
         }
     }
-
 }

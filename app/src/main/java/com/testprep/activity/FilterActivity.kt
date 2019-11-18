@@ -196,6 +196,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         var fragment = OtherFilterFragment()
         val bundle = Bundle()
         bundle.putString("coursetype", coursetypeid)
+        bundle.putString("filtertypeid", intent.getStringExtra("filtertypeid"))
 
         when {
 

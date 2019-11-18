@@ -132,12 +132,20 @@ class MarketPlaceFragment : Fragment() {
             startActivityForResult(intent, 101)
         }
 
+        AppConstants.FILTER_STANDARD_ID = "0"
+        AppConstants.FILTER_SUBJECT_ID = "0"
+        AppConstants.FILTER_TUTOR_ID = "0"
+        AppConstants.FILTER_BOARD_ID = "0"
+        AppConstants.FILTER_FROM_PRICE = "0"
+        AppConstants.FILTER_TO_PRICE = "5000"
+
         main_freetest_item_tvSeeall.setOnClickListener {
 
             AppConstants.isFirst = 13
             val bundle = Bundle()
             bundle.putString("type", "free")
             bundle.putString("pname1", "Packages")
+            bundle.putString("filtertypeid", "0")
             bundle.putString(
                 "boardid",
                 Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!
@@ -168,6 +176,7 @@ class MarketPlaceFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("type", "pkg")
             bundle.putString("pname1", "Packages")
+            bundle.putString("filtertypeid", "1")
             bundle.putString(
                 "boardid",
                 Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!
@@ -197,6 +206,7 @@ class MarketPlaceFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("type", "tutor")
             bundle.putString("pname1", "Tutors")
+            bundle.putString("filtertypeid", "2")
             bundle.putString(
                 "course_type",
                 Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1")
@@ -217,6 +227,7 @@ class MarketPlaceFragment : Fragment() {
             val bundle = Bundle()
             bundle.putString("type", "single")
             bundle.putString("pname1", "Single Test")
+            bundle.putString("filtertypeid", "3")
             bundle.putString(
                 "boardid",
                 Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!

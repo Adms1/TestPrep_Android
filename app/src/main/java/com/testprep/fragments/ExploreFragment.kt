@@ -225,6 +225,7 @@ class ExploreFragment : Fragment() {
                             val bundle = Bundle()
                             bundle.putString("type", "explore")
                             bundle.putString("pname1", "Packages")
+                            bundle.putString("filtertypeid", "-1")
                             bundle.putString("course_type", "")
                             bundle.putString("boardid", "")
                             bundle.putString("stdid", "")

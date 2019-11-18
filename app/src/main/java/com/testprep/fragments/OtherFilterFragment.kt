@@ -44,6 +44,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
     var filterInterface: filterInterface? = null
 
+    var filtertypeid = ""
     var coursetypeid = ""
     var tutorids = ""
     var subids = ""
@@ -58,6 +59,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         filter_type = arguments!!.getString("type")
         coursetypeid = arguments!!.getString("coursetype")
+        filtertypeid = arguments!!.getString("filtertypeid")
         // Inflate the layout for this fragment
         return inflater.inflate(com.testprep.R.layout.fragment_other_filter, container, false)
     }
@@ -198,6 +200,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                         val bundle = Bundle()
                         bundle.putString("type", "filter")
                         bundle.putString("pname1", "Packages")
+                        bundle.putString("filtertypeid", filtertypeid)
                         bundle.putString("course_type", AppConstants.FILTER_COURSE_TYPE_ID)
                         bundle.putString("boardid", AppConstants.FILTER_BOARD_ID)
                         bundle.putString("stdid", AppConstants.FILTER_STANDARD_ID)
@@ -221,6 +224,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                     val bundle = Bundle()
                     bundle.putString("type", "filter")
                     bundle.putString("pname1", "Packages")
+                    bundle.putString("filtertypeid", filtertypeid)
                     bundle.putString("course_type", AppConstants.FILTER_COURSE_TYPE_ID)
                     bundle.putString("boardid", AppConstants.FILTER_BOARD_ID)
                     bundle.putString("stdid", AppConstants.FILTER_STANDARD_ID)
