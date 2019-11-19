@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_250sdp"
+        android:layout_height="@dimen/_230sdp"
         android:orientation="vertical">
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_350sdp"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
             android:background="@drawable/white_ring_bg"
             android:orientation="vertical">
@@ -22,13 +22,13 @@
                 android:maxLines="1"
                 android:text="Write Review"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_12sdp" />
 
         <android.support.v7.widget.AppCompatRatingBar
-                style="@style/Widget.AppCompat.RatingBar.Indicator"
-                android:layout_width="@dimen/_150sdp"
-                android:layout_height="wrap_content"
                 android:id="@+id/tutor_profile_ratingbar"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:isIndicator="false"
@@ -46,12 +46,12 @@
                 android:hint="Enter your review here..."
                 android:padding="@dimen/_5sdp"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_11sdp" />
 
         <Button
                 android:id="@+id/dialog_review_btnSubmit"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_25sdp"
@@ -60,8 +60,8 @@
                 android:paddingRight="@dimen/_15sdp"
                 android:text="Submit"
                 android:textAllCaps="false"
-                android:textSize="@dimen/_11sdp"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11sdp" />
 
 
     </LinearLayout>

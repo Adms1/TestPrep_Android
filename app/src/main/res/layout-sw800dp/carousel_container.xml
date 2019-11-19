@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="@dimen/_160sdp"
         android:layout_height="@dimen/_160sdp"
@@ -17,11 +16,11 @@
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_160sdp"
-            android:scaleType="fitXY"
+            android:layout_centerHorizontal="true"
             android:background="@color/white"
-            app:riv_corner_radius="@dimen/_5sdp"
+            android:scaleType="fitXY"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_centerHorizontal="true"/>
+            app:riv_corner_radius="@dimen/_5sdp" />
 
     <TextView
             android:id="@+id/title11"
@@ -29,13 +28,13 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_below="@+id/img"
             android:background="@drawable/transparent_round_cornerbg"
+            android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:ellipsize="end"
-            android:textSize="@dimen/_12sdp"
             android:paddingLeft="@dimen/_10sdp"
             android:paddingRight="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_9sdp"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

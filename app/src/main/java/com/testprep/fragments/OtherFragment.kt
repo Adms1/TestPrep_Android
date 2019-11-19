@@ -71,7 +71,7 @@ class OtherFragment : Fragment() {
 
             other_tvLogo.visibility = View.GONE
             Picasso.get().load(Utils.getStringValue(activity!!, AppConstants.user_profile, ""))
-                .into(other_ivLogo)
+                .placeholder(R.drawable.person_placeholder).into(other_ivLogo)
 
         } else {
 
@@ -81,6 +81,7 @@ class OtherFragment : Fragment() {
             other_tvLogo.text =
                 Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, "").toString()
                     .substring(0, 1).toUpperCase()
+
         }
         other_tvUserName.text =
             Utils.getStringValue(

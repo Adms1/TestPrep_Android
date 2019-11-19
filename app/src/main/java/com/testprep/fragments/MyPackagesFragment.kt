@@ -64,7 +64,7 @@ class MyPackagesFragment : Fragment() {
                 intent.putExtra("header", "Knowledge Gap")
                 intent.putExtra(
                     "url",
-                    "http://webservice.testcraft.in/SubjectSummaryReport.aspx?IsCompetitive=1&CourseID=" + subid.toString() + "&StudentID=" + Utils.getStringValue(
+                    AppConstants.SUBJECT_SUMMARY_REPORT_URL + "IsCompetitive=1&CourseID=" + subid.toString() + "&StudentID=" + Utils.getStringValue(
                         activity!!,
                         AppConstants.USER_ID,
                         "0"
@@ -78,7 +78,7 @@ class MyPackagesFragment : Fragment() {
                 intent.putExtra("header", "Knowledge Gap")
                 intent.putExtra(
                     "url",
-                    "http://webservice.testcraft.in/SubjectSummaryReport.aspx?IsCompetitive=0&StandardID=" + stdid + "&SubjectID=" + subid.toString() + "&StudentID=" + Utils.getStringValue(
+                    AppConstants.SUBJECT_SUMMARY_REPORT_URL + "IsCompetitive=0&StandardID=" + stdid + "&SubjectID=" + subid.toString() + "&StudentID=" + Utils.getStringValue(
                         activity!!,
                         AppConstants.USER_ID,
                         "0"

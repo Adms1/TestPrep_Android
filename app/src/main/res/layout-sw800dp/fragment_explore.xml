@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".fragments.ExploreFragment">
+
+    <RelativeLayout
+            android:id="@+id/explore_rlSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/gray_ring_bg"
+            android:padding="@dimen/_2sdp"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <AutoCompleteTextView
+                android:id="@+id/explore_etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/explore_ivSearch"
+                android:background="@color/white"
+                android:ellipsize="end"
+                android:hint="Search by subject or course"
+                android:imeOptions="actionSearch"
+                android:inputType="textAutoComplete"
+                android:maxLines="1"
+                android:padding="@dimen/_5sdp"
+                android:textSize="@dimen/_12sdp" />
+
+        <ImageView
+                android:id="@+id/explore_ivSearch"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:src="@drawable/search" />
+
+    </RelativeLayout>
+
+    <TextView
+            android:id="@+id/explore_tvRecentsearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Recent Searches"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/explore_ivSeeall"
+            app:layout_constraintTop_toBottomOf="@+id/explore_rlSearch" />
+
+    <TextView
+            android:id="@+id/explore_ivSeeall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:padding="@dimen/_7sdp"
+            android:text="See all"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_13sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/explore_tvRecentsearch"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/explore_tvRecentsearch" />
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/explore_rvList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/explore_tvRecentsearch" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

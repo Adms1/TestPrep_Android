@@ -61,7 +61,7 @@ class MyPackageAdapter(val context: Context, val dataList: ArrayList<PackageData
 
             p0.price.text = ""
 
-            p0.sdate.text = dataList[p1].PurchaseDate
+            p0.sdate.text = dataList[p1].TutorName
             p0.test.visibility = View.VISIBLE
         }
 

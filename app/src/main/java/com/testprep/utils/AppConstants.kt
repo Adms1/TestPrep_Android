@@ -12,6 +12,7 @@ class AppConstants {
 //        var IMAGE_BASE_URL = "http://testcraft.in/upload/"
 //        var INVOICE_URL = "http://testcraft.in/InvoiceDetail.aspx?ID="
 //        var SUMMARY_REPORT_URL = "http://webservice.testcraft.in/TestSummaryReport.aspx?"
+//        var SUBJECT_SUMMARY_REPORT_URL = "http://webservice.testcraft.in/SubjectSummaryReport.aspx?"
 
 //        local
 
@@ -19,6 +20,8 @@ class AppConstants {
         var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
         var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
         var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
+        var SUBJECT_SUMMARY_REPORT_URL =
+            "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
 
         var FIRST_NAME = "firstname"
         var LAST_NAME = "lastname"

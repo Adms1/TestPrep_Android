@@ -23,7 +23,6 @@
             android:id="@+id/test_type_item_tvName"
             android:paddingTop="@dimen/_5sdp"
             android:paddingBottom="@dimen/_5sdp"
-            android:paddingLeft="@dimen/_3sdp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/test_type_item_tvQuantity"
             app:layout_constraintLeft_toRightOf="@+id/desh"
