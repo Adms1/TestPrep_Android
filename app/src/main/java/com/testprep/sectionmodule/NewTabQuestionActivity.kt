@@ -1253,7 +1253,20 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 8 -> {
 
-                    answer = queTab_tvFillBlanks.text.toString()
+                    if (queTab_tvFillBlanks.text.toString() != "") {
+
+//                        try {
+//                            val int_answer = Integer.parseInt(queTab_tvFillBlanks.text.toString())
+//
+//                            if (int_answer <= 999999) {
+//                                answer = int_answer.toString()
+//                            }
+//                        }catch (e: NumberFormatException ){
+//                            System.out.println("not a number")
+//                        }
+//                    }else{
+                        answer = queTab_tvFillBlanks.text.toString()
+                    }
 
                 }
 
@@ -1724,7 +1737,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 header.text = "Hint"
 
                 hintWebview.settings.javaScriptEnabled = true
-                hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
+                hintWebview.loadDataWithBaseURL(
+                    AppConstants.EXPHINT_IMAGE_BASE_URL,
+                    hintData,
+                    "text/html",
+                    "UTF-8",
+                    ""
+                )
 
                 closeBtn.setOnClickListener { dialog.dismiss() }
 
@@ -2068,7 +2087,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     header.text = "Hint"
 
                     hintWebview.settings.javaScriptEnabled = true
-                    hintWebview.loadDataWithBaseURL("", hintData, "text/html", "UTF-8", "")
+                    hintWebview.loadDataWithBaseURL(
+                        AppConstants.EXPHINT_IMAGE_BASE_URL,
+                        hintData,
+                        "text/html",
+                        "UTF-8",
+                        ""
+                    )
 
                     closeBtn.setOnClickListener {
 

@@ -377,7 +377,6 @@ class TutorDetailActivity : Fragment() {
                 } else {
                     lhs.TestPackageName.toLowerCase().compareTo(rhs.TestPackageName.toLowerCase())
                 }
-
             })
 
             if (type == "tutor") {
@@ -385,7 +384,6 @@ class TutorDetailActivity : Fragment() {
                 tutorAdapter = TutorsAdapter(activity!!, modelList)
                 tutor_packages_rvPopularPkg.adapter = tutorAdapter
                 tutorAdapter!!.notifyDataSetChanged()
-
 
             } else if (type == "free" || type == "pkg" || type == "explore" || type == "filter") {
 

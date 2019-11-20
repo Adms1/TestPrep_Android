@@ -380,7 +380,7 @@
                     android:id="@+id/solution_dotnotvisit"
                     android:layout_width="@dimen/_6sdp"
                     android:layout_height="@dimen/_6sdp"
-                    android:layout_marginLeft="@dimen/_15sdp"
+                    app:layout_constraintLeft_toLeftOf="@+id/solution_dotAnswered"
                     app:layout_constraintTop_toTopOf="@+id/solution_tvUnanswered"
                     app:layout_constraintBottom_toBottomOf="@+id/solution_tvUnanswered"
                     app:layout_constraintLeft_toRightOf="@+id/solution_tvUnanswered"

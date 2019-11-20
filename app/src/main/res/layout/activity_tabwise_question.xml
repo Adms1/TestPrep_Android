@@ -147,8 +147,8 @@
                                 android:id="@+id/queTab_tvCurrTotal"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="0.12"
-                                android:gravity="right"
+                                android:layout_weight="0.24"
+                                android:gravity="center"
                                 android:textColor="@color/gray"
                                 android:textSize="@dimen/_12sdp" />
 
@@ -157,6 +157,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.12"
+                                android:visibility="gone"
                                 android:textColor="@color/gray"
                                 android:textSize="@dimen/_12sdp" />
 
@@ -283,9 +284,11 @@
                                         android:layout_marginBottom="@dimen/_5sdp"
                                         android:background="@drawable/gray_ring_bg"
                                         android:gravity="top"
+                                        android:inputType="number"
                                         android:hint="Enter your answer here"
                                         android:padding="@dimen/_5sdp"
                                         android:textSize="@dimen/_12sdp"
+                                        android:maxLength="9"
                                         android:visibility="gone"
                                         app:layout_constraintTop_toBottomOf="@+id/page_img_que_img" />
 
