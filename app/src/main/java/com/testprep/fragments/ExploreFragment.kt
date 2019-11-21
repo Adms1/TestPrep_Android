@@ -235,7 +235,6 @@ class ExploreFragment : Fragment() {
                             bundle.putString("maxprice", "")
                             bundle.putString("minprice", "")
                             setFragments(bundle)
-
                         }
                     }
                 }

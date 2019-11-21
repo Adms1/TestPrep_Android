@@ -14,7 +14,7 @@ class WebClient {
         private var retrofit: Retrofit? = null
 
         private var interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor()
-        //
+
         var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor)
             .connectTimeout(100, TimeUnit.SECONDS)
             .readTimeout(100, TimeUnit.SECONDS).build()
@@ -30,6 +30,7 @@ class WebClient {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
             }
+
             return retrofit!!
         }
     }

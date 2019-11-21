@@ -149,6 +149,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.24"
                                 android:gravity="center"
+                                android:text="30/30 "
                                 android:textColor="@color/gray"
                                 android:textSize="@dimen/_12sdp" />
 

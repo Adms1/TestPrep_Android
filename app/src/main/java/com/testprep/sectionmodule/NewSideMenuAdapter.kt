@@ -140,7 +140,8 @@ class ImageViewAdapter(
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        p0.childheader.text = (p1 + 1).toString()
+//        p0.childheader.text = (p1 + 1).toString()
+        p0.childheader.text = dataList[p1].page_number.toString()
 
         p0.childheader.setOnClickListener {
 

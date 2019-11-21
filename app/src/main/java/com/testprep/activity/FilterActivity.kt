@@ -22,6 +22,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
     var filterAdapter: FilterListAdapter? = null
 
     var coursetypeid = "1"
+    var filtertypeid = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -35,6 +36,8 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         setContentView(R.layout.activity_filter)
 
         filterTypeSelectionInteface = this
+
+        filtertypeid = intent.getStringExtra("filtertypeid")
 
         filter_rvList.layoutManager = LinearLayoutManager(this@FilterActivity, LinearLayoutManager.VERTICAL, false)
 
@@ -130,6 +133,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 val bundle = Bundle()
                 bundle.putString("type", "boards")
                 bundle.putString("coursetype", coursetypeid)
+                bundle.putString("filtertypeid", filtertypeid)
                 fragment.arguments = bundle
                 supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
 
@@ -172,6 +176,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 val bundle = Bundle()
                 bundle.putString("type", "competitive_exams")
                 bundle.putString("coursetype", coursetypeid)
+                bundle.putString("filtertypeid", filtertypeid)
                 fragment.arguments = bundle
                 supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
 
@@ -196,7 +201,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         var fragment = OtherFilterFragment()
         val bundle = Bundle()
         bundle.putString("coursetype", coursetypeid)
-        bundle.putString("filtertypeid", intent.getStringExtra("filtertypeid"))
+        bundle.putString("filtertypeid", filtertypeid)
 
         when {
 

@@ -255,13 +255,20 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                     "<html><body style='background-color:clear;'><p align=center><font size=4px  align=center>" + "Explanation" + "</font></p><p>" + movies[0].TestQuestion[0].Explanation + "</p></body></html>"
 //                explanationData = movies[0].TestQuestion[0].Explanation
 
-                dialog_hint_wvHint.loadDataWithBaseURL(
-                    AppConstants.EXPHINT_IMAGE_BASE_URL,
-                    hintData,
-                    "text/html",
-                    "UTF-8",
-                    ""
-                )
+                if (movies[0].TestQuestion[0].Explanation != "") {
+
+                    dialog_hint_wvHint.visibility = View.VISIBLE
+
+                    dialog_hint_wvHint.loadDataWithBaseURL(
+                        AppConstants.EXPHINT_IMAGE_BASE_URL,
+                        hintData,
+                        "text/html",
+                        "UTF-8",
+                        ""
+                    )
+                } else {
+                    dialog_hint_wvHint.visibility = View.GONE
+                }
 
                 solution_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
 
@@ -419,13 +426,20 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
             hintData =
                 "<html><body style='background-color:clear;'><p align=center><font size=4px  align=center>" + "Explanation" + "</font></p><p>" + movies[solution_grppos1].TestQuestion[curr_index1].Explanation + "</p></body></html>"
 
-            dialog_hint_wvHint.loadDataWithBaseURL(
-                AppConstants.EXPHINT_IMAGE_BASE_URL,
-                hintData,
-                "text/html",
-                "UTF-8",
-                ""
-            )
+            if (movies[solution_grppos1].TestQuestion[curr_index1].Explanation != "") {
+
+                dialog_hint_wvHint.visibility = View.VISIBLE
+
+                dialog_hint_wvHint.loadDataWithBaseURL(
+                    AppConstants.EXPHINT_IMAGE_BASE_URL,
+                    hintData,
+                    "text/html",
+                    "UTF-8",
+                    ""
+                )
+            } else {
+                dialog_hint_wvHint.visibility = View.GONE
+            }
 
             solution_tvQMarks.text = "Marks : " + movies[solution_grppos1].TestQuestion[curr_index1].Marks
 
