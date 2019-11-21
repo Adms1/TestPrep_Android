@@ -47,6 +47,7 @@ class RecentSearchAdapter(val context: Context, val dataList: List<String>) :
             bundle.putString("search_name", dataList[p1])
             bundle.putString("maxprice", "")
             bundle.putString("minprice", "")
+            bundle.putString("filtertypeid", "-1")
             setFragments(bundle)
         }
 

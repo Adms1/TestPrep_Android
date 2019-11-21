@@ -238,7 +238,6 @@ class ExploreFragment : Fragment() {
 
                         }
                     }
-
                 }
             }
 

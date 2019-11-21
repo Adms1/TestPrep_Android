@@ -575,7 +575,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     )
                 )
 
-                if (qtime > 0 && qtime % 10 == 0) {
+                if (qtime > 0 && qtime == 10) {
 
                     Log.d("10 second", "" + qtime)
 
@@ -681,6 +681,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                    },
 //                    DialogInterface.OnClickListener { dialog, which ->
 //                        if (queTab_tvTimer.text.toString().equals("00:00:00", true)) {
+
+                getType("continue", 0, curr_index)
 
                 DialogUtils.createConfirmDialog1(
                     this@NewTabQuestionActivity,
@@ -906,12 +908,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             )
         )
 
+        qtime = 0
+
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
                 if (response.body()!!.get("Status").asString == "true") {
-
-                    qtime = 0
 
                     ansArr = ArrayList()
 
@@ -1851,6 +1853,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 DialogInterface.OnClickListener { dialog, which ->
 
                     if (queTab_tvTimer.text.toString().equals("00:00:00", true)) {
+
+                        getType("continue", 0, curr_index)
 
                         DialogUtils.createConfirmDialog1(
                             this@NewTabQuestionActivity,
