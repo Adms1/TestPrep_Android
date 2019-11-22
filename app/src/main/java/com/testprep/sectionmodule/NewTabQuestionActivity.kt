@@ -18,7 +18,9 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.webkit.WebView
 import android.widget.*
 import com.google.gson.JsonObject
@@ -66,7 +68,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     var total_hint = ""
     var total_hint_used = ""
 
-    var groupInstruction = ""
+    var integeranswer = ""
 
     private var mLastClickTime: Long = 0
 
@@ -123,7 +125,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         sectionList = ArrayList()
         finalArr = HashMap()
 
-        queTab_tvFillBlanks.setText("")
+        queTab_tvFillBlanks.setText(integeranswer)
 
         filterTypeSelectionInteface = this
 
@@ -178,6 +180,19 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             false
 
         }
+
+        queTab_tvFillBlanks.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+
+            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+
+                    integeranswer = queTab_tvFillBlanks.text.toString()
+
+                }
+                return false
+            }
+        })
+
 
         queTab_tvFillBlanks.addTextChangedListener(object : TextWatcher {
 
@@ -470,7 +485,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                 queTab_rbFalse.visibility = View.GONE
 
                                 if (movies[0].TestQuestion[0].Answer != "") {
-                                    queTab_tvFillBlanks.setText(movies[0].TestQuestion[0].Answer)
+
+                                    integeranswer = movies[0].TestQuestion[0].Answer
+
+                                    queTab_tvFillBlanks.setText(integeranswer)
                                 } else {
                                     queTab_tvFillBlanks.setText("")
                                 }
@@ -1006,7 +1024,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                         queTab_rbFalse.visibility = View.GONE
 
                                         if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
-                                            queTab_tvFillBlanks.setText(movies[q_grppos1].TestQuestion[curr_index].Answer)
+
+                                            integeranswer =
+                                                movies[q_grppos1].TestQuestion[curr_index].Answer
+
+                                            queTab_tvFillBlanks.setText(integeranswer)
                                         } else {
                                             queTab_tvFillBlanks.setText("")
                                         }
@@ -1055,7 +1077,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     )
 
                                     ansArr = ArrayList()
-//                                    queTab_tvFillBlanks.setText("")
 
                                     queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
 
@@ -1107,7 +1128,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                             queTab_rbFalse.visibility = View.GONE
 
                                             if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
-                                                queTab_tvFillBlanks.setText(movies[q_grppos1].TestQuestion[curr_index].Answer)
+
+                                                integeranswer =
+                                                    movies[q_grppos1].TestQuestion[curr_index].Answer
+
+                                                queTab_tvFillBlanks.setText(integeranswer)
+
                                             } else {
                                                 queTab_tvFillBlanks.setText("")
                                             }
@@ -1267,7 +1293,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                            System.out.println("not a number")
 //                        }
 //                    }else{
-                        answer = queTab_tvFillBlanks.text.toString()
+                        answer = integeranswer
+//                        answer = queTab_tvFillBlanks.text.toString()
                     }
 
                 }
@@ -1389,7 +1416,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     queTab_rbFalse.visibility = View.GONE
 
                     if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
-                        queTab_tvFillBlanks.setText(movies[q_grppos1].TestQuestion[curr_index].Answer)
+
+                        integeranswer = movies[q_grppos1].TestQuestion[curr_index].Answer
+
+                        queTab_tvFillBlanks.setText(integeranswer)
                     } else {
                         queTab_tvFillBlanks.setText("")
                     }
@@ -1895,6 +1925,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             isReview = 1
 
         }
+
+        integeranswer = queTab_tvFillBlanks.text.toString()
 
         when {
             nextButton!!.text == "Next" -> {

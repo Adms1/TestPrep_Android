@@ -143,7 +143,7 @@ class TutorDetailActivity : Fragment() {
             }
             "-1" -> {
 
-                rlFilter!!.visibility = View.VISIBLE
+                rlFilter!!.visibility = View.GONE
 
                 tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
 
