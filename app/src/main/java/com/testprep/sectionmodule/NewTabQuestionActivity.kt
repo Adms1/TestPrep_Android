@@ -112,7 +112,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         total_hint = intent.getStringExtra("totalhint")
         total_hint_used = intent.getStringExtra("totalhintused")
 
-        if (total_hint_used != "") {
+        if (total_hint_used != "0" && total_hint_used != "") {
             hintCount = total_hint_used.toInt()
         }
 
@@ -287,6 +287,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     if (total_hint != "0") {
                         queTab_tvCurrHint.text = hintCount.toString() + "/" + total_hint
                         queTab_ivHint.visibility = View.VISIBLE
+
                     } else {
                         queTab_tvCurrHint.text = ""
                         queTab_ivHint.visibility = View.GONE
@@ -354,7 +355,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                 setNextSkipButtonText(0)
                             }
 
-                            if (movies[0].TestQuestion[0].Hint != "") {
+                            if (total_hint != "0" && movies[0].TestQuestion[0].Hint != "") {
 
                                 queTab_ivHint.visibility = View.VISIBLE
 
@@ -1317,7 +1318,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
 //            DialogUtils.showDialog(this@NewTabQuestionActivity)
 
-            if (movies[q_grppos1].TestQuestion[curr_index].Hint != "") {
+            if (total_hint != "0" && movies[q_grppos1].TestQuestion[curr_index].Hint != "") {
 
                 queTab_ivHint.visibility = View.VISIBLE
 
@@ -1599,7 +1600,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
     fun setNextSkipButtonText(type: Int) {
 
-        if (movies[q_grppos1].TestQuestion[curr_index].Hint != "") {
+        if (total_hint != "0" && movies[q_grppos1].TestQuestion[curr_index].Hint != "") {
 
             queTab_ivHint.visibility = View.VISIBLE
 

@@ -329,7 +329,7 @@ class PackageDetailActivity : Fragment() {
                         ) {
 
                             package_detail_tvsprice.text =
-                                "Sell Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
+                                "Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
                             package_detail_tvlprice.text =
                                 response.body()!!.get("data")
                                     .asJsonObject.get("TestPackageListPrice").asString.trim()
