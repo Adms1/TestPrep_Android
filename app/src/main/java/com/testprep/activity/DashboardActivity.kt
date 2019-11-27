@@ -55,6 +55,8 @@ class DashboardActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_dashboard)
 
+        Utils.deleteCache(this@DashboardActivity)
+
         ON_BACK = 0
 
         main_header = findViewById(R.id.dashboard_header)

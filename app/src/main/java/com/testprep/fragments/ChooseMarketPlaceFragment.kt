@@ -54,6 +54,7 @@ class ChooseMarketPlaceFragment : Fragment() {
             "",
             ""
         )
+
         call.enqueue(object : Callback<MyPackageModel> {
             override fun onResponse(call: Call<MyPackageModel>, response: Response<MyPackageModel>) {
 
@@ -63,7 +64,7 @@ class ChooseMarketPlaceFragment : Fragment() {
 
                     if (response.body()!!.Status == "true") {
 
-                        var pkgArr = response.body()!!.data
+                        val pkgArr = response.body()!!.data
                         choosemp_rvList.adapter = MainPackageAdapter(activity!!, pkgArr)
                     }
                 }

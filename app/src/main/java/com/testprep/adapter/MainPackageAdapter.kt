@@ -92,7 +92,6 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
 
         p0.ll.setOnClickListener {
 
-
             AppConstants.isFirst = 11
             val bundle = Bundle()
             bundle.putInt("sub_id", list[p1].ID)
@@ -100,6 +99,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
             bundle.putString("sub_name", list[p1].Name)
             bundle.putBoolean("isCompetitive", list[p1].isCompetitive)
             setFragments(bundle)
+
 //            val intent1 = Intent(context, DashboardActivity::class.java)
 //            intent1.putExtra("sub_id", list[p1].ID)
 //            intent1.putExtra("sub_name", list[p1].Name)

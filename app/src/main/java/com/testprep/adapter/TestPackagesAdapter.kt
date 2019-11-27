@@ -91,7 +91,6 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
                     DialogInterface.OnClickListener { dialog, which ->
                         dialog.dismiss()
 
-
                     }).show()
 
             }
@@ -103,7 +102,6 @@ class TestPackagesAdapter(val context: Context, val dataList: ArrayList<PackageD
                 bundle.putString("pkgid", dataList[p1].TestPackageID)
                 bundle.putString("come_from", "selectpackage")
                 DashboardActivity.setFragments(bundle)
-
 
 //                val intent = Intent(context, PackageDetailActivity::class.java)
 //                intent.putExtra("pkgid", dataList[p1].TestPackageID)

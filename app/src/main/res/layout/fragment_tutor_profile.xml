@@ -121,10 +121,10 @@
             android:src="@drawable/phone"
             android:id="@+id/tutor_profile_ivPhn"
             android:layout_marginLeft="@dimen/_10sdp"
+        android:visibility="gone"
             app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
             app:layout_constraintTop_toTopOf="@+id/tutor_profile_tvMobile"
             app:layout_constraintBottom_toBottomOf="@+id/tutor_profile_tvMobile"/>
-
 
     <TextView
             android:layout_width="0dp"
@@ -137,6 +137,7 @@
             android:layout_marginRight="@dimen/_10sdp"
             android:gravity="center_vertical"
             android:maxLines="1"
+        android:visibility="gone"
             android:layout_marginLeft="@dimen/_3sdp"
             android:textColor="@color/gray"/>
 
@@ -146,10 +147,10 @@
             android:src="@drawable/email"
             android:id="@+id/tutor_profile_ivEmail"
             android:layout_marginLeft="@dimen/_10sdp"
+        android:visibility="gone"
             app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
             app:layout_constraintTop_toTopOf="@+id/tutor_profile_tvEmail"
             app:layout_constraintBottom_toBottomOf="@+id/tutor_profile_tvEmail"/>
-
 
     <TextView
             android:layout_width="0dp"
@@ -161,6 +162,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginRight="@dimen/_10sdp"
             android:gravity="top"
+        android:visibility="gone"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginLeft="@dimen/_3sdp"
             android:maxLines="1"
@@ -195,7 +197,7 @@
             android:paddingRight="@dimen/_10sdp"
             android:background="@color/light_blue"
             android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDesc"
+        app:layout_constraintTop_toBottomOf="@+id/tutor_profile_image"
             android:textColor="@color/black"/>
 
     <android.support.v7.widget.RecyclerView
@@ -205,6 +207,5 @@
             android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvCurators"/>
-
 
 </android.support.constraint.ConstraintLayout>

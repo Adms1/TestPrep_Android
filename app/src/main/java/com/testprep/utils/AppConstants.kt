@@ -22,8 +22,7 @@ class AppConstants {
 //        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
 //        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
 //        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
-//        var SUBJECT_SUMMARY_REPORT_URL =
-//            "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
+//        var SUBJECT_SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
 
         var FIRST_NAME = "firstname"
         var LAST_NAME = "lastname"

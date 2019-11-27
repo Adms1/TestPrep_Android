@@ -21,11 +21,37 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.testprep.R
 import com.testprep.old.models.QuestionResponse
+import java.io.File
 
 
 class Utils {
 
     companion object {
+
+        fun deleteCache(context: Context) {
+            try {
+                val dir: File = context.cacheDir
+                deleteDir(dir)
+            } catch (e: java.lang.Exception) {
+            }
+        }
+
+        fun deleteDir(dir: File?): Boolean {
+            return if (dir != null && dir.isDirectory) {
+                val children: Array<String> = dir.list()
+                for (i in children.indices) {
+                    val success = deleteDir(File(dir, children[i]))
+                    if (!success) {
+                        return false
+                    }
+                }
+                dir.delete()
+            } else if (dir != null && dir.isFile) {
+                dir.delete()
+            } else {
+                false
+            }
+        }
 
         private const val APP_PREF = "TesetPrep"
         private var mSharedPreferencesEditor: SharedPreferences.Editor? = null
@@ -213,15 +239,15 @@ class Utils {
         }
 
         fun darker(color: Int, factor: Float): Int {
-            var red: Int = (Color.red(color) * factor).toInt()
-            var green: Int = (Color.green(color) * factor).toInt()
-            var blue: Int = (Color.blue(color) * factor).toInt()
+            val red: Int = (Color.red(color) * factor).toInt()
+            val green: Int = (Color.green(color) * factor).toInt()
+            val blue: Int = (Color.blue(color) * factor).toInt()
             return argb(Color.alpha(color), red, green, blue)
         }
 
         fun newcreateDrawable(ch: String): Drawable {
 
-            var color1 = R.color.dark_sky_blue
+            val color1 = R.color.dark_sky_blue
 
             val ic1 = TextDrawable.builder().buildRound(ch, color1)
 
