@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_my_packages.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
 
 /**
  * A simple [Fragment] subclass.
@@ -160,14 +161,22 @@ class MyPackagesFragment : Fragment() {
 
                         var final = 0F
 
-                        var per = (((pendingcount.toFloat()) / totalcount.toFloat()) * 100)
+                        var per: Float =
+                            DecimalFormat("##.##").format((((pendingcount.toFloat()) / totalcount.toFloat()) * 100))
+                                .toFloat()
 
-                        if (per > 0) {
-                            final = 100 - per
-                        } else if (per == 0F) {
-                            final = 100.0F
-                        } else {
-                            final = 0F
+//                        per = DecimalFormat("##.##").format(per).toFloat()
+
+                        final = when {
+                            per > 0 -> {
+                                100 - per
+                            }
+                            per == 0F -> {
+                                100.0F
+                            }
+                            else -> {
+                                0F
+                            }
                         }
 
 //                        var per = (pendingcount.toFloat()/totalcount.toFloat())*100

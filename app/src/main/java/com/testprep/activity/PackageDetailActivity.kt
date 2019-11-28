@@ -262,7 +262,7 @@ class PackageDetailActivity : Fragment() {
                         intent.putExtra("pkgname", package_detail_tvPname.text.toString())
                         intent.putExtra("pkgprice", purchaseCoin)
                         context.startActivity(intent)
-                        (context as DashboardActivity).finish()
+//                        (context as DashboardActivity).finish()
 
                     } else {
                         Toast.makeText(
@@ -571,7 +571,7 @@ class PackageDetailActivity : Fragment() {
                             intent.putExtra("pkgname", package_detail_tvPname.text.toString())
                             intent.putExtra("pkgprice", purchaseCoin)
                             startActivity(intent)
-                            (context as DashboardActivity).finish()
+//                            (context as DashboardActivity).finish()
 
                         } else {
                             updatePaymentStatus(

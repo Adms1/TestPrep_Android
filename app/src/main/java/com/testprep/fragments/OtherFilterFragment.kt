@@ -69,12 +69,15 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         filterInterface = this
 
-        if (min == "0" && max == "5000") {
-//        price_filter_tvMin.text = AppConstants.FILTER_FROM_PRICE
-            price_filter_tvMin.text = "0"
-//        price_filter_tvMax.text = AppConstants.FILTER_TO_PRICE
-            price_filter_tvMax.text = "144"
-        }
+        price_filter_etMin.text = "₹ " + AppConstants.FILTER_FROM_PRICE
+        price_filter_etMax.text = "₹ " + AppConstants.FILTER_TO_PRICE
+
+//        if (min == "0" && max == "5000") {
+////        price_filter_tvMin.text = AppConstants.FILTER_FROM_PRICE
+//            price_filter_tvMin.text = "0"
+////        price_filter_tvMax.text = AppConstants.FILTER_TO_PRICE
+//            price_filter_tvMax.text = "144"
+//        }
 
         filterData_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
@@ -111,24 +114,40 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         // set listener
 
+        var isFirst = true
+
         rangeSeekbar3.setOnRangeSeekbarChangeListener { minValue, maxValue ->
 
             min = minValue.toString()
             max = maxValue.toString()
 
-            if (min == "0" && max == "5000") {
-//        price_filter_tvMin.text = AppConstants.FILTER_FROM_PRICE
-
-                rangeSeekbar3.setMinValue(AppConstants.FILTER_FROM_PRICE.toFloat())
-                rangeSeekbar3.setMaxValue(AppConstants.FILTER_TO_PRICE.toFloat())
-
+            if (isFirst) {
                 price_filter_etMin.text = "₹ " + AppConstants.FILTER_FROM_PRICE
-//        price_filter_tvMax.text = AppConstants.FILTER_TO_PRICE
                 price_filter_etMax.text = "₹ " + AppConstants.FILTER_TO_PRICE
+
+                isFirst = false
+
             } else {
-                price_filter_etMin.text = "₹ " + minValue.toString()
-                price_filter_etMax.text = "₹ " + maxValue.toString()
+                price_filter_etMin.text = "₹ $minValue"
+                price_filter_etMax.text = "₹ $maxValue"
             }
+
+//            if (min != "0" && max != "5000") {
+//////        price_filter_tvMin.text = AppConstants.FILTER_FROM_PRICE
+////
+//////                rangeSeekbar3.setMinValue(AppConstants.FILTER_FROM_PRICE.toFloat())
+//////                rangeSeekbar3.setMaxValue(AppConstants.FILTER_TO_PRICE.toFloat())
+////
+//                price_filter_etMin.text = "₹ " + AppConstants.FILTER_FROM_PRICE
+//                price_filter_etMax.text = "₹ " + AppConstants.FILTER_TO_PRICE
+//
+//                min = "0"
+//                max = "5000"
+//
+//            } else {
+//                price_filter_etMin.text = "₹ " + minValue.toString()
+//                price_filter_etMax.text = "₹ " + maxValue.toString()
+//            }
 
         }
 
@@ -193,9 +212,9 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
             if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
 
-                if (AppConstants.FILTER_BOARD_ID != "") {
+                if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_BOARD_ID != "0") {
 
-                    if (AppConstants.FILTER_STANDARD_ID != "") {
+                    if (AppConstants.FILTER_STANDARD_ID != "" && AppConstants.FILTER_STANDARD_ID != "0") {
 
                         val bundle = Bundle()
                         bundle.putString("type", "filter")
@@ -220,7 +239,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 }
 
             } else {
-                if (AppConstants.FILTER_BOARD_ID != "") {
+                if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_STANDARD_ID != "0") {
                     val bundle = Bundle()
                     bundle.putString("type", "filter")
                     bundle.putString("pname1", "Packages")

@@ -56,7 +56,8 @@ class ResultActivity : AppCompatActivity() {
         result_tvHeading.text = intent.getStringExtra("testname")
 
         result_btnDashboard.setOnClickListener {
-           onBackPressed()
+
+            onBackPressed()
         }
 
         if (intent.getStringExtra("marks") <= "0") {
@@ -102,7 +103,7 @@ class ResultActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        AppConstants.isFirst = 12
+        AppConstants.isFirst = 1
         val intent = Intent(this@ResultActivity, DashboardActivity::class.java)
         startActivity(intent)
         finish()

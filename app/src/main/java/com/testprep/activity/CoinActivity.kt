@@ -271,7 +271,7 @@ class CoinActivity : AppCompatActivity(), CoinInteface {
                         )
                         intent.putExtra("amount", coin)
                         context.startActivity(intent)
-                        finish()
+//                        finish()
 
                     } else {
                         Toast.makeText(context, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()

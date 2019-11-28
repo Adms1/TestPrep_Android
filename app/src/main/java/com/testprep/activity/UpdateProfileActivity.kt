@@ -188,12 +188,18 @@ class UpdateProfileActivity : Fragment() {
 
         var isvalid = true
 
-        if (TextUtils.isEmpty(signup_etFname.text.toString())) {
+        if (TextUtils.isEmpty(signup_etFname.text.toString()) || signup_etFname.text.toString().contains(
+                " "
+            )
+        ) {
             signup_etFname.error = "first name must not be null"
             isvalid = false
         }
 
-        if (TextUtils.isEmpty(signup_etLname.text.toString())) {
+        if (TextUtils.isEmpty(signup_etLname.text.toString()) || signup_etLname.text.toString().contains(
+                " "
+            )
+        ) {
             signup_etLname.error = "last name must not be null"
             isvalid = false
         }

@@ -353,6 +353,9 @@ class DashboardActivity : AppCompatActivity() {
                     ivExplore!!.setImageResource(R.drawable.search)
                     ivProfile!!.setImageResource(R.drawable.menu_one)
 
+
+
+
                     tvHome!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
                     tvMarket!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
                     tvExplore!!.setTextColor(context!!.resources.getColor(R.color.light_gray))

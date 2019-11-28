@@ -88,6 +88,19 @@ class TutorDetailActivity : Fragment() {
             data = bundle!!.getSerializable("parr") as ArrayList<PackageData.PackageDataList>
         }
 
+        when {
+            !isSort -> {
+
+                ivSort!!.rotation = 0f
+
+            }
+            else -> {
+
+                ivSort!!.rotation = 180f
+
+            }
+        }
+
 //        tutor_detail_ivBack.setOnClickListener {
 //            AppConstants.isFirst = 0
 //            onBackPressed()
@@ -104,6 +117,12 @@ class TutorDetailActivity : Fragment() {
 
                 rlFilter!!.visibility = View.VISIBLE
 
+                minprice = bundle!!.getString("minprice")!!
+                maxprice = bundle!!.getString("maxprice")!!
+
+                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
+
                 tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
 
                 callFilterListApi("", filtypeid)
@@ -113,6 +132,12 @@ class TutorDetailActivity : Fragment() {
             "1" -> {
 
                 rlFilter!!.visibility = View.VISIBLE
+
+                minprice = bundle!!.getString("minprice")!!
+                maxprice = bundle!!.getString("maxprice")!!
+
+                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
 
                 tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
 
@@ -145,6 +170,12 @@ class TutorDetailActivity : Fragment() {
 
                 rlFilter!!.visibility = View.GONE
 
+                minprice = bundle!!.getString("minprice")!!
+                maxprice = bundle!!.getString("maxprice")!!
+
+                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
+
                 tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
 
                 callFilterListApi(bundle!!.getString("search_name")!!, filtypeid)
@@ -154,6 +185,12 @@ class TutorDetailActivity : Fragment() {
 
                 rlFilter!!.visibility = View.GONE
                 tutor_detail_ivNoPkg.visibility = View.GONE
+
+                minprice = bundle!!.getString("minprice")!!
+                maxprice = bundle!!.getString("maxprice")!!
+
+                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
 
                 tutor_packages_rvPopularPkg.layoutManager =
                     LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
@@ -165,6 +202,12 @@ class TutorDetailActivity : Fragment() {
             }
             "3" -> {
                 rlFilter!!.visibility = View.VISIBLE
+
+                minprice = bundle!!.getString("minprice")!!
+                maxprice = bundle!!.getString("maxprice")!!
+
+                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
 
                 tutor_packages_rvPopularPkg.layoutManager =
                     LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)

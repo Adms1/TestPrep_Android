@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -42,10 +41,10 @@ class TraknpayRequestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+//        window.setFlags(
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+//        )
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(com.testprep.R.layout.activity_traknpay_request)
@@ -55,7 +54,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
         pkgprice = intent.getStringExtra("pkgprice")
 
         val return_url = "https://biz.traknpay.in/tnp/return_page_android.php"
-        var mode: String? = "TEST"
+        var mode: String? = AppConstants.PAYMENT_MODE
         var order_id: String? = intent.getStringExtra("order_id")
         var amount: String? = intent.getStringExtra("amount")
         val currency = "INR"
@@ -418,6 +417,10 @@ class TraknpayRequestActivity : AppCompatActivity() {
                 DialogUtils.dismissDialog()
             }
         })
+    }
+
+    override fun onBackPressed() {
+
     }
 
 }

@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toTopOf="@+id/queinstruction_btnStart"/>
 
     <Button
-            android:layout_width="wrap_content"
+        android:layout_width="wrap_conte nt"
             android:layout_height="wrap_content"
             android:id="@+id/queinstruction_btnStart"
             android:background="@drawable/login_round_bg"

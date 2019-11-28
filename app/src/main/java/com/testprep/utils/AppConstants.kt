@@ -42,8 +42,15 @@ class AppConstants {
         //        var ON_BACK = 0
         var COURSE_FLOW_ARRAY: ArrayList<String> = ArrayList()
 
-        var API_KEY = "535ee616-a161-4e16-88ed-a338582e841a"
-        var SECRET_KEY = "531553f8d6b906aa3342948a3c535ca301de9d5d"
+//        LOCAL
+//        var API_KEY = "535ee616-a161-4e16-88ed-a338582e841a"
+//        var SECRET_KEY = "531553f8d6b906aa3342948a3c535ca301de9d5d"
+//        var PAYMENT_MODE = "TEST"
+
+        //        LIVE
+        var API_KEY = "0cda5f4f-d803-4316-8562-c75a72fe99c0"
+        var SECRET_KEY = "10ad507bb768b574c3d6ff2bc6694b04386b9c8f"
+        var PAYMENT_MODE = "LIVE"
 
         var QUE_NUMBER = 0
         var QUE_NUMBER1 = 0
