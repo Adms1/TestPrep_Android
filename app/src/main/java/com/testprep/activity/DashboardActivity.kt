@@ -339,22 +339,17 @@ class DashboardActivity : AppCompatActivity() {
                     main_header!!.text = "Dashboard"
                     btnBack!!.visibility = View.GONE
 //                    btnLogout!!.visibility = View.GONE
-
-                    //        dashboard_ivPencil.visibility = View.VISIBLE
-
-                    //                dashboard_ivFilter.visibility = View.GONE
+//                    dashboard_ivPencil.visibility = View.VISIBLE
+//                    dashboard_ivFilter.visibility = View.GONE
 //                    ivCart!!.visibility = View.GONE
-//                dashboard_ivPencil.visibility = View.GONE
-//                dashboard_ivBack.visibility = View.GONE
-//                dashboard_ivFilter.visibility = View.GONE
+//                    dashboard_ivPencil.visibility = View.GONE
+//                    dashboard_ivBack.visibility = View.GONE
+//                    dashboard_ivFilter.visibility = View.GONE
 
                     ivHome!!.setImageResource(R.drawable.blue_home)
                     ivMarket!!.setImageResource(R.drawable.list)
                     ivExplore!!.setImageResource(R.drawable.search)
                     ivProfile!!.setImageResource(R.drawable.menu_one)
-
-
-
 
                     tvHome!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
                     tvMarket!!.setTextColor(context!!.resources.getColor(R.color.light_gray))

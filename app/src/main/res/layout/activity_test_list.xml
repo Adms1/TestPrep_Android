@@ -35,7 +35,7 @@
             android:maxLines="1"
             android:gravity="center"
             android:text="Test List"
-            android:textColor="@color/black"
+        android:textColor="@color/header_gray"
             android:layout_marginLeft="@dimen/_8sdp"
             android:padding="@dimen/_5sdp"
             android:layout_marginRight="@dimen/_8sdp"

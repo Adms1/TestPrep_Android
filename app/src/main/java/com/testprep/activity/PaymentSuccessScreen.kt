@@ -49,7 +49,13 @@ class PaymentSuccessScreen : AppCompatActivity() {
         pkgname = intent.getStringExtra("transactionId")
         pkgprice = intent.getStringExtra("pkgprice")
 
-        tvPkgname.text = "Transaction Id : " + pkgname
+        if (pkgname != "") {
+            tvPkgname.text = "Transaction Id : " + pkgname
+
+        } else {
+            tvPkgname.text = "Transaction Id : 0"
+
+        }
         tvPrice.text = "Price                : " + pkgprice
 
         if (intent.getStringExtra("responseCode").equals("0", ignoreCase = true)) {

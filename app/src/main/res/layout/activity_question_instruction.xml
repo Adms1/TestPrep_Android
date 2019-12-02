@@ -34,17 +34,38 @@
             android:padding="@dimen/_8sdp"
             app:layout_constraintBottom_toBottomOf="@+id/queinstruction_header"/>
 
-    <WebView
+    <TextView
+        android:id="@+id/queinstruction_header1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Test Instruction"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15sdp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/queinstruction_header" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/queinstruction_header1" />
+
+    <TextView
             android:id="@+id/queinstruction_wb"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/gray"
-            app:layout_constraintTop_toBottomOf="@+id/queinstruction_header"
-            android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_margin="@dimen/_5sdp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/line"
             app:layout_constraintBottom_toTopOf="@+id/queinstruction_btnStart"/>
 
     <Button
-        android:layout_width="wrap_conte nt"
+        android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/queinstruction_btnStart"
             android:background="@drawable/login_round_bg"
@@ -58,4 +79,5 @@
             android:paddingLeft="@dimen/_30sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import com.testprep.R
 import com.testprep.sectionmodule.NewTabQuestionActivity
@@ -51,32 +50,34 @@ class QuestionInstructionActivity : AppCompatActivity() {
         hintused = intent.getStringExtra("totalhintused")
 //        que_instruction = intent.getStringExtra("que_instruction")
 
-        que_instruction =
-            "<html><body style='background-color:clear;'><p style='color:#000000; font-family:Inter-Regular' align=center><font size=4px>" +
-                    "<b>Test Instruction</b></font></p><hr><p style='color:#000000; font-family:Inter-Regular'><font size=3px>" +
-                    intent.getStringExtra("que_instruction") + "</font></p></body></html>"
-
-        Log.d("queinstruction", que_instruction)
+//        que_instruction =
+//            "<html><body style='background-color:clear;'><p style='color:#000000; font-family:Inter-Regular' align=center><font size=4px>" +
+//                    "<b>Test Instruction</b></font></p><hr><p style='color:#000000; font-family:Inter-Regular'><font size=3px>" +
+//                    intent.getStringExtra("que_instruction") + "</font></p></body></html>"
+//
+//        Log.d("queinstruction", que_instruction)
 
 //        DialogUtils.showDialog(this@QuestionInstructionActivity)
 //        queinstruction_wb.webViewClient = MyWebViewClient()
 
-        if (que_instruction != "") {
+//        if (que_instruction != "") {
 
 //            que_instruction = intent.getStringExtra("que_instruction")
 
 //            queinstruction_wb.settings.builtInZoomControls = true
 //            queinstruction_wb.settings.useWideViewPort = true
 //
-            queinstruction_wb.settings.javaScriptEnabled = true
+//            queinstruction_wb.settings.javaScriptEnabled = true
 //            queinstruction_wb.settings.cacheMode = WebSettings.LOAD_NO_CACHE
-            queinstruction_wb.loadDataWithBaseURL("", que_instruction, "text/html", "UTF-8", "")
+//            queinstruction_wb.loadDataWithBaseURL("", que_instruction, "text/html", "UTF-8", "")
 
-        } else {
+        queinstruction_wb.text = intent.getStringExtra("que_instruction")
 
-            queinstruction_wb.visibility = View.GONE
-
-        }
+//        } else {
+//
+//            queinstruction_wb.visibility = View.GONE
+//
+//        }
 
 //        queinstruction_wb.settings.builtInZoomControls = true
 //

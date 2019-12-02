@@ -67,7 +67,7 @@
                             android:paddingBottom="@dimen/_7sdp"
                             android:singleLine="true"
                             android:text="Test Completion"
-                            android:textColor="@color/black"
+                        android:textColor="@color/header_gray"
                             android:textSize="@dimen/_13sdp" />
 
                     <ImageView
@@ -137,7 +137,7 @@
                             android:layout_toRightOf="@+id/my_packages_ivTotalTest"
                             android:gravity="center"
                             android:singleLine="true"
-                            android:text="Available Test"
+                        android:text="Available Tests"
                             android:textSize="@dimen/_7sdp" />
 
                     <ImageView
@@ -166,7 +166,7 @@
                             android:layout_marginRight="@dimen/_15sdp"
                             android:layout_marginBottom="@dimen/_5sdp"
                             android:singleLine="true"
-                            android:text="Pending Test"
+                        android:text="Pending Tests"
                             android:textSize="@dimen/_7sdp" />
 
                     <ImageView

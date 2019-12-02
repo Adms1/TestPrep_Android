@@ -272,8 +272,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
                 solution_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
 
-                solution_tvCurrTotal.text = solution_que_number.toString()
-                solution_tvTotal.text = "/" + solution_testque
+                solution_tvTotal.text = solution_que_number.toString() + "/" + solution_testque
 
                 if (movies.size > 0) {
 
@@ -446,10 +445,10 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
             if (itype == "adapter") {
 
                 solution_que_number = SolutionPageNumber()
-                solution_tvCurrTotal.text = solution_que_number.toString()
+                solution_tvTotal.text = solution_que_number.toString() + "/" + solution_testque
 
             } else {
-                solution_tvCurrTotal.text = solution_que_number.toString()
+                solution_tvTotal.text = solution_que_number.toString() + "/" + solution_testque
             }
 
             if (movies[solution_grppos1].TestQuestion[curr_index1].QuestionImage != "") {

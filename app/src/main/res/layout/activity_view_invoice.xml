@@ -19,7 +19,7 @@
             android:paddingRight="@dimen/_40sdp"
             android:paddingBottom="@dimen/_7sdp"
             android:text="Invoice"
-            android:textColor="@color/black"
+        android:textColor="@color/header_gray"
             android:textSize="@dimen/normal_header_size"
             app:layout_constraintLeft_toRightOf="@+id/invoice_ivBack"
             app:layout_constraintRight_toRightOf="parent"

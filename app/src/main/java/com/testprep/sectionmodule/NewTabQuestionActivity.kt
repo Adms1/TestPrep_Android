@@ -148,34 +148,46 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         drawer_layout.setDrawerListener(mDrawerToggle)
 
+        var isshow = false
         queTab_expQueList.setOnGroupClickListener { parent, v, groupPosition, id ->
 
             val dialog = Dialog(this@NewTabQuestionActivity)
-            dialog.setContentView(R.layout.hint_dialog)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.setCanceledOnTouchOutside(false)
 
-            val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
-            val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
+            if (!isshow && !dialog.isShowing) {
 
-            val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+                dialog.setContentView(R.layout.hint_dialog)
+                dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.setCanceledOnTouchOutside(false)
 
-            header.text = movies[groupPosition].SectionName
+                val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
+                val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
+
+                val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+
+                header.text = movies[groupPosition].SectionName
 
 //            hintWebview.text = movies[groupPosition].SectionInstruction
 
-            hintWebview.settings.javaScriptEnabled = true
-            hintWebview.loadDataWithBaseURL(
-                "",
-                "<html><body style='background-color:clear;'><p>" + movies[groupPosition].SectionInstruction + "</p></body></html>",
-                "text/html",
-                "UTF-8",
-                ""
-            )
+                hintWebview.settings.javaScriptEnabled = true
+                hintWebview.loadDataWithBaseURL(
+                    "",
+                    "<html><body style='background-color:clear;'><p>" + movies[groupPosition].SectionInstruction + "</p></body></html>",
+                    "text/html",
+                    "UTF-8",
+                    ""
+                )
 
-            closeBtn.setOnClickListener { dialog.dismiss() }
+                closeBtn.setOnClickListener { dialog.dismiss() }
 
-            dialog.show()
+                dialog.show()
+
+                isshow = true
+
+            } else {
+
+                isshow = false
+                dialog.dismiss()
+            }
 
             false
 
@@ -184,6 +196,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         queTab_tvFillBlanks.setOnEditorActionListener(object : TextView.OnEditorActionListener {
 
             override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+
                 if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
 
                     integeranswer = queTab_tvFillBlanks.text.toString()
@@ -192,7 +205,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 return false
             }
         })
-
 
         queTab_tvFillBlanks.addTextChangedListener(object : TextWatcher {
 
@@ -261,7 +273,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         clicks()
 
-        ansList!!.layoutManager = LinearLayoutManager(this@NewTabQuestionActivity, LinearLayoutManager.VERTICAL, false)
+        ansList!!.layoutManager =
+            LinearLayoutManager(this@NewTabQuestionActivity, LinearLayoutManager.VERTICAL, false)
 
         if (testid != "") {
             callQuestionApi()
@@ -276,7 +289,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         val call = apiService.getNewQuestions(testid, studenttestid)
         call.enqueue(object : Callback<NewQuestionResponse> {
-            override fun onResponse(call: Call<NewQuestionResponse>, response: Response<NewQuestionResponse>) {
+            override fun onResponse(
+                call: Call<NewQuestionResponse>,
+                response: Response<NewQuestionResponse>
+            ) {
 
                 if (response.body()!!.Status == "true") {
 
@@ -446,10 +462,17 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                 .transform(transform.getTransformation(imgQue!!))
                                 .into(imgQue)
 
-                            Log.d("qsize", "width: " + page_img_que_img.width + ", height" + page_img_que_img.height)
+                            Log.d(
+                                "qsize",
+                                "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
+                            )
 
                             ansList!!.layoutManager =
-                                LinearLayoutManager(this@NewTabQuestionActivity, LinearLayoutManager.VERTICAL, false)
+                                LinearLayoutManager(
+                                    this@NewTabQuestionActivity,
+                                    LinearLayoutManager.VERTICAL,
+                                    false
+                                )
 
                             if (movies[0].TestQuestion[0].QuestionTypeID == 1 || movies[0].TestQuestion[0].QuestionTypeID == 7) {
 
@@ -974,7 +997,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     )
                                 )
 
-                                queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
+                                queTab_tvQMarks.text =
+                                    "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
 
                                 if (movies[q_grppos1].TestQuestion[curr_index].QuestionImage != "") {
 
@@ -1079,7 +1103,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                                     ansArr = ArrayList()
 
-                                    queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
+                                    queTab_tvQMarks.text =
+                                        "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
 
                                     if (movies[q_grppos1].TestQuestion[curr_index].QuestionImage != "") {
 
@@ -1380,7 +1405,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     .transform(transform.getTransformation(imgQue!!))
                     .into(imgQue)
 
-                Log.d("qsize", "width: " + page_img_que_img.width + ", height" + page_img_que_img.height)
+                Log.d(
+                    "qsize",
+                    "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
+                )
 
                 ansList!!.layoutManager = LinearLayoutManager(
                     this@NewTabQuestionActivity,
@@ -1798,7 +1826,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             val close: TextView = reportdialog!!.findViewById(R.id.dialog_report_tvClose)
             val queproblem: TextView = reportdialog!!.findViewById(R.id.dialog_report_tvQueProblem)
             val ansproblem: TextView = reportdialog!!.findViewById(R.id.dialog_report_tvAnsProblem)
-            val hintexplanation: TextView = reportdialog!!.findViewById(R.id.dialog_report_tvHintProblem)
+            val hintexplanation: TextView =
+                reportdialog!!.findViewById(R.id.dialog_report_tvHintProblem)
 
             hintexplanation.text = getString(R.string.hint_has_a_problem)
 
@@ -2061,7 +2090,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     this@NewTabQuestionActivity,
                     AppConstants.FIRST_NAME,
                     "0"
-                )!! + " " + Utils.getStringValue(this@NewTabQuestionActivity, AppConstants.LAST_NAME, "0")!!,
+                )!! + " " + Utils.getStringValue(
+                    this@NewTabQuestionActivity,
+                    AppConstants.LAST_NAME,
+                    "0"
+                )!!,
                 movies[q_grppos1].TestQuestion[curr_index].QuestionID.toString(),
                 ""
             )
@@ -2074,7 +2107,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 if (response.body() != null) {
 
-                    Toast.makeText(this@NewTabQuestionActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
+                    Toast.makeText(
+                        this@NewTabQuestionActivity,
+                        response.body()!!["Msg"].asString,
+                        Toast.LENGTH_LONG
+                    )
                         .show()
                 }
             }

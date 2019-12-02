@@ -212,7 +212,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
 
 //        webSettings.setDomStorageEnabled(true);
 //        webSettings.setDatabaseEnabled(true);
-//        webSettings.setDatabasePath("/data/data/" + getPackageName() + "/databases/");
+//        webSettings.setDatabasePath("/data/data/" + getPackageName() + "/databases/");a
 //        webSettings.setAppCacheMaxSize(1024*1024*8);
 //        webSettings.setAppCachePath("/data/data/" + getPackageName() + "/cache/");
 //        webSettings.setAppCacheEnabled(true);
@@ -221,9 +221,9 @@ class TraknpayRequestActivity : AppCompatActivity() {
         webSettings.builtInZoomControls = true
 //        webView.setWebChromeClient(new WebChromeClient());
         webView.webViewClient = WebViewClient()
-        webView.postUrl("https://biz.traknpay.in/v1/paymentrequest", postData.toByteArray())
+        webView.postUrl(AppConstants.PAYMENT_REQUEST, postData.toByteArray())
 
-        Log.d("url", "" + webView.postUrl("https://biz.traknpay.in/v1/paymentrequest", postData.toByteArray()))
+        Log.d("url", "" + webView.postUrl(AppConstants.PAYMENT_REQUEST, postData.toByteArray()))
 
         webView.addJavascriptInterface(MyJavaScriptInterface(this), "Android")
 

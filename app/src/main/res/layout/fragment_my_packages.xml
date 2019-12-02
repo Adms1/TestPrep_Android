@@ -67,7 +67,7 @@
                             android:paddingBottom="@dimen/_7sdp"
                             android:singleLine="true"
                             android:text="Test Completion"
-                            android:textColor="@color/black"
+                        android:textColor="@color/header_gray"
                             android:textSize="@dimen/normal_header_size" />
 
                     <ImageView
