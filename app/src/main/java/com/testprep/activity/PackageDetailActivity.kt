@@ -86,12 +86,41 @@ class PackageDetailActivity : Fragment() {
             setFragments(bundle)
 
         }
-//
+
 //        package_detail_ivBack.setOnClickListener {
 //            onBackPressed()
 //        }
 
         package_detail_btnAddTocart.setOnClickListener {
+
+            //            val dialog = Dialog(activity)
+//            dialog.setContentView(R.layout.dialog_verify_number)
+//            dialog.setCanceledOnTouchOutside(false)
+//            dialog.setCancelable(false)
+//
+//            val header: TextView = dialog.findViewById(R.id.dialog_verify_tvHeader)
+//
+//            val etMobile: EditText =
+//                dialog.findViewById(R.id.dialog_verify_etMobile)
+//            val submit: TextView =
+//                dialog.findViewById(R.id.dialog_verify_btnSubmit)
+//
+//            header.text = "Please enter your promo code"
+//            etMobile.hint = "Promo code"
+//
+//            val skip: TextView = dialog!!.findViewById(R.id.dialog_verify_btnSkip)
+//
+//            skip.visibility = View.VISIBLE
+//
+//                skip.setOnClickListener{
+//                    dialog!!.dismiss()
+//                }
+//
+//            submit.setOnClickListener {
+//
+//            }
+//
+//            dialog.show()
 
             DialogUtils.createConfirmDialog(
                 activity!!,

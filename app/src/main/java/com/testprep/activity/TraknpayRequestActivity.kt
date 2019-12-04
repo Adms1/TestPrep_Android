@@ -210,7 +210,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true
 
-//        webSettings.setDomStorageEnabled(true);
+        webSettings.domStorageEnabled = true
 //        webSettings.setDatabaseEnabled(true);
 //        webSettings.setDatabasePath("/data/data/" + getPackageName() + "/databases/");a
 //        webSettings.setAppCacheMaxSize(1024*1024*8);

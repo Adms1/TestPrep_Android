@@ -109,14 +109,20 @@ class NewActivity : AppCompatActivity() {
                 dialog!!.setCanceledOnTouchOutside(false)
                 dialog!!.setCancelable(false)
 
+                val header: TextView = dialog!!.findViewById(R.id.dialog_verify_tvHeader)
                 val etMobile: EditText =
                     dialog!!.findViewById(R.id.dialog_verify_etMobile)
                 val submit: TextView =
                     dialog!!.findViewById(R.id.dialog_verify_btnSubmit)
 
-//                val skip: TextView =
-//                    dialog!!.findViewById(R.id.dialog_verify_btnSkip)
-//
+                header.text = "Enter your mobile number"
+                etMobile.hint = getString(R.string.mobile)
+
+                val skip: TextView =
+                    dialog!!.findViewById(R.id.dialog_verify_btnSkip)
+
+                skip.visibility = View.GONE
+
 //                skip.setOnClickListener{
 //                    dialog!!.dismiss()
 //                }
