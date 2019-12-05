@@ -120,7 +120,7 @@ class PackageDetailActivity : Fragment() {
 //
 //            }
 //
-//            dialog.show()
+//            dialog.show()`    
 
             DialogUtils.createConfirmDialog(
                 activity!!,
@@ -381,9 +381,11 @@ class PackageDetailActivity : Fragment() {
 //                                Html.fromHtml(response.body()!!.get("data").asJsonObject.get("TestPackageDescription").asString)
 //                        }
 
-                        package_detail_name_short.text =
-                            response.body()!!.get("data").asJsonObject.get("TestPackageName")
-                                .asString.substring(0, 1)
+                        if (response.body()!!.get("data").asJsonObject.get("TestPackageName").asString != "") {
+                            package_detail_name_short.text =
+                                response.body()!!.get("data").asJsonObject.get("TestPackageName")
+                                    .asString.substring(0, 1)
+                        }
 
 //                        if (response.body()!!.get("data").asJsonObject.get("InstituteName").asString != "" && response.body()!!.get(
 //                                "data"
@@ -530,6 +532,9 @@ class PackageDetailActivity : Fragment() {
 //                            response.body()!!["Msg"].toString().replace("\"", ""),
 //                            Toast.LENGTH_SHORT
 //                        ).show()
+
+//                        val intent = Intent(activity, CartActivity::class.java)
+//                        startActivity(intent)
 
                         callCheckout()
 

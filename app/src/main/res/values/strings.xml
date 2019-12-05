@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test Craft</string>
+    <string name="app_name">Test Craft demo</string>
     <string name="title_activity_main2">TestcraftDemo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -122,6 +122,8 @@
     <string name="contact_detail">
         <u>Contact Detail</u>
     </string>
+    <string name="applycoupon">Apply Coupon</string>
+    <string name="apply">Apply</string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>

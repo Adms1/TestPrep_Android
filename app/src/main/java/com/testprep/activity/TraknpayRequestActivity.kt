@@ -29,7 +29,7 @@ import kotlin.experimental.and
 class TraknpayRequestActivity : AppCompatActivity() {
 
     private val TAG = "TNPRequestDebugTag"
-    var pkgid = ""
+    //    var pkgid = ""
     var pkgname = ""
     var pkgprice = ""
 //    private var extras: Bundle? = null
@@ -49,9 +49,10 @@ class TraknpayRequestActivity : AppCompatActivity() {
 
         setContentView(com.testprep.R.layout.activity_traknpay_request)
 
-        pkgid = intent.getStringExtra("pkgid")
+//        pkgid = intent.getStringExtra("pkgid")
         pkgname = intent.getStringExtra("pkgname")
-        pkgprice = intent.getStringExtra("pkgprice")
+//        pkgprice = intent.getStringExtra("pkgprice")
+        pkgprice = intent.getStringExtra("amount")
 
         val return_url = "https://biz.traknpay.in/tnp/return_page_android.php"
         var mode: String? = AppConstants.PAYMENT_MODE
@@ -302,7 +303,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
                     intent.putExtra("amount", resposeData.getString("amount"))
                     intent.putExtra("description", resposeData.getString("description"))
                     intent.putExtra("order_id", resposeData.getString("order_id"))
-                    intent.putExtra("pkgid", pkgid)
+//                    intent.putExtra("pkgid", pkgid)
                     intent.putExtra("pkgname", pkgname)
                     intent.putExtra("pkgprice", pkgprice)
 //                if (extras!!.containsKey("CardDetails")) {
@@ -321,7 +322,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
                     intent.putExtra("amount", resposeData.getString("amount"))
                     intent.putExtra("description", resposeData.getString("description"))
                     intent.putExtra("order_id", resposeData.getString("order_id"))
-                    intent.putExtra("pkgid", pkgid)
+//                    intent.putExtra("pkgid", pkgid)
                     intent.putExtra("pkgname", pkgname)
                     intent.putExtra("pkgprice", pkgprice)
 //                if (extras!!.containsKey("CardDetails")) {
@@ -375,7 +376,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
 
         val call = apiService.addTestPackage(
             Utils.getStringValue(this@TraknpayRequestActivity, AppConstants.USER_ID, "0")!!,
-            intent.getStringExtra("pkgid")
+            "1"
         )
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {

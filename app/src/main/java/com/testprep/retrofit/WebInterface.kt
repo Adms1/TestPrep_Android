@@ -195,6 +195,13 @@ interface WebInterface {
     fun addToCart(@Field("StudentID") student_id: String, @Field("TestPackageID") testpkgid: String): Call<JsonObject>
 
     @FormUrlEncoded
+    @POST("Get_Cart")
+    fun getCart(@Field("StudentID") student_id: String): Call<JsonObject>
+
+    @GET("GetCouponList")
+    fun getCoupons(): Call<CouponModel>
+
+    @FormUrlEncoded
     @POST("CheckOut")
     fun checkout(@Field("StudentID") student_id: String): Call<JsonObject>
 

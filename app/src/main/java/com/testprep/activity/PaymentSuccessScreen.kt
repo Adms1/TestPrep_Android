@@ -26,7 +26,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class PaymentSuccessScreen : AppCompatActivity() {
 
-    var pkgid = ""
+    //    var pkgid = ""
     var pkgname = ""
     var pkgprice = ""
 
@@ -45,7 +45,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
         setContentView(R.layout.activity_payment_success_screen)
 
-        pkgid = intent.getStringExtra("pkgid")
+//        pkgid = intent.getStringExtra("pkgid")
         pkgname = intent.getStringExtra("transactionId")
         pkgprice = intent.getStringExtra("pkgprice")
 
@@ -199,7 +199,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
         val call = apiService.addTestPackage(
             Utils.getStringValue(this@PaymentSuccessScreen, AppConstants.USER_ID, "0")!!,
-            intent.getStringExtra("pkgid")
+            "1"
         )
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -286,7 +286,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
                             )
                         )
                         intent.putExtra("amount", coin)
-                        intent.putExtra("pkgid", pkgid)
+//                        intent.putExtra("pkgid", pkgid)
                         intent.putExtra("pkgname", pkgname)
                         intent.putExtra("pkgprice", pkgprice)
                         context.startActivity(intent)

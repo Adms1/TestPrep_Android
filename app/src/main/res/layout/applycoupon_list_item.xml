@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:padding="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardElevation="@dimen/_3sdp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:padding="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/coupon_tvCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/default_shimmer_color"
+                android:padding="@dimen/_5sdp"
+                android:text="FIRSTFREE"
+                android:textColor="@color/black"
+                android:textSize="@dimen/normal_header_size"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/coupon_tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:maxLines="1"
+                android:text="First Test Free"
+                android:textColor="@color/black"
+                android:textSize="@dimen/regular_text_size"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/coupon_tvPrice"
+                app:layout_constraintTop_toBottomOf="@+id/coupon_tvCode" />
+
+            <View
+                android:id="@+id/coupon_line"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/gray"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/coupon_tvTitle" />
+
+            <TextView
+                android:id="@+id/coupon_tvDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="Free Test Free Test Free Test Free Test Free Test FreeTestFree Test Free Test Free Test Free Test Free Test Free Test Free Test Free Test Free Test FreeTest FreeTestFreeTestFreeTest"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/small_text_size"
+                app:layout_constraintTop_toBottomOf="@+id/coupon_line" />
+
+            <TextView
+                android:id="@+id/coupon_tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="₹ 100.00"
+                android:textColor="@color/header_gray"
+                android:textSize="@dimen/regular_text_size"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/coupon_tvTitle"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/coupon_tvTitle" />
+
+            <TextView
+                android:id="@+id/coupon_tvExpiry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="Expiry Date: 31/12/2019"
+                android:textColor="@color/red"
+                android:textSize="@dimen/extra_small_size"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/coupon_tvDesc" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>
