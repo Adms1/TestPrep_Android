@@ -17,7 +17,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testprep.R
@@ -724,7 +723,7 @@ class MarketPlaceFragment : Fragment() {
                         main_pkg_item_tvChange.visibility = View.VISIBLE
                         main_pkg_item_mainll.visibility = View.GONE
 
-                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

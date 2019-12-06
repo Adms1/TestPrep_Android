@@ -1,46 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent" android:layout_height="wrap_content">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <TextView
-            android:text=""
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/desh"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:gravity="center"
-            android:textSize="@dimen/_13sdp"/>
+        android:id="@+id/desh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:text=""
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:text="@string/subject"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/test_type_item_tvName"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/test_type_item_tvQuantity"
-            app:layout_constraintLeft_toRightOf="@+id/desh"
-            android:maxLines="1"
-            android:textStyle="bold"
-            android:textSize="@dimen/_13sdp"/>
+        android:id="@+id/test_type_item_tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:text="@string/subject"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/desh"
+        app:layout_constraintRight_toLeftOf="@+id/test_type_item_tvQuantity"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:text="@string/subject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/test_type_item_tvQuantity"
-            android:paddingTop="@dimen/_5sdp"
-            android:paddingBottom="@dimen/_5sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:maxLines="1"
-            app:layout_constraintRight_toRightOf="parent"
-            android:gravity="center"
-            android:textSize="@dimen/_13sdp"/>
+        android:id="@+id/test_type_item_tvQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:text="@string/subject"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

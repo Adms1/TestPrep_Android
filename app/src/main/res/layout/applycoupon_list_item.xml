@@ -10,7 +10,7 @@
         android:layout_margin="@dimen/_5sdp"
         android:padding="@dimen/_5sdp"
         app:cardCornerRadius="@dimen/_5sdp"
-        app:cardElevation="@dimen/_3sdp"
+        app:cardElevation="@dimen/_1sdp"
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
@@ -31,6 +31,21 @@
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/coupon_btnApply"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:background="@drawable/login_round_bg"
+                android:gravity="center"
+                android:text="@string/apply"
+                android:textColor="@color/white"
+                android:textSize="@dimen/small_text_size"
+                app:layout_constraintBottom_toBottomOf="@+id/coupon_etCoupon"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/coupon_etCoupon" />
+
 
             <TextView
                 android:id="@+id/coupon_tvTitle"

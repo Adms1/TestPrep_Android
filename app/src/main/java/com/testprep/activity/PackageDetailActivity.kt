@@ -535,7 +535,7 @@ class PackageDetailActivity : Fragment() {
 
 //                        val intent = Intent(activity, CartActivity::class.java)
 //                        startActivity(intent)
-
+//
                         callCheckout()
 
                     } else {

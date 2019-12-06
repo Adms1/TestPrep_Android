@@ -65,15 +65,8 @@ class TraknpayRequestActivity : AppCompatActivity() {
             AppConstants.FIRST_NAME,
             ""
         ) + " " + Utils.getStringValue(this@TraknpayRequestActivity, AppConstants.LAST_NAME, "")
-        val email =
-            Utils.getStringValue(this@TraknpayRequestActivity, AppConstants.USER_EMAIL, "")//saralpayonline@gmail.com
-
-        var phone = ""
-        if (Utils.getStringValue(this@TraknpayRequestActivity, AppConstants.USER_MOBILE, "") != "") {
-            phone = Utils.getStringValue(this@TraknpayRequestActivity, AppConstants.USER_MOBILE, "")!!
-        } else {
-            phone = "8401244813"
-        }
+        val email = "tech@testcraft.in"
+        val phone = "7433988267"
         val address_line_1 = "-"
         val address_line_2 = "-"
         val city = "Ahmedabad"
@@ -125,7 +118,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
         mapHashData["country"] = country
         mapHashData["currency"] = currency
         mapHashData["description"] = description!!
-        mapHashData["email"] = email!!
+        mapHashData["email"] = email
         mapHashData["mode"] = mode!!
         mapHashData["name"] = name
         mapHashData["order_id"] = order_id!!
