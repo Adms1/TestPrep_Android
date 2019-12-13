@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/attempt_list_tvSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/_5sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_13sdp"
+
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/attempt_list_tvAttemHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="Attempted : "
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/attempt_list_tvSection" />
+
+    <TextView
+        android:id="@+id/attempt_list_tvAttempted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintLeft_toLeftOf="@+id/attempt_list_tvNotAttempted"
+        app:layout_constraintTop_toTopOf="@id/attempt_list_tvAttemHeader" />
+
+    <TextView
+        android:id="@+id/attempt_list_tvNotAttempHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="Not Attempted : "
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/attempt_list_tvAttemHeader" />
+
+    <TextView
+        android:id="@+id/attempt_list_tvNotAttempted"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintLeft_toRightOf="@id/attempt_list_tvNotAttempHeader"
+        app:layout_constraintTop_toTopOf="@id/attempt_list_tvNotAttempHeader" />
+
+</android.support.constraint.ConstraintLayout>

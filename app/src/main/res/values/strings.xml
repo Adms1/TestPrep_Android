@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">Test Craft demo</string>
+
+    <string name="app_name">Test Craft</string>
     <string name="title_activity_main2">TestcraftDemo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -8,9 +9,13 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="facebook_app_id">2309546095928391</string>
-    <string name="fb_login_protocol_scheme">fb2309546095928391</string>
-    <string name="server_client_id">428229802198-29l0t9unctc9skanafuc2jmc9d7juvi4.apps.googleusercontent.com</string>
+    <!--    <string name="facebook_app_id">2309546095928391</string>-->
+    <!--    <string name="fb_login_protocol_scheme">fb2309546095928391</string>-->
+    <!--    <string name="server_client_id">428229802198-29l0t9unctc9skanafuc2jmc9d7juvi4.apps.googleusercontent.com</string>-->
+
+    <string name="facebook_app_id">2838904922808088</string>
+    <string name="fb_login_protocol_scheme">fb2838904922808088</string>
+    <string name="server_client_id">1019001765891-m5260dl112gco2g1f6j0bsrajmvdq8uo.apps.googleusercontent.com</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

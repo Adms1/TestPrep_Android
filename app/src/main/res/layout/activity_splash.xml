@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/splash"
-        tools:context=".activity.SplashActivity">
+    tools:context="com.testcraft.testcraft.activity.SplashActivity">
 
     <!--android:background="#1100B7C5"-->
 

@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/white"
-        tools:context=".fragments.OtherFilterFragment">
+    tools:context="com.testcraft.testcraft.fragments.OtherFilterFragment">
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/filterData_rvList"

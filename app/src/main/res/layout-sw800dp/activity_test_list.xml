@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:background="@color/pkg_bg"
         android:paddingTop="@dimen/_15sdp"
-        tools:context=".activity.TestListActivity">
+    tools:context="com.testcraft.testcraft.activity.TestListActivity">
 
     <TextView
             android:id="@+id/test_header"

@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:paddingTop="@dimen/_15sdp"
-        tools:context=".activity.PrefrenceActivity">
+    tools:context="com.testcraft.testcraft.activity.PrefrenceActivity">
 
     <TextView
             android:text="@string/market_place"

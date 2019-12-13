@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:paddingTop="@dimen/_15sdp"
-        tools:context=".activity.SelectPackageActivity">
+    tools:context="com.testcraft.testcraft.activity.SelectPackageActivity">
 
     <TextView
             android:text="Test Packages"

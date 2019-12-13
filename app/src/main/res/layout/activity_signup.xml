@@ -7,7 +7,7 @@
         android:background="@color/white"
         android:layout_height="match_parent"
         android:paddingTop="@dimen/_10sdp"
-        tools:context=".activity.SignupActivity">
+    tools:context="com.testcraft.testcraft.activity.SignupActivity">
 
     <ImageView
             android:layout_width="@dimen/_25sdp"

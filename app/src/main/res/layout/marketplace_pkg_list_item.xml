@@ -5,124 +5,303 @@
     android:id="@+id/mall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/_5sdp"
-    android:paddingRight="@dimen/_5sdp"
-    android:paddingBottom="@dimen/_5sdp">
+    android:background="@drawable/carousel_bg">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:background="@drawable/carousel_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/package_item_rlImage"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/package_item_tvCreated"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/package_item_tvPkgname">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/package_item_ivImage"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp" />
+
+            <TextView
+                android:id="@+id/package_item_tvName_short"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_25sdp" />
+
+            <ImageView
+                android:id="@+id/package_item_ivSelect"
+                android:layout_width="@dimen/_17sdp"
+                android:layout_height="@dimen/_17sdp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/right_white_bg"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </RelativeLayout>
 
     <TextView
         android:id="@+id/package_item_tvPkgname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:ellipsize="end"
-        android:gravity="left"
-        android:maxLines="1"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:maxLines="2"
         android:textColor="@color/black"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
-        app:layout_constraintRight_toRightOf="@+id/package_item_rlImage"
+        android:ellipsize="end"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintLeft_toRightOf="@+id/package_item_rlImage"
+        app:layout_constraintRight_toLeftOf="@id/package_item_tvPrice"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/package_item_tvSub"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:gravity="left"
-        android:maxLines="1"
-        android:textColor="@color/gray"
         android:textSize="@dimen/_11sdp"
-        app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
-        app:layout_constraintRight_toRightOf="@+id/package_item_rlImage"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintLeft_toLeftOf="@+id/package_item_tvPkgname"
+        app:layout_constraintRight_toRightOf="@id/package_item_tvPkgname"
         app:layout_constraintTop_toBottomOf="@+id/package_item_tvPkgname" />
 
     <TextView
         android:id="@+id/package_item_tvCreated"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:textAlignment="gravity"
         android:maxLines="1"
-        android:textColor="@color/gray"
         android:textSize="@dimen/_11sdp"
-        app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
-        app:layout_constraintRight_toLeftOf="@+id/package_item_tvPrice"
+        app:layout_constraintBottom_toTopOf="@id/package_item_tvDesc"
+        app:layout_constraintLeft_toLeftOf="@+id/package_item_tvPkgname"
+        app:layout_constraintRight_toRightOf="@id/package_item_tvPrice"
         app:layout_constraintTop_toBottomOf="@+id/package_item_tvSub" />
 
-    <TextView
+        <TextView
+            android:id="@+id/package_item_tvPricetitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Price"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/package_item_tvPkgname" />
+
+        <TextView
         android:id="@+id/package_item_tvPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/_3sdp"
         android:gravity="center"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/_13sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/package_item_tvCreated"
-        app:layout_constraintRight_toRightOf="@+id/package_item_rlImage"
-        app:layout_constraintTop_toTopOf="@+id/package_item_tvSub" />
+            android:maxLines="1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintRight_toRightOf="@+id/package_item_tvPricetitle"
+            app:layout_constraintTop_toBottomOf="@+id/package_item_tvPricetitle" />
 
-    <RelativeLayout
-        android:id="@+id/package_item_rlImage"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_130sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:gravity="center"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/package_item_tvCreated">
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/package_item_ivBg"
+        <TextView
+            android:id="@+id/package_item_tvDesc"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:alpha="0.8"
-            android:scaleType="fitXY"
-            app:layout_constraintTop_toTopOf="parent"
-            app:riv_corner_radius="@dimen/_8sdp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="This package contains following test:"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
+            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
+            app:layout_constraintTop_toBottomOf="@+id/package_item_rlImage" />
 
-        <ImageView
+        <TextView
+            android:id="@+id/package_item_tv1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:background="@drawable/gray_transparent_bg" />
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
+            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
+            app:layout_constraintTop_toBottomOf="@+id/package_item_tvDesc" />
 
-        <ImageView
-            android:id="@+id/package_item_ivImage"
-            android:layout_width="@dimen/_130sdp"
-            android:layout_height="@dimen/_130sdp"
-            android:layout_centerInParent="true"
-            android:scaleType="fitXY" />
+        <TextView
+            android:id="@+id/package_item_tv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
+            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
+            app:layout_constraintTop_toBottomOf="@+id/package_item_tv1" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/package_item_tv3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
+            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
+            app:layout_constraintTop_toBottomOf="@+id/package_item_tv2" />
+
+        <TextView
+            android:id="@+id/package_item_tv4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
+            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
+            app:layout_constraintTop_toBottomOf="@+id/package_item_tv3" />
+
+        <TextView
+            android:id="@+id/package_item_tv5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
+            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
+            app:layout_constraintTop_toBottomOf="@+id/package_item_tv4" />
+
+        <TextView
+            android:id="@+id/package_item_tv6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
+            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
+            app:layout_constraintTop_toBottomOf="@+id/package_item_tv5" />
+
+        <TextView
+            android:id="@+id/package_item_tvDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:padding="@dimen/_5sdp"
+            android:text="View Detail..."
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
+            app:layout_constraintTop_toBottomOf="@id/package_item_tv6" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/default_shimmer_color"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/item_rlImage" />
 
 
-    <!--    <RelativeLayout-->
-    <!--            android:id="@+id/package_item_rlImage"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="@dimen/_130sdp"-->
-    <!--            app:layout_constraintTop_toBottomOf="@+id/package_item_tvCreated"-->
-    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--            android:gravity="center"-->
-    <!--            android:layout_marginBottom="@dimen/_10sdp"-->
-    <!--            app:layout_constraintRight_toRightOf="parent">-->
+        <!--    <TextView-->
+        <!--        android:id="@+id/package_item_tvPkgname"-->
+        <!--        android:layout_width="0dp"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginTop="@dimen/_5sdp"-->
+        <!--        android:ellipsize="end"-->
+        <!--        android:gravity="left"-->
+        <!--        android:maxLines="1"-->
+        <!--        android:textColor="@color/black"-->
+        <!--        android:textSize="@dimen/_12sdp"-->
+        <!--        app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"-->
+        <!--        app:layout_constraintRight_toRightOf="@+id/package_item_rlImage"-->
+        <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <!--        <com.makeramen.roundedimageview.RoundedImageView-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="@dimen/_130sdp"-->
-    <!--                android:scaleType="fitXY"-->
-    <!--                app:riv_corner_radius="@dimen/_10sdp"-->
-    <!--                android:id="@+id/package_item_ivImage"/>-->
+        <!--    <TextView-->
+        <!--        android:id="@+id/package_item_tvSub"-->
+        <!--        android:layout_width="0dp"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:ellipsize="end"-->
+        <!--        android:gravity="left"-->
+        <!--        android:maxLines="1"-->
+        <!--        android:textColor="@color/gray"-->
+        <!--        android:textSize="@dimen/_11sdp"-->
+        <!--        app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"-->
+        <!--        app:layout_constraintRight_toRightOf="@+id/package_item_rlImage"-->
+        <!--        app:layout_constraintTop_toBottomOf="@+id/package_item_tvPkgname" />-->
 
-    <!--        <ImageView-->
-    <!--                android:layout_width="@dimen/_25sdp"-->
-    <!--                android:layout_height="@dimen/_25sdp"-->
-    <!--                android:layout_marginRight="@dimen/_10sdp"-->
-    <!--                android:layout_marginTop="@dimen/_10sdp"-->
-    <!--                android:layout_alignParentRight="true"-->
-    <!--                android:src="@drawable/round_cart_icon"-->
-    <!--                android:visibility="gone"-->
-    <!--                android:id="@+id/package_item_ivCart"/>-->
+        <!--    <TextView-->
+        <!--        android:id="@+id/package_item_tvCreated"-->
+        <!--        android:layout_width="0dp"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:maxLines="1"-->
+        <!--        android:textColor="@color/gray"-->
+        <!--        android:textSize="@dimen/_11sdp"-->
+        <!--        app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"-->
+        <!--        app:layout_constraintRight_toLeftOf="@+id/package_item_tvPrice"-->
+        <!--        app:layout_constraintTop_toBottomOf="@+id/package_item_tvSub" />-->
 
-    <!--    </RelativeLayout>-->
+        <!--    <TextView-->
+        <!--        android:id="@+id/package_item_tvPrice"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginRight="@dimen/_3sdp"-->
+        <!--        android:gravity="center"-->
+        <!--        android:textColor="@color/gray"-->
+        <!--        android:textSize="@dimen/_13sdp"-->
+        <!--        app:layout_constraintBottom_toBottomOf="@+id/package_item_tvCreated"-->
+        <!--        app:layout_constraintRight_toRightOf="@+id/package_item_rlImage"-->
+        <!--        app:layout_constraintTop_toTopOf="@+id/package_item_tvSub" />-->
 
+        <!--    <RelativeLayout-->
+        <!--        android:id="@+id/package_item_rlImage"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="@dimen/_130sdp"-->
+        <!--        android:layout_marginRight="@dimen/_10sdp"-->
+        <!--        android:layout_marginBottom="@dimen/_10sdp"-->
+        <!--        android:gravity="center"-->
+        <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--        app:layout_constraintRight_toRightOf="parent"-->
+        <!--        app:layout_constraintTop_toBottomOf="@+id/package_item_tvCreated">-->
+
+        <!--        <com.makeramen.roundedimageview.RoundedImageView-->
+        <!--            android:id="@+id/package_item_ivBg"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:alpha="0.8"-->
+        <!--            android:scaleType="fitXY"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:riv_corner_radius="@dimen/_8sdp" />-->
+
+        <!--        <ImageView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_centerInParent="true"-->
+        <!--            android:background="@drawable/gray_transparent_bg" />-->
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/package_item_ivImage"-->
+        <!--            android:layout_width="@dimen/_130sdp"-->
+        <!--            android:layout_height="@dimen/_130sdp"-->
+        <!--            android:layout_centerInParent="true"-->
+        <!--            android:scaleType="fitXY" />-->
+
+        <!--    </RelativeLayout>-->
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

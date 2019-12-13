@@ -18,11 +18,11 @@
             android:layout_marginBottom="@dimen/_10sdp"
             app:layout_constraintRight_toRightOf="parent">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="@dimen/_60sdp"
                 android:layout_height="@dimen/_60sdp"
                 android:id="@+id/package_image"
-                android:src="@drawable/gray_bg"/>
+            android:background="@drawable/gray_bg" />
 
         <TextView
                 android:id="@+id/package_name_short"
