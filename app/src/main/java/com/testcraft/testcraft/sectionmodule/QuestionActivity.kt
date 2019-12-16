@@ -1846,7 +1846,10 @@ class QuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     this@QuestionActivity,
                     "1",
                     queproblem.text.toString(),
-                    NewTabQuestionActivity.movies[NewTabQuestionActivity.q_grppos1].TestQuestion[NewTabQuestionActivity.curr_index].QuestionID.toString()
+
+                    QuestionActivity.movies[
+                            QuestionActivity.q_grppos1].TestQuestion[
+                            QuestionActivity.curr_index].QuestionID.toString()
                 )
 
                 reportdialog!!.dismiss()
@@ -1858,7 +1861,10 @@ class QuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     this@QuestionActivity,
                     "2",
                     ansproblem.text.toString(),
-                    NewTabQuestionActivity.movies[NewTabQuestionActivity.q_grppos1].TestQuestion[NewTabQuestionActivity.curr_index].QuestionID.toString()
+
+                    QuestionActivity.movies[
+                            QuestionActivity.q_grppos1].TestQuestion[
+                            QuestionActivity.curr_index].QuestionID.toString()
                 )
 
                 reportdialog!!.dismiss()
@@ -1870,7 +1876,10 @@ class QuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     this@QuestionActivity,
                     "3",
                     hintexplanation.text.toString(),
-                    NewTabQuestionActivity.movies[NewTabQuestionActivity.q_grppos1].TestQuestion[NewTabQuestionActivity.curr_index].QuestionID.toString()
+
+                    QuestionActivity.movies[
+                            QuestionActivity.q_grppos1].TestQuestion[
+                            QuestionActivity.curr_index].QuestionID.toString()
                 )
 
                 reportdialog!!.dismiss()

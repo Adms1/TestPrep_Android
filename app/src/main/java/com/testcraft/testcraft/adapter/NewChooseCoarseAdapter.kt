@@ -60,6 +60,11 @@ class NewChooseCoarseAdapter(
             )
             Utils.setStringValue(context, "course_type_name", dataList[p1].CourseTypeName)
 
+            if (dataList[p1].CourseTypeID != 1) {
+                Utils.setStringValue(context, AppConstants.STANDARD_ID, "")
+                Utils.setStringValue(context, AppConstants.SUBJECT_ID, "")
+            }
+
             val intent = Intent(context, PrefrenceActivity::class.java)
             intent.putExtra("examtype", dataList[p1].CourseTypeID.toString())
             context.startActivity(intent)

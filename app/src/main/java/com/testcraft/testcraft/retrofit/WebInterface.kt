@@ -86,8 +86,8 @@ interface WebInterface {
     fun getPackage(@FieldMap map: HashMap<String, String>): Call<GetMarketPlaceData>
 
     @FormUrlEncoded
-    @POST("Get_TestPackage_By_ID")
-    fun getPackageDetail(@Field("TestPackageID") testPackageID: String): Call<JsonObject>
+    @POST("Get_TestPackage_By_ID_New")
+    fun getPackageDetail(@Field("TestPackageID") testPackageID: String, @Field("StudentID") stuid: String): Call<JsonObject>
 
     @FormUrlEncoded
     @POST("Get_Student_PaymentTransaction_List")

@@ -8,16 +8,17 @@
 
     <TextView
             android:id="@+id/dialog_queinfo_tvHeader"
-            android:layout_width="wrap_content"
+        android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+        android:ellipsize="end"
             android:padding="@dimen/_5sdp"
             android:layout_margin="@dimen/_10sdp"
             android:textSize="@dimen/regular_text_size"
             android:maxLines="1"
-            android:text="Simply Dummy Text"/>
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
             android:id="@+id/dialog_queinfo_tvSubject"

@@ -4,6 +4,10 @@ import java.util.*
 
 class AppConstants {
 
+        // normal signup 1
+        // Google 2
+        // Fb 3
+
     companion object {
 
 //        live
@@ -25,7 +29,7 @@ class AppConstants {
 //        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
 //        var SUBJECT_SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
 //        var PAYMENT_REQUEST = "https://biz.traknpay.in/v2/paymentrequest"
-
+//
         var FIRST_NAME = "firstname"
         var LAST_NAME = "lastname"
         var USER_ID = "userid"

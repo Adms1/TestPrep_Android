@@ -114,6 +114,20 @@
                 app:layout_constraintTop_toBottomOf="@+id/package_detail_tvSubject" />
 
             <TextView
+                android:id="@+id/package_detail_tvpricetxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="Price : "
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintLeft_toRightOf="@+id/package_detail_llImage"
+                app:layout_constraintTop_toBottomOf="@+id/package_detail_createdby" />
+
+
+            <TextView
                 android:id="@+id/package_detail_tvsprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -122,7 +136,7 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:textSize="@dimen/_10sdp"
-                app:layout_constraintLeft_toRightOf="@+id/package_detail_llImage"
+                app:layout_constraintLeft_toRightOf="@+id/package_detail_tvpricetxt"
                 app:layout_constraintTop_toBottomOf="@+id/package_detail_createdby" />
 
             <TextView
@@ -145,8 +159,8 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:textSize="@dimen/_11sdp"
-                android:visibility="gone"
-                app:layout_constraintLeft_toRightOf="@+id/package_detail_tvlpricetxt"
+                android:layout_marginRight="@dimen/_5sdp"
+                app:layout_constraintLeft_toRightOf="@+id/package_detail_tvsprice"
                 app:layout_constraintTop_toBottomOf="@+id/package_detail_tvsprice" />
 
             <Button

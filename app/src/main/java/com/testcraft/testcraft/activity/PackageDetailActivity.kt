@@ -324,7 +324,10 @@ class PackageDetailActivity : Fragment() {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getPackageDetail(oldpkgid)
+        val call = apiService.getPackageDetail(
+            oldpkgid,
+            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!
+        )
 
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -353,23 +356,27 @@ class PackageDetailActivity : Fragment() {
                                 .into(package_detail_image1)
                         }
 
-                        if (!response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString.equals(
-                                response.body()!!.get("data").asJsonObject.get("TestPackageListPrice").asString.trim(),
+                        if (response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString.equals(
+                                "Free",
                                 true
                             )
                         ) {
 
                             package_detail_tvsprice.text =
-                                "Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
+                                response.body()!!.get("data")
+                                    .asJsonObject.get("TestPackageSalePrice").asString
+
                             package_detail_tvlprice.text =
                                 response.body()!!.get("data")
                                     .asJsonObject.get("TestPackageListPrice").asString.trim()
                         } else {
 
-                            package_detail_tvlpricetxt.visibility = View.GONE
+//                            package_detail_tvlpricetxt.visibility = View.GONE
 
                             package_detail_tvsprice.text =
-                                "Price : " + response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString
+                                response.body()!!.get("data")
+                                    .asJsonObject.get("TestPackageSalePrice").asString
+
                             package_detail_tvlprice.text = ""
                         }
 
@@ -415,7 +422,6 @@ class PackageDetailActivity : Fragment() {
                                 ).asString + "</font>"
                             )
 //                        }
-
 
                         Log.d("pkgid", oldpkgid)
 

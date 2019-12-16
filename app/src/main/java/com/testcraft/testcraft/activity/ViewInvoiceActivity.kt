@@ -3,6 +3,7 @@ package com.testcraft.testcraft.activity
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -39,6 +40,8 @@ class ViewInvoiceActivity : AppCompatActivity() {
             invoice_llContact.visibility = View.GONE
 
             url = intent.getStringExtra("url")
+
+            Log.d("test summary report", "URL : " + url)
 
             invoice_view.settings.builtInZoomControls = true
             invoice_view.settings.useWideViewPort = true

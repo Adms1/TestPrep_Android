@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.testcraft.testcraft.R
+import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.adapter.MainPackageAdapter
 import com.testcraft.testcraft.models.MyPackageModel
 import com.testcraft.testcraft.retrofit.WebClient
@@ -36,6 +37,13 @@ class ChooseMarketPlaceFragment : Fragment() {
         choosemp_rvList.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 //        choosemp_rvList.adapter = MainPackageAdapter(activity!!)
+
+        choosemp_tvNoPkg.setOnClickListener {
+
+            AppConstants.isFirst = 0
+            DashboardActivity.setFragments(null)
+
+        }
 
         callMyPackagesApi()
     }
@@ -69,7 +77,21 @@ class ChooseMarketPlaceFragment : Fragment() {
                     if (response.body()!!.Status == "true") {
 
                         val pkgArr = response.body()!!.data
-                        choosemp_rvList.adapter = MainPackageAdapter(activity!!, pkgArr)
+
+                        if (pkgArr.size > 0 && pkgArr != null) {
+
+                            choosemp_tvNoPkg.visibility = View.GONE
+                            choosemp_rvList.visibility = View.VISIBLE
+                            choosemp_rvList.adapter = MainPackageAdapter(activity!!, pkgArr)
+                        } else {
+
+                            choosemp_tvNoPkg.visibility = View.VISIBLE
+                            choosemp_rvList.visibility = View.GONE
+
+                        }
+                    } else {
+                        choosemp_tvNoPkg.visibility = View.VISIBLE
+                        choosemp_rvList.visibility = View.GONE
                     }
                 }
             }

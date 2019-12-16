@@ -1886,6 +1886,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
 
         queTab_btnNextt.setOnClickListener {
+
             drawer_layout.openDrawer(Gravity.END)
         }
 

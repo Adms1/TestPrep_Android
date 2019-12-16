@@ -94,9 +94,9 @@ class MarketPlaceFragment : Fragment() {
 
         rlFilter!!.visibility = View.GONE
 
-        rlCoverflow!!.setPadding(20, 0, 20, 0)
+        rlCoverflow!!.setPadding(30, 0, 30, 0)
         rlCoverflow!!.clipToPadding = false
-        rlCoverflow!!.pageMargin = 8
+        rlCoverflow!!.pageMargin = 10
 
 //        AppConstants.ON_BACK = 1
 
