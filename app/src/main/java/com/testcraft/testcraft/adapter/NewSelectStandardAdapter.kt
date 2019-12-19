@@ -11,7 +11,9 @@ import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.PrefrenceActivity
 import com.testcraft.testcraft.models.PackageData
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.Utils
 
 class NewSelectStandardAdapter(
@@ -55,6 +57,8 @@ class NewSelectStandardAdapter(
         p0.title.text = dataList[p1].StandardName
 
         p0.image.setOnClickListener {
+
+            CommonWebCalls.callToken(context, "1", "", ActionIdData.C702, ActionIdData.T702)
 
             p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
 

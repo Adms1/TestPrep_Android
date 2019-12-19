@@ -24,9 +24,7 @@ import com.testcraft.testcraft.activity.ViewSolutionActivity.Companion.solution_
 import com.testcraft.testcraft.adapter.DrawerMenuListAdapter
 import com.testcraft.testcraft.fragments.*
 import com.testcraft.testcraft.models.PackageData
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 import com.testcraft.testcraft.utils.Utils.Companion.clearPrefrence
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
@@ -175,12 +173,28 @@ class DashboardActivity : AppCompatActivity() {
 
             dash_llDashboard -> {
 
+                CommonWebCalls.callToken(
+                    this@DashboardActivity,
+                    "1",
+                    "",
+                    ActionIdData.C810,
+                    ActionIdData.T810
+                )
+
                 AppConstants.isFirst = 1
 
                 setFragments(null)
             }
 
             dash_llMarket -> {
+
+                CommonWebCalls.callToken(
+                    this@DashboardActivity,
+                    "1",
+                    "",
+                    ActionIdData.C813,
+                    ActionIdData.T813
+                )
 
                 AppConstants.isFirst = 0
 
@@ -189,12 +203,28 @@ class DashboardActivity : AppCompatActivity() {
 
             dash_llExplore -> {
 
+                CommonWebCalls.callToken(
+                    this@DashboardActivity,
+                    "1",
+                    "",
+                    ActionIdData.C811,
+                    ActionIdData.T811
+                )
+
                 AppConstants.isFirst = 3
 
                 setFragments(null)
             }
 
             dash_llProfile -> {
+
+                CommonWebCalls.callToken(
+                    this@DashboardActivity,
+                    "1",
+                    "",
+                    ActionIdData.C812,
+                    ActionIdData.T812
+                )
 
                 AppConstants.isFirst = 4
 
@@ -788,8 +818,8 @@ class DashboardActivity : AppCompatActivity() {
         } else if (AppConstants.isFirst == 7) {
 
             AppConstants.isFirst = 0
-            val intent = Intent(this@DashboardActivity, ForgotPasswordActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this@DashboardActivity, ForgotPasswordActivity::class.java)
+//            startActivity(intent)
             finish()
 
         } else if (AppConstants.isFirst == 9) {

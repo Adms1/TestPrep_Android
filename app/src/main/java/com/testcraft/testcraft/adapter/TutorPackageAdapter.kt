@@ -13,7 +13,9 @@ import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.models.PackageData
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 
 class TutorPackageAdapter(
     val context: Context,
@@ -52,6 +54,8 @@ class TutorPackageAdapter(
         p0.price.text = "₹" + dataList[p1].TestPackageSalePrice
 
         p0.clMain.setOnClickListener {
+
+            CommonWebCalls.callToken(context, "1", "", ActionIdData.C2802, ActionIdData.T2802)
 
             AppConstants.isFirst = 14
             val bundle = Bundle()

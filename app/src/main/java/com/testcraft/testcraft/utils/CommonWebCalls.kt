@@ -6,7 +6,6 @@ import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,7 +14,13 @@ class CommonWebCalls {
 
     companion object {
 
-        fun callToken(context: Context) {
+        fun callToken(
+            context: Context,
+            type: String,
+            gameid: String,
+            Actionid: String,
+            comment: String
+        ) {
             if (!DialogUtils.isNetworkConnected(context)) {
                 Utils.ping(context, "Connetion not available")
             }
@@ -24,31 +29,52 @@ class CommonWebCalls {
 
             val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-            val call =
-                apiService.getToken("http://izumlabs.com/getsession.asp?gameid=3371B09E-B7E2-4327-B072-A01559365660")
+            val call = apiService.getToken(
+                WebRequests.getAction(
+                    type,
+                    gameid,
+                    Utils.getTokenPref(context, AppConstants.DEFAULT_ACTION_ID, "")!!,
+                    Actionid,
+                    comment
+                )
+            )
 
-            call.enqueue(object : Callback<ResponseBody> {
+            call.enqueue(object : Callback<JsonObject> {
                 override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
+                    call: Call<JsonObject>,
+                    response: Response<JsonObject>
                 ) {
 
                     if (response.body() != null) {
 
                         DialogUtils.dismissDialog()
 
-//                        if (response.body()!!["Status"].asString == "true") {
+                        if (response.body()!!["Status"].asString == "true") {
 
-                        var token = response.body().toString()
-                        Log.i("ADASDASDASD", response.body().toString())
+                            if (type == "0") {
+                                Utils.setTokenPref(
+                                    context,
+                                    AppConstants.DEFAULT_ACTION_ID,
+                                    response.body()!!["data"].asString
+                                )
 
-//                        } else {
-//                            Log.e("fail", "fail")
-//                        }
+                                Log.d(
+                                    "default acid common",
+                                    Utils.getTokenPref(
+                                        context,
+                                        AppConstants.DEFAULT_ACTION_ID,
+                                        ""
+                                    )!!
+                                )
+
+                                callToken(context, "1", "", ActionIdData.C100, ActionIdData.T100)
+
+                            }
+                        }
                     }
                 }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     // Log error here since request failed
                     Log.e("", t.toString())
                     DialogUtils.dismissDialog()

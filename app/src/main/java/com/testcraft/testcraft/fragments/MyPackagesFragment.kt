@@ -14,9 +14,7 @@ import com.testcraft.testcraft.adapter.MyPackageAdapter
 import com.testcraft.testcraft.models.MyPackageModel
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.fragment_my_packages.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,6 +45,8 @@ class MyPackagesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1700, ActionIdData.T1700)
+
         bundle = this.arguments
         subid = bundle!!.getInt("sub_id", 0)
         stdid = bundle!!.getString("std_id", "")
@@ -60,6 +60,8 @@ class MyPackagesFragment : Fragment() {
         }
 
         my_packages_ivReport.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1701, ActionIdData.T1701)
 
             if (iscompetitive == "1") {
                 val intent = Intent(context, ViewInvoiceActivity::class.java)

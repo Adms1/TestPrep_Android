@@ -3,15 +3,14 @@ package com.testcraft.testcraft.retrofit
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.models.*
 import com.testcraft.testcraft.sectionmodule.NewQuestionResponse
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
 interface WebInterface {
 
-    //    http://izumlabs.com/getsession.asp?gameid=272E245B-7482-4922-8C9F-84E6C33C2AB9
-    @GET
-    fun getToken(@Url url: String): Call<ResponseBody>
+    @FormUrlEncoded
+    @POST("Get_Activity_Action")
+    fun getToken(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
     @FormUrlEncoded
     @POST("Add_Student_Mobile")

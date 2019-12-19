@@ -13,10 +13,7 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
-import com.testcraft.testcraft.utils.WebRequests
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_otp.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,6 +35,8 @@ class OtpActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_otp)
 
+        CommonWebCalls.callToken(this@OtpActivity, "1", "", ActionIdData.C400, ActionIdData.T400)
+
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
             otp_tvResend.text = "Did not receive the code? Resend"
         }
@@ -50,6 +49,15 @@ class OtpActivity : AppCompatActivity() {
             "Please enter verification code \n sent to +91 " + intent.getStringExtra("mobile_number")
 
         otp_tvResend.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@OtpActivity,
+                "1",
+                "",
+                ActionIdData.C401,
+                ActionIdData.T401
+            )
+
             Toast.makeText(
                 this@OtpActivity,
                 "OTP has been sent to your registered mobile number",
@@ -65,6 +73,14 @@ class OtpActivity : AppCompatActivity() {
             if (intent.getStringExtra("come_from") == "forgot password") {
 
                 if (otp_btnSubmit.text.toString() != "Done") {
+
+                    CommonWebCalls.callToken(
+                        this@OtpActivity,
+                        "1",
+                        "",
+                        ActionIdData.C4002,
+                        ActionIdData.T4002
+                    )
 
                     if (otp_etOtp.value.toString() == otp) {
 
@@ -88,7 +104,23 @@ class OtpActivity : AppCompatActivity() {
 
                 if (otp_btnSubmit.text.toString() != "Done") {
 
+                    CommonWebCalls.callToken(
+                        this@OtpActivity,
+                        "1",
+                        "",
+                        ActionIdData.C402,
+                        ActionIdData.T402
+                    )
+
                     if (otp_etOtp.value.toString() == otp) {
+
+                        CommonWebCalls.callToken(
+                            this@OtpActivity,
+                            "1",
+                            "",
+                            ActionIdData.C500,
+                            ActionIdData.T500
+                        )
 
                         otp_tvInvalid.visibility = View.GONE
 
@@ -117,6 +149,14 @@ class OtpActivity : AppCompatActivity() {
                     }
 
                 } else {
+
+                    CommonWebCalls.callToken(
+                        this@OtpActivity,
+                        "1",
+                        "",
+                        ActionIdData.C501,
+                        ActionIdData.T501
+                    )
 
                     Utils.setStringValue(this@OtpActivity, "is_login", "true")
 

@@ -14,19 +14,17 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
-import com.testcraft.testcraft.utils.WebRequests
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_payment_success_screen.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
+
 class PaymentSuccessScreen : AppCompatActivity() {
 
-    //    var pkgid = ""
+    var transid = ""
     var pkgname = ""
     var pkgprice = ""
 
@@ -45,20 +43,34 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
         setContentView(R.layout.activity_payment_success_screen)
 
-//        pkgid = intent.getStringExtra("pkgid")
-        pkgname = intent.getStringExtra("transactionId")
+        pkgname = intent.getStringExtra("pkgname")
+        transid = intent.getStringExtra("transactionId")
         pkgprice = intent.getStringExtra("pkgprice")
 
-        if (pkgname != "") {
-            tvPkgname.text = "Transaction Id : " + pkgname
+        Utils.setFont(this@PaymentSuccessScreen, "fonts/Inter-SemiBold.ttf", tvTransIdTxt)
+        Utils.setFont(this@PaymentSuccessScreen, "fonts/Inter-SemiBold.ttf", tvPkgnameTxt)
+        Utils.setFont(this@PaymentSuccessScreen, "fonts/Inter-SemiBold.ttf", tvPriceTxt)
+
+        if (transid != "") {
+            tvTransId.text = transid
 
         } else {
-            tvPkgname.text = "Transaction Id : 0"
+            tvTransId.text = "0"
 
         }
-        tvPrice.text = "Price                : ₹ " + pkgprice
+
+        tvPkgname.text = pkgname
+        tvPrice.text = "₹ $pkgprice"
 
         if (intent.getStringExtra("responseCode").equals("0", ignoreCase = true)) {
+
+            CommonWebCalls.callToken(
+                this@PaymentSuccessScreen,
+                "1",
+                "",
+                ActionIdData.C1500,
+                ActionIdData.T1500
+            )
 
             tvCancel.visibility = GONE
 
@@ -73,6 +85,14 @@ class PaymentSuccessScreen : AppCompatActivity() {
             updatePaymentStatus("Success")
 
         } else {
+
+            CommonWebCalls.callToken(
+                this@PaymentSuccessScreen,
+                "1",
+                "",
+                ActionIdData.C1400,
+                ActionIdData.T1400
+            )
 
             tvCancel.visibility = VISIBLE
 
@@ -101,6 +121,14 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
             if (tvTry.text == "OK") {
 
+                CommonWebCalls.callToken(
+                    this@PaymentSuccessScreen,
+                    "1",
+                    "",
+                    ActionIdData.C1600,
+                    ActionIdData.T1600
+                )
+
                 AppConstants.isFirst = 1
 
                 val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
@@ -108,6 +136,14 @@ class PaymentSuccessScreen : AppCompatActivity() {
                 finish()
 
             } else {
+
+                CommonWebCalls.callToken(
+                    this@PaymentSuccessScreen,
+                    "1",
+                    "",
+                    ActionIdData.C1401,
+                    ActionIdData.T1401
+                )
 
                 generateTrackNPayRequest(this@PaymentSuccessScreen, intent.getStringExtra("amount"))
             }
@@ -237,7 +273,6 @@ class PaymentSuccessScreen : AppCompatActivity() {
         })
     }
 
-
     fun generateTrackNPayRequest(context: Context, coin: String) {
         if (!DialogUtils.isNetworkConnected(context)) {
             Utils.ping(context, "Connetion not available")
@@ -296,7 +331,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
                             )
                         )
                         intent.putExtra("amount", coin)
-//                        intent.putExtra("pkgid", pkgid)
+//                        intent.putExtra("transid", transid)
                         intent.putExtra("pkgname", pkgname)
                         intent.putExtra("pkgprice", pkgprice)
                         context.startActivity(intent)

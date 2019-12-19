@@ -14,7 +14,9 @@ import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.activity.QuestionInstructionActivity
 import com.testcraft.testcraft.models.TestListModel
 import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 
 class TestListAdapter(
     val context: Context,
@@ -46,16 +48,18 @@ class TestListAdapter(
         if (dataList[p1].StatusName == "Analyse") {
 
             p0.test.setTextColor(context.resources.getColor(R.color.white))
-            p0.test.background = context.resources.getDrawable(R.drawable.login_round_bg)
+            p0.test.background = context.resources.getDrawable(R.drawable.green_bg)
 
         } else {
 
-            p0.test.setTextColor(context.resources.getColor(R.color.black))
-            p0.test.background = context.resources.getDrawable(R.drawable.add_cart_bg)
+            p0.test.setTextColor(context.resources.getColor(R.color.white))
+            p0.test.background = context.resources.getDrawable(R.drawable.login_round_bg)
 
         }
 
         p0.test.setOnClickListener {
+
+            CommonWebCalls.callToken(context, "1", "", ActionIdData.C1901, ActionIdData.T1901)
 
             if (dataList[p1].StatusName == "Analyse") {
 

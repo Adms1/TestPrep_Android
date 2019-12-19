@@ -10,161 +10,126 @@
 <!--app:cardElevation="@dimen/_3sdp">-->
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/item_my_package_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/_8sdp"
-        android:paddingTop="@dimen/_8sdp"
-        android:paddingRight="@dimen/_8sdp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_my_package_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_2sdp"
+    android:background="@drawable/blue_gray_bg"
+    android:padding="@dimen/_8sdp"
+    android:paddingLeft="@dimen/_8sdp"
+    android:paddingTop="@dimen/_8sdp">
 
     <RelativeLayout
-            android:id="@+id/item_rlImage"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/item_my_package_price"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/item_my_package_name">
+        android:id="@+id/item_rlImage"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_my_package_test"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_my_package_name">
 
         <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/item_my_package_image"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_60sdp" />
+            android:id="@+id/item_my_package_image"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp" />
 
         <TextView
-                android:id="@+id/item_my_package_name_short"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_25sdp" />
+            android:id="@+id/item_my_package_name_short"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_25sdp" />
 
         <ImageView
-                android:id="@+id/main_package_select"
-                android:layout_width="@dimen/_17sdp"
-                android:layout_height="@dimen/_17sdp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/right_white_bg"
-                android:visibility="gone"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+            android:id="@+id/main_package_select"
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/right_white_bg"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
     </RelativeLayout>
 
     <TextView
-            android:id="@+id/item_my_package_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
-            app:layout_constraintRight_toLeftOf="@+id/item_my_package_btnNext"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/item_my_package_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
+        app:layout_constraintRight_toLeftOf="@+id/item_my_package_price"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:id="@+id/item_my_package_sdate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
-            app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
-            app:layout_constraintRight_toLeftOf="@+id/item_my_package_btnNext"
-            app:layout_constraintTop_toBottomOf="@+id/item_my_package_name" />
+        android:id="@+id/item_my_package_subject"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
+        app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
+        app:layout_constraintRight_toLeftOf="@+id/item_my_package_btnNext"
+        app:layout_constraintTop_toBottomOf="@+id/item_my_package_name" />
 
     <TextView
-            android:id="@+id/item_my_package_edate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:maxLines="1"
-            android:text="24/05/2020"
-            android:textSize="@dimen/_10sdp"
-            android:visibility="gone"
-            app:layout_constraintLeft_toRightOf="@id/item_my_package_sdate"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_my_package_name" />
+        android:id="@+id/item_my_package_tutor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
+        app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
+        app:layout_constraintRight_toLeftOf="@+id/item_my_package_btnNext"
+        app:layout_constraintTop_toBottomOf="@+id/item_my_package_subject" />
 
     <TextView
-            android:id="@+id/item_my_package_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:maxLines="1"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
-            app:layout_constraintTop_toBottomOf="@+id/item_my_package_sdate" />
+        android:id="@+id/item_my_package_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_my_package_name" />
 
     <TextView
-            android:id="@+id/item_my_package_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:maxLines="1"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toRightOf="@+id/item_my_package_price"
-            app:layout_constraintTop_toBottomOf="@+id/item_my_package_sdate" />
-
-    <Button
-            android:id="@+id/item_my_package_view"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:background="@drawable/blue_gradient_bg"
-            android:gravity="center"
-            android:maxLines="1"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingRight="@dimen/_10sdp"
-            android:text="View"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp"
-            android:textStyle="bold"
-            android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
-            app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
-            app:layout_constraintTop_toBottomOf="@+id/item_my_package_price" />
+        android:id="@+id/item_my_package_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintLeft_toRightOf="@+id/item_my_package_price"
+        app:layout_constraintTop_toBottomOf="@+id/item_my_package_subject" />
 
     <ImageView
-            android:id="@+id/item_my_package_btnNext"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:padding="@dimen/_9sdp"
-            android:rotation="180"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/back_button" />
+        android:id="@+id/item_my_package_btnNext"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:padding="@dimen/_9sdp"
+        android:rotation="-90"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/down_arrow" />
 
-    <Button
-            android:id="@+id/item_my_package_btntest"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:background="@drawable/blue_gradient_bg"
-            android:gravity="center"
-            android:maxLines="1"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingRight="@dimen/_10sdp"
-            android:text="Test"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_10sdp"
-            android:textStyle="bold"
-            android:visibility="gone"
-            app:layout_constraintLeft_toRightOf="@id/item_my_package_view"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_my_package_price" />
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@color/default_shimmer_color"
-            app:layout_constraintTop_toBottomOf="@+id/item_rlImage" />
+    <!--    <View-->
+    <!--        android:id="@+id/item_my_package_line"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/_1sdp"-->
+    <!--        android:layout_marginTop="@dimen/_10sdp"-->
+    <!--        android:background="@color/colorPrimary"-->
+    <!--        android:visibility="gone" />-->
 
 </android.support.constraint.ConstraintLayout>
 
-        <!--</android.support.v7.widget.CardView>-->
+    <!--</android.support.v7.widget.CardView>-->

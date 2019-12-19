@@ -14,7 +14,9 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.NewActivity
 import com.testcraft.testcraft.activity.PrefrenceActivity
 import com.testcraft.testcraft.models.PackageData
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.Utils
 
 class NewChooseCoarseAdapter(
@@ -53,6 +55,7 @@ class NewChooseCoarseAdapter(
         p0.mainll.setOnClickListener {
 
             AppConstants.FILTER_COURSE_TYPE_ID = dataList[p1].CourseTypeID.toString()
+
             Utils.setStringValue(
                 context,
                 AppConstants.COURSE_TYPE_ID,
@@ -61,8 +64,14 @@ class NewChooseCoarseAdapter(
             Utils.setStringValue(context, "course_type_name", dataList[p1].CourseTypeName)
 
             if (dataList[p1].CourseTypeID != 1) {
+
+                CommonWebCalls.callToken(context, "1", "", ActionIdData.C602, ActionIdData.T602)
+
                 Utils.setStringValue(context, AppConstants.STANDARD_ID, "")
                 Utils.setStringValue(context, AppConstants.SUBJECT_ID, "")
+            } else {
+
+                CommonWebCalls.callToken(context, "1", "", ActionIdData.C601, ActionIdData.T601)
             }
 
             val intent = Intent(context, PrefrenceActivity::class.java)

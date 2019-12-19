@@ -30,10 +30,7 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
-import com.testcraft.testcraft.utils.WebRequests
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_intro.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -70,6 +67,13 @@ class IntroActivity : AppCompatActivity() {
         FacebookSdk.sdkInitialize(applicationContext)
 
         setContentView(R.layout.activity_intro)
+
+        Log.d(
+            "default acid intro",
+            Utils.getTokenPref(this@IntroActivity, AppConstants.DEFAULT_ACTION_ID, "")!!
+        )
+
+        CommonWebCalls.callToken(this@IntroActivity, "1", "", ActionIdData.C200, ActionIdData.T200)
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
             intro_tvSignin.text = "ALREADY HAVE AN ACCOUNT?SIGN IN"
@@ -116,9 +120,27 @@ class IntroActivity : AppCompatActivity() {
 
 //        setGooglePlusButtonText(intro_btnGoogle, "Continue with Google")
 
-        intro_btnGoogle.setOnClickListener { signIn(); }
+        intro_btnGoogle.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@IntroActivity,
+                "1",
+                "",
+                ActionIdData.C202,
+                ActionIdData.T202
+            )
+            signIn();
+        }
 
         intro_tvSignin.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@IntroActivity,
+                "1",
+                "",
+                ActionIdData.C204,
+                ActionIdData.T204
+            )
 
             val i = Intent(this@IntroActivity, LoginActivity::class.java)
             startActivity(i)
@@ -126,6 +148,15 @@ class IntroActivity : AppCompatActivity() {
         }
 
         intro_btnEmail.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@IntroActivity,
+                "1",
+                "",
+                ActionIdData.C203,
+                ActionIdData.T203
+            )
+
             val intent = Intent(this@IntroActivity, SignupActivity::class.java)
             startActivity(intent)
             finish()
@@ -261,6 +292,9 @@ class IntroActivity : AppCompatActivity() {
     }
 
     fun onClick(v: View) {
+
+        CommonWebCalls.callToken(this@IntroActivity, "1", "", ActionIdData.C201, ActionIdData.T201)
+
         if (v == intro_btnFb) {
             fb.performClick()
         }

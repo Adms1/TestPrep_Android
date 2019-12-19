@@ -15,10 +15,7 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
-import com.testcraft.testcraft.utils.WebRequests
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,7 +35,23 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_forgot_password)
 
+        CommonWebCalls.callToken(
+            this@ForgotPasswordActivity,
+            "1",
+            "",
+            ActionIdData.C3900,
+            ActionIdData.T3900
+        )
+
         forgot_pass_btnReset.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@ForgotPasswordActivity,
+                "1",
+                "",
+                ActionIdData.C3901,
+                ActionIdData.T3901
+            )
 
             when {
                 TextUtils.isEmpty(forgot_pass_etEmail.text.toString()) -> forgot_pass_etEmail.error =
@@ -57,6 +70,15 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
             override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
                 if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+
+                    CommonWebCalls.callToken(
+                        this@ForgotPasswordActivity,
+                        "1",
+                        "",
+                        ActionIdData.C3901,
+                        ActionIdData.T3901
+                    )
+
                     when {
                         TextUtils.isEmpty(forgot_pass_etEmail.text.toString()) -> forgot_pass_etEmail.error =
                             "Please Enter Mobile Number"

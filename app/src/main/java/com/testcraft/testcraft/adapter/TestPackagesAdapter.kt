@@ -18,9 +18,7 @@ import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -99,6 +97,8 @@ class TestPackagesAdapter(
             }
 
             p0.mainll.setOnClickListener {
+
+                CommonWebCalls.callToken(context, "1", "", ActionIdData.C903, ActionIdData.T903)
 
                 AppConstants.isFirst = 14
                 val bundle = Bundle()

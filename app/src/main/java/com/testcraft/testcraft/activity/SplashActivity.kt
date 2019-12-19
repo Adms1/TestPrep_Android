@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.AppConstants.Companion.isPrefrence
+import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.Utils
 
 class SplashActivity : AppCompatActivity() {
@@ -23,18 +25,30 @@ class SplashActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_splash)
 
-//        if(Utils.getStringValue(this@SplashActivity, AppConstants.isInstall, "") == ""){
-//
-//            CommonWebCalls.callToken(this@SplashActivity)
-//            Utils.setStringValue(this@SplashActivity, AppConstants.isInstall, "false")
-//        }
+        if (Utils.getStringValue(this@SplashActivity, AppConstants.isInstall, "") == "") {
+
+            Utils.setTokenPref(this@SplashActivity, AppConstants.DEFAULT_ACTION_ID, "")
+
+            Log.d(
+                "default acid splash",
+                Utils.getTokenPref(this@SplashActivity, AppConstants.DEFAULT_ACTION_ID, "")!!
+            )
+            CommonWebCalls.callToken(
+                this@SplashActivity,
+                "0",
+                AppConstants.DEFAULT_TOKEN_ID,
+                "",
+                ""
+            )
+
+            Utils.setStringValue(this@SplashActivity, AppConstants.isInstall, "true")
+        }
 
         Handler().postDelayed(
             /* Runnable
                  * Showing splash screen with a timer. This will be useful when you
                  * want to show case your app logo / company
                  */
-
             {
 
                 AppConstants.isFirst = 0

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Color.argb
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.location.Criteria
@@ -16,6 +17,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -27,6 +29,11 @@ import java.io.File
 class Utils {
 
     companion object {
+
+        fun setFont(context: Context, font: String, tv: TextView) {
+
+            tv.typeface = Typeface.createFromAsset(context.assets, font)
+        }
 
         fun deleteCache(context: Context) {
             try {
@@ -53,9 +60,11 @@ class Utils {
             }
         }
 
-        private const val APP_PREF = "TesetPrep"
+        private const val APP_PREF = "TestCraft"
+        private const val APP_PREF1 = "TestCraftToken"
         private var mSharedPreferencesEditor: SharedPreferences.Editor? = null
         private var mSharedPreferences: SharedPreferences? = null
+        private var mSharedPreferences1: SharedPreferences? = null
 
         @SuppressLint("CommitPrefEdits")
         fun setStringValue(context: Context, key: String, value: String) {
@@ -68,6 +77,19 @@ class Utils {
         fun getStringValue(context: Context, key: String, defaultValue: String): String? {
             mSharedPreferences = context.getSharedPreferences(APP_PREF, Context.MODE_PRIVATE)
             return mSharedPreferences!!.getString(key, defaultValue)
+        }
+
+        fun setTokenPref(context: Context, key: String, value: String) {
+
+            mSharedPreferences1 = context.getSharedPreferences(APP_PREF1, Context.MODE_PRIVATE)
+            val mSharedPreferencesEditor1 = mSharedPreferences1!!.edit()
+            mSharedPreferencesEditor1!!.putString(key, value)
+            mSharedPreferencesEditor1.apply()
+        }
+
+        fun getTokenPref(context: Context, key: String, defaultValue: String): String? {
+            mSharedPreferences1 = context.getSharedPreferences(APP_PREF1, Context.MODE_PRIVATE)
+            return mSharedPreferences1!!.getString(key, defaultValue)
         }
 
         @SuppressLint("CommitPrefEdits")

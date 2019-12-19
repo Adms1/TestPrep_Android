@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.Utils
 
 class RecentSearchAdapter(val context: Context, val dataList: List<String>) :
@@ -35,6 +37,8 @@ class RecentSearchAdapter(val context: Context, val dataList: List<String>) :
         p0.name.text = dataList[p1]
 
         p0.name.setOnClickListener {
+
+            CommonWebCalls.callToken(context, "1", "", ActionIdData.C3101, ActionIdData.T3101)
 
             AppConstants.isFirst = 13
             val bundle = Bundle()

@@ -4,32 +4,36 @@ import java.util.*
 
 class AppConstants {
 
+    //Signup
         // normal signup 1
         // Google 2
         // Fb 3
 
     companion object {
 
-//        live
+//        LIVE
 
-        var BASE_URL = "http://webservice.testcraft.in/WebService.asmx/"
-        var IMAGE_BASE_URL = "http://testcraft.in/upload/"
-        var EXPHINT_IMAGE_BASE_URL = "http://testcraft.in/"
-        var PAYMENT_REQUEST = "https://biz.traknpay.in/v2/paymentrequest"
-        var INVOICE_URL = "http://testcraft.in/InvoiceDetail.aspx?ID="
-        var SUMMARY_REPORT_URL = "http://webservice.testcraft.in/TestSummaryReport.aspx?"
-        var SUBJECT_SUMMARY_REPORT_URL = "http://webservice.testcraft.in/SubjectSummaryReport.aspx?"
-
-//        local
-
-//        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
-//        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
-//        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
-//        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
-//        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
-//        var SUBJECT_SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
+//        var BASE_URL = "http://webservice.testcraft.in/WebService.asmx/"
+//        var IMAGE_BASE_URL = "http://testcraft.in/upload/"
+//        var EXPHINT_IMAGE_BASE_URL = "http://testcraft.in/"
 //        var PAYMENT_REQUEST = "https://biz.traknpay.in/v2/paymentrequest"
-//
+//        var INVOICE_URL = "http://testcraft.in/InvoiceDetail.aspx?ID="
+//        var SUMMARY_REPORT_URL = "http://webservice.testcraft.in/TestSummaryReport.aspx?"
+//        var SUBJECT_SUMMARY_REPORT_URL = "http://webservice.testcraft.in/SubjectSummaryReport.aspx?"
+
+//        LOCAL
+
+        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
+        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
+        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
+        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
+        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
+        var SUBJECT_SUMMARY_REPORT_URL =
+            "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
+        var PAYMENT_REQUEST = "https://biz.traknpay.in/v2/paymentrequest"
+
+//        USER DATA
+
         var FIRST_NAME = "firstname"
         var LAST_NAME = "lastname"
         var USER_ID = "userid"
@@ -40,21 +44,19 @@ class AppConstants {
         var USER_STATUSID = "userstatusid"
         var OTP = ""
         var user_profile = ""
-        var FB_ACCESS_TOKEN = ""
 
         var isPrefrence = "0"
 
         var COURSE_FLOW = ""
-        //        var ON_BACK = 0
         var COURSE_FLOW_ARRAY: ArrayList<String> = ArrayList()
 
-//        LOCAL
+//        PAYMENT LOCAL
 
         //        var API_KEY = "535ee616-a161-4e16-88ed-a338582e841a"
 //        var SECRET_KEY = "531553f8d6b906aa3342948a3c535ca301de9d5d"
         var PAYMENT_MODE = "TEST"
 
-//        LIVE
+//        PAYMENT LIVE
 
         var API_KEY = "0cda5f4f-d803-4316-8562-c75a72fe99c0"
         var SECRET_KEY = "10ad507bb768b574c3d6ff2bc6694b04386b9c8f"
@@ -87,10 +89,12 @@ class AppConstants {
         var isFirst = 0
         var isInstall = "true"
 
-        var recentSearchList: ArrayList<String> = ArrayList()
-
         var PKG_ID = ""
         var PKG_NAME = ""
+
+        //        ACTION ID(GAME ID)
+        var DEFAULT_ACTION_ID = ""
+        var DEFAULT_TOKEN_ID = "3371B09E-B7E2-4327-B072-A01559365660"
 
 //        var API_KEY = "487f26cf-15cd-4497-a053-a4c5ac0e9a7f"
 //        var SECRET_KEY = "900249336e0680941326c99ff756b23e3e675efd"

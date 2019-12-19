@@ -10,7 +10,9 @@ import android.view.WindowManager
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.models.AnswerModel
 import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 import kotlinx.android.synthetic.main.activity_result.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -57,6 +59,14 @@ class ResultActivity : AppCompatActivity() {
 
         result_btnDashboard.setOnClickListener {
 
+            CommonWebCalls.callToken(
+                this@ResultActivity,
+                "1",
+                "",
+                ActionIdData.C2202,
+                ActionIdData.T2202
+            )
+
             onBackPressed()
         }
 
@@ -84,6 +94,14 @@ class ResultActivity : AppCompatActivity() {
         }
 
         result_tvReports.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@ResultActivity,
+                "1",
+                "",
+                ActionIdData.C2201,
+                ActionIdData.T2201
+            )
 
             AppConstants.isFirst = 10
 

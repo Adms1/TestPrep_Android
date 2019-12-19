@@ -16,10 +16,7 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
-import com.testcraft.testcraft.utils.WebRequests
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_change_password.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,6 +45,8 @@ class ChangePasswordActivity : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C3500, ActionIdData.T3500)
+
         bundle = this.arguments
         come = bundle!!.getString("come_from")
 
@@ -67,6 +66,14 @@ class ChangePasswordActivity : Fragment() {
 
             if (come == "other") {
 
+                CommonWebCalls.callToken(
+                    activity!!,
+                    "1",
+                    "",
+                    ActionIdData.C3501,
+                    ActionIdData.T3501
+                )
+
                 if (isValid1()) {
                     if (isValid()) {
                         callChangePasswordlApi()
@@ -74,6 +81,15 @@ class ChangePasswordActivity : Fragment() {
                 }
 
             } else {
+
+                CommonWebCalls.callToken(
+                    activity!!,
+                    "1",
+                    "",
+                    ActionIdData.C4101,
+                    ActionIdData.T4101
+                )
+
 
                 if (isValid()) {
                     callChangePasswordlApi()
@@ -85,6 +101,14 @@ class ChangePasswordActivity : Fragment() {
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
                 if (come == "other") {
 
+                    CommonWebCalls.callToken(
+                        activity!!,
+                        "1",
+                        "",
+                        ActionIdData.C3501,
+                        ActionIdData.T3501
+                    )
+
                     if (isValid1()) {
                         if (isValid()) {
                             callChangePasswordlApi()
@@ -92,6 +116,14 @@ class ChangePasswordActivity : Fragment() {
                     }
 
                 } else {
+
+                    CommonWebCalls.callToken(
+                        activity!!,
+                        "1",
+                        "",
+                        ActionIdData.C4101,
+                        ActionIdData.T4101
+                    )
 
                     if (isValid()) {
                         callChangePasswordlApi()
@@ -255,7 +287,6 @@ class ChangePasswordActivity : Fragment() {
         return isvalid
 
     }
-
 
     fun isValid1(): Boolean {
 

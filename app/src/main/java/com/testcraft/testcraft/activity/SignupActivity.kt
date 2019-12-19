@@ -19,9 +19,7 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_signup.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,6 +39,8 @@ class SignupActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_signup)
 
+        CommonWebCalls.callToken(this@SignupActivity, "1", "", ActionIdData.C300, ActionIdData.T300)
+
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
             signup_btnLogin.text = "ALREADY HAVE AN ACCOUNT?SIGN IN"
         }
@@ -51,23 +51,61 @@ class SignupActivity : AppCompatActivity() {
 //            startActivity(intent)
 //            finish()
 
+            CommonWebCalls.callToken(
+                this@SignupActivity,
+                "1",
+                "",
+                ActionIdData.C301,
+                ActionIdData.T301
+            )
+
             if (isValid()) {
-                callVerifyAccountApi()
+
+                if (signup_cbTerms.isChecked) {
+                    callVerifyAccountApi()
+                } else {
+                    Utils.ping(this@SignupActivity, "Select Terms & Conditions")
+                }
             }
         }
 
         signup_btnLogin.setOnClickListener {
 
+            CommonWebCalls.callToken(
+                this@SignupActivity,
+                "1",
+                "",
+                ActionIdData.C302,
+                ActionIdData.T302
+            )
+
             val intent = Intent(this@SignupActivity, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        signup_tvTerms.setOnClickListener {
+            val intent = Intent(this@SignupActivity, ViewInvoiceActivity::class.java)
+            intent.putExtra("header", "Terms & Conditions")
+            intent.putExtra(
+                "url",
+                "https://testcraft.in/TCTerms.aspx"
+            )
+            startActivity(intent)
+        }
+
         signup_etMobile.setOnEditorActionListener(object : OnEditorActionListener {
 
             override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
                 if (event != null && event.keyCode == KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+
                     if (isValid()) {
-                        callVerifyAccountApi()
+                        if (signup_cbTerms.isChecked) {
+                            callVerifyAccountApi()
+                        } else {
+                            Utils.ping(this@SignupActivity, "Select Terms & Conditions")
+                        }
                     }
+
                 }
                 return false
             }

@@ -13,7 +13,9 @@ import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.models.PackageData
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 
 class TutorsAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
     RecyclerView.Adapter<TutorsAdapter.viewholder>() {
@@ -49,6 +51,8 @@ class TutorsAdapter(val context: Context, val dataList: ArrayList<PackageData.Pa
         p0.std.text = ""
 
         p0.clMain.setOnClickListener {
+
+            CommonWebCalls.callToken(context, "1", "", ActionIdData.C2701, ActionIdData.T2701)
 
             AppConstants.isFirst = 15
             val bundle = Bundle()

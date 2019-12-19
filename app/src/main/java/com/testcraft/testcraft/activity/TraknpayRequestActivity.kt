@@ -30,7 +30,7 @@ import kotlin.experimental.and
 class TraknpayRequestActivity : AppCompatActivity() {
 
     private val TAG = "TNPRequestDebugTag"
-    //    var pkgid = ""
+    //        var transid = ""
     var pkgname = ""
     var pkgprice = ""
 //    private var extras: Bundle? = null
@@ -50,7 +50,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_traknpay_request)
 
-//        pkgid = intent.getStringExtra("pkgid")
+//        transid = intent.getStringExtra("transid")
         pkgname = intent.getStringExtra("pkgname")
 //        pkgprice = intent.getStringExtra("pkgprice")
         pkgprice = intent.getStringExtra("amount")

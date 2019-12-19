@@ -10,7 +10,9 @@ import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.adapter.OtherListAdapter
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.Utils
 import kotlinx.android.synthetic.main.fragment_other.*
 
@@ -39,6 +41,8 @@ class OtherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C3300, ActionIdData.T3300)
 
         if (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") == "1") {
 //            menuList.add("Edit Profile")

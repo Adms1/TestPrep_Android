@@ -22,10 +22,7 @@ import com.testcraft.testcraft.adapter.TutorReviewAdapter
 import com.testcraft.testcraft.models.TutorModel
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
-import com.testcraft.testcraft.utils.WebRequests
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.fragment_tutors_review.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -56,10 +53,26 @@ class TutorsReviewFragment : AppCompatActivity() {
 
         setContentView(R.layout.fragment_tutors_review)
 
+        CommonWebCalls.callToken(
+            this@TutorsReviewFragment,
+            "1",
+            "",
+            ActionIdData.C2900,
+            ActionIdData.T2900
+        )
+
         tutorid = intent.getStringExtra("tutorid")
         tutor_review_header.text = intent.getStringExtra("header")
 
         tutor_review_btnWritereview.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@TutorsReviewFragment,
+                "1",
+                "",
+                ActionIdData.C2901,
+                ActionIdData.T2901
+            )
 
             val dialog = Dialog(this@TutorsReviewFragment)
             dialog.setContentView(R.layout.review_dialog)
@@ -73,48 +86,62 @@ class TutorsReviewFragment : AppCompatActivity() {
 
             closeBtn.setOnClickListener { dialog.dismiss() }
             submitBtn.setOnClickListener {
-                if (!DialogUtils.isNetworkConnected(this@TutorsReviewFragment)) {
-                    Utils.ping(this@TutorsReviewFragment, "Connetion not available")
-                }
 
-                DialogUtils.showDialog(this@TutorsReviewFragment)
-                val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-                val call = apiService.writeRating(
-                    WebRequests.writeRatingParams(
-                        Utils.getStringValue(
-                            this@TutorsReviewFragment,
-                            AppConstants.USER_ID,
-                            "0"
-                        )!!, tutorid, etDesc.text.toString(), ratingbar.rating.toString()
-                    )
+                CommonWebCalls.callToken(
+                    this@TutorsReviewFragment,
+                    "1",
+                    "",
+                    ActionIdData.C3001,
+                    ActionIdData.T3001
                 )
-                call.enqueue(object : Callback<TutorModel> {
-                    override fun onResponse(
-                        call: Call<TutorModel>,
-                        response: Response<TutorModel>
-                    ) {
 
-                        if (response.body() != null) {
+                if (ratingbar.rating != 0f) {
 
-                            DialogUtils.dismissDialog()
+                    if (!DialogUtils.isNetworkConnected(this@TutorsReviewFragment)) {
+                        Utils.ping(this@TutorsReviewFragment, "Connetion not available")
+                    }
 
-                            if (response.body()!!.Status == "true") {
+                    DialogUtils.showDialog(this@TutorsReviewFragment)
+                    val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-                                dialog.dismiss()
-                                callGetRating()
+                    val call = apiService.writeRating(
+                        WebRequests.writeRatingParams(
+                            Utils.getStringValue(
+                                this@TutorsReviewFragment,
+                                AppConstants.USER_ID,
+                                "0"
+                            )!!, tutorid, etDesc.text.toString(), ratingbar.rating.toString()
+                        )
+                    )
+                    call.enqueue(object : Callback<TutorModel> {
+                        override fun onResponse(
+                            call: Call<TutorModel>,
+                            response: Response<TutorModel>
+                        ) {
 
+                            if (response.body() != null) {
+
+                                DialogUtils.dismissDialog()
+
+                                if (response.body()!!.Status == "true") {
+
+                                    dialog.dismiss()
+                                    callGetRating()
+
+                                }
                             }
                         }
-                    }
 
-                    override fun onFailure(call: Call<TutorModel>, t: Throwable) {
-                        // Log error here since request failed
-                        Log.e("", t.toString())
-                        DialogUtils.dismissDialog()
-                    }
-                })
+                        override fun onFailure(call: Call<TutorModel>, t: Throwable) {
+                            // Log error here since request failed
+                            Log.e("", t.toString())
+                            DialogUtils.dismissDialog()
+                        }
+                    })
 
+                } else {
+                    Utils.ping(this@TutorsReviewFragment, "Please give rating")
+                }
             }
 
             dialog.show()
@@ -122,12 +149,7 @@ class TutorsReviewFragment : AppCompatActivity() {
         }
 
         tutor_review_ivBack.setOnClickListener {
-            //            onBackPressed()
-
-            AppConstants.isFirst = 15
-            val intent = Intent(this@TutorsReviewFragment, DashboardActivity::class.java)
-            intent.putExtra("tutor_id", tutorid)
-            startActivity(intent)
+            onBackPressed()
 
         }
 
@@ -135,6 +157,16 @@ class TutorsReviewFragment : AppCompatActivity() {
             LinearLayoutManager(this@TutorsReviewFragment, LinearLayoutManager.VERTICAL, false)
 
         callGetRating()
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        AppConstants.isFirst = 15
+        val intent = Intent(this@TutorsReviewFragment, DashboardActivity::class.java)
+        intent.putExtra("tutor_id", tutorid)
+        startActivity(intent)
 
     }
 

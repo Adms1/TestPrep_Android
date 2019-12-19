@@ -45,7 +45,7 @@
             android:id="@+id/my_payments_tvdatanotfound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Payments not found"
+        android:text="No Payments found"
             android:textColor="@color/red"
             android:textSize="@dimen/_16sdp"
             android:visibility="gone"

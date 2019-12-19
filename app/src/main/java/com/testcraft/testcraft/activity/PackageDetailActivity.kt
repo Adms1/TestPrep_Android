@@ -21,10 +21,7 @@ import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.adapter.TestTypeAdapter
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
-import com.testcraft.testcraft.utils.WebRequests
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_package_detail.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -53,6 +50,8 @@ class PackageDetailActivity : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1100, ActionIdData.T1100)
+
         DashboardActivity.main_header!!.text = "Package Details"
         DashboardActivity.btnBack!!.visibility = View.VISIBLE
 
@@ -67,6 +66,9 @@ class PackageDetailActivity : Fragment() {
         package_detail_tvlprice.paintFlags =
             package_detail_tvlprice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
+        Utils.setFont(activity!!, "fonts/Inter-Medium.ttf", package_detail_tvlprice)
+        Utils.setFont(activity!!, "fonts/Inter-Medium.ttf", package_detail_tvsprice)
+
         package_detail_rvList.isNestedScrollingEnabled = false
         package_detail_rvList.layoutManager =
             LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
@@ -77,6 +79,8 @@ class PackageDetailActivity : Fragment() {
         }
 
         package_detail_createdby.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1102, ActionIdData.T1102)
 
             //            val intent = Intent(activity!!, TutorProfileFragment::class.java)
 //            intent.putExtra("tutor_id", tutor_id)
@@ -94,6 +98,8 @@ class PackageDetailActivity : Fragment() {
 //        }
 
         package_detail_btnAddTocart.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1101, ActionIdData.T1101)
 
             //            val dialog = Dialog(activity)
 //            dialog.setContentView(R.layout.dialog_verify_number)

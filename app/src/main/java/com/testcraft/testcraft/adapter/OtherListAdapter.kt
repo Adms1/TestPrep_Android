@@ -12,7 +12,9 @@ import com.testcraft.testcraft.activity.CoinActivity
 import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.NewActivity
 import com.testcraft.testcraft.activity.ViewInvoiceActivity
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 
 class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
     RecyclerView.Adapter<OtherListAdapter.viewholder>() {
@@ -33,6 +35,14 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
             when (dataList[p1]) {
                 "Edit Profile" -> {
 
+                    CommonWebCalls.callToken(
+                        context,
+                        "1",
+                        "",
+                        ActionIdData.C3301,
+                        ActionIdData.T3301
+                    )
+
                     AppConstants.isFirst = 8
                     DashboardActivity.setFragments(null)
 
@@ -45,6 +55,14 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 //                    startActivity(intent)
                 }
                 "My Payments" -> {
+
+                    CommonWebCalls.callToken(
+                        context,
+                        "1",
+                        "",
+                        ActionIdData.C3302,
+                        ActionIdData.T3302
+                    )
 
                     AppConstants.isFirst = 5
                     DashboardActivity.setFragments(null)
@@ -64,6 +82,14 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
                 }
                 "Change Password" -> {
 
+                    CommonWebCalls.callToken(
+                        context,
+                        "1",
+                        "",
+                        ActionIdData.C3303,
+                        ActionIdData.T3303
+                    )
+
                     AppConstants.isFirst = 6
                     DashboardActivity.setFragments(null)
 
@@ -78,6 +104,14 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
                 }
                 "Change Prefrence" -> {
 
+                    CommonWebCalls.callToken(
+                        context,
+                        "1",
+                        "",
+                        ActionIdData.C3305,
+                        ActionIdData.T3305
+                    )
+
                     val intent = Intent(context, NewActivity::class.java)
                     context.startActivity(intent)
                 }
@@ -91,6 +125,15 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
                 }
 
                 "Logout" -> {
+
+                    CommonWebCalls.callToken(
+                        context,
+                        "1",
+                        "",
+                        ActionIdData.C3304,
+                        ActionIdData.T3304
+                    )
+
                     DashboardActivity.signOut()
                 }
 

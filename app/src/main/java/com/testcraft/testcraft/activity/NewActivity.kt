@@ -16,9 +16,7 @@ import com.testcraft.testcraft.adapter.NewChooseCoarseAdapter
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_new.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,6 +46,8 @@ class NewActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_new)
+
+        CommonWebCalls.callToken(this@NewActivity, "1", "", ActionIdData.C600, ActionIdData.T600)
 
 //        if (Utils.getStringValue(this@NewActivity, AppConstants.USER_MOBILE, "")!! == "") {
 //

@@ -79,13 +79,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_20sdp"
                 android:maxLines="2"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toRightOf="@+id/package_detail_llImage"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintRight_toRightOf="@+id/package_detail_btnAddTocart"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -93,11 +92,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:maxLines="2"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10sdp"
-                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintRight_toRightOf="@+id/package_detail_btnAddTocart"
                 app:layout_constraintLeft_toRightOf="@+id/package_detail_llImage"
                 app:layout_constraintTop_toBottomOf="@+id/package_detail_tvPname" />
 
@@ -106,10 +104,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:maxLines="2"
-                android:textColor="@color/black"
-                android:textSize="@dimen/small_text_size"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintRight_toRightOf="@+id/package_detail_btnAddTocart"
                 app:layout_constraintLeft_toRightOf="@+id/package_detail_llImage"
                 app:layout_constraintTop_toBottomOf="@+id/package_detail_tvSubject" />
 
@@ -118,11 +116,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="center"
                 android:maxLines="1"
                 android:text="Price : "
-                android:textSize="@dimen/_11sdp"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toRightOf="@+id/package_detail_llImage"
                 app:layout_constraintTop_toBottomOf="@+id/package_detail_createdby" />
 
@@ -130,12 +127,10 @@
                 android:id="@+id/package_detail_tvsprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="center"
                 android:maxLines="1"
                 android:textStyle="bold"
-                android:textSize="@dimen/_11sdp"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toRightOf="@+id/package_detail_tvpricetxt"
                 app:layout_constraintTop_toBottomOf="@+id/package_detail_createdby" />
 
@@ -145,7 +140,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:maxLines="1"
-                android:textSize="@dimen/_11sdp"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold"
                 android:layout_marginLeft="@dimen/_5sdp"
                 app:layout_constraintLeft_toRightOf="@+id/package_detail_tvsprice"
                 app:layout_constraintTop_toTopOf="@+id/package_detail_tvsprice" />
@@ -186,7 +182,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:justificationMode="inter_word"
-                android:textSize="@dimen/_11sdp"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/package_detail_tvDesctitle" />
 
@@ -209,7 +205,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="Test Name"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/package_detail_tvQuantity"
@@ -224,7 +220,7 @@
                 android:gravity="center"
                 android:text="Marks"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_13sdp"
+                android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/package_detail_view" />

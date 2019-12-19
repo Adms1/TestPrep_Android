@@ -12,7 +12,9 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 import kotlinx.android.synthetic.main.activity_test_review.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,6 +43,7 @@ class TestReviewActivity : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2300, ActionIdData.T2300)
 
 //    override fun attachBaseContext(newBase: Context?) {
 //        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -72,6 +75,8 @@ class TestReviewActivity : Fragment() {
         }
 
         review_btnReport.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2302, ActionIdData.T2302)
 
             //            if (isCompetitive == 0) {
 //                val reportdialog = Dialog(activity)
@@ -127,6 +132,8 @@ class TestReviewActivity : Fragment() {
         }
 
         review_btnSubmit.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2301, ActionIdData.T2301)
 
             AppConstants.isFirst = 9
             val bundle = Bundle()

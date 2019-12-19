@@ -18,9 +18,7 @@ import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.models.TutorModel
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.fragment_tutor_profile.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -54,6 +52,8 @@ class TutorProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2800, ActionIdData.T2800)
+
         bundle = this.arguments
 
         tutorid = bundle!!.getString("tutor_id")!!
@@ -71,6 +71,9 @@ class TutorProfileFragment : Fragment() {
 //        tutor_profile_ivBack.setOnClickListener { onBackPressed() }
 
         llRating.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2801, ActionIdData.T2801)
+
             val intent = Intent(activity!!, TutorsReviewFragment::class.java)
             intent.putExtra("header", tutor_profile_tvName.text.toString())
             intent.putExtra("tutorid", tutorid)

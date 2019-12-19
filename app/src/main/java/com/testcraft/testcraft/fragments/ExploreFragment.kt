@@ -17,9 +17,7 @@ import com.testcraft.testcraft.adapter.RecentSearchAdapter
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.fragment_explore.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,9 +43,19 @@ class ExploreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C3100, ActionIdData.T3100)
+
         explore_etSearch.setOnEditorActionListener { v, actionId, event ->
 
             if (event != null && event.keyCode == KeyEvent.KEYCODE_SEARCH || actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+                CommonWebCalls.callToken(
+                    activity!!,
+                    "1",
+                    "",
+                    ActionIdData.C3101,
+                    ActionIdData.T3101
+                )
 
                 callAddHitoryApi()
 
@@ -64,6 +72,8 @@ class ExploreFragment : Fragment() {
         }
 
         explore_ivSearch.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C3101, ActionIdData.T3101)
 
             callAddHitoryApi()
 
@@ -317,5 +327,4 @@ class ExploreFragment : Fragment() {
             }
         })
     }
-
 }

@@ -11,7 +11,9 @@ import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.PrefrenceActivity
 import com.testcraft.testcraft.models.PackageData
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.Utils
 
 class NewSelectBoardAdapter(
@@ -55,6 +57,8 @@ class NewSelectBoardAdapter(
         }
 
         p0.image.setOnClickListener {
+
+            CommonWebCalls.callToken(context, "1", "", ActionIdData.C701, ActionIdData.T701)
 
             Utils.setStringValue(context, AppConstants.COURSE_ID, dataList[p1].CourseID.toString())
             Utils.setStringValue(context, "course_name", dataList[p1].CourseName)

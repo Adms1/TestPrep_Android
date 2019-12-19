@@ -12,6 +12,8 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.models.SelectedCheckboxModel
 import com.testcraft.testcraft.sectionmodule.NewQuestionResponse
 import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
+import com.testcraft.testcraft.utils.ActionIdData
+import com.testcraft.testcraft.utils.CommonWebCalls
 
 class SelectImageOptionAdapter(
     val context: Context,
@@ -122,6 +124,14 @@ class SelectImageOptionAdapter(
 
                 cb.setOnCheckedChangeListener { buttonView, isChecked ->
 
+                    CommonWebCalls.callToken(
+                        context,
+                        "1",
+                        "",
+                        ActionIdData.C2006,
+                        ActionIdData.T2006
+                    )
+
                     if (cb.isPressed) {
                         if (isChecked) {
                             if (ansArr.size > 0) {
@@ -166,6 +176,8 @@ class SelectImageOptionAdapter(
         }
 
         p0.opone.setOnCheckedChangeListener { group, checkedId ->
+
+            CommonWebCalls.callToken(context, "1", "", ActionIdData.C2006, ActionIdData.T2006)
 
             //            if(answer == dataList[p1].MultipleChoiceQuestionAnswerID){
 //
@@ -216,7 +228,9 @@ class SelectImageOptionAdapter(
 
         sortArr.sort()
 
-        ansstr = sortArr.toString()
+        ansstr = sortArr.toString().replace("[", "").replace("]", "").replace(" ", "").trim()
+
+        Log.d("multichoiceanswer", "answerrrrrr   " + ansstr)
 
 //        for (i in 0 until sortArr.size) {
 //            if (ansArr[i].selected) {

@@ -141,7 +141,7 @@
                 android:id="@+id/intro_tvVersion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-            android:text="Ver.No 2019121601"
+            android:text="Ver.No 2019121801"
                 android:gravity="center"
                 android:layout_marginRight="@dimen/_5sdp"
                 app:layout_constraintRight_toRightOf="parent"

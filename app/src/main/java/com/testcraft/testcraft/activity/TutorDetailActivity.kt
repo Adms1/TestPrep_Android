@@ -19,10 +19,7 @@ import com.testcraft.testcraft.adapter.TutorsAdapter
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
-import com.testcraft.testcraft.utils.WebRequests
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_tutor_detail.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -66,6 +63,8 @@ class TutorDetailActivity : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C900, ActionIdData.T900)
 
         DashboardActivity.main_header!!.text = DashboardActivity.pname
         DashboardActivity.btnBack!!.visibility = View.VISIBLE
@@ -123,7 +122,11 @@ class TutorDetailActivity : Fragment() {
                 Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
                 Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
 
-                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+//                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+
+                tutor_packages_rvPopularPkg.layoutManager =
+                    LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
 
                 callFilterListApi("", filtypeid)
 
@@ -183,6 +186,14 @@ class TutorDetailActivity : Fragment() {
             }
             "2" -> {
 
+                CommonWebCalls.callToken(
+                    activity!!,
+                    "1",
+                    "",
+                    ActionIdData.C2700,
+                    ActionIdData.T2700
+                )
+
                 rlFilter!!.visibility = View.GONE
                 tutor_detail_ivNoPkg.visibility = View.GONE
 
@@ -218,6 +229,8 @@ class TutorDetailActivity : Fragment() {
 
         ivSort!!.setOnClickListener {
 
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C902, ActionIdData.T902)
+
             isSort = !isSort
 
             if (ptype == "free" || ptype == "pkg" || ptype == "explore" || ptype == "filter") {
@@ -237,6 +250,9 @@ class TutorDetailActivity : Fragment() {
         }
 
         rlFilter!!.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C901, ActionIdData.T901)
+
             val intent = Intent(activity!!, FilterActivity::class.java)
             intent.putExtra("filtertype", ptype)
             intent.putExtra("filtertypeid", filtypeid)
@@ -343,11 +359,11 @@ class TutorDetailActivity : Fragment() {
                             tutor_packages_rvPopularPkg.visibility = View.VISIBLE
                             tutor_detail_ivNoPkg.visibility = View.GONE
 
-                            if (type != "3") {
+                            if (type == "1" || type == "-1") {
                                 pkgAdapter = TestPackagesAdapter(activity!!, data)
                                 tutor_packages_rvPopularPkg.adapter = pkgAdapter
-                            } else {
 
+                            } else {
                                 singleAdapter = MyPackageAdapter(activity!!, data, "market_place")
                                 tutor_packages_rvPopularPkg.adapter = singleAdapter
 

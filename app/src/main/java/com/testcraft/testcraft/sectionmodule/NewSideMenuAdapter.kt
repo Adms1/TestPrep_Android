@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
 import android.widget.ExpandableListView
+import android.widget.ImageView
 import android.widget.TextView
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.interfaces.FilterTypeSelectionInteface
@@ -60,6 +61,7 @@ class NewSideMenuAdapter(
         convertView: View?,
         parent: ViewGroup
     ): View {
+
         val groupTitle = getGroup(groupPosition) as String
 
         var vieww: View? = null
@@ -71,7 +73,10 @@ class NewSideMenuAdapter(
         }
 
         val textViewGroup = vieww!!.findViewById(R.id.queList_tvHeader) as TextView
+        val ivInfo = vieww.findViewById(R.id.queList_ivInfo) as ImageView
+
         textViewGroup.text = groupTitle
+
         val mExpandableListView = parent as ExpandableListView
         mExpandableListView.divider = context.resources.getDrawable(R.color.white)
         mExpandableListView.expandGroup(groupPosition)
@@ -193,7 +198,7 @@ class ImageViewAdapter(
                 )
             )
 
-            Log.d("adapter_que_number", "" + curr_index)
+            Log.d("adapter_que_number", "($grpPos)($curr_index)")
 
             Log.d("itype", "adapter")
 

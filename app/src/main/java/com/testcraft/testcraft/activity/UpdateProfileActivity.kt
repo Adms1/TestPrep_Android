@@ -13,10 +13,7 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
-import com.testcraft.testcraft.utils.WebRequests
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_signup.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,8 +44,6 @@ class UpdateProfileActivity : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
 //    }
 //    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 //        // Inflate the layout for this fragment
@@ -62,6 +57,8 @@ class UpdateProfileActivity : Fragment() {
 //
 //        val heading = activity!!.findViewById(R.id.dashboard_tvTitle) as TextView
 //        heading.text = "Profile"
+
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C3400, ActionIdData.T3400)
 
         userid = Utils.getStringValue(activity!!, AppConstants.USER_ID, "").toString()
         signup_etFname.setText(Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, ""))
@@ -78,6 +75,8 @@ class UpdateProfileActivity : Fragment() {
         signup_btnSignup.text = getString(R.string.update)
 
         signup_btnSignup.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C3401, ActionIdData.T3401)
 
             if (isValid()) {
                 callSignupApi()

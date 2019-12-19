@@ -1,6 +1,7 @@
 package com.testcraft.testcraft.activity
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -17,9 +18,7 @@ import com.testcraft.testcraft.adapter.NewSelectSubjectAdapter
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_prefrence.*
 import kotlinx.android.synthetic.main.fragment_choose_coarse.coarse_rvCoarseList
 import retrofit2.Call
@@ -48,6 +47,14 @@ class PrefrenceActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_prefrence)
+
+        CommonWebCalls.callToken(
+            this@PrefrenceActivity,
+            "1",
+            "",
+            ActionIdData.C700,
+            ActionIdData.T700
+        )
 
         AppConstants.FILTER_STANDARD_ID = "0"
         AppConstants.FILTER_SUBJECT_ID = "0"
@@ -96,6 +103,14 @@ class PrefrenceActivity : AppCompatActivity() {
 
         package_btnNext.setOnClickListener {
 
+            CommonWebCalls.callToken(
+                this@PrefrenceActivity,
+                "1",
+                "",
+                ActionIdData.C704,
+                ActionIdData.T704
+            )
+
             AppConstants.isFirst = 0
             Utils.setStringValue(this@PrefrenceActivity, AppConstants.isPrefrence, "1")
 
@@ -107,9 +122,30 @@ class PrefrenceActivity : AppCompatActivity() {
                         ""
                     ) == "1"
                 ) {
-                    Utils.ping(this@PrefrenceActivity, "Please Select Board")
+//                    Utils.ping(this@PrefrenceActivity, "Please Select Board")
+
+                    DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
+                        "OK",
+                        "Please Select Board",
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            dialog.dismiss()
+
+                        }).show()
+
+
                 } else {
-                    Utils.ping(this@PrefrenceActivity, "Please Select Course")
+//                    Utils.ping(this@PrefrenceActivity, "Please Select Course")
+
+                    DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
+                        "OK",
+                        "Please Select Course",
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            dialog.dismiss()
+
+                        }).show()
+
                 }
 
             } else {
@@ -127,7 +163,17 @@ class PrefrenceActivity : AppCompatActivity() {
                         finish()
 
                     } else {
-                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+//                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+
+                        DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
+                            "OK",
+                            "Please Select Subject",
+                            DialogInterface.OnClickListener { dialog, which ->
+
+                                dialog.dismiss()
+
+                            }).show()
+
                     }
 
                 } else {
@@ -137,7 +183,17 @@ class PrefrenceActivity : AppCompatActivity() {
                             ""
                         ) == "1"
                     ) {
-                        Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+//                        Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+
+                        DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
+                            "OK",
+                            "Please Select Stadard",
+                            DialogInterface.OnClickListener { dialog, which ->
+
+                                dialog.dismiss()
+
+                            }).show()
+
                     }
 //                    else {
 //                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
@@ -148,6 +204,14 @@ class PrefrenceActivity : AppCompatActivity() {
 
         package_btnNextt.setOnClickListener {
 
+            CommonWebCalls.callToken(
+                this@PrefrenceActivity,
+                "1",
+                "",
+                ActionIdData.C704,
+                ActionIdData.T704
+            )
+
             AppConstants.isFirst = 0
             Utils.setStringValue(this@PrefrenceActivity, AppConstants.isPrefrence, "1")
 
@@ -158,9 +222,29 @@ class PrefrenceActivity : AppCompatActivity() {
                         ""
                     ) == "1"
                 ) {
-                    Utils.ping(this@PrefrenceActivity, "Please Select Board")
+//                    Utils.ping(this@PrefrenceActivity, "Please Select Board")
+
+                    DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
+                        "OK",
+                        "Please Select Board",
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            dialog.dismiss()
+
+                        }).show()
+
                 } else {
-                    Utils.ping(this@PrefrenceActivity, "Please Select Course")
+//                    Utils.ping(this@PrefrenceActivity, "Please Select Course")
+
+                    DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
+                        "OK",
+                        "Please Select Course",
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            dialog.dismiss()
+
+                        }).show()
+
                 }
 
             } else {
@@ -175,7 +259,16 @@ class PrefrenceActivity : AppCompatActivity() {
                         startActivity(mIntent)
                         finish()
                     } else {
-                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+//                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+
+                        DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
+                            "OK",
+                            "Please Select Subject",
+                            DialogInterface.OnClickListener { dialog, which ->
+
+                                dialog.dismiss()
+
+                            }).show()
                     }
 
                 } else {
@@ -186,7 +279,17 @@ class PrefrenceActivity : AppCompatActivity() {
                             ""
                         ) == "1"
                     ) {
-                        Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+//                        Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+
+                        DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
+                            "OK",
+                            "Please Select Standard",
+                            DialogInterface.OnClickListener { dialog, which ->
+
+                                dialog.dismiss()
+
+                            }).show()
+
                     } else {
                         val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
                         mIntent.putExtra("subject_id", "")

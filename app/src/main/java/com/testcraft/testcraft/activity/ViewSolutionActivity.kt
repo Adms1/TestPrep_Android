@@ -86,6 +86,8 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
 //        context = activity!!
 
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2400, ActionIdData.T2400)
+
         filterTypeSelectionInteface = this
 
         AppConstants.QUE_NUMBER1 = 0
@@ -120,6 +122,8 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         solution_expQueList.setOnGroupClickListener { parent, v, groupPosition, id ->
 
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2404, ActionIdData.T2404)
+
             val dialog = Dialog(activity)
             dialog.setContentView(R.layout.hint_dialog)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -150,6 +154,9 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
         }
 
         solution_ivReporttxt.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2401, ActionIdData.T2401)
+
             val dialog = Dialog(activity!!)
             dialog.setContentView(R.layout.dialog_report_issue)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -164,6 +171,14 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
             queproblem.setOnClickListener {
 
+                CommonWebCalls.callToken(
+                    activity!!,
+                    "1",
+                    "",
+                    ActionIdData.C2501,
+                    ActionIdData.T2501
+                )
+
                 CommonWebCalls.callReportIssue(
                     activity!!,
                     "1",
@@ -174,6 +189,14 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
             }
 
             ansproblem.setOnClickListener {
+
+                CommonWebCalls.callToken(
+                    activity!!,
+                    "1",
+                    "",
+                    ActionIdData.C2502,
+                    ActionIdData.T2502
+                )
 
                 CommonWebCalls.callReportIssue(
                     activity!!,
@@ -186,6 +209,14 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
             hintexplanation.setOnClickListener {
 
+                CommonWebCalls.callToken(
+                    activity!!,
+                    "1",
+                    "",
+                    ActionIdData.C2503,
+                    ActionIdData.T2503
+                )
+
                 CommonWebCalls.callReportIssue(
                     activity!!,
                     "4",
@@ -196,6 +227,15 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
             }
 
             close.setOnClickListener {
+
+                CommonWebCalls.callToken(
+                    activity!!,
+                    "1",
+                    "",
+                    ActionIdData.C2504,
+                    ActionIdData.T2504
+                )
+
                 dialog.dismiss()
             }
 
@@ -207,6 +247,8 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
         }
 
         solution_btnNext.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2402, ActionIdData.T2402)
 
             getNextQuestion1()
 
@@ -659,6 +701,17 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         if (curr_index1 <= finalArr1[sectionList!![solution_grppos1]]!!.size - 1) {
             curr_index1 += 1
+        } else {
+            if ((finalArr1.size - 1) > solution_grppos1) {
+
+                if (finalArr1[sectionList!![solution_grppos1]]!!.size == curr_index1) {
+                    solution_grppos1 += 1
+                    curr_index1 = 0
+                    finalArr1[sectionList!![solution_grppos1]]!![curr_index1].type = 1
+
+                }
+
+            }
         }
 
 //                if ((finalArr1.size - 1) == solution_grppos1) {
@@ -666,17 +719,6 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 //                        solution_btnNext.text = "Submit Test"
 //                    }
 //                }
-
-        if ((finalArr1.size - 1) > solution_grppos1) {
-
-            if (finalArr1[sectionList!![solution_grppos1]]!!.size == curr_index1) {
-                solution_grppos1 += 1
-                curr_index1 = 0
-                finalArr1[sectionList!![solution_grppos1]]!![curr_index1].type = 1
-
-            }
-
-        }
 
         getType("solution", solution_grppos1, curr_index1)
     }

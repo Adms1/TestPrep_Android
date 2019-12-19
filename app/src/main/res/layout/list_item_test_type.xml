@@ -11,7 +11,7 @@
         android:gravity="center"
         android:paddingTop="@dimen/_5sdp"
         android:paddingBottom="@dimen/_5sdp"
-        android:text=""
+        android:text="\u2022 "
         android:textSize="@dimen/_13sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

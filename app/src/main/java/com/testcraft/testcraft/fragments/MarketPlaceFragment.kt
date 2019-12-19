@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Html
@@ -14,7 +13,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
@@ -33,10 +31,7 @@ import com.testcraft.testcraft.models.GetMarketPlaceData
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
-import com.testcraft.testcraft.utils.WebRequests
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.fragment_market_place.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -58,7 +53,7 @@ class MarketPlaceFragment : Fragment() {
     private var mDataList: ArrayList<PackageData.PackageDataList>? = ArrayList()
     private var tutorList: ArrayList<PackageData.PackageDataList>? = ArrayList()
 
-    private var myViewPagerAdapter: MyViewPagerAdapter? = null
+    //    private var myViewPagerAdapter: MyViewPagerAdapter? = null
     private var layouts: IntArray? = null
 
     internal var lblSelectedIndex: TextView? = null
@@ -91,6 +86,8 @@ class MarketPlaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C800, ActionIdData.T800)
 
         rlFilter!!.visibility = View.GONE
 
@@ -137,7 +134,42 @@ class MarketPlaceFragment : Fragment() {
         AppConstants.FILTER_FROM_PRICE = "0"
         AppConstants.FILTER_TO_PRICE = "5000"
 
+        mp_view_pager.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C801, ActionIdData.T801)
+
+            AppConstants.isFirst = 13
+            val bundle = Bundle()
+            bundle.putString("type", "free")
+            bundle.putString("pname1", "Packages")
+            bundle.putString("filtertypeid", "0")
+            bundle.putString(
+                "boardid",
+                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!
+            )
+            bundle.putString(
+                "course_type",
+                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1")
+            )
+            bundle.putString(
+                "stdid",
+                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!
+            )
+            bundle.putString(
+                "subid",
+                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!
+            )
+            bundle.putString("tutorid", "")
+            bundle.putString("maxprice", "")
+            bundle.putString("minprice", "")
+            bundle.putString("search_name", "")
+            setFragments(bundle)
+
+        }
+
         main_freetest_item_tvSeeall.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C802, ActionIdData.T802)
 
             AppConstants.isFirst = 13
             val bundle = Bundle()
@@ -170,6 +202,8 @@ class MarketPlaceFragment : Fragment() {
 
         main_pkg_item_tvSeeall.setOnClickListener {
 
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C804, ActionIdData.T804)
+
             AppConstants.isFirst = 13
             val bundle = Bundle()
             bundle.putString("type", "pkg")
@@ -200,6 +234,9 @@ class MarketPlaceFragment : Fragment() {
         }
 
         main_pkg_item_tvTSeeall.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C807, ActionIdData.T807)
+
             AppConstants.isFirst = 13
             val bundle = Bundle()
             bundle.putString("type", "tutor")
@@ -221,6 +258,9 @@ class MarketPlaceFragment : Fragment() {
         }
 
         main_pkg_item_tvSSeeall.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C809, ActionIdData.T809)
+
             AppConstants.isFirst = 13
             val bundle = Bundle()
             bundle.putString("type", "single")
@@ -249,7 +289,8 @@ class MarketPlaceFragment : Fragment() {
             setFragments(bundle)
         }
 
-        mp_view_pager!!.addOnPageChangeListener(introViewPagerListener)
+//        mp_view_pager!!.addOnPageChangeListener(introViewPagerListener)
+
 //        //new carousel library
         carousel = view.findViewById(R.id.carousel) as CarouselView1
 ////        val rootView = layoutInflater.inflate(R.layout.fragment_main, vg, false) as View
@@ -504,6 +545,8 @@ class MarketPlaceFragment : Fragment() {
 
             holder.title.setOnClickListener {
 
+                CommonWebCalls.callToken(context, "1", "", ActionIdData.C806, ActionIdData.T806)
+
                 AppConstants.isFirst = 15
                 var bundle: Bundle = Bundle()
                 bundle.putString("tutor_id", mDataList[position].TutorID)
@@ -529,78 +572,132 @@ class MarketPlaceFragment : Fragment() {
 
     }
 
-    private var introViewPagerListener: ViewPager.OnPageChangeListener =
-        object : ViewPager.OnPageChangeListener {
-
-            override fun onPageSelected(position: Int) {
-//            addBottomDots(position)
-                /*Based on the page position change the button text*/
-
-            }
-
-            override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
-                //Do nothing for now
-            }
-
-            override fun onPageScrollStateChanged(arg0: Int) {
-                //Do nothing for now
-            }
-        }
-
-    inner class MyViewPagerAdapter(var arrList: ArrayList<PackageData.PackageDataList>) :
-        PagerAdapter() {
-        override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            val layoutInflater: LayoutInflater = LayoutInflater.from(activity)
-            val view = layoutInflater.inflate(R.layout.slider_item_layout, container, false)
-
-            var iv: ImageView = view.findViewById(R.id.imageView)
-//            var tv: TextView = view.findViewById(R.id.testName)
-            var btn: Button = view.findViewById(R.id.btnBuy)
-
-            iv.setOnClickListener {
-
-                //                AppConstants.isBackFirst = 0
-
-                AppConstants.isFirst = 14
-                val bundle = Bundle()
-                bundle.putString("pkgid", arrList[position].TestPackageID)
-                bundle.putString("come_from", "selectpackage")
-                setFragments(bundle)
-
-//                val intent = Intent(context, PackageDetailActivity::class.java)
-//                intent.putExtra("pkgid", arrList[position].TestPackageID)
-//                intent.putExtra("tutor_id", arrList[position].TutorID)
-//                intent.putExtra("come_from", "selectpackage")
-//                context!!.startActivity(intent)
-
-//                callAddTestPackageApi(arrList[position].TestPackageID)
-            }
-
-            iv.setImageResource(R.drawable.free_test)
-//            tv.text = arrList[position].TestPackageName
-
-            container.addView(view)
-            return view
-        }
-
-        override fun getCount(): Int {
-            return arrList.size
-        }
-
-        override fun isViewFromObject(view: View, obj: Any): Boolean {
-            return view === obj
-        }
-
-        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-            val view = `object` as View
-            container.removeView(view)
-        }
-
-//        override fun getPageWidth(position: Int): Float {
-//            return 0.6f
+//    private var introViewPagerListener: ViewPager.OnPageChangeListener =
+//        object : ViewPager.OnPageChangeListener {
+//
+//            override fun onPageSelected(position: Int) {
+////            addBottomDots(position)
+//                /*Based on the page position change the button text*/
+//
+//                AppConstants.isFirst = 13
+//                val bundle = Bundle()
+//                bundle.putString("type", "free")
+//                bundle.putString("pname1", "Packages")
+//                bundle.putString("filtertypeid", "0")
+//                bundle.putString(
+//                    "boardid",
+//                    Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!
+//                )
+//                bundle.putString(
+//                    "course_type",
+//                    Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1")
+//                )
+//                bundle.putString(
+//                    "stdid",
+//                    Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!
+//                )
+//                bundle.putString(
+//                    "subid",
+//                    Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!
+//                )
+//                bundle.putString("tutorid", "")
+//                bundle.putString("maxprice", "")
+//                bundle.putString("minprice", "")
+//                bundle.putString("search_name", "")
+//                setFragments(bundle)
+//
+//            }
+//
+//            override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
+//                //Do nothing for now
+//            }
+//
+//            override fun onPageScrollStateChanged(arg0: Int) {
+//                //Do nothing for now
+//            }
 //        }
 
-    }
+//    inner class MyViewPagerAdapter(var arrList: ArrayList<PackageData.PackageDataList>) :
+//        PagerAdapter() {
+//        override fun instantiateItem(container: ViewGroup, position: Int): Any {
+//            val layoutInflater: LayoutInflater = LayoutInflater.from(activity)
+//            val view = layoutInflater.inflate(R.layout.slider_item_layout, container, false)
+//
+//            var iv: ImageView = view.findViewById(R.id.imageView)
+////            var tv: TextView = view.findViewById(R.id.testName)
+//            var btn: Button = view.findViewById(R.id.btnBuy)
+//
+//            iv.setOnClickListener {
+//
+//                //                AppConstants.isBackFirst = 0
+//
+////                AppConstants.isFirst = 14
+////                val bundle = Bundle()
+////                bundle.putString("pkgid", arrList[position].TestPackageID)
+////                bundle.putString("come_from", "selectpackage")
+////                setFragments(bundle)
+//
+//                AppConstants.isFirst = 13
+//                val bundle = Bundle()
+//                bundle.putString("type", "free")
+//                bundle.putString("pname1", "Packages")
+//                bundle.putString("filtertypeid", "0")
+//                bundle.putString(
+//                    "boardid",
+//                    Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!
+//                )
+//                bundle.putString(
+//                    "course_type",
+//                    Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "1")
+//                )
+//                bundle.putString(
+//                    "stdid",
+//                    Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")!!
+//                )
+//                bundle.putString(
+//                    "subid",
+//                    Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "0")!!
+//                )
+//                bundle.putString("tutorid", "")
+//                bundle.putString("maxprice", "")
+//                bundle.putString("minprice", "")
+//                bundle.putString("search_name", "")
+//                setFragments(bundle)
+//
+////                val intent = Intent(context, PackageDetailActivity::class.java)
+////                intent.putExtra("pkgid", arrList[position].TestPackageID)
+////                intent.putExtra("tutor_id", arrList[position].TutorID)
+////                intent.putExtra("come_from", "selectpackage")
+////                context!!.startActivity(intent)
+//
+////                callAddTestPackageApi(arrList[position].TestPackageID)
+//            }
+//
+//            iv.setImageResource(R.drawable.free_test)
+////            tv.text = arrList[position].TestPackageName
+//
+//            container.addView(view)
+//            return view
+//        }
+//
+//        override fun getCount(): Int {
+//            return arrList.size
+//        }
+//
+//        override fun isViewFromObject(view: View, obj: Any): Boolean {
+//            return view === obj
+//        }
+//
+//        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+//            val view = `object` as View
+//            container.removeView(view)
+//        }
+//
+////        override fun getPageWidth(position: Int): Float {
+////            return 0.6f
+////        }
+//
+//    }
 
     fun callFilterListApi() {
 
@@ -685,8 +782,8 @@ class MarketPlaceFragment : Fragment() {
                             mp_view_pager.visibility = View.VISIBLE
                             main_freetest_item_tvSeeall.visibility = View.VISIBLE
 
-                            myViewPagerAdapter = MyViewPagerAdapter(freeTestList)
-                            mp_view_pager!!.adapter = myViewPagerAdapter
+//                            myViewPagerAdapter = MyViewPagerAdapter(freeTestList)
+//                            mp_view_pager!!.adapter = myViewPagerAdapter
 
                         } else {
                             mp_view_pager.visibility = View.GONE
@@ -733,239 +830,6 @@ class MarketPlaceFragment : Fragment() {
                 DialogUtils.dismissDialog()
             }
         })
-    }
-
-//    fun callFilterListApi() {
-//
-//        if (!DialogUtils.isNetworkConnected(activity!!)) {
-//            Utils.ping(activity!!, "Connetion not available")
-//        }
-//
-//        DialogUtils.showDialog(activity!!)
-//        val apiService = WebClient.getClient().create(WebInterface::class.java)
-//
-//        val call = apiService.getFilterData(
-//            WebRequests.getFilterParams(
-//                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
-//                "",
-//                Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!,
-//                Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!,
-//                Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!,
-//                Utils.getStringValue(activity!!, AppConstants.TUTOR_ID, "")!!,
-//                "",
-//                ""
-//            )
-//        )
-//
-////        val call = apiService.getFilterData(
-////            WebRequests.getFilterParams(
-////                Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "")!!,
-////                "",
-////                examids,
-////                stdids,
-////                subids,
-////                tutorids,
-////                "",
-////                ""
-////            )
-////        )
-//
-//        call.enqueue(object : Callback<PackageData> {
-//            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
-//
-//                if (response.body() != null) {
-//
-//                    DialogUtils.dismissDialog()
-//
-//                    if (response.body()!!.Status == "true") {
-//
-//                        mDataList = ArrayList()
-//                        mDataList = response.body()!!.data
-//
-//                        Log.d("dsize", "" + mDataList!!.size)
-//
-////                        mAdapter!!.setData(mDataList!!)
-////                        coverflow.adapter = mAdapter
-//
-//                        carousel!!.adapter = PkgPageAdapter(5, 330, 160, activity!!, mDataList!!)
-//
-//                    } else {
-//
-//                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<PackageData>, t: Throwable) {
-//                // Log error here since request failed
-//                Log.e("", t.toString())
-//                DialogUtils.dismissDialog()
-//            }
-//        })
-//    }
-
-//    fun callTutorsListApi() {
-//
-//        if (!DialogUtils.isNetworkConnected(activity!!)) {
-//            Utils.ping(activity!!, "Connetion not available")
-//        }
-//
-//        DialogUtils.showDialog(activity!!)
-//        val apiService = WebClient.getClient().create(WebInterface::class.java)
-//
-//        val call = apiService.getTutorList()
-//
-//        call.enqueue(object : Callback<PackageData> {
-//            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
-//
-//                if (response.body() != null) {
-//
-//                    DialogUtils.dismissDialog()
-//
-//                    if (response.body()!!.Status == "true") {
-//
-//                        tutorList = ArrayList()
-//                        tutorList = response.body()!!.data
-//
-//                        Log.d("dsize", "" + tutorList!!.size)
-//                        carousel1!!.adapter = TutorPageAdapter(5, 330, 160, activity!!, tutorList!!)
-////                        mAdapterr!!.setDataa(tutorList!!)
-////                        tutorcoverflow.adapter = mAdapterr
-//
-//                    } else {
-//
-//                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<PackageData>, t: Throwable) {
-//                // Log error here since request failed
-//                Log.e("", t.toString())
-//                DialogUtils.dismissDialog()
-//            }
-//        })
-//    }
-
-    class MarketPlacePkgAdapter(
-        val context: Context,
-        val dataList: ArrayList<PackageData.PackageDataList>
-    ) :
-        RecyclerView.Adapter<MarketPlacePkgAdapter.viewholder>() {
-
-        var row_index = -1
-
-        override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
-
-            val view = LayoutInflater.from(p0.context)
-                .inflate(R.layout.marketplace_pkg_list_item, p0, false)
-//            val width = rv!!.width
-//            val params = view.layoutParams
-//            params.width = (width * 0.9).toInt()
-//            view.layoutParams = params
-            return viewholder(view)
-
-//            return viewholder(
-
-
-//            LayoutInflater.from(context).inflate(R.layout.list_item_test_package, p0, false)
-//                LayoutInflater.from(context).inflate(R.layout.marketplace_pkg_list_item, p0, false)
-//            )
-        }
-
-        override fun getItemCount(): Int {
-            return dataList.size
-
-        }
-
-        override fun onBindViewHolder(p0: viewholder, p1: Int) {
-
-            if (dataList != null && dataList.size > 0) {
-                p0.std.text = dataList[p1].TestPackageName
-                p0.sub.text = dataList[p1].SubjectName
-                p0.price.text = "Created by " + dataList[p1].TutorName
-
-                if (dataList[p1].Icon != null) {
-                    Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon)
-                        .into(p0.image)
-                }
-
-//        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))
-
-//            if (dataList[p1].InstituteName != "" && dataList[p1].InstituteName != null) {
-//                p0.createdby.text =
-//                    Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + dataList[p1].InstituteName + "</font>")
-//            } else {
-//                p0.createdby.text =
-//                    Html.fromHtml("created by " + "<font color=\"#3ea7e0\">" + dataList[p1].TutorName + "</font>")
-//            }
-//        p0.stitle.text = dataList[p1].TestPackageName
-
-//                p0.tvBuy.setOnClickListener {
-
-                //                val intent = Intent(context, PackageDetailActivity::class.java)
-//                intent.putExtra("pkgid", dataList[p1].TestPackageID)
-//                intent.putExtra("pname", dataList[p1].TestPackageName)
-//                intent.putExtra("sprice", dataList[p1].TestPackageSalePrice)
-//                intent.putExtra("lprice", dataList[p1].TestPackageListPrice)
-//                intent.putExtra("desc", dataList[p1].TestPackageDescription)
-//                intent.putExtra("test_type_list", dataList[p1].TestType)
-//                intent.putExtra("come_from", "selectpackage")
-//                intent.putExtra("position", dataList[p1].TestPackageName.substring(0, 1).single())
-//                context.startActivity(intent)
-
-//                    DialogUtils.createConfirmDialog(
-//                        context,
-//                        "",
-//                        "Are you sure you want to buy this package?",
-//                        "Yes",
-//                        "No",
-//                        DialogInterface.OnClickListener { dialog, which ->
-//                            callAddTestPackageApi(dataList[p1].TestPackageID)
-//
-//                        },
-//                        DialogInterface.OnClickListener { dialog, which ->
-//                            dialog.dismiss()
-//
-//
-//                        }).show()
-//
-//                }
-
-                p0.mainll.setOnClickListener {
-
-                    //                    AppConstants.isBackFirst = 0
-
-                    AppConstants.isFirst = 14
-                    val bundle = Bundle()
-                    bundle.putString("pkgid", dataList[p1].TestPackageID)
-                    bundle.putString("come_from", "selectpackage")
-                    setFragments(bundle)
-
-//                    val intent = Intent(context, PackageDetailActivity::class.java)
-//                    intent.putExtra("pkgid", dataList[p1].TestPackageID)
-//                    intent.putExtra("tutor_id", dataList[p1].TutorID)
-//                    intent.putExtra("come_from", "selectpackage")
-//                    context.startActivity(intent)
-                }
-            }
-        }
-
-        class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-            var image: ImageView = itemView.findViewById(R.id.package_item_ivImage)
-//        var title: TextView = itemView.findViewById(R.id.package_name)
-//        var stitle: TextView = itemView.findViewById(R.id.package_name_short)
-//        var p_select: ImageView = itemView.findViewById(R.id.package_select)
-
-            var std: TextView = itemView.findViewById(R.id.package_item_tvStd)
-            var sub: TextView = itemView.findViewById(R.id.package_item_tvSub)
-            var price: TextView = itemView.findViewById(R.id.package_item_tvPrice)
-            var mainll: ConstraintLayout = itemView.findViewById(R.id.mall)
-//            var tvBuy: ImageView = itemView.findViewById(R.id.package_item_ivCart)
-//        var createdby: TextView = itemView.findViewById(R.id.testpkg_item_tvCreated)
-        }
-
     }
 
     //new market place
@@ -1053,6 +917,15 @@ class MarketPlaceFragment : Fragment() {
                 }
 
                 created.setOnClickListener {
+
+                    CommonWebCalls.callToken(
+                        activity!!,
+                        "1",
+                        "",
+                        ActionIdData.C805,
+                        ActionIdData.T805
+                    )
+
                     AppConstants.isFirst = 15
                     val bundle = Bundle()
                     bundle.putString("tutor_id", arrList[position].TutorID)
@@ -1061,6 +934,14 @@ class MarketPlaceFragment : Fragment() {
                 }
 
                 mainll1.setOnClickListener {
+
+                    CommonWebCalls.callToken(
+                        activity!!,
+                        "1",
+                        "",
+                        ActionIdData.C803,
+                        ActionIdData.T803
+                    )
 
                     //                    AppConstants.isBackFirst = 0
 
@@ -1078,6 +959,14 @@ class MarketPlaceFragment : Fragment() {
                 }
 
                 mainll.setOnClickListener {
+
+                    CommonWebCalls.callToken(
+                        activity!!,
+                        "1",
+                        "",
+                        ActionIdData.C803,
+                        ActionIdData.T803
+                    )
 
                     //                    AppConstants.isBackFirst = 0
 
@@ -1117,32 +1006,5 @@ class MarketPlaceFragment : Fragment() {
 //        }
 
     }
-
-//    private class AsyncCaller(imv: ImageView, url: String): AsyncTask<Object, Void, Bitmap>() {
-//
-//        var imv: ImageView = imv
-//        var path: String = url
-//
-//        override fun doInBackground(vararg params: Object?): Bitmap {
-//            var image1: Bitmap? = null
-//
-//            try {
-//                val url = URL(AppConstants.IMAGE_BASE_URL + path)
-//                image1 = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-//
-//            } catch (e: IOException) {
-//                println(e)
-//            }
-//
-//            return image1!!
-//        }
-//
-//        override fun onPostExecute(result: Bitmap?) {
-//
-//            if(result != null){
-//                BlurImage.with(getApplicationContext()).load(result).intensity(20F).Async(true).into(imv)
-//            }
-//        }
-//    }
 
 }

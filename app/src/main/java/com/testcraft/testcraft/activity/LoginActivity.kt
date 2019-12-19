@@ -18,10 +18,7 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
-import com.testcraft.testcraft.utils.WebRequests
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,12 +41,28 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login)
 
+        CommonWebCalls.callToken(
+            this@LoginActivity,
+            "1",
+            "",
+            ActionIdData.C3800,
+            ActionIdData.T3800
+        )
+
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
             login_btnSignup.text = "DON\'T HAVE AN ACCOUNT? SIGN UP"
         }
 
 
         login_btnSignup.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@LoginActivity,
+                "1",
+                "",
+                ActionIdData.C3802,
+                ActionIdData.T3802
+            )
 
             val intent = Intent(this@LoginActivity, SignupActivity::class.java)
             intent.putExtra("comefrom", "login")
@@ -60,12 +73,28 @@ class LoginActivity : AppCompatActivity() {
 
         login_btnLogin.setOnClickListener {
 
+            CommonWebCalls.callToken(
+                this@LoginActivity,
+                "1",
+                "",
+                ActionIdData.C3803,
+                ActionIdData.T3803
+            )
+
             if (isValid()) {
                 callLoginApi()
             }
         }
 
         login_tvForgotPass.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@LoginActivity,
+                "1",
+                "",
+                ActionIdData.C3801,
+                ActionIdData.T3801
+            )
 
             val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
             startActivity(intent)
@@ -77,6 +106,15 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
                 if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+
+                    CommonWebCalls.callToken(
+                        this@LoginActivity,
+                        "1",
+                        "",
+                        ActionIdData.C3803,
+                        ActionIdData.T3803
+                    )
+
                     if (isValid()) {
                         callLoginApi()
                     }

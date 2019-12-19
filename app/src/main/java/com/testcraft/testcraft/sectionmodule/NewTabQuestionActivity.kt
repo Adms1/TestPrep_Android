@@ -106,8 +106,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         testtime = intent.getStringExtra("testtime")
         studenttestid = intent.getStringExtra("studenttestid")
 
-        queTab_header.text = intent.getStringExtra("testname")
-
         testname = intent.getStringExtra("testname")
         testque = intent.getStringExtra("totalque")
         testsubject = intent.getStringExtra("subjectname")
@@ -116,6 +114,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         testtutor = intent.getStringExtra("tutorname")
         total_hint = intent.getStringExtra("totalhint")
         total_hint_used = intent.getStringExtra("totalhintused")
+
+        queTab_header.text = testname
 
         if (total_hint_used != "0" && total_hint_used != "") {
             hintCount = total_hint_used.toInt()
@@ -155,6 +155,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         var isshow = false
         queTab_expQueList.setOnGroupClickListener { parent, v, groupPosition, id ->
+
+            CommonWebCalls.callToken(
+                this@NewTabQuestionActivity,
+                "1",
+                "",
+                ActionIdData.C2009,
+                ActionIdData.T2009
+            )
 
             val dialog = Dialog(this@NewTabQuestionActivity)
 
@@ -214,6 +222,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         queTab_tvFillBlanks.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
+
+                CommonWebCalls.callToken(
+                    this@NewTabQuestionActivity,
+                    "1",
+                    "",
+                    ActionIdData.C2006,
+                    ActionIdData.T2006
+                )
 
                 if (nextButton!!.text != "Submit Test") {
 
@@ -1007,7 +1023,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     q_grppos1 += 1
                                     curr_index = 0
                                     p1 = 0
-                                    finalArr[sectionList!![q_grppos1]]!![p1].type = 1
+                                    finalArr[sectionList!![q_grppos1]]!![p1].type = 5
                                 }
 
                                 if (nextButton!!.text != "Submit Test") {
@@ -1745,6 +1761,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         queTab_ivReview.setOnCheckedChangeListener { buttonView, isChecked ->
 
+            CommonWebCalls.callToken(
+                this@NewTabQuestionActivity,
+                "1",
+                "",
+                ActionIdData.C2004,
+                ActionIdData.T2004
+            )
+
             if (queTab_ivReview.isPressed) {
                 if (finalArr.size > 0 && movies.size > 0) {
                     if (isChecked) {
@@ -1802,6 +1826,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         queTab_rbTrue.setOnCheckedChangeListener { buttonView, isChecked ->
 
+            CommonWebCalls.callToken(
+                this@NewTabQuestionActivity,
+                "1",
+                "",
+                ActionIdData.C2006,
+                ActionIdData.T2006
+            )
+
             if (isChecked) {
                 queTab_rbTrue.isChecked = true
                 queTab_rbFalse.isChecked = false
@@ -1813,6 +1845,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
 
         queTab_rbFalse.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            CommonWebCalls.callToken(
+                this@NewTabQuestionActivity,
+                "1",
+                "",
+                ActionIdData.C2006,
+                ActionIdData.T2006
+            )
 
             if (isChecked) {
                 queTab_rbTrue.isChecked = false
@@ -1891,6 +1931,15 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
 
         queTab_ivReporttxt.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@NewTabQuestionActivity,
+                "1",
+                "",
+                ActionIdData.C2005,
+                ActionIdData.T2005
+            )
+
             reportdialog = Dialog(this@NewTabQuestionActivity)
             reportdialog!!.setContentView(R.layout.dialog_report_issue)
             reportdialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -1906,6 +1955,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             queproblem.setOnClickListener {
 
+                CommonWebCalls.callToken(
+                    this@NewTabQuestionActivity,
+                    "1",
+                    "",
+                    ActionIdData.C2101,
+                    ActionIdData.T2101
+                )
+
                 CommonWebCalls.callReportIssue(
                     this@NewTabQuestionActivity,
                     "1",
@@ -1917,6 +1974,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
 
             ansproblem.setOnClickListener {
+
+                CommonWebCalls.callToken(
+                    this@NewTabQuestionActivity,
+                    "1",
+                    "",
+                    ActionIdData.C2102,
+                    ActionIdData.T2102
+                )
 
                 CommonWebCalls.callReportIssue(
                     this@NewTabQuestionActivity,
@@ -1930,6 +1995,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             hintexplanation.setOnClickListener {
 
+                CommonWebCalls.callToken(
+                    this@NewTabQuestionActivity,
+                    "1",
+                    "",
+                    ActionIdData.C2103,
+                    ActionIdData.T2103
+                )
+
                 CommonWebCalls.callReportIssue(
                     this@NewTabQuestionActivity,
                     "3",
@@ -1941,6 +2014,15 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
 
             close.setOnClickListener {
+
+                CommonWebCalls.callToken(
+                    this@NewTabQuestionActivity,
+                    "1",
+                    "",
+                    ActionIdData.C2104,
+                    ActionIdData.T2104
+                )
+
                 reportdialog!!.dismiss()
             }
 
@@ -1948,6 +2030,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
 
         queTab_ivInfo.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@NewTabQuestionActivity,
+                "1",
+                "",
+                ActionIdData.C2002,
+                ActionIdData.T2002
+            )
 
             val dialog = Dialog(this@NewTabQuestionActivity)
             dialog.setContentView(R.layout.dialog_question_information)
@@ -1979,6 +2069,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
 
         queTab_ivSubmit.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@NewTabQuestionActivity,
+                "1",
+                "",
+                ActionIdData.C2003,
+                ActionIdData.T2003
+            )
 
             if (reportdialog != null && reportdialog!!.isShowing) {
                 reportdialog!!.dismiss()
@@ -2061,6 +2159,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         when {
             nextButton!!.text == "Next" -> {
 
+                CommonWebCalls.callToken(
+                    this@NewTabQuestionActivity,
+                    "1",
+                    "",
+                    ActionIdData.C2007,
+                    ActionIdData.T2007
+                )
+
                 que_number += 1
 
                 continuetime = 0
@@ -2084,6 +2190,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
             nextButton!!.text == "Skip" -> {
 
+                CommonWebCalls.callToken(
+                    this@NewTabQuestionActivity,
+                    "1",
+                    "",
+                    ActionIdData.C2007,
+                    ActionIdData.T2007
+                )
+
                 continuetime = 0
 
                 que_number += 1
@@ -2106,6 +2220,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
 
             nextButton!!.text == "Submit Test" -> {
+
+                CommonWebCalls.callToken(
+                    this@NewTabQuestionActivity,
+                    "1",
+                    "",
+                    ActionIdData.C2010,
+                    ActionIdData.T2010
+                )
 
 //                DialogUtils.createConfirmDialog(
 //                    this@NewTabQuestionActivity,
@@ -2176,7 +2298,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
         }
     }
-
 
     fun callInsertHint() {
 
@@ -2252,6 +2373,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     }
 
     fun OpenAttemptDialog() {
+
+        CommonWebCalls.callToken(
+            this@NewTabQuestionActivity,
+            "1",
+            "",
+            ActionIdData.C2200,
+            ActionIdData.T2200
+        )
 
         val dialog = Dialog(this@NewTabQuestionActivity)
         dialog.setContentView(R.layout.dialog_que_attempt_report)

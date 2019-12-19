@@ -10,7 +10,9 @@ import com.testcraft.testcraft.adapter.FilterListAdapter
 import com.testcraft.testcraft.fragments.OtherFilterFragment
 import com.testcraft.testcraft.interfaces.FilterTypeSelectionInteface
 import com.testcraft.testcraft.models.PackageData
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.Utils
 import kotlinx.android.synthetic.main.activity_filter.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
@@ -34,6 +36,14 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_filter)
+
+        CommonWebCalls.callToken(
+            this@FilterActivity,
+            "1",
+            "",
+            ActionIdData.C1000,
+            ActionIdData.T1000
+        )
 
         filterTypeSelectionInteface = this
 

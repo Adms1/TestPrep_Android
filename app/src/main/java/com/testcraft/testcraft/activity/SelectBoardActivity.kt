@@ -17,7 +17,6 @@ import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
 import kotlinx.android.synthetic.main.activity_course_type.*
-import kotlinx.android.synthetic.main.fragment_choose_coarse.coarse_rvCoarseList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

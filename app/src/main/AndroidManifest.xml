@@ -50,9 +50,7 @@
         <activity
             android:name=".activity.FilterActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.MarketPlaceListActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".fragments.TutorPackagesFragment"
             android:screenOrientation="portrait" />
@@ -62,9 +60,7 @@
         <activity
             android:name=".fragments.TutorsReviewFragment"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.SelectCompititiveActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.IntroActivity"
             android:screenOrientation="portrait" />
@@ -82,7 +78,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PaymentSuccessScreen"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.TraknpayRequestActivity"
             android:screenOrientation="portrait" /> <!-- <activity android:name=".activity.TabwiseQuestionActivity" android:screenOrientation="portrait"/> -->
@@ -126,15 +123,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".old.WebviewPageActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".old.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" /> <!-- <intent-filter> -->
+
         <activity
             android:name=".activity.CoinActivity"
             android:screenOrientation="portrait"

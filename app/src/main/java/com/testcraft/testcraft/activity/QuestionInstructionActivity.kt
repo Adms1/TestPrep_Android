@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
+import com.testcraft.testcraft.utils.ActionIdData
+import com.testcraft.testcraft.utils.CommonWebCalls
 import kotlinx.android.synthetic.main.activity_question_instruction.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -36,6 +38,14 @@ class QuestionInstructionActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_question_instruction)
+
+        CommonWebCalls.callToken(
+            this@QuestionInstructionActivity,
+            "1",
+            "",
+            ActionIdData.C2001,
+            ActionIdData.T2001
+        )
 
         testid = intent.getStringExtra("testid")
         studenttestid = intent.getStringExtra("studenttestid")
@@ -90,6 +100,15 @@ class QuestionInstructionActivity : AppCompatActivity() {
         queinstruction_ivBack.setOnClickListener { onBackPressed() }
 
         queinstruction_btnStart.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                this@QuestionInstructionActivity,
+                "1",
+                "",
+                ActionIdData.C2000,
+                ActionIdData.T2000
+            )
+
             val intent =
                 Intent(this@QuestionInstructionActivity, NewTabQuestionActivity::class.java)
             intent.putExtra("testid", testid)

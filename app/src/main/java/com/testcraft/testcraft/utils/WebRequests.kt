@@ -4,6 +4,23 @@ class WebRequests {
 
     companion object{
 
+        fun getAction(
+            type: String,
+            gameid: String,
+            tokenid: String,
+            actionid: String,
+            commemt: String
+        ): HashMap<String, String> {
+            val hashmap: HashMap<String, String> = HashMap()
+            hashmap["Type"] = type
+            hashmap["gameid"] = gameid
+            hashmap["gamesessionid"] = tokenid
+            hashmap["actionid"] = actionid
+            hashmap["comment"] = commemt
+
+            return hashmap
+        }
+
         fun addSignupParams(
             accounttype: String,
             id: String,

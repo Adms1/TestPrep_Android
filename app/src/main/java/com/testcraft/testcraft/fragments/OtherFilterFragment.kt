@@ -1,6 +1,5 @@
 package com.testcraft.testcraft.fragments
 
-
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -24,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_other_filter.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -395,7 +393,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                     } else {
 
-                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Please Select Board", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -468,7 +466,14 @@ class OtherFilterFragment : Fragment(), filterInterface {
                     } else {
 
                         AppConstants.FILTER_SUBJECT_ID = ""
-                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+
+                        if (AppConstants.FILTER_BOARD_ID == "" && AppConstants.FILTER_BOARD_ID == "0") {
+                            Toast.makeText(activity, "Please select Board", Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
+                            Toast.makeText(activity, "Please select standard", Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     }
                 }
             }

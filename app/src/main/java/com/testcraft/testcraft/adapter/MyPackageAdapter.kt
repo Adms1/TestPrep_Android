@@ -13,7 +13,9 @@ import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.models.PackageData
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 
 class MyPackageAdapter(
     val context: Context,
@@ -35,23 +37,12 @@ class MyPackageAdapter(
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
         p0.name.text = dataList[p1].TestPackageName
+        p0.tutor.text = "By " + dataList[p1].TutorName
 
         if (dataList[p1].NumberOfComletedTest == dataList[p1].NumberOfTest) {
             p0.ivComplete.visibility = View.VISIBLE
         } else {
             p0.ivComplete.visibility = View.GONE
-        }
-
-        if (dataList[p1].NumberOfTest == "1") {
-
-            p0.test.text =
-                dataList[p1].NumberOfComletedTest + "/" + dataList[p1].NumberOfTest + " Test"
-
-        } else {
-
-            p0.test.text =
-                dataList[p1].NumberOfComletedTest + "/" + dataList[p1].NumberOfTest + " Tests"
-
         }
 
         Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
@@ -60,17 +51,28 @@ class MyPackageAdapter(
 
             p0.price.text = dataList[p1].TestPackageSalePrice
 
-            p0.sdate.text = dataList[p1].SubjectName
-            p0.tutor.text = "By " + dataList[p1].TutorName
+            p0.subject.text = dataList[p1].SubjectName
+
             p0.test.visibility = View.GONE
-            p0.tutor.visibility = View.VISIBLE
 
         } else if (come_from == "my_pkgs") {
 
-            p0.price.text = ""
-            p0.tutor.visibility = View.GONE
-            p0.sdate.text = dataList[p1].TutorName
+            p0.price.visibility = View.GONE
+            p0.subject.visibility = View.GONE
             p0.test.visibility = View.VISIBLE
+
+            if (dataList[p1].NumberOfTest == "1") {
+
+                p0.test.text =
+                    dataList[p1].NumberOfComletedTest + "/" + dataList[p1].NumberOfTest + " Test"
+
+            } else {
+
+                p0.test.text =
+                    dataList[p1].NumberOfComletedTest + "/" + dataList[p1].NumberOfTest + " Tests"
+
+            }
+
         }
 
 //        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))
@@ -79,12 +81,13 @@ class MyPackageAdapter(
 
             if (come_from == "market_place") {
 
+                CommonWebCalls.callToken(context, "1", "", ActionIdData.C808, ActionIdData.T808)
+
                 AppConstants.isFirst = 14
                 val bundle = Bundle()
                 bundle.putString("pkgid", dataList[p1].TestPackageID)
                 bundle.putString("come_from", "selectpackage")
                 setFragments(bundle)
-
 
 //                val intent = Intent(context, PackageDetailActivity::class.java)
 //                intent.putExtra("pkgid", dataList[p1].TestPackageID)
@@ -93,6 +96,8 @@ class MyPackageAdapter(
 //                context.startActivity(intent)
 
             } else if (come_from == "my_pkgs") {
+
+                CommonWebCalls.callToken(context, "1", "", ActionIdData.C1702, ActionIdData.T1702)
 
                 AppConstants.PKG_ID = dataList[p1].StudentTestPackageID.toString()
                 AppConstants.PKG_NAME = dataList[p1].TestPackageName
@@ -147,7 +152,7 @@ class MyPackageAdapter(
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var sdate: TextView = itemView.findViewById(R.id.item_my_package_sdate)
+        var subject: TextView = itemView.findViewById(R.id.item_my_package_subject)
         var tutor: TextView = itemView.findViewById(R.id.item_my_package_tutor)
         var ivComplete: ImageView = itemView.findViewById(R.id.main_package_select)
         var name: TextView = itemView.findViewById(R.id.item_my_package_name)

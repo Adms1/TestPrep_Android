@@ -11,7 +11,9 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.models.PackageData
+import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
 
 class NewSelectSubjectAdapter(
     private val context: Context,
@@ -90,6 +92,8 @@ class NewSelectSubjectAdapter(
             }
 
             itemView.setOnClickListener {
+
+                CommonWebCalls.callToken(context, "1", "", ActionIdData.C703, ActionIdData.T703)
 
                 selected1 = ArrayList()
 

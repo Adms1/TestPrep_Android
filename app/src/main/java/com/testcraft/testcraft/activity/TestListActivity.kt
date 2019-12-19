@@ -15,9 +15,7 @@ import com.testcraft.testcraft.adapter.TestListAdapter
 import com.testcraft.testcraft.models.TestListModel
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_test_list.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -54,10 +52,14 @@ class TestListActivity : Fragment() {
 
 //        test_header.text = intent.getStringExtra("pname")
 
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1900, ActionIdData.T1900)
+
         test_rvPkgList.layoutManager =
             LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
         test_ivInstruction.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1902, ActionIdData.T1902)
 
             callTestPkgInstructionApi()
         }
