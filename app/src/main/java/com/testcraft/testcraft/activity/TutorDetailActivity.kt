@@ -322,7 +322,7 @@ class TutorDetailActivity : Fragment() {
                     course_type,
                     boardid,
                     "",
-                    stdid,
+                    "",
                     "",
                     tutorid,
                     minprice,

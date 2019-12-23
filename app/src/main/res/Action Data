@@ -1,0 +1,126 @@
+100	    Splash Screen
+200	    Intro Screen
+201	    Continue with Facebook
+202	    Continue with Gmail
+203	    Continue with Email
+204	    Sign In
+300	    Registration
+301	    Continue Button
+302	    Sign In Link
+400	    Verification Code
+401	    Resend Link
+402	    Verify The Code Button
+500	    Verified Successfully Screen
+501	    Done Button
+600	    Select Exam
+601	    State Boards
+602	    Competitive Exams
+700	    Preferences Screen
+701	    Select Board
+702	    Select Standard
+703	    Select Subjects
+704	    Next
+800	    Market Place
+801	    Free Test
+802	    Free Test - View All
+803	    Package - View Details
+804	    Packages - View All
+805	    Tutor
+806	    Tutor - View All
+807	    Single Test
+808	    Single Test - View All
+809	    Dashboard
+810	    Explore
+811	    Other
+900	    Package List
+901	    Filter
+902	    Sort
+1000	Filter Screen
+1100	Package Details
+1101	Buy Button
+1102	Tutor Name - Link
+1200	Select Payment Method
+1201	Cancel Button
+1202	Pay Now
+1300	Payment Processing Screen
+1400	Payment Fail
+1500	Payment Successful
+1600	Dashboard
+1700	Test Completion Screen
+1701	Knowledge Gap
+1702	Purchased Packages list
+1800	Knowledge Gap Report
+1900	Test List
+1901	Start/Resume
+1902	Information
+2000	Test Start
+2001	Test Instructions
+2002	Test Information
+2003	Submit Icon
+2004	Flag
+2005	Report an issue
+2006	Select Option
+2007	Next/Skip Button
+2008	Questions Status List
+2009	Secttion Instruction
+2010	Submit Test Button
+2100	Report an issue Pop-up
+2101	Question has a problem
+2102	Answer has a problem
+2103	Hint has a problem
+2104	Cancel Button
+2200	Score Pop-up
+2201	Score and Solutions Button
+2202	Back to Dashboard Button
+2300	Score and Solutions Screen
+2301	View Solutions Button
+2302	Test Summary Report Button
+2400	View Solutions Screen
+2401	Report an issue
+2402	Next Button
+2403	Questions Status List
+2404	Secttion Instruction
+2500	Report an issue Pop-up
+2501	Question has a problem
+2502	Answer has a problem
+2503	Hint has a problem
+2504	Cancel Button
+2600	Test Summary Report
+2700	Tutors List
+2701	Tutor Name - Link
+2800	Tutor Details
+2801	Rating link
+2802	Tutor's Packages
+2900	Rating Screen
+2901	Write a review
+3000	Review Pop-up
+3001	Review Submit Button
+3100	Explore Screen
+3101	Search
+3200	Searched Packages List
+3300	Other
+3301	Edit Profile
+3302	My Payments
+3303	Change Password
+3304	Logout
+3305	Change Prefernces
+3400	Update Profile Screen
+3401	Update Button
+3500	Change Password Screen
+3501	Change Password button
+3600	Change Prefernces
+3601	State Boards
+3602	Competitive Exams
+3700	Competitive Preferences Screen
+3701	Select Course
+3702	Next
+3800	Login Screen
+3801	Forgot Password link
+3802	Sign Up Link
+3900	Forgot Password - Mobile Number
+3901	Reset Password Button
+4000	Verification Code
+4001	Resend Link
+4002	Verify The Code Button
+4100	Generate Password Screen
+4101	Change Password Button

@@ -153,7 +153,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         drawer_layout.setDrawerListener(mDrawerToggle)
 
-        var isshow = false
+//        var isshow = false
+        val dialog = Dialog(this@NewTabQuestionActivity)
+
         queTab_expQueList.setOnGroupClickListener { parent, v, groupPosition, id ->
 
             CommonWebCalls.callToken(
@@ -164,9 +166,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 ActionIdData.T2009
             )
 
-            val dialog = Dialog(this@NewTabQuestionActivity)
-
-            if (!isshow && !dialog.isShowing) {
+            if (movies[groupPosition].SectionInstruction != "" && !dialog.isShowing) {
 
                 dialog.setContentView(R.layout.hint_dialog)
                 dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -194,66 +194,61 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 dialog.show()
 
-                isshow = true
-
-            } else {
-
-                isshow = false
-                dialog.dismiss()
             }
-
             false
 
         }
 
-        queTab_tvFillBlanks.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+        queTab_tvFillBlanks.setOnEditorActionListener(
+            object : TextView.OnEditorActionListener {
 
-            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
 
-                if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                    if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
 
-                    integeranswer = queTab_tvFillBlanks.text.toString()
+                        integeranswer = queTab_tvFillBlanks.text.toString()
 
+                    }
+                    return false
                 }
-                return false
-            }
-        })
+            })
 
-        queTab_tvFillBlanks.addTextChangedListener(object : TextWatcher {
+        queTab_tvFillBlanks.addTextChangedListener(
+            object : TextWatcher {
 
-            override fun afterTextChanged(s: Editable) {
+                override fun afterTextChanged(s: Editable) {
 
-                CommonWebCalls.callToken(
-                    this@NewTabQuestionActivity,
-                    "1",
-                    "",
-                    ActionIdData.C2006,
-                    ActionIdData.T2006
-                )
+                    CommonWebCalls.callToken(
+                        this@NewTabQuestionActivity,
+                        "1",
+                        "",
+                        ActionIdData.C2006,
+                        ActionIdData.T2006
+                    )
 
-                if (nextButton!!.text != "Submit Test") {
+                    if (nextButton!!.text != "Submit Test") {
 
-                    if (queTab_tvFillBlanks.text.toString() == "") {
-                        setNextSkipButtonText(0)
-                    } else {
-                        setNextSkipButtonText(1)
+                        if (queTab_tvFillBlanks.text.toString() == "") {
+                            setNextSkipButtonText(0)
+                        } else {
+                            setNextSkipButtonText(1)
+                        }
                     }
                 }
-            }
 
-            override fun beforeTextChanged(
-                s: CharSequence, start: Int,
-                count: Int, after: Int
-            ) {
-            }
+                override fun beforeTextChanged(
+                    s: CharSequence, start: Int,
+                    count: Int, after: Int
+                ) {
+                }
 
-            override fun onTextChanged(
-                s: CharSequence, start: Int,
-                before: Int, count: Int
-            ) {
+                override fun onTextChanged(
+                    s: CharSequence, start: Int,
+                    before: Int, count: Int
+                ) {
 
-            }
-        })
+                }
+            })
 
 //        queTab_ivPlayPause.setOnCheckedChangeListener { buttonView, isChecked ->
 //
@@ -1672,7 +1667,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 curr_index, p0.toString()
             )
 
-        } else if (itype == "skip") {
+        } else if (itype.equals("skip", ignoreCase = true)) {
 
             Log.d("current_index_next", "" + curr_index)
 
@@ -1707,6 +1702,40 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     setNextSkipButtonText(2)
                 }
             }
+
+        } else if (itype == "sidemenu") {
+
+            Log.d("current_index_next", "" + curr_index)
+
+            if (queTab_btnNext.text.toString() == "Next") {
+
+                movies[q_grppos1].TestQuestion[curr_index].Answer = answer
+
+                callSubmitAnswer(
+                    "activity",
+                    movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                    answer,
+                    curr_index, p0.toString()
+                )
+
+            } else {
+                callSubmitAnswer(
+                    "skip",
+                    movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                    "",
+                    curr_index, p0.toString()
+                )
+            }
+
+//            if ((finalArr.size - 1) == q_grppos1) {
+//                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
+//                    setNextSkipButtonText(2)
+//                }
+//            }
 
         }
 
@@ -1926,6 +1955,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
 
         queTab_btnNextt.setOnClickListener {
+
+            //            if (queTab_ivReview.isChecked) {
+//                getType("sidemenu", 1, curr_index)
+//            } else {
+//                getType("sidemenu", 0, curr_index)
+//            }
 
             drawer_layout.openDrawer(Gravity.END)
         }

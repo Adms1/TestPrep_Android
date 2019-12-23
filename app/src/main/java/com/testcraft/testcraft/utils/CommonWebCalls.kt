@@ -25,7 +25,7 @@ class CommonWebCalls {
                 Utils.ping(context, "Connetion not available")
             }
 
-            DialogUtils.showDialog(context)
+//            DialogUtils.showDialog(context)
 
             val apiService = WebClient.getClient().create(WebInterface::class.java)
 
@@ -47,7 +47,7 @@ class CommonWebCalls {
 
                     if (response.body() != null) {
 
-                        DialogUtils.dismissDialog()
+//                        DialogUtils.dismissDialog()
 
                         if (response.body()!!["Status"].asString == "true") {
 
@@ -77,7 +77,7 @@ class CommonWebCalls {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     // Log error here since request failed
                     Log.e("", t.toString())
-                    DialogUtils.dismissDialog()
+//                    DialogUtils.dismissDialog()
                 }
             })
         }

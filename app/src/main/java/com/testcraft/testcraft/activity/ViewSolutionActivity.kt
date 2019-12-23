@@ -120,34 +120,39 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         drawer_layout1.setDrawerListener(mDrawerToggle)
 
+        val dialog = Dialog(activity)
+
         solution_expQueList.setOnGroupClickListener { parent, v, groupPosition, id ->
 
             CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2404, ActionIdData.T2404)
 
-            val dialog = Dialog(activity)
-            dialog.setContentView(R.layout.hint_dialog)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.setCanceledOnTouchOutside(false)
+            if (movies[groupPosition].SectionInstruction != "" && !dialog.isShowing) {
 
-            val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
-            val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
-            val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+                dialog.setContentView(R.layout.hint_dialog)
+                dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.setCanceledOnTouchOutside(false)
 
-            header.text = movies[groupPosition].SectionName
+                val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
+                val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
+                val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
 
-            hintWebview.settings.javaScriptEnabled = true
+                header.text = movies[groupPosition].SectionName
+
+                hintWebview.settings.javaScriptEnabled = true
 //            hintWebview.loadDataWithBaseURL("", movies[solution_grppos1].SectionInstruction, "text/html", "UTF-8", "")
-            hintWebview.loadDataWithBaseURL(
-                AppConstants.EXPHINT_IMAGE_BASE_URL,
-                "<html><body style='background-color:clear;'><p>" + movies[groupPosition].SectionInstruction + "</p></body></html>",
-                "text/html",
-                "UTF-8",
-                ""
-            )
+                hintWebview.loadDataWithBaseURL(
+                    AppConstants.EXPHINT_IMAGE_BASE_URL,
+                    "<html><body style='background-color:clear;'><p>" + movies[groupPosition].SectionInstruction + "</p></body></html>",
+                    "text/html",
+                    "UTF-8",
+                    ""
+                )
 
-            closeBtn.setOnClickListener { dialog.dismiss() }
+                closeBtn.setOnClickListener { dialog.dismiss() }
 
-            dialog.show()
+                dialog.show()
+
+            }
 
             false
 

@@ -237,22 +237,22 @@ class ExploreFragment : Fragment() {
                             bundle.putString("filtertypeid", "-1")
                             bundle.putString("course_type", "")
                             bundle.putString("boardid", "")
-//                            bundle.putString("stdid", "")
-                            if (Utils.getStringValue(
-                                    activity!!,
-                                    AppConstants.COURSE_TYPE_ID,
-                                    "0"
-                                )!! == "1"
-                            ) {
-
-                                bundle.putString(
-                                    "stdid",
-                                    Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")
-                                )
-
-                            } else {
-                                bundle.putString("stdid", "")
-                            }
+                            bundle.putString("stdid", "")
+//                            if (Utils.getStringValue(
+//                                    activity!!,
+//                                    AppConstants.COURSE_TYPE_ID,
+//                                    "0"
+//                                )!! == "1"
+//                            ) {
+//
+//                                bundle.putString(
+//                                    "stdid",
+//                                    Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")
+//                                )
+//
+//                            } else {
+//                                bundle.putString("stdid", "")
+//                            }
                             bundle.putString("subid", "")
                             bundle.putString("tutorid", "")
                             bundle.putString("search_name", explore_etSearch.text.toString())

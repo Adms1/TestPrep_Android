@@ -129,7 +129,7 @@ class IntroActivity : AppCompatActivity() {
                 ActionIdData.C202,
                 ActionIdData.T202
             )
-            signIn();
+            signIn()
         }
 
         intro_tvSignin.setOnClickListener {
@@ -181,7 +181,7 @@ class IntroActivity : AppCompatActivity() {
                     Utils.setStringValue(
                         this@IntroActivity,
                         AppConstants.user_profile,
-                        "https://graph.facebook.com/" + userID + "/picture?type=large"
+                        "https://graph.facebook.com/$userID/picture?type=large"
                     )
 
 //                    var last_name = jsonObject.getString("last_name");

@@ -6,23 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_2sdp"
-    android:background="@drawable/blue_gray_bg"
-    android:paddingLeft="@dimen/_8sdp"
-    android:paddingTop="@dimen/_8sdp"
-    android:padding="@dimen/_8sdp">
+    android:padding="@dimen/_5sdp">
 
     <RelativeLayout
         android:id="@+id/item_rlImage"
-        android:layout_width="@dimen/_60sdp"
-        android:layout_height="@dimen/_60sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/item_my_package_test"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_my_package_tutor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/item_my_package_name">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_my_package_image"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp" />
+            android:layout_width="@dimen/_55sdp"
+            android:layout_height="@dimen/_55sdp" />
 
         <TextView
             android:id="@+id/item_my_package_name_short"
@@ -54,7 +51,6 @@
         android:maxLines="2"
         android:textColor="@color/black"
         android:textSize="@dimen/_13sdp"
-        android:text="fdjemwfxurepofiahx,efohrmeoifhmcoh,xheiouwfheuowfhmuieofh,xueoh"
         app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
         app:layout_constraintRight_toLeftOf="@+id/item_my_package_price"
         app:layout_constraintRight_toRightOf="parent"
@@ -65,7 +61,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:text="Science"
         android:textSize="@dimen/_11sdp"
         app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
         app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
@@ -78,7 +73,6 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:textSize="@dimen/_11sdp"
-        android:text="By Nirdishta Kumar Sharma"
         app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
         app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
         app:layout_constraintRight_toLeftOf="@+id/item_my_package_btnNext"
@@ -90,7 +84,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:maxLines="1"
-        android:text="₹ 1523"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/_11sdp"
         app:layout_constraintRight_toRightOf="parent"
@@ -123,18 +116,20 @@
         android:layout_height="@dimen/_30sdp"
         android:padding="@dimen/_9sdp"
         android:rotation="-90"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/item_my_package_line"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/down_arrow" />
 
-    <!--    <View-->
-    <!--        android:id="@+id/item_my_package_line"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="@dimen/_1sdp"-->
-    <!--        android:layout_marginTop="@dimen/_5sdp"-->
-    <!--        android:background="@color/colorPrimary"-->
-    <!--        android:visibility="gone" />-->
+    <View
+        android:id="@+id/item_my_package_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:background="@color/light_white"
+        app:layout_constraintTop_toBottomOf="@+id/item_my_package_test" />
 
 </android.support.constraint.ConstraintLayout>
 

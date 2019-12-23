@@ -54,6 +54,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
 //            intent.putExtra("isCompetitive", list[p1].isCompetitive)
 //            context.startActivity(intent)
         when (list[p1].Name) {
+
             "Social Science" -> {
                 p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.social_science))
             }
@@ -61,7 +62,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
                 p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.science))
             }
             "Statistics" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.stat))
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.economics))
             }
             "Hindi" -> {
                 p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.hindi))
@@ -80,6 +81,21 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
             }
             "Biology" -> {
                 p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.biology))
+            }
+            "Economics" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.economics))
+            }
+            "JEE Main" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.jee_main_four))
+            }
+            "JEE Advance" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.jee_main_four))
+            }
+            "NEET" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.neet))
+            }
+            "Mathematics" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.mathematics))
             }
             else -> {
                 p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.pp_2))
