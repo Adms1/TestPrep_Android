@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.devs.readmoreoption.ReadMoreOption
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.CartActivity
@@ -24,6 +25,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -38,6 +40,7 @@ class TutorProfileFragment : Fragment() {
     var bundle: Bundle? = null
 
     var tutorid = ""
+    var readMoreOption: ReadMoreOption? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,6 +62,17 @@ class TutorProfileFragment : Fragment() {
         tutorid = bundle!!.getString("tutor_id")!!
 
         AppConstants.isFirst = 14
+
+        readMoreOption = ReadMoreOption.Builder(activity!!)
+            .textLength(3, ReadMoreOption.TYPE_LINE) // OR
+//.textLength(300, ReadMoreOption.TYPE_CHARACTER)
+            .moreLabel("MORE")
+            .lessLabel("LESS")
+            .moreLabelColor(R.color.colorPrimary)
+            .lessLabelColor(R.color.colorPrimary)
+            .labelUnderLine(true)
+            .expandAnimation(true)
+            .build()
 
         tutor_item_rvCuratorList.layoutManager =
             LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
@@ -135,6 +149,11 @@ class TutorProfileFragment : Fragment() {
                         tutor_profile_tvName.text = response.body()!!.data[0].TutorName
                         tutor_profile_tvEmail.text = response.body()!!.data[0].TutorEmail
                         tutor_profile_tvMobile.text = response.body()!!.data[0].TutorPhoneNumber
+//                        tutor_profile_tvDesc.text = response.body()!!.data[0].TutorDescription + " "
+
+                        val strdesc = response.body()!!.data[0].TutorDescription
+
+                        readMoreOption!!.addReadMoreTo(tutor_profile_tvDesc, strdesc)
 
                         tutor_profile_tvCount.text =
                             "(" + response.body()!!.data[0].TotalRateCount + ")"

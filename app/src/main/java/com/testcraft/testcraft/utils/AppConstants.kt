@@ -5,9 +5,9 @@ import java.util.*
 class AppConstants {
 
     //Signup
-        // normal signup 1
-        // Google 2
-        // Fb 3
+    // normal signup 1
+    // Google 2
+    // Fb 3
 
     companion object {
 
@@ -28,8 +28,7 @@ class AppConstants {
 //        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
 //        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
 //        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
-//        var SUBJECT_SUMMARY_REPORT_URL =
-//            "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
+//        var SUBJECT_SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
 //        var PAYMENT_REQUEST = "https://biz.traknpay.in/v2/paymentrequest"
 
 //        USER DATA

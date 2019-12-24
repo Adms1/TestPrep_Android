@@ -27,7 +27,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".sectionmodule.QuestionActivity"></activity>
+
+        <activity android:name=".sectionmodule.QuestionActivity" />
+
         <activity
             android:name=".activity.ApplyCouponActivity"
             android:screenOrientation="portrait"

@@ -20,6 +20,7 @@ class TutorModel {
         var Rating = ""
         var DateTime = ""
 
+        var TutorDescription = ""
         var TotalRateCount = ""
         var TutorStars = ""
     }

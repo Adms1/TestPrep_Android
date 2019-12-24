@@ -1192,6 +1192,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                                     InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL + InputType.TYPE_NUMBER_FLAG_SIGNED
 
                                             }
+
                                             queTab_tvFillBlanks.visibility = View.VISIBLE
                                             ansList!!.visibility = View.GONE
                                             queTab_rbTrue.visibility = View.GONE
@@ -1335,7 +1336,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 1 -> {
 
-                    if (itype == "activity" || itype == "submit" || itype == "continue" || itype == "review") {
+                    if (itype == "activity" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
 
                         answer = if (ansArr.size > 0) {
                             ansArr[0].ansid
@@ -1347,7 +1348,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 7 -> {
 
-                    if (itype == "activity" || itype == "submit" || itype == "continue" || itype == "review") {
+                    if (itype == "activity" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
 
                         answer = if (ansArr.size > 0) {
                             ansArr[0].ansid
@@ -1385,7 +1386,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 4 -> {
 
-                    if (itype == "activity" || itype == "submit" || itype == "continue" || itype == "review") {
+                    if (itype == "activity" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
 
                         if (queTab_rbFalse.isChecked) {
                             answer = "0"
@@ -1709,6 +1710,18 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             if (queTab_btnNext.text.toString() == "Next") {
 
+                for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                    if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
+                        if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
+                            finalArr[sectionList!![q_grppos1]]!![i].type = 2
+                            movies[q_grppos1].TestQuestion[curr_index].Review = "0"
+                        } else {
+                            finalArr[sectionList!![q_grppos1]]!![i].type = 4
+                            movies[q_grppos1].TestQuestion[curr_index].Review = "1"
+                        }
+                    }
+                }
+
                 movies[q_grppos1].TestQuestion[curr_index].Answer = answer
 
                 callSubmitAnswer(
@@ -1721,6 +1734,19 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 )
 
             } else {
+
+                for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                    if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
+                        if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
+                            finalArr[sectionList!![q_grppos1]]!![i].type = 3
+                            movies[q_grppos1].TestQuestion[curr_index].Review = "0"
+                        } else {
+                            finalArr[sectionList!![q_grppos1]]!![i].type = 4
+                            movies[q_grppos1].TestQuestion[curr_index].Review = "1"
+                        }
+                    }
+                }
+
                 callSubmitAnswer(
                     "skip",
                     movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
@@ -1956,11 +1982,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         queTab_btnNextt.setOnClickListener {
 
-            //            if (queTab_ivReview.isChecked) {
-//                getType("sidemenu", 1, curr_index)
-//            } else {
-//                getType("sidemenu", 0, curr_index)
-//            }
+            if (queTab_ivReview.isChecked) {
+                getType("sidemenu", 1, curr_index)
+            } else {
+                getType("sidemenu", 0, curr_index)
+            }
 
             drawer_layout.openDrawer(Gravity.END)
         }
