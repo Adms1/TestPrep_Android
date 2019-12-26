@@ -22,6 +22,7 @@ class PackageData {
         var Name = ""
         var PackageType = 0
         var TestPackage: ArrayList<PackageDataList> = ArrayList()
+        var IsFree = ""
 
         var TestPackageID = ""
         var TestPackageSalePrice = ""
@@ -40,6 +41,7 @@ class PackageData {
         var InvoiceID = ""
         var OrderID = ""
         var InvoiceGUID = ""
+        var PackageName = ""
 
         var SubjectName = ""
         var InstituteName = ""

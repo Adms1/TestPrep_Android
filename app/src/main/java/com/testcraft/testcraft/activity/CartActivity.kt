@@ -52,7 +52,7 @@ class CartActivity : AppCompatActivity() {
 
     private fun getCart() {
         if (!DialogUtils.isNetworkConnected(this@CartActivity)) {
-            Utils.ping(this@CartActivity, "Connetion not available")
+            Utils.ping(this@CartActivity, "Connection not available")
         }
 
         DialogUtils.showDialog(this@CartActivity)
@@ -111,7 +111,7 @@ class CartActivity : AppCompatActivity() {
     fun callCheckout() {
 
         if (!DialogUtils.isNetworkConnected(this@CartActivity)) {
-            Utils.ping(this@CartActivity, "Connetion not available")
+            Utils.ping(this@CartActivity, "Connection not available")
         }
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -185,7 +185,7 @@ class CartActivity : AppCompatActivity() {
 
     fun updatePaymentStatus(transaction_status: String, order_id: String) {
         if (!DialogUtils.isNetworkConnected(this@CartActivity)) {
-            Utils.ping(this@CartActivity, "Connetion not available")
+            Utils.ping(this@CartActivity, "Connection not available")
         }
 
         DialogUtils.showDialog(this@CartActivity)

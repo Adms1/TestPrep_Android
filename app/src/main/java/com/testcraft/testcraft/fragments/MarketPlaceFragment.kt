@@ -702,7 +702,7 @@ class MarketPlaceFragment : Fragment() {
     fun callFilterListApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         DialogUtils.showDialog(activity!!)
@@ -836,6 +836,7 @@ class MarketPlaceFragment : Fragment() {
 
     inner class MyViewPagerAdapter1(var arrList: ArrayList<PackageData.PackageDataList>) :
         PagerAdapter() {
+
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
 
             val layoutInflater: LayoutInflater = LayoutInflater.from(activity)
@@ -867,40 +868,42 @@ class MarketPlaceFragment : Fragment() {
                 price.text = arrList[position].TestPackageSalePrice
 //                desc.text = arrList[position].TestPackageDescription
 
-                if (arrList[position].TestList[0].Name != "") {
-                    t1.text = "\u2022 " + arrList[position].TestList[0].Name
-                } else {
-                    t1.text = ""
-                }
+                if (arrList[position].TestList != null && arrList[position].TestList.size > 0) {
+                    if (arrList[position].TestList[0].Name != "") {
+                        t1.text = "\u2022 " + arrList[position].TestList[0].Name
+                    } else {
+                        t1.text = ""
+                    }
 
-                if (arrList[position].TestList[1].Name != "") {
-                    t2.text = "\u2022 " + arrList[position].TestList[1].Name
-                } else {
-                    t2.text = ""
-                }
+                    if (arrList[position].TestList[1].Name != "") {
+                        t2.text = "\u2022 " + arrList[position].TestList[1].Name
+                    } else {
+                        t2.text = ""
+                    }
 
-                if (arrList[position].TestList[2].Name != "") {
-                    t3.text = "\u2022 " + arrList[position].TestList[2].Name
-                } else {
-                    t3.text = ""
-                }
+                    if (arrList[position].TestList[2].Name != "") {
+                        t3.text = "\u2022 " + arrList[position].TestList[2].Name
+                    } else {
+                        t3.text = ""
+                    }
 
-                if (arrList[position].TestList[3].Name != "") {
-                    t4.text = "\u2022 " + arrList[position].TestList[3].Name
-                } else {
-                    t4.text = ""
-                }
+                    if (arrList[position].TestList[3].Name != "") {
+                        t4.text = "\u2022 " + arrList[position].TestList[3].Name
+                    } else {
+                        t4.text = ""
+                    }
 
-                if (arrList[position].TestList[4].Name != "") {
-                    t5.text = "\u2022 " + arrList[position].TestList[4].Name
-                } else {
-                    t5.text = ""
-                }
+                    if (arrList[position].TestList[4].Name != "") {
+                        t5.text = "\u2022 " + arrList[position].TestList[4].Name
+                    } else {
+                        t5.text = ""
+                    }
 
-                if (arrList[position].TestList[5].Name != "") {
-                    t6.text = "\u2022 " + arrList[position].TestList[5].Name
-                } else {
-                    t6.text = ""
+                    if (arrList[position].TestList[5].Name != "") {
+                        t6.text = "\u2022 " + arrList[position].TestList[5].Name
+                    } else {
+                        t6.text = ""
+                    }
                 }
 
                 if (arrList[position].Icon != null) {

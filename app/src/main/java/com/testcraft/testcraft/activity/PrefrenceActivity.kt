@@ -384,7 +384,7 @@ class PrefrenceActivity : AppCompatActivity() {
     fun callCourseTypeList() {
 
         if (!DialogUtils.isNetworkConnected(this@PrefrenceActivity)) {
-            Utils.ping(this@PrefrenceActivity, "Connetion not available")
+            Utils.ping(this@PrefrenceActivity, "Connection not available")
         }
 
         DialogUtils.showDialog(this@PrefrenceActivity)
@@ -443,7 +443,7 @@ class PrefrenceActivity : AppCompatActivity() {
     fun callSubjectList(stdId: String) {
 
         if (!DialogUtils.isNetworkConnected(this@PrefrenceActivity)) {
-            Utils.ping(this@PrefrenceActivity, "Connetion not available")
+            Utils.ping(this@PrefrenceActivity, "Connection not available")
         }
 
         DialogUtils.showDialog(this@PrefrenceActivity)
@@ -524,7 +524,7 @@ class PrefrenceActivity : AppCompatActivity() {
     fun callStandardList(courseId: Int) {
 
         if (!DialogUtils.isNetworkConnected(this@PrefrenceActivity)) {
-            Utils.ping(this@PrefrenceActivity, "Connetion not available")
+            Utils.ping(this@PrefrenceActivity, "Connection not available")
         }
 
         DialogUtils.showDialog(this@PrefrenceActivity)

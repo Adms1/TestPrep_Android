@@ -153,7 +153,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
     fun updatePaymentStatus(transaction_status: String) {
         if (!DialogUtils.isNetworkConnected(this@PaymentSuccessScreen)) {
-            Utils.ping(this@PaymentSuccessScreen, "Connetion not available")
+            Utils.ping(this@PaymentSuccessScreen, "Connection not available")
         }
 
         DialogUtils.showDialog(this@PaymentSuccessScreen)
@@ -231,7 +231,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
     fun callAddTestPackageApi() {
 
         if (!DialogUtils.isNetworkConnected(this@PaymentSuccessScreen)) {
-            Utils.ping(this@PaymentSuccessScreen, "Connetion not available")
+            Utils.ping(this@PaymentSuccessScreen, "Connection not available")
         }
 
 //        DialogUtils.showDialog(this@PaymentSuccessScreen)
@@ -275,7 +275,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
     fun generateTrackNPayRequest(context: Context, coin: String) {
         if (!DialogUtils.isNetworkConnected(context)) {
-            Utils.ping(context, "Connetion not available")
+            Utils.ping(context, "Connection not available")
         }
 
         DialogUtils.showDialog(context)

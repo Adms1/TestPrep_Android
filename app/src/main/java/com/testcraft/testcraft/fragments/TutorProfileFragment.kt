@@ -1,6 +1,7 @@
 package com.testcraft.testcraft.fragments
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -66,11 +67,11 @@ class TutorProfileFragment : Fragment() {
         readMoreOption = ReadMoreOption.Builder(activity!!)
             .textLength(3, ReadMoreOption.TYPE_LINE) // OR
 //.textLength(300, ReadMoreOption.TYPE_CHARACTER)
-            .moreLabel("MORE")
-            .lessLabel("LESS")
-            .moreLabelColor(R.color.colorPrimary)
-            .lessLabelColor(R.color.colorPrimary)
-            .labelUnderLine(true)
+            .moreLabel("View more")
+            .lessLabel("...View less")
+            .moreLabelColor(Color.BLUE)
+            .lessLabelColor(Color.BLUE)
+            .labelUnderLine(false)
             .expandAnimation(true)
             .build()
 
@@ -121,7 +122,7 @@ class TutorProfileFragment : Fragment() {
     fun callTutorPrfile() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         DialogUtils.showDialog(activity!!)
@@ -189,7 +190,7 @@ class TutorProfileFragment : Fragment() {
     fun callSmilarPkgs() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         DialogUtils.showDialog(activity!!)

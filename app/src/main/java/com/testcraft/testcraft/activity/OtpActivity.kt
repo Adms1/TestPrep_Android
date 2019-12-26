@@ -178,7 +178,7 @@ class OtpActivity : AppCompatActivity() {
     fun callResend() {
 
         if (!DialogUtils.isNetworkConnected(this@OtpActivity)) {
-            Utils.ping(this@OtpActivity, "Connetion not available")
+            Utils.ping(this@OtpActivity, "Connection not available")
         }
 
         DialogUtils.showDialog(this@OtpActivity)
@@ -226,7 +226,7 @@ class OtpActivity : AppCompatActivity() {
     fun callSignupApi() {
 
         if (!DialogUtils.isNetworkConnected(this@OtpActivity)) {
-            Utils.ping(this@OtpActivity, "Connetion not available")
+            Utils.ping(this@OtpActivity, "Connection not available")
         }
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -338,7 +338,7 @@ class OtpActivity : AppCompatActivity() {
     fun callupdateApi() {
 
         if (!DialogUtils.isNetworkConnected(this@OtpActivity)) {
-            Utils.ping(this@OtpActivity, "Connetion not available")
+            Utils.ping(this@OtpActivity, "Connection not available")
         }
 
         DialogUtils.showDialog(this@OtpActivity)

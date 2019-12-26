@@ -98,7 +98,7 @@ class TutorsReviewFragment : AppCompatActivity() {
                 if (ratingbar.rating != 0f) {
 
                     if (!DialogUtils.isNetworkConnected(this@TutorsReviewFragment)) {
-                        Utils.ping(this@TutorsReviewFragment, "Connetion not available")
+                        Utils.ping(this@TutorsReviewFragment, "Connection not available")
                     }
 
                     DialogUtils.showDialog(this@TutorsReviewFragment)
@@ -173,7 +173,7 @@ class TutorsReviewFragment : AppCompatActivity() {
     fun callGetRating() {
 
         if (!DialogUtils.isNetworkConnected(this@TutorsReviewFragment)) {
-            Utils.ping(this@TutorsReviewFragment, "Connetion not available")
+            Utils.ping(this@TutorsReviewFragment, "Connection not available")
         }
 
         DialogUtils.showDialog(this@TutorsReviewFragment)

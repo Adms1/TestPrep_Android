@@ -22,7 +22,7 @@ class CommonWebCalls {
             comment: String
         ) {
             if (!DialogUtils.isNetworkConnected(context)) {
-                Utils.ping(context, "Connetion not available")
+                Utils.ping(context, "Connection not available")
             }
 
 //            DialogUtils.showDialog(context)
@@ -85,7 +85,7 @@ class CommonWebCalls {
         fun callReportIssue(context: Context, issueType: String, typename: String, qid: String) {
 
             if (!DialogUtils.isNetworkConnected(context)) {
-                Utils.ping(context, "Connetion not available")
+                Utils.ping(context, "Connection not available")
             }
 
             DialogUtils.showDialog(context)

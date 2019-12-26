@@ -237,7 +237,7 @@ class PackageDetailActivity : Fragment() {
 
     fun generateTrackNPayRequest(context: Context, coin: String) {
         if (!DialogUtils.isNetworkConnected(context)) {
-            Utils.ping(context, "Connetion not available")
+            Utils.ping(context, "Connection not available")
         }
 
         DialogUtils.showDialog(context)
@@ -324,7 +324,7 @@ class PackageDetailActivity : Fragment() {
     fun callTestPackageDetailApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         DialogUtils.showDialog(activity!!)
@@ -467,7 +467,7 @@ class PackageDetailActivity : Fragment() {
     fun callAddTestPackageApi(pkgid: String) {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         DialogUtils.showDialog(activity!!)
@@ -525,7 +525,7 @@ class PackageDetailActivity : Fragment() {
     fun callAddToCart(pkgid: String) {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         DialogUtils.showDialog(activity!!)
@@ -581,7 +581,7 @@ class PackageDetailActivity : Fragment() {
     fun callCheckout() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -654,7 +654,7 @@ class PackageDetailActivity : Fragment() {
 
     fun updatePaymentStatus(transaction_status: String, order_id: String) {
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         DialogUtils.showDialog(activity!!)

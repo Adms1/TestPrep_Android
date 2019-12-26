@@ -13,7 +13,8 @@ class AttemptModel {
         var Answered = ""
         var UnAnswered = ""
         var TotalQue = ""
-
+        var TotalMark = ""
+        var ObtainMark = ""
     }
 
 }

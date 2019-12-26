@@ -46,7 +46,7 @@ class ApplyCouponActivity : AppCompatActivity() {
 
     private fun getCoupons() {
         if (!DialogUtils.isNetworkConnected(this@ApplyCouponActivity)) {
-            Utils.ping(this@ApplyCouponActivity, "Connetion not available")
+            Utils.ping(this@ApplyCouponActivity, "Connection not available")
         }
 
         DialogUtils.showDialog(this@ApplyCouponActivity)

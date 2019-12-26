@@ -148,7 +148,7 @@ class ExploreFragment : Fragment() {
         var filterArray: ArrayList<PackageData.PackageDataList> = ArrayList()
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         DialogUtils.showDialog(activity!!)
@@ -204,7 +204,7 @@ class ExploreFragment : Fragment() {
     fun callAddHitoryApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         DialogUtils.showDialog(activity!!)
@@ -275,7 +275,7 @@ class ExploreFragment : Fragment() {
     fun callGetHistoryApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         DialogUtils.showDialog(activity!!)

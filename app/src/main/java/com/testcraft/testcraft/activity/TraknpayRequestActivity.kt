@@ -362,7 +362,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
     fun callAddTestPackageApi() {
 
         if (!DialogUtils.isNetworkConnected(this@TraknpayRequestActivity)) {
-            Utils.ping(this@TraknpayRequestActivity, "Connetion not available")
+            Utils.ping(this@TraknpayRequestActivity, "Connection not available")
         }
 
         DialogUtils.showDialog(this@TraknpayRequestActivity)

@@ -218,4 +218,8 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Pre_Submit_Test")
     fun attemptReport(@Field("StudentTestID") studenttest_id: String): Call<AttemptModel>
+
+    @FormUrlEncoded
+    @POST("Subject_wise_marks")
+    fun getSubjectwiseMarks(@Field("StudentTestID") studenttest_id: String): Call<AttemptModel>
 }

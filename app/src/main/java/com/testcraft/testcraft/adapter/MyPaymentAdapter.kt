@@ -24,7 +24,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
     RecyclerView.Adapter<MyPaymentAdapter.viewholder>() {
 
@@ -48,9 +47,14 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
 //        }
 
         p0.date.text = "Date : " + dataList[p1].PaymentDate
-        p0.id.text = "Order ID : " + dataList[p1].OrderID
-//        p0.status.text = dataList[p1].ExternalTransactionStatus
-        p0.amount.text = "₹ " + dataList[p1].PaymentAmount.toString()
+        p0.id.text = "Name : " + dataList[p1].PackageName
+//        p0.status.text = dataList[p1].ExternalTran sactionStatus
+
+        if (dataList[p1].IsFree == "1") {
+            p0.amount.text = "Free"
+        } else {
+            p0.amount.text = "₹ " + dataList[p1].PaymentAmount.toString()
+        }
 
         p0.invoice.setOnClickListener {
 
@@ -76,7 +80,7 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
 
     fun generateTrackNPayRequest(coin: String, trans_id: String) {
         if (!DialogUtils.isNetworkConnected(context)) {
-            Utils.ping(context, "Connetion not available")
+            Utils.ping(context, "Connection not available")
         }
 
         DialogUtils.showDialog(context)

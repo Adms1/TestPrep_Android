@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_350sdp"
+    android:layout_height="wrap_content"
     android:background="@drawable/white_ring_bg"
     android:padding="@dimen/_10sdp">
 
@@ -31,10 +31,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/attempt_rvList"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
-        app:layout_constraintBottom_toTopOf="@id/attempt_tvOK"
         app:layout_constraintTop_toBottomOf="@id/line" />
 
     <TextView
@@ -48,7 +47,8 @@
         android:text="  Submit  "
         android:textColor="@color/white"
         android:textSize="@dimen/_13sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintTop_toBottomOf="@+id/attempt_rvList"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/attempt_btnClose" />
 
@@ -63,7 +63,8 @@
         android:text="  Cancel  "
         android:textColor="@color/white"
         android:textSize="@dimen/_13sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintTop_toBottomOf="@+id/attempt_rvList"
         app:layout_constraintLeft_toRightOf="@+id/attempt_tvOK"
         app:layout_constraintRight_toRightOf="parent" />
 

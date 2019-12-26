@@ -24,7 +24,7 @@
     <!--            android:paddingBottom="@dimen/_10sdp"-->
     <!--            android:paddingRight="@dimen/_10sdp">-->
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/choosemp_tvNoPkg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_110sdp"
@@ -32,6 +32,7 @@
         android:layout_marginRight="@dimen/_10sdp"
         android:visibility="gone"
         android:scaleType="fitXY"
+        app:riv_corner_radius="@dimen/_5sdp"
         android:src="@drawable/explore_marketplace"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

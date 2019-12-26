@@ -20,7 +20,7 @@ class AppConstants {
         var INVOICE_URL = "http://testcraft.in/InvoiceDetail.aspx?ID="
         var SUMMARY_REPORT_URL = "http://webservice.testcraft.in/TestSummaryReport.aspx?"
         var SUBJECT_SUMMARY_REPORT_URL = "http://webservice.testcraft.in/SubjectSummaryReport.aspx?"
-
+//
 //        LOCAL
 
 //        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"

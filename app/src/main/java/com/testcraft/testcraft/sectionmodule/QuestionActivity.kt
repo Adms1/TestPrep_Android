@@ -2112,7 +2112,7 @@ class QuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     fun callInsertHint() {
 
         if (!DialogUtils.isNetworkConnected(this@QuestionActivity)) {
-            Utils.ping(this@QuestionActivity, "Connetion not available")
+            Utils.ping(this@QuestionActivity, "Connection not available")
         }
 
         DialogUtils.showDialog(this@QuestionActivity)

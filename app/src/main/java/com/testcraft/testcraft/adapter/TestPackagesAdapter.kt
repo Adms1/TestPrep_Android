@@ -50,6 +50,7 @@ class TestPackagesAdapter(
             p0.std.text = dataList[p1].TestPackageName
             p0.sub.text = dataList[p1].SubjectName
             p0.price.text = dataList[p1].TestPackageSalePrice
+            p0.createdby.text = "by " + dataList[p1].TutorName
 
             if (dataList[p1].Icon != null) {
                 Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
@@ -127,13 +128,13 @@ class TestPackagesAdapter(
         var price: TextView = itemView.findViewById(R.id.package_item_tvPrice)
         var mainll: ConstraintLayout = itemView.findViewById(R.id.mall)
         var tvBuy: ImageView = itemView.findViewById(R.id.package_item_ivCart)
-//        var createdby: TextView = itemView.findViewById(R.id.testpkg_item_tvCreated)
+        var createdby: TextView = itemView.findViewById(R.id.package_item_tvCreatedby)
     }
 
     fun callAddTestPackageApi(pkgid: String) {
 
         if (!DialogUtils.isNetworkConnected(context)) {
-            Utils.ping(context, "Connetion not available")
+            Utils.ping(context, "Connection not available")
         }
 
         DialogUtils.showDialog(context)

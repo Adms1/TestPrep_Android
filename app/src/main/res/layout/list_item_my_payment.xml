@@ -1,90 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingLeft="@dimen/_8sdp"
+    android:paddingRight="@dimen/_8sdp"
+    android:paddingBottom="@dimen/_8sdp">
+
+    <TextView
+        android:id="@+id/item_my_payment_id"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:padding="@dimen/_8sdp">
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
+        app:layout_constraintRight_toLeftOf="@+id/item_my_payment_amount"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:id="@+id/item_my_payment_id"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_12sdp"
-            android:textColor="@color/black"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:maxLines="1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/item_my_payment_amount"
-            app:layout_constraintLeft_toRightOf="@+id/item_rlImage"/>
+        android:id="@+id/item_my_payment_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:maxLines="1"
+        android:textColor="@color/light_gray"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/item_my_payment_invoice"
+        app:layout_constraintTop_toBottomOf="@+id/item_my_payment_id" />
 
     <TextView
-            android:id="@+id/item_my_payment_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_12sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:maxLines="1"
-            android:text="fvdefecfefc"
-            android:textColor="@color/light_gray"
-            android:layout_marginTop="@dimen/_3sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/item_my_payment_invoice"
-            app:layout_constraintTop_toBottomOf="@+id/item_my_payment_id"/>
+        android:id="@+id/item_my_payment_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:id="@+id/item_my_payment_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:maxLines="1"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="parent"/>
+        android:id="@+id/item_my_payment_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Success"
+        android:textColor="@color/green"
+        android:textSize="@dimen/_12sdp"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_my_payment_amount" />
 
     <TextView
-            android:id="@+id/item_my_payment_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="@dimen/_12sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:maxLines="1"
-            android:visibility="gone"
-            android:textColor="@color/green"
-            app:layout_constraintTop_toBottomOf="@id/item_my_payment_amount"
-            android:text="Success"/>
-
-    <TextView
-            android:id="@+id/item_my_payment_invoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="@dimen/_12sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:maxLines="1"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:textColor="@android:color/holo_blue_dark"
-            app:layout_constraintTop_toBottomOf="@id/item_my_payment_status"
-            android:text="View"/>
+        android:id="@+id/item_my_payment_invoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="View"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/item_my_payment_date" />
 
     <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:background="@color/default_shimmer_color"
-            app:layout_constraintTop_toBottomOf="@+id/item_my_payment_invoice" />
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:background="@color/light_white"
+        app:layout_constraintTop_toBottomOf="@+id/item_my_payment_invoice" />
 
 </android.support.constraint.ConstraintLayout>

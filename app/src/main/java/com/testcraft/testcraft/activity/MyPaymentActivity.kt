@@ -89,7 +89,7 @@ class MyPaymentActivity : Fragment() {
     fun callPaymentListApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         DialogUtils.showDialog(activity!!)

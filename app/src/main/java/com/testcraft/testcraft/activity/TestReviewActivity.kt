@@ -4,12 +4,17 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
+import com.testcraft.testcraft.adapter.QuestionAttemptAdapter
+import com.testcraft.testcraft.models.AttemptModel
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.ActionIdData
@@ -72,6 +77,10 @@ class TestReviewActivity : Fragment() {
 //            finish()
 //            onBackPressed()
 
+        }
+
+        review_ivInfo.setOnClickListener {
+            callSubjectwisemarks()
         }
 
         review_btnReport.setOnClickListener {
@@ -187,6 +196,12 @@ class TestReviewActivity : Fragment() {
                         response.body()!!.get("data").asJsonArray[0].asJsonObject.get("IsCompetetive")
                             .asInt
 
+                    if (isCompetitive == 1) {
+                        review_ivInfo.visibility = View.VISIBLE
+                    } else {
+                        review_ivInfo.visibility = View.GONE
+                    }
+
                     review_tvCorrect.text =
                         response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Correct").asString + "    Correct"
                     review_tvIncorrect.text =
@@ -222,4 +237,51 @@ class TestReviewActivity : Fragment() {
         })
     }
 
+    fun callSubjectwisemarks() {
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getSubjectwiseMarks(studenttestid)
+        call.enqueue(object : Callback<AttemptModel> {
+            override fun onResponse(call: Call<AttemptModel>, response: Response<AttemptModel>) {
+
+                if (response.body()!!.Status == "true") {
+
+                    val dialog = Dialog(activity!!)
+                    dialog.setContentView(R.layout.dialog_que_attempt_report)
+                    dialog.setCanceledOnTouchOutside(false)
+
+                    val header: TextView = dialog.findViewById(R.id.attempt_tvHeader)
+                    val btnCancel: TextView = dialog.findViewById(R.id.attempt_btnClose)
+                    val btnOk: TextView = dialog.findViewById(R.id.attempt_tvOK)
+                    val rvList: RecyclerView = dialog.findViewById(R.id.attempt_rvList)
+
+                    rvList.layoutManager =
+                        LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+
+                    rvList.adapter =
+                        QuestionAttemptAdapter(activity!!, "review", response.body()!!.data)
+
+                    btnOk.text = "     OK     "
+                    btnCancel.visibility = View.GONE
+                    header.text = "Subjectwise Marks"
+
+                    btnOk.setOnClickListener {
+                        dialog.dismiss()
+                    }
+
+                    dialog.show()
+
+                } else {
+
+                    Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<AttemptModel>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+            }
+        })
+    }
 }

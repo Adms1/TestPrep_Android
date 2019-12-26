@@ -2363,7 +2363,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     fun callInsertHint() {
 
         if (!DialogUtils.isNetworkConnected(this@NewTabQuestionActivity)) {
-            Utils.ping(this@NewTabQuestionActivity, "Connetion not available")
+            Utils.ping(this@NewTabQuestionActivity, "Connection not available")
         }
 
         DialogUtils.showDialog(this@NewTabQuestionActivity)
@@ -2538,7 +2538,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 if (response.body()!!.Status == "true") {
 
                     rvlist.adapter =
-                        QuestionAttemptAdapter(this@NewTabQuestionActivity, response.body()!!.data)
+                        QuestionAttemptAdapter(
+                            this@NewTabQuestionActivity,
+                            "test",
+                            response.body()!!.data
+                        )
 
                 }
             }

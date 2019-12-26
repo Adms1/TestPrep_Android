@@ -29,12 +29,12 @@
             android:padding="@dimen/_10sdp"/>
 
     <View android:layout_width="match_parent"
-          android:layout_height="@dimen/_1sdp"
+        android:layout_height="0.5dp"
           android:layout_marginLeft="@dimen/_10sdp"
           android:layout_marginRight="@dimen/_10sdp"
           android:layout_marginTop="@dimen/_5sdp"
           app:layout_constraintTop_toBottomOf="@+id/recent_item_ivName"
-          android:background="#EFEFEF"/>
+        android:background="@color/light_white" />
 
 </android.support.constraint.ConstraintLayout>
 

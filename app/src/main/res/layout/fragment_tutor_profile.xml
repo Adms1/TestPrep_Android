@@ -92,8 +92,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
-        android:justificationMode="inter_word"
-        android:textColor="@color/gray"
         android:textSize="@dimen/small_text_size"
         app:layout_constraintLeft_toRightOf="@+id/tutor_profile_ivPhn"
         app:layout_constraintRight_toRightOf="parent"

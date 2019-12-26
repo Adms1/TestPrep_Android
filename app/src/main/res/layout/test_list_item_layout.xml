@@ -14,6 +14,7 @@
         android:maxLines="2"
         android:padding="@dimen/_5sdp"
         android:textSize="@dimen/_12sdp"
+        android:ellipsize="end"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/test_item_tvMarks"
         app:layout_constraintTop_toTopOf="parent" />

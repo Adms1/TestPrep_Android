@@ -51,7 +51,7 @@ class ChooseMarketPlaceFragment : Fragment() {
     fun callMyPackagesApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connetion not available")
+            Utils.ping(activity!!, "Connection not available")
         }
 
         DialogUtils.showDialog(activity!!)

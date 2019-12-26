@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
@@ -56,7 +57,7 @@ class NewSelectBoardAdapter(
 
         }
 
-        p0.image.setOnClickListener {
+        p0.rlMain.setOnClickListener {
 
             CommonWebCalls.callToken(context, "1", "", ActionIdData.C701, ActionIdData.T701)
 
@@ -106,5 +107,6 @@ class NewSelectBoardAdapter(
         var title: TextView = itemView.findViewById(R.id.package_name)
         var stitle: TextView = itemView.findViewById(R.id.package_name_short)
         var p_select: ImageView = itemView.findViewById(R.id.package_select)
+        var rlMain: RelativeLayout = itemView.findViewById(R.id.llImage)
     }
 }
