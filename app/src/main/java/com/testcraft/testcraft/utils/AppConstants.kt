@@ -91,6 +91,8 @@ class AppConstants {
         var PKG_ID = ""
         var PKG_NAME = ""
 
+        var NETWORK_MSG = "The network is not reachable."
+
         //        ACTION ID(GAME ID)
         var DEFAULT_ACTION_ID = ""
         var DEFAULT_TOKEN_ID = "3371B09E-B7E2-4327-B072-A01559365660"

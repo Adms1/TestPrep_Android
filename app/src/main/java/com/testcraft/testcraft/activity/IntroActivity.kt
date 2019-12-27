@@ -380,7 +380,7 @@ class IntroActivity : AppCompatActivity() {
     ) {
 
         if (!DialogUtils.isNetworkConnected(this@IntroActivity)) {
-            Utils.ping(this@IntroActivity, "Connection not available")
+            Utils.ping(this@IntroActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@IntroActivity)
@@ -518,7 +518,7 @@ class IntroActivity : AppCompatActivity() {
     ) {
 
         if (!DialogUtils.isNetworkConnected(this@IntroActivity)) {
-            Utils.ping(this@IntroActivity, "Connection not available")
+            Utils.ping(this@IntroActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@IntroActivity)

@@ -1733,7 +1733,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     curr_index, p0.toString()
                 )
 
-            } else {
+            } else if (queTab_btnNext.text.toString() == "Skip") {
 
                 for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
                     if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
@@ -1753,6 +1753,34 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     movies[q_grppos1].TestQuestion[curr_index].QuestionID,
                     movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
                     "",
+                    curr_index, p0.toString()
+                )
+
+            } else {
+
+                movies[q_grppos1].TestQuestion[curr_index].Answer = answer
+
+                if (p0 == 1) {
+                    finalArr[sectionList!![q_grppos1]]!![curr_index].type = 4
+
+                } else {
+
+                    if (answer != "") {
+                        finalArr[sectionList!![q_grppos1]]!![curr_index].type = 2
+
+                    } else {
+                        finalArr[sectionList!![q_grppos1]]!![curr_index].type = 3
+
+                    }
+
+                }
+
+                callSubmitAnswer(
+                    "submit",
+                    movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                    answer,
                     curr_index, p0.toString()
                 )
             }
@@ -2363,7 +2391,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     fun callInsertHint() {
 
         if (!DialogUtils.isNetworkConnected(this@NewTabQuestionActivity)) {
-            Utils.ping(this@NewTabQuestionActivity, "Connection not available")
+            Utils.ping(this@NewTabQuestionActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@NewTabQuestionActivity)

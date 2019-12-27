@@ -114,7 +114,7 @@ class SelectSubjectActivity : AppCompatActivity() {
     fun callSubjectList() {
 
         if (!DialogUtils.isNetworkConnected(this@SelectSubjectActivity)) {
-            Utils.ping(this@SelectSubjectActivity, "Connection not available")
+            Utils.ping(this@SelectSubjectActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@SelectSubjectActivity)

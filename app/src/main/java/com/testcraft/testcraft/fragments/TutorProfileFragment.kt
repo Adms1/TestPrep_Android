@@ -122,7 +122,7 @@ class TutorProfileFragment : Fragment() {
     fun callTutorPrfile() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)
@@ -190,7 +190,7 @@ class TutorProfileFragment : Fragment() {
     fun callSmilarPkgs() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)

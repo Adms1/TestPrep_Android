@@ -72,7 +72,7 @@ class SelectBoardActivity : AppCompatActivity() {
     fun callCourseTypeList() {
 
         if (!DialogUtils.isNetworkConnected(this@SelectBoardActivity)) {
-            Utils.ping(this@SelectBoardActivity, "Connection not available")
+            Utils.ping(this@SelectBoardActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@SelectBoardActivity)

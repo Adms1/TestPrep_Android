@@ -128,7 +128,7 @@ class LoginActivity : AppCompatActivity() {
     fun callLoginApi() {
 
         if (!DialogUtils.isNetworkConnected(this@LoginActivity)) {
-            Utils.ping(this@LoginActivity, "Connection not available")
+            Utils.ping(this@LoginActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@LoginActivity)

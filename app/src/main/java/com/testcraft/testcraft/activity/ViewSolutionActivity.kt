@@ -310,7 +310,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
     fun callSolutionApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)

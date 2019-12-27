@@ -156,7 +156,7 @@ class PackageDetailActivity : Fragment() {
 //            }
 
                     } else {
-                        Utils.ping(activity!!, "Network not available")
+                        Utils.ping(activity!!, AppConstants.NETWORK_MSG)
                     }
 
                 },
@@ -237,7 +237,7 @@ class PackageDetailActivity : Fragment() {
 
     fun generateTrackNPayRequest(context: Context, coin: String) {
         if (!DialogUtils.isNetworkConnected(context)) {
-            Utils.ping(context, "Connection not available")
+            Utils.ping(context, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(context)
@@ -324,7 +324,7 @@ class PackageDetailActivity : Fragment() {
     fun callTestPackageDetailApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)
@@ -467,7 +467,7 @@ class PackageDetailActivity : Fragment() {
     fun callAddTestPackageApi(pkgid: String) {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)
@@ -525,7 +525,7 @@ class PackageDetailActivity : Fragment() {
     fun callAddToCart(pkgid: String) {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)
@@ -581,7 +581,7 @@ class PackageDetailActivity : Fragment() {
     fun callCheckout() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -654,7 +654,7 @@ class PackageDetailActivity : Fragment() {
 
     fun updatePaymentStatus(transaction_status: String, order_id: String) {
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)

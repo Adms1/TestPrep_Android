@@ -64,8 +64,7 @@ class PrefrenceActivity : AppCompatActivity() {
         AppConstants.FILTER_TO_PRICE = "5000"
 
         package_ivBack.setOnClickListener {
-            val intent = Intent(this@PrefrenceActivity, NewActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
 
 //        coarse_rvCoarseList.layoutManager = LinearLayoutManager(this@PrefrenceActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -384,7 +383,7 @@ class PrefrenceActivity : AppCompatActivity() {
     fun callCourseTypeList() {
 
         if (!DialogUtils.isNetworkConnected(this@PrefrenceActivity)) {
-            Utils.ping(this@PrefrenceActivity, "Connection not available")
+            Utils.ping(this@PrefrenceActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@PrefrenceActivity)
@@ -443,7 +442,7 @@ class PrefrenceActivity : AppCompatActivity() {
     fun callSubjectList(stdId: String) {
 
         if (!DialogUtils.isNetworkConnected(this@PrefrenceActivity)) {
-            Utils.ping(this@PrefrenceActivity, "Connection not available")
+            Utils.ping(this@PrefrenceActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@PrefrenceActivity)
@@ -524,7 +523,7 @@ class PrefrenceActivity : AppCompatActivity() {
     fun callStandardList(courseId: Int) {
 
         if (!DialogUtils.isNetworkConnected(this@PrefrenceActivity)) {
-            Utils.ping(this@PrefrenceActivity, "Connection not available")
+            Utils.ping(this@PrefrenceActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@PrefrenceActivity)
@@ -584,4 +583,10 @@ class PrefrenceActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onBackPressed() {
+        val intent = Intent(this@PrefrenceActivity, NewActivity::class.java)
+        startActivity(intent)
+    }
+
 }

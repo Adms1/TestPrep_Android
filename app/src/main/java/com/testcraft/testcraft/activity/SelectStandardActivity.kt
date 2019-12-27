@@ -60,7 +60,7 @@ class SelectStandardActivity : AppCompatActivity() {
     fun callStandardList() {
 
         if (!DialogUtils.isNetworkConnected(this@SelectStandardActivity)) {
-            Utils.ping(this@SelectStandardActivity, "Connection not available")
+            Utils.ping(this@SelectStandardActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@SelectStandardActivity)

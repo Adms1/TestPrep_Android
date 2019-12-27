@@ -570,7 +570,7 @@ class DashboardActivity : AppCompatActivity() {
                     testid = bundle!!.getString("testid")!!
                     studenttestid = bundle.getString("studenttestid")!!
                     testname = bundle.getString("testname")!!
-                    iscompetitive = bundle.getString("isCompetitive")!!
+//                    iscompetitive = bundle.getString("isCompetitive")!!
 
                     fragment = TestReviewActivity()
 
@@ -580,7 +580,7 @@ class DashboardActivity : AppCompatActivity() {
                     bundle5.putString("testid", testid)
                     bundle5.putString("studenttestid", studenttestid)
                     bundle5.putString("testname", testname)
-                    bundle5.putString("isCompetitive", iscompetitive)
+//                    bundle5.putString("isCompetitive", iscompetitive)
 
                     (fragment as TestReviewActivity).arguments = bundle5
 

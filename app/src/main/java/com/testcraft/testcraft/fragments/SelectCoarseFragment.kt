@@ -13,6 +13,7 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
+import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
 import kotlinx.android.synthetic.main.fragment_choose_coarse.*
@@ -53,7 +54,7 @@ class SelectCoarseFragment : Fragment() {
     fun callCourseListApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)

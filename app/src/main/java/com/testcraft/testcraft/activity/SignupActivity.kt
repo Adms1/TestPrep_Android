@@ -181,7 +181,7 @@ class SignupActivity : AppCompatActivity() {
     fun callVerifyAccountApi() {
 
         if (!DialogUtils.isNetworkConnected(this@SignupActivity)) {
-            Utils.ping(this@SignupActivity, "Connection not available")
+            Utils.ping(this@SignupActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@SignupActivity)

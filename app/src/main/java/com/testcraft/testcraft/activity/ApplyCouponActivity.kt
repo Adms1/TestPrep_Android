@@ -12,6 +12,7 @@ import com.testcraft.testcraft.adapter.ApplyCouponAdapter
 import com.testcraft.testcraft.models.CouponModel
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
+import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
 import kotlinx.android.synthetic.main.activity_apply_coupon.*
@@ -46,7 +47,7 @@ class ApplyCouponActivity : AppCompatActivity() {
 
     private fun getCoupons() {
         if (!DialogUtils.isNetworkConnected(this@ApplyCouponActivity)) {
-            Utils.ping(this@ApplyCouponActivity, "Connection not available")
+            Utils.ping(this@ApplyCouponActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@ApplyCouponActivity)

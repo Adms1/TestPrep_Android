@@ -354,7 +354,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
         var filterArray: ArrayList<PackageData.PackageDataList> = ArrayList()
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)
@@ -412,7 +412,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
         var filterArray: ArrayList<PackageData.PackageDataList> = ArrayList()
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)
@@ -493,7 +493,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
         var filterArray: ArrayList<PackageData.PackageDataList> = ArrayList()
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)
@@ -552,7 +552,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
         var filterArray: ArrayList<PackageData.PackageDataList> = ArrayList()
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)
@@ -743,7 +743,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
 //    fun callFilterListApi() {
 //
 //        if (!DialogUtils.isNetworkConnected(activity!!)) {
-//            Utils.ping(activity!!, "Connection not available")
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
 //        }
 //
 //        DialogUtils.showDialog(activity!!)

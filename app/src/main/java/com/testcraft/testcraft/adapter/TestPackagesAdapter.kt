@@ -134,7 +134,7 @@ class TestPackagesAdapter(
     fun callAddTestPackageApi(pkgid: String) {
 
         if (!DialogUtils.isNetworkConnected(context)) {
-            Utils.ping(context, "Connection not available")
+            Utils.ping(context, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(context)

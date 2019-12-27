@@ -145,7 +145,7 @@ class NewActivity : AppCompatActivity() {
     fun callCourseListApi() {
 
         if (!DialogUtils.isNetworkConnected(this@NewActivity)) {
-            Utils.ping(this@NewActivity, "Connection not available")
+            Utils.ping(this@NewActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@NewActivity)
@@ -184,7 +184,7 @@ class NewActivity : AppCompatActivity() {
     fun callCheckPhoneApi(phone: String) {
 
         if (!DialogUtils.isNetworkConnected(this@NewActivity)) {
-            Utils.ping(this@NewActivity, "Connection not available")
+            Utils.ping(this@NewActivity, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(this@NewActivity)

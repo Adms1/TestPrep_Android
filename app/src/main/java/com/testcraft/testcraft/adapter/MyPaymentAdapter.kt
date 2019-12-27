@@ -47,7 +47,7 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
 //        }
 
         p0.date.text = "Date : " + dataList[p1].PaymentDate
-        p0.id.text = "Name : " + dataList[p1].PackageName
+        p0.id.text = "Package : " + dataList[p1].PackageName
 //        p0.status.text = dataList[p1].ExternalTran sactionStatus
 
         if (dataList[p1].IsFree == "1") {
@@ -80,7 +80,7 @@ class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData
 
     fun generateTrackNPayRequest(coin: String, trans_id: String) {
         if (!DialogUtils.isNetworkConnected(context)) {
-            Utils.ping(context, "Connection not available")
+            Utils.ping(context, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(context)

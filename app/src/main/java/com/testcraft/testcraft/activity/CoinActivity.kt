@@ -89,7 +89,7 @@ class CoinActivity : AppCompatActivity(), CoinInteface {
 //            }
 
             } else {
-                Utils.ping(this@CoinActivity, "Network not available")
+                Utils.ping(this@CoinActivity, AppConstants.NETWORK_MSG)
             }
         }
 
@@ -215,7 +215,7 @@ class CoinActivity : AppCompatActivity(), CoinInteface {
 
     fun generateTrackNPayRequest(context: Context, coin: String) {
         if (!DialogUtils.isNetworkConnected(context)) {
-            Utils.ping(context, "Connection not available")
+            Utils.ping(context, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(context)

@@ -57,7 +57,9 @@ class ExploreFragment : Fragment() {
                     ActionIdData.T3101
                 )
 
-                callAddHitoryApi()
+                if (explore_etSearch.text.toString().trim().isNotEmpty()) {
+                    callAddHitoryApi()
+                }
 
 //                for (i in 0..AppConstants.recentSearchList.size) {
 //                    if (!AppConstants.recentSearchList.contains(explore_etSearch.text.toString())) {
@@ -71,11 +73,14 @@ class ExploreFragment : Fragment() {
             false
         }
 
+
         explore_ivSearch.setOnClickListener {
 
             CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C3101, ActionIdData.T3101)
 
-            callAddHitoryApi()
+            if (explore_etSearch.text.toString().trim().isNotEmpty()) {
+                callAddHitoryApi()
+            }
 
 //            for (i in 0..AppConstants.recentSearchList.size) {
 //                if (!AppConstants.recentSearchList.contains(explore_etSearch.text.toString())) {
@@ -148,7 +153,7 @@ class ExploreFragment : Fragment() {
         var filterArray: ArrayList<PackageData.PackageDataList> = ArrayList()
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)
@@ -204,7 +209,7 @@ class ExploreFragment : Fragment() {
     fun callAddHitoryApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)
@@ -275,7 +280,7 @@ class ExploreFragment : Fragment() {
     fun callGetHistoryApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, "Connection not available")
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
         DialogUtils.showDialog(activity!!)
