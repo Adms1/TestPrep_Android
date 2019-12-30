@@ -3,6 +3,7 @@ package com.testcraft.testcraft.activity
 import adapter.ChooseCoarseAdapter
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -27,7 +28,6 @@ class SelectSubjectActivity : AppCompatActivity() {
 
     private var chooseCoarseAdapter: ChooseCoarseAdapter? = null
     private var selectType = "no"
-    private var selectType1 = "no"
     private var stdId = ""
     var apitype = ""
     private var subjectList: ArrayList<PackageData.PackageDataList> = ArrayList()
@@ -43,7 +43,9 @@ class SelectSubjectActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         setContentView(R.layout.activity_standard_fragment)
 
@@ -120,7 +122,7 @@ class SelectSubjectActivity : AppCompatActivity() {
         DialogUtils.showDialog(this@SelectSubjectActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        var call: Call<PackageData>? = null
+        lateinit var call: Call<PackageData>
 
         if (Utils.getStringValue(
                 this@SelectSubjectActivity,

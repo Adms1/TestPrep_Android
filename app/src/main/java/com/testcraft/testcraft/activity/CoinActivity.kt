@@ -2,6 +2,7 @@ package com.testcraft.testcraft.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -26,11 +27,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 /**
  * A simple [Fragment] subclass.
  *
@@ -41,10 +37,10 @@ class CoinActivity : AppCompatActivity(), CoinInteface {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
-    internal var isBoolean_permission_location = false
-    internal var isBoolean_permission_phoneState = false
-    val REQUEST_PERMISSIONS_Location = 1
-    val REQUEST_PERMISSIONS_PhoneState = 2
+    //    internal var isBoolean_permission_location = false
+//    internal var isBoolean_permission_phoneState = false
+//    val REQUEST_PERMISSIONS_Location = 1
+//    val REQUEST_PERMISSIONS_PhoneState = 2
     var coinInteface: CoinInteface? = null
 
     var coinArr: ArrayList<CoinModel> = ArrayList()
@@ -63,7 +59,9 @@ class CoinActivity : AppCompatActivity(), CoinInteface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         coinInteface = this
 

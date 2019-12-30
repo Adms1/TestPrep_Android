@@ -2,6 +2,7 @@ package com.testcraft.testcraft.activity
 
 import adapter.ChooseCoarseAdapter
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -40,7 +41,9 @@ class SelectStandardActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         setContentView(R.layout.activity_select_standard)
 
@@ -66,7 +69,7 @@ class SelectStandardActivity : AppCompatActivity() {
         DialogUtils.showDialog(this@SelectStandardActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        var call = apiService.getBoardStandardList(stdId)
+        val call = apiService.getBoardStandardList(stdId)
 
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {

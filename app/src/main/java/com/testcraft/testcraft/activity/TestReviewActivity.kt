@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.activity
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
@@ -25,6 +26,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@SuppressLint("SetTextI18n")
 class TestReviewActivity : Fragment() {
 
     var testid = ""
@@ -63,9 +65,9 @@ class TestReviewActivity : Fragment() {
 
         bundle = this.arguments
 
-        testid = bundle!!.getString("testid")
-        studenttestid = bundle!!.getString("studenttestid")
-        testname = bundle!!.getString("testname")
+        testid = bundle!!.getString("""testid""")!!
+        studenttestid = bundle!!.getString("studenttestid")!!
+        testname = bundle!!.getString("testname")!!
 
 //        testid = intent.getStringExtra("testid")
 //        studenttestid = intent.getStringExtra("studenttestid")
@@ -243,6 +245,7 @@ class TestReviewActivity : Fragment() {
 
         val call = apiService.getSubjectwiseMarks(studenttestid)
         call.enqueue(object : Callback<AttemptModel> {
+
             override fun onResponse(call: Call<AttemptModel>, response: Response<AttemptModel>) {
 
                 if (response.body()!!.Status == "true") {

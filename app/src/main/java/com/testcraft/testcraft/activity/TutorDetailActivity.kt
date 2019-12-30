@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -299,7 +300,7 @@ class TutorDetailActivity : Fragment() {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        var call: Call<PackageData>? = null
+        lateinit var call: Call<PackageData>
 
         if (course_type == "1") {
             call = apiService.getFilterData(
@@ -423,6 +424,7 @@ class TutorDetailActivity : Fragment() {
         }
     }
 
+    @SuppressLint("DefaultLocale")
     fun sorting(type: String, modelList: ArrayList<PackageData.PackageDataList>) {
 
         if (isSort) {

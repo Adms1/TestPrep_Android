@@ -1,7 +1,9 @@
 package com.testcraft.testcraft.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -39,6 +41,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    @SuppressLint("AddJavascriptInterface", "SetJavaScriptEnabled", "DefaultLocale")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -46,7 +49,9 @@ class TraknpayRequestActivity : AppCompatActivity() {
 //            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
 //            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 //        )
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         setContentView(R.layout.activity_traknpay_request)
 
@@ -56,11 +61,11 @@ class TraknpayRequestActivity : AppCompatActivity() {
         pkgprice = intent.getStringExtra("amount")
 
         val return_url = "https://biz.traknpay.in/tnp/return_page_android.php"
-        var mode: String? = AppConstants.PAYMENT_MODE
-        var order_id: String? = intent.getStringExtra("order_id")
-        var amount: String? = intent.getStringExtra("amount")
+        val mode: String? = AppConstants.PAYMENT_MODE
+        val order_id: String? = intent.getStringExtra("order_id")
+        val amount: String? = intent.getStringExtra("amount")
         val currency = "INR"
-        var description: String? = "coin purchase"
+        val description: String? = "coin purchase"
         val name = Utils.getStringValue(
             this@TraknpayRequestActivity,
             AppConstants.FIRST_NAME,
@@ -220,7 +225,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
 
         Log.d("url", "" + webView.postUrl(AppConstants.PAYMENT_REQUEST, postData.toByteArray()))
 
-        webView.addJavascriptInterface(MyJavaScriptInterface(this), "Android")
+        webView.addJavascriptInterface(MyJavaScriptInterface(), "Android")
 
     }
 
@@ -233,7 +238,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
     fun generateSha512Hash(toHash: String): String {
         var md: MessageDigest? = null
         var hash: ByteArray? = null
-        var sb = StringBuilder()
+        val sb = StringBuilder()
         try {
 //            md = MessageDigest.getInstance("SHA-512")
 //            hash = md!!.digest(toHash.toByteArray(charset("UTF-8")))
@@ -242,7 +247,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
             val data = md.digest(toHash.toByteArray())
 
             for (i in data.indices) {
-                sb.append(Integer.toString((data[i] and 0xff.toByte()) + 0x100, 16).substring(1))
+                sb.append(((data[i] and 0xff.toByte()) + 0x100).toString(16).substring(1))
             }
             println(sb)
 
@@ -265,7 +270,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
     private fun convertToHex(raw: ByteArray): String {
         val sb = StringBuilder()
         for (aRaw in raw) {
-            sb.append(Integer.toString((aRaw and 0xff.toByte()) + 0x100, 16).substring(1))
+            sb.append(((aRaw and 0xff.toByte()) + 0x100).toString(16).substring(1))
         }
         return sb.toString()
     }
@@ -277,7 +282,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
     /**
      * Instantiate the interface and set the context
      */
-    internal constructor(internal var mContext: Context) {
+    internal constructor() {
 
         /**
          * Show a toast from the web page

@@ -1,7 +1,9 @@
 package com.testcraft.testcraft.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -32,6 +34,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,7 +42,9 @@ class PaymentSuccessScreen : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         setContentView(R.layout.activity_payment_success_screen)
 
@@ -176,9 +181,9 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
                     DialogUtils.dismissDialog()
 
-                    if (response.body()!!["Status"].asString == "true") {
+                    if (response.body()!!["Status"].asString != "true") {
 
-                        if (transaction_status == "Success") {
+//                        if (transaction_status == "Success") {
 //                            Handler().postDelayed(
 //
 //                                /* Runnable
@@ -204,9 +209,9 @@ class PaymentSuccessScreen : AppCompatActivity() {
 //                            callAddTestPackageApi()
 
 
-                        }
+//                        }
 
-                    } else {
+//                    } else {
                         Toast.makeText(
                             this@PaymentSuccessScreen,
                             response.body()!!["Msg"].asString,
@@ -244,25 +249,25 @@ class PaymentSuccessScreen : AppCompatActivity() {
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
-                if (response.body() != null) {
+//                if (response.body() != null) {
 
-                    if (response.body()!!["Status"].toString() == "true") {
-
-//                        Toast.makeText(
-//                            this@PaymentSuccessScreen,
-//                            response.body()!!["Msg"].toString().replace("\"", ""),
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-
-                    } else {
+//                    if (response.body()!!["Status"].toString() == "true") {
 
 //                        Toast.makeText(
 //                            this@PaymentSuccessScreen,
 //                            response.body()!!["Msg"].toString().replace("\"", ""),
 //                            Toast.LENGTH_SHORT
 //                        ).show()
-                    }
-                }
+
+//                    } else {
+
+//                        Toast.makeText(
+//                            this@PaymentSuccessScreen,
+//                            response.body()!!["Msg"].toString().replace("\"", ""),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {

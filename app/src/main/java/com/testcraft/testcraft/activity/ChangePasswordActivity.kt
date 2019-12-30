@@ -23,11 +23,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class ChangePasswordActivity : Fragment() {
-
-//    override fun attachBaseContext(newBase: Context?) {
-//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
-//    }
 
     var bundle: Bundle? = null
     var come: String = ""

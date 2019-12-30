@@ -17,18 +17,18 @@ import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
 
 class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
-    RecyclerView.Adapter<OtherListAdapter.viewholder>() {
+    RecyclerView.Adapter<OtherListAdapter.Viewholder>() {
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
+    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): Viewholder {
 
-        return viewholder(LayoutInflater.from(context).inflate(R.layout.other_list_item, p0, false))
+        return Viewholder(LayoutInflater.from(context).inflate(R.layout.other_list_item, p0, false))
     }
 
     override fun getItemCount(): Int {
         return dataList.size
     }
 
-    override fun onBindViewHolder(p0: viewholder, p1: Int) {
+    override fun onBindViewHolder(p0: Viewholder, p1: Int) {
         p0.text.text = dataList[p1]
 
         p0.text.setOnClickListener {
@@ -102,7 +102,7 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 //                    intent.putExtra("come_from", "other")
 //                    startActivity(intent)
                 }
-                "Change Prefrence" -> {
+                "Change Preference" -> {
 
                     CommonWebCalls.callToken(
                         context,
@@ -124,6 +124,26 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 
                 }
 
+                "Contact Us" -> {
+
+                    AppConstants.isFirst = 16
+                    DashboardActivity.setFragments(null)
+
+                }
+
+                "Privacy Policy" -> {
+
+                    val intent = Intent(context, ViewInvoiceActivity::class.java)
+                    intent.putExtra("header", "Privacy Policy")
+                    intent.putExtra(
+                        "url",
+                        "https://testcraft.in/PrivacyPolicyMobile.aspx"
+                    )
+
+                    context.startActivity(intent)
+
+                }
+
                 "Logout" -> {
 
                     CommonWebCalls.callToken(
@@ -139,10 +159,9 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 
             }
         }
-
     }
 
-    class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class Viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var text: TextView = itemView.findViewById(R.id.other_item_text)
 

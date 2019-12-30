@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -47,6 +48,7 @@ class PackageDetailActivity : Fragment() {
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -175,7 +177,7 @@ class PackageDetailActivity : Fragment() {
         if (AppConstants.API_KEY.length > 5 && AppConstants.SECRET_KEY.length > 5) {
             var amount: Array<String>? = null
 
-            var amt = purchaseCoin.toString().replace("₹", "").trim()
+            val amt = purchaseCoin.replace("₹", "").trim()
 
             if (amt.contains("."))
                 amount = amt.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
@@ -215,8 +217,8 @@ class PackageDetailActivity : Fragment() {
                     //                            fetchTokenAndTransactionID();
                     //Custom UI
 
-                    var temp = amt.replace(",", "")
-                    var temp1 = temp.toFloat()
+                    val temp = amt.replace(",", "")
+                    val temp1 = temp.toFloat()
 
                     generateTrackNPayRequest(activity!!, temp1.toString())
 
@@ -439,7 +441,7 @@ class PackageDetailActivity : Fragment() {
 //                        var pos = intent.getCharExtra("position", 'a')
 
 
-                        var testList: JsonArray? =
+                        val testList: JsonArray? =
                             response.body()!!.get("data").asJsonObject.get("TestList").asJsonArray
 
                         package_detail_rvList.adapter = TestTypeAdapter(
@@ -717,7 +719,7 @@ class PackageDetailActivity : Fragment() {
 
                     AppConstants.isFirst = 1
 
-                    var intent = Intent(activity!!, DashboardActivity::class.java)
+                    val intent = Intent(activity!!, DashboardActivity::class.java)
                     startActivity(intent)
                     (context as DashboardActivity).finish()
 

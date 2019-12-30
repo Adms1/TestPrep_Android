@@ -1,14 +1,13 @@
 package com.testcraft.testcraft.activity
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import android.view.WindowManager
 import com.testcraft.testcraft.R
-import com.testcraft.testcraft.adapter.SelectPackageAdapter
-import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.TextDrawablee
 import kotlinx.android.synthetic.main.activity_select_package.*
@@ -16,12 +15,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class SelectPackageActivity : AppCompatActivity() {
 
-    var selectPackageAdapter: SelectPackageAdapter? = null
-
     private var mDrawableBuilder: TextDrawablee.IBuilder? = null
-
-    // list of data items
-    private var mDataList: ArrayList<PackageData.PackageDataList>? = null
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -34,7 +28,10 @@ class SelectPackageActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         setContentView(R.layout.activity_select_package)
 

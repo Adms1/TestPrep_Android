@@ -2,6 +2,7 @@ package com.testcraft.testcraft.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
@@ -9,7 +10,6 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
@@ -31,7 +31,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         setContentView(R.layout.activity_forgot_password)
 
@@ -66,34 +68,31 @@ class ForgotPasswordActivity : AppCompatActivity() {
             }
         }
 
-        forgot_pass_etEmail.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+        forgot_pass_etEmail.setOnEditorActionListener { v, actionId, event ->
+            if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
 
-            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
-                if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                CommonWebCalls.callToken(
+                    this@ForgotPasswordActivity,
+                    "1",
+                    "",
+                    ActionIdData.C3901,
+                    ActionIdData.T3901
+                )
 
-                    CommonWebCalls.callToken(
-                        this@ForgotPasswordActivity,
-                        "1",
-                        "",
-                        ActionIdData.C3901,
-                        ActionIdData.T3901
-                    )
+                when {
+                    TextUtils.isEmpty(forgot_pass_etEmail.text.toString()) -> forgot_pass_etEmail.error =
+                        "Please Enter Mobile Number"
+                    forgot_pass_etEmail.text!!.length != 10 -> forgot_pass_etEmail.error =
+                        "Please enter valid Mobile Number"
+                    else -> callForgotPasswordlApi()
 
-                    when {
-                        TextUtils.isEmpty(forgot_pass_etEmail.text.toString()) -> forgot_pass_etEmail.error =
-                            "Please Enter Mobile Number"
-                        forgot_pass_etEmail.text!!.length != 10 -> forgot_pass_etEmail.error =
-                            "Please enter valid Mobile Number"
-                        else -> callForgotPasswordlApi()
-
-                        //                val intent = Intent(this@ForgotPasswordActivity, CheckEmailActivity::class.java)
-                        //                startActivity(intent)
-                        //                finish()
-                    }
+                    //                val intent = Intent(this@ForgotPasswordActivity, CheckEmailActivity::class.java)
+                    //                startActivity(intent)
+                    //                finish()
                 }
-                return false
             }
-        })
+            false
+        }
 
 
         forgot_pass_ivBack.setOnClickListener { onBackPressed() }

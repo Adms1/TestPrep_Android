@@ -41,7 +41,7 @@ class ApplyCouponAdapter(val context: Context, val dataList: ArrayList<CouponMod
         var code: TextView = itemView.findViewById(R.id.coupon_tvCode)
         var title: TextView = itemView.findViewById(R.id.coupon_tvTitle)
         var desc: TextView = itemView.findViewById(R.id.coupon_tvDesc)
-        var date: TextView = itemView.findViewById(R.id.coupon_tvExpiry)
+//        var date: TextView = itemView.findViewById(R.id.coupon_tvExpiry)
 
     }
 }

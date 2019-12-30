@@ -17,14 +17,12 @@ import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.Utils
 
-
 class ChooseCoarseAdapter(
     val context: Context,
     val type: String,
     val dataList: ArrayList<PackageData.PackageDataList>,
     val selectType: String
-) :
-    RecyclerView.Adapter<ChooseCoarseAdapter.viewholder>() {
+) : RecyclerView.Adapter<ChooseCoarseAdapter.viewholder>() {
 
     var row_index = -1
     var ismulti = -1
@@ -121,8 +119,6 @@ class ChooseCoarseAdapter(
 //                            R.anim.slide_in_right,
 //                            R.anim.slide_out_left
 //                        )
-
-
                     }
 
                     AppConstants.COURSE_FLOW_ARRAY.add(dataList[p1].CourseName)
@@ -248,9 +244,7 @@ class ChooseCoarseAdapter(
 
     fun getIds(): String {
 
-        val ids = selected.toString().replace("[", "").replace("]", "")
-
-        return ids
+        return selected.toString().replace("[", "").replace("]", "")
 
     }
 }

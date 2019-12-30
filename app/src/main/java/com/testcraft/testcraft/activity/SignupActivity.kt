@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -8,12 +9,9 @@ import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
-import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
-import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
@@ -32,10 +30,13 @@ class SignupActivity : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         setContentView(R.layout.activity_signup)
 
@@ -93,23 +94,21 @@ class SignupActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        signup_etMobile.setOnEditorActionListener(object : OnEditorActionListener {
+        signup_etMobile.setOnEditorActionListener { v, actionId, event ->
 
-            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
-                if (event != null && event.keyCode == KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+            if (event != null && event.keyCode == KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
 
-                    if (isValid()) {
-                        if (signup_cbTerms.isChecked) {
-                            callVerifyAccountApi()
-                        } else {
-                            Utils.ping(this@SignupActivity, "Select Terms & Conditions")
-                        }
+                if (isValid()) {
+                    if (signup_cbTerms.isChecked) {
+                        callVerifyAccountApi()
+                    } else {
+                        Utils.ping(this@SignupActivity, "Select Terms & Conditions")
                     }
-
                 }
-                return false
+
             }
-        })
+            false
+        }
         signup_ivBack.setOnClickListener {
             onBackPressed()
         }

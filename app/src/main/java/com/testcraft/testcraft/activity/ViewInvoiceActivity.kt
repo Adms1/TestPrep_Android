@@ -1,6 +1,8 @@
 package com.testcraft.testcraft.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -22,10 +24,13 @@ class ViewInvoiceActivity : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         setContentView(R.layout.activity_view_invoice)
 
@@ -41,7 +46,7 @@ class ViewInvoiceActivity : AppCompatActivity() {
 
             url = intent.getStringExtra("url")
 
-            Log.d("test summary report", "URL : " + url)
+            Log.d("test summary report", "URL : $url")
 
             invoice_view.settings.builtInZoomControls = true
             invoice_view.settings.useWideViewPort = true
@@ -59,7 +64,6 @@ class ViewInvoiceActivity : AppCompatActivity() {
 
         invoice_ivBack.setOnClickListener { finish() }
     }
-
 
     inner class MyWebViewClient : WebViewClient() {
 

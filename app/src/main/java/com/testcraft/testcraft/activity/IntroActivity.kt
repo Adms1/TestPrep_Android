@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -55,6 +56,7 @@ class IntroActivity : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    @SuppressLint("SetTextI18n", "PackageManagerGetSignatures")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -62,7 +64,9 @@ class IntroActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         FacebookSdk.sdkInitialize(applicationContext)
 
@@ -269,7 +273,7 @@ class IntroActivity : AppCompatActivity() {
             val layoutInflater: LayoutInflater = LayoutInflater.from(applicationContext)
             val view = layoutInflater.inflate(R.layout.slider_item_layout, container, false)
 
-            var iv: ImageView = view.findViewById(R.id.imageView)
+            val iv: ImageView = view.findViewById(R.id.imageView)
 
             iv.setImageResource(layouts!![position])
 

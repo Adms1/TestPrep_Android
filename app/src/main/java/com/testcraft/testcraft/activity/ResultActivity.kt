@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -28,6 +29,7 @@ class ResultActivity : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -54,7 +56,8 @@ class ResultActivity : AppCompatActivity() {
 //            }
 //        }
 
-        result_tvMarks.text = "Marks : " + intent.getStringExtra("display_totalmarks")
+        result_tvMarks.text = """Marks : ${intent.getStringExtra("display_totalmarks")}"""
+
         result_tvHeading.text = intent.getStringExtra("testname")
 
         result_btnDashboard.setOnClickListener {

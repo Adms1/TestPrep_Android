@@ -12,7 +12,6 @@ import android.util.Patterns
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
@@ -32,12 +31,14 @@ class LoginActivity : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
-    @SuppressLint("PackageManagerGetSignatures")
+    @SuppressLint("PackageManagerGetSignatures", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         setContentView(R.layout.activity_login)
 
@@ -102,26 +103,23 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
-        login_etPassword.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+        login_etPassword.setOnEditorActionListener { v, actionId, event ->
+            if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
 
-            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
-                if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                CommonWebCalls.callToken(
+                    this@LoginActivity,
+                    "1",
+                    "",
+                    ActionIdData.C3803,
+                    ActionIdData.T3803
+                )
 
-                    CommonWebCalls.callToken(
-                        this@LoginActivity,
-                        "1",
-                        "",
-                        ActionIdData.C3803,
-                        ActionIdData.T3803
-                    )
-
-                    if (isValid()) {
-                        callLoginApi()
-                    }
+                if (isValid()) {
+                    callLoginApi()
                 }
-                return false
             }
-        })
+            false
+        }
 
     }
 

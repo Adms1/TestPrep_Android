@@ -43,7 +43,6 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
     var testid = ""
     var studenttestid = ""
     var hintData = ""
-    var explanationData = ""
 
     var movies: ArrayList<NewQuestionResponse.QuestionList> = ArrayList()
 
@@ -56,10 +55,6 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
     var solution_que_number = 1
     var solution_testque = ""
-
-//    override fun attachBaseContext(newBase: Context?) {
-//        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -120,7 +115,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         drawer_layout1.setDrawerListener(mDrawerToggle)
 
-        val dialog = Dialog(activity)
+        val dialog = Dialog(activity!!)
 
         solution_expQueList.setOnGroupClickListener { parent, v, groupPosition, id ->
 
@@ -162,15 +157,15 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
             CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2401, ActionIdData.T2401)
 
-            val dialog = Dialog(activity!!)
-            dialog.setContentView(R.layout.dialog_report_issue)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.setCanceledOnTouchOutside(false)
+            val dialog1 = Dialog(activity!!)
+            dialog1.setContentView(R.layout.dialog_report_issue)
+            dialog1.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog1.setCanceledOnTouchOutside(false)
 
-            val close: TextView = dialog.findViewById(R.id.dialog_report_tvClose)
-            val queproblem: TextView = dialog.findViewById(R.id.dialog_report_tvQueProblem)
-            val ansproblem: TextView = dialog.findViewById(R.id.dialog_report_tvAnsProblem)
-            val hintexplanation: TextView = dialog.findViewById(R.id.dialog_report_tvHintProblem)
+            val close: TextView = dialog1.findViewById(R.id.dialog_report_tvClose)
+            val queproblem: TextView = dialog1.findViewById(R.id.dialog_report_tvQueProblem)
+            val ansproblem: TextView = dialog1.findViewById(R.id.dialog_report_tvAnsProblem)
+            val hintexplanation: TextView = dialog1.findViewById(R.id.dialog_report_tvHintProblem)
 
             hintexplanation.text = getString(R.string.explanation_has_a_problem)
 
@@ -190,7 +185,8 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                     queproblem.text.toString(),
                     movies[solution_grppos1].TestQuestion[curr_index1].QuestionID.toString()
                 )
-                dialog.dismiss()
+
+                dialog1.dismiss()
             }
 
             ansproblem.setOnClickListener {
@@ -209,7 +205,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                     ansproblem.text.toString(),
                     movies[solution_grppos1].TestQuestion[curr_index1].QuestionID.toString()
                 )
-                dialog.dismiss()
+                dialog1.dismiss()
             }
 
             hintexplanation.setOnClickListener {
@@ -228,7 +224,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                     hintexplanation.text.toString(),
                     movies[solution_grppos1].TestQuestion[curr_index1].QuestionID.toString()
                 )
-                dialog.dismiss()
+                dialog1.dismiss()
             }
 
             close.setOnClickListener {
@@ -241,10 +237,10 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                     ActionIdData.T2504
                 )
 
-                dialog.dismiss()
+                dialog1.dismiss()
             }
 
-            dialog.show()
+            dialog1.show()
         }
 
         solution_btnNextt.setOnClickListener {
@@ -344,6 +340,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                         "UTF-8",
                         ""
                     )
+
                 } else {
                     dialog_hint_wvHint.visibility = View.GONE
                 }
@@ -706,7 +703,9 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         if (curr_index1 <= finalArr1[sectionList!![solution_grppos1]]!!.size - 1) {
             curr_index1 += 1
+
         } else {
+
             if ((finalArr1.size - 1) > solution_grppos1) {
 
                 if (finalArr1[sectionList!![solution_grppos1]]!!.size == curr_index1) {
@@ -715,7 +714,6 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                     finalArr1[sectionList!![solution_grppos1]]!![curr_index1].type = 1
 
                 }
-
             }
         }
 
@@ -733,7 +731,6 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
         var nextButton: Button? = null
         var sideList: ExpandableListView? = null
         var sectionList: ArrayList<String>? = null
-        var sectionList1: ArrayList<QuestionTypeModel>? = null
         var filterTypeSelectionInteface: FilterTypeSelectionInteface? = null
         var context: Context? = null
         var finalArr1: HashMap<String, ArrayList<QuestionTypeModel>> = HashMap()

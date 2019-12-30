@@ -24,8 +24,8 @@ import retrofit2.Response
 class TestListActivity : Fragment() {
 
     var bundle: Bundle? = null
-    private var pname = ""
-    private var pkgid = ""
+//    private var pname = ""
+//    private var pkgid = ""
 
 //    override fun attachBaseContext(newBase: Context?) {
 //        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))

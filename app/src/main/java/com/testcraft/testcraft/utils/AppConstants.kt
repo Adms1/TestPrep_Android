@@ -13,23 +13,24 @@ class AppConstants {
 
 //        LIVE
 
-        var BASE_URL = "http://webservice.testcraft.in/WebService.asmx/"
-        var IMAGE_BASE_URL = "http://testcraft.in/upload/"
-        var EXPHINT_IMAGE_BASE_URL = "http://testcraft.in/"
-        var PAYMENT_REQUEST = "https://biz.traknpay.in/v2/paymentrequest"
-        var INVOICE_URL = "http://testcraft.in/InvoiceDetail.aspx?ID="
-        var SUMMARY_REPORT_URL = "http://webservice.testcraft.in/TestSummaryReport.aspx?"
-        var SUBJECT_SUMMARY_REPORT_URL = "http://webservice.testcraft.in/SubjectSummaryReport.aspx?"
-//
+//        var BASE_URL = "http://webservice.testcraft.in/WebService.asmx/"
+//        var IMAGE_BASE_URL = "http://testcraft.in/upload/"
+//        var EXPHINT_IMAGE_BASE_URL = "http://testcraft.in/"
+//        var PAYMENT_REQUEST = "https://biz.traknpay.in/v2/paymentrequest"
+//        var INVOICE_URL = "http://testcraft.in/InvoiceDetail.aspx?ID="
+//        var SUMMARY_REPORT_URL = "http://webservice.testcraft.in/TestSummaryReport.aspx?"
+//        var SUBJECT_SUMMARY_REPORT_URL = "http://webservice.testcraft.in/SubjectSummaryReport.aspx?"
+
 //        LOCAL
 
-//        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
-//        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
-//        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
-//        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
-//        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
-//        var SUBJECT_SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
-//        var PAYMENT_REQUEST = "https://biz.traknpay.in/v2/paymentrequest"
+        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
+        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
+        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
+        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
+        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
+        var SUBJECT_SUMMARY_REPORT_URL =
+            "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
+        var PAYMENT_REQUEST = "https://biz.traknpay.in/v2/paymentrequest"
 
 //        USER DATA
 

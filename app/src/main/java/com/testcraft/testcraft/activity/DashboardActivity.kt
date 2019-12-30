@@ -785,6 +785,22 @@ class DashboardActivity : AppCompatActivity() {
                         .commit()
 
                 }
+                16 -> {
+
+                    fragment = ContactUsFragment()
+
+                    llBottom!!.visibility = View.VISIBLE
+
+                    btnBack!!.visibility = View.VISIBLE
+//                    btnLogout!!.visibility = View.GONE
+
+                    main_header!!.text = "Contact Us"
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
+
+                }
             }
 
 //            fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
@@ -813,7 +829,7 @@ class DashboardActivity : AppCompatActivity() {
 
             exitProcess(0)
 
-        } else if (AppConstants.isFirst == 5 || AppConstants.isFirst == 6 || AppConstants.isFirst == 8) {
+        } else if (AppConstants.isFirst == 5 || AppConstants.isFirst == 6 || AppConstants.isFirst == 8 || AppConstants.isFirst == 16) {
 
             AppConstants.isFirst = 4
             setFragments(null)

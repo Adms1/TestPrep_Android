@@ -1,7 +1,9 @@
 package com.testcraft.testcraft.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -30,7 +32,9 @@ class CartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         setContentView(R.layout.activity_cart)
 
@@ -62,6 +66,7 @@ class CartActivity : AppCompatActivity() {
             apiService.getCart(Utils.getStringValue(this@CartActivity, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<JsonObject> {
+            @SuppressLint("SetTextI18n")
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
                 DialogUtils.dismissDialog()
@@ -81,11 +86,11 @@ class CartActivity : AppCompatActivity() {
                         }
 
                         cart_tvPprice.text =
-                            "₹" + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TestPackageSalePrice").asString
+                            """₹${response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TestPackageSalePrice").asString}"""
                         cart_tvPayable.text =
-                            "₹" + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TestPackageSalePrice").asString
+                            """₹${response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TestPackageSalePrice").asString}"""
                         cart_tvTotal.text =
-                            "₹" + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TestPackageSalePrice").asString
+                            """₹${response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TestPackageSalePrice").asString}"""
 
 
                     } else {
