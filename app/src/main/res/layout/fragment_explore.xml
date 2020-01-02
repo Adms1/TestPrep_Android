@@ -20,8 +20,8 @@
         <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Search by subject or course"
-                android:textSize="@dimen/_14sdp"
+            android:hint="Search by subject, course or tutor"
+            android:padding="@dimen/_7sdp"
                 android:background="@color/white"
                 android:maxLines="1"
                 android:ellipsize="end"
@@ -29,7 +29,7 @@
                 android:inputType="textAutoComplete"
                 android:id="@+id/explore_etSearch"
                 android:layout_toLeftOf="@+id/explore_ivSearch"
-                android:padding="@dimen/_5sdp" />
+            android:textSize="@dimen/_12sdp" />
 
         <ImageView
                 android:id="@+id/explore_ivSearch"

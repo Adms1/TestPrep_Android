@@ -84,7 +84,14 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.TraknpayRequestActivity"
-            android:screenOrientation="portrait" /> <!-- <activity android:name=".activity.TabwiseQuestionActivity" android:screenOrientation="portrait"/> -->
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="com.scytec.datamobile.vd.gui.android.AppPreferenceActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity><!-- <activity android:name=".activity.TabwiseQuestionActivity" android:screenOrientation="portrait"/> -->
         <activity
             android:name=".sectionmodule.NewTabQuestionActivity"
             android:screenOrientation="portrait" />
@@ -119,6 +126,14 @@
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="com.testcraft.testcraft" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

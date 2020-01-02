@@ -494,7 +494,7 @@ class QuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     page_img_que_img.width,
                                     movies[0].TestQuestion[0].QuestionTypeID,
                                     movies[0].TestQuestion[0].QuestionID,
-                                    movies[0].TestQuestion[0].Answer
+                                    movies[0].TestQuestion[0].Answer, 0
                                 )
 
                             } else if (movies[0].TestQuestion[0].QuestionTypeID == 2 || movies[0].TestQuestion[0].QuestionTypeID == 8) {
@@ -1034,7 +1034,7 @@ class QuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                             imgQue!!.width,
                                             movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
                                             movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                                            movies[q_grppos1].TestQuestion[curr_index].Answer
+                                            movies[q_grppos1].TestQuestion[curr_index].Answer, 0
                                         )
 
                                     } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 2 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 8) {
@@ -1140,7 +1140,7 @@ class QuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                                 imgQue!!.width,
                                                 movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
                                                 movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                                                movies[q_grppos1].TestQuestion[curr_index].Answer
+                                                movies[q_grppos1].TestQuestion[curr_index].Answer, 0
                                             )
 
                                         } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 2 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 8) {
@@ -1442,7 +1442,7 @@ class QuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         imgQue!!.width,
                         movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
                         movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                        movies[q_grppos1].TestQuestion[curr_index].Answer
+                        movies[q_grppos1].TestQuestion[curr_index].Answer, 0
                     )
 
                 } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 2 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 8) {

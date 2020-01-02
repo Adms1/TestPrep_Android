@@ -222,4 +222,12 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Subject_wise_marks")
     fun getSubjectwiseMarks(@Field("StudentTestID") studenttest_id: String): Call<AttemptModel>
+
+    @FormUrlEncoded
+    @POST("Send_Enquiry")
+    fun sendEnquiry(
+        @Field("FirstName") firstname: String, @Field("LastName") lastname: String, @Field(
+            "Email"
+        ) email: String, @Field("Comment") comment: String
+    ): Call<JsonObject>
 }

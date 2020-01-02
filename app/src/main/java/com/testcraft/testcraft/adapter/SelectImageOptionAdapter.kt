@@ -21,7 +21,7 @@ class SelectImageOptionAdapter(
     var qsize: Int,
     var qtype: Int,
     var qid: Int,
-    var answer: String
+    var answer: String, var typee: Int
 ) : RecyclerView.Adapter<SelectImageOptionAdapter.viewholder>() {
 
     private var lastCheckedRadioGroup: RadioGroup? = null
@@ -58,7 +58,8 @@ class SelectImageOptionAdapter(
                 .into(p0.opone1)
         }
 
-        var id = (p1 + 1) * 100
+//        var id = (p1 + 1) * 100
+
 
         when (qtype) {
             1 -> {
@@ -76,10 +77,12 @@ class SelectImageOptionAdapter(
 
                 rb.id = dataList[p1].MultipleChoiceQuestionAnswerID.toInt()
 
-                if (answer == dataList[p1].MultipleChoiceQuestionAnswerID) {
-                    lastCheckedRadioGroup = p0.opone
+                if (typee == 0) {
+                    if (answer == dataList[p1].MultipleChoiceQuestionAnswerID) {
+                        lastCheckedRadioGroup = p0.opone
 ////                   p0.opone.check(rb.id)
-                    rb.isChecked = true
+                        rb.isChecked = true
+                    }
                 }
 
 //                NewTabQuestionActivity.setButton(p1, dataList[p1].MultipleChoiceQuestionAnswerID, qid)
@@ -97,24 +100,26 @@ class SelectImageOptionAdapter(
 
                 cb.id = dataList[p1].MultipleChoiceQuestionAnswerID.toInt()
 
+                if (typee == 0) {
 //                ansstr = answer
-                val tempArr = answer.split(",")
+                    val tempArr = answer.split(",")
 
-                for (i in 0 until tempArr.size) {
-                    if (tempArr[i] == cb.id.toString()) {
-                        val selectedCheckboxModel = SelectedCheckboxModel()
-                        selectedCheckboxModel.ids = cb.id.toString()
-                        selectedCheckboxModel.selected = true
-                        ansArr.add(selectedCheckboxModel)
+                    for (i in 0 until tempArr.size) {
+                        if (tempArr[i] == cb.id.toString()) {
+                            val selectedCheckboxModel = SelectedCheckboxModel()
+                            selectedCheckboxModel.ids = cb.id.toString()
+                            selectedCheckboxModel.selected = true
+                            ansArr.add(selectedCheckboxModel)
 
-                        cb.isChecked = true
+                            cb.isChecked = true
 
-                    }/*else {
+                        }/*else {
                         val selectedCheckboxModel = SelectedCheckboxModel()
                         selectedCheckboxModel.ids = cb.id.toString()
                         selectedCheckboxModel.selected = false
                         ansArr.add(selectedCheckboxModel)
                     }*/
+                    }
                 }
 
 //                if (ansArr.contains(dataList[p1].MultipleChoiceQuestionAnswerID)) {
@@ -202,7 +207,11 @@ class SelectImageOptionAdapter(
             }
             lastCheckedRadioGroup = p0.opone
 
-            NewTabQuestionActivity.setButton(p1, dataList[p1].MultipleChoiceQuestionAnswerID, qid)
+            NewTabQuestionActivity.setButton(
+                p1,
+                dataList[p1].MultipleChoiceQuestionAnswerID,
+                qid
+            )
         }
     }
 

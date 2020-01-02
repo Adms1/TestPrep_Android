@@ -156,6 +156,28 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //        var isshow = false
         val dialog = Dialog(this@NewTabQuestionActivity)
 
+        queTab_ivRefresh.setOnClickListener {
+
+            Picasso.get()
+                .load(movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
+                .transform(transform.getTransformation(imgQue!!))
+                .into(imgQue)
+
+            if (answer == "" && movies[q_grppos1].TestQuestion[curr_index].Answer == "") {
+                if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 7) {
+
+                    ansList!!.adapter = SelectImageOptionAdapter(
+                        this@NewTabQuestionActivity,
+                        movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
+                        page_img_que_img.width,
+                        movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                        movies[q_grppos1].TestQuestion[curr_index].Answer, 1
+                    )
+                }
+            }
+        }
+
         queTab_expQueList.setOnGroupClickListener { parent, v, groupPosition, id ->
 
             CommonWebCalls.callToken(
@@ -199,19 +221,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         }
 
-        queTab_tvFillBlanks.setOnEditorActionListener(
-            object : TextView.OnEditorActionListener {
+        queTab_tvFillBlanks.setOnEditorActionListener { v, actionId, event ->
+            if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
 
-                override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                integeranswer = queTab_tvFillBlanks.text.toString()
 
-                    if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
-
-                        integeranswer = queTab_tvFillBlanks.text.toString()
-
-                    }
-                    return false
-                }
-            })
+            }
+            false
+        }
 
         queTab_tvFillBlanks.addTextChangedListener(
             object : TextWatcher {
@@ -298,6 +315,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     }
 
     fun callQuestionApi() {
+
+        if (!DialogUtils.isNetworkConnected(this@NewTabQuestionActivity)) {
+            Utils.ping(this@NewTabQuestionActivity, AppConstants.NETWORK_MSG)
+        }
 
         DialogUtils.showDialog(this@NewTabQuestionActivity)
 
@@ -526,7 +547,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     page_img_que_img.width,
                                     movies[0].TestQuestion[0].QuestionTypeID,
                                     movies[0].TestQuestion[0].QuestionID,
-                                    movies[0].TestQuestion[0].Answer
+                                    movies[0].TestQuestion[0].Answer, 0
                                 )
 
                             } else if (movies[0].TestQuestion[0].QuestionTypeID == 2 || movies[0].TestQuestion[0].QuestionTypeID == 8) {
@@ -588,12 +609,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     }, 1000
                 )
                 Log.d("imgcall", "Number of movies received: " + movies.size)
-
             }
 
             override fun onFailure(call: Call<NewQuestionResponse>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
+
                 DialogUtils.dismissDialog()
             }
         })
@@ -635,6 +656,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
+
+//                Connectivity.isConnectedFast(this@NewTabQuestionActivity)
+
                 milliLeft = millisUntilFinished
                 queTab_tvTimer.text = "" + String.format(
                     "%02d:%02d:%02d",
@@ -795,6 +819,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                    }).show()
 
             }
+
         }.start()
     }
 
@@ -925,7 +950,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
 
         fun readStream(inputStream: BufferedInputStream): String {
-            val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream) as Reader?)
             val stringBuilder = StringBuilder()
             bufferedReader.forEachLine { stringBuilder.append(it) }
             return stringBuilder.toString()
@@ -1075,7 +1100,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                             imgQue!!.width,
                                             movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
                                             movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                                            movies[q_grppos1].TestQuestion[curr_index].Answer
+                                            movies[q_grppos1].TestQuestion[curr_index].Answer, 0
                                         )
 
                                     } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 2 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 8) {
@@ -1182,7 +1207,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                                 imgQue!!.width,
                                                 movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
                                                 movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                                                movies[q_grppos1].TestQuestion[curr_index].Answer
+                                                movies[q_grppos1].TestQuestion[curr_index].Answer, 0
                                             )
 
                                         } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 2 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 8) {
@@ -1488,7 +1513,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         imgQue!!.width,
                         movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
                         movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                        movies[q_grppos1].TestQuestion[curr_index].Answer
+                        movies[q_grppos1].TestQuestion[curr_index].Answer, 0
                     )
 
                 } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 2 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 8) {

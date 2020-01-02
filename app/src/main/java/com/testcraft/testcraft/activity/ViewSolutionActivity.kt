@@ -636,7 +636,6 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                         "solution"
                     )
                 )
-
             }
 
             if ((finalArr1.size - 1) > solution_grppos1) {

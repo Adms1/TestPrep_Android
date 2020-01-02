@@ -155,6 +155,8 @@ class LoginActivity : AppCompatActivity() {
 
                         if (response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray.size() > 0) {
 
+                            Utils.setStringValue(this@LoginActivity, AppConstants.isPrefrence, "1")
+
                             Utils.setStringValue(
                                 this@LoginActivity,
                                 AppConstants.COURSE_TYPE_ID,

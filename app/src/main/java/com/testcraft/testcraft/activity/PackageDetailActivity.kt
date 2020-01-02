@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -37,6 +38,8 @@ class PackageDetailActivity : Fragment() {
     var come = ""
     var oldpkgid = ""
     var bundle: Bundle? = null
+
+    var stuGUID = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -377,6 +380,7 @@ class PackageDetailActivity : Fragment() {
                             package_detail_tvlprice.text =
                                 response.body()!!.get("data")
                                     .asJsonObject.get("TestPackageListPrice").asString.trim()
+
                         } else {
 
 //                            package_detail_tvlpricetxt.visibility = View.GONE
@@ -545,6 +549,8 @@ class PackageDetailActivity : Fragment() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
+                        stuGUID = response.body()!!["data"].asString
+
 //                        fragmentManager!!.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
 
 //                        Toast.makeText(
@@ -612,19 +618,35 @@ class PackageDetailActivity : Fragment() {
                                 "" + response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
                             )
 
-                            val intent = Intent(activity!!, TraknpayRequestActivity::class.java)
-                            intent.putExtra(
-                                "order_id",
-                                response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
+//                            val intent = Intent("com.testcraft.testcraft")
+//                            intent.addCategory(Intent.CATEGORY_DEFAULT)
+//                            intent.addCategory(Intent.CATEGORY_BROWSABLE)
+//                            val bundle = Bundle()
+//                            bundle.putString("msg_from_browser", "Launched from Browser")
+//                            intent.putExtras(bundle)
+//
+//                            Log.d("mobikul-->", intent.toUri(Intent.URI_INTENT_SCHEME))
+
+                            val browserIntent = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=$stuGUID&type=2")
                             )
-                            intent.putExtra(
-                                "amount",
-                                response.body()!!["data"].asJsonArray[0].asJsonObject["PaymentAmount"].asString
-                            )
-                            intent.putExtra("pkgid", pkgid)
-                            intent.putExtra("pkgname", package_detail_tvPname.text.toString())
-                            intent.putExtra("pkgprice", purchaseCoin)
-                            startActivity(intent)
+                            startActivity(browserIntent)
+
+//                            val intent = Intent(activity!!, TraknpayRequestActivity::class.java)
+//                            intent.putExtra(
+//                                "order_id",
+//                                response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
+//                            )
+//                            intent.putExtra(
+//                                "amount",
+//                                response.body()!!["data"].asJsonArray[0].asJsonObject["PaymentAmount"].asString
+//                            )
+//                            intent.putExtra("pkgid", pkgid)
+//                            intent.putExtra("pkgname", package_detail_tvPname.text.toString())
+//                            intent.putExtra("pkgprice", purchaseCoin)
+//                            startActivity(intent)
+
 //                            (context as DashboardActivity).finish()
 
                         } else {

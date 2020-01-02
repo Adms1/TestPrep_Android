@@ -15,8 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:visibility="gone"
-        app:srcCompat="@drawable/back_arrow" />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/signup_tvHeading"

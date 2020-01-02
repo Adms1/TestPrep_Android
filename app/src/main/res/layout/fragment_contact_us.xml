@@ -15,8 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:visibility="gone"
-        app:srcCompat="@drawable/back_arrow" />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/contactus_tvHeading"
@@ -203,7 +202,7 @@
                 android:layout_marginRight="@dimen/_25sdp"
                 android:hint="comment"
                 android:imeOptions="actionNext"
-                android:inputType="textPassword"
+                android:inputType="text"
                 android:maxLines="1"
                 android:paddingTop="@dimen/_7sdp"
                 android:paddingBottom="@dimen/_10sdp"

@@ -3,6 +3,7 @@ package com.testcraft.testcraft.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -221,9 +222,34 @@ class TraknpayRequestActivity : AppCompatActivity() {
         webSettings.builtInZoomControls = true
 //        webView.setWebChromeClient(new WebChromeClient());
         webView.webViewClient = WebViewClient()
-        webView.postUrl(AppConstants.PAYMENT_REQUEST, postData.toByteArray())
+//        webView.postUrl(AppConstants.PAYMENT_REQUEST, postData.toByteArray())
 
-        Log.d("url", "" + webView.postUrl(AppConstants.PAYMENT_REQUEST, postData.toByteArray()))
+        val uri = Uri.parse(AppConstants.PAYMENT_REQUEST)
+            .buildUpon()
+            .appendQueryParameter("address_line_1", address_line_1)
+            .appendQueryParameter("address_line_2", address_line_2)
+            .appendQueryParameter("amount", amount)
+            .appendQueryParameter("api_key", AppConstants.API_KEY)
+            .appendQueryParameter("city", city)
+            .appendQueryParameter("country", country)
+            .appendQueryParameter("currency", currency)
+            .appendQueryParameter("description", description)
+            .appendQueryParameter("email", email)
+            .appendQueryParameter("mode", AppConstants.PAYMENT_MODE)
+            .appendQueryParameter("name", name)
+            .appendQueryParameter("order_id", order_id)
+            .appendQueryParameter("phone", phone)
+            .appendQueryParameter("return_url", return_url)
+            .appendQueryParameter("show_saved_cards", show_saved_cards)
+            .appendQueryParameter("state", state)
+            .appendQueryParameter("zip_code", zip_code)
+            .appendQueryParameter("hash", hash)
+            .build().toString()
+
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+        startActivity(browserIntent)
+
+//        Log.d("url", "" + webView.postUrl(AppConstants.PAYMENT_REQUEST, postData.toByteArray()))
 
         webView.addJavascriptInterface(MyJavaScriptInterface(), "Android")
 
@@ -250,7 +276,6 @@ class TraknpayRequestActivity : AppCompatActivity() {
                 sb.append(((data[i] and 0xff.toByte()) + 0x100).toString(16).substring(1))
             }
             println(sb)
-
 
         } catch (e: NoSuchAlgorithmException) {
             e.printStackTrace()
@@ -420,8 +445,8 @@ class TraknpayRequestActivity : AppCompatActivity() {
         })
     }
 
-    override fun onBackPressed() {
-
-    }
+//    override fun onBackPressed() {
+//
+//    }
 
 }

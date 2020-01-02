@@ -4,6 +4,7 @@ import android.app.Application
 import com.splunk.mint.Mint
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
+
 class CustomFontApp : Application() {
     override fun onCreate() {
         super.onCreate()

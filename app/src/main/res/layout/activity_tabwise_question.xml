@@ -356,6 +356,17 @@
                         app:layout_constraintLeft_toRightOf="@+id/queTab_ivReport"
                         app:layout_constraintTop_toTopOf="@+id/queTab_ivReport" />
 
+                    <ImageView
+                        android:id="@+id/queTab_ivRefresh"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:contentDescription="@string/logo"
+                        android:src="@drawable/refresh"
+                        app:layout_constraintRight_toLeftOf="@+id/queTab_btnNextt"
+                        app:layout_constraintTop_toBottomOf="@+id/queTab_llBottom" />
+
                 </android.support.constraint.ConstraintLayout>
 
 
