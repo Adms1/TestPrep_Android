@@ -116,7 +116,7 @@ class ContactUsFragment : Fragment() {
         }
 
         if (TextUtils.isEmpty(contactus_etComment.text.toString())) {
-            contactus_etComment.error = "comment must not be null"
+            contactus_etComment.error = "Please enter your comment"
             isvalid = false
         }
 

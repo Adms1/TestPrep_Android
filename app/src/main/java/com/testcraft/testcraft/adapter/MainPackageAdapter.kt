@@ -97,6 +97,9 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
             "Mathematics" -> {
                 p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.mathematics))
             }
+            "GUJCET" -> {
+                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.gujcet))
+            }
             else -> {
                 p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.pp_2))
             }

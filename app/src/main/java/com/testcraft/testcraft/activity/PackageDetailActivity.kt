@@ -1,6 +1,7 @@
 package com.testcraft.testcraft.activity
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -631,7 +632,18 @@ class PackageDetailActivity : Fragment() {
                                 Intent.ACTION_VIEW,
                                 Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=$stuGUID&type=2")
                             )
-                            startActivity(browserIntent)
+
+                            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            browserIntent.setPackage("com.android.chrome")
+                            try {
+                                startActivity(browserIntent)
+                            } catch (ex: ActivityNotFoundException) {
+                                // Chrome browser presumably not installed so allow user to choose instead
+                                browserIntent.setPackage(null)
+                                startActivity(browserIntent)
+                            }
+
+//                            startActivity(browserIntent)
 
 //                            val intent = Intent(activity!!, TraknpayRequestActivity::class.java)
 //                            intent.putExtra(

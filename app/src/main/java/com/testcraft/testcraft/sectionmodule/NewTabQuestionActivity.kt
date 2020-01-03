@@ -317,195 +317,214 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     fun callQuestionApi() {
 
         if (!DialogUtils.isNetworkConnected(this@NewTabQuestionActivity)) {
-            Utils.ping(this@NewTabQuestionActivity, AppConstants.NETWORK_MSG)
-        }
+//            Utils.ping(this@NewTabQuestionActivity, AppConstants.NETWORK_MSG)
 
-        DialogUtils.showDialog(this@NewTabQuestionActivity)
+            continuetime = 0
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
+            DialogUtils.createConfirmDialog1(
+                this@NewTabQuestionActivity,
+                "Try Again",
+                "Please check your internet Connection.",
+                DialogInterface.OnClickListener { dialog, which ->
 
-        val call = apiService.getNewQuestions(testid, studenttestid)
-        call.enqueue(object : Callback<NewQuestionResponse> {
-            @SuppressLint("SetTextI18n")
-            override fun onResponse(
-                call: Call<NewQuestionResponse>,
-                response: Response<NewQuestionResponse>
-            ) {
+                    continuetime = 0
 
-                if (response.body()!!.Status == "true") {
+                    AppConstants.isFirst = 12
+                    val intent = Intent(this@NewTabQuestionActivity, DashboardActivity::class.java)
+                    startActivity(intent)
+                    finish()
 
-                    val time = testtime.toFloat()
+                }).show()
 
-                    queTab_tvCurrTotal.text = "$que_number/$testque"
+        } else {
 
-                    if (total_hint != "0") {
-                        queTab_tvCurrHint.text = "$hintCount/$total_hint"
-                        queTab_ivHint.visibility = View.VISIBLE
+            DialogUtils.showDialog(this@NewTabQuestionActivity)
 
-                    } else {
-                        queTab_tvCurrHint.text = ""
-                        queTab_ivHint.visibility = View.GONE
-                    }
+            val apiService = WebClient.getClient().create(WebInterface::class.java)
 
+            val call = apiService.getNewQuestions(testid, studenttestid)
+            call.enqueue(object : Callback<NewQuestionResponse> {
+                @SuppressLint("SetTextI18n")
+                override fun onResponse(
+                    call: Call<NewQuestionResponse>,
+                    response: Response<NewQuestionResponse>
+                ) {
 
-                    if (time > 0) {
-                        setCountdown(time.toLong() * 1000)
-                    } else {
-                        DialogUtils.createConfirmDialog1(
-                            this@NewTabQuestionActivity,
-                            "Submit",
-                            "Your test time is over",
+                    if (response.body()!!.Status == "true") {
 
-                            DialogInterface.OnClickListener { dialog, which ->
+                        val time = testtime.toFloat()
 
-                                var ansstr = ""
-
-                                for (i in 0 until ansArr.size) {
-                                    ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
-
-                                }
-
-                                Log.d("ansstr", ansstr)
-
-                                if (queTab_ivReview.isChecked) {
-                                    getType("submit", 1, curr_index)
-                                } else {
-                                    getType("submit", 0, curr_index)
-                                }
-
-                                OpenAttemptDialog()
-//                                callSubmitAPI()
-
-                            }).show()
-                    }
-
-                    movies = response.body()!!.data
-
-                    if (movies.size > 0) {
-
-//                        queTab_tvTotal.text = "1/${movies.size}"
-
-                        queTab_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
+                        queTab_tvCurrTotal.text = "$que_number/$testque"
 
                         if (total_hint != "0") {
                             queTab_tvCurrHint.text = "$hintCount/$total_hint"
                             queTab_ivHint.visibility = View.VISIBLE
+
                         } else {
                             queTab_tvCurrHint.text = ""
                             queTab_ivHint.visibility = View.GONE
                         }
 
-                        Log.d("qid", "" + movies[0].SectionID)
 
-                        for (i in 0 until movies.size) {
+                        if (time > 0) {
+                            setCountdown(time.toLong() * 1000)
+                        } else {
+                            DialogUtils.createConfirmDialog1(
+                                this@NewTabQuestionActivity,
+                                "Submit",
+                                "Your test time is over",
 
-                            val ansmodel = AnswerModel()
-//                        ansmodel.qid = movies[i].SectionID
-                            ansmodel.ansid = movies[i].SectionName
-                            sectionList!!.add(movies[i].SectionName)
-                        }
+                                DialogInterface.OnClickListener { dialog, which ->
 
-                        if (movies[0].TestQuestion[0].QuestionImage != "") {
+                                    var ansstr = ""
 
-                            if (movies[0].TestQuestion[0].Answer != "") {
-
-                                setNextSkipButtonText(1)
-
-                            } else {
-
-                                setNextSkipButtonText(0)
-                            }
-
-                            if (total_hint != "0" && movies[0].TestQuestion[0].Hint != "") {
-
-                                queTab_ivHint.visibility = View.VISIBLE
-
-                                if (movies[0].TestQuestion[0].HintUsed == "0") {
-
-                                    queTab_ivHint.setImageResource(R.drawable.hint_bulb)
-
-                                } else {
-
-                                    queTab_ivHint.setImageResource(R.drawable.hint_bulb_yellow)
-
-                                }
-
-                                hintData =
-                                    "<html><body style='background-color:clear;'><p>" + movies[0].TestQuestion[0].Hint + "</p></body></html>"
-
-                            } else {
-                                queTab_ivHint.visibility = View.GONE
-                            }
-
-                            if (movies[0].TestQuestion[0].Review.equals("0", true)) {
-
-                                queTab_ivReview.isChecked = false
-                                queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
-
-                            } else {
-
-                                queTab_ivReview.isChecked = true
-                                queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
-                            }
-
-                            var pagenumber = 0
-
-                            for (i in 0 until movies.size) {
-//
-                                val sectionList1: ArrayList<QuestionTypeModel> = ArrayList()
-
-                                for (j in 0 until movies[i].TestQuestion.size) {
-                                    val questionTypeModel = QuestionTypeModel()
-                                    questionTypeModel.qnumber = j
-
-                                    pagenumber++
-
-                                    questionTypeModel.page_number = pagenumber
-
-                                    if (movies[i].TestQuestion[j].Review.equals("0", true)) {
-
-                                        Log.d("isreview1", "" + 0)
-
-                                        if (movies[i].TestQuestion[j].Answer != "") {
-
-                                            questionTypeModel.type = 2
-
-                                        } else {
-
-                                            questionTypeModel.type = 5
-                                        }
-                                    } else {
-
-                                        Log.d("isreview2", "" + 1)
-
-                                        questionTypeModel.type = 4
+                                    for (i in 0 until ansArr.size) {
+                                        ansstr =
+                                            ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
 
                                     }
 
-                                    sectionList1.add(questionTypeModel)
+                                    Log.d("ansstr", ansstr)
 
-                                }
-                                finalArr[movies[i].SectionName] = sectionList1
-//
+                                    if (queTab_ivReview.isChecked) {
+                                        getType("submit", 1, curr_index)
+                                    } else {
+                                        getType("submit", 0, curr_index)
+                                    }
+
+                                    OpenAttemptDialog()
+//                                callSubmitAPI()
+
+                                }).show()
+                        }
+
+                        movies = response.body()!!.data
+
+                        if (movies.size > 0) {
+
+//                        queTab_tvTotal.text = "1/${movies.size}"
+
+                            queTab_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
+
+                            if (total_hint != "0") {
+                                queTab_tvCurrHint.text = "$hintCount/$total_hint"
+                                queTab_ivHint.visibility = View.VISIBLE
+                            } else {
+                                queTab_tvCurrHint.text = ""
+                                queTab_ivHint.visibility = View.GONE
                             }
 
-                            queTab_expQueList.setAdapter(
-                                NewSideMenuAdapter(
-                                    this@NewTabQuestionActivity,
-                                    sectionList!!,
-                                    finalArr,
-                                    filterTypeSelectionInteface!!,
-                                    "question"
+                            Log.d("qid", "" + movies[0].SectionID)
+
+                            for (i in 0 until movies.size) {
+
+                                val ansmodel = AnswerModel()
+//                        ansmodel.qid = movies[i].SectionID
+                                ansmodel.ansid = movies[i].SectionName
+                                sectionList!!.add(movies[i].SectionName)
+                            }
+
+                            if (movies[0].TestQuestion[0].QuestionImage != "") {
+
+                                if (movies[0].TestQuestion[0].Answer != "") {
+
+                                    setNextSkipButtonText(1)
+
+                                } else {
+
+                                    setNextSkipButtonText(0)
+                                }
+
+                                if (total_hint != "0" && movies[0].TestQuestion[0].Hint != "") {
+
+                                    queTab_ivHint.visibility = View.VISIBLE
+
+                                    if (movies[0].TestQuestion[0].HintUsed == "0") {
+
+                                        queTab_ivHint.setImageResource(R.drawable.hint_bulb)
+
+                                    } else {
+
+                                        queTab_ivHint.setImageResource(R.drawable.hint_bulb_yellow)
+
+                                    }
+
+                                    hintData =
+                                        "<html><body style='background-color:clear;'><p>" + movies[0].TestQuestion[0].Hint + "</p></body></html>"
+
+                                } else {
+                                    queTab_ivHint.visibility = View.GONE
+                                }
+
+                                if (movies[0].TestQuestion[0].Review.equals("0", true)) {
+
+                                    queTab_ivReview.isChecked = false
+                                    queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
+
+                                } else {
+
+                                    queTab_ivReview.isChecked = true
+                                    queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
+                                }
+
+                                var pagenumber = 0
+
+                                for (i in 0 until movies.size) {
+//
+                                    val sectionList1: ArrayList<QuestionTypeModel> = ArrayList()
+
+                                    for (j in 0 until movies[i].TestQuestion.size) {
+                                        val questionTypeModel = QuestionTypeModel()
+                                        questionTypeModel.qnumber = j
+
+                                        pagenumber++
+
+                                        questionTypeModel.page_number = pagenumber
+
+                                        if (movies[i].TestQuestion[j].Review.equals("0", true)) {
+
+                                            Log.d("isreview1", "" + 0)
+
+                                            if (movies[i].TestQuestion[j].Answer != "") {
+
+                                                questionTypeModel.type = 2
+
+                                            } else {
+
+                                                questionTypeModel.type = 5
+                                            }
+                                        } else {
+
+                                            Log.d("isreview2", "" + 1)
+
+                                            questionTypeModel.type = 4
+
+                                        }
+
+                                        sectionList1.add(questionTypeModel)
+
+                                    }
+                                    finalArr[movies[i].SectionName] = sectionList1
+//
+                                }
+
+                                queTab_expQueList.setAdapter(
+                                    NewSideMenuAdapter(
+                                        this@NewTabQuestionActivity,
+                                        sectionList!!,
+                                        finalArr,
+                                        filterTypeSelectionInteface!!,
+                                        "question"
+                                    )
                                 )
-                            )
 
-                            Log.d("header", "" + sectionList)
-                            Log.d("child", "" + childList)
+                                Log.d("header", "" + sectionList)
+                                Log.d("child", "" + childList)
 
-                            Picasso.get()
-                                .load(movies[0].TestQuestion[0].QuestionImage)
-                                .transform(transform.getTransformation(imgQue!!))
-                                .into(imgQue)
+                                Picasso.get()
+                                    .load(movies[0].TestQuestion[0].QuestionImage)
+                                    .transform(transform.getTransformation(imgQue!!))
+                                    .into(imgQue)
 //                            object : com.squareup.picasso.Callback {
 //                                    override fun onSuccess() {
 //                                        set animations here
@@ -517,107 +536,108 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //
 //                                })
 
-                            Log.d(
-                                "qsize",
-                                "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
-                            )
-
-                            ansList!!.layoutManager =
-                                LinearLayoutManager(
-                                    this@NewTabQuestionActivity,
-                                    LinearLayoutManager.VERTICAL,
-                                    false
+                                Log.d(
+                                    "qsize",
+                                    "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
                                 )
 
-                            if (movies[0].TestQuestion[0].QuestionTypeID == 1 || movies[0].TestQuestion[0].QuestionTypeID == 7) {
+                                ansList!!.layoutManager =
+                                    LinearLayoutManager(
+                                        this@NewTabQuestionActivity,
+                                        LinearLayoutManager.VERTICAL,
+                                        false
+                                    )
 
-                                queTab_tvFillBlanks.visibility = View.GONE
-                                ansList!!.visibility = View.VISIBLE
-                                queTab_rbTrue.visibility = View.GONE
-                                queTab_rbFalse.visibility = View.GONE
+                                if (movies[0].TestQuestion[0].QuestionTypeID == 1 || movies[0].TestQuestion[0].QuestionTypeID == 7) {
 
-                                val answerModel = AnswerModel()
-                                answerModel.ansid = movies[0].TestQuestion[0].Answer
-                                answerModel.ansresult = true
-                                ansArr.add(answerModel)
+                                    queTab_tvFillBlanks.visibility = View.GONE
+                                    ansList!!.visibility = View.VISIBLE
+                                    queTab_rbTrue.visibility = View.GONE
+                                    queTab_rbFalse.visibility = View.GONE
 
-                                ansList!!.adapter = SelectImageOptionAdapter(
-                                    this@NewTabQuestionActivity,
-                                    movies[0].TestQuestion[0].StudentTestQuestionMCQ,
-                                    page_img_que_img.width,
-                                    movies[0].TestQuestion[0].QuestionTypeID,
-                                    movies[0].TestQuestion[0].QuestionID,
-                                    movies[0].TestQuestion[0].Answer, 0
-                                )
+                                    val answerModel = AnswerModel()
+                                    answerModel.ansid = movies[0].TestQuestion[0].Answer
+                                    answerModel.ansresult = true
+                                    ansArr.add(answerModel)
 
-                            } else if (movies[0].TestQuestion[0].QuestionTypeID == 2 || movies[0].TestQuestion[0].QuestionTypeID == 8) {
+                                    ansList!!.adapter = SelectImageOptionAdapter(
+                                        this@NewTabQuestionActivity,
+                                        movies[0].TestQuestion[0].StudentTestQuestionMCQ,
+                                        page_img_que_img.width,
+                                        movies[0].TestQuestion[0].QuestionTypeID,
+                                        movies[0].TestQuestion[0].QuestionID,
+                                        movies[0].TestQuestion[0].Answer, 0
+                                    )
 
-                                if (movies[0].TestQuestion[0].QuestionTypeID == 8) {
+                                } else if (movies[0].TestQuestion[0].QuestionTypeID == 2 || movies[0].TestQuestion[0].QuestionTypeID == 8) {
 
-                                    queTab_tvFillBlanks.inputType =
-                                        InputType.TYPE_NUMBER_FLAG_SIGNED + InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL
-                                }
+                                    if (movies[0].TestQuestion[0].QuestionTypeID == 8) {
 
-                                queTab_tvFillBlanks.visibility = View.VISIBLE
-                                ansList!!.visibility = View.GONE
-                                queTab_rbTrue.visibility = View.GONE
-                                queTab_rbFalse.visibility = View.GONE
-
-                                if (movies[0].TestQuestion[0].Answer != "") {
-
-                                    integeranswer = movies[0].TestQuestion[0].Answer
-
-                                    queTab_tvFillBlanks.setText(integeranswer)
-                                } else {
-                                    queTab_tvFillBlanks.setText("")
-                                }
-
-                            } else if (movies[0].TestQuestion[0].QuestionTypeID == 4) {
-                                queTab_rbTrue.visibility = View.VISIBLE
-                                queTab_rbFalse.visibility = View.VISIBLE
-                                queTab_tvFillBlanks.visibility = View.GONE
-                                ansList!!.visibility = View.GONE
-
-                                when {
-                                    movies[0].TestQuestion[0].Answer == "1" -> {
-                                        queTab_rbTrue.isChecked = true
-                                        queTab_rbFalse.isChecked = false
-
+                                        queTab_tvFillBlanks.inputType =
+                                            InputType.TYPE_NUMBER_FLAG_SIGNED + InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL
                                     }
-                                    movies[0].TestQuestion[0].Answer == "0" -> {
-                                        queTab_rbFalse.isChecked = true
-                                        queTab_rbTrue.isChecked = false
+
+                                    queTab_tvFillBlanks.visibility = View.VISIBLE
+                                    ansList!!.visibility = View.GONE
+                                    queTab_rbTrue.visibility = View.GONE
+                                    queTab_rbFalse.visibility = View.GONE
+
+                                    if (movies[0].TestQuestion[0].Answer != "") {
+
+                                        integeranswer = movies[0].TestQuestion[0].Answer
+
+                                        queTab_tvFillBlanks.setText(integeranswer)
+                                    } else {
+                                        queTab_tvFillBlanks.setText("")
                                     }
-                                    else -> {
-                                        queTab_rbTrue.isChecked = false
-                                        queTab_rbFalse.isChecked = false
+
+                                } else if (movies[0].TestQuestion[0].QuestionTypeID == 4) {
+                                    queTab_rbTrue.visibility = View.VISIBLE
+                                    queTab_rbFalse.visibility = View.VISIBLE
+                                    queTab_tvFillBlanks.visibility = View.GONE
+                                    ansList!!.visibility = View.GONE
+
+                                    when {
+                                        movies[0].TestQuestion[0].Answer == "1" -> {
+                                            queTab_rbTrue.isChecked = true
+                                            queTab_rbFalse.isChecked = false
+
+                                        }
+                                        movies[0].TestQuestion[0].Answer == "0" -> {
+                                            queTab_rbFalse.isChecked = true
+                                            queTab_rbTrue.isChecked = false
+                                        }
+                                        else -> {
+                                            queTab_rbTrue.isChecked = false
+                                            queTab_rbFalse.isChecked = false
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
 
-                Handler().postDelayed(
-                    /* Runnable
+                    Handler().postDelayed(
+                        /* Runnable
                          * Showing splash screen with a timer. This will be useful when you
                          * want to show case your app logo / company
                          */
 
-                    {
-                        DialogUtils.dismissDialog()
-                    }, 1000
-                )
-                Log.d("imgcall", "Number of movies received: " + movies.size)
-            }
+                        {
+                            DialogUtils.dismissDialog()
+                        }, 1000
+                    )
+                    Log.d("imgcall", "Number of movies received: " + movies.size)
+                }
 
-            override fun onFailure(call: Call<NewQuestionResponse>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
+                override fun onFailure(call: Call<NewQuestionResponse>, t: Throwable) {
+                    // Log error here since request failed
+                    Log.e("", t.toString())
 
-                DialogUtils.dismissDialog()
-            }
-        })
+                    DialogUtils.dismissDialog()
+                }
+            })
+        }
     }
 
     var waitTimer: CountDownTimer? = null
