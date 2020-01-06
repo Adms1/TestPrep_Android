@@ -28,12 +28,13 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <!--        <receiver android:exported="false"-->
-        <!--            android:name=".Connectivity" >-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
-        <!--            </intent-filter>-->
-        <!--        </receiver>-->
+        <receiver
+            android:name=".Connectivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".sectionmodule.QuestionActivity" />
 

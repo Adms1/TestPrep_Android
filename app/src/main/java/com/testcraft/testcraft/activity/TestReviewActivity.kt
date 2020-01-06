@@ -65,7 +65,7 @@ class TestReviewActivity : Fragment() {
 
         bundle = this.arguments
 
-        testid = bundle!!.getString("""testid""")!!
+        testid = bundle!!.getString("testid")!!
         studenttestid = bundle!!.getString("studenttestid")!!
         testname = bundle!!.getString("testname")!!
 
@@ -251,29 +251,32 @@ class TestReviewActivity : Fragment() {
                 if (response.body()!!.Status == "true") {
 
                     val dialog = Dialog(activity!!)
-                    dialog.setContentView(R.layout.dialog_que_attempt_report)
-                    dialog.setCanceledOnTouchOutside(false)
 
-                    val header: TextView = dialog.findViewById(R.id.attempt_tvHeader)
-                    val btnCancel: TextView = dialog.findViewById(R.id.attempt_btnClose)
-                    val btnOk: TextView = dialog.findViewById(R.id.attempt_tvOK)
-                    val rvList: RecyclerView = dialog.findViewById(R.id.attempt_rvList)
+                    if (!dialog.isShowing) {
+                        dialog.setContentView(R.layout.dialog_que_attempt_report)
+                        dialog.setCanceledOnTouchOutside(false)
 
-                    rvList.layoutManager =
-                        LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+                        val header: TextView = dialog.findViewById(R.id.attempt_tvHeader)
+                        val btnCancel: TextView = dialog.findViewById(R.id.attempt_btnClose)
+                        val btnOk: TextView = dialog.findViewById(R.id.attempt_tvOK)
+                        val rvList: RecyclerView = dialog.findViewById(R.id.attempt_rvList)
 
-                    rvList.adapter =
-                        QuestionAttemptAdapter(activity!!, "review", response.body()!!.data)
+                        rvList.layoutManager =
+                            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
-                    btnOk.text = "     OK     "
-                    btnCancel.visibility = View.GONE
-                    header.text = "Subjectwise Marks"
+                        rvList.adapter =
+                            QuestionAttemptAdapter(activity!!, "review", response.body()!!.data)
 
-                    btnOk.setOnClickListener {
-                        dialog.dismiss()
+                        btnOk.text = "     OK     "
+                        btnCancel.visibility = View.GONE
+                        header.text = "Subjectwise Marks"
+
+                        btnOk.setOnClickListener {
+                            dialog.dismiss()
+                        }
+
+                        dialog.show()
                     }
-
-                    dialog.show()
 
                 } else {
 

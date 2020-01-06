@@ -42,6 +42,7 @@ class TestListAdapter(
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
         p0.name.text = dataList[p1].TestName
+        p0.time.text = "Time : " + dataList[p1].TestDuration
         p0.marks.text = dataList[p1].TestMarks
         p0.test.text = dataList[p1].StatusName
 
@@ -117,6 +118,7 @@ class TestListAdapter(
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var name: TextView = itemView.findViewById(R.id.test_item_tvTestName)
+        var time: TextView = itemView.findViewById(R.id.test_item_tvTestDuration)
         var marks: TextView = itemView.findViewById(R.id.test_item_tvMarks)
         var test: TextView = itemView.findViewById(R.id.test_item_btnStart)
 

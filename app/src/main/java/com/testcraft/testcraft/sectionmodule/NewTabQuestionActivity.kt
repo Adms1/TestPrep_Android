@@ -154,7 +154,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         drawer_layout.setDrawerListener(mDrawerToggle)
 
 //        var isshow = false
-        val dialog = Dialog(this@NewTabQuestionActivity)
+        val Groupinfodialog = Dialog(this@NewTabQuestionActivity)
 
         queTab_ivRefresh.setOnClickListener {
 
@@ -188,16 +188,16 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 ActionIdData.T2009
             )
 
-            if (movies[groupPosition].SectionInstruction != "" && !dialog.isShowing) {
+            if (movies[groupPosition].SectionInstruction != "" && !Groupinfodialog.isShowing) {
 
-                dialog.setContentView(R.layout.hint_dialog)
-                dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialog.setCanceledOnTouchOutside(false)
+                Groupinfodialog.setContentView(R.layout.hint_dialog)
+                Groupinfodialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                Groupinfodialog.setCanceledOnTouchOutside(false)
 
-                val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
-                val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
+                val hintWebview: WebView = Groupinfodialog.findViewById(R.id.dialog_hint_wvHint)
+                val header: TextView = Groupinfodialog.findViewById(R.id.dialog_hint_tvHeader)
 
-                val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+                val closeBtn: View = Groupinfodialog.findViewById(R.id.dialog_hint_btnClose)
 
                 header.text = movies[groupPosition].SectionName
 
@@ -212,9 +212,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     ""
                 )
 
-                closeBtn.setOnClickListener { dialog.dismiss() }
+                closeBtn.setOnClickListener { Groupinfodialog.dismiss() }
 
-                dialog.show()
+                Groupinfodialog.show()
 
             }
             false
@@ -266,43 +266,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 }
             })
-
-//        queTab_ivPlayPause.setOnCheckedChangeListener { buttonView, isChecked ->
-//
-//            stopTimer()
-//
-//            val dialog = Dialog(this@NewTabQuestionActivity)
-//            dialog.setContentView(R.layout.play_pause_alertdialog)
-//            dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
-////            var wmlp: WindowManager.LayoutParams = dialog.window.attributes
-////            wmlp.width = WindowManager.LayoutParams.MATCH_PARENT
-////            wmlp.height = WindowManager.LayoutParams.WRAP_CONTENT
-//            dialog.window!!.setGravity(Gravity.BOTTOM)
-//            dialog.setCanceledOnTouchOutside(false)
-//
-//            val cancelBtn: TextView = dialog.findViewById(R.id.dialog_tvCancel)
-//            val resumeBtn: TextView = dialog.findViewById(R.id.dialog_tvResume)
-//            val abortBtn: TextView = dialog.findViewById(R.id.dialog_tvAbort)
-//
-//            cancelBtn.setOnClickListener {
-//                dialog.dismiss()
-//                timerResume()
-//            }
-//
-//            resumeBtn.setOnClickListener {
-//                timerResume()
-//                dialog.dismiss()
-//            }
-//
-//            abortBtn.setOnClickListener {
-//                onBackPressed()
-//            }
-//
-//            dialog.show()
-//
-//            queTab_ivPlayPause.isChecked = !isChecked
-//
-//        }
 
         clicks()
 
@@ -485,10 +448,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                                             Log.d("isreview1", "" + 0)
 
-                                            if (movies[i].TestQuestion[j].Answer != "") {
+                                            if (movies[i].TestQuestion[j].Answered != "") {
+                                                if (movies[i].TestQuestion[j].Answer != "") {
 
-                                                questionTypeModel.type = 2
-
+                                                    questionTypeModel.type = 2
+                                                } else {
+                                                    questionTypeModel.type = 3
+                                                }
                                             } else {
 
                                                 questionTypeModel.type = 5
@@ -779,29 +745,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 queTab_tvTimer.text = getString(R.string._00_00)
 
-//                DialogUtils.createConfirmDialog(
-//                    this@NewTabQuestionActivity,
-//                    "Done?",
-//                    "Are you sure you want to submit this test?",
-//                    "OK",
-//                    "Cancel",
-//                    DialogInterface.OnClickListener { dialog, which ->
-//
-//                        var ansstr = ""
-//
-//                        for (i in 0 until ansArr.size) {
-//                            ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
-//
-//                        }
-//
-//                        Log.d("ansstr", ansstr)
-//
-//                        callSubmitAPI()
-//
-//                    },
-//                    DialogInterface.OnClickListener { dialog, which ->
-//                        if (queTab_tvTimer.text.toString().equals("00:00:00", true)) {
-
                 getType("continue", 0, curr_index)
 
                 DialogUtils.createConfirmDialog1(
@@ -831,12 +774,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                     }).show()
 
-//                        } else {
-//                            dialog.dismiss()
-//                        }
-//
-//
-//                    }).show()
 
             }
 
@@ -2026,14 +1963,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             } else {
 
-                val dialog = Dialog(this@NewTabQuestionActivity)
-                dialog.setContentView(R.layout.hint_dialog)
-                dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                dialog.setCanceledOnTouchOutside(false)
+                val hintdialog = Dialog(this@NewTabQuestionActivity)
+                hintdialog.setContentView(R.layout.hint_dialog)
+                hintdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                hintdialog.setCanceledOnTouchOutside(false)
 
-                val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
-                val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
-                val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+                val hintWebview: WebView = hintdialog.findViewById(R.id.dialog_hint_wvHint)
+                val header: TextView = hintdialog.findViewById(R.id.dialog_hint_tvHeader)
+                val closeBtn: View = hintdialog.findViewById(R.id.dialog_hint_btnClose)
 
                 header.text = "Hint"
 
@@ -2046,9 +1983,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     ""
                 )
 
-                closeBtn.setOnClickListener { dialog.dismiss() }
+                closeBtn.setOnClickListener { hintdialog.dismiss() }
 
-                dialog.show()
+                hintdialog.show()
 
             }
         }
@@ -2173,17 +2110,18 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 ActionIdData.T2002
             )
 
-            val dialog = Dialog(this@NewTabQuestionActivity)
-            dialog.setContentView(R.layout.dialog_question_information)
-            dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            dialog.setCanceledOnTouchOutside(true)
+            val testinfodialog = Dialog(this@NewTabQuestionActivity)
+            testinfodialog.setContentView(R.layout.dialog_question_information)
+            testinfodialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            testinfodialog.setCanceledOnTouchOutside(true)
 
-            val testname1: TextView = dialog.findViewById(R.id.dialog_queinfo_tvHeader)
-            val subjectname: TextView = dialog.findViewById(R.id.dialog_queinfo_tvSubjectName)
-            val course: TextView = dialog.findViewById(R.id.dialog_queinfo_tvCourse)
-            val marks: TextView = dialog.findViewById(R.id.dialog_queinfo_tvTotalMarks)
-            val totalque: TextView = dialog.findViewById(R.id.dialog_queinfo_tvQue)
-            val tutorname: TextView = dialog.findViewById(R.id.dialog_queinfo_tvTeacherName)
+            val testname1: TextView = testinfodialog.findViewById(R.id.dialog_queinfo_tvHeader)
+            val subjectname: TextView =
+                testinfodialog.findViewById(R.id.dialog_queinfo_tvSubjectName)
+            val course: TextView = testinfodialog.findViewById(R.id.dialog_queinfo_tvCourse)
+            val marks: TextView = testinfodialog.findViewById(R.id.dialog_queinfo_tvTotalMarks)
+            val totalque: TextView = testinfodialog.findViewById(R.id.dialog_queinfo_tvQue)
+            val tutorname: TextView = testinfodialog.findViewById(R.id.dialog_queinfo_tvTeacherName)
 
             testname1.text = testname
             subjectname.text = testsubject
@@ -2192,7 +2130,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             totalque.text = testque
             tutorname.text = testtutor
 
-            dialog.show()
+            testinfodialog.show()
         }
 
         queTab_ivBack.setOnClickListener {
@@ -2379,7 +2317,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                    getType("activity", 0, curr_index)
 //                }
 
-                OpenAttemptDialog()
+                if (attemptDialog != null && !attemptDialog!!.isShowing) {
+                    OpenAttemptDialog()
+                }
 
 //                    },
 //                    DialogInterface.OnClickListener { dialog, which ->
@@ -2459,14 +2399,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     movies[q_grppos1].TestQuestion[curr_index].HintUsed = "1"
                     queTab_ivHint.setImageResource(R.drawable.hint_bulb_yellow)
 
-                    val dialog = Dialog(this@NewTabQuestionActivity)
-                    dialog.setContentView(R.layout.hint_dialog)
-                    dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                    dialog.setCanceledOnTouchOutside(false)
+                    val hintdialog = Dialog(this@NewTabQuestionActivity)
+                    hintdialog.setContentView(R.layout.hint_dialog)
+                    hintdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    hintdialog.setCanceledOnTouchOutside(false)
 
-                    val hintWebview: WebView = dialog.findViewById(R.id.dialog_hint_wvHint)
-                    val header: TextView = dialog.findViewById(R.id.dialog_hint_tvHeader)
-                    val closeBtn: View = dialog.findViewById(R.id.dialog_hint_btnClose)
+                    val hintWebview: WebView = hintdialog.findViewById(R.id.dialog_hint_wvHint)
+                    val header: TextView = hintdialog.findViewById(R.id.dialog_hint_tvHeader)
+                    val closeBtn: View = hintdialog.findViewById(R.id.dialog_hint_btnClose)
 
                     header.text = "Hint"
 
@@ -2489,10 +2429,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                             queTab_ivHint.visibility = View.GONE
                         }
 
-                        dialog.dismiss()
+                        hintdialog.dismiss()
                     }
 
-                    dialog.show()
+                    hintdialog.show()
 
 //                    Toast.makeText(this@NewTabQuestionActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
                 }
@@ -2506,6 +2446,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         })
     }
 
+    var attemptDialog: Dialog? = null
+
     fun OpenAttemptDialog() {
 
         CommonWebCalls.callToken(
@@ -2516,33 +2458,40 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             ActionIdData.T2200
         )
 
-        val dialog = Dialog(this@NewTabQuestionActivity)
-        dialog.setContentView(R.layout.dialog_que_attempt_report)
-        dialog.setCanceledOnTouchOutside(false)
+        attemptDialog = Dialog(this@NewTabQuestionActivity)
 
-        val btnCancel: TextView = dialog.findViewById(R.id.attempt_btnClose)
-        val btnOk: TextView = dialog.findViewById(R.id.attempt_tvOK)
-        val rvList: RecyclerView = dialog.findViewById(R.id.attempt_rvList)
+        if (!attemptDialog!!.isShowing) {
 
-        rvList.layoutManager =
-            LinearLayoutManager(this@NewTabQuestionActivity, LinearLayoutManager.VERTICAL, false)
+            attemptDialog!!.setContentView(R.layout.dialog_que_attempt_report)
+            attemptDialog!!.setCanceledOnTouchOutside(false)
 
-        callAttempReport(rvList)
+            val btnCancel: TextView = attemptDialog!!.findViewById(R.id.attempt_btnClose)
+            val btnOk: TextView = attemptDialog!!.findViewById(R.id.attempt_tvOK)
+            val rvList: RecyclerView = attemptDialog!!.findViewById(R.id.attempt_rvList)
 
-        btnCancel.setOnClickListener {
-
-            if (queTab_tvTimer.text.toString().equals("00:00:00", true)) {
-
-                getType("continue", 0, curr_index)
-
-                DialogUtils.createConfirmDialog1(
+            rvList.layoutManager =
+                LinearLayoutManager(
                     this@NewTabQuestionActivity,
-                    "Submit",
-                    "Your test time is over",
+                    LinearLayoutManager.VERTICAL,
+                    false
+                )
 
-                    DialogInterface.OnClickListener { dialog, which ->
+            callAttempReport(rvList)
 
-                        //                        var ansstr = ""
+            btnCancel.setOnClickListener {
+
+                if (queTab_tvTimer.text.toString().equals("00:00:00", true)) {
+
+                    getType("continue", 0, curr_index)
+
+                    DialogUtils.createConfirmDialog1(
+                        this@NewTabQuestionActivity,
+                        "Submit",
+                        "Your test time is over",
+
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            //                        var ansstr = ""
 //
 //                        for (i in 0 until ansArr.size) {
 //                            ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
@@ -2557,29 +2506,29 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                            getType("activity", 0, curr_index)
 //                         }
 
-                        callSubmitAPI()
+                            callSubmitAPI()
 
-                    }).show()
-                dialog.dismiss()
+                        }).show()
+                    attemptDialog!!.dismiss()
 
-            } else {
+                } else {
 //                timerResume()
-                dialog.dismiss()
-            }
-        }
-
-        btnOk.setOnClickListener {
-
-            stopTimer()
-
-            var ansstr = ""
-
-            for (i in 0 until ansArr.size) {
-                ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
-
+                    attemptDialog!!.dismiss()
+                }
             }
 
-            Log.d("ansstr", ansstr)
+            btnOk.setOnClickListener {
+
+                stopTimer()
+
+                var ansstr = ""
+
+                for (i in 0 until ansArr.size) {
+                    ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
+
+                }
+
+                Log.d("ansstr", ansstr)
 
 //            if(queTab_ivReview.isChecked){
 //                getType("activity", 1, curr_index)
@@ -2587,11 +2536,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                getType("activity", 0, curr_index)
 //            }
 
-            callSubmitAPI()
+                callSubmitAPI()
+            }
+
+            attemptDialog!!.show()
+
+        } else {
+            attemptDialog!!.dismiss()
         }
-
-        dialog.show()
-
     }
 
     fun callAttempReport(rvlist: RecyclerView) {

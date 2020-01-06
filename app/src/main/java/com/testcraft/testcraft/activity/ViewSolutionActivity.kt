@@ -496,6 +496,8 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         curr_index1 = p10
 
+        Log.d("solution_current_index", "" + curr_index1)
+
 //        dialog_hint_wvHint.visibility = View.GONE
 
         drawer_layout1.closeDrawer(Gravity.END)
@@ -541,22 +543,38 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                     .transform(transform.getTransformation(imgQue!!))
                     .into(imgQue)
 
-                when {
-                    movies[solution_grppos1].TestQuestion[curr_index1].IsCorrect.equals(
-                        "true",
-                        true
-                    ) -> {
-                        solution_ivAnsimg.setImageResource(R.drawable.wrong)
-                    }
-                    movies[solution_grppos1].TestQuestion[curr_index1].IsCorrect.equals(
-                        "false",
-                        true
-                    ) -> {
-                        solution_ivAnsimg.setImageResource(R.drawable.correct)
-                    }
-                    else -> {
-                        solution_ivAnsimg.setImageResource(0)
+                var isAswerIcon = false
 
+                if (movies[solution_grppos1].TestQuestion[curr_index1].ObtainMarks != "") {
+
+                    isAswerIcon =
+                        !(movies[solution_grppos1].TestQuestion[curr_index1].QuestionTypeID == 7 && movies[solution_grppos1].TestQuestion[curr_index1].IsCorrect.equals(
+                            "false",
+                            true
+                        ) && movies[solution_grppos1].TestQuestion[curr_index1].ObtainMarks.toFloat() > 0)
+                }
+
+                if (!isAswerIcon) {
+                    solution_ivAnsimg.setImageResource(0)
+
+                } else {
+                    when {
+                        movies[solution_grppos1].TestQuestion[curr_index1].IsCorrect.equals(
+                            "true",
+                            true
+                        ) -> {
+                            solution_ivAnsimg.setImageResource(R.drawable.wrong)
+                        }
+                        movies[solution_grppos1].TestQuestion[curr_index1].IsCorrect.equals(
+                            "false",
+                            true
+                        ) -> {
+                            solution_ivAnsimg.setImageResource(R.drawable.correct)
+                        }
+                        else -> {
+                            solution_ivAnsimg.setImageResource(0)
+
+                        }
                     }
                 }
 
@@ -651,9 +669,10 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                 }
             }
 
-        } else {
-            solution_btnNext.visibility = View.GONE
         }
+//        else {
+//            solution_btnNext.visibility = View.GONE
+//        }
     }
 
     fun getNextQuestion1() {

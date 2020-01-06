@@ -26,6 +26,7 @@ class TestTypeAdapter(val context: Context, val dataList: JsonArray) :
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
         p0.test_name.text = dataList[p1].asJsonObject["Name"].asString
+        p0.test_duration.text = "Time : " + dataList[p1].asJsonObject["Duration"].asString
         p0.test_quantity.text = dataList[p1].asJsonObject["Marks"].asString
 
     }
@@ -33,6 +34,7 @@ class TestTypeAdapter(val context: Context, val dataList: JsonArray) :
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var test_name: TextView = itemView.findViewById(R.id.test_type_item_tvName)
+        var test_duration: TextView = itemView.findViewById(R.id.test_type_item_tvDuration)
         var test_quantity: TextView = itemView.findViewById(R.id.test_type_item_tvQuantity)
 
     }

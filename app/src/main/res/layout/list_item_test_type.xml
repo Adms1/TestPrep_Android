@@ -23,14 +23,28 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:paddingTop="@dimen/_5sdp"
-        android:paddingBottom="@dimen/_5sdp"
         android:text="@string/subject"
         android:textSize="@dimen/_12sdp"
         android:textStyle="bold"
+        android:includeFontPadding="false"
         android:layout_marginRight="@dimen/_20sdp"
         app:layout_constraintLeft_toRightOf="@+id/desh"
         app:layout_constraintRight_toLeftOf="@+id/test_type_item_tvQuantity"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/test_type_item_tvDuration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingBottom="@dimen/_5sdp"
+        android:text="@string/subject"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintLeft_toRightOf="@+id/desh"
+        app:layout_constraintRight_toLeftOf="@+id/test_type_item_tvQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/test_type_item_tvName" />
 
     <TextView
         android:id="@+id/test_type_item_tvQuantity"
