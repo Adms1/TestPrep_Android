@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.sectionmodule.NewQuestionResponse
+import com.testcraft.testcraft.utils.transform
 
 class SolutionAdapter(
     val context: Context,
@@ -44,6 +45,7 @@ class SolutionAdapter(
         p0.abcd.text = dataList[p1].optiontext
 
         if (qType == 1 || qType == 7) {
+
             if (dataList[p1].AnswerImage != "") {
 
                 Log.d("qsize", "" + qsize)
@@ -51,6 +53,7 @@ class SolutionAdapter(
                 var imgwidth: Int = 100
 
                 Picasso.get().load(dataList[p1].AnswerImage)
+                    .transform(transform.getTransformation(p0.opone1))
 //                    .resize(qsize, p0.opone1.height)
 //                .fit()
 //                .centerInside()

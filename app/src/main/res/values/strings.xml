@@ -32,6 +32,7 @@
         <font color="#9A9A9A">ALREADY HAVE AN ACCOUNT?</font>
         <font color="#10A8DD">SIGN IN</font>
     </string>
+
     <string name="sign_up">
         <font color="#9A9A9A">DON\'T HAVE AN ACCOUNT?</font>
         <font color="#10A8DD">SIGN UP</font>

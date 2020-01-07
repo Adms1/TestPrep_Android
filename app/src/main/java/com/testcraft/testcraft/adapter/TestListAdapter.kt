@@ -81,6 +81,7 @@ class TestListAdapter(
 //                context.startActivity(intent)
             } else if (dataList[p1].StatusName == "Resume") {
                 val intent = Intent(context, NewTabQuestionActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
                 intent.putExtra("testid", dataList[p1].TestID.toString())
                 intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
                 intent.putExtra("testname", dataList[p1].TestName)
@@ -98,6 +99,7 @@ class TestListAdapter(
 
             } else if (dataList[p1].StatusName == "Start Test") {
                 val intent = Intent(context, QuestionInstructionActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
                 intent.putExtra("testid", dataList[p1].TestID.toString())
                 intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
                 intent.putExtra("testname", dataList[p1].TestName)

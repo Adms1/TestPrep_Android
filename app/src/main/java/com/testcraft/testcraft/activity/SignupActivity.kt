@@ -174,6 +174,7 @@ class SignupActivity : AppCompatActivity() {
 
         val intent = Intent(this@SignupActivity, IntroActivity::class.java)
         startActivity(intent)
+        finish()
 
     }
 

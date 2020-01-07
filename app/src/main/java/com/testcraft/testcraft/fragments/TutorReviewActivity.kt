@@ -38,7 +38,7 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class TutorsReviewFragment : AppCompatActivity() {
+class TutorReviewActivity : AppCompatActivity() {
 
     var tutorid = ""
 
@@ -54,7 +54,7 @@ class TutorsReviewFragment : AppCompatActivity() {
         setContentView(R.layout.fragment_tutors_review)
 
         CommonWebCalls.callToken(
-            this@TutorsReviewFragment,
+            this@TutorReviewActivity,
             "1",
             "",
             ActionIdData.C2900,
@@ -67,14 +67,14 @@ class TutorsReviewFragment : AppCompatActivity() {
         tutor_review_btnWritereview.setOnClickListener {
 
             CommonWebCalls.callToken(
-                this@TutorsReviewFragment,
+                this@TutorReviewActivity,
                 "1",
                 "",
                 ActionIdData.C2901,
                 ActionIdData.T2901
             )
 
-            val dialog = Dialog(this@TutorsReviewFragment)
+            val dialog = Dialog(this@TutorReviewActivity)
             dialog.setContentView(R.layout.review_dialog)
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog.setCanceledOnTouchOutside(false)
@@ -88,7 +88,7 @@ class TutorsReviewFragment : AppCompatActivity() {
             submitBtn.setOnClickListener {
 
                 CommonWebCalls.callToken(
-                    this@TutorsReviewFragment,
+                    this@TutorReviewActivity,
                     "1",
                     "",
                     ActionIdData.C3001,
@@ -97,17 +97,17 @@ class TutorsReviewFragment : AppCompatActivity() {
 
                 if (ratingbar.rating != 0f) {
 
-                    if (!DialogUtils.isNetworkConnected(this@TutorsReviewFragment)) {
-                        Utils.ping(this@TutorsReviewFragment, AppConstants.NETWORK_MSG)
+                    if (!DialogUtils.isNetworkConnected(this@TutorReviewActivity)) {
+                        Utils.ping(this@TutorReviewActivity, AppConstants.NETWORK_MSG)
                     }
 
-                    DialogUtils.showDialog(this@TutorsReviewFragment)
+                    DialogUtils.showDialog(this@TutorReviewActivity)
                     val apiService = WebClient.getClient().create(WebInterface::class.java)
 
                     val call = apiService.writeRating(
                         WebRequests.writeRatingParams(
                             Utils.getStringValue(
-                                this@TutorsReviewFragment,
+                                this@TutorReviewActivity,
                                 AppConstants.USER_ID,
                                 "0"
                             )!!, tutorid, etDesc.text.toString(), ratingbar.rating.toString()
@@ -140,7 +140,7 @@ class TutorsReviewFragment : AppCompatActivity() {
                     })
 
                 } else {
-                    Utils.ping(this@TutorsReviewFragment, "Please give rating")
+                    Utils.ping(this@TutorReviewActivity, "Please give rating")
                 }
             }
 
@@ -154,7 +154,7 @@ class TutorsReviewFragment : AppCompatActivity() {
         }
 
         tutor_review_rvReview.layoutManager =
-            LinearLayoutManager(this@TutorsReviewFragment, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(this@TutorReviewActivity, LinearLayoutManager.VERTICAL, false)
 
         callGetRating()
 
@@ -164,19 +164,20 @@ class TutorsReviewFragment : AppCompatActivity() {
         super.onBackPressed()
 
         AppConstants.isFirst = 15
-        val intent = Intent(this@TutorsReviewFragment, DashboardActivity::class.java)
+        val intent = Intent(this@TutorReviewActivity, DashboardActivity::class.java)
         intent.putExtra("tutor_id", tutorid)
         startActivity(intent)
+        finish()
 
     }
 
     fun callGetRating() {
 
-        if (!DialogUtils.isNetworkConnected(this@TutorsReviewFragment)) {
-            Utils.ping(this@TutorsReviewFragment, AppConstants.NETWORK_MSG)
+        if (!DialogUtils.isNetworkConnected(this@TutorReviewActivity)) {
+            Utils.ping(this@TutorReviewActivity, AppConstants.NETWORK_MSG)
         }
 
-        DialogUtils.showDialog(this@TutorsReviewFragment)
+        DialogUtils.showDialog(this@TutorReviewActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.getTutorRating(tutorid)
@@ -193,7 +194,7 @@ class TutorsReviewFragment : AppCompatActivity() {
                         tutor_review_rvReview.visibility = View.VISIBLE
 
                         tutor_review_rvReview.adapter =
-                            TutorReviewAdapter(this@TutorsReviewFragment, response.body()!!.data)
+                            TutorReviewAdapter(this@TutorReviewActivity, response.body()!!.data)
 
                     } else {
 

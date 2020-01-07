@@ -416,11 +416,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                         Picasso.get()
                             .load(movies[0].TestQuestion[0].QuestionImage)
                             .transform(transform.getTransformation(imgQue!!))
-                            .into(solution_page_img_que_img)
-
-//                        Picasso.get()
-//                            .load(movies[0].TestQuestion[0].QuestionImage)
-//                            .into(solution_page_img_que_img)
+                            .into(imgQue!!)
 
                         Log.d("imgcall", "Number of movies received: " + movies.size)
 
@@ -451,7 +447,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                         ansList!!.adapter = SolutionAdapter(
                             activity!!,
                             movies[0].TestQuestion[0].StudentTestQuestionMCQ,
-                            solution_page_img_que_img.width, 1
+                            imgQue!!.width, 1
                         )
 
                     } else if (movies[0].TestQuestion[0].QuestionTypeID == 2 || movies[0].TestQuestion[0].QuestionTypeID == 8) {
@@ -476,7 +472,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                         ansList!!.adapter = SolutionAdapter(
                             activity!!,
                             movies[0].TestQuestion[0].StudentTestQuestionMCQ,
-                            solution_page_img_que_img.width, 7
+                            imgQue!!.width, 7
                         )
                     }
 
@@ -597,7 +593,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                         ansList!!.adapter = SolutionAdapter(
                             activity!!,
                             movies[solution_grppos1].TestQuestion[curr_index1].StudentTestQuestionMCQ,
-                            solution_page_img_que_img.width, 1
+                            imgQue!!.width, 1
                         )
                     }
                     2 -> {
@@ -630,7 +626,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                         ansList!!.adapter = SolutionAdapter(
                             activity!!,
                             movies[solution_grppos1].TestQuestion[curr_index1].StudentTestQuestionMCQ,
-                            solution_page_img_que_img.width, 7
+                            imgQue!!.width, 7
                         )
                     }
                     8 -> {
@@ -656,18 +652,24 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                 )
             }
 
-            if ((finalArr1.size - 1) > solution_grppos1) {
-
-                solution_btnNext.visibility = View.VISIBLE
-
+            if (solution_que_number == solution_testque.toInt()) {
+                solution_btnNext.visibility = View.GONE
             } else {
-
-                if (finalArr1[sectionList!![solution_grppos1]]!!.size - 1 == curr_index1) {
-                    solution_btnNext.visibility = View.GONE
-                } else {
-                    solution_btnNext.visibility = View.VISIBLE
-                }
+                solution_btnNext.visibility = View.VISIBLE
             }
+
+//            if ((finalArr1.size - 1) > solution_grppos1) {
+//
+//                solution_btnNext.visibility = View.VISIBLE
+//
+//            } else {
+//
+//                if (finalArr1[sectionList!![solution_grppos1]]!!.size == curr_index1) {
+//                    solution_btnNext.visibility = View.GONE
+//                } else {
+//                    solution_btnNext.visibility = View.VISIBLE
+//                }
+//            }
 
         }
 //        else {
@@ -719,17 +721,18 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         solution_que_number += 1
 
-        if (curr_index1 <= finalArr1[sectionList!![solution_grppos1]]!!.size - 1) {
+        if (curr_index1 < finalArr1[sectionList!![solution_grppos1]]!!.size - 1) {
+
             curr_index1 += 1
 
         } else {
 
             if ((finalArr1.size - 1) > solution_grppos1) {
 
-                if (finalArr1[sectionList!![solution_grppos1]]!!.size == curr_index1) {
+                if ((finalArr1[sectionList!![solution_grppos1]]!!.size - 1) == curr_index1) {
                     solution_grppos1 += 1
                     curr_index1 = 0
-                    finalArr1[sectionList!![solution_grppos1]]!![curr_index1].type = 1
+//                    finalArr1[sectionList!![solution_grppos1]]!![curr_index1].type = 1
 
                 }
             }

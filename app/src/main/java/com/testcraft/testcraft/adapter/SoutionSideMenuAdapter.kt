@@ -36,7 +36,7 @@ class SoutionSideMenuAdapter(
     }
 
     override fun getGroup(groupPosition: Int): Any {
-        return header.get(groupPosition)
+        return header[groupPosition]
     }
 
     override fun getChild(groupPosition: Int, childPosition: Int): Any {

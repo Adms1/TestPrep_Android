@@ -143,7 +143,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_5sdp"
             android:gravity="center"
-            android:text="Ver.No 1.820190106"
+            android:text="Ver.No 1.820190107"
             android:textColor="@color/black"
             android:textSize="@dimen/_11sdp"
             app:layout_constraintBottom_toBottomOf="parent"

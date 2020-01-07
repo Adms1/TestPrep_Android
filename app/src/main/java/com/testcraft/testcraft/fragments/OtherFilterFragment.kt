@@ -219,7 +219,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
                         val bundle = Bundle()
                         bundle.putString("type", "filter")
-                        bundle.putString("pname1", "Packages")
+                        if (filtertypeid == "1") {
+                            bundle.putString("pname1", "Packages")
+                        } else {
+                            bundle.putString("pname1", "Single Test")
+                        }
                         bundle.putString("filtertypeid", filtertypeid)
                         bundle.putString("course_type", AppConstants.FILTER_COURSE_TYPE_ID)
                         bundle.putString("boardid", AppConstants.FILTER_BOARD_ID)
@@ -244,7 +248,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_STANDARD_ID != "0") {
                     val bundle = Bundle()
                     bundle.putString("type", "filter")
-                    bundle.putString("pname1", "Packages")
+                    if (filtertypeid == "1") {
+                        bundle.putString("pname1", "Packages")
+                    } else {
+                        bundle.putString("pname1", "Single Test")
+                    }
                     bundle.putString("filtertypeid", filtertypeid)
                     bundle.putString("course_type", AppConstants.FILTER_COURSE_TYPE_ID)
                     bundle.putString("boardid", AppConstants.FILTER_BOARD_ID)

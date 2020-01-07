@@ -78,6 +78,8 @@ class TutorProfileFragment : Fragment() {
         tutor_item_rvCuratorList.layoutManager =
             LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
+        tutor_item_rvCuratorList.isNestedScrollingEnabled = false
+
         tutor_profile_ivCart.setOnClickListener {
             val intent = Intent(activity!!, CartActivity::class.java)
             startActivity(intent)
@@ -89,7 +91,7 @@ class TutorProfileFragment : Fragment() {
 
             CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2801, ActionIdData.T2801)
 
-            val intent = Intent(activity!!, TutorsReviewFragment::class.java)
+            val intent = Intent(activity!!, TutorReviewActivity::class.java)
             intent.putExtra("header", tutor_profile_tvName.text.toString())
             intent.putExtra("tutorid", tutorid)
             startActivity(intent)

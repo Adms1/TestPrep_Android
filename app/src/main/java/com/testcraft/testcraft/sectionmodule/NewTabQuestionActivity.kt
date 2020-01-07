@@ -169,7 +169,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     ansList!!.adapter = SelectImageOptionAdapter(
                         this@NewTabQuestionActivity,
                         movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
-                        page_img_que_img.width,
+                        imgQue!!.width,
                         movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
                         movies[q_grppos1].TestQuestion[curr_index].QuestionID,
                         movies[q_grppos1].TestQuestion[curr_index].Answer, 1
@@ -502,10 +502,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //
 //                                })
 
-                                Log.d(
-                                    "qsize",
-                                    "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
-                                )
+//                                Log.d(
+//                                    "qsize",
+//                                    "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
+//                                )
 
                                 ansList!!.layoutManager =
                                     LinearLayoutManager(
@@ -529,7 +529,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     ansList!!.adapter = SelectImageOptionAdapter(
                                         this@NewTabQuestionActivity,
                                         movies[0].TestQuestion[0].StudentTestQuestionMCQ,
-                                        page_img_que_img.width,
+                                        imgQue!!.width,
                                         movies[0].TestQuestion[0].QuestionTypeID,
                                         movies[0].TestQuestion[0].QuestionID,
                                         movies[0].TestQuestion[0].Answer, 0
@@ -1032,10 +1032,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                                        .placeholder(R.color.default_shimmer_color)
                                         .into(imgQue)
 
-                                    Log.d(
-                                        "qsize",
-                                        "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
-                                    )
+//                                    Log.d(
+//                                        "qsize",
+//                                        "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
+//                                    )
 
                                     ansList!!.layoutManager =
                                         LinearLayoutManager(
@@ -1138,11 +1138,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                             .transform(transform.getTransformation(imgQue!!))
 //                                            .placeholder(R.color.default_shimmer_color)
                                             .into(imgQue)
-
-                                        Log.d(
-                                            "qsize",
-                                            "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
-                                        )
+//
+//                                        Log.d(
+//                                            "qsize",
+//                                            "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
+//                                        )
 
                                         ansList!!.layoutManager =
                                             LinearLayoutManager(
@@ -1446,10 +1446,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 //                    .placeholder(R.color.default_shimmer_color)
                     .into(imgQue)
 
-                Log.d(
-                    "qsize",
-                    "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
-                )
+//                Log.d(
+//                    "qsize",
+//                    "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
+//                )
 
                 ansList!!.layoutManager = LinearLayoutManager(
                     this@NewTabQuestionActivity,

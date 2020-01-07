@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
+import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
@@ -78,6 +79,9 @@ class ContactUsFragment : Fragment() {
                             response.body()!!.get("Msg").asString,
                             Toast.LENGTH_LONG
                         ).show()
+
+                        AppConstants.isFirst = 4
+                        DashboardActivity.setFragments(null)
 
                     } else {
 

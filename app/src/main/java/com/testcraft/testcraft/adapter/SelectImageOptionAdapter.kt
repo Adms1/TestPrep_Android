@@ -14,6 +14,7 @@ import com.testcraft.testcraft.sectionmodule.NewQuestionResponse
 import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
 import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.CommonWebCalls
+import com.testcraft.testcraft.utils.transform
 
 class SelectImageOptionAdapter(
     val context: Context,
@@ -52,7 +53,8 @@ class SelectImageOptionAdapter(
 //            Log.d("qsize", "" + qsize)
 
             Picasso.get().load(dataList[p1].AnswerImage)
-                .resize(qsize, p0.opone1.height)
+                .transform(transform.getTransformation(p0.opone1))
+//                .resize(qsize, p0.opone1.height)
 //                .fit()
 //                .centerInside()
                 .into(p0.opone1)

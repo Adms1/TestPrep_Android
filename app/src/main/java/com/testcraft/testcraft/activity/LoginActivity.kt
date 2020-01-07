@@ -68,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this@LoginActivity, SignupActivity::class.java)
             intent.putExtra("comefrom", "login")
             startActivity(intent)
+            finish()
 //            overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
         }
@@ -318,6 +319,7 @@ class LoginActivity : AppCompatActivity() {
 
         val intent = Intent(this@LoginActivity, IntroActivity::class.java)
         startActivity(intent)
+        finish()
 
     }
 

@@ -102,201 +102,12 @@ class PrefrenceActivity : AppCompatActivity() {
 
         package_btnNext.setOnClickListener {
 
-            CommonWebCalls.callToken(
-                this@PrefrenceActivity,
-                "1",
-                "",
-                ActionIdData.C704,
-                ActionIdData.T704
-            )
-
-            AppConstants.isFirst = 0
-            Utils.setStringValue(this@PrefrenceActivity, AppConstants.isPrefrence, "1")
-
-            if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "") == "") {
-
-                if (Utils.getStringValue(
-                        this@PrefrenceActivity,
-                        AppConstants.COURSE_TYPE_ID,
-                        ""
-                    ) == "1"
-                ) {
-//                    Utils.ping(this@PrefrenceActivity, "Please Select Board")
-
-                    DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
-                        "OK",
-                        "Please Select Board",
-                        DialogInterface.OnClickListener { dialog, which ->
-
-                            dialog.dismiss()
-
-                        }).show()
-
-
-                } else {
-//                    Utils.ping(this@PrefrenceActivity, "Please Select Course")
-
-                    DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
-                        "OK",
-                        "Please Select Course",
-                        DialogInterface.OnClickListener { dialog, which ->
-
-                            dialog.dismiss()
-
-                        }).show()
-
-                }
-
-            } else {
-
-                if (chooseCoarseAdapter != null) {
-
-                    val subIds = chooseCoarseAdapter!!.getIds()
-
-                    Utils.setStringValue(this@PrefrenceActivity, AppConstants.SUBJECT_ID, subIds)
-
-                    if (subIds != "" && subIds != null) {
-                        val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
-                        mIntent.putExtra("subject_id", subIds)
-                        startActivity(mIntent)
-                        finish()
-
-                    } else {
-//                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
-
-                        DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
-                            "OK",
-                            "Please Select Subject",
-                            DialogInterface.OnClickListener { dialog, which ->
-
-                                dialog.dismiss()
-
-                            }).show()
-
-                    }
-
-                } else {
-                    if (Utils.getStringValue(
-                            this@PrefrenceActivity,
-                            AppConstants.COURSE_TYPE_ID,
-                            ""
-                        ) == "1"
-                    ) {
-//                        Utils.ping(this@PrefrenceActivity, "Please Select Standard")
-
-                        DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
-                            "OK",
-                            "Please Select Stadard",
-                            DialogInterface.OnClickListener { dialog, which ->
-
-                                dialog.dismiss()
-
-                            }).show()
-
-                    }
-//                    else {
-//                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
-//                    }
-                }
-            }
+            callNextButton()
         }
 
         package_btnNextt.setOnClickListener {
 
-            CommonWebCalls.callToken(
-                this@PrefrenceActivity,
-                "1",
-                "",
-                ActionIdData.C704,
-                ActionIdData.T704
-            )
-
-            AppConstants.isFirst = 0
-            Utils.setStringValue(this@PrefrenceActivity, AppConstants.isPrefrence, "1")
-
-            if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "") == "") {
-                if (Utils.getStringValue(
-                        this@PrefrenceActivity,
-                        AppConstants.COURSE_TYPE_ID,
-                        ""
-                    ) == "1"
-                ) {
-//                    Utils.ping(this@PrefrenceActivity, "Please Select Board")
-
-                    DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
-                        "OK",
-                        "Please Select Board",
-                        DialogInterface.OnClickListener { dialog, which ->
-
-                            dialog.dismiss()
-
-                        }).show()
-
-                } else {
-//                    Utils.ping(this@PrefrenceActivity, "Please Select Course")
-
-                    DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
-                        "OK",
-                        "Please Select Course",
-                        DialogInterface.OnClickListener { dialog, which ->
-
-                            dialog.dismiss()
-
-                        }).show()
-
-                }
-
-            } else {
-                if (chooseCoarseAdapter != null) {
-                    val subIds = chooseCoarseAdapter!!.getIds()
-
-                    Utils.setStringValue(this@PrefrenceActivity, AppConstants.SUBJECT_ID, subIds)
-
-                    if (subIds != "" && subIds != null) {
-                        val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
-                        mIntent.putExtra("subject_id", subIds)
-                        startActivity(mIntent)
-                        finish()
-                    } else {
-//                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
-
-                        DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
-                            "OK",
-                            "Please Select Subject",
-                            DialogInterface.OnClickListener { dialog, which ->
-
-                                dialog.dismiss()
-
-                            }).show()
-                    }
-
-                } else {
-
-                    if (Utils.getStringValue(
-                            this@PrefrenceActivity,
-                            AppConstants.COURSE_TYPE_ID,
-                            ""
-                        ) == "1"
-                    ) {
-//                        Utils.ping(this@PrefrenceActivity, "Please Select Standard")
-
-                        DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
-                            "OK",
-                            "Please Select Standard",
-                            DialogInterface.OnClickListener { dialog, which ->
-
-                                dialog.dismiss()
-
-                            }).show()
-
-                    } else {
-                        val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
-                        mIntent.putExtra("subject_id", "")
-                        startActivity(mIntent)
-                        finish()
-                    }
-                }
-            }
+            callNextButton()
         }
 
         expand()
@@ -587,6 +398,103 @@ class PrefrenceActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val intent = Intent(this@PrefrenceActivity, NewActivity::class.java)
         startActivity(intent)
+    }
+
+    fun callNextButton() {
+        CommonWebCalls.callToken(
+            this@PrefrenceActivity,
+            "1",
+            "",
+            ActionIdData.C704,
+            ActionIdData.T704
+        )
+
+        AppConstants.isFirst = 0
+        Utils.setStringValue(this@PrefrenceActivity, AppConstants.isPrefrence, "1")
+
+        if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "") == "") {
+            if (Utils.getStringValue(
+                    this@PrefrenceActivity,
+                    AppConstants.COURSE_TYPE_ID,
+                    ""
+                ) == "1"
+            ) {
+//                    Utils.ping(this@PrefrenceActivity, "Please Select Board")
+
+                DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
+                    "OK",
+                    "Please Select Board",
+                    DialogInterface.OnClickListener { dialog, which ->
+
+                        dialog.dismiss()
+
+                    }).show()
+
+            } else {
+//                    Utils.ping(this@PrefrenceActivity, "Please Select Course")
+
+                DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
+                    "OK",
+                    "Please Select Course",
+                    DialogInterface.OnClickListener { dialog, which ->
+
+                        dialog.dismiss()
+
+                    }).show()
+
+            }
+
+        } else {
+            if (chooseCoarseAdapter != null) {
+                val subIds = chooseCoarseAdapter!!.getIds()
+
+                Utils.setStringValue(this@PrefrenceActivity, AppConstants.SUBJECT_ID, subIds)
+
+                if (subIds != "" && subIds != null) {
+                    val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
+                    mIntent.putExtra("subject_id", subIds)
+                    startActivity(mIntent)
+                    finish()
+                } else {
+//                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
+
+                    DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
+                        "OK",
+                        "Please Select Subject",
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            dialog.dismiss()
+
+                        }).show()
+                }
+
+            } else {
+
+                if (Utils.getStringValue(
+                        this@PrefrenceActivity,
+                        AppConstants.COURSE_TYPE_ID,
+                        ""
+                    ) == "1"
+                ) {
+//                        Utils.ping(this@PrefrenceActivity, "Please Select Standard")
+
+                    DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
+                        "OK",
+                        "Please Select Standard",
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            dialog.dismiss()
+
+                        }).show()
+
+                } else {
+                    val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
+                    mIntent.putExtra("subject_id", "")
+                    startActivity(mIntent)
+                    finish()
+                }
+            }
+        }
     }
 
 }
