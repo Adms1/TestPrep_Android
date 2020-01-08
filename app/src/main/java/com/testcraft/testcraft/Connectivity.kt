@@ -110,7 +110,7 @@ class Connectivity : BroadcastReceiver() {
         fun isConnectionFast(context: Context, type: Int, subType: Int): Boolean {
             return when (type) {
                 ConnectivityManager.TYPE_WIFI -> {
-//                    Utils.ping(context, "You have connected to Wi-Fi ")
+                    Utils.ping(context, "You are connected to Wi-Fi ")
                     true
                 }
 
@@ -212,14 +212,19 @@ class Connectivity : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
 
-        val connectivityManager =
-            context!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork = connectivityManager.activeNetworkInfo
+        try {
+            val connectivityManager =
+                context!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetwork = connectivityManager.activeNetworkInfo
 
-        if (activeNetwork != null && activeNetwork.isConnected) {
-            isConnectedFast(context)
-        } else {
-            Utils.ping(context, "Network not reachable")
+            if (activeNetwork != null && activeNetwork.isConnected) {
+                isConnectedFast(context)
+            } else {
+                Utils.ping(context, "Network not reachable")
+            }
+        } catch (e: Exception) {
+
+            Utils.ping(context!!, "issue" + e.printStackTrace())
         }
 
 //        val isConnected: Boolean =

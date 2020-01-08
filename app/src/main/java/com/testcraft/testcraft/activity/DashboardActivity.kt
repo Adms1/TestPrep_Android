@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -17,6 +18,7 @@ import android.widget.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.IntroActivity.Companion.disconnectFromFacebook
 import com.testcraft.testcraft.activity.ViewSolutionActivity.Companion.curr_index1
@@ -29,6 +31,7 @@ import com.testcraft.testcraft.utils.Utils.Companion.clearPrefrence
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import kotlin.system.exitProcess
+
 
 @Suppress("DEPRECATION")
 class DashboardActivity : AppCompatActivity() {
@@ -44,6 +47,20 @@ class DashboardActivity : AppCompatActivity() {
 
     var doubleBackToExitPressedOnce = false
 
+    var connectivity: Connectivity? = null
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(connectivity, filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(connectivity)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,6 +74,8 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_dashboard)
+
+        connectivity = Connectivity()
 
         Utils.deleteCache(this@DashboardActivity)
 

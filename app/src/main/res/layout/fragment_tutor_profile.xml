@@ -200,7 +200,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/tutor_item_rvCuratorList"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvCurators" />

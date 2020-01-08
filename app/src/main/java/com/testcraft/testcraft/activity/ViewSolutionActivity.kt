@@ -305,9 +305,9 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
     fun callSolutionApi() {
 
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-        }
+//        if (!DialogUtils.isNetworkConnected(activity!!)) {
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//        }
 
         DialogUtils.showDialog(activity!!)
 
@@ -526,9 +526,10 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
             if (itype == "adapter") {
 
                 solution_que_number = SolutionPageNumber()
-                solution_tvTotal.text = "$solution_que_number/$solution_testque"
 
-            } else {
+            }
+
+            if (solution_que_number <= solution_testque.toInt()) {
                 solution_tvTotal.text = "$solution_que_number/$solution_testque"
             }
 
@@ -652,7 +653,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
                 )
             }
 
-            if (solution_que_number == solution_testque.toInt()) {
+            if (solution_que_number >= solution_testque.toInt()) {
                 solution_btnNext.visibility = View.GONE
             } else {
                 solution_btnNext.visibility = View.VISIBLE

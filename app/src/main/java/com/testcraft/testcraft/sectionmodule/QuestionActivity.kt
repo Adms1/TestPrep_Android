@@ -493,7 +493,6 @@ class QuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     movies[0].TestQuestion[0].StudentTestQuestionMCQ,
                                     page_img_que_img.width,
                                     movies[0].TestQuestion[0].QuestionTypeID,
-                                    movies[0].TestQuestion[0].QuestionID,
                                     movies[0].TestQuestion[0].Answer, 0
                                 )
 
@@ -1033,7 +1032,6 @@ class QuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                             movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
                                             imgQue!!.width,
                                             movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                                            movies[q_grppos1].TestQuestion[curr_index].QuestionID,
                                             movies[q_grppos1].TestQuestion[curr_index].Answer, 0
                                         )
 
@@ -1139,7 +1137,6 @@ class QuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                                 movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
                                                 imgQue!!.width,
                                                 movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                                                movies[q_grppos1].TestQuestion[curr_index].QuestionID,
                                                 movies[q_grppos1].TestQuestion[curr_index].Answer, 0
                                             )
 
@@ -1441,7 +1438,6 @@ class QuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
                         imgQue!!.width,
                         movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
                         movies[q_grppos1].TestQuestion[curr_index].Answer, 0
                     )
 

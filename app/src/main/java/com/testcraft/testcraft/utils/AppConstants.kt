@@ -24,7 +24,8 @@ class AppConstants {
         var SUBJECT_SUMMARY_REPORT_URL =
             "https://webservice.testcraft.in/SubjectSummaryReport.aspx?"
 
-        //        LOCAL
+//        LOCAL
+
 //        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
 //        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
 //        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
@@ -33,7 +34,6 @@ class AppConstants {
 //        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
 //        var SUBJECT_SUMMARY_REPORT_URL =
 //            "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
-
 
 //        USER DATA
 
@@ -55,7 +55,7 @@ class AppConstants {
 
 //        PAYMENT LOCAL
 
-        //        var API_KEY = "535ee616-a161-4e16-88ed-a338582e841a"
+//        var API_KEY = "535ee616-a161-4e16-88ed-a338582e841a"
 //        var SECRET_KEY = "531553f8d6b906aa3342948a3c535ca301de9d5d"
 //        var PAYMENT_MODE = "TEST"
 

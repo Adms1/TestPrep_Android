@@ -43,9 +43,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
-import java.io.*
-import java.net.HttpURLConnection
-import java.net.URL
 import java.util.concurrent.TimeUnit
 
 class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
@@ -153,7 +150,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         drawer_layout.setDrawerListener(mDrawerToggle)
 
-//        var isshow = false
         val Groupinfodialog = Dialog(this@NewTabQuestionActivity)
 
         queTab_ivRefresh.setOnClickListener {
@@ -171,7 +167,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
                         imgQue!!.width,
                         movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
                         movies[q_grppos1].TestQuestion[curr_index].Answer, 1
                     )
                 }
@@ -201,9 +196,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 header.text = movies[groupPosition].SectionName
 
-//            hintWebview.text = movies[groupPosition].SectionInstruction
-
                 hintWebview.settings.javaScriptEnabled = true
+
                 hintWebview.loadDataWithBaseURL(
                     "",
                     "<html><body style='background-color:clear;'><p>" + movies[groupPosition].SectionInstruction + "</p></body></html>",
@@ -222,11 +216,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
 
         queTab_tvFillBlanks.setOnEditorActionListener { v, actionId, event ->
+
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
 
                 integeranswer = queTab_tvFillBlanks.text.toString()
 
             }
+
             false
         }
 
@@ -280,7 +276,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     fun callQuestionApi() {
 
         if (!DialogUtils.isNetworkConnected(this@NewTabQuestionActivity)) {
-//            Utils.ping(this@NewTabQuestionActivity, AppConstants.NETWORK_MSG)
 
             continuetime = 0
 
@@ -306,6 +301,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             val apiService = WebClient.getClient().create(WebInterface::class.java)
 
             val call = apiService.getNewQuestions(testid, studenttestid)
+
             call.enqueue(object : Callback<NewQuestionResponse> {
                 @SuppressLint("SetTextI18n")
                 override fun onResponse(
@@ -356,7 +352,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     }
 
                                     OpenAttemptDialog()
-//                                callSubmitAPI()
 
                                 }).show()
                         }
@@ -364,8 +359,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         movies = response.body()!!.data
 
                         if (movies.size > 0) {
-
-//                        queTab_tvTotal.text = "1/${movies.size}"
 
                             queTab_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
 
@@ -382,7 +375,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                             for (i in 0 until movies.size) {
 
                                 val ansmodel = AnswerModel()
-//                        ansmodel.qid = movies[i].SectionID
                                 ansmodel.ansid = movies[i].SectionName
                                 sectionList!!.add(movies[i].SectionName)
                             }
@@ -491,21 +483,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     .load(movies[0].TestQuestion[0].QuestionImage)
                                     .transform(transform.getTransformation(imgQue!!))
                                     .into(imgQue)
-//                            object : com.squareup.picasso.Callback {
-//                                    override fun onSuccess() {
-//                                        set animations here
-//                                    }
-//
-//                                    override fun onError(e: java.lang.Exception?) {
-//
-//                                    }
-//
-//                                })
-
-//                                Log.d(
-//                                    "qsize",
-//                                    "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
-//                                )
 
                                 ansList!!.layoutManager =
                                     LinearLayoutManager(
@@ -531,7 +508,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                         movies[0].TestQuestion[0].StudentTestQuestionMCQ,
                                         imgQue!!.width,
                                         movies[0].TestQuestion[0].QuestionTypeID,
-                                        movies[0].TestQuestion[0].QuestionID,
                                         movies[0].TestQuestion[0].Answer, 0
                                     )
 
@@ -563,13 +539,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     queTab_tvFillBlanks.visibility = View.GONE
                                     ansList!!.visibility = View.GONE
 
-                                    when {
-                                        movies[0].TestQuestion[0].Answer == "1" -> {
+                                    when (movies[0].TestQuestion[0].Answer) {
+                                        "1" -> {
                                             queTab_rbTrue.isChecked = true
                                             queTab_rbFalse.isChecked = false
 
                                         }
-                                        movies[0].TestQuestion[0].Answer == "0" -> {
+                                        "0" -> {
                                             queTab_rbFalse.isChecked = true
                                             queTab_rbTrue.isChecked = false
                                         }
@@ -584,11 +560,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     }
 
                     Handler().postDelayed(
-                        /* Runnable
-                         * Showing splash screen with a timer. This will be useful when you
-                         * want to show case your app logo / company
-                         */
-
                         {
                             DialogUtils.dismissDialog()
                         }, 1000
@@ -597,7 +568,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 }
 
                 override fun onFailure(call: Call<NewQuestionResponse>, t: Throwable) {
-                    // Log error here since request failed
                     Log.e("", t.toString())
 
                     DialogUtils.dismissDialog()
@@ -643,8 +613,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
 
-//                Connectivity.isConnectedFast(this@NewTabQuestionActivity)
-
                 milliLeft = millisUntilFinished
                 queTab_tvTimer.text = "" + String.format(
                     "%02d:%02d:%02d",
@@ -680,13 +648,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         queTab_ivReview.isChecked = false
                         queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
                     }
-
-//                    callEvery10(
-//                        movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
-//                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-//                        movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-//                        answer
-//                    )
 
                 }
 
@@ -770,10 +731,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         }
 
                         OpenAttemptDialog()
-//                        callSubmitAPI()
 
                     }).show()
-
 
             }
 
@@ -855,96 +814,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()
-            }
-        })
-    }
-
-    class callEvery10(callback: (String?) -> Unit) : AsyncTask<String, Unit, String>() {
-
-        var callback = callback
-
-        override fun doInBackground(vararg params: String?): String? {
-            val url = URL(params[1])
-            val httpClient = url.openConnection() as HttpURLConnection
-            httpClient.readTimeout = 30
-            httpClient.connectTimeout = 30
-            httpClient.requestMethod = params[0]
-
-            if (params[0] == "POST") {
-                httpClient.instanceFollowRedirects = false
-                httpClient.doOutput = true
-                httpClient.doInput = true
-                httpClient.useCaches = false
-                httpClient.setRequestProperty("Content-Type", "application/json; charset=utf-8")
-            }
-            try {
-                if (params[0] == "POST") {
-                    httpClient.connect()
-                    val os = httpClient.outputStream
-                    val writer = BufferedWriter(OutputStreamWriter(os, "UTF-8"))
-                    writer.write(params[2])
-                    writer.flush()
-                    writer.close()
-                    os.close()
-                }
-                if (httpClient.responseCode == HttpURLConnection.HTTP_OK) {
-                    val stream = BufferedInputStream(httpClient.inputStream)
-                    return readStream(inputStream = stream)
-                } else {
-                    println("ERROR ${httpClient.responseCode}")
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                httpClient.disconnect()
-            }
-
-            return null
-
-        }
-
-        fun readStream(inputStream: BufferedInputStream): String {
-            val bufferedReader = BufferedReader(InputStreamReader(inputStream) as Reader?)
-            val stringBuilder = StringBuilder()
-            bufferedReader.forEachLine { stringBuilder.append(it) }
-            return stringBuilder.toString()
-        }
-
-        override fun onPostExecute(result: String?) {
-            super.onPostExecute(result)
-            callback(result)
-        }
-    }
-
-    fun callEvery10(
-        testqueid: Int, queid: Int,
-        quetypeid: Int,
-        answerr: String
-    ) {
-
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.submitAnswer(
-            WebRequests.submitAnswerParams(
-                studenttestid,
-                testqueid,
-                queid,
-                quetypeid,
-                answerr,
-                qtime.toString(), "0"
-            )
-        )
-
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-
-            }
-
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                // Log error here since request failed
             }
         })
     }
@@ -981,13 +852,15 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 if (response.body()!!.get("Status").asString == "true") {
 
+                    if (que_number >= testque.toInt()) {
+                        setNextSkipButtonText(2)
+                    }
+
                     ansArr = ArrayList()
 
                     if (type != "continue" && type != "review") {
 
-                        if (type == "activity" || type == "skip") {
-
-//                            DialogUtils.showDialog(this@NewTabQuestionActivity)
+                        if (type == "next" || type == "skip") {
 
                             queTab_tvCurrTotal.text = "$que_number/$testque"
 
@@ -1029,13 +902,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     Picasso.get()
                                         .load(movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
                                         .transform(transform.getTransformation(imgQue!!))
-//                                        .placeholder(R.color.default_shimmer_color)
                                         .into(imgQue)
-
-//                                    Log.d(
-//                                        "qsize",
-//                                        "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
-//                                    )
 
                                     ansList!!.layoutManager =
                                         LinearLayoutManager(
@@ -1056,7 +923,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                             movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
                                             imgQue!!.width,
                                             movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                                            movies[q_grppos1].TestQuestion[curr_index].QuestionID,
                                             movies[q_grppos1].TestQuestion[curr_index].Answer, 0
                                         )
 
@@ -1089,12 +955,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                         queTab_tvFillBlanks.visibility = View.GONE
                                         ansList!!.visibility = View.GONE
 
-                                        when {
-                                            movies[q_grppos1].TestQuestion[curr_index].Answer == "1" -> {
+                                        when (movies[q_grppos1].TestQuestion[curr_index].Answer) {
+                                            "1" -> {
                                                 queTab_rbTrue.isChecked = true
                                                 queTab_rbFalse.isChecked = false
                                             }
-                                            movies[q_grppos1].TestQuestion[curr_index].Answer == "0" -> {
+                                            "0" -> {
                                                 queTab_rbFalse.isChecked = true
                                                 queTab_rbTrue.isChecked = false
                                             }
@@ -1136,13 +1002,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                         Picasso.get()
                                             .load(movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
                                             .transform(transform.getTransformation(imgQue!!))
-//                                            .placeholder(R.color.default_shimmer_color)
                                             .into(imgQue)
-//
-//                                        Log.d(
-//                                            "qsize",
-//                                            "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
-//                                        )
 
                                         ansList!!.layoutManager =
                                             LinearLayoutManager(
@@ -1163,7 +1023,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                                 movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
                                                 imgQue!!.width,
                                                 movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                                                movies[q_grppos1].TestQuestion[curr_index].QuestionID,
                                                 movies[q_grppos1].TestQuestion[curr_index].Answer, 0
                                             )
 
@@ -1197,12 +1056,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                             queTab_tvFillBlanks.visibility = View.GONE
                                             ansList!!.visibility = View.GONE
 
-                                            when {
-                                                movies[q_grppos1].TestQuestion[curr_index].Answer == "1" -> {
+                                            when (movies[q_grppos1].TestQuestion[curr_index].Answer) {
+                                                "1" -> {
                                                     queTab_rbTrue.isChecked = true
                                                     queTab_rbFalse.isChecked = false
                                                 }
-                                                movies[q_grppos1].TestQuestion[curr_index].Answer == "0" -> {
+                                                "0" -> {
                                                     queTab_rbFalse.isChecked = true
                                                     queTab_rbTrue.isChecked = false
                                                 }
@@ -1231,24 +1090,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                         }
 
-//                        else {
-//                        DialogUtils.createConfirmDialog(
-//                            this@NewTabQuestionActivity,
-//                            "Done?",
-//                            "Are you sure you want to submit this test?",
-//                            "OK",
-//                            "Cancel",
-//                            DialogInterface.OnClickListener { dialog, which ->
-//
-//                                callSubmitAPI()
-//
-//                            },
-//                            DialogInterface.OnClickListener { dialog, which ->
-//                                dialog.dismiss()
-//
-//                            }).show()
-//                        }
-
                     } else {
 
                         if (reviewid != "0") {
@@ -1263,18 +1104,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                         }
 
-//                        if (nextButton!!.text != "Submit Test") {
-//                            if (answerr != "") {
-//
-//                                nextButton!!.setText("Next")
-//
-//                            } else {
-//
-//                                nextButton!!.setText("Skip")
-//
-//                            }
-//                        }
-
                     }
 
                 } else {
@@ -1286,22 +1115,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     ).show()
                 }
 
-
-//                Handler().postDelayed(
-//                    /* Runnable
-//                         * Showing splash screen with a timer. This will be useful when you
-//                         * want to show case your app logo / company
-//                         */
-//
-//                    {
-//                        DialogUtils.dismissDialog()
-//                    }, 10000
-//                )
-
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                // Log error here since request failed
                 Log.e("", t.toString())
             }
         })
@@ -1318,7 +1134,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 1 -> {
 
-                    if (itype == "activity" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
+                    if (itype == "next" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
 
                         answer = if (ansArr.size > 0) {
                             ansArr[0].ansid
@@ -1330,7 +1146,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 7 -> {
 
-                    if (itype == "activity" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
+                    if (itype == "next" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
 
                         answer = if (ansArr.size > 0) {
                             ansArr[0].ansid
@@ -1343,46 +1159,35 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 2 -> {
 
                     answer = queTab_tvFillBlanks.text.toString()
-
                 }
 
                 8 -> {
 
                     if (queTab_tvFillBlanks.text.toString() != "") {
 
-//                        try {
-//                            val int_answer = Integer.parseInt(queTab_tvFillBlanks.text.toString())
-//
-//                            if (int_answer <= 999999) {
-//                                answer = int_answer.toString()
-//                            }
-//                        }catch (e: NumberFormatException ){
-//                            System.out.println("not a number")
-//                        }
-//                    }else{
                         answer = integeranswer
-//                        answer = queTab_tvFillBlanks.text.toString()
                     }
-
                 }
 
                 4 -> {
 
-                    if (itype == "activity" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
+                    if (itype == "next" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
 
-                        if (queTab_rbFalse.isChecked) {
-                            answer = "0"
-                        } else if (queTab_rbTrue.isChecked) {
-                            answer = "1"
-                        } else {
-                            answer = ""
+                        answer = when {
+                            queTab_rbFalse.isChecked -> {
+                                "0"
+                            }
+                            queTab_rbTrue.isChecked -> {
+                                "1"
+                            }
+                            else -> {
+                                ""
+                            }
                         }
                     }
                 }
             }
         } else {
-
-//            DialogUtils.showDialog(this@NewTabQuestionActivity)
 
             if (total_hint != "0" && movies[q_grppos1].TestQuestion[curr_index].Hint != "") {
 
@@ -1423,7 +1228,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             } else {
 
-                if (finalArr[sectionList!![q_grppos1]]!!.size - 1 == curr_index) {
+                if (que_number >= testque.toInt()) {
                     setNextSkipButtonText(2)
                 } else {
                     if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
@@ -1443,13 +1248,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 Picasso.get()
                     .load(movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
                     .transform(transform.getTransformation(imgQue!!))
-//                    .placeholder(R.color.default_shimmer_color)
                     .into(imgQue)
-
-//                Log.d(
-//                    "qsize",
-//                    "width: " + page_img_que_img.width + ", height" + page_img_que_img.height
-//                )
 
                 ansList!!.layoutManager = LinearLayoutManager(
                     this@NewTabQuestionActivity,
@@ -1469,7 +1268,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
                         imgQue!!.width,
                         movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
                         movies[q_grppos1].TestQuestion[curr_index].Answer, 0
                     )
 
@@ -1490,8 +1288,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         integeranswer = movies[q_grppos1].TestQuestion[curr_index].Answer
 
                         queTab_tvFillBlanks.setText(integeranswer)
+
                     } else {
+
                         queTab_tvFillBlanks.setText("")
+
                     }
 
                 } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 4) {
@@ -1529,20 +1330,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 )
             )
 
-//            Handler().postDelayed(
-//                /* Runnable
-//                     * Showing splash screen with a timer. This will be useful when you
-//                     * want to show case your app logo / company
-//                     */
-//
-//                {
-//                    DialogUtils.dismissDialog()
-//                }, 5000
-//            )
-
         }
 
-        if (itype == "activity") {
+        if (itype == "next") {
 
             Log.d("current_index_next", "" + curr_index)
 
@@ -1552,8 +1342,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 curr_index += 1
             }
 
-//            DialogUtils.showDialog(this@NewTabQuestionActivity)
-
             callSubmitAnswer(
                 itype,
                 movies[q_grppos1].TestQuestion[curr_index - 1].TestQuestionID,
@@ -1562,24 +1350,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 answer,
                 curr_index - 1, p0.toString()
             )
-
-            if ((finalArr.size - 1) == q_grppos1) {
-                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
-                    setNextSkipButtonText(2)
-                }
-            }
-
-//            Handler().postDelayed(
-//                /* Runnable
-//                     * Showing splash screen with a timer. This will be useful when you
-//                     * want to show case your app logo / company
-//                     */
-//
-//                {
-//                    DialogUtils.dismissDialog()
-//                }, 2500
-//            )
-
 
         } else if (itype == "continue" || itype == "review") {
 
@@ -1597,12 +1367,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 answer,
                 curr_index, p0.toString()
             )
-
-            if ((finalArr.size - 1) == q_grppos1) {
-                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
-                    setNextSkipButtonText(2)
-                }
-            }
 
         } else if (itype == "submit") {
 
@@ -1625,22 +1389,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             }
 
-//            queTab_rbTrue.isChecked = false
-//            queTab_rbFalse.isChecked = false
-
-//            if (curr_index <= finalArr[sectionList!![q_grppos1]]!!.size - 1) {
-//                curr_index += 1
-//            }
-
-//            callSubmitAnswer(
-//                itype,
-//                movies[q_grppos1].TestQuestion[curr_index - 1].TestQuestionID,
-//                movies[q_grppos1].TestQuestion[curr_index - 1].QuestionID,
-//                movies[q_grppos1].TestQuestion[curr_index - 1].QuestionTypeID,
-//                answer,
-//                curr_index + 1, p0.toString()
-//            )
-
             callSubmitAnswer(
                 itype,
                 movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
@@ -1658,8 +1406,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 curr_index += 1
             }
 
-//            DialogUtils.showDialog(this@NewTabQuestionActivity)
-
             callSubmitAnswer(
                 itype,
                 movies[q_grppos1].TestQuestion[curr_index - 1].TestQuestionID,
@@ -1669,109 +1415,89 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 curr_index - 1, p0.toString()
             )
 
-//            Handler().postDelayed(
-//                /* Runnable
-//                     * Showing splash screen with a timer. This will be useful when you
-//                     * want to show case your app logo / company
-//                     */
-//
-//                {
-//                    DialogUtils.dismissDialog()
-//                }, 2500
-//            )
-
-            if ((finalArr.size - 1) == q_grppos1) {
-                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
-                    setNextSkipButtonText(2)
-                }
-            }
-
         } else if (itype == "sidemenu") {
 
             Log.d("current_index_next", "" + curr_index)
 
-            if (queTab_btnNext.text.toString() == "Next") {
+            when {
+                queTab_btnNext.text.toString() == "Next" -> {
 
-                for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
-                    if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
-                        if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
-                            finalArr[sectionList!![q_grppos1]]!![i].type = 2
-                            movies[q_grppos1].TestQuestion[curr_index].Review = "0"
-                        } else {
-                            finalArr[sectionList!![q_grppos1]]!![i].type = 4
-                            movies[q_grppos1].TestQuestion[curr_index].Review = "1"
+                    for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                        if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
+                            if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
+                                finalArr[sectionList!![q_grppos1]]!![i].type = 2
+                                movies[q_grppos1].TestQuestion[curr_index].Review = "0"
+                            } else {
+                                finalArr[sectionList!![q_grppos1]]!![i].type = 4
+                                movies[q_grppos1].TestQuestion[curr_index].Review = "1"
+                            }
                         }
                     }
+
+                    movies[q_grppos1].TestQuestion[curr_index].Answer = answer
+
+                    callSubmitAnswer(
+                        "next",
+                        movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                        movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                        answer,
+                        curr_index, p0.toString()
+                    )
+
                 }
+                queTab_btnNext.text.toString() == "Skip" -> {
 
-                movies[q_grppos1].TestQuestion[curr_index].Answer = answer
-
-                callSubmitAnswer(
-                    "activity",
-                    movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
-                    movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                    movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                    answer,
-                    curr_index, p0.toString()
-                )
-
-            } else if (queTab_btnNext.text.toString() == "Skip") {
-
-                for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
-                    if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
-                        if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
-                            finalArr[sectionList!![q_grppos1]]!![i].type = 3
-                            movies[q_grppos1].TestQuestion[curr_index].Review = "0"
-                        } else {
-                            finalArr[sectionList!![q_grppos1]]!![i].type = 4
-                            movies[q_grppos1].TestQuestion[curr_index].Review = "1"
+                    for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                        if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
+                            if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
+                                finalArr[sectionList!![q_grppos1]]!![i].type = 3
+                                movies[q_grppos1].TestQuestion[curr_index].Review = "0"
+                            } else {
+                                finalArr[sectionList!![q_grppos1]]!![i].type = 4
+                                movies[q_grppos1].TestQuestion[curr_index].Review = "1"
+                            }
                         }
                     }
+
+                    callSubmitAnswer(
+                        "skip",
+                        movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                        movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                        "",
+                        curr_index, p0.toString()
+                    )
+
                 }
+                else -> {
 
-                callSubmitAnswer(
-                    "skip",
-                    movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
-                    movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                    movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                    "",
-                    curr_index, p0.toString()
-                )
+                    movies[q_grppos1].TestQuestion[curr_index].Answer = answer
 
-            } else {
-
-                movies[q_grppos1].TestQuestion[curr_index].Answer = answer
-
-                if (p0 == 1) {
-                    finalArr[sectionList!![q_grppos1]]!![curr_index].type = 4
-
-                } else {
-
-                    if (answer != "") {
-                        finalArr[sectionList!![q_grppos1]]!![curr_index].type = 2
+                    if (p0 == 1) {
+                        finalArr[sectionList!![q_grppos1]]!![curr_index].type = 4
 
                     } else {
-                        finalArr[sectionList!![q_grppos1]]!![curr_index].type = 3
 
+                        if (answer != "") {
+                            finalArr[sectionList!![q_grppos1]]!![curr_index].type = 2
+
+                        } else {
+                            finalArr[sectionList!![q_grppos1]]!![curr_index].type = 3
+
+                        }
                     }
 
+                    callSubmitAnswer(
+                        "submit",
+                        movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                        movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                        answer,
+                        curr_index, p0.toString()
+                    )
                 }
-
-                callSubmitAnswer(
-                    "submit",
-                    movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
-                    movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                    movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                    answer,
-                    curr_index, p0.toString()
-                )
             }
-
-//            if ((finalArr.size - 1) == q_grppos1) {
-//                if ((finalArr[sectionList!![q_grppos1]]!!.size - 1) == curr_index) {
-//                    setNextSkipButtonText(2)
-//                }
-//            }
 
         }
 
@@ -1791,7 +1517,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             } else {
 
                 queTab_ivHint.setImageResource(R.drawable.hint_bulb_yellow)
-
             }
 
             hintData =
@@ -1842,7 +1567,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                         queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
 
-//                    if (finalArr.size > 0) {
                         for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
                             if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
 
@@ -1852,7 +1576,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                 break
                             }
                         }
-//                    }
 
                         Log.d("itype", "review true")
 
@@ -1992,13 +1715,19 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         queTab_btnNextt.setOnClickListener {
 
-            if (queTab_ivReview.isChecked) {
-                getType("sidemenu", 1, curr_index)
-            } else {
-                getType("sidemenu", 0, curr_index)
-            }
-
             drawer_layout.openDrawer(Gravity.END)
+
+            Handler().postDelayed(
+                {
+
+                    if (queTab_ivReview.isChecked) {
+                        getType("sidemenu", 1, curr_index)
+                    } else {
+                        getType("sidemenu", 0, curr_index)
+                    }
+
+                }, 500
+            )
         }
 
         queTab_ivReporttxt.setOnClickListener {
@@ -2135,8 +1864,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         queTab_ivBack.setOnClickListener {
 
-            //            stopTimer()
-
             onBackPressed()
         }
 
@@ -2160,61 +1887,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 getType("submit", 0, curr_index)
             }
 
-//            DialogUtils.createConfirmDialog(
-//                this@NewTabQuestionActivity,
-//                "Done?",
-//                "Are you sure you want to submit this test?",
-//                "OK",
-//                "Cancel",
-//                DialogInterface.OnClickListener { dialog, which ->
-//
-//                    var ansstr = ""
-//
-//                    for (i in 0 until ansArr.size) {
-//                        ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
-//
-//                    }
-//
-//                    Log.d("ansstr", ansstr)
-
             OpenAttemptDialog()
 
-//                },
-//                DialogInterface.OnClickListener { dialog, which ->
-//
-//                    if (queTab_tvTimer.text.toString().equals("00:00:00", true)) {
-//
-//                        getType("continue", 0, curr_index)
-//
-//                        DialogUtils.createConfirmDialog1(
-//                            this@NewTabQuestionActivity,
-//                            "Submit",
-//                            "Your test time is over",
-//
-//                            DialogInterface.OnClickListener { dialog, which ->
-//
-//                                var ansstr = ""
-//
-//                                for (i in 0 until ansArr.size) {
-//                                    ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
-//
-//                                }
-//
-//                                Log.d("ansstr", ansstr)
-//
-//                                callSubmitAPI()
-//
-//                            }).show()
-//
-//                    } else {
-//                        dialog.dismiss()
-//                    }
-//
-//                }).show()
         }
     }
-
-    var dialog1: Dialog? = null
 
     fun nextButtonClick() {
 
@@ -2223,13 +1899,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         if (queTab_ivReview.isChecked) {
 
             isReview = 1
-
         }
 
         integeranswer = queTab_tvFillBlanks.text.toString()
 
-        when {
-            nextButton!!.text == "Next" -> {
+        when (nextButton!!.text) {
+
+            "Next" -> {
 
                 CommonWebCalls.callToken(
                     this@NewTabQuestionActivity,
@@ -2255,12 +1931,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     }
                 }
 
-                Log.d("itype", "activity")
+                Log.d("itype", "next")
 
-                getType("activity", isReview, curr_index)
-
+                getType("next", isReview, curr_index)
             }
-            nextButton!!.text == "Skip" -> {
+
+            "Skip" -> {
 
                 CommonWebCalls.callToken(
                     this@NewTabQuestionActivity,
@@ -2291,7 +1967,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 getType("skip", isReview, curr_index)
             }
 
-            nextButton!!.text == "Submit Test" -> {
+            "Submit Test" -> {
 
                 CommonWebCalls.callToken(
                     this@NewTabQuestionActivity,
@@ -2301,31 +1977,18 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     ActionIdData.T2010
                 )
 
-//                DialogUtils.createConfirmDialog(
-//                    this@NewTabQuestionActivity,
-//                    "Done?",
-//                    "Are you sure you want to end this test?",
-//                    "OK",
-//                    "Cancel",
-//                    DialogInterface.OnClickListener { dialog, which ->
-
-                getType("submit", isReview, curr_index)
-
-//                if (queTab_ivReview.isChecked) {
-//                    getType("activity", 1, curr_index)
-//                } else {
-//                    getType("activity", 0, curr_index)
-//                }
-
-                if (attemptDialog != null && !attemptDialog!!.isShowing) {
-                    OpenAttemptDialog()
+                if (reportdialog != null && reportdialog!!.isShowing) {
+                    reportdialog!!.dismiss()
                 }
 
-//                    },
-//                    DialogInterface.OnClickListener { dialog, which ->
-//                        dialog.dismiss()
-//
-//                    }).show()
+                if (queTab_ivReview.isChecked) {
+                    getType("submit", 1, curr_index)
+                } else {
+                    getType("submit", 0, curr_index)
+                }
+
+                OpenAttemptDialog()
+
             }
         }
     }
@@ -2335,7 +1998,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         var nextButton: Button? = null
         var sideList: ExpandableListView? = null
         var sectionList: ArrayList<String>? = null
-        //        var sectionList1: ArrayList<QuestionTypeModel>? = null
         var filterTypeSelectionInteface: FilterTypeSelectionInteface? = null
         var movies: ArrayList<NewQuestionResponse.QuestionList> = ArrayList()
         var ansArr: ArrayList<AnswerModel> = ArrayList()
@@ -2344,7 +2006,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         var q_grppos1 = 0
         var curr_index = 0
 
-        fun setButton(position: Int, ansid: String, qid: Int) {
+        fun setButton(ansid: String) {
 
             if (nextButton!!.text.toString() != "Submit Test") {
                 nextButton!!.text = "Next"
@@ -2433,13 +2095,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     }
 
                     hintdialog.show()
-
-//                    Toast.makeText(this@NewTabQuestionActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()
             }
@@ -2491,28 +2150,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                         DialogInterface.OnClickListener { dialog, which ->
 
-                            //                        var ansstr = ""
-//
-//                        for (i in 0 until ansArr.size) {
-//                            ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
-//
-//                        }
-
-//                        Log.d("ansstr", ansstr)
-
-//                        if(queTab_ivReview.isChecked){
-//                            getType("activity", 1, curr_index)
-//                        }else{
-//                            getType("activity", 0, curr_index)
-//                         }
-
                             callSubmitAPI()
 
                         }).show()
                     attemptDialog!!.dismiss()
 
                 } else {
-//                timerResume()
                     attemptDialog!!.dismiss()
                 }
             }
@@ -2530,16 +2173,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 Log.d("ansstr", ansstr)
 
-//            if(queTab_ivReview.isChecked){
-//                getType("activity", 1, curr_index)
-//            }else{
-//                getType("activity", 0, curr_index)
-//            }
-
                 callSubmitAPI()
             }
-
-            attemptDialog!!.show()
 
         } else {
             attemptDialog!!.dismiss()
@@ -2569,11 +2204,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                             response.body()!!.data
                         )
 
+                    attemptDialog!!.show()
+
                 }
             }
 
             override fun onFailure(call: Call<AttemptModel>, t: Throwable) {
-                // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()
             }

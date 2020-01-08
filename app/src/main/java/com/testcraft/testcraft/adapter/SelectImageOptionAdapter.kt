@@ -14,14 +14,12 @@ import com.testcraft.testcraft.sectionmodule.NewQuestionResponse
 import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
 import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.CommonWebCalls
-import com.testcraft.testcraft.utils.transform
 
 class SelectImageOptionAdapter(
     val context: Context,
     val dataList: ArrayList<NewQuestionResponse.QuestionDataList>,
     var qsize: Int,
     var qtype: Int,
-    var qid: Int,
     var answer: String, var typee: Int
 ) : RecyclerView.Adapter<SelectImageOptionAdapter.viewholder>() {
 
@@ -53,10 +51,10 @@ class SelectImageOptionAdapter(
 //            Log.d("qsize", "" + qsize)
 
             Picasso.get().load(dataList[p1].AnswerImage)
-                .transform(transform.getTransformation(p0.opone1))
-//                .resize(qsize, p0.opone1.height)
+//                .transform(transform.getTransformation(p0.opone1))
+                .resize(qsize, p0.opone1.height)
 //                .fit()
-//                .centerInside()
+                .centerInside()
                 .into(p0.opone1)
         }
 
@@ -70,7 +68,7 @@ class SelectImageOptionAdapter(
                 p0.opone1.visibility = View.VISIBLE
                 p0.llCheckBox.visibility = View.GONE
 
-                var rb = RadioButton(this@SelectImageOptionAdapter.context)
+                val rb = RadioButton(this@SelectImageOptionAdapter.context)
 
                 rb.layoutParams = RadioGroup.LayoutParams(
                     RadioGroup.LayoutParams.MATCH_PARENT,
@@ -106,8 +104,8 @@ class SelectImageOptionAdapter(
 //                ansstr = answer
                     val tempArr = answer.split(",")
 
-                    for (i in 0 until tempArr.size) {
-                        if (tempArr[i] == cb.id.toString()) {
+                    for (i in tempArr) {
+                        if (i == cb.id.toString()) {
                             val selectedCheckboxModel = SelectedCheckboxModel()
                             selectedCheckboxModel.ids = cb.id.toString()
                             selectedCheckboxModel.selected = true
@@ -163,7 +161,7 @@ class SelectImageOptionAdapter(
                                 ansArr.add(selectedCheckboxModel)
                             }
 
-                            multiSelection(p1)
+                            multiSelection()
 
                         } else {
                             for (i in 0 until ansArr.size) {
@@ -172,7 +170,7 @@ class SelectImageOptionAdapter(
                                 }
                             }
 
-                            multiSelection(p1)
+                            multiSelection()
                         }
                     }
                 }
@@ -210,9 +208,7 @@ class SelectImageOptionAdapter(
             lastCheckedRadioGroup = p0.opone
 
             NewTabQuestionActivity.setButton(
-                p1,
-                dataList[p1].MultipleChoiceQuestionAnswerID,
-                qid
+                dataList[p1].MultipleChoiceQuestionAnswerID
             )
         }
     }
@@ -225,7 +221,7 @@ class SelectImageOptionAdapter(
         var llCheckBox: LinearLayout = itemView.findViewById(R.id.option_llCheckbox)
     }
 
-    fun multiSelection(p1: Int) {
+    fun multiSelection() {
 
         ansstr = ""
 
@@ -241,7 +237,7 @@ class SelectImageOptionAdapter(
 
         ansstr = sortArr.toString().replace("[", "").replace("]", "").replace(" ", "").trim()
 
-        Log.d("multichoiceanswer", "answerrrrrr   " + ansstr)
+        Log.d("multichoiceanswer", "answerrrrrr   $ansstr")
 
 //        for (i in 0 until sortArr.size) {
 //            if (ansArr[i].selected) {
@@ -249,7 +245,7 @@ class SelectImageOptionAdapter(
 //            }
 //        }
 
-        NewTabQuestionActivity.setButton(p1, ansstr, qid)
+        NewTabQuestionActivity.setButton(ansstr)
     }
 
 }
