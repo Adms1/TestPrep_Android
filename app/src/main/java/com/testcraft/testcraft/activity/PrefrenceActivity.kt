@@ -3,6 +3,7 @@ package com.testcraft.testcraft.activity
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
+import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.NewSelectBoardAdapter
 import com.testcraft.testcraft.adapter.NewSelectStandardAdapter
@@ -37,6 +39,20 @@ class PrefrenceActivity : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    var connectivity: Connectivity? = null
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(connectivity, filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(connectivity)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -55,6 +71,8 @@ class PrefrenceActivity : AppCompatActivity() {
             ActionIdData.C700,
             ActionIdData.T700
         )
+
+        connectivity = Connectivity()
 
         AppConstants.FILTER_STANDARD_ID = "0"
         AppConstants.FILTER_SUBJECT_ID = "0"

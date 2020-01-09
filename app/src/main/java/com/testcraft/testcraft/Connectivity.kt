@@ -14,6 +14,21 @@ import com.testcraft.testcraft.utils.Utils
 class Connectivity : BroadcastReceiver() {
 
     companion object {
+
+        private var mConnectivityReceiverListener: ConnectivityReceiverListener? = null
+
+        fun ConnectivityReceiver(listener: ConnectivityReceiverListener) {
+            mConnectivityReceiverListener = listener
+        }
+
+        fun onReceive(context: Context?, intent: Intent?) {
+            mConnectivityReceiverListener!!.onNetworkConnectionChanged(isConnected(context))
+        }
+
+        interface ConnectivityReceiverListener {
+            fun onNetworkConnectionChanged(isConnected: Boolean)
+        }
+
         /**
          * Get the network info
          * @param context
@@ -66,7 +81,7 @@ class Connectivity : BroadcastReceiver() {
 
             if (isconnectedToWifi(context!!)) {
 
-//                Utils.ping(context, "You have connected to Wi-Fi ")
+//                Utils.ping(context, "You are connected to Wi-Fi ")
 
                 return true
 
@@ -220,12 +235,14 @@ class Connectivity : BroadcastReceiver() {
             if (activeNetwork != null && activeNetwork.isConnected) {
                 isConnectedFast(context)
             } else {
-                Utils.ping(context, "Network not reachable")
+                Utils.ping(context, "The network is not reachable.")
             }
         } catch (e: Exception) {
 
-            Utils.ping(context!!, "issue" + e.printStackTrace())
+//            Utils.ping(context!!, "onReceive().." + intent!!.action)
         }
+
+//        Log.v("Connection0000000", "onReceive().." + intent.action)
 
 //        val isConnected: Boolean =
 //            intent!!.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false)

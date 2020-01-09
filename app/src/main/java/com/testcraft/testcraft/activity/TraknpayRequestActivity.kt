@@ -3,6 +3,7 @@ package com.testcraft.testcraft.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.google.gson.JsonObject
+import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
@@ -42,6 +44,20 @@ class TraknpayRequestActivity : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    var connectivity: Connectivity? = null
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(connectivity, filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(connectivity)
+    }
+
     @SuppressLint("AddJavascriptInterface", "SetJavaScriptEnabled", "DefaultLocale")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +71,8 @@ class TraknpayRequestActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_traknpay_request)
+
+        connectivity = Connectivity()
 
 //        transid = intent.getStringExtra("transid")
         pkgname = intent.getStringExtra("pkgname")

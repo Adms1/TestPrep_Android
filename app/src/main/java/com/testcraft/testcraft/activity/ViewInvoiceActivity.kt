@@ -2,6 +2,7 @@ package com.testcraft.testcraft.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +11,7 @@ import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.utils.DialogUtils
 import kotlinx.android.synthetic.main.activity_view_invoice.*
@@ -19,6 +21,20 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 class ViewInvoiceActivity : AppCompatActivity() {
 
     var url = ""
+
+    var connectivity: Connectivity? = null
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(connectivity, filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(connectivity)
+    }
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -33,6 +49,8 @@ class ViewInvoiceActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_view_invoice)
+
+        connectivity = Connectivity()
 
         invoice_header.text = intent.getStringExtra("header")
 

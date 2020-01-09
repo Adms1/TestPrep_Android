@@ -59,7 +59,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tutor_item_tvLocation"
+        android:id="@+id/tutor_item_tvPrice"
             app:layout_constraintLeft_toRightOf="@+id/tutor_rlImage"
             app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvName"
             android:textSize="@dimen/extra_small_size"

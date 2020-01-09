@@ -3,12 +3,14 @@ package com.testcraft.testcraft.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.CartActivity
 import com.testcraft.testcraft.activity.DashboardActivity
@@ -28,12 +30,26 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class TutorPackagesFragment : AppCompatActivity() {
+class TutorPackagesActivity : AppCompatActivity() {
 
     var dataList: ArrayList<PackageData.PackageDataList> = ArrayList()
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
+
+    var connectivity: Connectivity? = null
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(connectivity, filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(connectivity)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,19 +59,21 @@ class TutorPackagesFragment : AppCompatActivity() {
 
         setContentView(R.layout.fragment_tutor_packages)
 
+        connectivity = Connectivity()
+
         tutor_packages_rvPopularPkg.isNestedScrollingEnabled = false
         tutor_packages_rvPopularTest.isNestedScrollingEnabled = false
 
-        tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorPackagesFragment, 2)
+        tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(this@TutorPackagesActivity, 2)
         tutor_packages_rvPopularTest.layoutManager =
-            LinearLayoutManager(this@TutorPackagesFragment, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(this@TutorPackagesActivity, LinearLayoutManager.VERTICAL, false)
 
-        tutor_packages_rvPopularPkg.adapter = PopularPackagesAdapter(this@TutorPackagesFragment)
+        tutor_packages_rvPopularPkg.adapter = PopularPackagesAdapter(this@TutorPackagesActivity)
         tutor_packages_rvPopularTest.adapter =
-            TestPackagesAdapter(this@TutorPackagesFragment, dataList)
+            TestPackagesAdapter(this@TutorPackagesActivity, dataList)
 
         tutor_packages_ivCart.setOnClickListener {
-            val intent = Intent(this@TutorPackagesFragment, CartActivity::class.java)
+            val intent = Intent(this@TutorPackagesActivity, CartActivity::class.java)
             startActivity(intent)
         }
 

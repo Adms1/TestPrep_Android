@@ -26,7 +26,7 @@ class TutorPackageAdapter(
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
         return viewholder(
-            LayoutInflater.from(context).inflate(R.layout.list_item_tutors, p0, false)
+            LayoutInflater.from(context).inflate(R.layout.list_item_tutors_pkgs, p0, false)
 //            LayoutInflater.from(context).inflate(R.layout.new_prefrence_item_layout, p0, false)
         )
     }
@@ -50,7 +50,7 @@ class TutorPackageAdapter(
 //        p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
         p0.title.text = dataList[p1].TestPackageName
 //        p0.stitle.text = dataList[p1].TestPackageName.substring(0, 1)
-        p0.std.text = dataList[p1].SubjectName
+        p0.sub.text = dataList[p1].SubjectName
         p0.price.text = "₹" + dataList[p1].TestPackageSalePrice
 
         p0.clMain.setOnClickListener {
@@ -76,13 +76,13 @@ class TutorPackageAdapter(
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var image: ImageView = itemView.findViewById(R.id.tutor_image)
-        var title: TextView = itemView.findViewById(R.id.tutor_item_tvName)
-        var stitle: TextView = itemView.findViewById(R.id.tutor_name_short)
-        var price: TextView = itemView.findViewById(R.id.tutor_item_tvLocation)
-        var next: ImageView = itemView.findViewById(R.id.tutor_item_btnNext)
-        var std: TextView = itemView.findViewById(R.id.tutor_item_tvStd)
-        var clMain: ConstraintLayout = itemView.findViewById(R.id.tutor_clMain)
+        var image: ImageView = itemView.findViewById(R.id.item_tutor_package_image)
+        var title: TextView = itemView.findViewById(R.id.item_tutor_package_name)
+        var stitle: TextView = itemView.findViewById(R.id.item_tutor_package_name_short)
+        var price: TextView = itemView.findViewById(R.id.item_tutor_package_price)
+        var next: ImageView = itemView.findViewById(R.id.item_tutor_package_btnNext)
+        var sub: TextView = itemView.findViewById(R.id.item_tutor_package_subject)
+        var clMain: ConstraintLayout = itemView.findViewById(R.id.item_tutor_package_main)
     }
 }
 

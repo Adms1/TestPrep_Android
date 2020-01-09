@@ -21,10 +21,6 @@ class CommonWebCalls {
             Actionid: String,
             comment: String
         ) {
-            if (!DialogUtils.isNetworkConnected(context)) {
-                Utils.ping(context, AppConstants.NETWORK_MSG)
-            }
-
 //            DialogUtils.showDialog(context)
 
             val apiService = WebClient.getClient().create(WebInterface::class.java)

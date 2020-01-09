@@ -3,6 +3,7 @@ package com.testcraft.testcraft.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +14,7 @@ import android.view.View.VISIBLE
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.gson.JsonObject
+import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
@@ -34,6 +36,20 @@ class PaymentSuccessScreen : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    var connectivity: Connectivity? = null
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(connectivity, filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(connectivity)
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +63,8 @@ class PaymentSuccessScreen : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_payment_success_screen)
+
+        connectivity = Connectivity()
 
         pkgname = intent.getStringExtra("pkgname")
         transid = intent.getStringExtra("transactionId")

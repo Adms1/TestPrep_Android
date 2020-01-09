@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.*
@@ -25,6 +26,7 @@ import android.webkit.WebView
 import android.widget.*
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
+import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.ResultActivity
@@ -87,6 +89,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    var connectivity: Connectivity? = null
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(connectivity)
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,6 +105,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
 
         setContentView(R.layout.activity_tabwise_question)
+
+        connectivity = Connectivity()
 
         shouldExecuteOnResume = false
 
@@ -594,6 +605,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
     override fun onResume() {
         super.onResume()
+
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(connectivity, filter)
 
         if (shouldExecuteOnResume!!) {
             timerResume()

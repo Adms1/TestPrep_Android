@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.support.annotation.RequiresApi
 import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -49,18 +49,19 @@ class DashboardActivity : AppCompatActivity() {
 
     var connectivity: Connectivity? = null
 
-    override fun onResume() {
-        super.onResume()
-        val filter = IntentFilter()
-        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
-        registerReceiver(connectivity, filter)
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        val filter = IntentFilter()
+//        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+//        registerReceiver(connectivity, filter)
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        unregisterReceiver(connectivity)
+//    }
 
-    override fun onStop() {
-        super.onStop()
-        unregisterReceiver(connectivity)
-    }
-
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -75,7 +76,7 @@ class DashboardActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_dashboard)
 
-        connectivity = Connectivity()
+//        connectivity = Connectivity()
 
         Utils.deleteCache(this@DashboardActivity)
 

@@ -1,11 +1,13 @@
 package com.testcraft.testcraft.activity
 
 import android.content.Context
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.FilterListAdapter
 import com.testcraft.testcraft.fragments.OtherFilterFragment
@@ -31,6 +33,20 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
+    var connectivity: Connectivity? = null
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(connectivity, filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(connectivity)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,6 +55,8 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
         }
 
         setContentView(R.layout.activity_filter)
+
+        connectivity = Connectivity()
 
         CommonWebCalls.callToken(
             this@FilterActivity,

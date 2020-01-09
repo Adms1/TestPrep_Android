@@ -1,12 +1,14 @@
 package com.testcraft.testcraft.activity
 
 import android.content.Context
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import android.view.WindowManager
+import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.TextDrawablee
@@ -19,6 +21,20 @@ class SelectPackageActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
+
+    var connectivity: Connectivity? = null
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(connectivity, filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(connectivity)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +50,8 @@ class SelectPackageActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_select_package)
+
+        connectivity = Connectivity()
 
 //        mDataList.add(PackageData("Iron Man", R.drawable.ironman, "$ 100"))
 //        mDataList.add(PackageData("Captain America", 0, "$ 200"))

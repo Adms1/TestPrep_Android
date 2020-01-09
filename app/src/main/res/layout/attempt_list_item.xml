@@ -8,11 +8,9 @@
         android:id="@+id/attempt_list_tvSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:padding="@dimen/_5sdp"
         android:textColor="@color/black"
         android:textSize="@dimen/_13sdp"
-
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

@@ -2,6 +2,7 @@ package com.testcraft.testcraft.activity
 
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.gson.JsonObject
+import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.CoinAdapter
 import com.testcraft.testcraft.interfaces.CoinInteface
@@ -35,6 +37,20 @@ class CoinActivity : AppCompatActivity(), CoinInteface {
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
+
+    var connectivity: Connectivity? = null
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(connectivity, filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(connectivity)
     }
 
     //    internal var isBoolean_permission_location = false
@@ -69,6 +85,8 @@ class CoinActivity : AppCompatActivity(), CoinInteface {
 
 //        val heading = this@CoinActivity.findViewById(R.id.dashboard_tvTitle) as TextView
 //        heading.text = "Coin"
+
+        connectivity = Connectivity()
 
         coinList()
 

@@ -89,7 +89,7 @@ class TutorsAdapter(val context: Context, val dataList: ArrayList<PackageData.Pa
         var image: ImageView = itemView.findViewById(R.id.tutor_image)
         var title: TextView = itemView.findViewById(R.id.tutor_item_tvName)
         var stitle: TextView = itemView.findViewById(R.id.tutor_name_short)
-        var price: TextView = itemView.findViewById(R.id.tutor_item_tvLocation)
+        var price: TextView = itemView.findViewById(R.id.tutor_item_tvPrice)
         var next: ImageView = itemView.findViewById(R.id.tutor_item_btnNext)
         var std: TextView = itemView.findViewById(R.id.tutor_item_tvStd)
         var clMain: ConstraintLayout = itemView.findViewById(R.id.tutor_clMain)

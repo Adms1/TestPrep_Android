@@ -3,6 +3,7 @@ package com.testcraft.testcraft.activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import com.google.gson.JsonObject
+import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.NewChooseCoarseAdapter
 import com.testcraft.testcraft.models.PackageData
@@ -31,8 +33,30 @@ class NewActivity : AppCompatActivity() {
     var resumeblock = false
     var dialog: Dialog? = null
 
+    private val RETRY_COUNT = 3
+    /**
+     * Base retry delay for exponential backoff, in Milliseconds
+     */
+    private val RETRY_DELAY = 300.0
+    private var retryCount = 0
+
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    }
+
+    var connectivity: Connectivity? = null
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(connectivity, filter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(connectivity)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +70,8 @@ class NewActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         setContentView(R.layout.activity_new)
+
+        connectivity = Connectivity()
 
         CommonWebCalls.callToken(this@NewActivity, "1", "", ActionIdData.C600, ActionIdData.T600)
 
@@ -177,6 +203,10 @@ class NewActivity : AppCompatActivity() {
                 // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()
+
+                call.clone().enqueue(this)
+
+//                Utils.ping(this@NewActivity, "Network not reachable")
             }
         })
     }
