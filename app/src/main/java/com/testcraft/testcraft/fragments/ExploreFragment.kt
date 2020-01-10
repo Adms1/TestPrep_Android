@@ -30,8 +30,6 @@ import retrofit2.Response
 
 class ExploreFragment : Fragment() {
 
-    private var mDataList: ArrayList<PackageData.PackageDataList>? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,14 +58,6 @@ class ExploreFragment : Fragment() {
                 if (explore_etSearch.text.toString().trim().isNotEmpty()) {
                     callAddHitoryApi()
                 }
-
-//                for (i in 0..AppConstants.recentSearchList.size) {
-//                    if (!AppConstants.recentSearchList.contains(explore_etSearch.text.toString())) {
-//                        if (explore_etSearch.text.toString() != "") {
-//                            AppConstants.recentSearchList.add(explore_etSearch.text.toString())
-//                        }
-//                    }
-//                }
             }
 
             false
@@ -81,71 +71,12 @@ class ExploreFragment : Fragment() {
             if (explore_etSearch.text.toString().trim().isNotEmpty()) {
                 callAddHitoryApi()
             }
-
-//            for (i in 0..AppConstants.recentSearchList.size) {
-//                if (!AppConstants.recentSearchList.contains(explore_etSearch.text.toString())) {
-//                    if (explore_etSearch.text.toString() != "") {
-//                        AppConstants.recentSearchList.add(explore_etSearch.text.toString())
-//                    }
-//                }
-//            }
-
-//            explore_etSearch.setText("")
-
-//            if (explore_etSearch.text.toString() != "") {
-//
-//                AppConstants.isFirst = 13
-//
-//                val bundle = Bundle()
-//                bundle.putString("type", "explore")
-//                bundle.putString("pname1", "Packages")
-//                bundle.putString("course_type", "")
-//                bundle.putString("boardid", "")
-//                bundle.putString("stdid", "")
-//                bundle.putString("subid", "")
-//                bundle.putString("tutorid", "")
-//                bundle.putString("search_name", explore_etSearch.text.toString())
-//                bundle.putString("maxprice", "")
-//                bundle.putString("minprice", "")
-//                setFragments(bundle)
-//
-//            } else {
-//
-//            }
-
-//            callFilterListApi()
         }
 
         callSubjectListApi()
 
         callGetHistoryApi()
 
-//        explore_etSearch.addTextChangedListener(object : TextWatcher {
-//
-//            override fun afterTextChanged(s: Editable) {
-//                explore_rvList.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-//
-//                explore_tvRecentsearch.visibility = View.VISIBLE
-//                explore_ivSeeall.visibility = View.VISIBLE
-//
-//                if (AppConstants.recentSearchList.size > 0) {
-//                    explore_rvList.adapter = RecentSearchAdapter(activity!!, AppConstants.recentSearchList)
-//                }
-//            }
-//
-//            override fun beforeTextChanged(
-//                s: CharSequence, start: Int,
-//                count: Int, after: Int
-//            ) {
-//            }
-//
-//            override fun onTextChanged(
-//                s: CharSequence, start: Int,
-//                before: Int, count: Int
-//            ) {
-//
-//            }
-//        })
     }
 
     fun callSubjectListApi(): ArrayList<PackageData.PackageDataList> {
@@ -171,7 +102,7 @@ class ExploreFragment : Fragment() {
 
                         filterArray = response.body()!!.data
 
-                        var subArr: ArrayList<String> = ArrayList()
+                        val subArr: ArrayList<String> = ArrayList()
                         for (i in 0 until filterArray.size) {
                             subArr.add(filterArray[i].Name)
                         }
@@ -183,15 +114,6 @@ class ExploreFragment : Fragment() {
                         )
                         explore_etSearch.setAdapter(adapter)
 
-//                        recyclerviewAdapter =
-//                            FilterAdapter(activity!!, filterArray, "multiple", "subject", filterInterface!!)
-//                        filterData_rvList.adapter = recyclerviewAdapter
-//                        choosemp_filterSubject.text = subjectArr[0].SubjectName
-//                        subids = subjectArr[0].SubjectID
-
-                    } else {
-
-//                        Toast.makeText(activity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -238,26 +160,11 @@ class ExploreFragment : Fragment() {
 
                             val bundle = Bundle()
                             bundle.putString("type", "explore")
-                            bundle.putString("pname1", "Packages")
+                            bundle.putString("pname1", explore_etSearch.text.toString())
                             bundle.putString("filtertypeid", "-1")
                             bundle.putString("course_type", "")
                             bundle.putString("boardid", "")
                             bundle.putString("stdid", "")
-//                            if (Utils.getStringValue(
-//                                    activity!!,
-//                                    AppConstants.COURSE_TYPE_ID,
-//                                    "0"
-//                                )!! == "1"
-//                            ) {
-//
-//                                bundle.putString(
-//                                    "stdid",
-//                                    Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "0")
-//                                )
-//
-//                            } else {
-//                                bundle.putString("stdid", "")
-//                            }
                             bundle.putString("subid", "")
                             bundle.putString("tutorid", "")
                             bundle.putString("search_name", explore_etSearch.text.toString())
@@ -306,7 +213,7 @@ class ExploreFragment : Fragment() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-                        var recentSearchList: ArrayList<String> = ArrayList()
+                        val recentSearchList: ArrayList<String> = ArrayList()
 
                         if (response.body()!!["data"].asJsonArray.size() > 0) {
 
@@ -317,7 +224,6 @@ class ExploreFragment : Fragment() {
                             explore_rvList.layoutManager =
                                 LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
-//                            var arr: List<String> = recentSearchList
                             explore_rvList.adapter =
                                 RecentSearchAdapter(activity!!, recentSearchList)
                         }

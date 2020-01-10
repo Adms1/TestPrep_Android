@@ -333,7 +333,7 @@ class DashboardActivity : AppCompatActivity() {
                             context!!.startActivity(intent)
 //                overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
                             (context as DashboardActivity).finish()
-
+                            dialog.dismiss()
                         }
                 },
                 DialogInterface.OnClickListener { dialog, which ->
@@ -671,7 +671,6 @@ class DashboardActivity : AppCompatActivity() {
                     tvProfile!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
-//                .addToBackStack(null)
                         .commitNowAllowingStateLoss()
 
                 }
@@ -725,14 +724,26 @@ class DashboardActivity : AppCompatActivity() {
 //                    btnLogout!!.visibility = View.GONE
 
                     ivHome!!.setImageResource(R.drawable.home)
-                    ivMarket!!.setImageResource(R.drawable.blue_list)
-                    ivExplore!!.setImageResource(R.drawable.search)
                     ivProfile!!.setImageResource(R.drawable.menu_one)
-
                     tvHome!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
-                    tvMarket!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
-                    tvExplore!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
                     tvProfile!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+
+                    if (filtertypeid == "-1") {
+
+                        ivMarket!!.setImageResource(R.drawable.list)
+                        ivExplore!!.setImageResource(R.drawable.blue_search)
+
+                        tvMarket!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+                        tvExplore!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
+
+                    } else {
+
+                        ivMarket!!.setImageResource(R.drawable.blue_list)
+                        ivExplore!!.setImageResource(R.drawable.search)
+                        tvMarket!!.setTextColor(context!!.resources.getColor(R.color.nfcolor))
+                        tvExplore!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
+
+                    }
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
@@ -819,7 +830,6 @@ class DashboardActivity : AppCompatActivity() {
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
                         .commitNowAllowingStateLoss()
-
                 }
             }
 
@@ -838,16 +848,15 @@ class DashboardActivity : AppCompatActivity() {
         }
 
         if (AppConstants.isFirst == 0) {
-//                AppConstants.ON_BACK = 1
+
+            if (doubleBackToExitPressedOnce) {
+                exitProcess(0)
+            }
 
             this.doubleBackToExitPressedOnce = true
-            Toast.makeText(this, "Please click back again to exit.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please click back again to exit", Toast.LENGTH_SHORT).show()
 
-            Handler().postDelayed({
-                doubleBackToExitPressedOnce = false
-            }, 2000)
-
-            exitProcess(0)
+            Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
 
         } else if (AppConstants.isFirst == 5 || AppConstants.isFirst == 6 || AppConstants.isFirst == 8 || AppConstants.isFirst == 16) {
 
@@ -897,13 +906,19 @@ class DashboardActivity : AppCompatActivity() {
 
         } else if (AppConstants.isFirst == 13) {
 
+            if (filtertypeid == "-1") {
+                AppConstants.isFirst = 3
+                setFragments(null)
+            } else {
+                AppConstants.isFirst = 0
+                setFragments(null)
+            }
+
+        } else if (AppConstants.isFirst == 14 || AppConstants.isFirst == 1 || AppConstants.isFirst == 3 || AppConstants.isFirst == 4) {
+
             AppConstants.isFirst = 0
             setFragments(null)
 
-        } else if (AppConstants.isFirst == 14) {
-
-            AppConstants.isFirst = 0
-            setFragments(null)
 
         } else if (AppConstants.isFirst == 15) {
 

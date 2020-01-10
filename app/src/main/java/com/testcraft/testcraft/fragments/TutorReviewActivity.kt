@@ -44,6 +44,9 @@ class TutorReviewActivity : AppCompatActivity() {
 
     var tutorid = ""
 
+    var rating = 0F
+    var review = ""
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
@@ -101,6 +104,9 @@ class TutorReviewActivity : AppCompatActivity() {
             val submitBtn: Button = dialog.findViewById(R.id.dialog_review_btnSubmit)
             val etDesc: EditText = dialog.findViewById(R.id.tutor_profile_etReview)
             val ratingbar: RatingBar = dialog.findViewById(R.id.tutor_profile_ratingbar)
+
+            etDesc.setText(review)
+            ratingbar.rating = rating
 
             closeBtn.setOnClickListener { dialog.dismiss() }
             submitBtn.setOnClickListener {
@@ -163,7 +169,6 @@ class TutorReviewActivity : AppCompatActivity() {
             }
 
             dialog.show()
-
         }
 
         tutor_review_ivBack.setOnClickListener {
@@ -210,6 +215,27 @@ class TutorReviewActivity : AppCompatActivity() {
 
                         tutor_review_tvNoReview.visibility = View.GONE
                         tutor_review_rvReview.visibility = View.VISIBLE
+
+                        for (i in 0 until response.body()!!.data.size) {
+                            if (Utils.getStringValue(
+                                    this@TutorReviewActivity,
+                                    AppConstants.USER_ID,
+                                    ""
+                                ) == response.body()!!.data[i].StudentID
+                            ) {
+
+                                tutor_review_btnWritereview.text = "Edit Review"
+                                review = response.body()!!.data[i].Remarks
+                                rating = response.body()!!.data[i].Rating.toFloat()
+
+                                break
+
+                            } else {
+                                tutor_review_btnWritereview.text = "Write a review"
+                                review = ""
+                                rating = 0F
+                            }
+                        }
 
                         tutor_review_rvReview.adapter =
                             TutorReviewAdapter(this@TutorReviewActivity, response.body()!!.data)

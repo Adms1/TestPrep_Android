@@ -96,9 +96,9 @@ class IntroActivity : AppCompatActivity() {
 
         CommonWebCalls.callToken(this@IntroActivity, "1", "", ActionIdData.C200, ActionIdData.T200)
 
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
-            intro_tvSignin.text = "ALREADY HAVE AN ACCOUNT?SIGN IN"
-        }
+//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+//            intro_tvSignin.text = "ALREADY HAVE AN ACCOUNT?SIGN IN"
+//        }
 
         callbackManager = CallbackManager.Factory.create()
         fb.setReadPermissions(listOf(EMAIL))

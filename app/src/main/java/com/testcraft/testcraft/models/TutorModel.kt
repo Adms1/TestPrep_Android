@@ -15,6 +15,7 @@ class TutorModel {
         var InstituteName = ""
         var Icon = ""
 
+        var StudentID = ""
         var StudentName = ""
         var Remarks = ""
         var Rating = ""

@@ -43,7 +43,7 @@ class RecentSearchAdapter(val context: Context, val dataList: List<String>) :
             AppConstants.isFirst = 13
             val bundle = Bundle()
             bundle.putString("type", "explore")
-            bundle.putString("pname1", "Packages")
+            bundle.putString("pname1", p0.name.text.toString())
             bundle.putString("course_type", "")
             bundle.putString("boardid", "")
             if (Utils.getStringValue(context, AppConstants.COURSE_TYPE_ID, "0")!! == "1") {
