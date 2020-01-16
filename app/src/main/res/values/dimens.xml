@@ -1,17 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">120dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="appbar_padding">16dp</dimen>
-    <dimen name="appbar_padding_top">8dp</dimen>
 
+    <dimen name="app_main_header_size">@dimen/_16sdp</dimen>
+    <dimen name="app_sub_header_size">@dimen/_15sdp</dimen>
     <dimen name="normal_text_size">@dimen/_13sdp</dimen>
-    <dimen name="normal_header_size">@dimen/_16sdp</dimen>
-    <dimen name="regular_text_size">@dimen/_14sdp</dimen>
+    <dimen name="regular_text_size">@dimen/_12sdp</dimen>
     <dimen name="small_text_size">@dimen/_11sdp</dimen>
-    <dimen name="extra_small_size">@dimen/_9sdp</dimen>
+    <dimen name="extra_small_size">@dimen/_10sdp</dimen>
+
+    <dimen name="app_all_btn_height">@dimen/_40sdp</dimen>
+    <dimen name="app_all_btn_text_size">@dimen/_13sdp</dimen>
+    <dimen name="all_bck_btn_size">@dimen/_30sdp</dimen>
+
+    <dimen name="all_bck_btn_padding">@dimen/_9sdp</dimen>
+    <dimen name="app_main_header_padding">@dimen/_7sdp</dimen>
+
+    <dimen name="login_signup_icn_size">@dimen/_20sdp</dimen>
+
+    <!--    line size-->
+    <dimen name="thin_line">0.5dp</dimen>
+    <dimen name="regular_line">1dp</dimen>
+
+    <!--    splash screen-->
+
+    <!--    intro screen-->
+    <dimen name="intro_logo_height">@dimen/_200sdp</dimen>
+    <dimen name="intro_fb_btn_height">@dimen/_45sdp</dimen>
+    <dimen name="intro_fbgoogleemail1_btn_height">@dimen/_40sdp</dimen>
+
+    <!--    login screen-->
+    <dimen name="login_logo_height">@dimen/_150sdp</dimen>
+
+    <!--    signup screen-->
+    <dimen name="signup_logo_height">@dimen/_60sdp</dimen>
+
+    <!--    forgot password-->
+
+    <!--    view invoice-->
+
+    <!--    result screen-->
+
+    <!--    tutor review -->
+
+    <dimen name="review_tutor_icn_size">@dimen/_35sdp</dimen>
+    <dimen name="review_tutor_shortname_size">@dimen/_18sdp</dimen>
+
+    <!--    prefrence screen-->
+
+    <dimen name="prefrence_step_txt_size">@dimen/_14sdp</dimen>
+
+    <dimen name="normal_header_size">@dimen/_16sdp</dimen>
+
+    <!--    <dimen name="regular_text_size">@dimen/_14sdp</dimen>-->
+    <!--    <dimen name="extra_small_size">@dimen/_9sdp</dimen>-->
+    <!--    <dimen name="normal_text_size">@dimen/_13sdp</dimen>-->
+    <!--    <dimen name="normal_header_size">@dimen/_16sdp</dimen>-->
+    <!--    <dimen name="regular_text_size">@dimen/_14sdp</dimen>-->
+    <!--    <dimen name="small_text_size">@dimen/_11sdp</dimen>-->
+    <!--    <dimen name="extra_small_size">@dimen/_9sdp</dimen>-->
 
 </resources>

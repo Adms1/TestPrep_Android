@@ -1,105 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.testcraft.testcraft.activity.ViewInvoiceActivity">
 
     <TextView
-            android:id="@+id/invoice_header"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:paddingTop="@dimen/_7sdp"
-            android:paddingRight="@dimen/_40sdp"
-            android:paddingBottom="@dimen/_7sdp"
-            android:text="Invoice"
+        android:id="@+id/invoice_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingTop="@dimen/app_main_header_padding"
+        android:paddingRight="@dimen/_40sdp"
+        android:paddingBottom="@dimen/app_main_header_padding"
         android:textColor="@color/header_gray"
-            android:textSize="@dimen/normal_header_size"
-            app:layout_constraintLeft_toRightOf="@+id/invoice_ivBack"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="@dimen/app_main_header_size"
+        app:layout_constraintLeft_toRightOf="@+id/invoice_ivBack"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-            android:id="@+id/invoice_ivBack"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:padding="@dimen/_9sdp"
-            android:src="@drawable/back_button"
-            app:layout_constraintBottom_toBottomOf="@+id/invoice_header"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/invoice_header" />
+        android:id="@+id/invoice_ivBack"
+        android:layout_width="@dimen/all_bck_btn_size"
+        android:layout_height="@dimen/all_bck_btn_size"
+        android:padding="@dimen/all_bck_btn_padding"
+        app:layout_constraintBottom_toBottomOf="@+id/invoice_header"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/invoice_header"
+        app:srcCompat="@drawable/back_button" />
 
     <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/invoice_header">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/invoice_header">
 
         <WebView
-                android:id="@+id/invoice_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
+            android:id="@+id/invoice_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
     <LinearLayout
-            android:id="@+id/invoice_llContact"
+        android:id="@+id/invoice_llContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/invoice_header">
+
+        <TextView
+            android:id="@+id/invoice_tvAddressHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/invoice_header">
+            android:layout_marginTop="@dimen/_40sdp"
+            android:gravity="center"
+            android:text="@string/address"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_20sdp" />
 
         <TextView
-                android:id="@+id/invoice_tvAddressHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_40sdp"
-                android:gravity="center"
-                android:text="@string/address"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_20sdp"
-                android:visibility="gone" />
-
+            android:id="@+id/invoice_tvAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:text="Testcraft EduTect Pvt.Ltd,\n12, Kalyanam Bunglow,\nLaxmi Nivas Society,\nNr Paldi Bus Stand,\nPaldi - 380006, Gujarat\nIndia "
+            android:textSize="@dimen/_13sdp" />
 
         <TextView
-                android:id="@+id/invoice_tvAddress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:gravity="center"
-                android:text="Testcraft EduTect Pvt.Ltd,\n12, Kalyanam Bunglow,\nLaxmi Nivas Society,\nNr Paldi Bus Stand,\nPaldi - 380006, Gujarat\nIndia "
-                android:textSize="@dimen/_13sdp"
-                android:visibility="gone" />
+            android:id="@+id/invoice_tvContactHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_36sdp"
+            android:gravity="center"
+            android:text="@string/contact_detail"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_20sdp" />
 
         <TextView
-                android:id="@+id/invoice_tvContactHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_36sdp"
-                android:gravity="center"
-                android:text="@string/contact_detail"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_20sdp"
-                android:visibility="gone" />
-
-        <TextView
-                android:id="@+id/invoice_tvContact"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:gravity="center"
-                android:text="Phone : +91 75750-02450 \n\n Email : info@testcraft.in \n\n Website : info@testcraft.in"
-                android:textSize="@dimen/_13sdp" />
-
+            android:id="@+id/invoice_tvContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:text="Phone : +91 75750-02450 \n\n Email : info@testcraft.in \n\n Website : info@testcraft.in"
+            android:textSize="@dimen/_13sdp" />
 
     </LinearLayout>
 

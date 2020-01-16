@@ -129,17 +129,42 @@
         android:textSize="@dimen/app_all_btn_text_size"
         app:layout_constraintTop_toBottomOf="@+id/login_tvForgotPass" />
 
-    <TextView
+    <LinearLayout
         android:id="@+id/login_btnSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginRight="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_20sdp"
-        android:gravity="center"
-        android:text="@string/sign_up"
-        android:textSize="@dimen/small_text_size"
-        app:layout_constraintTop_toBottomOf="@+id/login_btnLogin" />
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/login_btnLogin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DON\'T HAVE AN ACCOUNT? "
+            android:textSize="@dimen/small_text_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SIGN UP"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/small_text_size" />
+
+    </LinearLayout>
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/login_btnSignup"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginLeft="@dimen/_20sdp"-->
+    <!--        android:layout_marginTop="@dimen/_15sdp"-->
+    <!--        android:layout_marginRight="@dimen/_20sdp"-->
+    <!--        android:layout_marginBottom="@dimen/_20sdp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:text="@string/sign_up"-->
+    <!--        android:textSize="@dimen/small_text_size"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/login_btnLogin" />-->
 
 </android.support.constraint.ConstraintLayout>

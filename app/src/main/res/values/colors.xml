@@ -33,4 +33,7 @@
     <color name="yellow">#DFCB58</color>
     <color name="header_gray">#5C5F6E</color>
     <color name="pkg_bg">#4DB0AC</color>
+
+    <color name="resut_bg">#313943</color>
+    <color name="gray_line">#EFEFEF</color>
 </resources>

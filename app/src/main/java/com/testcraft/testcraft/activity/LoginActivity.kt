@@ -3,7 +3,6 @@ package com.testcraft.testcraft.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -26,7 +25,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-
 class LoginActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context?) {
@@ -35,17 +33,17 @@ class LoginActivity : AppCompatActivity() {
 
     var connectivity: Connectivity? = null
 
-    override fun onResume() {
-        super.onResume()
-        val filter = IntentFilter()
-        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
-        registerReceiver(connectivity, filter)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        unregisterReceiver(connectivity)
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        val filter = IntentFilter()
+//        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+//        registerReceiver(connectivity, filter)
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        unregisterReceiver(connectivity)
+//    }
 
     @SuppressLint("PackageManagerGetSignatures", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login)
 
-        connectivity = Connectivity()
+//        connectivity = Connectivity()
 
         CommonWebCalls.callToken(
             this@LoginActivity,
@@ -67,11 +65,6 @@ class LoginActivity : AppCompatActivity() {
             ActionIdData.C3800,
             ActionIdData.T3800
         )
-
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
-            login_btnSignup.text = "DON\'T HAVE AN ACCOUNT? SIGN UP"
-        }
-
 
         login_btnSignup.setOnClickListener {
 
@@ -168,8 +161,6 @@ class LoginActivity : AppCompatActivity() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-//                        Toast.makeText(this@LoginActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
-
                         Utils.setStringValue(this@LoginActivity, "is_login", "true")
 
                         if (response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray.size() > 0) {
@@ -251,7 +242,6 @@ class LoginActivity : AppCompatActivity() {
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
                         )
 
-//                    Log.d("loginresponse", response.body()!!.asString)
                     } else {
                         Toast.makeText(
                             this@LoginActivity,
@@ -259,7 +249,6 @@ class LoginActivity : AppCompatActivity() {
                             Toast.LENGTH_LONG
                         ).show()
 
-//                    Log.d("loginresponse", response.body()!!.asString)
                     }
                 }
             }
@@ -275,11 +264,6 @@ class LoginActivity : AppCompatActivity() {
     fun isValid(): Boolean {
 
         var isvalid = true
-
-//        if(TextUtils.isEmpty(login_etEmail.text.toString())){
-//            login_etEmail.error = "Email Address must not be null"
-//            isvalid = false
-//        }
 
         if (TextUtils.isEmpty(login_etEmail.text.toString()) || !Patterns.EMAIL_ADDRESS.matcher(
                 login_etEmail.text.toString()

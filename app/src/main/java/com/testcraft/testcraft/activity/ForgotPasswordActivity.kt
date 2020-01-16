@@ -2,7 +2,6 @@ package com.testcraft.testcraft.activity
 
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,7 +12,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.google.gson.JsonObject
-import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
@@ -30,19 +28,19 @@ class ForgotPasswordActivity : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
-    var connectivity: Connectivity? = null
-
-    override fun onResume() {
-        super.onResume()
-        val filter = IntentFilter()
-        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
-        registerReceiver(connectivity, filter)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        unregisterReceiver(connectivity)
-    }
+//    var connectivity: Connectivity? = null
+//
+//    override fun onResume() {
+//        super.onResume()
+//        val filter = IntentFilter()
+//        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+//        registerReceiver(connectivity, filter)
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        unregisterReceiver(connectivity)
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +51,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_forgot_password)
 
-        connectivity = Connectivity()
+//        connectivity = Connectivity()
 
         CommonWebCalls.callToken(
             this@ForgotPasswordActivity,
@@ -65,55 +63,41 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         forgot_pass_btnReset.setOnClickListener {
 
-            CommonWebCalls.callToken(
-                this@ForgotPasswordActivity,
-                "1",
-                "",
-                ActionIdData.C3901,
-                ActionIdData.T3901
-            )
-
-            when {
-                TextUtils.isEmpty(forgot_pass_etEmail.text.toString()) -> forgot_pass_etEmail.error =
-                    "Please Enter Mobile Number"
-                forgot_pass_etEmail.text!!.length != 10 -> forgot_pass_etEmail.error =
-                    "Please enter valid Mobile Number"
-                else -> callForgotPasswordlApi()
-
-                //                val intent = Intent(this@ForgotPasswordActivity, CheckEmailActivity::class.java)
-                //                startActivity(intent)
-                //                finish()
-            }
+            resetPassword()
         }
 
         forgot_pass_etEmail.setOnEditorActionListener { v, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
 
-                CommonWebCalls.callToken(
-                    this@ForgotPasswordActivity,
-                    "1",
-                    "",
-                    ActionIdData.C3901,
-                    ActionIdData.T3901
-                )
+                resetPassword()
 
-                when {
-                    TextUtils.isEmpty(forgot_pass_etEmail.text.toString()) -> forgot_pass_etEmail.error =
-                        "Please Enter Mobile Number"
-                    forgot_pass_etEmail.text!!.length != 10 -> forgot_pass_etEmail.error =
-                        "Please enter valid Mobile Number"
-                    else -> callForgotPasswordlApi()
-
-                    //                val intent = Intent(this@ForgotPasswordActivity, CheckEmailActivity::class.java)
-                    //                startActivity(intent)
-                    //                finish()
-                }
             }
             false
         }
 
 
         forgot_pass_ivBack.setOnClickListener { onBackPressed() }
+
+    }
+
+    fun resetPassword() {
+
+        CommonWebCalls.callToken(
+            this@ForgotPasswordActivity,
+            "1",
+            "",
+            ActionIdData.C3901,
+            ActionIdData.T3901
+        )
+
+        when {
+            TextUtils.isEmpty(forgot_pass_etEmail.text.toString()) -> forgot_pass_etEmail.error =
+                "Please Enter Mobile Number"
+            forgot_pass_etEmail.text!!.length != 10 -> forgot_pass_etEmail.error =
+                "Please enter valid Mobile Number"
+            else -> callForgotPasswordlApi()
+
+        }
 
     }
 
@@ -137,13 +121,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
                     DialogUtils.dismissDialog()
 
                     if (response.body()!!["Status"].asString == "true") {
-
-//                        Toast.makeText(
-//                            this@ForgotPasswordActivity,
-//                            response.body()!!["Msg"].asString,
-//                            Toast.LENGTH_LONG
-//                        )
-//                            .show()
 
                         Utils.setStringValue(
                             this@ForgotPasswordActivity,

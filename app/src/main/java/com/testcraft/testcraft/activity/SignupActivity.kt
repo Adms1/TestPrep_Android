@@ -3,7 +3,6 @@ package com.testcraft.testcraft.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -15,7 +14,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.google.gson.JsonObject
-import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
@@ -32,19 +30,19 @@ class SignupActivity : AppCompatActivity() {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
 
-    var connectivity: Connectivity? = null
-
-    override fun onResume() {
-        super.onResume()
-        val filter = IntentFilter()
-        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
-        registerReceiver(connectivity, filter)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        unregisterReceiver(connectivity)
-    }
+//    var connectivity: Connectivity? = null
+//
+//    override fun onResume() {
+//        super.onResume()
+//        val filter = IntentFilter()
+//        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+//        registerReceiver(connectivity, filter)
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        unregisterReceiver(connectivity)
+//    }
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,19 +54,11 @@ class SignupActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_signup)
 
-        connectivity = Connectivity()
+//        connectivity = Connectivity()
 
         CommonWebCalls.callToken(this@SignupActivity, "1", "", ActionIdData.C300, ActionIdData.T300)
 
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
-            signup_btnLogin.text = "ALREADY HAVE AN ACCOUNT?SIGN IN"
-        }
-
         signup_btnSignup.setOnClickListener {
-
-            //            val intent = Intent(this@SignupActivity, OtpActivity::class.java)
-//            startActivity(intent)
-//            finish()
 
             CommonWebCalls.callToken(
                 this@SignupActivity,
@@ -103,13 +93,20 @@ class SignupActivity : AppCompatActivity() {
         }
 
         signup_tvTerms.setOnClickListener {
-            val intent = Intent(this@SignupActivity, ViewInvoiceActivity::class.java)
-            intent.putExtra("header", "Terms & Conditions")
-            intent.putExtra(
-                "url",
-                "https://testcraft.in/TCTerms.aspx"
-            )
-            startActivity(intent)
+
+            if (!DialogUtils.isNetworkConnected(this@SignupActivity)) {
+                Utils.ping(this@SignupActivity, AppConstants.NETWORK_MSG)
+
+            } else {
+
+                val intent = Intent(this@SignupActivity, ViewInvoiceActivity::class.java)
+                intent.putExtra("header", "Terms & Conditions")
+                intent.putExtra(
+                    "url",
+                    "https://testcraft.in/TCTerms.aspx"
+                )
+                startActivity(intent)
+            }
         }
 
         signup_etMobile.setOnEditorActionListener { v, actionId, event ->
@@ -127,10 +124,11 @@ class SignupActivity : AppCompatActivity() {
             }
             false
         }
-        signup_ivBack.setOnClickListener {
-            onBackPressed()
-        }
 
+//        signup_ivBack.setOnClickListener {
+//            onBackPressed()
+//        }
+//
 
     }
 
@@ -165,16 +163,6 @@ class SignupActivity : AppCompatActivity() {
             signup_etPassword.error = " you have to enter at least 4 digit!"
             isvalid = false
         }
-
-//        if (TextUtils.isEmpty(signup_etCPassword.text.toString())) {
-//            signup_etCPassword.error = "Please enter confirm password"
-//            isvalid = false
-//        }
-
-//        if (signup_etPassword.text.toString() != signup_etCPassword.text.toString()) {
-//            signup_etCPassword.error = "password and confirm password must be same"
-//            isvalid = false
-//        }
 
         if (TextUtils.isEmpty(signup_etMobile.text.toString()) || !Patterns.PHONE.matcher(
                 signup_etMobile.text.toString()

@@ -96,10 +96,6 @@ class IntroActivity : AppCompatActivity() {
 
         CommonWebCalls.callToken(this@IntroActivity, "1", "", ActionIdData.C200, ActionIdData.T200)
 
-//        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
-//            intro_tvSignin.text = "ALREADY HAVE AN ACCOUNT?SIGN IN"
-//        }
-
         callbackManager = CallbackManager.Factory.create()
         fb.setReadPermissions(listOf(EMAIL))
 
@@ -187,8 +183,6 @@ class IntroActivity : AppCompatActivity() {
             override fun onSuccess(loginResult: LoginResult) {
                 setResult(RESULT_OK)
 
-//                Toast.makeText(this@IntroActivity, "Welcome" + loginResult.accessToken.userId, Toast.LENGTH_LONG).show()
-
                 val request: GraphRequest = GraphRequest.newMeRequest(
                     loginResult.accessToken
                 ) { jsonObject: JSONObject, graphResponse: GraphResponse ->
@@ -226,7 +220,6 @@ class IntroActivity : AppCompatActivity() {
 
             override fun onCancel() {
                 setResult(RESULT_CANCELED)
-//                Toast.makeText(this@IntroActivity, "issue", Toast.LENGTH_LONG).show()
 
                 Log.d("fbsignin", "signInResult:failed code=cancel")
 
@@ -234,7 +227,6 @@ class IntroActivity : AppCompatActivity() {
             }
 
             override fun onError(e: FacebookException) {
-//                Toast.makeText(this@IntroActivity, "error", Toast.LENGTH_LONG).show()
 
                 Log.d("fbsignin", "signInResult:failed code=" + e.printStackTrace())
                 // Handle exception
@@ -418,8 +410,6 @@ class IntroActivity : AppCompatActivity() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-//                        Toast.makeText(this@IntroActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
-
                         Utils.setStringValue(this@IntroActivity, "is_login", "true")
 
                         if (response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray.size() > 0) {
@@ -501,11 +491,7 @@ class IntroActivity : AppCompatActivity() {
 
 //                        LoginManager.getInstance().logOut()
 
-//                    Log.w("check email response", GsonBuilder().setPrettyPrinting().create().toJson(response))
-
-//                    Log.d("loginresponse", response.body()!!.asString)
                     } else {
-//                        Toast.makeText(this@IntroActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
                         callSignupApi(
                             logintype,
@@ -518,7 +504,6 @@ class IntroActivity : AppCompatActivity() {
 
 //                    setPasswordDialog()
 
-//                    Log.d("loginresponse", response.body()!!.asString)
                     }
                 }
             }
@@ -570,9 +555,6 @@ class IntroActivity : AppCompatActivity() {
                     DialogUtils.dismissDialog()
 
                     if (response.body()!!.get("Status").asString == "true") {
-
-//                        Toast.makeText(this@IntroActivity, response.body()!!.get("Msg").asString, Toast.LENGTH_LONG)
-//                            .show()
 
                         Utils.setStringValue(
                             this@IntroActivity,
