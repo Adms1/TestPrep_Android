@@ -22,9 +22,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class ChangePasswordActivity : Fragment() {
+class ChangePasswordFragment : Fragment() {
 
     var bundle: Bundle? = null
     var come: String = ""

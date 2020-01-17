@@ -49,6 +49,13 @@
     <!--    prefrence screen-->
 
     <dimen name="prefrence_step_txt_size">@dimen/_14sdp</dimen>
+    <dimen name="prefrence_next_btn_width">@dimen/_45sdp</dimen>
+    <dimen name="prefrence_next_btn_height">@dimen/_50sdp</dimen>
+
+    <!--    otp screen-->
+
+    <dimen name="otp_txt_size">@dimen/_8sdp</dimen>
+    <dimen name="otp_resend_txt_size">@dimen/_14sdp</dimen>
 
     <dimen name="normal_header_size">@dimen/_16sdp</dimen>
 

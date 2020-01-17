@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -31,9 +32,6 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 class PrefrenceActivity : AppCompatActivity() {
 
     var chooseCoarseAdapter: NewSelectSubjectAdapter? = null
-    var isOpen1: Boolean = false
-    var isOPen2: Boolean = false
-    var isOpen3: Boolean = false
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -56,11 +54,9 @@ class PrefrenceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        window.setFlags(
-//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-//            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-//        )
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         setContentView(R.layout.activity_prefrence)
 
@@ -84,8 +80,6 @@ class PrefrenceActivity : AppCompatActivity() {
         package_ivBack.setOnClickListener {
             onBackPressed()
         }
-
-//        coarse_rvCoarseList.layoutManager = LinearLayoutManager(this@PrefrenceActivity, LinearLayoutManager.HORIZONTAL, false)
 
         coarse_rvCoarseList.layoutManager = GridLayoutManager(this@PrefrenceActivity, 3)
         coarse_rvStandardList.layoutManager = GridLayoutManager(this@PrefrenceActivity, 3)
@@ -112,12 +106,6 @@ class PrefrenceActivity : AppCompatActivity() {
 
         }
 
-        step1_arrow.setOnClickListener { }
-
-        step2_arrow.setOnClickListener { }
-
-        step3_arrow.setOnClickListener { }
-
         package_btnNext.setOnClickListener {
 
             callNextButton()
@@ -143,19 +131,8 @@ class PrefrenceActivity : AppCompatActivity() {
             coarse_rvStandardList.visibility = GONE
             coarse_rvSubjectList.visibility = GONE
 
-//            if (isOpen1) {
             coarse_rvCoarseList.visibility = VISIBLE
             step1_arrow.rotation = 180f
-
-//                isOpen1 = false
-//
-//            } else {
-//                coarse_rvCoarseList.visibility = GONE
-//                step1_arrow.rotation = 0f
-//
-//                isOpen1 = true
-//
-//            }
 
         }
 
@@ -167,19 +144,8 @@ class PrefrenceActivity : AppCompatActivity() {
             coarse_rvCoarseList.visibility = GONE
             coarse_rvSubjectList.visibility = GONE
 
-//            if (isOPen2) {
             coarse_rvStandardList.visibility = VISIBLE
             step2_arrow.rotation = 180f
-
-//                isOPen2 = false
-//
-//            } else {
-//                coarse_rvStandardList.visibility = GONE
-//                step2_arrow.rotation = 0f
-//
-//                isOPen2 = true
-//
-//            }
 
         }
 
@@ -191,19 +157,8 @@ class PrefrenceActivity : AppCompatActivity() {
             coarse_rvStandardList.visibility = GONE
             coarse_rvCoarseList.visibility = GONE
 
-//            if (isOpen3) {
             coarse_rvSubjectList.visibility = VISIBLE
             step3_arrow.rotation = 180f
-
-//                isOpen3 = false
-
-//            } else {
-//                coarse_rvSubjectList.visibility = GONE
-//                step3_arrow.rotation = 0f
-//
-//                isOpen3 = true
-//
-//            }
 
         }
 
@@ -437,7 +392,6 @@ class PrefrenceActivity : AppCompatActivity() {
                     ""
                 ) == "1"
             ) {
-//                    Utils.ping(this@PrefrenceActivity, "Please Select Board")
 
                 DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
                     "OK",
@@ -449,7 +403,6 @@ class PrefrenceActivity : AppCompatActivity() {
                     }).show()
 
             } else {
-//                    Utils.ping(this@PrefrenceActivity, "Please Select Course")
 
                 DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
                     "OK",
@@ -474,7 +427,6 @@ class PrefrenceActivity : AppCompatActivity() {
                     startActivity(mIntent)
                     finish()
                 } else {
-//                        Utils.ping(this@PrefrenceActivity, "Please Select Subject")
 
                     DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
                         "OK",
@@ -494,7 +446,6 @@ class PrefrenceActivity : AppCompatActivity() {
                         ""
                     ) == "1"
                 ) {
-//                        Utils.ping(this@PrefrenceActivity, "Please Select Standard")
 
                     DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
                         "OK",

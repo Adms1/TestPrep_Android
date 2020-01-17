@@ -77,6 +77,7 @@ class SplashActivity : AppCompatActivity() {
         }
         val currentVersion = packageInfo!!.versionName
         ForceUpdateAsync(currentVersion, this).execute()
+
     }
 
     class ForceUpdateAsync(private val currentVersion: String, context: Context) :
@@ -85,6 +86,7 @@ class SplashActivity : AppCompatActivity() {
         private val context: Context = context
 
         override fun onPostExecute(jsonObject: JSONObject) {
+
             if (latestVersion != null) {
                 if (!currentVersion.equals(
                         latestVersion,
@@ -118,35 +120,40 @@ class SplashActivity : AppCompatActivity() {
 
                     Handler().postDelayed(
                         /* Runnable
-                             * Showing splash screen with a timer. This will be useful when you
-                             * want to show case your app logo / company
-                             */
+                         * Showing splash screen with a timer. This will be useful when you
+                         * want to show case your app logo / company
+                         */
                         {
 
                             AppConstants.isFirst = 0
 
-                            if (Utils.getStringValue(context, "is_login", "") == "true") {
-                                // This method will be executed once the timer is over
-                                // Start your app main activity
+                            if (!DialogUtils.isNetworkConnected(context)) {
+                                exitProcess(0)
 
-                                if (Utils.getStringValue(context, isPrefrence, "") == "1") {
+                            } else {
+                                if (Utils.getStringValue(context, "is_login", "") == "true") {
+                                    // This method will be executed once the timer is over
+                                    // Start your app main activity
 
-                                    Utils.setStringValue(context, "is_login", "true")
+                                    if (Utils.getStringValue(context, isPrefrence, "") == "1") {
 
-                                    val i = Intent(context, DashboardActivity::class.java)
-                                    context.startActivity(i)
+                                        Utils.setStringValue(context, "is_login", "true")
+
+                                        val i = Intent(context, DashboardActivity::class.java)
+                                        context.startActivity(i)
+
+                                    } else {
+
+                                        val i = Intent(context, NewActivity::class.java)
+                                        context.startActivity(i)
+
+                                    }
 
                                 } else {
-
-                                    val i = Intent(context, NewActivity::class.java)
+                                    val i = Intent(context, IntroActivity::class.java)
                                     context.startActivity(i)
 
                                 }
-
-                            } else {
-                                val i = Intent(context, IntroActivity::class.java)
-                                context.startActivity(i)
-
                             }
                             (context as SplashActivity).finish()
 
@@ -154,6 +161,7 @@ class SplashActivity : AppCompatActivity() {
                     )
                 }
             }
+
             super.onPostExecute(jsonObject)
         }
 

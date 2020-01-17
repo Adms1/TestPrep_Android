@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
@@ -33,14 +34,6 @@ class NewActivity : AppCompatActivity() {
     var resumeblock = false
     var dialog: Dialog? = null
 
-    private val RETRY_COUNT = 3
-    /**
-     * Base retry delay for exponential backoff, in Milliseconds
-     */
-    private val RETRY_DELAY = 300.0
-    private var retryCount = 0
-
-
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
@@ -67,7 +60,9 @@ class NewActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 
         setContentView(R.layout.activity_new)
 
@@ -107,11 +102,6 @@ class NewActivity : AppCompatActivity() {
 //        }
 
         new_coarse_rvCoarseList.layoutManager = GridLayoutManager(this@NewActivity, 2)
-
-        new_ivBack.setOnClickListener {
-            dialog!!.dismiss()
-            onBackPressed()
-        }
 
         callCourseListApi()
     }
@@ -200,13 +190,11 @@ class NewActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<PackageData>, t: Throwable) {
-                // Log error here since request failed
+
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()
 
                 call.clone().enqueue(this)
-
-//                Utils.ping(this@NewActivity, "Network not reachable")
             }
         })
     }

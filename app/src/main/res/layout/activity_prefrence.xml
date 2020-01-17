@@ -71,7 +71,6 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/app_main_header_padding"
                     android:paddingBottom="@dimen/app_main_header_padding"
-                    android:text="Step - 1 Select Board"
                     android:textColor="@color/nfcolor"
                     android:textSize="@dimen/prefrence_step_txt_size" />
 
@@ -108,7 +107,6 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/app_main_header_padding"
                     android:paddingBottom="@dimen/app_main_header_padding"
-                    android:text="Step - 3 Select Standard"
                     android:textColor="@color/nfcolor"
                     android:textSize="@dimen/prefrence_step_txt_size"
                     android:visibility="gone"
@@ -148,7 +146,6 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_7sdp"
                     android:paddingBottom="@dimen/_7sdp"
-                    android:text="Step - 2 Select Subject"
                     android:textColor="@color/nfcolor"
                     android:textSize="@dimen/prefrence_step_txt_size"
                     android:visibility="gone"
@@ -180,8 +177,8 @@
 
     <Button
         android:id="@+id/package_btnNextt"
-        android:layout_width="@dimen/_45sdp"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_width="@dimen/prefrence_next_btn_width"
+        android:layout_height="@dimen/prefrence_next_btn_height"
         android:layout_marginBottom="@dimen/_20sdp"
         android:background="@drawable/next_btn"
         app:layout_constraintBottom_toBottomOf="parent"

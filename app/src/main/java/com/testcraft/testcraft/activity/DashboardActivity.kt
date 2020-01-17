@@ -504,14 +504,14 @@ class DashboardActivity : AppCompatActivity() {
                 }
                 6 -> {
 
-                    fragment = ChangePasswordActivity()
+                    fragment = ChangePasswordFragment()
 
                     llBottom!!.visibility = View.VISIBLE
 
                     val bundle1 = Bundle()
                     bundle1.putString("come_from", "other")
 
-                    (fragment as ChangePasswordActivity).arguments = bundle1
+                    (fragment as ChangePasswordFragment).arguments = bundle1
 
                     main_header!!.text = "Change Password"
                     btnBack!!.visibility = View.VISIBLE
@@ -524,14 +524,14 @@ class DashboardActivity : AppCompatActivity() {
                 }
                 7 -> {
 
-                    fragment = ChangePasswordActivity()
+                    fragment = ChangePasswordFragment()
 
                     llBottom!!.visibility = View.GONE
 
                     val bundle2 = Bundle()
                     bundle2.putString("come_from", "otp")
 
-                    (fragment as ChangePasswordActivity).arguments = bundle2
+                    (fragment as ChangePasswordFragment).arguments = bundle2
 
                     main_header!!.text = "Change Password"
                     btnBack!!.visibility = View.VISIBLE

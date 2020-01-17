@@ -19,6 +19,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.facebook.*
+import com.facebook.appevents.AppEventsLogger
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -51,6 +52,15 @@ class IntroActivity : AppCompatActivity() {
     private var myViewPagerAdapter: MyViewPagerAdapter? = null
     private var dots: Array<TextView>? = null
     private var layouts: IntArray? = null
+
+    /**
+     * This function assumes logger is an instance of AppEventsLogger and has been
+     * created using AppEventsLogger.newLogger() call.
+     */
+    fun logSentFriendRequestEvent() {
+
+        AppEventsLogger.newLogger(this@IntroActivity).logEvent("sentFriendRequest")
+    }
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -309,13 +319,28 @@ class IntroActivity : AppCompatActivity() {
         CommonWebCalls.callToken(this@IntroActivity, "1", "", ActionIdData.C201, ActionIdData.T201)
 
         if (v == intro_btnFb) {
-            fb.performClick()
+
+            if (!DialogUtils.isNetworkConnected(this@IntroActivity)) {
+                Utils.ping(this@IntroActivity, AppConstants.NETWORK_MSG)
+
+            } else {
+
+                fb.performClick()
+            }
+
         }
     }
 
     private fun signIn() {
-        val signInIntent = mGoogleSignInClient!!.signInIntent
-        startActivityForResult(signInIntent, 100)
+
+        if (!DialogUtils.isNetworkConnected(this@IntroActivity)) {
+            Utils.ping(this@IntroActivity, AppConstants.NETWORK_MSG)
+
+        } else {
+
+            val signInIntent = mGoogleSignInClient!!.signInIntent
+            startActivityForResult(signInIntent, 100)
+        }
     }
 
 //    private fun setGooglePlusButtonText(signInButton: Button, buttonText: String) {
