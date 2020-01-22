@@ -713,6 +713,9 @@ class PackageDetailActivity : Fragment() {
 
                     DialogUtils.dismissDialog()
 
+                    AppConstants.isFirst = 1
+                    setFragments(null)
+
 //                    if (response.body()!!["Status"].asString == "true") {
 
 //                        if (transaction_status == "Success") {
@@ -751,11 +754,11 @@ class PackageDetailActivity : Fragment() {
 
 //                    } else {
 
-                    AppConstants.isFirst = 1
 
-                    val intent = Intent(activity!!, DashboardActivity::class.java)
-                    startActivity(intent)
-                    (context as DashboardActivity).finish()
+//                    AppConstants.isFirst = 1
+//
+//                    val intent = Intent(activity!!, DashboardActivity::class.java)
+//                    startActivity(intent)
 
 //                        Toast.makeText(activity!!, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
 //                            .show()

@@ -34,7 +34,7 @@ class AppConstants {
         var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
         var SUBJECT_SUMMARY_REPORT_URL =
             "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
-
+//
 //        USER DATA
 
         var FIRST_NAME = "firstname"

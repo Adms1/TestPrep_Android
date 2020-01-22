@@ -57,6 +57,14 @@
     <dimen name="otp_txt_size">@dimen/_8sdp</dimen>
     <dimen name="otp_resend_txt_size">@dimen/_14sdp</dimen>
 
+    <!--submit test dialog-->
+
+    <dimen name="attempt_test_dialog_btn_height">@dimen/_35sdp</dimen>
+
+    <!--    test info dialog-->
+
+    <dimen name="info_dialog_color_dot_size">@dimen/_6sdp</dimen>
+
     <dimen name="normal_header_size">@dimen/_16sdp</dimen>
 
     <!--    <dimen name="regular_text_size">@dimen/_14sdp</dimen>-->

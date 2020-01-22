@@ -7,44 +7,43 @@
     android:background="@color/white"
     tools:context="com.testcraft.testcraft.activity.TestReviewActivity">
 
-    <ImageView
-        android:id="@+id/review_ivBack"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:padding="@dimen/_9sdp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/review_tvHeading"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/review_tvHeading"
-        app:srcCompat="@drawable/back_button" />
+    <!--    <ImageView-->
+    <!--        android:id="@+id/review_ivBack"-->
+    <!--        android:layout_width="@dimen/_30sdp"-->
+    <!--        android:layout_height="@dimen/_30sdp"-->
+    <!--        android:padding="@dimen/_9sdp"-->
+    <!--        android:visibility="gone"-->
+    <!--        app:layout_constraintBottom_toBottomOf="@+id/review_tvHeading"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/review_tvHeading"-->
+    <!--        app:srcCompat="@drawable/back_button" />-->
 
-    <TextView
-        android:id="@+id/review_tvHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingTop="@dimen/_7sdp"
-        android:paddingBottom="@dimen/_7sdp"
-        android:text="@string/analysis"
-        android:textColor="@color/black"
-        android:textSize="@dimen/normal_header_size"
-        android:visibility="gone"
-        app:layout_constraintLeft_toRightOf="@+id/review_ivBack"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/review_tvHeading"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:gravity="center_vertical"-->
+    <!--        android:paddingTop="@dimen/_7sdp"-->
+    <!--        android:paddingBottom="@dimen/_7sdp"-->
+    <!--        android:text="@string/analysis"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="@dimen/normal_header_size"-->
+    <!--        android:visibility="gone"-->
+    <!--        app:layout_constraintLeft_toRightOf="@+id/review_ivBack"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/review_tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/light_blue"
         android:paddingLeft="@dimen/_10sdp"
-        android:paddingTop="@dimen/_7sdp"
-        android:paddingBottom="@dimen/_7sdp"
+        android:paddingTop="@dimen/app_main_header_padding"
+        android:paddingBottom="@dimen/app_main_header_padding"
         android:text="Score and Solutions"
         android:textColor="@color/nfcolor"
-        android:textSize="@dimen/_14sdp"
-        app:layout_constraintTop_toBottomOf="@+id/review_tvHeading" />
+        android:textSize="@dimen/app_sub_header_size"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/review_tvTotalQue"
@@ -53,10 +52,10 @@
         android:layout_margin="@dimen/_10sdp"
         android:background="#C1FCFF"
         android:gravity="center"
-        android:paddingTop="@dimen/_8sdp"
-        android:paddingBottom="@dimen/_8sdp"
+        android:paddingTop="@dimen/app_main_header_padding"
+        android:paddingBottom="@dimen/app_main_header_padding"
         android:textColor="@color/header_gray"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/app_sub_header_size"
         app:layout_constraintTop_toBottomOf="@+id/review_tvTitle" />
 
     <RelativeLayout
@@ -74,13 +73,13 @@
             android:layout_height="@dimen/_100sdp"
             android:background="@drawable/circle_icon"
             android:gravity="center"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="@dimen/app_main_header_size"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/review_ivInfo"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_width="@dimen/all_bck_btn_size"
+            android:layout_height="@dimen/all_bck_btn_size"
             android:layout_alignParentRight="true"
             android:padding="@dimen/_3sdp"
             android:visibility="gone"
@@ -92,13 +91,12 @@
         android:id="@+id/review_tvCorrect"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingTop="@dimen/_7sdp"
-        android:paddingBottom="@dimen/_7sdp"
+        android:paddingTop="@dimen/app_main_header_padding"
+        android:paddingBottom="@dimen/app_main_header_padding"
         android:textColor="@color/light_green"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/normal_text_size"
         app:layout_constraintLeft_toRightOf="@id/abcd"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/review_tvTotalQue" />
@@ -107,13 +105,12 @@
         android:id="@+id/review_tvIncorrect"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_5sdp"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingTop="@dimen/_7sdp"
-        android:paddingBottom="@dimen/_7sdp"
+        android:paddingTop="@dimen/app_main_header_padding"
+        android:paddingBottom="@dimen/app_main_header_padding"
         android:textColor="@color/red"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/normal_text_size"
         app:layout_constraintLeft_toRightOf="@id/abcd"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/review_tvCorrect" />
@@ -122,13 +119,12 @@
         android:id="@+id/review_tvUnanswered"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_5sdp"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingTop="@dimen/_7sdp"
-        android:paddingBottom="@dimen/_7sdp"
+        android:paddingTop="@dimen/app_main_header_padding"
+        android:paddingBottom="@dimen/app_main_header_padding"
         android:textColor="@color/yellow"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/normal_text_size"
         app:layout_constraintLeft_toRightOf="@id/abcd"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/review_tvIncorrect" />
@@ -136,33 +132,29 @@
     <Button
         android:id="@+id/review_btnSubmit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/app_all_btn_height"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_20sdp"
         android:background="@drawable/login_round_bg"
-        android:paddingTop="@dimen/_12sdp"
-        android:paddingBottom="@dimen/_12sdp"
         android:text="View Solutions"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="@dimen/regular_text_size"
+        android:textSize="@dimen/app_all_btn_text_size"
         app:layout_constraintBottom_toTopOf="@+id/review_btnReport" />
 
     <Button
         android:id="@+id/review_btnReport"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/app_all_btn_height"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:background="@drawable/login_round_bg"
-        android:paddingTop="@dimen/_12sdp"
-        android:paddingBottom="@dimen/_12sdp"
         android:text="@string/test_summary_report"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="@dimen/regular_text_size"
+        android:textSize="@dimen/app_all_btn_text_size"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

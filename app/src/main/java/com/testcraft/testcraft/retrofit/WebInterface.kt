@@ -228,6 +228,6 @@ interface WebInterface {
     fun sendEnquiry(
         @Field("FirstName") firstname: String, @Field("LastName") lastname: String, @Field(
             "Email"
-        ) email: String, @Field("Comment") comment: String
+        ) email: String, @Field("mobile") mobile: String, @Field("Comment") comment: String
     ): Call<JsonObject>
 }

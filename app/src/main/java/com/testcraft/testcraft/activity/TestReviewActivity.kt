@@ -72,14 +72,14 @@ class TestReviewActivity : Fragment() {
 //        testid = intent.getStringExtra("testid")
 //        studenttestid = intent.getStringExtra("studenttestid")
 
-        review_ivBack.setOnClickListener {
+//        review_ivBack.setOnClickListener {
             //            AppConstants.isFirst = 0
 //            val intent = Intent(activity!!, DashboardActivity::class.java)
 //            startActivity(intent)
 //            finish()
 //            onBackPressed()
 
-        }
+//        }
 
         review_ivInfo.setOnClickListener {
             callSubjectwisemarks()

@@ -42,6 +42,7 @@ class ContactUsFragment : Fragment() {
         contactus_etFname.setText(Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, ""))
         contactus_etLname.setText(Utils.getStringValue(activity!!, AppConstants.LAST_NAME, ""))
         contactus_etEmail.setText(Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, ""))
+        contactus_etMobile.setText(Utils.getStringValue(activity!!, AppConstants.USER_MOBILE, ""))
 
         contactus_btnSignup.setOnClickListener {
 
@@ -63,6 +64,7 @@ class ContactUsFragment : Fragment() {
             contactus_etFname.text.toString(),
             contactus_etLname.text.toString(),
             contactus_etEmail.text.toString(),
+            contactus_etMobile.text.toString(),
             contactus_etComment.text.toString()
         )
 
@@ -132,10 +134,13 @@ class ContactUsFragment : Fragment() {
             isvalid = false
         }
 
-//        if (TextUtils.isEmpty(contactus_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(contactus_etMobile.text.toString()).matches()) {
-//            contactus_etMobile.error = "Please enter valid mobile number"
-//            isvalid = false
-//        }
+        if (TextUtils.isEmpty(contactus_etMobile.text.toString()) || !Patterns.PHONE.matcher(
+                contactus_etMobile.text.toString()
+            ).matches()
+        ) {
+            contactus_etMobile.error = "Please enter valid mobile number"
+            isvalid = false
+        }
 
         return isvalid
 

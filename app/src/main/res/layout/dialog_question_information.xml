@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/dialog_queinfo_tvHeader"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
         android:ellipsize="end"
@@ -15,8 +15,6 @@
         android:padding="@dimen/_5sdp"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/regular_text_size"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -36,12 +34,11 @@
         android:id="@+id/dialog_queinfo_tvSubjectName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_15sdp"
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="@dimen/_13sdp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvSubject"
         app:layout_constraintRight_toLeftOf="@+id/dialog_queinfo_tvCourse"
         app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvSubject" />
 
@@ -63,7 +60,7 @@
         android:layout_marginRight="@dimen/_15sdp"
         android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/normal_text_size"
         app:layout_constraintLeft_toRightOf="@+id/dialog_queinfo_tvSubjectName"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvCourseHeader" />
@@ -72,23 +69,23 @@
         android:id="@+id/dialog_queinfo_tvTotalMarksHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:maxLines="1"
         android:text="Total Marks"
         android:textColor="@color/light_gray"
         android:textSize="@dimen/extra_small_size"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvSubject"
         app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvSubjectName" />
 
     <TextView
         android:id="@+id/dialog_queinfo_tvTotalMarks"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/normal_text_size"
         app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvTotalMarksHeader"
+        app:layout_constraintRight_toRightOf="@+id/dialog_queinfo_tvSubjectName"
         app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvTotalMarksHeader" />
 
     <TextView
@@ -106,19 +103,19 @@
 
     <TextView
         android:id="@+id/dialog_queinfo_tvQue"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/normal_text_size"
         app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvCourse"
+        app:layout_constraintRight_toRightOf="@+id/dialog_queinfo_tvCourse"
         app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvQueHeader" />
 
     <TextView
         android:id="@+id/dialog_queinfo_tvTeacher"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginRight="@dimen/_15sdp"
         android:gravity="left"
@@ -126,7 +123,7 @@
         android:text="Tutor Name"
         android:textColor="@color/light_gray"
         android:textSize="@dimen/extra_small_size"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvSubject"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvTotalMarks" />
 
@@ -137,27 +134,26 @@
         android:gravity="left"
         android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="@dimen/_13sdp"
-        app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvTeacher"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintLeft_toLeftOf="@+id/dialog_queinfo_tvSubject"
         app:layout_constraintRight_toRightOf="@+id/dialog_queinfo_tvTeacher"
         app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvTeacher" />
 
     <View
         android:id="@+id/dialog_queinfo_line"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
+        android:layout_height="@dimen/regular_line"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/default_shimmer_color"
         app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvTeacherName" />
 
     <TextView
         android:id="@+id/dialog_queinfo_dotCurrent"
-        android:layout_width="@dimen/_6sdp"
-        android:layout_height="@dimen/_6sdp"
-        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_width="@dimen/info_dialog_color_dot_size"
+        android:layout_height="@dimen/info_dialog_color_dot_size"
         android:background="@drawable/select_exam_bg"
         app:layout_constraintBottom_toBottomOf="@+id/dialog_queinfo_tvCurrent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/dialog_queinfo_tvSubject"
         app:layout_constraintTop_toTopOf="@+id/dialog_queinfo_tvCurrent" />
 
     <TextView
@@ -176,9 +172,9 @@
 
     <TextView
         android:id="@+id/dialog_queinfo_dotAnswered"
-        android:layout_width="@dimen/_6sdp"
-        android:layout_height="@dimen/_6sdp"
-        android:layout_marginLeft="@dimen/_6sdp"
+        android:layout_width="@dimen/info_dialog_color_dot_size"
+        android:layout_height="@dimen/info_dialog_color_dot_size"
+        android:layout_marginLeft="@dimen/info_dialog_color_dot_size"
         android:background="@drawable/green_round_bg"
         app:layout_constraintBottom_toBottomOf="@+id/dialog_queinfo_tvAnswered"
         app:layout_constraintLeft_toRightOf="@+id/dialog_queinfo_tvCurrent"
@@ -188,7 +184,6 @@
         android:id="@+id/dialog_queinfo_tvAnswered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
         android:maxLines="1"
         android:paddingLeft="@dimen/_5sdp"
         android:paddingRight="@dimen/_5sdp"
@@ -196,13 +191,14 @@
         android:textColor="@color/light_gray"
         android:textSize="@dimen/extra_small_size"
         app:layout_constraintLeft_toRightOf="@+id/dialog_queinfo_dotAnswered"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_line" />
+        app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_line"
+        app:layout_constraintTop_toTopOf="@+id/dialog_queinfo_tvCurrent" />
 
     <TextView
         android:id="@+id/dialog_queinfo_dotUnanswered"
-        android:layout_width="@dimen/_6sdp"
-        android:layout_height="@dimen/_6sdp"
-        android:layout_marginLeft="@dimen/_6sdp"
+        android:layout_width="@dimen/info_dialog_color_dot_size"
+        android:layout_height="@dimen/info_dialog_color_dot_size"
+        android:layout_marginLeft="@dimen/info_dialog_color_dot_size"
         android:background="@drawable/red_round_bg"
         app:layout_constraintBottom_toBottomOf="@+id/dialog_queinfo_tvUnanswered"
         app:layout_constraintLeft_toRightOf="@+id/dialog_queinfo_tvAnswered"
@@ -212,7 +208,6 @@
         android:id="@+id/dialog_queinfo_tvUnanswered"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
         android:maxLines="1"
         android:paddingLeft="@dimen/_5sdp"
         android:paddingRight="@dimen/_5sdp"
@@ -220,16 +215,16 @@
         android:textColor="@color/light_gray"
         android:textSize="@dimen/extra_small_size"
         app:layout_constraintLeft_toRightOf="@+id/dialog_queinfo_dotUnanswered"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_line" />
+        app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_line"
+        app:layout_constraintTop_toTopOf="@+id/dialog_queinfo_tvCurrent" />
 
     <TextView
         android:id="@+id/dialog_queinfo_dotReview"
-        android:layout_width="@dimen/_6sdp"
-        android:layout_height="@dimen/_6sdp"
-        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_width="@dimen/info_dialog_color_dot_size"
+        android:layout_height="@dimen/info_dialog_color_dot_size"
         android:background="@drawable/pink_round"
         app:layout_constraintBottom_toBottomOf="@+id/dialog_queinfo_tvReview"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/dialog_queinfo_tvSubject"
         app:layout_constraintTop_toTopOf="@+id/dialog_queinfo_tvReview" />
 
     <TextView
@@ -250,8 +245,9 @@
 
     <TextView
         android:id="@+id/dialog_queinfo_dotnotvisit"
-        android:layout_width="@dimen/_6sdp"
-        android:layout_height="@dimen/_6sdp"
+        android:layout_width="@dimen/info_dialog_color_dot_size"
+        android:layout_height="@dimen/info_dialog_color_dot_size"
+        android:layout_marginLeft="@dimen/info_dialog_color_dot_size"
         android:background="@drawable/gray_bg"
         app:layout_constraintBottom_toBottomOf="@+id/dialog_queinfo_tvnotvisit"
         app:layout_constraintLeft_toRightOf="@+id/dialog_queinfo_tvReview"
@@ -261,7 +257,6 @@
         android:id="@+id/dialog_queinfo_tvnotvisit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5sdp"
         android:maxLines="1"
         android:paddingLeft="@dimen/_5sdp"
         android:paddingRight="@dimen/_5sdp"
@@ -269,6 +264,7 @@
         android:textColor="@color/light_gray"
         android:textSize="@dimen/extra_small_size"
         app:layout_constraintLeft_toRightOf="@+id/dialog_queinfo_dotnotvisit"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvCurrent" />
+        app:layout_constraintTop_toBottomOf="@+id/dialog_queinfo_tvCurrent"
+        app:layout_constraintTop_toTopOf="@+id/dialog_queinfo_tvReview" />
 
 </android.support.constraint.ConstraintLayout>

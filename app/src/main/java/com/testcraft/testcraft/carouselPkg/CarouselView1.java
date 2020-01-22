@@ -8,6 +8,10 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
 /**
  * Carousel View, the main class of the library.
  * <p/>
@@ -33,7 +37,7 @@ public class CarouselView1 extends RecyclerView {
 
     private RecyclerView.OnScrollListener mInternalOnScrollListener = new RecyclerView.OnScrollListener() {
         @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        public void onScrollStateChanged(@NotNull RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
 
             /**
@@ -48,7 +52,7 @@ public class CarouselView1 extends RecyclerView {
                     int newPosition = Math.round(newPositionPoint);
                     if (mScrollingAlignToViews && mLayoutManager.getCurrentOffset() != 0) {
                         if (Math.abs(newPositionPoint - newPosition) > SCROLL_ALIGN_ALLOWANCE) {
-                            log("> scroll idle %f %f", newPositionPoint - mLastScrollStartPositionPoint, mLayoutManager.getScroller().tweakScrollDx(newPositionPoint - mLastScrollStartPositionPoint));
+                            log("> scroll idle %f %f", newPositionPoint - mLastScrollStartPositionPoint, Objects.requireNonNull(mLayoutManager.getScroller()).tweakScrollDx(newPositionPoint - mLastScrollStartPositionPoint));
                             if (mLayoutManager.getScroller().tweakScrollDx(newPositionPoint - mLastScrollStartPositionPoint) > 0) {
                                 newPosition = (int) Math.ceil(newPositionPoint);
                             } else {
@@ -96,7 +100,7 @@ public class CarouselView1 extends RecyclerView {
         }
 
         @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
             if (mOnScrollListener != null) {
                 mOnScrollListener.onScrolled((CarouselView1) recyclerView, dx, dy);
@@ -165,7 +169,7 @@ public class CarouselView1 extends RecyclerView {
         setLayoutManagerInternal(new CarouselLayoutManager());
         mOnScrollListener = null;
         mOnItemClickListener = null;
-        super.setOnScrollListener(mInternalOnScrollListener);
+        super.addOnScrollListener(mInternalOnScrollListener);
     }
 
     @Override
@@ -184,24 +188,16 @@ public class CarouselView1 extends RecyclerView {
         setExtraVisibleChilds(1);
 //		setDisplayMode(aDisplayMode);
 
-        mLayoutManager.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(Adapter adapter, View view, int position, int adapterPosition) {
-                if (mClickToScroll) {
-                    smoothScrollToPosition(position);
-                }
-                if (mOnItemClickListener != null) {
-                    mOnItemClickListener.onItemClick(getAdapter(), view, position, adapterPosition);
-                }
+        mLayoutManager.setOnItemClickListener((adapter, view, position, adapterPosition) -> {
+            if (mClickToScroll) {
+                smoothScrollToPosition(position);
+            }
+            if (mOnItemClickListener != null) {
+                mOnItemClickListener.onItemClick(getAdapter(), view, position, adapterPosition);
             }
         });
     }
 
-    /**
-     * Returns a CarouselLayoutManager that is in use with this CarouselView1.
-     *
-     * @return
-     */
     @Override
     public CarouselLayoutManager getLayoutManager() {
         return mLayoutManager;
@@ -220,7 +216,6 @@ public class CarouselView1 extends RecyclerView {
      * @param layout
      * @hide DO NOT USE.
      */
-    // TODO to support custom CarouselLayoutManager
     public void setLayoutManager(CarouselLayoutManager layout) {
         if (layout == null) {
             throw new NullPointerException("CarouselLayoutManager cannot be null");

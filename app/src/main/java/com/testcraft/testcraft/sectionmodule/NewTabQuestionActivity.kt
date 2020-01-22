@@ -865,6 +865,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             @SuppressLint("SetTextI18n")
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
+                nextButton!!.isClickable = true
+                nextButton!!.isEnabled = true
+
                 if (response.body()!!.get("Status").asString == "true") {
 
                     if (que_number >= testque.toInt()) {
@@ -1624,7 +1627,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         nextButton!!.setOnClickListener {
 
-            nextButtonClick()
+            if (que_number <= testque.toInt()) {
+                nextButtonClick()
+            }
         }
 
         queTab_rbTrue.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -1908,6 +1913,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     }
 
     fun nextButtonClick() {
+
+        nextButton!!.isClickable = false
+        nextButton!!.isEnabled = false
 
         var isReview = 0
 

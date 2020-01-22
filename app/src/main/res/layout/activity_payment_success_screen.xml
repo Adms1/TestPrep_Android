@@ -10,7 +10,7 @@
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
         android:layout_marginBottom="@dimen/_20sdp"
-        android:src="@drawable/payment_success_icn"
+        app:srcCompat="@drawable/payment_success_icn"
         app:layout_constraintBottom_toTopOf="@+id/tvMessage"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -23,7 +23,7 @@
         android:gravity="center"
         android:text="Your transaction has been completed successfully"
         android:textColor="@color/black"
-        android:textSize="@dimen/_18sdp"
+        android:textSize="@dimen/app_main_header_size"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -38,7 +38,7 @@
         android:layout_marginTop="@dimen/_15sdp"
         android:text="Transaction Id : "
         android:textColor="@color/black"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="@dimen/regular_text_size"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
 
@@ -49,7 +49,7 @@
         android:layout_marginRight="@dimen/_15sdp"
         android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="@dimen/regular_text_size"
         app:layout_constraintLeft_toRightOf="@+id/tvTransIdTxt"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvTransIdTxt" />
@@ -62,7 +62,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:text="Package             : "
         android:textColor="@color/black"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="@dimen/regular_text_size"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTransId" />
 
@@ -75,7 +75,7 @@
         android:justificationMode="inter_word"
         android:maxLines="2"
         android:textColor="@color/black"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="@dimen/regular_text_size"
         app:layout_constraintLeft_toRightOf="@+id/tvPkgnameTxt"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvPkgnameTxt" />
@@ -88,7 +88,7 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:text="Price                   : "
         android:textColor="@color/black"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="@dimen/regular_text_size"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPkgname" />
 
@@ -98,23 +98,23 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/_15sdp"
         android:textColor="@color/black"
-        android:textSize="@dimen/_12sdp"
+        android:textSize="@dimen/regular_text_size"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/tvPriceTxt"
         app:layout_constraintTop_toTopOf="@+id/tvPriceTxt" />
 
     <Button
         android:id="@+id/tvTry"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_40sdp"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:background="@drawable/google_round_bg"
-        android:gravity="center"
         android:text="OK"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="@dimen/_18sdp"
+        android:textSize="@dimen/app_all_btn_text_size"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPriceTxt" />
@@ -122,16 +122,15 @@
     <Button
         android:id="@+id/tvCancel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/app_all_btn_height"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:background="@drawable/light_blue_round_bg"
-        android:gravity="center"
         android:text="Cancel"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="@dimen/_18sdp"
+        android:textSize="@dimen/app_all_btn_text_size"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTry" />

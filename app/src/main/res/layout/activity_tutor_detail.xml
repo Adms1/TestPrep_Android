@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.testcraft.testcraft.activity.TutorDetailActivity">
 
     <!--<ImageView-->
@@ -49,12 +49,12 @@
     <!--</RelativeLayout>-->
 
     <ImageView
-            android:id="@+id/tutor_detail_ivNoPkg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-        android:visibility="gone"
-            android:src="@drawable/no_package_found" />
+        android:id="@+id/tutor_detail_ivNoPkg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/no_package_found"
+        android:visibility="gone" />
 
     <!--<android.support.design.widget.TabLayout-->
     <!--android:id="@+id/tutor_detail_tabs"-->
@@ -83,29 +83,29 @@
     <!--app:layout_constraintBottom_toBottomOf="parent"/>-->
 
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/tutor_packages_rvPopularPkg"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/tutor_packages_rvPopularPkg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:id="@+id/tutor_packages_tvdatanotfound"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:padding="@dimen/_25sdp"
-            android:text="No matching packages were found."
-            android:textColor="@color/red"
-            android:textSize="@dimen/_16sdp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/tutor_packages_tvdatanotfound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:padding="@dimen/_25sdp"
+        android:text="No matching packages were found."
+        android:textColor="@color/red"
+        android:textSize="@dimen/app_main_header_size"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

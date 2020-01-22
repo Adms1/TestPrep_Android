@@ -10,9 +10,10 @@ android {
         applicationId "com.testcraft.testcraft"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 9
-        versionName "1.9"
+        versionCode 10
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        multiDexEnabled true
 
         vectorDrawables.useSupportLibrary = true
     }
@@ -89,6 +90,7 @@ dependencies {
     implementation 'com.ramijemli.percentagechartview:percentagechartview:0.3.1'
 //    Mint.initAndStartSession(this.getApplication(), "e460283d");
     implementation 'org.jsoup:jsoup:1.11.3'
+//    implementation 'com.android.support:multidex:1.0.3'
 
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'

@@ -14,7 +14,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/_20sdp"
-            android:src="@drawable/risk_blue"/>
+        app:srcCompat="@drawable/risk_blue" />
 
     <TextView
             android:id="@+id/dialog_report_tvHeader"
@@ -26,7 +26,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="@dimen/_15sdp"
             app:layout_constraintTop_toBottomOf="@+id/queTab_ivIssue"
-            android:textSize="@dimen/_16sdp"
+        android:textSize="@dimen/app_main_header_size"
             android:maxLines="1"
             android:textStyle="bold"
             android:text="Report an issue"/>
@@ -35,7 +35,7 @@
             android:id="@+id/dialog_report_line1"
             app:layout_constraintTop_toBottomOf="@+id/dialog_report_tvHeader"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
+        android:layout_height="@dimen/regular_line"
             android:background="@color/default_shimmer_color"
             android:layout_marginTop="@dimen/_10sdp"/>
 
@@ -57,7 +57,7 @@
             android:id="@+id/dialog_report_line2"
             app:layout_constraintTop_toBottomOf="@+id/dialog_report_tvQueProblem"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
+        android:layout_height="@dimen/regular_line"
             android:background="@color/default_shimmer_color"
             android:layout_marginTop="@dimen/_10sdp"/>
 
@@ -79,7 +79,7 @@
             android:id="@+id/dialog_report_line3"
             app:layout_constraintTop_toBottomOf="@+id/dialog_report_tvAnsProblem"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
+        android:layout_height="@dimen/regular_line"
             android:background="@color/default_shimmer_color"
             android:layout_marginTop="@dimen/_10sdp"/>
 
@@ -100,7 +100,7 @@
             android:id="@+id/dialog_report_line4"
             app:layout_constraintTop_toBottomOf="@+id/dialog_report_tvHintProblem"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
+        android:layout_height="@dimen/regular_line"
             android:background="@color/default_shimmer_color"
             android:layout_marginTop="@dimen/_10sdp"/>
 
