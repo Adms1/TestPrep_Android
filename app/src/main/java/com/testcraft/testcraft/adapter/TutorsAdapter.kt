@@ -81,14 +81,13 @@ class TutorsAdapter(val context: Context, val dataList: ArrayList<PackageData.Pa
 //            context.startActivity(intent)
 
         }
-
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var image: ImageView = itemView.findViewById(R.id.tutor_image)
         var title: TextView = itemView.findViewById(R.id.tutor_item_tvName)
-        var stitle: TextView = itemView.findViewById(R.id.tutor_name_short)
+        //        var stitle: TextView = itemView.findViewById(R.id.tutor_name_short)
         var price: TextView = itemView.findViewById(R.id.tutor_item_tvPrice)
         var next: ImageView = itemView.findViewById(R.id.tutor_item_btnNext)
         var std: TextView = itemView.findViewById(R.id.tutor_item_tvStd)

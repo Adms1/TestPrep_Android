@@ -57,10 +57,11 @@ class FilterAdapter(
 
                 raw_index = position
 
-            } else {
+            }
+//            else {
 //                holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
 //                holder.img.setBackgroundResource(R.drawable.gray_ring_bg)
-            }
+//            }
         }
 
         holder.mainll.setOnClickListener {

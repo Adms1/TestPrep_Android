@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,10 +11,11 @@
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
         android:layout_marginBottom="@dimen/_20sdp"
-        app:srcCompat="@drawable/payment_success_icn"
         app:layout_constraintBottom_toTopOf="@+id/tvMessage"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/payment_success_icn"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tvMessage"
@@ -34,6 +36,7 @@
         android:id="@+id/tvTransIdTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:text="Transaction Id : "
@@ -46,6 +49,7 @@
         android:id="@+id/tvTransId"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_15sdp"
         android:maxLines="1"
         android:textColor="@color/black"
@@ -58,6 +62,7 @@
         android:id="@+id/tvPkgnameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:text="Package             : "
@@ -70,6 +75,7 @@
         android:id="@+id/tvPkgname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_15sdp"
         android:ellipsize="end"
         android:justificationMode="inter_word"
@@ -84,6 +90,7 @@
         android:id="@+id/tvPriceTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginLeft="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:text="Price                   : "
@@ -96,11 +103,12 @@
         android:id="@+id/tvPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_15sdp"
         android:textColor="@color/black"
         android:textSize="@dimen/regular_text_size"
-        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/tvPriceTxt"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvPriceTxt" />
 
     <Button

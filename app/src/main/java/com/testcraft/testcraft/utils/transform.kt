@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.widget.ImageView
 import com.squareup.picasso.Transformation
 
-
 class transform {
 
     companion object {

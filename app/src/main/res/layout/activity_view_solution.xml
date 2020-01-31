@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/top_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,8 +10,7 @@
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_height="match_parent">
 
         <FrameLayout
             android:id="@+id/frame_container"
@@ -41,10 +41,11 @@
                         android:id="@+id/solution_tvTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_weight="0.08"
                         android:gravity="right"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/_13sdp" />
@@ -54,8 +55,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/solution_tvTotal"
                         android:layout_toLeftOf="@+id/solution_tvTotal"
-                        android:layout_weight="0.08"
                         android:gravity="right"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/_13sdp"
@@ -73,8 +74,10 @@
                         android:id="@+id/solution_tvQMarks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/_13sdp" />
@@ -85,6 +88,7 @@
                         android:layout_height="@dimen/_30sdp"
                         android:layout_gravity="right"
                         android:layout_marginTop="@dimen/_7sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
                         android:layout_marginRight="@dimen/_20sdp"
                         android:layout_marginBottom="@dimen/_7sdp"
                         android:contentDescription="@string/logo"
@@ -147,7 +151,8 @@
                                         android:id="@+id/solution_page_img_que_img"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_gravity="center_horizontal" />
+                                        android:layout_gravity="center_horizontal"
+                                        tools:ignore="ContentDescription" />
 
                                     <android.support.v7.widget.RecyclerView
                                         android:id="@+id/solution_wv_question_list"
@@ -183,13 +188,16 @@
                                             android:id="@+id/solution_rbTrue"
                                             android:layout_width="@dimen/_20sdp"
                                             android:layout_height="@dimen/_20sdp"
-                                            android:src="@drawable/grey_round" />
+                                            android:src="@drawable/grey_round"
+                                            tools:ignore="ContentDescription" />
 
                                         <TextView
                                             android:id="@+id/solution_tvTrue"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
+                                            android:layout_marginStart="@dimen/_10sdp"
                                             android:layout_marginLeft="@dimen/_10sdp"
+                                            android:layout_toEndOf="@+id/solution_rbTrue"
                                             android:layout_toRightOf="@+id/solution_rbTrue"
                                             android:text="True"
                                             android:textColor="@color/black"
@@ -202,15 +210,18 @@
                                             android:layout_height="@dimen/_20sdp"
                                             android:layout_below="@+id/solution_rbTrue"
                                             android:layout_marginTop="@dimen/_8sdp"
-                                            android:src="@drawable/grey_round" />
+                                            android:src="@drawable/grey_round"
+                                            tools:ignore="ContentDescription" />
 
                                         <TextView
                                             android:id="@+id/solution_tvFalse"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_below="@+id/solution_rbTrue"
+                                            android:layout_marginStart="@dimen/_10sdp"
                                             android:layout_marginLeft="@dimen/_10sdp"
                                             android:layout_marginTop="@dimen/_8sdp"
+                                            android:layout_toEndOf="@+id/solution_rbFalse"
                                             android:layout_toRightOf="@+id/solution_rbFalse"
                                             android:text="False"
                                             android:textColor="@color/black"
@@ -254,6 +265,7 @@
                         android:id="@+id/solution_ivReport"
                         android:layout_width="@dimen/_15sdp"
                         android:layout_height="@dimen/_15sdp"
+                        android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginLeft="@dimen/_20sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:contentDescription="@string/logo"
@@ -277,6 +289,7 @@
                     <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginLeft="@dimen/_10sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -286,13 +299,16 @@
                         <ImageView
                             android:id="@+id/solution_ivAnsimg"
                             android:layout_width="@dimen/_17sdp"
-                            android:layout_height="@dimen/_17sdp" />
+                            android:layout_height="@dimen/_17sdp"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:id="@+id/solution_tvYranswer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_3sdp"
                             android:layout_marginLeft="@dimen/_3sdp"
+                            android:layout_toEndOf="@+id/solution_ivAnsimg"
                             android:layout_toRightOf="@+id/solution_ivAnsimg"
                             android:gravity="left"
                             android:textColor="@color/black"
@@ -303,6 +319,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/solution_tvYranswer"
+                            android:layout_marginStart="@dimen/_20sdp"
                             android:layout_marginLeft="@dimen/_20sdp"
                             android:gravity="left"
                             android:textColor="@color/black"
@@ -327,6 +344,7 @@
                 android:id="@+id/solution_dotCurrent"
                 android:layout_width="@dimen/_6sdp"
                 android:layout_height="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:background="@drawable/select_exam_bg"
                 app:layout_constraintBottom_toBottomOf="@+id/solution_tvCurrent"
@@ -337,6 +355,7 @@
                 android:id="@+id/solution_tvCurrent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:maxLines="1"
@@ -350,6 +369,7 @@
                 android:id="@+id/solution_dotAnswered"
                 android:layout_width="@dimen/_6sdp"
                 android:layout_height="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:background="@drawable/green_round_bg"
                 app:layout_constraintBottom_toBottomOf="@+id/solution_tvAnswered"
@@ -360,6 +380,7 @@
                 android:id="@+id/solution_tvAnswered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:maxLines="1"
@@ -373,6 +394,7 @@
                 android:id="@+id/solution_dotUnanswered"
                 android:layout_width="@dimen/_6sdp"
                 android:layout_height="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:background="@drawable/red_round_bg"
                 app:layout_constraintBottom_toBottomOf="@+id/solution_tvUnanswered"
@@ -383,6 +405,7 @@
                 android:id="@+id/solution_tvUnanswered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:maxLines="1"
@@ -406,6 +429,7 @@
                 android:id="@+id/solution_tvnotvisit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:maxLines="1"

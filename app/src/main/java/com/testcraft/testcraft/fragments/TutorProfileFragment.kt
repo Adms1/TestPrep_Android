@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.fragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -15,6 +16,7 @@ import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.CartActivity
 import com.testcraft.testcraft.activity.DashboardActivity
+import com.testcraft.testcraft.activity.TutorReviewActivity
 import com.testcraft.testcraft.adapter.TutorPackageAdapter
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.models.TutorModel
@@ -26,16 +28,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
+@SuppressLint("SetTextI18n")
 class TutorProfileFragment : Fragment() {
 
     var bundle: Bundle? = null
@@ -172,6 +165,7 @@ class TutorProfileFragment : Fragment() {
 
                     } else {
 
+                        Log.e("", response.body()!!.Msg)
 //                        Toast.makeText(
 //                            activity!!,
 //                            response.body()!!.Msg.replace("\"", ""),
@@ -212,6 +206,8 @@ class TutorProfileFragment : Fragment() {
                             TutorPackageAdapter(activity!!, response.body()!!.data)
 
                     } else {
+
+                        Log.e("", response.body()!!.Msg)
 
 //                        Toast.makeText(
 //                            activity!!,

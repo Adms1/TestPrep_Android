@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -37,17 +38,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
-
+@SuppressLint("SetTextI18n")
 class MarketPlaceFragment : Fragment() {
 
     private var mDataList: ArrayList<PackageData.PackageDataList>? = ArrayList()
@@ -453,7 +444,7 @@ class MarketPlaceFragment : Fragment() {
 //            images\\package/package_default.png
 //            images\\package/1567672611.png
 
-            if (mDataList[position].Icon != null) {
+            if (mDataList[position].Icon != "") {
 
                 Picasso.get()
                     .load(AppConstants.IMAGE_BASE_URL + mDataList[position].Icon)
@@ -534,7 +525,7 @@ class MarketPlaceFragment : Fragment() {
         override fun onBindViewHolder(holder: viewholder, position: Int) {
 //                RandomPageFragment.initializeTextView(holder.textView!!, position + 1)
 
-            if (mDataList[position].Icon != null) {
+            if (mDataList[position].Icon != "") {
                 Picasso.get()
                     .load(AppConstants.IMAGE_BASE_URL + mDataList[position].Icon)
                     .into(holder.title)
@@ -548,7 +539,7 @@ class MarketPlaceFragment : Fragment() {
                 CommonWebCalls.callToken(context, "1", "", ActionIdData.C806, ActionIdData.T806)
 
                 AppConstants.isFirst = 15
-                var bundle: Bundle = Bundle()
+                val bundle = Bundle()
                 bundle.putString("tutor_id", mDataList[position].TutorID)
                 setFragments(bundle)
 
@@ -729,14 +720,15 @@ class MarketPlaceFragment : Fragment() {
 
                     if (response.body()!!.Status == "true") {
 
-                        main_pkg_item_tvdatanotfound!!.visibility = View.GONE
+                        main_pkg_item_tvdatanotfound.visibility = View.GONE
                         main_pkg_item_mainll!!.visibility = View.VISIBLE
                         main_pkg_item_tvChange.visibility = View.GONE
 
                         mDataList = ArrayList()
                         mDataList = response.body()!!.data.TestPackage
-                        var mSingleDataList = response.body()!!.data.SingleTestPackage
-                        var freeTestList = response.body()!!.data.FreeTestPackage
+
+                        val mSingleDataList = response.body()!!.data.SingleTestPackage
+                        val freeTestList = response.body()!!.data.FreeTestPackage
 
                         Log.d("dsize", "" + mDataList!!.size)
 
@@ -868,7 +860,7 @@ class MarketPlaceFragment : Fragment() {
                 price.text = arrList[position].TestPackageSalePrice
 //                desc.text = arrList[position].TestPackageDescription
 
-                if (arrList[position].TestList != null && arrList[position].TestList.size > 0) {
+                if (arrList[position].TestList.size > 0) {
                     if (arrList[position].TestList[0].Name != "") {
                         t1.text = "\u2022 " + arrList[position].TestList[0].Name
                     } else {
@@ -906,7 +898,7 @@ class MarketPlaceFragment : Fragment() {
                     }
                 }
 
-                if (arrList[position].Icon != null) {
+                if (arrList[position].Icon != "") {
                     Picasso.get().load(AppConstants.IMAGE_BASE_URL + arrList[position].Icon)
                         .into(image)
 

@@ -25,7 +25,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-
 class PaymentSuccessScreen : AppCompatActivity() {
 
     var transid = ""

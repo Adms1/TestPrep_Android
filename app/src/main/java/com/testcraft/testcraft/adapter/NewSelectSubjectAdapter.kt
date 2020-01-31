@@ -83,7 +83,7 @@ class NewSelectSubjectAdapter(
 
             stitle.text = title.text.substring(0, 1)
 
-            if (employee.Icon != null) {
+            if (employee.Icon != "") {
                 Picasso.get().load(AppConstants.IMAGE_BASE_URL + employee.Icon).into(image)
                 stitle.visibility = View.GONE
             } else {
@@ -100,7 +100,7 @@ class NewSelectSubjectAdapter(
                 employee.isSelected = !employee.isSelected
                 if (employee.isSelected) {
 
-                    if (employee.Icon == null) {
+                    if (employee.Icon == "") {
                         image.setImageDrawable(context.resources.getDrawable(R.drawable.close_cancel))
                     }
 
@@ -108,7 +108,7 @@ class NewSelectSubjectAdapter(
                     p_select.visibility = View.VISIBLE
                 } else {
 
-                    if (employee.Icon == null) {
+                    if (employee.Icon == "") {
                         image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
                     }
 
@@ -124,7 +124,7 @@ class NewSelectSubjectAdapter(
 
                     Log.i(
                         "selected array: ",
-                        all!!.get(i).SubjectName + "[" + all!![i].isSelected + "]"
+                        all!![i].SubjectName + "[" + all!![i].isSelected + "]"
                     )
                 }
 
@@ -135,9 +135,7 @@ class NewSelectSubjectAdapter(
 
     fun getIds(): String {
 
-        val ids = selected1.toString().replace("[", "").replace("]", "")
-
-        return ids
+        return selected1.toString().replace("[", "").replace("]", "")
 
     }
 

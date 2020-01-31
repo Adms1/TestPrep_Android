@@ -1,4 +1,4 @@
-package com.testcraft.testcraft.activity
+package com.testcraft.testcraft.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
+import com.testcraft.testcraft.activity.LoginActivity
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
@@ -85,7 +86,6 @@ class ChangePasswordFragment : Fragment() {
                     ActionIdData.C4101,
                     ActionIdData.T4101
                 )
-
 
                 if (isValid()) {
                     callChangePasswordlApi()

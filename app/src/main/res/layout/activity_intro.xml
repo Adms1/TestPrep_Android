@@ -21,7 +21,8 @@
             android:src="@drawable/slider_logo"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <LinearLayout
             android:id="@+id/layoutDots"
@@ -29,8 +30,8 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_alignParentBottom="true"
             android:gravity="center"
-            android:visibility="gone"
             android:orientation="horizontal"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/intro_view_pager" />
@@ -65,6 +66,7 @@
             android:layout_marginTop="@dimen/_30sdp"
             android:layout_marginRight="@dimen/_35sdp"
             android:background="@drawable/fb_round_bg"
+            android:drawableStart="@drawable/fb_icn"
             android:drawableLeft="@drawable/fb_icn"
             android:drawablePadding="@dimen/_10sdp"
             android:gravity="left|center_vertical"
@@ -93,6 +95,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_35sdp"
             android:background="@drawable/google_round_bg"
+            android:drawableStart="@drawable/google_icn"
             android:drawableLeft="@drawable/google_icn"
             android:drawablePadding="@dimen/_10sdp"
             android:gravity="left|center_vertical"
@@ -111,6 +114,7 @@
             android:layout_marginTop="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_35sdp"
             android:background="@drawable/login_round_bg"
+            android:drawableStart="@drawable/email_icn"
             android:drawableLeft="@drawable/email_icn"
             android:drawablePadding="@dimen/_10sdp"
             android:gravity="left|center_vertical"
@@ -138,6 +142,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:layout_marginRight="@dimen/_5sdp"
             android:gravity="center"
             android:text="@string/version_name"

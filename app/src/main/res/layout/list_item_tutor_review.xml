@@ -1,95 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5sdp">
 
     <RelativeLayout
-            android:id="@+id/tutor_review_llImage"
+        android:id="@+id/tutor_review_llImage"
         android:layout_width="@dimen/review_tutor_icn_size"
         android:layout_height="@dimen/review_tutor_icn_size"
-            android:layout_marginTop="@dimen/_5sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-                android:id="@+id/tutor_review_image"
+            android:id="@+id/tutor_review_image"
             android:layout_width="@dimen/review_tutor_icn_size"
             android:layout_height="@dimen/review_tutor_icn_size"
-                android:src="@drawable/blue_round" />
+            android:src="@drawable/blue_round"
+            tools:ignore="ContentDescription" />
 
         <TextView
-                android:id="@+id/tutor_review_tvLogo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="A"
-                android:textColor="@color/white"
+            android:id="@+id/tutor_review_tvLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
             android:textSize="@dimen/review_tutor_shortname_size" />
 
     </RelativeLayout>
 
     <TextView
-            android:id="@+id/tutor_item_tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/small_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/tutor_review_llImage"
-            app:layout_constraintLeft_toRightOf="@+id/tutor_review_llImage"
-            app:layout_constraintTop_toTopOf="@+id/tutor_review_llImage" />
+        android:id="@+id/tutor_item_tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/small_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/tutor_review_llImage"
+        app:layout_constraintLeft_toRightOf="@+id/tutor_review_llImage"
+        app:layout_constraintTop_toTopOf="@+id/tutor_review_llImage" />
 
     <RatingBar
-            android:id="@+id/tutor_review_rating"
-            style="@style/Widget.AppCompat.RatingBar.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:rating="4"
-            app:layout_constraintLeft_toLeftOf="@+id/tutor_review_llImage"
-            app:layout_constraintTop_toBottomOf="@+id/tutor_review_llImage" />
+        android:id="@+id/tutor_review_rating"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:rating="4"
+        app:layout_constraintLeft_toLeftOf="@+id/tutor_review_llImage"
+        app:layout_constraintTop_toBottomOf="@+id/tutor_review_llImage" />
 
     <TextView
-            android:id="@+id/tutor_item_tvDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:textSize="@dimen/small_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/tutor_review_rating"
-            app:layout_constraintLeft_toRightOf="@+id/tutor_review_rating"
-            app:layout_constraintTop_toTopOf="@+id/tutor_review_rating" />
+        android:id="@+id/tutor_item_tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:textSize="@dimen/small_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/tutor_review_rating"
+        app:layout_constraintLeft_toRightOf="@+id/tutor_review_rating"
+        app:layout_constraintTop_toTopOf="@+id/tutor_review_rating" />
 
     <TextView
-            android:id="@+id/tutor_item_tvName1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/small_text_size"
-            android:visibility="gone"
-            app:layout_constraintLeft_toLeftOf="@+id/tutor_review_llImage"
-            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDate" />
+        android:id="@+id/tutor_item_tvName1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/small_text_size"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@+id/tutor_review_llImage"
+        app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDate" />
 
     <TextView
-            android:id="@+id/tutor_item_tvDesc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:gravity="center_vertical"
-            android:textColor="@color/light_gray"
-            android:textSize="@dimen/extra_small_size"
-            app:layout_constraintLeft_toLeftOf="@+id/tutor_review_llImage"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvName1" />
+        android:id="@+id/tutor_item_tvDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        android:textColor="@color/light_gray"
+        android:textSize="@dimen/extra_small_size"
+        app:layout_constraintLeft_toLeftOf="@+id/tutor_review_llImage"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvName1" />
 
     <View
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/regular_line"
-            android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/gray_line"
-            app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/tutor_item_tvDesc" />
 
 </android.support.constraint.ConstraintLayout>

@@ -50,7 +50,7 @@ class IntroActivity : AppCompatActivity() {
     var mGoogleSignInClient: GoogleSignInClient? = null
 
     private var myViewPagerAdapter: MyViewPagerAdapter? = null
-    private var dots: Array<TextView>? = null
+    //    private var dots: Array<TextView>? = null
     private var layouts: IntArray? = null
 
     /**

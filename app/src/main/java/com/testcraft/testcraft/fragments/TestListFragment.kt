@@ -1,4 +1,4 @@
-package com.testcraft.testcraft.activity
+package com.testcraft.testcraft.fragments
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -21,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TestListActivity : Fragment() {
+class TestListFragment : Fragment() {
 
     var bundle: Bundle? = null
 //    private var pname = ""

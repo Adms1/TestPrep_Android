@@ -16,7 +16,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/result_tvHeading"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/result_tvHeading"
-        app:srcCompat="@drawable/back_white_icon" />
+        app:srcCompat="@drawable/back_white_icon"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/result_tvHeading"
@@ -24,9 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingTop="@dimen/app_main_header_padding"
-        android:paddingBottom="@dimen/app_main_header_padding"
+        android:padding="@dimen/app_main_header_padding"
         android:textColor="@color/white"
         android:textSize="@dimen/app_main_header_size"
         app:layout_constraintRight_toRightOf="parent"

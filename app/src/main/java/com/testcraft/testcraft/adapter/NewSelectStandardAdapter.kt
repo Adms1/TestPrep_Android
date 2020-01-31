@@ -43,7 +43,7 @@ class NewSelectStandardAdapter(
 
 //        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].StandardName.substring(0, 1)))
 
-        if (dataList[p1].Icon != null) {
+        if (dataList[p1].Icon != "") {
             Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
         } else {
             if (dataList[p1].StandardName.contains(" ")) {
@@ -65,18 +65,18 @@ class NewSelectStandardAdapter(
             Utils.setStringValue(
                 context,
                 AppConstants.STANDARD_ID,
-                dataList[p1].StandardID.toString()
+                dataList[p1].StandardID
             )
             Utils.setStringValue(context, "standard_name", dataList[p1].StandardName)
 
             row_index = p1
             notifyDataSetChanged()
 
-            (context as PrefrenceActivity).callSubjectList(dataList[p1].StandardID.toString())
+            (context as PrefrenceActivity).callSubjectList(dataList[p1].StandardID)
             notifyDataSetChanged()
         }
 
-        if (dataList[p1].Icon == null) {
+        if (dataList[p1].Icon == "") {
             if (row_index == p1) {
                 p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
                 p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.close_cancel))

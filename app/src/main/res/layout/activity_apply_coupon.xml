@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/coupon_tvHeading"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/coupon_tvHeading"
-        app:srcCompat="@drawable/back_button" />
+        app:srcCompat="@drawable/back_button"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/coupon_tvHeading"
@@ -34,16 +35,19 @@
         android:id="@+id/coupon_etCoupon"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:background="@drawable/gray_ring_bg"
         android:gravity="center_vertical"
         android:hint="Enter code"
+        android:importantForAutofill="no"
         android:padding="@dimen/_5sdp"
-        android:visibility="gone"
         android:textColor="@color/header_gray"
         android:textSize="@dimen/normal_header_size"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/coupon_btnApply"
         app:layout_constraintTop_toBottomOf="@+id/coupon_tvHeading" />
@@ -52,6 +56,7 @@
         android:id="@+id/coupon_btnApply"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginRight="@dimen/_20sdp"
         android:background="@drawable/green_bg"
         android:gravity="center"

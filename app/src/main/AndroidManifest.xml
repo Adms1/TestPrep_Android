@@ -92,7 +92,7 @@
         <!--            android:screenOrientation="portrait" />-->
 
         <activity
-            android:name=".fragments.TutorReviewActivity"
+            android:name=".activity.TutorReviewActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 

@@ -32,7 +32,6 @@ import kotlinx.android.synthetic.main.activity_dashboard.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import kotlin.system.exitProcess
 
-
 @Suppress("DEPRECATION")
 class DashboardActivity : AppCompatActivity() {
 
@@ -489,7 +488,8 @@ class DashboardActivity : AppCompatActivity() {
                 }
                 5 -> {
 
-                    fragment = MyPaymentActivity()
+                    fragment =
+                        MyPaymentFragment()
 
                     llBottom!!.visibility = View.VISIBLE
 
@@ -504,7 +504,8 @@ class DashboardActivity : AppCompatActivity() {
                 }
                 6 -> {
 
-                    fragment = ChangePasswordFragment()
+                    fragment =
+                        ChangePasswordFragment()
 
                     llBottom!!.visibility = View.VISIBLE
 
@@ -524,7 +525,8 @@ class DashboardActivity : AppCompatActivity() {
                 }
                 7 -> {
 
-                    fragment = ChangePasswordFragment()
+                    fragment =
+                        ChangePasswordFragment()
 
                     llBottom!!.visibility = View.GONE
 
@@ -592,7 +594,8 @@ class DashboardActivity : AppCompatActivity() {
                     testname = bundle.getString("testname")!!
 //                    iscompetitive = bundle.getString("isCompetitive")!!
 
-                    fragment = TestReviewActivity()
+                    fragment =
+                        TestReviewFragment()
 
                     llBottom!!.visibility = View.VISIBLE
 
@@ -602,7 +605,7 @@ class DashboardActivity : AppCompatActivity() {
                     bundle5.putString("testname", testname)
 //                    bundle5.putString("isCompetitive", iscompetitive)
 
-                    (fragment as TestReviewActivity).arguments = bundle5
+                    (fragment as TestReviewFragment).arguments = bundle5
 
                     main_header!!.text = testname
                     btnBack!!.visibility = View.VISIBLE
@@ -646,7 +649,8 @@ class DashboardActivity : AppCompatActivity() {
 //                    pkgid = bundle!!.getString("pkgid")!!
 //                    pname = bundle.getString("pname")!!
 
-                    fragment = TestListActivity()
+                    fragment =
+                        TestListFragment()
 
                     llBottom!!.visibility = View.VISIBLE
 
@@ -696,7 +700,8 @@ class DashboardActivity : AppCompatActivity() {
                     minprice = bundle.getString("minprice")!!
                     search_name = bundle.getString("search_name")!!
 
-                    fragment = TutorDetailActivity()
+                    fragment =
+                        TutorDetailFragment()
 
                     val bundle7 = Bundle()
                     bundle7.putString("type", ptype)
@@ -715,7 +720,7 @@ class DashboardActivity : AppCompatActivity() {
                     bundle7.putString("minprice", minprice)
                     bundle7.putString("search_name", search_name)
 
-                    (fragment as TutorDetailActivity).arguments = bundle7
+                    (fragment as TutorDetailFragment).arguments = bundle7
 
                     main_header!!.text = pname
                     btnBack!!.visibility = View.VISIBLE
@@ -755,7 +760,8 @@ class DashboardActivity : AppCompatActivity() {
                     pkgid = bundle!!.getString("pkgid")!!
                     pname = bundle.getString("come_from")!!
 
-                    fragment = PackageDetailActivity()
+                    fragment =
+                        PackageDetailFragment()
 
                     llBottom!!.visibility = View.VISIBLE
 
@@ -763,7 +769,7 @@ class DashboardActivity : AppCompatActivity() {
                     bundle10.putString("pkgid", pkgid)
                     bundle10.putString("come_from", pname)
 
-                    (fragment as PackageDetailActivity).arguments = bundle10
+                    (fragment as PackageDetailFragment).arguments = bundle10
 
                     main_header!!.text = "Package Details"
                     btnBack!!.visibility = View.VISIBLE

@@ -11,7 +11,6 @@ import android.telephony.TelephonyManager
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.Utils
 
-
 class Connectivity : BroadcastReceiver() {
 
     companion object {
@@ -224,7 +223,6 @@ class Connectivity : BroadcastReceiver() {
             }
         }
     }
-
 
     override fun onReceive(context: Context?, intent: Intent?) {
 

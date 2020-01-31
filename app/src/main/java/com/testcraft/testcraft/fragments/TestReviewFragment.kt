@@ -1,4 +1,4 @@
-package com.testcraft.testcraft.activity
+package com.testcraft.testcraft.fragments
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
+import com.testcraft.testcraft.activity.ViewInvoiceActivity
 import com.testcraft.testcraft.adapter.QuestionAttemptAdapter
 import com.testcraft.testcraft.models.AttemptModel
 import com.testcraft.testcraft.retrofit.WebClient
@@ -27,7 +28,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 @SuppressLint("SetTextI18n")
-class TestReviewActivity : Fragment() {
+class TestReviewFragment : Fragment() {
 
     var testid = ""
     var studenttestid = ""
@@ -73,7 +74,7 @@ class TestReviewActivity : Fragment() {
 //        studenttestid = intent.getStringExtra("studenttestid")
 
 //        review_ivBack.setOnClickListener {
-            //            AppConstants.isFirst = 0
+        //            AppConstants.isFirst = 0
 //            val intent = Intent(activity!!, DashboardActivity::class.java)
 //            startActivity(intent)
 //            finish()

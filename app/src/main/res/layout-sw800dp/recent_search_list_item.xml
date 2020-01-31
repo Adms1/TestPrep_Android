@@ -1,41 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/filter_item_mainll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filter_item_mainll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <ImageView
-            android:id="@+id/recent_item_ivSearch"
-            android:layout_width="@dimen/_11sdp"
-            android:layout_height="@dimen/_11sdp"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:src="@drawable/search"
-            app:layout_constraintBottom_toBottomOf="@+id/recent_item_ivName"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/recent_item_ivName" />
+        android:id="@+id/recent_item_ivSearch"
+        android:layout_width="@dimen/_11sdp"
+        android:layout_height="@dimen/_11sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:src="@drawable/search"
+        app:layout_constraintBottom_toBottomOf="@+id/recent_item_ivName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recent_item_ivName"
+        tools:ignore="ContentDescription" />
 
     <TextView
-            android:id="@+id/recent_item_ivName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:padding="@dimen/_5sdp"
-            android:text="subject"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintLeft_toRightOf="@+id/recent_item_ivSearch"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/recent_item_ivName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="subject"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintLeft_toRightOf="@+id/recent_item_ivSearch"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_10sdp"
         android:background="@color/light_white"
-            app:layout_constraintTop_toBottomOf="@+id/recent_item_ivName" />
+        app:layout_constraintTop_toBottomOf="@+id/recent_item_ivName" />
 
 </android.support.constraint.ConstraintLayout>
 

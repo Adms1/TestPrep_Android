@@ -31,7 +31,8 @@
         android:src="@drawable/back_button"
         app:layout_constraintBottom_toBottomOf="@+id/filter_header"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/filter_header" />
+        app:layout_constraintTop_toTopOf="@+id/filter_header"
+        tools:ignore="ContentDescription" />
 
     <View
         android:id="@+id/filter_line"

@@ -45,12 +45,14 @@
             android:id="@+id/signup_ivf"
             android:layout_width="@dimen/login_signup_icn_size"
             android:layout_height="@dimen/login_signup_icn_size"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="@+id/signup_llFname"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/signup_llFname"
-            app:srcCompat="@drawable/person_new" />
+            app:srcCompat="@drawable/person_new"
+            tools:ignore="ContentDescription" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_llFname"
@@ -66,7 +68,9 @@
                 android:id="@+id/signup_etFname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:hint="@string/full_name"
                 android:imeOptions="actionNext"
@@ -82,12 +86,14 @@
             android:id="@+id/signup_ivl"
             android:layout_width="@dimen/login_signup_icn_size"
             android:layout_height="@dimen/login_signup_icn_size"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="@+id/signup_llLname"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/signup_llLname"
-            app:srcCompat="@drawable/person_new" />
+            app:srcCompat="@drawable/person_new"
+            tools:ignore="ContentDescription" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_llLname"
@@ -103,8 +109,10 @@
                 android:id="@+id/signup_etLname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:hint="@string/last_name"
                 android:imeOptions="actionNext"
@@ -121,12 +129,14 @@
             android:id="@+id/signup_ive"
             android:layout_width="@dimen/login_signup_icn_size"
             android:layout_height="@dimen/login_signup_icn_size"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="@+id/signup_llEmail"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/signup_llEmail"
-            app:srcCompat="@drawable/email" />
+            app:srcCompat="@drawable/email"
+            tools:ignore="ContentDescription" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_llEmail"
@@ -142,7 +152,9 @@
                 android:id="@+id/signup_etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:hint="@string/enter_email"
                 android:imeOptions="actionNext"
@@ -159,12 +171,14 @@
             android:id="@+id/signup_ivp"
             android:layout_width="@dimen/login_signup_icn_size"
             android:layout_height="@dimen/login_signup_icn_size"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="@+id/signup_llPassword"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/signup_llPassword"
-            app:srcCompat="@drawable/password_new" />
+            app:srcCompat="@drawable/password_new"
+            tools:ignore="ContentDescription" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_llPassword"
@@ -180,7 +194,9 @@
                 android:id="@+id/signup_etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:hint="@string/password"
                 android:imeOptions="actionNext"
@@ -197,12 +213,14 @@
             android:id="@+id/signup_ivm"
             android:layout_width="@dimen/login_signup_icn_size"
             android:layout_height="@dimen/login_signup_icn_size"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="@+id/signup_llMobile"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/signup_llMobile"
-            app:srcCompat="@drawable/phone" />
+            app:srcCompat="@drawable/phone"
+            tools:ignore="ContentDescription" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/signup_llMobile"
@@ -220,7 +238,9 @@
                 android:id="@+id/signup_etMobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:hint="@string/mobile"
                 android:imeOptions="actionDone"

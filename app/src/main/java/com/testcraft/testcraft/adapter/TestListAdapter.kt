@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
 
+@SuppressLint("SetTextI18n")
 class TestListAdapter(
     val context: Context,
     var dataList: ArrayList<TestListModel.TestData>
@@ -62,57 +64,61 @@ class TestListAdapter(
 
             CommonWebCalls.callToken(context, "1", "", ActionIdData.C1901, ActionIdData.T1901)
 
-            if (dataList[p1].StatusName == "Analyse") {
+            when (dataList[p1].StatusName) {
+                "Analyse" -> {
 
-                AppConstants.isFirst = 10
-                val bundle = Bundle()
-                bundle.putString("testid", dataList[p1].TestID.toString())
-                bundle.putString("studenttestid", dataList[p1].StudentTestID.toString())
-                bundle.putString("testname", dataList[p1].TestName.toString())
-                bundle.putString("isCompetitive", dataList[p1].IsCompetetive)
+                    AppConstants.isFirst = 10
+                    val bundle = Bundle()
+                    bundle.putString("testid", dataList[p1].TestID.toString())
+                    bundle.putString("studenttestid", dataList[p1].StudentTestID.toString())
+                    bundle.putString("testname", dataList[p1].TestName)
+                    bundle.putString("isCompetitive", dataList[p1].IsCompetetive)
 
-//                bundle.putString("pkgid", pkgid)
-//                bundle.putString("pname", name)
-                setFragments(bundle)
+                    //                bundle.putString("pkgid", pkgid)
+                    //                bundle.putString("pname", name)
+                    setFragments(bundle)
 
-//                val intent = Intent(context, TestReviewActivity::class.java)
-//                intent.putExtra("testid", dataList[p1].TestID.toString())
-//                intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
-//                context.startActivity(intent)
-            } else if (dataList[p1].StatusName == "Resume") {
-                val intent = Intent(context, NewTabQuestionActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-                intent.putExtra("testid", dataList[p1].TestID.toString())
-                intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
-                intent.putExtra("testname", dataList[p1].TestName)
-                intent.putExtra("testtime", dataList[p1].RemainTime)
-                intent.putExtra("totalque", dataList[p1].TotalQuestions)
-                intent.putExtra("subjectname", dataList[p1].SubjectName)
-                intent.putExtra("coursename", dataList[p1].CourseName)
-                intent.putExtra("totalmarks", dataList[p1].TestMarks)
-                intent.putExtra("tutorname", dataList[p1].TutorName)
-                intent.putExtra("totalhint", dataList[p1].NumberOfHint)
-                intent.putExtra("totalhintused", dataList[p1].NumberOfHintUsed)
-                intent.putExtra("que_instruction", dataList[p1].TestInstruction)
-                context.startActivity(intent)
-                (context as DashboardActivity).finish()
+                    //                val intent = Intent(context, TestReviewActivity::class.java)
+                    //                intent.putExtra("testid", dataList[p1].TestID.toString())
+                    //                intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
+                    //                context.startActivity(intent)
+                }
+                "Resume" -> {
+                    val intent = Intent(context, NewTabQuestionActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    intent.putExtra("testid", dataList[p1].TestID.toString())
+                    intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
+                    intent.putExtra("testname", dataList[p1].TestName)
+                    intent.putExtra("testtime", dataList[p1].RemainTime)
+                    intent.putExtra("totalque", dataList[p1].TotalQuestions)
+                    intent.putExtra("subjectname", dataList[p1].SubjectName)
+                    intent.putExtra("coursename", dataList[p1].CourseName)
+                    intent.putExtra("totalmarks", dataList[p1].TestMarks)
+                    intent.putExtra("tutorname", dataList[p1].TutorName)
+                    intent.putExtra("totalhint", dataList[p1].NumberOfHint)
+                    intent.putExtra("totalhintused", dataList[p1].NumberOfHintUsed)
+                    intent.putExtra("que_instruction", dataList[p1].TestInstruction)
+                    context.startActivity(intent)
+                    (context as DashboardActivity).finish()
 
-            } else if (dataList[p1].StatusName == "Start Test") {
-                val intent = Intent(context, QuestionInstructionActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-                intent.putExtra("testid", dataList[p1].TestID.toString())
-                intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
-                intent.putExtra("testname", dataList[p1].TestName)
-                intent.putExtra("testtime", dataList[p1].RemainTime)
-                intent.putExtra("totalque", dataList[p1].TotalQuestions)
-                intent.putExtra("subjectname", dataList[p1].SubjectName)
-                intent.putExtra("coursename", dataList[p1].CourseName)
-                intent.putExtra("totalmarks", dataList[p1].TestMarks)
-                intent.putExtra("tutorname", dataList[p1].TutorName)
-                intent.putExtra("totalhint", dataList[p1].NumberOfHint)
-                intent.putExtra("totalhintused", dataList[p1].NumberOfHintUsed)
-                intent.putExtra("que_instruction", dataList[p1].TestInstruction)
-                context.startActivity(intent)
+                }
+                "Start Test" -> {
+                    val intent = Intent(context, QuestionInstructionActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+                    intent.putExtra("testid", dataList[p1].TestID.toString())
+                    intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
+                    intent.putExtra("testname", dataList[p1].TestName)
+                    intent.putExtra("testtime", dataList[p1].RemainTime)
+                    intent.putExtra("totalque", dataList[p1].TotalQuestions)
+                    intent.putExtra("subjectname", dataList[p1].SubjectName)
+                    intent.putExtra("coursename", dataList[p1].CourseName)
+                    intent.putExtra("totalmarks", dataList[p1].TestMarks)
+                    intent.putExtra("tutorname", dataList[p1].TutorName)
+                    intent.putExtra("totalhint", dataList[p1].NumberOfHint)
+                    intent.putExtra("totalhintused", dataList[p1].NumberOfHintUsed)
+                    intent.putExtra("que_instruction", dataList[p1].TestInstruction)
+                    context.startActivity(intent)
+                }
             }
         }
     }

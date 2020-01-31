@@ -24,11 +24,11 @@ import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.ImageViewAdapter1.Companion.SolutionPageNumber
+import com.testcraft.testcraft.adapter.SolutionAdapter
 import com.testcraft.testcraft.adapter.SoutionSideMenuAdapter
 import com.testcraft.testcraft.interfaces.FilterTypeSelectionInteface
 import com.testcraft.testcraft.models.AnswerModel
 import com.testcraft.testcraft.models.QuestionTypeModel
-import com.testcraft.testcraft.old.adapter.SolutionAdapter
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.sectionmodule.NewQuestionResponse

@@ -13,6 +13,7 @@
         android:id="@+id/dashboard_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_5sdp"
         android:ellipsize="marquee"
@@ -41,7 +42,8 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/dashboard_header"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dashboard_header" />
+        app:layout_constraintTop_toTopOf="@+id/dashboard_header"
+        tools:ignore="ContentDescription" />
 
     <!--    <ImageView-->
     <!--            android:layout_width="@dimen/_30sdp"-->
@@ -63,12 +65,14 @@
         android:src="@drawable/sort_down"
         app:layout_constraintBottom_toBottomOf="@+id/dashboard_header"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dashboard_header" />
+        app:layout_constraintTop_toTopOf="@+id/dashboard_header"
+        tools:ignore="ContentDescription" />
 
     <RelativeLayout
         android:id="@+id/dashboard_rlFilter"
         android:layout_width="@dimen/_33sdp"
         android:layout_height="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_3sdp"
         android:layout_marginRight="@dimen/_3sdp"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="@+id/dashboard_header"
@@ -80,12 +84,14 @@
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:padding="@dimen/_7sdp"
-            android:src="@drawable/filter_icon" />
+            android:src="@drawable/filter_icon"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/dashboard_tvFilter"
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/_3sdp"
             android:background="@drawable/red_round"
@@ -147,7 +153,8 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/home" />
+                android:background="@drawable/home"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/dash_tvHome"
@@ -175,7 +182,8 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/list" />
+                android:background="@drawable/list"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/dash_tvMarket"
@@ -203,7 +211,8 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/search" />
+                android:background="@drawable/search"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/dash_tvSearch"
@@ -231,7 +240,8 @@
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/menu_one" />
+                android:background="@drawable/menu_one"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/dash_tvUser"
@@ -250,6 +260,7 @@
 </android.support.constraint.ConstraintLayout>
 
     <!--<android.support.design.widget.CoordinatorLayout-->
+
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="match_parent"-->
     <!--tools:context=".old.Main2Activity">-->

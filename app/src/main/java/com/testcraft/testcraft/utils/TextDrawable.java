@@ -15,7 +15,6 @@ import android.graphics.drawable.shapes.RoundRectShape;
 
 public class TextDrawable extends ShapeDrawable {
 
-    private static final float SHADE_FACTOR = 0.9f;
     private final Paint textPaint;
     private final Paint borderPaint;
     private final String text;

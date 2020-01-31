@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
@@ -17,6 +18,7 @@ import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
 
+@SuppressLint("SetTextI18n")
 class TutorPackageAdapter(
     val context: Context,
     val dataList: ArrayList<PackageData.PackageDataList>
@@ -71,14 +73,13 @@ class TutorPackageAdapter(
 //            context.startActivity(intent)
 
         }
-
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var image: ImageView = itemView.findViewById(R.id.item_tutor_package_image)
         var title: TextView = itemView.findViewById(R.id.item_tutor_package_name)
-        var stitle: TextView = itemView.findViewById(R.id.item_tutor_package_name_short)
+        //        var stitle: TextView = itemView.findViewById(R.id.item_tutor_package_name_short)
         var price: TextView = itemView.findViewById(R.id.item_tutor_package_price)
         var next: ImageView = itemView.findViewById(R.id.item_tutor_package_btnNext)
         var sub: TextView = itemView.findViewById(R.id.item_tutor_package_subject)

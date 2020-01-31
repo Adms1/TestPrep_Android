@@ -1,6 +1,5 @@
 package com.testcraft.testcraft.fragments
 
-
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.TextUtils
@@ -23,9 +22,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class ContactUsFragment : Fragment() {
 
     override fun onCreateView(

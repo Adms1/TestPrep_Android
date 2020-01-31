@@ -13,6 +13,7 @@
         android:id="@+id/text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_toStartOf="@+id/imgSelect"
         android:layout_toLeftOf="@+id/imgSelect"
@@ -26,11 +27,14 @@
         android:id="@+id/imgSelect"
         android:layout_width="@dimen/login_signup_icn_size"
         android:layout_height="@dimen/login_signup_icn_size"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:layout_marginRight="@dimen/_5sdp"
         android:background="@drawable/gray_ring_bg"
         android:padding="@dimen/_3sdp"
+        tools:ignore="ContentDescription"
         tools:src="@drawable/right_blue" />
 
     <View

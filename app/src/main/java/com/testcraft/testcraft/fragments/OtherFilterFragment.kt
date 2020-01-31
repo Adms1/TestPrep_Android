@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -24,15 +25,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
+@SuppressLint("SetTextI18n")
 class OtherFilterFragment : Fragment(), filterInterface {
 
     var filter_type = ""
@@ -56,9 +49,9 @@ class OtherFilterFragment : Fragment(), filterInterface {
         savedInstanceState: Bundle?
     ): View? {
 
-        filter_type = arguments!!.getString("type")
-        coursetypeid = arguments!!.getString("coursetype")
-        filtertypeid = arguments!!.getString("filtertypeid")
+        filter_type = arguments!!.getString("type")!!
+        coursetypeid = arguments!!.getString("coursetype")!!
+        filtertypeid = arguments!!.getString("filtertypeid")!!
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_other_filter, container, false)
     }
@@ -81,28 +74,28 @@ class OtherFilterFragment : Fragment(), filterInterface {
         filterData_rvList.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
-        if (AppConstants.FILTER_BOARD_ID == "0") {
+//        if (AppConstants.FILTER_BOARD_ID == "0") {
 //           examids = Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
 //            AppConstants.FILTER_BOARD_ID = Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "")!!
-        } else {
+//        } else {
 //           examids = AppConstants.FILTER_BOARD_ID
-        }
+//        }
 
-        if (AppConstants.FILTER_STANDARD_ID == "0") {
+//        if (AppConstants.FILTER_STANDARD_ID == "0") {
 //            stdids = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
 //            AppConstants.FILTER_STANDARD_ID = Utils.getStringValue(activity!!, AppConstants.STANDARD_ID, "")!!
-        }
+//        }
 //        else if (AppConstants.FILTER_STANDARD_ID == ""){
 //            stdids = ""
 //        }else{
 //            stdids = AppConstants.FILTER_STANDARD_ID
 //        }
 
-        if (AppConstants.FILTER_SUBJECT_ID == "0") {
-            subids = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
-//            AppConstants.FILTER_SUBJECT_ID = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
+        subids = if (AppConstants.FILTER_SUBJECT_ID == "0") {
+            Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
+            //            AppConstants.FILTER_SUBJECT_ID = Utils.getStringValue(activity!!, AppConstants.SUBJECT_ID, "")!!
         } else {
-            subids = AppConstants.FILTER_SUBJECT_ID
+            AppConstants.FILTER_SUBJECT_ID
         }
 
         if (AppConstants.FILTER_TUTOR_ID == "0") {
@@ -450,8 +443,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
                         val strArray = AppConstants.FILTER_SUBJECT_ID.replace(" ", "").split(",")
 
                         for (i in 0 until filterArray.size) {
-                            for (j in 0 until strArray.size) {
-                                if (strArray[j] == filterArray[i].SubjectID) {
+                            for (element in strArray) {
+                                if (element == filterArray[i].SubjectID) {
                                     filterArray[i].isSelected = true
                                 }
                             }
@@ -610,13 +603,12 @@ class OtherFilterFragment : Fragment(), filterInterface {
                         val strArray = AppConstants.FILTER_TUTOR_ID.replace(" ", "").split(",")
 
                         for (i in 0 until filterArray.size) {
-                            for (j in 0 until strArray.size) {
-                                if (strArray[j] == filterArray[i].TutorID) {
+                            for (element in strArray) {
+                                if (element == filterArray[i].TutorID) {
                                     filterArray[i].isSelected = true
                                 }
                             }
                         }
-
 
                         recyclerviewAdapter =
                             FilterAdapter(

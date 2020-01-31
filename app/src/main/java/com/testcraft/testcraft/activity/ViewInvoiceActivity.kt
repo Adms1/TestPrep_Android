@@ -16,7 +16,6 @@ import com.testcraft.testcraft.utils.DialogUtils
 import kotlinx.android.synthetic.main.activity_view_invoice.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
-
 class ViewInvoiceActivity : AppCompatActivity() {
 
     var url = ""

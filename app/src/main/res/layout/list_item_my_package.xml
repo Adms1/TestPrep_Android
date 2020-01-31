@@ -2,6 +2,7 @@
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_my_package_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -35,11 +36,13 @@
             android:id="@+id/main_package_select"
             android:layout_width="@dimen/_17sdp"
             android:layout_height="@dimen/_17sdp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:src="@drawable/right_white_bg"
             android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="ContentDescription" />
 
     </RelativeLayout>
 
@@ -47,6 +50,7 @@
         android:id="@+id/item_my_package_name"
         android:layout_width="0dp"
         android:layout_height="@dimen/_30sdp"
+        android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_10sdp"
         android:ellipsize="end"
         android:maxLines="2"
@@ -120,7 +124,8 @@
         app:layout_constraintBottom_toTopOf="@+id/item_my_package_line"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/down_arrow" />
+        app:srcCompat="@drawable/down_arrow"
+        tools:ignore="ContentDescription" />
 
     <View
         android:id="@+id/item_my_package_line"

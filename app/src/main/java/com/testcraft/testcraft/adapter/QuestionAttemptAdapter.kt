@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.TextView
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.models.AttemptModel
 
+@SuppressLint("SetTextI18n")
 class QuestionAttemptAdapter(
     val context: Context,
     val come: String,

@@ -80,10 +80,9 @@ class SplashActivity : AppCompatActivity() {
 
     }
 
-    class ForceUpdateAsync(private val currentVersion: String, context: Context) :
+    class ForceUpdateAsync(private val currentVersion: String, private val context: Context) :
         AsyncTask<String?, String?, JSONObject>() {
         private var latestVersion: String? = null
-        private val context: Context = context
 
         override fun onPostExecute(jsonObject: JSONObject) {
 

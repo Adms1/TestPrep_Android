@@ -21,10 +21,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.text.DecimalFormat
 
-/**
- * A simple [Fragment] subclass.
- *
- */
 class MyPackagesFragment : Fragment() {
 
     private var subid = 0
@@ -126,7 +122,7 @@ class MyPackagesFragment : Fragment() {
 
         val call = apiService.getMyPackages(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
-            subid.toString(), stdid.toString(), iscompetitive
+            subid.toString(), stdid, iscompetitive
         )
 
         call.enqueue(object : Callback<MyPackageModel> {
@@ -140,7 +136,7 @@ class MyPackagesFragment : Fragment() {
 
                     if (response.body()!!.Status == "true") {
 
-                        var summaryArr = response.body()!!.data[0].TestSummary
+                        val summaryArr = response.body()!!.data[0].TestSummary
 
                         var totalcount = 0
                         var pendingcount = 0
@@ -159,12 +155,9 @@ class MyPackagesFragment : Fragment() {
 
                         pendingcount = totalcount - completecount
 
-                        val amount = java.lang.Double.parseDouble(totalcount.toString())
-                        val res = amount / 100.0f * 10
-
                         var final = 0F
 
-                        var per: Float =
+                        val per: Float =
                             DecimalFormat("##.##").format((((pendingcount.toFloat()) / totalcount.toFloat()) * 100))
                                 .toFloat()
 
@@ -183,7 +176,7 @@ class MyPackagesFragment : Fragment() {
                         }
 
 //                        var per = (pendingcount.toFloat()/totalcount.toFloat())*100
-                        Log.d("percentage", "" + final.toFloat())
+                        Log.d("percentage", "" + final)
 
                         my_packages_ivProgress.setProgress(final, true)
 //                        my_packages_ivProgress.maxValue = totalcount.toFloat()

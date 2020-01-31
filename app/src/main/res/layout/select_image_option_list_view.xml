@@ -1,61 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/option_lll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/option_lll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
     <!--<RadioButton-->
-            <!--android:id="@+id/option_one"-->
+    <!--android:id="@+id/option_one"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:layout_centerInParent="true"/>-->
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/option_abcd"
-            android:layout_marginLeft="@dimen/_5sdp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textSize="@dimen/normal_text_size"
-            app:layout_constraintTop_toTopOf="@+id/option_one1"
-            app:layout_constraintBottom_toBottomOf="@+id/option_one1"
-            android:gravity="center"
-            android:maxLines="1"
-            android:textColor="@color/black"/>
+        android:id="@+id/option_abcd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="@dimen/normal_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/option_one1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/option_one1" />
 
     <ImageView
-            android:id="@+id/option_one1"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="@dimen/_40sdp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_30sdp"/>
+        android:id="@+id/option_one1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_40sdp"
+        android:layout_marginLeft="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <RadioGroup
-            android:id="@+id/option_one"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginRight="@dimen/_15sdp"
-            app:layout_constraintTop_toTopOf="@+id/option_one1"
-            app:layout_constraintBottom_toBottomOf="@+id/option_one1"
-            android:layout_centerInParent="true"/>
+        android:id="@+id/option_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/option_one1"
+        app:layout_constraintTop_toTopOf="@+id/option_one1" />
 
     <LinearLayout
-            android:id="@+id/option_llCheckbox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="@+id/option_one1"
-            app:layout_constraintBottom_toBottomOf="@+id/option_one1"
-            android:layout_marginRight="@dimen/_15sdp"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_centerInParent="true"/>
+        android:id="@+id/option_llCheckbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/option_one1"
+        app:layout_constraintTop_toTopOf="@+id/option_one1" />
 
 </android.support.constraint.ConstraintLayout>

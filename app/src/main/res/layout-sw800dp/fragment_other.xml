@@ -1,91 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/other_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/other_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <RelativeLayout
-            android:id="@+id/other_llImage"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/other_tvUserEmail"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/other_tvUserName">
+        android:id="@+id/other_llImage"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/other_tvUserEmail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/other_tvUserName">
 
         <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/other_ivLogo"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
-                android:contentDescription="@string/logo"
-                android:src="@drawable/blue_round" />
+            android:id="@+id/other_ivLogo"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:contentDescription="@string/logo"
+            android:src="@drawable/blue_round" />
 
         <TextView
-                android:id="@+id/other_tvLogo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="A"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_18sdp" />
+            android:id="@+id/other_tvLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sdp" />
 
     </RelativeLayout>
 
     <TextView
-            android:id="@+id/other_tvUserName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintLeft_toRightOf="@+id/other_llImage"
-            app:layout_constraintRight_toLeftOf="@+id/other_ivEdit"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/other_tvUserName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintLeft_toRightOf="@+id/other_llImage"
+        app:layout_constraintRight_toLeftOf="@+id/other_ivEdit"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:id="@+id/other_tvUserEmail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:textColor="@color/gray"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintLeft_toRightOf="@+id/other_llImage"
-            app:layout_constraintRight_toLeftOf="@+id/other_ivEdit"
-            app:layout_constraintTop_toBottomOf="@+id/other_tvUserName" />
+        android:id="@+id/other_tvUserEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintLeft_toRightOf="@+id/other_llImage"
+        app:layout_constraintRight_toLeftOf="@+id/other_ivEdit"
+        app:layout_constraintTop_toBottomOf="@+id/other_tvUserName" />
 
     <ImageView
-            android:id="@+id/other_ivEdit"
-            android:layout_width="@dimen/_19sdp"
-            android:layout_height="@dimen/_19sdp"
-            android:layout_marginRight="@dimen/_15sdp"
-            android:contentDescription="@string/logo"
-            android:padding="@dimen/_1sdp"
-            android:src="@drawable/pencil_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/other_tvUserEmail"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/other_tvUserEmail" />
+        android:id="@+id/other_ivEdit"
+        android:layout_width="@dimen/_19sdp"
+        android:layout_height="@dimen/_19sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:contentDescription="@string/logo"
+        android:padding="@dimen/_1sdp"
+        android:src="@drawable/pencil_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/other_tvUserEmail"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/other_tvUserEmail" />
 
     <View
-            android:id="@+id/other_line"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:background="@color/default_shimmer_color"
-            android:text="subject"
-            app:layout_constraintTop_toBottomOf="@+id/other_tvUserEmail" />
+        android:id="@+id/other_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:background="@color/default_shimmer_color"
+        app:layout_constraintTop_toBottomOf="@+id/other_tvUserEmail" />
 
     <android.support.v7.widget.RecyclerView
-            android:id="@+id/other_lvList"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/other_line" />
+        android:id="@+id/other_lvList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/other_line" />
 
 </android.support.constraint.ConstraintLayout>

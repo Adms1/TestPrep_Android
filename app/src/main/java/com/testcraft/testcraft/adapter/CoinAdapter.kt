@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.interfaces.CoinInteface
 import com.testcraft.testcraft.models.CoinModel
 
+@SuppressLint("SetTextI18n")
 class CoinAdapter(
     val context: Context,
     val dataList: ArrayList<CoinModel>,
@@ -38,7 +40,7 @@ class CoinAdapter(
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
         p0.coin.text = dataList[p1].coin
-        p0.rupees.text = "Rs." + dataList[p1].rupees
+        p0.rupees.text = """Rs.${dataList[p1].rupees}"""
 
         p0.coin.setOnClickListener {
 

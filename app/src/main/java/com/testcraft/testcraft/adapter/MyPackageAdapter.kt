@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
@@ -17,6 +18,7 @@ import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
 
+@SuppressLint("SetTextI18n")
 class MyPackageAdapter(
     val context: Context,
     val dataList: ArrayList<PackageData.PackageDataList>, val come_from: String

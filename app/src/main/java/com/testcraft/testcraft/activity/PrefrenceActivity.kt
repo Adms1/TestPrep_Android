@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -23,12 +24,12 @@ import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_prefrence.*
-import kotlinx.android.synthetic.main.fragment_choose_coarse.coarse_rvCoarseList
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
+@SuppressLint("SetTextI18n")
 class PrefrenceActivity : AppCompatActivity() {
 
     var chooseCoarseAdapter: NewSelectSubjectAdapter? = null
@@ -313,7 +314,7 @@ class PrefrenceActivity : AppCompatActivity() {
         DialogUtils.showDialog(this@PrefrenceActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        var call = apiService.getBoardStandardList(courseId.toString())
+        val call = apiService.getBoardStandardList(courseId.toString())
 
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
@@ -421,7 +422,7 @@ class PrefrenceActivity : AppCompatActivity() {
 
                 Utils.setStringValue(this@PrefrenceActivity, AppConstants.SUBJECT_ID, subIds)
 
-                if (subIds != "" && subIds != null) {
+                if (subIds != "") {
                     val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
                     mIntent.putExtra("subject_id", subIds)
                     startActivity(mIntent)
@@ -465,5 +466,4 @@ class PrefrenceActivity : AppCompatActivity() {
             }
         }
     }
-
 }

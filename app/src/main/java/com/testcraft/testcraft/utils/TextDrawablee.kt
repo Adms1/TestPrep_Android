@@ -5,6 +5,7 @@ import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.graphics.drawable.shapes.RectShape
 import android.graphics.drawable.shapes.RoundRectShape
+import kotlin.math.min
 
 class TextDrawablee private constructor(builder: Builder) : ShapeDrawable(builder.shape) {
 
@@ -57,9 +58,9 @@ class TextDrawablee private constructor(builder: Builder) : ShapeDrawable(builde
 
     private fun getDarkerShade(color: Int): Int {
         return Color.rgb(
-            (SHADE_FACTOR * Color.red(color)) as Int,
-            (SHADE_FACTOR * Color.green(color)) as Int,
-            (SHADE_FACTOR * Color.blue(color)) as Int
+            (SHADE_FACTOR * Color.red(color)).toInt(),
+            (SHADE_FACTOR * Color.green(color)).toInt(),
+            (SHADE_FACTOR * Color.blue(color)).toInt()
         )
     }
 
@@ -79,10 +80,10 @@ class TextDrawablee private constructor(builder: Builder) : ShapeDrawable(builde
         // draw text
         val width = if (this.width < 0) r.width() else this.width
         val height = if (this.height < 0) r.height() else this.height
-        val fontSize = if (this.fontSize < 0) Math.min(width, height) / 2 else this.fontSize
+        val fontSize = if (this.fontSize < 0) min(width, height) / 2 else this.fontSize
         textPaint.textSize = fontSize.toFloat()
         canvas.drawText(
-            text,
+            text!!,
             (width / 2).toFloat(),
             height / 2 - (textPaint.descent() + textPaint.ascent()) / 2,
             textPaint
@@ -96,12 +97,16 @@ class TextDrawablee private constructor(builder: Builder) : ShapeDrawable(builde
         val rect = RectF(bounds)
         rect.inset((borderThickness / 2).toFloat(), (borderThickness / 2).toFloat())
 
-        if (shape is OvalShape) {
-            canvas.drawOval(rect, borderPaint)
-        } else if (shape is RoundRectShape) {
-            canvas.drawRoundRect(rect, radius, radius, borderPaint)
-        } else {
-            canvas.drawRect(rect, borderPaint)
+        when (shape) {
+            is OvalShape -> {
+                canvas.drawOval(rect, borderPaint)
+            }
+            is RoundRectShape -> {
+                canvas.drawRoundRect(rect, radius, radius, borderPaint)
+            }
+            else -> {
+                canvas.drawRect(rect, borderPaint)
+            }
         }
     }
 
@@ -304,7 +309,7 @@ class TextDrawablee private constructor(builder: Builder) : ShapeDrawable(builde
     }
 
     companion object {
-        private val SHADE_FACTOR = 0.9f
+        private const val SHADE_FACTOR = 0.9f
 
         fun builder(): IShapeBuilder {
             return Builder()

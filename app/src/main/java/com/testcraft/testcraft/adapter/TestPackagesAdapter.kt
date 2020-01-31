@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
@@ -23,6 +24,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@SuppressLint("SetTextI18n")
 class TestPackagesAdapter(
     val context: Context,
     val dataList: ArrayList<PackageData.PackageDataList>
@@ -46,13 +48,13 @@ class TestPackagesAdapter(
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
-        if (dataList != null && dataList.size > 0) {
+        if (dataList.size > 0) {
             p0.std.text = dataList[p1].TestPackageName
             p0.sub.text = dataList[p1].SubjectName
             p0.price.text = dataList[p1].TestPackageSalePrice
             p0.createdby.text = "by " + dataList[p1].TutorName
 
-            if (dataList[p1].Icon != null) {
+            if (dataList[p1].Icon != "") {
                 Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
             }
 
@@ -151,7 +153,7 @@ class TestPackagesAdapter(
 
                     DialogUtils.dismissDialog()
 
-                    if (response.body()!!["Status"].toString() == "true") {
+//                    if (response.body()!!["Status"].toString() == "true") {
 
 //                        Toast.makeText(
 //                            context,
@@ -159,14 +161,14 @@ class TestPackagesAdapter(
 //                            Toast.LENGTH_SHORT
 //                        ).show()
 //                        onBackPressed()
-                    } else {
+//                    } else {
 
 //                        Toast.makeText(
 //                            context,
 //                            response.body()!!["Msg"].toString().replace("\"", ""),
 //                            Toast.LENGTH_SHORT
 //                        ).show()
-                    }
+//                    }
                 }
             }
 

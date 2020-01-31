@@ -1,4 +1,4 @@
-package com.testcraft.testcraft.activity
+package com.testcraft.testcraft.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -20,7 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MyPaymentActivity : Fragment() {
+class MyPaymentFragment : Fragment() {
 
 //    private var packageSize: ArrayList<Int> = ArrayList()
 

@@ -1,5 +1,6 @@
-package com.testcraft.testcraft.fragments
+package com.testcraft.testcraft.activity
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -18,7 +19,6 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
-import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.adapter.TutorReviewAdapter
 import com.testcraft.testcraft.models.TutorModel
 import com.testcraft.testcraft.retrofit.WebClient
@@ -30,6 +30,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
+@SuppressLint("SetTextI18n")
 class TutorReviewActivity : AppCompatActivity() {
 
     var tutorid = ""
@@ -197,6 +198,7 @@ class TutorReviewActivity : AppCompatActivity() {
 
         val call = apiService.getTutorRating(tutorid)
         call.enqueue(object : Callback<TutorModel> {
+
             override fun onResponse(call: Call<TutorModel>, response: Response<TutorModel>) {
 
                 if (response.body() != null) {

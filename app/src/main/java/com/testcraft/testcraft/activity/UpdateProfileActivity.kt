@@ -19,11 +19,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class UpdateProfileActivity : Fragment() {
 
 //    override fun attachBaseContext(newBase: Context?) {

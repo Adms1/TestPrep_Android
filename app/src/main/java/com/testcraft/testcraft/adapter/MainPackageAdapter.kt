@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.models.MyPackageModel
 import com.testcraft.testcraft.utils.AppConstants
 
+@SuppressLint("SetTextI18n")
 class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageModel.MyPkgData>) :
     RecyclerView.Adapter<MainPackageAdapter.viewholder>() {
 
@@ -38,7 +40,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
 
         p0.subject.text = list[p1].Name
         p0.standard.text = list[p1].StandardName
-        p0.test.text = list[p1].PackageList.size.toString() + " Packages"
+        p0.test.text = """${list[p1].PackageList.size} Packages"""
 
         //            val intent1 = Intent(context, DashboardActivity::class.java)
 //            intent1.putExtra("sub_id", list[p1].ID)

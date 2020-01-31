@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/top_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -42,28 +43,33 @@
             android:src="@drawable/back_button"
             app:layout_constraintBottom_toBottomOf="@+id/queTab_header"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/queTab_header" />
+            app:layout_constraintTop_toTopOf="@+id/queTab_header"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/queTab_ivInfo"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:padding="@dimen/_3sdp"
             android:src="@drawable/info_icon"
             app:layout_constraintBottom_toBottomOf="@+id/queTab_header"
             app:layout_constraintRight_toLeftOf="@id/queTab_ivSubmit"
-            app:layout_constraintTop_toTopOf="@+id/queTab_header" />
+            app:layout_constraintTop_toTopOf="@+id/queTab_header"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/queTab_ivSubmit"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:src="@drawable/right_white_bg"
             app:layout_constraintBottom_toBottomOf="@+id/queTab_header"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/queTab_header" />
+            app:layout_constraintTop_toTopOf="@+id/queTab_header"
+            tools:ignore="ContentDescription" />
 
         <View
             android:layout_width="match_parent"
@@ -136,7 +142,8 @@
                             android:layout_height="@dimen/_20sdp"
                             android:layout_weight="0.01"
                             android:checked="true"
-                            android:src="@drawable/stop_watch" />
+                            android:src="@drawable/stop_watch"
+                            tools:ignore="ContentDescription" />
 
                         <TextView
                             android:id="@+id/queTab_tvTimer"
@@ -171,7 +178,6 @@
                             android:id="@+id/queTab_tvQMarks"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
                             android:layout_weight="0.27"
                             android:gravity="center"
                             android:textColor="@color/gray"
@@ -269,7 +275,8 @@
                                     android:adjustViewBounds="true"
                                     android:scaleType="fitStart"
                                     app:layout_constraintLeft_toLeftOf="parent"
-                                    app:layout_constraintRight_toRightOf="parent" />
+                                    app:layout_constraintRight_toRightOf="parent"
+                                    tools:ignore="ContentDescription" />
 
                                 <android.support.v7.widget.RecyclerView
                                     android:id="@+id/wv_question_list"
@@ -291,6 +298,7 @@
                                     android:background="@drawable/gray_ring_bg"
                                     android:gravity="top"
                                     android:hint="Enter your answer here"
+                                    android:importantForAutofill="no"
                                     android:inputType="number"
                                     android:maxLength="9"
                                     android:padding="@dimen/_5sdp"
@@ -336,12 +344,13 @@
                         android:id="@+id/queTab_ivReport"
                         android:layout_width="@dimen/_15sdp"
                         android:layout_height="@dimen/_15sdp"
+                        android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginLeft="@dimen/_20sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
                         android:contentDescription="@string/logo"
                         android:src="@drawable/risk_blue"
-                        app:layout_constraintLeft_toLeftOf=" parent"
-                        app:layout_constraintTop_toBottomOf="@+id/queTab_llBottom" />
+                        app:layout_constraintBottom_toBottomOf="@+id/queTab_btnNextt"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/queTab_btnNextt" />
 
                     <TextView
                         android:id="@+id/queTab_ivReporttxt"
@@ -358,17 +367,31 @@
 
                     <ImageView
                         android:id="@+id/queTab_ivRefresh"
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:layout_marginRight="@dimen/_20sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
                         android:contentDescription="@string/logo"
+                        android:padding="@dimen/_3sdp"
                         android:src="@drawable/refresh"
+                        app:layout_constraintBottom_toBottomOf="@+id/queTab_btnNextt"
+                        app:layout_constraintRight_toLeftOf="@+id/queTab_ivClear"
+                        app:layout_constraintTop_toTopOf="@+id/queTab_btnNextt" />
+
+                    <ImageView
+                        android:id="@+id/queTab_ivClear"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:src="@drawable/trash"
+                        app:layout_constraintBottom_toBottomOf="@+id/queTab_btnNextt"
                         app:layout_constraintRight_toLeftOf="@+id/queTab_btnNextt"
-                        app:layout_constraintTop_toBottomOf="@+id/queTab_llBottom" />
+                        app:layout_constraintTop_toTopOf="@+id/queTab_btnNextt"
+                        tools:ignore="ContentDescription" />
 
                 </android.support.constraint.ConstraintLayout>
-
 
             </LinearLayout>
 
@@ -385,6 +408,7 @@
                 android:id="@+id/dashboard_dotCurrent"
                 android:layout_width="@dimen/_6sdp"
                 android:layout_height="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:background="@drawable/select_exam_bg"
                 app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvCurrent"
@@ -395,6 +419,7 @@
                 android:id="@+id/dashboard_tvCurrent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:maxLines="1"
@@ -417,6 +442,7 @@
                 android:id="@+id/dashboard_tvAnswered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:maxLines="1"
@@ -430,6 +456,7 @@
                 android:id="@+id/dashboard_dotUnanswered"
                 android:layout_width="@dimen/_6sdp"
                 android:layout_height="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:background="@drawable/red_round_bg"
                 app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvUnanswered"
@@ -440,6 +467,7 @@
                 android:id="@+id/dashboard_tvUnanswered"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:maxLines="1"
@@ -453,6 +481,7 @@
                 android:id="@+id/dashboard_dotReview"
                 android:layout_width="@dimen/_6sdp"
                 android:layout_height="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:background="@drawable/pink_round"
                 app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvReview"
@@ -463,6 +492,7 @@
                 android:id="@+id/dashboard_tvReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:maxLines="1"
@@ -476,6 +506,7 @@
                 android:id="@+id/dashboard_dotnotvisit"
                 android:layout_width="@dimen/_6sdp"
                 android:layout_height="@dimen/_6sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginLeft="@dimen/_15sdp"
                 android:background="@drawable/light_gray_round_bg"
                 app:layout_constraintBottom_toBottomOf="@+id/dashboard_tvnotvisit"
@@ -486,6 +517,7 @@
                 android:id="@+id/dashboard_tvnotvisit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:maxLines="1"
@@ -509,4 +541,5 @@
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.DrawerLayout>
+
 </RelativeLayout>

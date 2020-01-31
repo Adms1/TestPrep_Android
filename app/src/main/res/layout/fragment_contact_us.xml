@@ -12,10 +12,13 @@
         android:id="@+id/contactus_ivBack"
         android:layout_width="@dimen/_25sdp"
         android:layout_height="@dimen/_25sdp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
+        android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/contactus_tvHeading"
@@ -60,13 +63,15 @@
             android:id="@+id/contactus_ivf"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/contactus_llFname"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/contactus_llFname"
-            app:srcCompat="@drawable/person_new" />
+            app:srcCompat="@drawable/person_new"
+            tools:ignore="ContentDescription" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/contactus_llFname"
@@ -82,7 +87,9 @@
                 android:id="@+id/contactus_etFname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:hint="@string/full_name"
                 android:imeOptions="actionNext"
@@ -98,13 +105,15 @@
             android:id="@+id/contactus_ivl"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/contactus_llLname"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/contactus_llLname"
-            app:srcCompat="@drawable/person_new" />
+            app:srcCompat="@drawable/person_new"
+            tools:ignore="ContentDescription" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/contactus_llLname"
@@ -120,8 +129,10 @@
                 android:id="@+id/contactus_etLname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:hint="@string/last_name"
                 android:imeOptions="actionNext"
@@ -138,13 +149,15 @@
             android:id="@+id/contactus_ive"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/contactus_llEmail"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/contactus_llEmail"
-            app:srcCompat="@drawable/email" />
+            app:srcCompat="@drawable/email"
+            tools:ignore="ContentDescription" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/contactus_llEmail"
@@ -160,7 +173,9 @@
                 android:id="@+id/contactus_etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:hint="@string/enter_email"
                 android:imeOptions="actionNext"
@@ -177,12 +192,14 @@
             android:id="@+id/contactus_ivp"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/contactus_llComment"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/contactus_llComment" />
+            app:layout_constraintTop_toTopOf="@+id/contactus_llComment"
+            tools:ignore="ContentDescription" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/contactus_llComment"
@@ -198,7 +215,9 @@
                 android:id="@+id/contactus_etComment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:hint="Comment"
                 android:imeOptions="actionNext"
@@ -255,13 +274,15 @@
             android:id="@+id/contactus_ivm"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/contactus_llMobile"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/contactus_llMobile"
-            app:srcCompat="@drawable/phone" />
+            app:srcCompat="@drawable/phone"
+            tools:ignore="ContentDescription" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/contactus_llMobile"
@@ -279,7 +300,9 @@
                 android:id="@+id/contactus_etMobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_25sdp"
                 android:hint="@string/mobile"
                 android:imeOptions="actionDone"

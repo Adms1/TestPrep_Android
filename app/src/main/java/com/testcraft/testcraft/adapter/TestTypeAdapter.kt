@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.widget.TextView
 import com.google.gson.JsonArray
 import com.testcraft.testcraft.R
 
+@SuppressLint("SetTextI18n")
 class TestTypeAdapter(val context: Context, val dataList: JsonArray) :
     RecyclerView.Adapter<TestTypeAdapter.viewholder>() {
 

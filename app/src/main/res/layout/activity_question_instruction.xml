@@ -30,7 +30,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/queinstruction_header"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/queinstruction_header"
-        app:srcCompat="@drawable/back_button" />
+        app:srcCompat="@drawable/back_button"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/queinstruction_header1"

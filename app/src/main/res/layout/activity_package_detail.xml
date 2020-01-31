@@ -5,12 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.testcraft.testcraft.activity.PackageDetailActivity">
+    tools:context="com.testcraft.testcraft.fragments.PackageDetailFragment">
 
     <TextView
         android:id="@+id/package_detail_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_10sdp"
         android:background="@color/white"
         android:gravity="left"
@@ -33,7 +34,8 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/package_detail_header"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/package_detail_header" />
+        app:layout_constraintTop_toTopOf="@+id/package_detail_header"
+        tools:ignore="ContentDescription" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -51,6 +53,7 @@
                 android:id="@+id/package_detail_llImage"
                 android:layout_width="@dimen/_65sdp"
                 android:layout_height="@dimen/_65sdp"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -77,6 +80,7 @@
                 android:id="@+id/package_detail_tvPname"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:maxLines="2"
@@ -91,30 +95,33 @@
                 android:id="@+id/package_detail_tvSubject"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textSize="@dimen/_11sdp"
-                app:layout_constraintRight_toRightOf="@+id/package_detail_btnAddTocart"
                 app:layout_constraintLeft_toRightOf="@+id/package_detail_llImage"
+                app:layout_constraintRight_toRightOf="@+id/package_detail_btnAddTocart"
                 app:layout_constraintTop_toBottomOf="@+id/package_detail_tvPname" />
 
             <TextView
                 android:id="@+id/package_detail_createdby"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textSize="@dimen/_12sdp"
-                app:layout_constraintRight_toRightOf="@+id/package_detail_btnAddTocart"
                 app:layout_constraintLeft_toRightOf="@+id/package_detail_llImage"
+                app:layout_constraintRight_toRightOf="@+id/package_detail_btnAddTocart"
                 app:layout_constraintTop_toBottomOf="@+id/package_detail_tvSubject" />
 
             <TextView
                 android:id="@+id/package_detail_tvpricetxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:gravity="center"
                 android:maxLines="1"
@@ -129,8 +136,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:maxLines="1"
-                android:textStyle="bold"
                 android:textSize="@dimen/_12sdp"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toRightOf="@+id/package_detail_tvpricetxt"
                 app:layout_constraintTop_toBottomOf="@+id/package_detail_createdby" />
 
@@ -138,11 +145,12 @@
                 android:id="@+id/package_detail_tvlprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
                 android:gravity="center"
                 android:maxLines="1"
                 android:textSize="@dimen/_12sdp"
                 android:textStyle="bold"
-                android:layout_marginLeft="@dimen/_5sdp"
                 app:layout_constraintLeft_toRightOf="@+id/package_detail_tvsprice"
                 app:layout_constraintTop_toTopOf="@+id/package_detail_tvsprice" />
 
@@ -151,6 +159,7 @@
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:background="@drawable/light_blue_round_bg"
                 android:gravity="center"
@@ -165,6 +174,7 @@
                 android:id="@+id/package_detail_tvDesctitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="center"
@@ -201,6 +211,7 @@
                 android:id="@+id/package_detail_tvTestType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="Test Name"
@@ -216,6 +227,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"
                 android:gravity="center"
                 android:text="Marks"

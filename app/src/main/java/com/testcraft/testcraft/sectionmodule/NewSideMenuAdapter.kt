@@ -36,7 +36,7 @@ class NewSideMenuAdapter(
     }
 
     override fun getGroup(groupPosition: Int): Any {
-        return header.get(groupPosition)
+        return header[groupPosition]
     }
 
     override fun getChild(groupPosition: Int, childPosition: Int): Any {
@@ -207,25 +207,25 @@ class ImageViewAdapter(
 
         }
 
-        when {
-            finalArr[header[grpPos]]!![p1].type == 1 -> {
+        when (finalArr[header[grpPos]]!![p1].type) {
+            1 -> {
 
                 p0.childheader.setTextColor(NewTabQuestionActivity.context!!.resources.getColor(R.color.white))
                 p0.childheader.setBackgroundResource(R.drawable.blue_round)
             }
-            finalArr[header[grpPos]]!![p1].type == 2 -> {
+            2 -> {
                 p0.childheader.setTextColor(NewTabQuestionActivity.context!!.resources.getColor(R.color.white))
                 p0.childheader.setBackgroundResource(R.drawable.green_round)
             }
-            finalArr[header[grpPos]]!![p1].type == 3 -> {
+            3 -> {
                 p0.childheader.setTextColor(NewTabQuestionActivity.context!!.resources.getColor(R.color.white))
                 p0.childheader.setBackgroundResource(R.drawable.red_round)
             }
-            finalArr[header[grpPos]]!![p1].type == 4 -> {
+            4 -> {
                 p0.childheader.setTextColor(NewTabQuestionActivity.context!!.resources.getColor(R.color.white))
                 p0.childheader.setBackgroundResource(R.drawable.pink_round)
             }
-            finalArr[header[grpPos]]!![p1].type == 5 -> {
+            5 -> {
                 p0.childheader.setTextColor(NewTabQuestionActivity.context!!.resources.getColor(R.color.gray))
                 p0.childheader.setBackgroundResource(R.drawable.light_gray_round_bg)
             }

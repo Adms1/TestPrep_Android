@@ -78,7 +78,7 @@ class ChooseMarketPlaceFragment : Fragment() {
 
                         val pkgArr = response.body()!!.data
 
-                        if (pkgArr.size > 0 && pkgArr != null) {
+                        if (pkgArr.size > 0) {
 
                             choosemp_tvNoPkg.visibility = View.GONE
                             choosemp_rvList.visibility = View.VISIBLE

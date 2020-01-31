@@ -15,25 +15,25 @@ class AppConstants {
 
 //        LIVE
 
-//        var BASE_URL = "https://webservice.testcraft.in/WebService.asmx/"
-//        var IMAGE_BASE_URL = "https://testcraft.in/upload/"
-//        var EXPHINT_IMAGE_BASE_URL = "https://testcraft.in/"
-//        var PAYMENT_REQUEST = "https://testcraft.in/MobilePayment.aspx?"
-//        var INVOICE_URL = "https://testcraft.in/InvoiceDetail.aspx?ID="
-//        var SUMMARY_REPORT_URL = "https://webservice.testcraft.in/TestSummaryReport.aspx?"
-//        var SUBJECT_SUMMARY_REPORT_URL =
-//           "https://webservice.testcraft.in/SubjectSummaryReport.aspx?"
+        var BASE_URL = "https://webservice.testcraft.in/WebService.asmx/"
+        var IMAGE_BASE_URL = "https://testcraft.in/upload/"
+        var EXPHINT_IMAGE_BASE_URL = "https://testcraft.in/"
+        var PAYMENT_REQUEST = "https://testcraft.in/MobilePayment.aspx?"
+        var INVOICE_URL = "https://testcraft.in/InvoiceDetail.aspx?ID="
+        var SUMMARY_REPORT_URL = "https://webservice.testcraft.in/TestSummaryReport.aspx?"
+        var SUBJECT_SUMMARY_REPORT_URL =
+            "https://webservice.testcraft.in/SubjectSummaryReport.aspx?"
 
 //        LOCAL
 
-        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
-        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
-        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
-        var PAYMENT_REQUEST = "http://demo.testcraft.in/MobilePayment.aspx?"
-        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
-        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
-        var SUBJECT_SUMMARY_REPORT_URL =
-            "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
+//        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
+//        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
+//        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
+//        var PAYMENT_REQUEST = "http://demo.testcraft.in/MobilePayment.aspx?"
+//        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
+//        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
+//        var SUBJECT_SUMMARY_REPORT_URL =
+//            "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
 //
 //        USER DATA
 

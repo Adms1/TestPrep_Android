@@ -1,4 +1,4 @@
-package com.testcraft.testcraft.old.adapter
+package com.testcraft.testcraft.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -50,7 +50,7 @@ class SolutionAdapter(
 
                 Log.d("qsize", "" + qsize)
 
-                var imgwidth: Int = 100
+//                var imgwidth: Int = 100
 
                 Picasso.get().load(dataList[p1].AnswerImage)
                     .transform(transform.getTransformation(p0.opone1))
@@ -74,8 +74,6 @@ class SolutionAdapter(
                 dataList[p1].IsUserSelected -> p0.opone.setImageResource(R.drawable.correct)
                 else -> p0.opone.setImageResource(R.drawable.grey_round)
             }
-        } else {
-
         }
 
     }

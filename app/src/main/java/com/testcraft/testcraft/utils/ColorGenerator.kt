@@ -1,20 +1,17 @@
 package com.testcraft.testcraft.utils
 
 import java.util.*
-
+import kotlin.math.abs
 
 class ColorGenerator private constructor(private val mColors: List<Int>) {
-    private val mRandom: Random
+
+    private val mRandom: Random = Random(System.currentTimeMillis())
 
     val randomColor: Int
         get() = mColors[mRandom.nextInt(mColors.size)]
 
-    init {
-        mRandom = Random(System.currentTimeMillis())
-    }
-
     fun getColor(key: Any): Int {
-        return mColors[Math.abs(key.hashCode()) % mColors.size]
+        return mColors[abs(key.hashCode()) % mColors.size]
     }
 
     companion object {
@@ -25,7 +22,7 @@ class ColorGenerator private constructor(private val mColors: List<Int>) {
 
         init {
             DEFAULT = create(
-                Arrays.asList(
+                listOf(
                     -0x1295BD,
                     -0x1295BD,
                     -0x1295BD,
@@ -37,8 +34,9 @@ class ColorGenerator private constructor(private val mColors: List<Int>) {
                     -0x1295BD
                 )
             )
+
             MATERIAL = create(
-                Arrays.asList(
+                listOf(
                     -0x1295BD,
                     -0x1295BD,
                     -0x1295BD,

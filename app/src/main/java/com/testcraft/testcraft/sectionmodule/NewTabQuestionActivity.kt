@@ -47,6 +47,8 @@ import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.concurrent.TimeUnit
 
+
+@SuppressLint("SetJavaScriptEnabled", "SetTextI18n")
 class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
     var answer = ""
@@ -237,6 +239,16 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             false
         }
 
+        queTab_ivClear.setOnClickListener {
+
+            if (queTab_ivReview.isChecked) {
+                getType("clear", 1, curr_index)
+            } else {
+                getType("clear", 0, curr_index)
+            }
+
+        }
+
         queTab_tvFillBlanks.addTextChangedListener(
             object : TextWatcher {
 
@@ -372,6 +384,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         if (movies.size > 0) {
 
                             queTab_tvQMarks.text = "Marks : " + movies[0].TestQuestion[0].Marks
+
+                            if (movies[0].TestQuestion[0].QuestionTypeID == 1 || movies[0].TestQuestion[0].QuestionTypeID == 4) {
+
+                                queTab_ivClear.visibility = View.VISIBLE
+                            } else {
+
+                                queTab_ivClear.visibility = View.GONE
+                            }
 
                             if (total_hint != "0") {
                                 queTab_tvCurrHint.text = "$hintCount/$total_hint"
@@ -878,7 +898,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                     if (type != "continue" && type != "review") {
 
-                        if (type == "next" || type == "skip") {
+                        if (type == "clear" || type == "next" || type == "skip") {
 
                             queTab_tvCurrTotal.text = "$que_number/$testque"
 
@@ -914,6 +934,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                                 queTab_tvQMarks.text =
                                     "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
+
+                                if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 4) {
+
+                                    queTab_ivClear.visibility = View.VISIBLE
+                                } else {
+
+                                    queTab_ivClear.visibility = View.GONE
+                                }
 
                                 if (movies[q_grppos1].TestQuestion[curr_index].QuestionImage != "") {
 
@@ -1015,6 +1043,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     queTab_tvQMarks.text =
                                         "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
 
+                                    if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 4) {
+
+                                        queTab_ivClear.visibility = View.VISIBLE
+                                    } else {
+
+                                        queTab_ivClear.visibility = View.GONE
+                                    }
+
                                     if (movies[q_grppos1].TestQuestion[curr_index].QuestionImage != "") {
 
                                         Picasso.get()
@@ -1105,11 +1141,20 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     "question"
                                 )
                             )
-
                         }
 
-                    } else {
+//                    } else if(type == "clear") {
+//
+//                        sideList!!.setAdapter(
+//                            NewSideMenuAdapter(
+//                                context!!,
+//                                sectionList!!,
+//                                finalArr,
+//                                filterTypeSelectionInteface!!,
+//                                "")
+//                        )
 
+                    } else {
                         if (reviewid != "0") {
 
                             queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
@@ -1146,7 +1191,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         curr_index = p1
 
-        if (itype != "adapter") {
+        if (itype != "clear" && itype != "adapter") {
 
             when (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID) {
 
@@ -1205,7 +1250,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     }
                 }
             }
-        } else {
+
+        } else if (itype == "adapter") {
 
             if (total_hint != "0" && movies[q_grppos1].TestQuestion[curr_index].Hint != "") {
 
@@ -1260,6 +1306,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             Log.d("current_index_skip", "" + curr_index)
 
             queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
+
+            if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 4) {
+
+                queTab_ivClear.visibility = View.VISIBLE
+            } else {
+
+                queTab_ivClear.visibility = View.GONE
+            }
 
             if (movies[q_grppos1].TestQuestion[curr_index].QuestionImage != "") {
 
@@ -1516,6 +1570,35 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     )
                 }
             }
+
+        } else if (itype == "clear") {
+
+            queTab_tvCurrTotal.text = "$que_number/$testque"
+
+            Log.d("current_index_clear", "" + curr_index)
+
+            for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
+                    if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
+                        finalArr[sectionList!![q_grppos1]]!![i].type = 3
+                        movies[q_grppos1].TestQuestion[curr_index].Review = "0"
+                    } else {
+                        finalArr[sectionList!![q_grppos1]]!![i].type = 4
+                        movies[q_grppos1].TestQuestion[curr_index].Review = "1"
+                    }
+                }
+            }
+
+            movies[q_grppos1].TestQuestion[curr_index].Answer = ""
+
+            callSubmitAnswer(
+                itype,
+                movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                "",
+                curr_index, p0.toString()
+            )
 
         }
 
@@ -2074,7 +2157,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         )
 
         call.enqueue(object : Callback<JsonObject> {
-            @SuppressLint("SetJavaScriptEnabled")
+
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
                 DialogUtils.dismissDialog()

@@ -2,6 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/option_lll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,6 +13,7 @@
         android:id="@+id/option_abcd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginLeft="@dimen/_5sdp"
         android:gravity="center"
         android:maxLines="1"
@@ -25,20 +27,25 @@
         android:id="@+id/option_one"
         android:layout_width="@dimen/_15sdp"
         android:layout_height="@dimen/_15sdp"
+        android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginLeft="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="@+id/option_one1"
         app:layout_constraintLeft_toRightOf="@+id/option_one1"
-        app:layout_constraintTop_toTopOf="@+id/option_one1" />
+        app:layout_constraintTop_toTopOf="@+id/option_one1"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/option_one1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
         android:layout_marginRight="@dimen/_30sdp"
         android:layout_marginBottom="@dimen/_5sdp"
         app:layout_constraintLeft_toRightOf="@+id/option_abcd"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
 </LinearLayout>

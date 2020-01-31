@@ -1,5 +1,6 @@
 package com.testcraft.testcraft.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
@@ -12,6 +13,7 @@ import com.testcraft.testcraft.activity.ViewInvoiceActivity
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.utils.AppConstants
 
+@SuppressLint("SetTextI18n")
 class MyPaymentAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
     RecyclerView.Adapter<MyPaymentAdapter.viewholder>() {
 

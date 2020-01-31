@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.testcraft.testcraft.activity.TestReviewActivity">
+    tools:context="com.testcraft.testcraft.fragments.TestReviewFragment">
 
     <!--    <ImageView-->
     <!--        android:id="@+id/review_ivBack"-->
@@ -37,9 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_blue"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingTop="@dimen/app_main_header_padding"
-        android:paddingBottom="@dimen/app_main_header_padding"
+        android:padding="@dimen/app_main_header_padding"
         android:text="Score and Solutions"
         android:textColor="@color/nfcolor"
         android:textSize="@dimen/app_sub_header_size"
@@ -62,6 +60,7 @@
         android:id="@+id/abcd"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
+        android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="@id/review_tvUnanswered"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -80,10 +79,12 @@
             android:id="@+id/review_ivInfo"
             android:layout_width="@dimen/all_bck_btn_size"
             android:layout_height="@dimen/all_bck_btn_size"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:padding="@dimen/_3sdp"
             android:visibility="gone"
-            app:srcCompat="@drawable/info_icon" />
+            app:srcCompat="@drawable/info_icon"
+            tools:ignore="ContentDescription" />
 
     </RelativeLayout>
 
@@ -91,6 +92,7 @@
         android:id="@+id/review_tvCorrect"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:paddingTop="@dimen/app_main_header_padding"
@@ -105,6 +107,7 @@
         android:id="@+id/review_tvIncorrect"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:paddingTop="@dimen/app_main_header_padding"
@@ -119,6 +122,7 @@
         android:id="@+id/review_tvUnanswered"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:paddingTop="@dimen/app_main_header_padding"

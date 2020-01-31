@@ -1,4 +1,4 @@
-package com.testcraft.testcraft.activity
+package com.testcraft.testcraft.fragments
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -11,9 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.testcraft.testcraft.R
+import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.ivSort
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.rlFilter
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.tvFilter
+import com.testcraft.testcraft.activity.FilterActivity
 import com.testcraft.testcraft.adapter.MyPackageAdapter
 import com.testcraft.testcraft.adapter.TestPackagesAdapter
 import com.testcraft.testcraft.adapter.TutorsAdapter
@@ -26,7 +28,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TutorDetailActivity : Fragment() {
+class TutorDetailFragment : Fragment() {
 
     var data: ArrayList<PackageData.PackageDataList> = ArrayList()
 
@@ -67,7 +69,8 @@ class TutorDetailActivity : Fragment() {
 
         CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C900, ActionIdData.T900)
 
-        DashboardActivity.main_header!!.text = DashboardActivity.pname
+        DashboardActivity.main_header!!.text =
+            DashboardActivity.pname
         DashboardActivity.btnBack!!.visibility = View.VISIBLE
 
         rlFilter!!.visibility = View.VISIBLE

@@ -1,4 +1,4 @@
-package com.testcraft.testcraft.activity
+package com.testcraft.testcraft.fragments
 
 import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
@@ -20,7 +20,9 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
+import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
+import com.testcraft.testcraft.activity.TraknpayRequestActivity
 import com.testcraft.testcraft.adapter.TestTypeAdapter
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
@@ -30,7 +32,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PackageDetailActivity : Fragment() {
+class PackageDetailFragment : Fragment() {
 
     var pkgid = ""
     var tutor_id = ""

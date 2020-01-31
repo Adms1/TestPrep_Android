@@ -31,7 +31,6 @@
             android:gravity="center_vertical"
             android:paddingTop="@dimen/_7sdp"
             android:paddingBottom="@dimen/_7sdp"
-            android:text="(View Profile)"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/normal_header_size"
             android:visibility="gone"
@@ -48,24 +47,28 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tutor_profile_header"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tutor_profile_header" />
+            app:layout_constraintTop_toTopOf="@+id/tutor_profile_header"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/tutor_profile_ivCart"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:padding="@dimen/_5sdp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tutor_profile_header"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tutor_profile_header" />
+            app:layout_constraintTop_toTopOf="@+id/tutor_profile_header"
+            tools:ignore="ContentDescription" />
 
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/tutor_profile_image"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:gravity="center"
@@ -121,9 +124,10 @@
                 android:id="@+id/tutor_profile_tvCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:text="(43)"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/small_text_size" />
 
@@ -133,18 +137,22 @@
             android:id="@+id/tutor_profile_ivPhn"
             android:layout_width="@dimen/_11sdp"
             android:layout_height="@dimen/_11sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:src="@drawable/phone"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tutor_profile_tvMobile"
             app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
-            app:layout_constraintTop_toTopOf="@+id/tutor_profile_tvMobile" />
+            app:layout_constraintTop_toTopOf="@+id/tutor_profile_tvMobile"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tutor_profile_tvMobile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_3sdp"
             android:layout_marginLeft="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:gravity="center_vertical"
             android:maxLines="1"
@@ -159,19 +167,23 @@
             android:id="@+id/tutor_profile_ivEmail"
             android:layout_width="@dimen/_10sdp"
             android:layout_height="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:src="@drawable/email"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/tutor_profile_tvEmail"
             app:layout_constraintLeft_toRightOf="@+id/tutor_profile_image"
-            app:layout_constraintTop_toTopOf="@+id/tutor_profile_tvEmail" />
+            app:layout_constraintTop_toTopOf="@+id/tutor_profile_tvEmail"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tutor_profile_tvEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_3sdp"
             android:layout_marginLeft="@dimen/_3sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:gravity="top"
             android:maxLines="1"

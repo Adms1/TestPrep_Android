@@ -1,51 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_margin="@dimen/_15sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_15sdp">
 
     <TextView
-            android:text="Std 11 | Commerce | Accounts"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/cart_item_tvPkg"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textSize="@dimen/small_text_size"
-            android:gravity="center_vertical"
-            android:textColor="@color/black"/>
+        android:id="@+id/cart_item_tvPkg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Std 11 | Commerce | Accounts"
+        android:textColor="@color/black"
+        android:textSize="@dimen/small_text_size"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:text="Chapter 13 Test"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/cart_item_tvTest"
-            app:layout_constraintTop_toBottomOf="@+id/cart_item_tvPkg"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textSize="@dimen/small_text_size"
-            android:gravity="center_vertical"
-            android:textColor="@color/black"/>
+        android:id="@+id/cart_item_tvTest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="Chapter 13 Test"
+        android:textColor="@color/black"
+        android:textSize="@dimen/small_text_size"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cart_item_tvPkg" />
 
     <ImageView
-            android:layout_width="@dimen/_10sdp"
-            android:layout_height="@dimen/_15sdp"
-            android:id="@+id/cart_item_ivPrice"
-            android:src="@drawable/tp_icn"
-            app:layout_constraintTop_toTopOf="@+id/cart_item_tvPkg"
-            app:layout_constraintRight_toLeftOf="@+id/cart_item_tvPrice"/>
+        android:id="@+id/cart_item_ivPrice"
+        android:layout_width="@dimen/_10sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:src="@drawable/tp_icn"
+        app:layout_constraintRight_toLeftOf="@+id/cart_item_tvPrice"
+        app:layout_constraintTop_toTopOf="@+id/cart_item_tvPkg"
+        tools:ignore="ContentDescription" />
 
     <TextView
-            android:text="50"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/cart_item_tvPrice"
-            app:layout_constraintTop_toTopOf="@+id/cart_item_tvPkg"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textSize="@dimen/small_text_size"
-            android:gravity="center_vertical"
-            android:textColor="@color/black"/>
+        android:id="@+id/cart_item_tvPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="50"
+        android:textColor="@color/black"
+        android:textSize="@dimen/small_text_size"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cart_item_tvPkg" />
 
 
 </android.support.constraint.ConstraintLayout>
