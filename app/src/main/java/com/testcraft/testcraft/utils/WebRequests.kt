@@ -40,6 +40,7 @@ class WebRequests {
             map["StudentPassword"] = pass
             map["StudentMobile"] = mobile
             map["StatusID"] = status
+            map["DeviceID"] = "2"
 
             return map
         }

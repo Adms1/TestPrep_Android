@@ -81,6 +81,10 @@ interface WebInterface {
     fun updatePaymentStatus(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
     @FormUrlEncoded
+    @POST("Update_Payment_Request_Free")
+    fun updatePaymentStatusNew(@FieldMap map: HashMap<String, String>): Call<TestListModel>
+
+    @FormUrlEncoded
     @POST("Get_TestPackageName_By_ID")
     fun getPackage(@FieldMap map: HashMap<String, String>): Call<GetMarketPlaceData>
 
@@ -225,9 +229,10 @@ interface WebInterface {
 
     @FormUrlEncoded
     @POST("Send_Enquiry")
-    fun sendEnquiry(
-        @Field("FirstName") firstname: String, @Field("LastName") lastname: String, @Field(
-            "Email"
-        ) email: String, @Field("mobile") mobile: String, @Field("Comment") comment: String
-    ): Call<JsonObject>
+    fun sendEnquiry(@Field("FirstName") firstname: String, @Field("LastName") lastname: String, @Field("Email") email: String, @Field("mobile") mobile: String, @Field("Comment") comment: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Get_StudentTest_SW_Analysis")
+    fun studentAnalysis(@Field("StudentTestID") studenttest_id: String): Call<JsonObject>
+
 }

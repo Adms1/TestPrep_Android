@@ -201,7 +201,8 @@ class IntroActivity : AppCompatActivity() {
                     // Application code
                     val userID = jsonObject.get("id")
                     val email = jsonObject.getString("email")
-                    val name = jsonObject.getString("name")
+                    val fname = jsonObject.getString("first_name")
+                    val lname = jsonObject.getString("last_name")
 
                     Utils.setStringValue(
                         this@IntroActivity,
@@ -212,15 +213,20 @@ class IntroActivity : AppCompatActivity() {
 //                    var last_name = jsonObject.getString("last_name");
 //                    var birthday = jsonObject.getString("birthday") // 01/31/1980 format
 
-                    callCheckEmailApi("3", name, "", email, "", "")
+                    if(email != "") {
+                        callCheckEmailApi("3", fname, lname, email, "", "")
+                    }else{
+                        Utils.ping(this@IntroActivity, "Email Not Found.!! Please add email in your FB Account")
+                    }
 //                    callSignupApi("3", name, "", email, "", "")
 
 //                    if (AccessToken.getCurrentAccessToken() != null) {
 //                        LoginManager.getInstance().logOut()
 //                    }
                 }
+
                 val parameters = Bundle()
-                parameters.putString("fields", "id,name,email,gender,birthday,picture")
+                parameters.putString("fields", "id,name,first_name,last_name,email,gender,birthday,picture")
                 request.parameters = parameters
                 request.executeAsync()
 

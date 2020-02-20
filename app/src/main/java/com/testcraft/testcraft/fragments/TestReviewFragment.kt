@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
+import com.testcraft.testcraft.activity.StrengthWeeknessActivity
 import com.testcraft.testcraft.activity.ViewInvoiceActivity
 import com.testcraft.testcraft.adapter.QuestionAttemptAdapter
 import com.testcraft.testcraft.models.AttemptModel
@@ -161,6 +162,14 @@ class TestReviewFragment : Fragment() {
 //            startActivity(intent)
         }
 
+        rlRank.setOnClickListener {
+
+            val intent = Intent(activity!!, StrengthWeeknessActivity::class.java)
+            intent.putExtra("studenttestid", studenttestid)
+            startActivity(intent)
+
+        }
+
         callSubmitAPI()
 
     }
@@ -196,13 +205,20 @@ class TestReviewFragment : Fragment() {
                             .asString
 
                     isCompetitive =
-                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("IsCompetetive")
-                            .asInt
+                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("IsCompetetive").asInt
 
                     if (isCompetitive == 1) {
                         review_ivInfo.visibility = View.VISIBLE
+                        rlRank.visibility = View.VISIBLE
+
+                        review_tvRank.visibility = View.VISIBLE
+                        review_tvRank.text = "AIR : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString
+
                     } else {
                         review_ivInfo.visibility = View.GONE
+                        rlRank.visibility = View.GONE
+                        review_tvRank.visibility = View.GONE
+
                     }
 
                     review_tvCorrect.text =
@@ -291,4 +307,6 @@ class TestReviewFragment : Fragment() {
             }
         })
     }
+
+
 }

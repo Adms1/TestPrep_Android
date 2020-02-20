@@ -70,10 +70,15 @@ class NewSelectSubjectAdapter(
 
         fun bind(employee: PackageData.PackageDataList) {
 
+            selected1 = ArrayList()
+
+            getIds()
+
             if (employee.isSelected) {
                 title.setTextColor(context.resources.getColor(R.color.colorPrimaryDark))
                 p_select.visibility = View.VISIBLE
             } else {
+
                 title.setTextColor(context.resources.getColor(R.color.black))
                 p_select.visibility = View.GONE
             }
@@ -95,9 +100,8 @@ class NewSelectSubjectAdapter(
 
                 CommonWebCalls.callToken(context, "1", "", ActionIdData.C703, ActionIdData.T703)
 
-                selected1 = ArrayList()
-
                 employee.isSelected = !employee.isSelected
+
                 if (employee.isSelected) {
 
                     if (employee.Icon == "") {
@@ -116,18 +120,20 @@ class NewSelectSubjectAdapter(
                     p_select.visibility = View.GONE
                 }
 
-                for (i in 0 until all!!.size) {
+                notifyDataSetChanged()
 
-                    if (all!![i].isSelected) {
-                        selected1.add(all!![i].SubjectID.toInt())
-                    }
+            }
 
-                    Log.i(
-                        "selected array: ",
-                        all!![i].SubjectName + "[" + all!![i].isSelected + "]"
-                    )
+            for (i in 0 until all!!.size) {
+
+                if (all!![i].isSelected) {
+                    selected1.add(all!![i].SubjectID.toInt())
                 }
 
+                Log.i(
+                    "selected array: ",
+                    all!![i].SubjectName + "[" + all!![i].isSelected + "]"
+                )
             }
 
         }

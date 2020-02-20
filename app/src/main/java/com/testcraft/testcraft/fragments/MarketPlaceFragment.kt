@@ -132,7 +132,7 @@ class MarketPlaceFragment : Fragment() {
             AppConstants.isFirst = 13
             val bundle = Bundle()
             bundle.putString("type", "free")
-            bundle.putString("pname1", "Packages")
+            bundle.putString("pname1", "Free Test")
             bundle.putString("filtertypeid", "0")
             bundle.putString(
                 "boardid",
@@ -720,7 +720,7 @@ class MarketPlaceFragment : Fragment() {
 
                     if (response.body()!!.Status == "true") {
 
-                        main_pkg_item_tvdatanotfound.visibility = View.GONE
+                        main_pkg_item_tvdatanotfound!!.visibility = View.GONE
                         main_pkg_item_mainll!!.visibility = View.VISIBLE
                         main_pkg_item_tvChange.visibility = View.GONE
 
@@ -860,41 +860,43 @@ class MarketPlaceFragment : Fragment() {
                 price.text = arrList[position].TestPackageSalePrice
 //                desc.text = arrList[position].TestPackageDescription
 
-                if (arrList[position].TestList.size > 0) {
-                    if (arrList[position].TestList[0].Name != "") {
-                        t1.text = "\u2022 " + arrList[position].TestList[0].Name
-                    } else {
-                        t1.text = ""
-                    }
+                if(arrList[position].TestList != null) {
+                    if (arrList[position].TestList.size > 0) {
+                        if (arrList[position].TestList[0].Name != "") {
+                            t1.text = "\u2022 " + arrList[position].TestList[0].Name
+                        } else {
+                            t1.text = ""
+                        }
 
-                    if (arrList[position].TestList[1].Name != "") {
-                        t2.text = "\u2022 " + arrList[position].TestList[1].Name
-                    } else {
-                        t2.text = ""
-                    }
+                        if (arrList[position].TestList[1].Name != "") {
+                            t2.text = "\u2022 " + arrList[position].TestList[1].Name
+                        } else {
+                            t2.text = ""
+                        }
 
-                    if (arrList[position].TestList[2].Name != "") {
-                        t3.text = "\u2022 " + arrList[position].TestList[2].Name
-                    } else {
-                        t3.text = ""
-                    }
+                        if (arrList[position].TestList[2].Name != "") {
+                            t3.text = "\u2022 " + arrList[position].TestList[2].Name
+                        } else {
+                            t3.text = ""
+                        }
 
-                    if (arrList[position].TestList[3].Name != "") {
-                        t4.text = "\u2022 " + arrList[position].TestList[3].Name
-                    } else {
-                        t4.text = ""
-                    }
+                        if (arrList[position].TestList[3].Name != "") {
+                            t4.text = "\u2022 " + arrList[position].TestList[3].Name
+                        } else {
+                            t4.text = ""
+                        }
 
-                    if (arrList[position].TestList[4].Name != "") {
-                        t5.text = "\u2022 " + arrList[position].TestList[4].Name
-                    } else {
-                        t5.text = ""
-                    }
+                        if (arrList[position].TestList[4].Name != "") {
+                            t5.text = "\u2022 " + arrList[position].TestList[4].Name
+                        } else {
+                            t5.text = ""
+                        }
 
-                    if (arrList[position].TestList[5].Name != "") {
-                        t6.text = "\u2022 " + arrList[position].TestList[5].Name
-                    } else {
-                        t6.text = ""
+                        if (arrList[position].TestList[5].Name != "") {
+                            t6.text = "\u2022 " + arrList[position].TestList[5].Name
+                        } else {
+                            t6.text = ""
+                        }
                     }
                 }
 
@@ -911,7 +913,7 @@ class MarketPlaceFragment : Fragment() {
 
                 }
 
-                created.setOnClickListener {
+                 created.setOnClickListener {
 
                     CommonWebCalls.callToken(
                         activity!!,

@@ -1,12 +1,10 @@
 package com.testcraft.testcraft.fragments
 
 import android.annotation.SuppressLint
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Paint
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -41,8 +39,6 @@ class PackageDetailFragment : Fragment() {
     var come = ""
     var oldpkgid = ""
     var bundle: Bundle? = null
-
-    var stuGUID = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -152,7 +148,7 @@ class PackageDetailFragment : Fragment() {
 
 //                        if(!purchaseCoin.equals("free", true)) {
 
-                        callAddToCart(oldpkgid)
+                        PackagePurchase.callAddToCart(oldpkgid, activity!!)
 
 //                        }else{
 //                            callAddTestPackageApi(intent.getStringExtra("pkgid"))
@@ -376,6 +372,8 @@ class PackageDetailFragment : Fragment() {
                             )
                         ) {
 
+                           package_detail_btnAddTocart.text = "Start Test"
+
                             package_detail_tvsprice.text =
                                 response.body()!!.get("data")
                                     .asJsonObject.get("TestPackageSalePrice").asString
@@ -385,6 +383,8 @@ class PackageDetailFragment : Fragment() {
                                     .asJsonObject.get("TestPackageListPrice").asString.trim()
 
                         } else {
+
+                            package_detail_btnAddTocart.text = "Buy"
 
 //                            package_detail_tvlpricetxt.visibility = View.GONE
 
@@ -529,254 +529,4 @@ class PackageDetailFragment : Fragment() {
             }
         })
     }
-
-    //    {"Status":"true","data":"24","Msg":"Package added into cart"}
-    fun callAddToCart(pkgid: String) {
-
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-        }
-
-        DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.addToCart(
-            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
-            pkgid
-        )
-
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-
-                if (response.body() != null) {
-
-                    if (response.body()!!["Status"].asString == "true") {
-
-                        stuGUID = response.body()!!["data"].asString
-
-//                        fragmentManager!!.beginTransaction().replace(R.id.container, ChooseMarketPlaceFragment()).commit()
-
-//                        Toast.makeText(
-//                            activity!!,
-//                            response.body()!!["Msg"].toString().replace("\"", ""),
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-
-//                        val intent = Intent(activity, CartActivity::class.java)
-//                        startActivity(intent)
-//
-                        callCheckout()
-
-                    } else {
-
-                        DialogUtils.dismissDialog()
-
-                        Toast.makeText(
-                            activity!!,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
-    }
-
-    //    {"Status":"true","data":[{"PaymentTransactionID":92,"OrderID":"TP190905112816426","PaymentAmount":"100"}],"Msg":"Generate New payment Order ID "}
-    fun callCheckout() {
-
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-        }
-
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.checkout(
-            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!
-        )
-
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-
-                if (response.body() != null) {
-
-                    DialogUtils.dismissDialog()
-
-                    if (response.body()!!["Status"].asString == "true") {
-
-                        if (!response.body()!!["data"].asJsonArray[0].asJsonObject["PaymentAmount"].asString.equals(
-                                "0",
-                                true
-                            )
-                        ) {
-
-                            Log.v(
-                                "order_id: ",
-                                "" + response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
-                            )
-
-//                            val intent = Intent("com.testcraft.testcraft")
-//                            intent.addCategory(Intent.CATEGORY_DEFAULT)
-//                            intent.addCategory(Intent.CATEGORY_BROWSABLE)
-//                            val bundle = Bundle()
-//                            bundle.putString("msg_from_browser", "Launched from Browser")
-//                            intent.putExtras(bundle)
-//
-//                            Log.d("mobikul-->", intent.toUri(Intent.URI_INTENT_SCHEME))
-
-                            val browserIntent = Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=$stuGUID&type=2")
-                            )
-
-                            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            browserIntent.setPackage("com.android.chrome")
-                            try {
-                                startActivity(browserIntent)
-                            } catch (ex: ActivityNotFoundException) {
-                                // Chrome browser presumably not installed so allow user to choose instead
-                                browserIntent.setPackage(null)
-                                startActivity(browserIntent)
-                            }
-
-//                            startActivity(browserIntent)
-
-//                            val intent = Intent(activity!!, TraknpayRequestActivity::class.java)
-//                            intent.putExtra(
-//                                "order_id",
-//                                response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
-//                            )
-//                            intent.putExtra(
-//                                "amount",
-//                                response.body()!!["data"].asJsonArray[0].asJsonObject["PaymentAmount"].asString
-//                            )
-//                            intent.putExtra("pkgid", pkgid)
-//                            intent.putExtra("pkgname", package_detail_tvPname.text.toString())
-//                            intent.putExtra("pkgprice", purchaseCoin)
-//                            startActivity(intent)
-
-//                            (context as DashboardActivity).finish()
-
-                        } else {
-                            updatePaymentStatus(
-                                "Success",
-                                response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
-                            )
-                        }
-
-                    } else {
-
-                        Toast.makeText(
-                            activity!!,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
-    }
-
-    fun updatePaymentStatus(transaction_status: String, order_id: String) {
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-        }
-
-        DialogUtils.showDialog(activity!!)
-
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.updatePaymentStatus(
-            WebRequests.getPaymentStatusParams(
-                Utils.getStringValue(activity!!, AppConstants.USER_ID, "")!!,
-                order_id,
-                "0",
-                transaction_status
-            )
-        )
-
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-
-                if (response.body() != null) {
-
-                    DialogUtils.dismissDialog()
-
-                    AppConstants.isFirst = 1
-                    setFragments(null)
-
-//                    if (response.body()!!["Status"].asString == "true") {
-
-//                        if (transaction_status == "Success") {
-
-//                            Toast.makeText(
-//                                activity!!,
-//                               "Free package buy successfully",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-
-//                            Handler().postDelayed(
-//
-//                                /* Runnable
-//                                 * Showing splash screen with a timer. This will be useful when you
-//                                 * want to show case your app logo / company
-//                                 */
-//
-//                                {
-//                                    // This method will be executed once the timer is over
-//                                    // Start your app main activity
-////                                    val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
-////                                    startActivity(intent)
-////                                    overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
-//
-//                                    // close this activity
-////                                    finish()
-//                                    onBackPressed()
-//                                }, 1500
-
-
-//                            )
-
-//                            callAddTestPackageApi()
-
-//                        }
-
-//                    } else {
-
-
-//                    AppConstants.isFirst = 1
-//
-//                    val intent = Intent(activity!!, DashboardActivity::class.java)
-//                    startActivity(intent)
-
-//                        Toast.makeText(activity!!, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
-//                            .show()
-
-
-//                    }
-                }
-            }
-
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
-
-    }
-
 }

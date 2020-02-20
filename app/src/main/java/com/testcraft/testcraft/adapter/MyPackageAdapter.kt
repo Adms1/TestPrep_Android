@@ -2,21 +2,21 @@ package com.testcraft.testcraft.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.models.PackageData
-import com.testcraft.testcraft.utils.ActionIdData
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.CommonWebCalls
+import com.testcraft.testcraft.utils.*
 
 @SuppressLint("SetTextI18n")
 class MyPackageAdapter(
@@ -45,6 +45,17 @@ class MyPackageAdapter(
             p0.ivComplete.visibility = View.VISIBLE
         } else {
             p0.ivComplete.visibility = View.GONE
+        }
+
+        if (dataList[p1].TestPackageSalePrice.equals("free", true)) {
+
+            p0.btnStart.visibility = View.VISIBLE
+            p0.price.visibility = View.GONE
+
+        } else {
+
+            p0.price.visibility = View.VISIBLE
+            p0.btnStart.visibility = View.GONE
         }
 
         Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
@@ -78,6 +89,34 @@ class MyPackageAdapter(
         }
 
 //        p0.image.setImageDrawable(Utils.newcreateDrawable(dataList[p1].TestPackageName.substring(0, 1)))
+
+        p0.btnStart.setOnClickListener {
+
+            CommonWebCalls.callToken(context, "1", "", ActionIdData.C1101, ActionIdData.T1101)
+
+            DialogUtils.createConfirmDialog(
+                context,
+                "",
+                "Are you sure you want to buy this package?",
+                "Yes",
+                "No",
+                DialogInterface.OnClickListener { dialog, which ->
+
+                    if (DialogUtils.isNetworkConnected(context)) {
+
+                        PackagePurchase.callAddToCart(dataList[p1].TestPackageID, context)
+
+                    } else {
+                        Utils.ping(context, AppConstants.NETWORK_MSG)
+                    }
+
+                },
+                DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+
+
+                }).show()
+        }
 
         p0.mainll.setOnClickListener {
 
@@ -161,7 +200,7 @@ class MyPackageAdapter(
         //        var short_name: TextView = itemView.findViewById(R.id.item_my_package_name_short)
         var mainll: ConstraintLayout = itemView.findViewById(R.id.item_my_package_main)
         var price: TextView = itemView.findViewById(R.id.item_my_package_price)
-        //        var view: Button = itemView.findViewById(R.id.item_my_package_view)
+        var btnStart: Button = itemView.findViewById(R.id.item_my_package_btnAddTocart)
         var test: TextView = itemView.findViewById(R.id.item_my_package_test)
         var image: ImageView = itemView.findViewById(R.id.item_my_package_image)
 

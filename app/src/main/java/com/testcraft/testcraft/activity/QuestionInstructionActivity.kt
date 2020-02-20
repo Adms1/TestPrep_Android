@@ -11,6 +11,7 @@ import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
 import com.testcraft.testcraft.utils.ActionIdData
+import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
 import kotlinx.android.synthetic.main.activity_question_instruction.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
@@ -29,6 +30,8 @@ class QuestionInstructionActivity : AppCompatActivity() {
     var totalhint = ""
     var hintused = ""
     var que_instruction = ""
+
+    var come_from = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -66,6 +69,8 @@ class QuestionInstructionActivity : AppCompatActivity() {
             ActionIdData.C2001,
             ActionIdData.T2001
         )
+
+        come_from = intent.getStringExtra("isComeFrom")
 
         testid = intent.getStringExtra("testid")
         studenttestid = intent.getStringExtra("studenttestid")
@@ -117,7 +122,18 @@ class QuestionInstructionActivity : AppCompatActivity() {
 
         queinstruction_header.text = testname
 
-        queinstruction_ivBack.setOnClickListener { onBackPressed() }
+        queinstruction_ivBack.setOnClickListener {
+            if(come_from == "testlist") {
+                onBackPressed()
+            }else{
+
+                AppConstants.isFirst = 1
+                val intent = Intent(this@QuestionInstructionActivity, DashboardActivity::class.java)
+                startActivity(intent)
+                finish()
+
+            }
+        }
 
         queinstruction_btnStart.setOnClickListener {
 
@@ -131,6 +147,9 @@ class QuestionInstructionActivity : AppCompatActivity() {
 
             val intent =
                 Intent(this@QuestionInstructionActivity, NewTabQuestionActivity::class.java)
+
+            intent.putExtra("isComeFrom", come_from)
+
             intent.putExtra("testid", testid)
             intent.putExtra("studenttestid", studenttestid)
             intent.putExtra("testname", testname)

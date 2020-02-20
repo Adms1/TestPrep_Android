@@ -6,9 +6,7 @@
     android:id="@+id/mall"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/_5sdp"
-    android:paddingRight="@dimen/_5sdp"
-    android:paddingBottom="@dimen/_5sdp">
+    android:padding="@dimen/_5sdp">
 
     <RelativeLayout
         android:id="@+id/package_item_rlImage"
@@ -57,19 +55,6 @@
         app:layout_constraintTop_toBottomOf="@+id/package_item_rlImage" />
 
     <TextView
-        android:id="@+id/package_item_tvCreatedby"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:gravity="left"
-        android:maxLines="1"
-        android:textColor="@color/gray"
-        android:textSize="@dimen/small_text_size"
-        app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
-        app:layout_constraintRight_toRightOf="@+id/package_item_rlImage"
-        app:layout_constraintTop_toBottomOf="@+id/package_item_tvStd" />
-
-    <TextView
         android:id="@+id/package_item_tvPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,7 +62,7 @@
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
-        app:layout_constraintTop_toBottomOf="@+id/package_item_tvCreatedby" />
+        app:layout_constraintTop_toBottomOf="@+id/package_item_tvStd" />
 
     <TextView
         android:id="@+id/package_item_tvSub"
@@ -91,5 +76,18 @@
         app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
         app:layout_constraintRight_toRightOf="@+id/package_item_rlImage"
         app:layout_constraintTop_toBottomOf="@+id/package_item_tvPrice" />
+
+    <TextView
+        android:id="@+id/package_item_tvCreatedby"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="left"
+        android:maxLines="1"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/small_text_size"
+        app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
+        app:layout_constraintRight_toRightOf="@+id/package_item_rlImage"
+        app:layout_constraintTop_toBottomOf="@+id/package_item_tvSub" />
 
 </android.support.constraint.ConstraintLayout>

@@ -51,6 +51,8 @@ import java.util.concurrent.TimeUnit
 @SuppressLint("SetJavaScriptEnabled", "SetTextI18n")
 class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
+    var come_from = ""
+
     var answer = ""
     var childList = HashMap<String, ArrayList<String>>()
 
@@ -95,6 +97,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
     override fun onStop() {
         super.onStop()
+
         unregisterReceiver(connectivity)
     }
 
@@ -111,6 +114,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         connectivity = Connectivity()
 
         shouldExecuteOnResume = false
+
+        come_from = intent.getStringExtra("isComeFrom")
 
         testid = intent.getStringExtra("testid")
         testtime = intent.getStringExtra("testtime")
@@ -173,6 +178,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 .into(imgQue)
 
             if (answer == "" && movies[q_grppos1].TestQuestion[curr_index].Answer == "") {
+
                 if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 7) {
 
                     ansList!!.adapter = SelectImageOptionAdapter(
@@ -623,12 +629,17 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         stopTimer()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
 
         val filter = IntentFilter()
         filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
         registerReceiver(connectivity, filter)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         if (shouldExecuteOnResume!!) {
             timerResume()
@@ -786,10 +797,21 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 continuetime = 0
 
-                AppConstants.isFirst = 12
-                val intent = Intent(this@NewTabQuestionActivity, DashboardActivity::class.java)
-                startActivity(intent)
-                finish()
+                if(come_from == "testlist") {
+
+                    AppConstants.isFirst = 12
+                    val intent = Intent(this@NewTabQuestionActivity, DashboardActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+                }else{
+
+                    AppConstants.isFirst = 1
+                    val intent = Intent(this@NewTabQuestionActivity, DashboardActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+                }
 
             },
             DialogInterface.OnClickListener { dialog, which ->

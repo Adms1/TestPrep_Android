@@ -40,8 +40,9 @@ class PrefrenceActivity : AppCompatActivity() {
 
     var connectivity: Connectivity? = null
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
+
         val filter = IntentFilter()
         filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
         registerReceiver(connectivity, filter)
@@ -277,6 +278,10 @@ class PrefrenceActivity : AppCompatActivity() {
                         step2_arrow.rotation = 0f
 
                         val subjectList = response.body()!!.data
+
+                        for(i in 0 until subjectList.size){
+                            subjectList[i].isSelected = true
+                        }
 
                         chooseCoarseAdapter =
                             NewSelectSubjectAdapter(this@PrefrenceActivity, subjectList)

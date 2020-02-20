@@ -161,8 +161,8 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 filterAdapter = FilterListAdapter(
                     this@FilterActivity,
                     filterTypeArr,
-                    filterTypeSelectionInteface!!
-                )
+                    filterTypeSelectionInteface!!)
+
                 filter_rvList.adapter = filterAdapter
                 filterAdapter!!.notifyDataSetChanged()
 
@@ -172,8 +172,7 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 bundle.putString("coursetype", coursetypeid)
                 bundle.putString("filtertypeid", filtertypeid)
                 fragment.arguments = bundle
-                supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment)
-                    .commit()
+                supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
 
             } else if (checkedId == R.id.filter_rbCompetitive) {
 

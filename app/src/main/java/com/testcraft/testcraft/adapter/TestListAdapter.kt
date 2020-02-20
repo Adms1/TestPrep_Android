@@ -65,8 +65,8 @@ class TestListAdapter(
             CommonWebCalls.callToken(context, "1", "", ActionIdData.C1901, ActionIdData.T1901)
 
             when (dataList[p1].StatusName) {
-                "Analyse" -> {
 
+                "Analyse" -> {
                     AppConstants.isFirst = 10
                     val bundle = Bundle()
                     bundle.putString("testid", dataList[p1].TestID.toString())
@@ -83,9 +83,13 @@ class TestListAdapter(
                     //                intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
                     //                context.startActivity(intent)
                 }
+
                 "Resume" -> {
                     val intent = Intent(context, NewTabQuestionActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+
+                    intent.putExtra("isComeFrom", "testlist")
+
                     intent.putExtra("testid", dataList[p1].TestID.toString())
                     intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
                     intent.putExtra("testname", dataList[p1].TestName)
@@ -100,11 +104,14 @@ class TestListAdapter(
                     intent.putExtra("que_instruction", dataList[p1].TestInstruction)
                     context.startActivity(intent)
                     (context as DashboardActivity).finish()
-
                 }
+
                 "Start Test" -> {
                     val intent = Intent(context, QuestionInstructionActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+
+                    intent.putExtra("isComeFrom", "testlist")
+
                     intent.putExtra("testid", dataList[p1].TestID.toString())
                     intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
                     intent.putExtra("testname", dataList[p1].TestName)
