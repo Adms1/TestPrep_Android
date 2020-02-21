@@ -116,6 +116,18 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
                     context.startActivity(intent)
                 }
 
+                "Refer a Friend" -> {
+
+                    AppConstants.isFirst = 17
+                    DashboardActivity.setFragments(null)
+                }
+
+                "Redeem Coupon" -> {
+
+                    AppConstants.isFirst = 18
+                    DashboardActivity.setFragments(null)
+                }
+
                 "Help" -> {
 
                     val intent = Intent(context, ViewInvoiceActivity::class.java)

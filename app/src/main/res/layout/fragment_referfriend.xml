@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ReferfriendFragment">
+
+    <TextView
+        android:id="@+id/referfrd_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/_7sdp"
+        android:paddingBottom="@dimen/_7sdp"
+        android:scrollHorizontally="true"
+        android:textColor="@color/header_gray"
+        android:textSize="@dimen/normal_header_size"
+        android:visibility="gone"
+        app:layout_constraintLeft_toRightOf="@+id/referfrd_ivBack"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/referfrd_ivBack"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:padding="@dimen/_8sdp"
+        android:src="@drawable/back_button"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/referfrd_header"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/referfrd_header"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/referfrd_tvText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/_7sdp"
+        android:paddingBottom="@dimen/_7sdp"
+        android:text="Send your friends discounts"
+        android:textColor="@color/black"
+        android:textSize="@dimen/normal_header_size"
+        app:layout_constraintLeft_toRightOf="@+id/referfrd_ivBack"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/referfrd_header" />
+
+    <TextView
+        android:id="@+id/referfrd_tvText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/_7sdp"
+        android:paddingBottom="@dimen/_7sdp"
+        android:text="Share the code, you and your friends gets free test when they used your code!"
+        android:textSize="@dimen/regular_text_size"
+        app:layout_constraintLeft_toRightOf="@+id/referfrd_ivBack"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/referfrd_tvText1" />
+
+    <ImageView
+        android:id="@+id/referfrd_ivLogo"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_120sdp"
+        android:padding="@dimen/_8sdp"
+        android:src="@drawable/refer"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/referfrd_tvText2"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/referfrd_tvText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/_7sdp"
+        android:paddingBottom="@dimen/_7sdp"
+        android:text="Share your invite code"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/regular_text_size"
+        app:layout_constraintTop_toBottomOf="@+id/referfrd_ivLogo" />
+
+    <EditText
+        android:id="@+id/referfrd_etCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:clickable="false"
+        android:focusable="false"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/_7sdp"
+        android:paddingBottom="@dimen/_7sdp"
+        android:text="User1234test"
+        android:textSize="@dimen/regular_text_size"
+        app:layout_constraintTop_toBottomOf="@+id/referfrd_tvText3" />
+
+    <Button
+        android:id="@+id/referfrd_btnShare"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_all_btn_height"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/login_round_bg"
+        android:text="Share"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/app_all_btn_text_size"
+        app:layout_constraintTop_toBottomOf="@+id/referfrd_etCode" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

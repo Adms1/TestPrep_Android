@@ -837,6 +837,36 @@ class DashboardActivity : AppCompatActivity() {
 //                .addToBackStack(null)
                         .commitNowAllowingStateLoss()
                 }
+                17 -> {
+
+                    fragment = ReferfriendFragment()
+
+                    llBottom!!.visibility = View.VISIBLE
+
+                    btnBack!!.visibility = View.VISIBLE
+//                    btnLogout!!.visibility = View.GONE
+
+                    main_header!!.text = "Refer a Friend"
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
+                }
+                18 -> {
+
+                    fragment = RedeemCouponFragment()
+
+                    llBottom!!.visibility = View.VISIBLE
+
+                    btnBack!!.visibility = View.VISIBLE
+//                    btnLogout!!.visibility = View.GONE
+
+                    main_header!!.text = "Redeem Coupon"
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitNowAllowingStateLoss()
+                }
             }
 
 //            fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
@@ -864,7 +894,7 @@ class DashboardActivity : AppCompatActivity() {
 
             Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
 
-        } else if (AppConstants.isFirst == 5 || AppConstants.isFirst == 6 || AppConstants.isFirst == 8 || AppConstants.isFirst == 16) {
+        } else if (AppConstants.isFirst == 5 || AppConstants.isFirst == 6 || AppConstants.isFirst == 8 || AppConstants.isFirst == 16 || AppConstants.isFirst == 17 || AppConstants.isFirst == 18) {
 
             AppConstants.isFirst = 4
             setFragments(null)

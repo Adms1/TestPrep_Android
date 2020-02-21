@@ -9,7 +9,7 @@ class MyPackageModel {
 
         var ID = 0
         var Name = ""
-        var Icon = ""
+        var BannerIcon = ""
         var StandardName = ""
         var StandardID = ""
         var BoardID = ""

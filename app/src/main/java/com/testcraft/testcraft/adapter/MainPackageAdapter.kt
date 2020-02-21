@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.models.MyPackageModel
@@ -55,61 +56,60 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
 //            intent.putExtra("sub_name", list[p1].Name)
 //            intent.putExtra("isCompetitive", list[p1].isCompetitive)
 //            context.startActivity(intent)
-        when (list[p1].Name) {
+//
+//        when (list[p1].Name) {
+//
+//            "Social Science" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.social_science))
+//            }
+//            "Science" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.science))
+//            }
+//            "Statistics" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.economics))
+//            }
+//            "Hindi" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.hindi))
+//            }
+//            "English" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.english_2))
+//            }
+//            "Accountancy" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.account))
+//            }
+//            "Physics" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.physics))
+//            }
+//            "Gujarati" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.gujarati))
+//            }
+//            "Biology" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.biology))
+//            }
+//            "Economics" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.economics))
+//            }
+//            "JEE Main" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.jee_main_four))
+//            }
+//            "JEE Advance" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.jee_main_four))
+//            }
+//            "NEET" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.neet))
+//            }
+//            "Mathematics" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.mathematics))
+//            }
+//            "GUJCET" -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.gujcet))
+//            }
+//            else -> {
+//                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.pp_2))
+//            }
 
-            "Social Science" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.social_science))
-            }
-            "Science" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.science))
-            }
-            "Statistics" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.economics))
-            }
-            "Hindi" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.hindi))
-            }
-            "English" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.english_2))
-            }
-            "Accountancy" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.account))
-            }
-            "Physics" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.physics))
-            }
-            "Gujarati" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.gujarati))
-            }
-            "Biology" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.biology))
-            }
-            "Economics" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.economics))
-            }
-            "JEE Main" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.jee_main_four))
-            }
-            "JEE Advance" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.jee_main_four))
-            }
-            "NEET" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.neet))
-            }
-            "Mathematics" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.mathematics))
-            }
-            "GUJCET" -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.gujcet))
-            }
-            else -> {
-                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.pp_2))
-            }
-
-            //        Picasso.get().load("http://content.testcraft.co.in/question/" + list[p1].Icon).into(p0.ll)
-        }
-
-//        Picasso.get().load("http://content.testcraft.co.in/question/" + list[p1].Icon).into(p0.ll)
+        Picasso.get().load(AppConstants.IMAGE_BASE_URL + list[p1].BannerIcon).into(p0.ll)
+//        }
 
         p0.ll.setOnClickListener {
 
