@@ -137,7 +137,6 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
         }
     }
 
-
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var standard: TextView = itemView.findViewById(R.id.choosemp_tvstandardname)

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activity.IntroActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/intro_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/intro_logo_height"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:src="@drawable/slider_logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <LinearLayout
+            android:id="@+id/layoutDots"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/intro_view_pager" />
+
+        <!--<ImageView-->
+        <!--ndroid:id="@+id/intro_ivLogo"-->
+        <!--android:layout_width="@dimen/_150sdp"-->
+        <!--android:layout_height="@dimen/_200sdp"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--android:layout_marginTop="@dimen/_30sdp"-->
+        <!--android:src="@mipmap/logo"-->
+        <!--android:contentDescription="@string/logo"/>-->
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/fb"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/intro_fb_btn_height"
+            android:layout_marginLeft="@dimen/_22sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_22sdp"
+            android:paddingTop="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            android:text="@string/facebook"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/layoutDots" />
+
+        <Button
+            android:id="@+id/intro_btnFb"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/intro_fbgoogleemail1_btn_height"
+            android:layout_marginLeft="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_35sdp"
+            android:background="@drawable/fb_round_bg"
+            android:drawableStart="@drawable/fb_icn"
+            android:drawableLeft="@drawable/fb_icn"
+            android:drawablePadding="@dimen/_10sdp"
+            android:gravity="left|center_vertical"
+            android:onClick="onClick"
+            android:paddingLeft="@dimen/_20sdp"
+            android:text="@string/facebook"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/app_all_btn_text_size"
+            app:layout_constraintTop_toBottomOf="@+id/fb" />
+
+        <!--<com.google.android.gms.common.SignInButton-->
+        <!--android:id="@+id/login_btnGoogle"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/_35sdp"-->
+        <!--android:layout_marginLeft="@dimen/_20sdp"-->
+        <!--android:layout_marginRight="@dimen/_20sdp"-->
+        <!--android:layout_marginTop="@dimen/_10sdp"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/login_btnFb"/>-->
+
+        <Button
+            android:id="@+id/intro_btnGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/intro_fbgoogleemail1_btn_height"
+            android:layout_marginLeft="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_35sdp"
+            android:background="@drawable/google_round_bg"
+            android:drawableStart="@drawable/google_icn"
+            android:drawableLeft="@drawable/google_icn"
+            android:drawablePadding="@dimen/_10sdp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/_20sdp"
+            android:text="@string/google"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/app_all_btn_text_size"
+            app:layout_constraintTop_toBottomOf="@+id/intro_btnFb" />
+
+        <Button
+            android:id="@+id/intro_btnEmail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/intro_fbgoogleemail1_btn_height"
+            android:layout_marginLeft="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_35sdp"
+            android:background="@drawable/login_round_bg"
+            android:drawableStart="@drawable/email_icn"
+            android:drawableLeft="@drawable/email_icn"
+            android:drawablePadding="@dimen/_10sdp"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/_20sdp"
+            android:text="@string/continue_with_email"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/app_all_btn_text_size"
+            app:layout_constraintTop_toBottomOf="@+id/intro_btnGoogle" />
+
+        <LinearLayout
+            android:id="@+id/intro_tvSignin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/intro_tvVersion"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/intro_btnEmail">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ALREADY HAVE AN ACCOUNT? "
+                android:textSize="@dimen/small_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SIGN IN"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/small_text_size" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/intro_tvVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:gravity="center"
+            android:text="@string/version_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/small_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
