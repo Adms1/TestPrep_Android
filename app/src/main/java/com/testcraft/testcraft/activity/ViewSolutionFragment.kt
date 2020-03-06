@@ -6,13 +6,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.app.ActionBarDrawerToggle
-import android.support.v4.app.Fragment
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +15,12 @@ import android.widget.Button
 import android.widget.ExpandableListView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.ImageViewAdapter1.Companion.SolutionPageNumber
@@ -38,7 +38,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
+class ViewSolutionFragment : Fragment(), FilterTypeSelectionInteface {
 
     var testid = ""
     var studenttestid = ""
@@ -107,8 +107,14 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
         imgQue!!.isDrawingCacheEnabled = true
 
+//        mDrawerToggle = ActionBarDrawerToggle(
+//            activity, drawer_layout1, R.mipmap.tc_logo, // nav menu toggle icon
+//            R.string.app_name, // nav drawer open - description for accessibility
+//            R.string.app_name
+//        )
+
         mDrawerToggle = ActionBarDrawerToggle(
-            activity, drawer_layout1, R.mipmap.tc_logo, // nav menu toggle icon
+            activity, drawer_layout1, null, // nav menu toggle icon
             R.string.app_name, // nav drawer open - description for accessibility
             R.string.app_name
         )
@@ -244,7 +250,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
         }
 
         solution_btnNextt.setOnClickListener {
-            drawer_layout1.openDrawer(Gravity.END)
+            drawer_layout1.openDrawer(GravityCompat.END)
         }
 
         solution_btnNext.setOnClickListener {
@@ -496,7 +502,7 @@ class ViewSolutionActivity : Fragment(), FilterTypeSelectionInteface {
 
 //        dialog_hint_wvHint.visibility = View.GONE
 
-        drawer_layout1.closeDrawer(Gravity.END)
+        drawer_layout1.closeDrawer(GravityCompat.END)
 
         if (finalArr1[sectionList!![solution_grppos1]]!!.size > curr_index1) {
 

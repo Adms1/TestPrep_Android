@@ -1,7 +1,7 @@
 package com.testcraft.testcraft.carouselPkg
 
-import android.support.annotation.IntRange
 import android.view.View
+import androidx.annotation.IntRange
 import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.sin

@@ -5,14 +5,15 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
 import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
+import com.testcraft.testcraft.utils.Utils
 import kotlinx.android.synthetic.main.activity_question_instruction.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -122,17 +123,18 @@ class QuestionInstructionActivity : AppCompatActivity() {
 
         queinstruction_header.text = testname
 
+        if (Utils.getStringValue(this@QuestionInstructionActivity, AppConstants.APP_MODE, "") == AppConstants.DEEPLINK_MODE) {
+
+            queinstruction_ivBack.visibility = View.GONE
+
+        } else {
+
+            queinstruction_ivBack.visibility = View.VISIBLE
+
+        }
+
         queinstruction_ivBack.setOnClickListener {
-            if(come_from == "testlist") {
-                onBackPressed()
-            }else{
-
-                AppConstants.isFirst = 1
-                val intent = Intent(this@QuestionInstructionActivity, DashboardActivity::class.java)
-                startActivity(intent)
-                finish()
-
-            }
+            onBackPressed()
         }
 
         queinstruction_btnStart.setOnClickListener {
@@ -168,6 +170,34 @@ class QuestionInstructionActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    override fun onBackPressed() {
+
+        if (Utils.getStringValue(this@QuestionInstructionActivity, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
+
+            when (come_from) {
+                "testlist" -> {
+                    super.onBackPressed()
+
+                }
+                "freetest" -> {
+
+                    AppConstants.isFirst = 1
+                    val intent =
+                        Intent(this@QuestionInstructionActivity, DashboardActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+                }
+                else       -> {
+
+                }
+            }
+
+        } else {
+
+        }
     }
 
 }

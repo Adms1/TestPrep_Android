@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
@@ -122,7 +122,7 @@ class CartActivity : AppCompatActivity() {
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.checkout(
-            Utils.getStringValue(this@CartActivity, AppConstants.USER_ID, "0")!!
+            Utils.getStringValue(this@CartActivity, AppConstants.USER_ID, "0")!!, ""
         )
 
         call.enqueue(object : Callback<JsonObject> {

@@ -209,7 +209,7 @@ interface WebInterface {
 
     @FormUrlEncoded
     @POST("CheckOut")
-    fun checkout(@Field("StudentID") student_id: String): Call<JsonObject>
+    fun checkout(@Field("StudentID") student_id: String, @Field("CouponCode") ccode: String): Call<JsonObject>
 
     @FormUrlEncoded
     @POST("Insert_IssueReport")
@@ -234,5 +234,22 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Get_StudentTest_SW_Analysis")
     fun studentAnalysis(@Field("StudentTestID") studenttest_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("GetStudentCode")
+    fun getRefrenceCode(@Field("StudentID") student_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("ValidateCouponCode")
+    fun getValidateCouponCode(@Field("StudentID") student_id: String, @Field("CouponCode") coupon_code: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Get_GuestUser_Test")
+    fun getDplinkTest(@Field("StudentID") student_id: String): Call<TestListModel>
+
+    @FormUrlEncoded
+    @POST("Get_DeepLink")
+    fun getDplinkSubject(@Field("DeeplinkGUID") dplink_guid: String, @Field("StudentID") student_id: String): Call<DeepLinkModel>
+
 
 }

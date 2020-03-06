@@ -4,14 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
@@ -104,7 +104,7 @@ class MyPackageAdapter(
 
                     if (DialogUtils.isNetworkConnected(context)) {
 
-                        PackagePurchase.callAddToCart(dataList[p1].TestPackageID, context)
+                        PackagePurchase.callAddToCart("freetest", dataList[p1].TestPackageID, context, "")
 
                     } else {
                         Utils.ping(context, AppConstants.NETWORK_MSG)

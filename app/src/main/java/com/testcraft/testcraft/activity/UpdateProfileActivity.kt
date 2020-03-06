@@ -1,13 +1,13 @@
 package com.testcraft.testcraft.activity
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
@@ -98,8 +98,7 @@ class UpdateProfileActivity : Fragment() {
                 signup_etEmail.text.toString(),
                 signup_etPassword.text.toString(),
                 signup_etMobile.text.toString(),
-                Utils.getStringValue(activity!!, AppConstants.USER_STATUSID, "")!!
-            )
+                Utils.getStringValue(activity!!, AppConstants.USER_STATUSID, "")!!)
         )
 
         call.enqueue(object : Callback<JsonObject> {

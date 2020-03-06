@@ -32,8 +32,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.StrengthWeeknessActivity"></activity>
-        <!-- Define your service, make sure to add the permision! -->
+
+        <activity
+            android:name=".activity.DeeplinkTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DeeplinkEntryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.StrengthWeeknessActivity"
+            android:screenOrientation="portrait" /> <!-- Define your service, make sure to add the permision! -->
         <service
             android:name=".NetworkSchedulerService"
             android:exported="true"
@@ -126,7 +134,18 @@
             android:name=".activity.DashboardActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="testcraft.in/data?id="
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.SignupActivity"
             android:launchMode="singleTop"
@@ -145,6 +164,16 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="testcraft.in/data?id="
+                    android:scheme="https" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

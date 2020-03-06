@@ -6,11 +6,11 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
@@ -158,7 +158,24 @@ class OtpActivity : AppCompatActivity() {
                         otp_ivLogo.setImageDrawable(resources.getDrawable(R.drawable.success_verification_icn))
 
                         if (intent.getStringExtra("come_from") == "signup") {
-                            callSignupApi()
+
+                            if (Utils.getStringValue(this@OtpActivity, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
+
+                                CommonWebCalls.callSignupApi("otp", this@OtpActivity, "1", "0", intent.getStringExtra("first_name"),
+                                    intent.getStringExtra("last_name"),
+                                    intent.getStringExtra("email"),
+                                    intent.getStringExtra("password"),
+                                    intent.getStringExtra("mobile_number"))
+                            } else {
+
+                                CommonWebCalls.callSignupApi("otp", this@OtpActivity, "1", Utils.getStringValue(this@OtpActivity, AppConstants.USER_ID, "")!!, intent.getStringExtra("first_name"),
+                                    intent.getStringExtra("last_name"),
+                                    intent.getStringExtra("email"),
+                                    intent.getStringExtra("password"),
+                                    intent.getStringExtra("mobile_number"))
+                            }
+
+//                            callSignupApi()
                         } else {
                             callupdateApi()
                         }
@@ -180,7 +197,7 @@ class OtpActivity : AppCompatActivity() {
                         ActionIdData.T501
                     )
 
-                    Utils.setStringValue(this@OtpActivity, "is_login", "true")
+                    Utils.setStringValue(this@OtpActivity, AppConstants.IS_LOGIN, "true")
 
                     val intent = Intent(this@OtpActivity, NewActivity::class.java)
                     startActivity(intent)
@@ -374,8 +391,7 @@ class OtpActivity : AppCompatActivity() {
                 intent.getStringExtra("email"),
                 intent.getStringExtra("password"),
                 intent.getStringExtra("mobile_number"),
-                Utils.getStringValue(this@OtpActivity, AppConstants.USER_STATUSID, "")!!
-            )
+                Utils.getStringValue(this@OtpActivity, AppConstants.USER_STATUSID, "")!!)
         )
 
         call.enqueue(object : Callback<JsonObject> {

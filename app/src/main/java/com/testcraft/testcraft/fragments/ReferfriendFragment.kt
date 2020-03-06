@@ -2,13 +2,21 @@ package com.testcraft.testcraft.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
+import com.testcraft.testcraft.retrofit.WebClient
+import com.testcraft.testcraft.retrofit.WebInterface
+import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.Utils
 import kotlinx.android.synthetic.main.fragment_referfriend.*
-
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 /**
  * A simple [Fragment] subclass.
@@ -36,6 +44,33 @@ class ReferfriendFragment : Fragment() {
             startActivity(Intent.createChooser(share, "Share Text"))
         }
 
+        callRCode()
+
+    }
+
+    fun callRCode() {
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call =
+            apiService.getRefrenceCode(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
+
+        call.enqueue(object : Callback<JsonObject> {
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body()!!.get("Status").asString == "true") {
+
+                    referfrd_etCode.setText(response.body()!!.get("data").asString)
+
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+            }
+        })
     }
 
 }

@@ -1,7 +1,6 @@
 package com.testcraft.testcraft.fragments
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
@@ -9,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity
@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_contact_us.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class ContactUsFragment : Fragment() {
 

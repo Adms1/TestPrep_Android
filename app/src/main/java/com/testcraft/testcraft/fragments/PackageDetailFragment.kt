@@ -6,26 +6,27 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
+import com.testcraft.testcraft.activity.IntroActivity
 import com.testcraft.testcraft.activity.TraknpayRequestActivity
 import com.testcraft.testcraft.adapter.TestTypeAdapter
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
-import kotlinx.android.synthetic.main.activity_package_detail.*
+import kotlinx.android.synthetic.main.fragment_package_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +35,8 @@ class PackageDetailFragment : Fragment() {
 
     var pkgid = ""
     var tutor_id = ""
+
+    var validation_id = "0"
 
     var purchaseCoin = ""
     var come = ""
@@ -46,7 +49,7 @@ class PackageDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.activity_package_detail, container, false)
+        return inflater.inflate(R.layout.fragment_package_detail, container, false)
 
     }
 
@@ -82,11 +85,24 @@ class PackageDetailFragment : Fragment() {
             package_detail_createdby.visibility = View.GONE
         }
 
+        package_detail_btnPcode.setOnClickListener {
+
+            if (package_detail_etPcode.text.toString() != "") {
+                callValidateCCode()
+
+            } else {
+
+                package_detail_tvValid.visibility = View.VISIBLE
+                package_detail_tvValid!!.setTextColor(resources.getColor(R.color.red))
+                package_detail_tvValid!!.text = "Please enter coupon code"
+            }
+        }
+
         package_detail_createdby.setOnClickListener {
 
             CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1102, ActionIdData.T1102)
 
-            //            val intent = Intent(activity!!, TutorProfileFragment::class.java)
+//            val intent = Intent(activity!!, TutorProfileFragment::class.java)
 //            intent.putExtra("tutor_id", tutor_id)
 //            startActivity(intent)
 
@@ -103,9 +119,17 @@ class PackageDetailFragment : Fragment() {
 
         package_detail_btnAddTocart.setOnClickListener {
 
-            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1101, ActionIdData.T1101)
+            if (Utils.getStringValue(activity!!, AppConstants.IS_LOGIN, "") == "true") {
 
-            //            val dialog = Dialog(activity)
+                CommonWebCalls.callToken(
+                    activity!!,
+                    "1",
+                    "",
+                    ActionIdData.C1101,
+                    ActionIdData.T1101
+                )
+
+                //            val dialog = Dialog(activity)
 //            dialog.setContentView(R.layout.dialog_verify_number)
 //            dialog.setCanceledOnTouchOutside(false)
 //            dialog.setCancelable(false)
@@ -134,21 +158,33 @@ class PackageDetailFragment : Fragment() {
 //
 //            dialog.show()`    
 
-            DialogUtils.createConfirmDialog(
-                activity!!,
-                "",
-                "Are you sure you want to buy this package?",
-                "Yes",
-                "No",
-                DialogInterface.OnClickListener { dialog, which ->
+                DialogUtils.createConfirmDialog(
+                    activity!!,
+                    "",
+                    "Are you sure you want to buy this package?",
+                    "Yes",
+                    "No",
+                    DialogInterface.OnClickListener { dialog, which ->
 
-                    if (DialogUtils.isNetworkConnected(activity!!)) {
+                        if (DialogUtils.isNetworkConnected(activity!!)) {
 
 //            if (isVersionCodeUpdated) {
 
 //                        if(!purchaseCoin.equals("free", true)) {
 
-                        PackagePurchase.callAddToCart(oldpkgid, activity!!)
+                            if (validation_id == "1" || validation_id == "0") {
+                                PackagePurchase.callAddToCart("freetest",
+                                    oldpkgid,
+                                    activity!!,
+                                    package_detail_etPcode.text.toString()
+                                )
+                            } else {
+                                PackagePurchase.callAddToCart("freetest",
+                                    oldpkgid,
+                                    activity!!,
+                                    ""
+                                )
+                            }
 
 //                        }else{
 //                            callAddTestPackageApi(intent.getStringExtra("pkgid"))
@@ -159,16 +195,21 @@ class PackageDetailFragment : Fragment() {
 //
 //            }
 
-                    } else {
-                        Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-                    }
+                        } else {
+                            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                        }
 
-                },
-                DialogInterface.OnClickListener { dialog, which ->
-                    dialog.dismiss()
+                    },
+                    DialogInterface.OnClickListener { dialog, which ->
+                        dialog.dismiss()
 
+                    }).show()
+            } else {
 
-                }).show()
+                val intent = Intent(activity!!, IntroActivity::class.java)
+                startActivity(intent)
+
+            }
         }
 
         callTestPackageDetailApi()
@@ -356,6 +397,9 @@ class PackageDetailFragment : Fragment() {
                             response.body()!!.get("data").asJsonObject.get("TestPackageName")
                                 .asString
 
+                        val testList: JsonArray? =
+                            response.body()!!.get("data").asJsonObject.get("TestList").asJsonArray
+
                         if (response.body()!!.get("data").asJsonObject.get("Icon").asString != null) {
                             Picasso.get()
                                 .load(
@@ -372,7 +416,10 @@ class PackageDetailFragment : Fragment() {
                             )
                         ) {
 
-                           package_detail_btnAddTocart.text = "Start Test"
+                            package_detail_btnAddTocart.text = "Start Test"
+
+                            package_detail_etPcode!!.visibility = View.GONE
+                            package_detail_btnPcode!!.visibility = View.GONE
 
                             package_detail_tvsprice.text =
                                 response.body()!!.get("data")
@@ -385,6 +432,14 @@ class PackageDetailFragment : Fragment() {
                         } else {
 
                             package_detail_btnAddTocart.text = "Buy"
+
+                            if (testList!!.size() == 1) {
+                                package_detail_etPcode!!.visibility = View.VISIBLE
+                                package_detail_btnPcode!!.visibility = View.VISIBLE
+                            } else {
+                                package_detail_etPcode!!.visibility = View.GONE
+                                package_detail_btnPcode!!.visibility = View.GONE
+                            }
 
 //                            package_detail_tvlpricetxt.visibility = View.GONE
 
@@ -447,13 +502,11 @@ class PackageDetailFragment : Fragment() {
 
 //                        var pos = intent.getCharExtra("position", 'a')
 
+                        if (testList!!.size() > 0) {
+                            package_detail_rvList.adapter = TestTypeAdapter(activity!!, testList)
 
-                        val testList: JsonArray? =
-                            response.body()!!.get("data").asJsonObject.get("TestList").asJsonArray
+                        }
 
-                        package_detail_rvList.adapter = TestTypeAdapter(
-                            activity!!, testList!!
-                        )
                     } else {
 
                         Toast.makeText(
@@ -529,4 +582,45 @@ class PackageDetailFragment : Fragment() {
             }
         })
     }
+
+    fun callValidateCCode() {
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.getValidateCouponCode(
+            Utils.getStringValue(
+                activity!!,
+                AppConstants.USER_ID,
+                "0"
+            )!!, package_detail_etPcode.text.toString()
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                package_detail_tvValid.visibility = View.VISIBLE
+                package_detail_tvValid!!.text =
+                    response.body()!!.get("data").asJsonObject["ValidationDesc"].asString
+
+                validation_id = response.body()!!.get("data").asJsonObject["ValidationID"].asString
+
+                if (response.body()!!.get("Status").asString == "true") {
+
+                    package_detail_tvValid!!.setTextColor(resources.getColor(R.color.green))
+
+                } else {
+
+                    package_detail_tvValid!!.setTextColor(resources.getColor(R.color.red))
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+            }
+        })
+    }
+
+
 }

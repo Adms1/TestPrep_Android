@@ -1,14 +1,17 @@
 package com.testcraft.testcraft.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
+import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
+import com.testcraft.testcraft.activity.IntroActivity
 import com.testcraft.testcraft.adapter.OtherListAdapter
 import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
@@ -39,21 +42,45 @@ class OtherFragment : Fragment() {
             menuList.add("Change Password")
             menuList.add("Change Preference")
             menuList.add("Refer a Friend")
-            menuList.add("Redeem Coupon")
+//            menuList.add("Redeem Coupon")
             menuList.add("Privacy Policy")
             menuList.add("Contact Us")
-            menuList.add("Logout")
+//            menuList.add("Logout")
         } else {
 //            menuList.add("Edit Profile")
             menuList.add("My Payments")
             menuList.add("Change Preference")
             menuList.add("Refer a Friend")
-            menuList.add("Redeem Coupon")
+//            menuList.add("Redeem Coupon")
             menuList.add("Privacy Policy")
             menuList.add("Contact Us")
-            menuList.add("Logout")
+//            menuList.add("Logout")
         }
 //        menuList.add("Logout")
+
+        other_tvChangeUser!!.setOnClickListener {
+
+            IntroActivity.disconnectFromFacebook()
+
+            DashboardActivity.mGoogleSignInClient!!.signOut()
+                .addOnCompleteListener(DashboardActivity.context as DashboardActivity) {
+                    // ...
+
+                    val intent = Intent(DashboardActivity.context, IntroActivity::class.java)
+                    context!!.startActivity(intent)
+                }
+
+//            val intent = Intent(context, IntroActivity::class.java)
+//            startActivity(intent)
+        }
+
+        if (Utils.getStringValue(activity!!, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
+
+            other_ivEdit.visibility = View.VISIBLE
+
+        } else {
+            other_ivEdit.visibility = View.GONE
+        }
 
         other_lvList.layoutManager =
             LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)

@@ -6,10 +6,9 @@ import android.app.job.JobService
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
-import android.support.annotation.RequiresApi
 import android.util.Log
 import android.widget.Toast
-
+import androidx.annotation.RequiresApi
 
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 class NetworkSchedulerService : JobService(),

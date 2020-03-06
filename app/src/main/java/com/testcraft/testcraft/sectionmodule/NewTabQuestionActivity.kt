@@ -9,11 +9,6 @@ import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.*
-import android.support.v4.app.ActionBarDrawerToggle
-import android.support.v4.app.FragmentActivity
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -24,6 +19,11 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.webkit.WebView
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.Connectivity
@@ -46,7 +46,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.concurrent.TimeUnit
-
 
 @SuppressLint("SetJavaScriptEnabled", "SetTextI18n")
 class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
@@ -136,6 +135,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             hintCount = total_hint_used.toInt()
         }
 
+        if (Utils.getStringValue(this@NewTabQuestionActivity, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
+            queTab_ivBack.visibility = View.VISIBLE
+        } else {
+            queTab_ivBack.visibility = View.GONE
+        }
+
         curr_index = 0
         q_grppos1 = 0
 
@@ -159,7 +164,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         imgQue!!.isDrawingCacheEnabled = true
 
         mDrawerToggle = ActionBarDrawerToggle(
-            this, drawer_layout, R.mipmap.tc_logo, // nav menu toggle icon
+            this, drawer_layout, null, // nav menu toggle icon
             R.string.app_name, // nav drawer open - description for accessibility
             R.string.app_name
         )
@@ -172,22 +177,24 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         queTab_ivRefresh.setOnClickListener {
 
-            Picasso.get()
-                .load(movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
-                .transform(transform.getTransformation(imgQue!!))
-                .into(imgQue)
+            if (movies.size > 0) {
+                Picasso.get()
+                    .load(movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
+                    .transform(transform.getTransformation(imgQue!!))
+                    .into(imgQue)
 
-            if (answer == "" && movies[q_grppos1].TestQuestion[curr_index].Answer == "") {
+                if (answer == "" && movies[q_grppos1].TestQuestion[curr_index].Answer == "") {
 
-                if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 7) {
+                    if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 7) {
 
-                    ansList!!.adapter = SelectImageOptionAdapter(
-                        this@NewTabQuestionActivity,
-                        movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
-                        imgQue!!.width,
-                        movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                        movies[q_grppos1].TestQuestion[curr_index].Answer, 1
-                    )
+                        ansList!!.adapter = SelectImageOptionAdapter(
+                            this@NewTabQuestionActivity,
+                            movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
+                            imgQue!!.width,
+                            movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                            movies[q_grppos1].TestQuestion[curr_index].Answer, 1
+                        )
+                    }
                 }
             }
         }
@@ -202,33 +209,35 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 ActionIdData.T2009
             )
 
-            if (movies[groupPosition].SectionInstruction != "" && !Groupinfodialog.isShowing) {
+            if (movies.size > 0) {
+                if (movies[groupPosition].SectionInstruction != "" && !Groupinfodialog.isShowing) {
 
-                Groupinfodialog.setContentView(R.layout.hint_dialog)
-                Groupinfodialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                Groupinfodialog.setCanceledOnTouchOutside(false)
+                    Groupinfodialog.setContentView(R.layout.hint_dialog)
+                    Groupinfodialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    Groupinfodialog.setCanceledOnTouchOutside(false)
 
-                val hintWebview: WebView = Groupinfodialog.findViewById(R.id.dialog_hint_wvHint)
-                val header: TextView = Groupinfodialog.findViewById(R.id.dialog_hint_tvHeader)
+                    val hintWebview: WebView = Groupinfodialog.findViewById(R.id.dialog_hint_wvHint)
+                    val header: TextView = Groupinfodialog.findViewById(R.id.dialog_hint_tvHeader)
 
-                val closeBtn: View = Groupinfodialog.findViewById(R.id.dialog_hint_btnClose)
+                    val closeBtn: View = Groupinfodialog.findViewById(R.id.dialog_hint_btnClose)
 
-                header.text = movies[groupPosition].SectionName
+                    header.text = movies[groupPosition].SectionName
 
-                hintWebview.settings.javaScriptEnabled = true
+                    hintWebview.settings.javaScriptEnabled = true
 
-                hintWebview.loadDataWithBaseURL(
-                    "",
-                    "<html><body style='background-color:clear;'><p>" + movies[groupPosition].SectionInstruction + "</p></body></html>",
-                    "text/html",
-                    "UTF-8",
-                    ""
-                )
+                    hintWebview.loadDataWithBaseURL(
+                        "",
+                        "<html><body style='background-color:clear;'><p>" + movies[groupPosition].SectionInstruction + "</p></body></html>",
+                        "text/html",
+                        "UTF-8",
+                        ""
+                    )
 
-                closeBtn.setOnClickListener { Groupinfodialog.dismiss() }
+                    closeBtn.setOnClickListener { Groupinfodialog.dismiss() }
 
-                Groupinfodialog.show()
+                    Groupinfodialog.show()
 
+                }
             }
             false
 
@@ -594,6 +603,8 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                 }
                             }
                         }
+                    } else {
+
                     }
 
                     Handler().postDelayed(
@@ -677,22 +688,24 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 if (qtime > 0 && qtime == 10) {
 
-                    Log.d("10 second", "" + qtime)
+                    if (movies.size > 0) {
+                        Log.d("10 second", "" + qtime)
 
-                    if (movies[q_grppos1].TestQuestion[curr_index].Review.equals("1", true)) {
+                        if (movies[q_grppos1].TestQuestion[curr_index].Review.equals("1", true)) {
 
-                        Log.d("itype", "continue true")
+                            Log.d("itype", "continue true")
 
-                        getType("continue", 1, curr_index)
-                        queTab_ivReview.isChecked = true
-                        queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
-                    } else {
+                            getType("continue", 1, curr_index)
+                            queTab_ivReview.isChecked = true
+                            queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_blue)
+                        } else {
 
-                        Log.d("itype", "continue false")
+                            Log.d("itype", "continue false")
 
-                        getType("continue", 0, curr_index)
-                        queTab_ivReview.isChecked = false
-                        queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
+                            getType("continue", 0, curr_index)
+                            queTab_ivReview.isChecked = false
+                            queTab_ivReview.setBackgroundResource(R.drawable.rotate_eye_gray)
+                        }
                     }
 
                 }
@@ -787,37 +800,46 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
     override fun onBackPressed() {
 
-        DialogUtils.createConfirmDialog(
-            this@NewTabQuestionActivity,
-            "Resume?",
-            "Are you sure you want to resume a test?",
-            "OK",
-            "Cancel",
-            DialogInterface.OnClickListener { dialog, which ->
+        if (Utils.getStringValue(this@NewTabQuestionActivity, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
 
-                continuetime = 0
+            DialogUtils.createConfirmDialog(
+                this@NewTabQuestionActivity,
+                "Resume?",
+                "Are you sure you want to resume a test?",
+                "OK",
+                "Cancel",
+                DialogInterface.OnClickListener { dialog, which ->
 
-                if(come_from == "testlist") {
+                    continuetime = 0
 
-                    AppConstants.isFirst = 12
-                    val intent = Intent(this@NewTabQuestionActivity, DashboardActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    if (come_from == "testlist") {
 
-                }else{
+                        AppConstants.isFirst = 12
+                        val intent =
+                            Intent(this@NewTabQuestionActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish()
 
-                    AppConstants.isFirst = 1
-                    val intent = Intent(this@NewTabQuestionActivity, DashboardActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    } else if (come_from == "freetest") {
 
-                }
+                        AppConstants.isFirst = 1
+                        val intent =
+                            Intent(this@NewTabQuestionActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish()
 
-            },
-            DialogInterface.OnClickListener { dialog, which ->
-                dialog.dismiss()
+                    } else {
 
-            }).show()
+                        super.onBackPressed()
+
+                    }
+
+                },
+                DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+
+                }).show()
+        }
 
     }
 
@@ -1211,420 +1233,422 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     @SuppressLint("RtlHardcoded", "SetTextI18n")
     override fun getType(itype: String, p0: Int, p1: Int) {
 
-        curr_index = p1
+        if (movies.size > 0) {
+            curr_index = p1
 
-        if (itype != "clear" && itype != "adapter") {
+            if (itype != "clear" && itype != "adapter") {
 
-            when (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID) {
+                when (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID) {
 
-                1 -> {
+                    1 -> {
 
-                    if (itype == "next" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
+                        if (itype == "next" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
 
-                        answer = if (ansArr.size > 0) {
-                            ansArr[0].ansid
-                        } else {
-                            movies[q_grppos1].TestQuestion[curr_index].Answer
+                            answer = if (ansArr.size > 0) {
+                                ansArr[0].ansid
+                            } else {
+                                movies[q_grppos1].TestQuestion[curr_index].Answer
+                            }
+                        }
+                    }
+
+                    7 -> {
+
+                        if (itype == "next" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
+
+                            answer = if (ansArr.size > 0) {
+                                ansArr[0].ansid
+                            } else {
+                                movies[q_grppos1].TestQuestion[curr_index].Answer
+                            }
+                        }
+                    }
+
+                    2 -> {
+
+                        answer = queTab_tvFillBlanks.text.toString()
+                    }
+
+                    8 -> {
+
+                        if (queTab_tvFillBlanks.text.toString() != "") {
+
+                            answer = integeranswer
+                        }
+                    }
+
+                    4 -> {
+
+                        if (itype == "next" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
+
+                            answer = when {
+                                queTab_rbFalse.isChecked -> {
+                                    "0"
+                                }
+                                queTab_rbTrue.isChecked  -> {
+                                    "1"
+                                }
+                                else                     -> {
+                                    ""
+                                }
+                            }
                         }
                     }
                 }
 
-                7 -> {
+            } else if (itype == "adapter") {
 
-                    if (itype == "next" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
+                if (total_hint != "0" && movies[q_grppos1].TestQuestion[curr_index].Hint != "") {
 
-                        answer = if (ansArr.size > 0) {
-                            ansArr[0].ansid
-                        } else {
-                            movies[q_grppos1].TestQuestion[curr_index].Answer
-                        }
+                    queTab_ivHint.visibility = View.VISIBLE
+
+                    if (movies[q_grppos1].TestQuestion[curr_index].HintUsed == "0") {
+
+                        queTab_ivHint.setImageResource(R.drawable.hint_bulb)
+
+                    } else {
+
+                        queTab_ivHint.setImageResource(R.drawable.hint_bulb_yellow)
                     }
-                }
 
-                2 -> {
-
-                    answer = queTab_tvFillBlanks.text.toString()
-                }
-
-                8 -> {
-
-                    if (queTab_tvFillBlanks.text.toString() != "") {
-
-                        answer = integeranswer
-                    }
-                }
-
-                4 -> {
-
-                    if (itype == "next" || itype == "submit" || itype == "continue" || itype == "review" || itype == "sidemenu") {
-
-                        answer = when {
-                            queTab_rbFalse.isChecked -> {
-                                "0"
-                            }
-                            queTab_rbTrue.isChecked -> {
-                                "1"
-                            }
-                            else -> {
-                                ""
-                            }
-                        }
-                    }
-                }
-            }
-
-        } else if (itype == "adapter") {
-
-            if (total_hint != "0" && movies[q_grppos1].TestQuestion[curr_index].Hint != "") {
-
-                queTab_ivHint.visibility = View.VISIBLE
-
-                if (movies[q_grppos1].TestQuestion[curr_index].HintUsed == "0") {
-
-                    queTab_ivHint.setImageResource(R.drawable.hint_bulb)
-
+                    hintData =
+                        "<html><body style='background-color:clear;'><p>" + movies[q_grppos1].TestQuestion[curr_index].Hint + "</p></body></html>"
                 } else {
-
-                    queTab_ivHint.setImageResource(R.drawable.hint_bulb_yellow)
+                    queTab_ivHint.visibility = View.GONE
                 }
 
-                hintData =
-                    "<html><body style='background-color:clear;'><p>" + movies[q_grppos1].TestQuestion[curr_index].Hint + "</p></body></html>"
-            } else {
-                queTab_ivHint.visibility = View.GONE
-            }
+                drawer_layout.closeDrawer(Gravity.RIGHT)
 
-            drawer_layout.closeDrawer(Gravity.RIGHT)
+                continuetime = 0
 
-            continuetime = 0
+                ansArr = ArrayList()
 
-            ansArr = ArrayList()
+                que_number = getPageNumber()
 
-            que_number = getPageNumber()
+                queTab_tvCurrTotal.text = "$que_number/$testque"
 
-            queTab_tvCurrTotal.text = "$que_number/$testque"
+                if ((finalArr.size - 1) > q_grppos1) {
 
-            if ((finalArr.size - 1) > q_grppos1) {
-
-                if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
-                    setNextSkipButtonText(1)
-                } else {
-                    setNextSkipButtonText(0)
-                }
-
-            } else {
-
-                if (que_number >= testque.toInt()) {
-                    setNextSkipButtonText(2)
-                } else {
                     if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
                         setNextSkipButtonText(1)
                     } else {
                         setNextSkipButtonText(0)
                     }
-                }
-            }
-
-            Log.d("current_index_skip", "" + curr_index)
-
-            queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
-
-            if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 4) {
-
-                queTab_ivClear.visibility = View.VISIBLE
-            } else {
-
-                queTab_ivClear.visibility = View.GONE
-            }
-
-            if (movies[q_grppos1].TestQuestion[curr_index].QuestionImage != "") {
-
-                Picasso.get()
-                    .load(movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
-                    .transform(transform.getTransformation(imgQue!!))
-                    .into(imgQue)
-
-                ansList!!.layoutManager = LinearLayoutManager(
-                    this@NewTabQuestionActivity,
-                    LinearLayoutManager.VERTICAL,
-                    false
-                )
-
-                if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 7) {
-
-                    queTab_tvFillBlanks.visibility = View.GONE
-                    ansList!!.visibility = View.VISIBLE
-                    queTab_rbTrue.visibility = View.GONE
-                    queTab_rbFalse.visibility = View.GONE
-
-                    ansList!!.adapter = SelectImageOptionAdapter(
-                        this@NewTabQuestionActivity,
-                        movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
-                        imgQue!!.width,
-                        movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                        movies[q_grppos1].TestQuestion[curr_index].Answer, 0
-                    )
-
-                } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 2 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 8) {
-
-                    if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 8) {
-                        queTab_tvFillBlanks.inputType =
-                            InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL + InputType.TYPE_NUMBER_FLAG_SIGNED
-
-                    }
-                    queTab_tvFillBlanks.visibility = View.VISIBLE
-                    ansList!!.visibility = View.GONE
-                    queTab_rbTrue.visibility = View.GONE
-                    queTab_rbFalse.visibility = View.GONE
-
-                    if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
-
-                        integeranswer = movies[q_grppos1].TestQuestion[curr_index].Answer
-
-                        queTab_tvFillBlanks.setText(integeranswer)
-
-                    } else {
-
-                        queTab_tvFillBlanks.setText("")
-
-                    }
-
-                } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 4) {
-                    queTab_rbTrue.visibility = View.VISIBLE
-                    queTab_rbFalse.visibility = View.VISIBLE
-                    queTab_tvFillBlanks.visibility = View.GONE
-                    ansList!!.visibility = View.GONE
-
-                    when (movies[q_grppos1].TestQuestion[curr_index].Answer) {
-
-                        "1" -> {
-                            queTab_rbTrue.isChecked = true
-                            queTab_rbFalse.isChecked = false
-                        }
-                        "0" -> {
-                            queTab_rbFalse.isChecked = true
-                            queTab_rbTrue.isChecked = false
-                        }
-                        else -> {
-                            queTab_rbTrue.isChecked = false
-                            queTab_rbFalse.isChecked = false
-                        }
-
-                    }
-                }
-            }
-
-            sideList!!.setAdapter(
-                NewSideMenuAdapter(
-                    context!!,
-                    sectionList!!,
-                    finalArr,
-                    filterTypeSelectionInteface!!,
-                    "question"
-                )
-            )
-
-        }
-
-        if (itype == "next") {
-
-            Log.d("current_index_next", "" + curr_index)
-
-            movies[q_grppos1].TestQuestion[curr_index].Answer = answer
-
-            if (curr_index <= finalArr[sectionList!![q_grppos1]]!!.size - 1) {
-                curr_index += 1
-            }
-
-            callSubmitAnswer(
-                itype,
-                movies[q_grppos1].TestQuestion[curr_index - 1].TestQuestionID,
-                movies[q_grppos1].TestQuestion[curr_index - 1].QuestionID,
-                movies[q_grppos1].TestQuestion[curr_index - 1].QuestionTypeID,
-                answer,
-                curr_index - 1, p0.toString()
-            )
-
-        } else if (itype == "continue" || itype == "review") {
-
-            queTab_tvCurrTotal.text = "$que_number/$testque"
-
-            Log.d("current_index_next", "" + curr_index)
-
-            movies[q_grppos1].TestQuestion[curr_index].Answer = answer
-
-            callSubmitAnswer(
-                itype,
-                movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
-                movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                answer,
-                curr_index, p0.toString()
-            )
-
-        } else if (itype == "submit") {
-
-            Log.d("current_index_next", "" + curr_index)
-
-            movies[q_grppos1].TestQuestion[curr_index].Answer = answer
-
-            if (p0 == 1) {
-                finalArr[sectionList!![q_grppos1]]!![curr_index].type = 4
-
-            } else {
-
-                if (answer != "") {
-                    finalArr[sectionList!![q_grppos1]]!![curr_index].type = 2
 
                 } else {
-                    finalArr[sectionList!![q_grppos1]]!![curr_index].type = 3
 
-                }
-
-            }
-
-            callSubmitAnswer(
-                itype,
-                movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
-                movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                answer,
-                curr_index, p0.toString()
-            )
-
-        } else if (itype.equals("skip", ignoreCase = true)) {
-
-            Log.d("current_index_next", "" + curr_index)
-
-            if (curr_index <= finalArr[sectionList!![q_grppos1]]!!.size - 1) {
-                curr_index += 1
-            }
-
-            callSubmitAnswer(
-                itype,
-                movies[q_grppos1].TestQuestion[curr_index - 1].TestQuestionID,
-                movies[q_grppos1].TestQuestion[curr_index - 1].QuestionID,
-                movies[q_grppos1].TestQuestion[curr_index - 1].QuestionTypeID,
-                "",
-                curr_index - 1, p0.toString()
-            )
-
-        } else if (itype == "sidemenu") {
-
-            Log.d("current_index_next", "" + curr_index)
-
-            when {
-                queTab_btnNext.text.toString() == "Next" -> {
-
-                    for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
-                        if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
-                            if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
-                                finalArr[sectionList!![q_grppos1]]!![i].type = 2
-                                movies[q_grppos1].TestQuestion[curr_index].Review = "0"
-                            } else {
-                                finalArr[sectionList!![q_grppos1]]!![i].type = 4
-                                movies[q_grppos1].TestQuestion[curr_index].Review = "1"
-                            }
-                        }
-                    }
-
-                    movies[q_grppos1].TestQuestion[curr_index].Answer = answer
-
-                    callSubmitAnswer(
-                        "next",
-                        movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
-                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                        movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                        answer,
-                        curr_index, p0.toString()
-                    )
-
-                }
-                queTab_btnNext.text.toString() == "Skip" -> {
-
-                    for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
-                        if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
-                            if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
-                                finalArr[sectionList!![q_grppos1]]!![i].type = 3
-                                movies[q_grppos1].TestQuestion[curr_index].Review = "0"
-                            } else {
-                                finalArr[sectionList!![q_grppos1]]!![i].type = 4
-                                movies[q_grppos1].TestQuestion[curr_index].Review = "1"
-                            }
-                        }
-                    }
-
-                    callSubmitAnswer(
-                        "skip",
-                        movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
-                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                        movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                        "",
-                        curr_index, p0.toString()
-                    )
-
-                }
-                else -> {
-
-                    movies[q_grppos1].TestQuestion[curr_index].Answer = answer
-
-                    if (p0 == 1) {
-                        finalArr[sectionList!![q_grppos1]]!![curr_index].type = 4
-
+                    if (que_number >= testque.toInt()) {
+                        setNextSkipButtonText(2)
                     } else {
+                        if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
+                            setNextSkipButtonText(1)
+                        } else {
+                            setNextSkipButtonText(0)
+                        }
+                    }
+                }
 
-                        if (answer != "") {
-                            finalArr[sectionList!![q_grppos1]]!![curr_index].type = 2
+                Log.d("current_index_skip", "" + curr_index)
+
+                queTab_tvQMarks.text = "Marks : " + movies[q_grppos1].TestQuestion[curr_index].Marks
+
+                if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 4) {
+
+                    queTab_ivClear.visibility = View.VISIBLE
+                } else {
+
+                    queTab_ivClear.visibility = View.GONE
+                }
+
+                if (movies[q_grppos1].TestQuestion[curr_index].QuestionImage != "") {
+
+                    Picasso.get()
+                        .load(movies[q_grppos1].TestQuestion[curr_index].QuestionImage)
+                        .transform(transform.getTransformation(imgQue!!))
+                        .into(imgQue)
+
+                    ansList!!.layoutManager = LinearLayoutManager(
+                        this@NewTabQuestionActivity,
+                        LinearLayoutManager.VERTICAL,
+                        false
+                    )
+
+                    if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 1 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 7) {
+
+                        queTab_tvFillBlanks.visibility = View.GONE
+                        ansList!!.visibility = View.VISIBLE
+                        queTab_rbTrue.visibility = View.GONE
+                        queTab_rbFalse.visibility = View.GONE
+
+                        ansList!!.adapter = SelectImageOptionAdapter(
+                            this@NewTabQuestionActivity,
+                            movies[q_grppos1].TestQuestion[curr_index].StudentTestQuestionMCQ,
+                            imgQue!!.width,
+                            movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                            movies[q_grppos1].TestQuestion[curr_index].Answer, 0
+                        )
+
+                    } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 2 || movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 8) {
+
+                        if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 8) {
+                            queTab_tvFillBlanks.inputType =
+                                InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL + InputType.TYPE_NUMBER_FLAG_SIGNED
+
+                        }
+                        queTab_tvFillBlanks.visibility = View.VISIBLE
+                        ansList!!.visibility = View.GONE
+                        queTab_rbTrue.visibility = View.GONE
+                        queTab_rbFalse.visibility = View.GONE
+
+                        if (movies[q_grppos1].TestQuestion[curr_index].Answer != "") {
+
+                            integeranswer = movies[q_grppos1].TestQuestion[curr_index].Answer
+
+                            queTab_tvFillBlanks.setText(integeranswer)
 
                         } else {
-                            finalArr[sectionList!![q_grppos1]]!![curr_index].type = 3
+
+                            queTab_tvFillBlanks.setText("")
+
+                        }
+
+                    } else if (movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID == 4) {
+                        queTab_rbTrue.visibility = View.VISIBLE
+                        queTab_rbFalse.visibility = View.VISIBLE
+                        queTab_tvFillBlanks.visibility = View.GONE
+                        ansList!!.visibility = View.GONE
+
+                        when (movies[q_grppos1].TestQuestion[curr_index].Answer) {
+
+                            "1"  -> {
+                                queTab_rbTrue.isChecked = true
+                                queTab_rbFalse.isChecked = false
+                            }
+                            "0"  -> {
+                                queTab_rbFalse.isChecked = true
+                                queTab_rbTrue.isChecked = false
+                            }
+                            else -> {
+                                queTab_rbTrue.isChecked = false
+                                queTab_rbFalse.isChecked = false
+                            }
 
                         }
                     }
-
-                    callSubmitAnswer(
-                        "submit",
-                        movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
-                        movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                        movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                        answer,
-                        curr_index, p0.toString()
-                    )
                 }
+
+                sideList!!.setAdapter(
+                    NewSideMenuAdapter(
+                        context!!,
+                        sectionList!!,
+                        finalArr,
+                        filterTypeSelectionInteface!!,
+                        "question"
+                    )
+                )
+
             }
 
-        } else if (itype == "clear") {
+            if (itype == "next") {
 
-            queTab_tvCurrTotal.text = "$que_number/$testque"
+                Log.d("current_index_next", "" + curr_index)
 
-            Log.d("current_index_clear", "" + curr_index)
+                movies[q_grppos1].TestQuestion[curr_index].Answer = answer
 
-            for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
-                if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
-                    if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
-                        finalArr[sectionList!![q_grppos1]]!![i].type = 3
-                        movies[q_grppos1].TestQuestion[curr_index].Review = "0"
+                if (curr_index <= finalArr[sectionList!![q_grppos1]]!!.size - 1) {
+                    curr_index += 1
+                }
+
+                callSubmitAnswer(
+                    itype,
+                    movies[q_grppos1].TestQuestion[curr_index - 1].TestQuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index - 1].QuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index - 1].QuestionTypeID,
+                    answer,
+                    curr_index - 1, p0.toString()
+                )
+
+            } else if (itype == "continue" || itype == "review") {
+
+                queTab_tvCurrTotal.text = "$que_number/$testque"
+
+                Log.d("current_index_next", "" + curr_index)
+
+                movies[q_grppos1].TestQuestion[curr_index].Answer = answer
+
+                callSubmitAnswer(
+                    itype,
+                    movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                    answer,
+                    curr_index, p0.toString()
+                )
+
+            } else if (itype == "submit") {
+
+                Log.d("current_index_next", "" + curr_index)
+
+                movies[q_grppos1].TestQuestion[curr_index].Answer = answer
+
+                if (p0 == 1) {
+                    finalArr[sectionList!![q_grppos1]]!![curr_index].type = 4
+
+                } else {
+
+                    if (answer != "") {
+                        finalArr[sectionList!![q_grppos1]]!![curr_index].type = 2
+
                     } else {
-                        finalArr[sectionList!![q_grppos1]]!![i].type = 4
-                        movies[q_grppos1].TestQuestion[curr_index].Review = "1"
+                        finalArr[sectionList!![q_grppos1]]!![curr_index].type = 3
+
+                    }
+
+                }
+
+                callSubmitAnswer(
+                    itype,
+                    movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                    answer,
+                    curr_index, p0.toString()
+                )
+
+            } else if (itype.equals("skip", ignoreCase = true)) {
+
+                Log.d("current_index_next", "" + curr_index)
+
+                if (curr_index <= finalArr[sectionList!![q_grppos1]]!!.size - 1) {
+                    curr_index += 1
+                }
+
+                callSubmitAnswer(
+                    itype,
+                    movies[q_grppos1].TestQuestion[curr_index - 1].TestQuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index - 1].QuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index - 1].QuestionTypeID,
+                    "",
+                    curr_index - 1, p0.toString()
+                )
+
+            } else if (itype == "sidemenu") {
+
+                Log.d("current_index_next", "" + curr_index)
+
+                when {
+                    queTab_btnNext.text.toString() == "Next" -> {
+
+                        for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                            if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
+                                if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
+                                    finalArr[sectionList!![q_grppos1]]!![i].type = 2
+                                    movies[q_grppos1].TestQuestion[curr_index].Review = "0"
+                                } else {
+                                    finalArr[sectionList!![q_grppos1]]!![i].type = 4
+                                    movies[q_grppos1].TestQuestion[curr_index].Review = "1"
+                                }
+                            }
+                        }
+
+                        movies[q_grppos1].TestQuestion[curr_index].Answer = answer
+
+                        callSubmitAnswer(
+                            "next",
+                            movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                            movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                            movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                            answer,
+                            curr_index, p0.toString()
+                        )
+
+                    }
+                    queTab_btnNext.text.toString() == "Skip" -> {
+
+                        for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                            if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
+                                if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
+                                    finalArr[sectionList!![q_grppos1]]!![i].type = 3
+                                    movies[q_grppos1].TestQuestion[curr_index].Review = "0"
+                                } else {
+                                    finalArr[sectionList!![q_grppos1]]!![i].type = 4
+                                    movies[q_grppos1].TestQuestion[curr_index].Review = "1"
+                                }
+                            }
+                        }
+
+                        callSubmitAnswer(
+                            "skip",
+                            movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                            movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                            movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                            "",
+                            curr_index, p0.toString()
+                        )
+
+                    }
+                    else                                     -> {
+
+                        movies[q_grppos1].TestQuestion[curr_index].Answer = answer
+
+                        if (p0 == 1) {
+                            finalArr[sectionList!![q_grppos1]]!![curr_index].type = 4
+
+                        } else {
+
+                            if (answer != "") {
+                                finalArr[sectionList!![q_grppos1]]!![curr_index].type = 2
+
+                            } else {
+                                finalArr[sectionList!![q_grppos1]]!![curr_index].type = 3
+
+                            }
+                        }
+
+                        callSubmitAnswer(
+                            "submit",
+                            movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                            movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                            movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                            answer,
+                            curr_index, p0.toString()
+                        )
                     }
                 }
+
+            } else if (itype == "clear") {
+
+                queTab_tvCurrTotal.text = "$que_number/$testque"
+
+                Log.d("current_index_clear", "" + curr_index)
+
+                for (i in 0 until finalArr[sectionList!![q_grppos1]]!!.size) {
+                    if (finalArr[sectionList!![q_grppos1]]!![i].qnumber == curr_index) {
+                        if (finalArr[sectionList!![q_grppos1]]!![i].type != 4) {
+                            finalArr[sectionList!![q_grppos1]]!![i].type = 3
+                            movies[q_grppos1].TestQuestion[curr_index].Review = "0"
+                        } else {
+                            finalArr[sectionList!![q_grppos1]]!![i].type = 4
+                            movies[q_grppos1].TestQuestion[curr_index].Review = "1"
+                        }
+                    }
+                }
+
+                movies[q_grppos1].TestQuestion[curr_index].Answer = ""
+
+                callSubmitAnswer(
+                    itype,
+                    movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index].QuestionID,
+                    movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
+                    "",
+                    curr_index, p0.toString()
+                )
+
             }
 
-            movies[q_grppos1].TestQuestion[curr_index].Answer = ""
-
-            callSubmitAnswer(
-                itype,
-                movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
-                movies[q_grppos1].TestQuestion[curr_index].QuestionID,
-                movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
-                "",
-                curr_index, p0.toString()
-            )
-
+            Log.d("que_number_type", "" + curr_index)
         }
-
-        Log.d("que_number_type", "" + curr_index)
     }
 
     fun setNextSkipButtonText(type: Int) {

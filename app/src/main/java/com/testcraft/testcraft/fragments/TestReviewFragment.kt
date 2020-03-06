@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
@@ -206,6 +206,11 @@ class TestReviewFragment : Fragment() {
 
                     isCompetitive =
                         response.body()!!.get("data").asJsonArray[0].asJsonObject.get("IsCompetetive").asInt
+
+                    review_tvPercentage.text =
+                        "percentage : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("percentage").asString + "%"
+                    review_tvPercentile.text =
+                        "Percentile : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Percentile").asString
 
                     if (isCompetitive == 1) {
                         review_ivInfo.visibility = View.VISIBLE

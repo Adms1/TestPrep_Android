@@ -23,7 +23,7 @@ class PackagePurchase {
         var stuGUID = ""
 
         //    {"Status":"true","data":"24","Msg":"Package added into cart"}
-        fun callAddToCart(pkgid: String, context: Context) {
+        fun callAddToCart(come_from: String, pkgid: String, context: Context, ccode: String) {
 
             if (!DialogUtils.isNetworkConnected(context)) {
                 Utils.ping(context, AppConstants.NETWORK_MSG)
@@ -57,7 +57,7 @@ class PackagePurchase {
 //                        val intent = Intent(activity, CartActivity::class.java)
 //                        startActivity(intent)
 //
-                            callCheckout(context)
+                            callCheckout(come_from, context, ccode)
 
                         } else {
 
@@ -81,7 +81,7 @@ class PackagePurchase {
         }
 
         //    {"Status":"true","data":[{"PaymentTransactionID":92,"OrderID":"TP190905112816426","PaymentAmount":"100"}],"Msg":"Generate New payment Order ID "}
-        fun callCheckout(context: Context) {
+        fun callCheckout(come_from: String, context: Context, ccode: String) {
 
             if (!DialogUtils.isNetworkConnected(context)) {
                 Utils.ping(context, AppConstants.NETWORK_MSG)
@@ -90,7 +90,7 @@ class PackagePurchase {
             val apiService = WebClient.getClient().create(WebInterface::class.java)
 
             val call = apiService.checkout(
-                Utils.getStringValue(context, AppConstants.USER_ID, "0")!!
+                Utils.getStringValue(context, AppConstants.USER_ID, "0")!!, ccode
             )
 
             call.enqueue(object : Callback<JsonObject> {
@@ -156,7 +156,7 @@ class PackagePurchase {
 //                            (context as DashboardActivity).finish()
 
                             } else {
-                                updatePaymentStatus(
+                                updatePaymentStatus(come_from,
                                     "Success",
                                     response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
                                 , context)
@@ -182,7 +182,7 @@ class PackagePurchase {
             })
         }
 
-        fun updatePaymentStatus(transaction_status: String, order_id: String, context: Context) {
+        fun updatePaymentStatus(come_from: String, transaction_status: String, order_id: String, context: Context) {
             if (!DialogUtils.isNetworkConnected(context)) {
                 Utils.ping(context, AppConstants.NETWORK_MSG)
             }
@@ -210,10 +210,14 @@ class PackagePurchase {
 
                         DialogUtils.dismissDialog()
 
+                        if (come_from == "deeplink") {
+                            Utils.setStringValue(context, AppConstants.IS_DEEPLINK_STEP, "2")
+                        }
+
                         val intent = Intent(context, QuestionInstructionActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
 
-                        intent.putExtra("isComeFrom", "freetest")
+                        intent.putExtra("isComeFrom", come_from)
 
                         intent.putExtra("testid", response.body()!!.data[0].TestID.toString())
                         intent.putExtra(

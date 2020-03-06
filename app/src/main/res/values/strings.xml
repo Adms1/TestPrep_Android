@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="version_name">Ver.No 2.420200220</string>
+    <string name="version_name">Ver.No 2.420200228</string>
 
     <string name="app_name">TestCraft</string>
     <string name="title_activity_main2">TestcraftDemo</string>
@@ -135,6 +135,7 @@
     <string name="signup_terms"><![CDATA[I agree to all Terms & Conditions]]></string>
     <string name="forgotpass_instruction">Please enter your registered mobile number to reset your password.</string>
     <string name="strengths_weekness"><![CDATA[Strengths & Weekness]]></string>
+    <string name="register_view_solution"><![CDATA[Register & View Solution]]></string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>

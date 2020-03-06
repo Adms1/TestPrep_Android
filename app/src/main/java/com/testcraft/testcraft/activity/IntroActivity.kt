@@ -6,9 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.view.PagerAdapter
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +15,9 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.facebook.*
 import com.facebook.appevents.AppEventsLogger
 import com.facebook.login.LoginManager
@@ -119,15 +119,16 @@ class IntroActivity : AppCompatActivity() {
 
         // Add code to print out the key hash
         try {
+
             val info = packageManager.getPackageInfo(
-                "com.testcraft.testcraft",
-                PackageManager.GET_SIGNATURES
-            )
+                "com.testcraft.testcraft", PackageManager.GET_SIGNATURES)
+
             for (signature in info.signatures) {
                 val md = MessageDigest.getInstance("SHA")
                 md.update(signature.toByteArray())
                 Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
             }
+
         } catch (e: PackageManager.NameNotFoundException) {
 
             Log.d("KeyHash:", "" + e.printStackTrace())
@@ -420,7 +421,7 @@ class IntroActivity : AppCompatActivity() {
         lname: String,
         email: String,
         pass: String,
-        cpass: String
+        phone: String
     ) {
 
         if (!DialogUtils.isNetworkConnected(this@IntroActivity)) {
@@ -432,6 +433,7 @@ class IntroActivity : AppCompatActivity() {
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.checkEmail(WebRequests.checkEmailParams(email))
+
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
@@ -441,7 +443,44 @@ class IntroActivity : AppCompatActivity() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-                        Utils.setStringValue(this@IntroActivity, "is_login", "true")
+                        Utils.setStringValue(this@IntroActivity, AppConstants.IS_LOGIN, "true")
+
+                        if (Utils.getStringValue(this@IntroActivity, AppConstants.APP_MODE, "") == AppConstants.DEEPLINK_MODE || Utils.getStringValue(this@IntroActivity, AppConstants.APP_MODE, "") == AppConstants.GUEST_MODE) {
+
+                            Utils.setStringValue(this@IntroActivity, AppConstants.APP_MODE, AppConstants.NORMAL_MODE)
+
+                            if (Utils.getStringValue(this@IntroActivity, AppConstants.IS_DEEPLINK_STEP, "") == "2" || Utils.getStringValue(this@IntroActivity, AppConstants.IS_DEEPLINK_STEP, "") == "3") {
+                                finish()
+                            } else {
+                                if (response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray.size() > 0) {
+
+                                    AppConstants.isFirst = 0
+
+                                    val mIntent =
+                                        Intent(this@IntroActivity, DashboardActivity::class.java)
+                                    mIntent.putExtra("subject_id", "")
+                                    startActivity(mIntent)
+                                    finish()
+                                } else {
+                                    val intent = Intent(this@IntroActivity, NewActivity::class.java)
+                                    startActivity(intent)
+                                }
+                            }
+                        } else {
+                            if (response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray.size() > 0) {
+
+                                val mIntent =
+                                    Intent(this@IntroActivity, DashboardActivity::class.java)
+                                mIntent.putExtra("subject_id", "")
+                                startActivity(mIntent)
+                                finish()
+
+                            } else {
+
+                                val intent = Intent(this@IntroActivity, NewActivity::class.java)
+                                startActivity(intent)
+                            }
+                        }
 
                         if (response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray.size() > 0) {
 
@@ -467,15 +506,6 @@ class IntroActivity : AppCompatActivity() {
                                 AppConstants.SUBJECT_ID,
                                 response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray[0].asJsonObject["SubjectID"].asString
                             )
-
-                            val mIntent = Intent(this@IntroActivity, DashboardActivity::class.java)
-                            mIntent.putExtra("subject_id", "")
-                            startActivity(mIntent)
-                            finish()
-
-                        } else {
-                            val intent = Intent(this@IntroActivity, NewActivity::class.java)
-                            startActivity(intent)
                         }
 //                        overridePendingTransition(R.anim.slide_in_leftt, R.anim.slide_out_right)
 
@@ -524,14 +554,22 @@ class IntroActivity : AppCompatActivity() {
 
                     } else {
 
-                        callSignupApi(
-                            logintype,
-                            fname,
-                            lname,
-                            email,
-                            pass,
-                            cpass
-                        )
+                        if (Utils.getStringValue(this@IntroActivity, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
+
+                            CommonWebCalls.callSignupApi("intro", this@IntroActivity, logintype, "0", fname, lname, email, pass, phone)
+                        } else {
+
+                            CommonWebCalls.callSignupApi("intro", this@IntroActivity, logintype, Utils.getStringValue(this@IntroActivity, AppConstants.USER_ID, "")!!, fname, lname, email, pass, phone)
+                        }
+
+//                        callSignupApi(
+//                            logintype,
+//                            fname,
+//                            lname,
+//                            email,
+//                            pass,
+//                            phone
+//                        )
 
 //                    setPasswordDialog()
 
@@ -553,7 +591,7 @@ class IntroActivity : AppCompatActivity() {
         lname: String,
         email: String,
         pass: String,
-        cpass: String
+        phone: String
     ) {
 
         if (!DialogUtils.isNetworkConnected(this@IntroActivity)) {
@@ -573,9 +611,7 @@ class IntroActivity : AppCompatActivity() {
                     lname,
                     email,
                     pass,
-                    cpass,
-                    "2"
-                )
+                    phone, Utils.getDeviceId(this@IntroActivity))
             )
 
         call.enqueue(object : Callback<JsonObject> {
@@ -660,7 +696,17 @@ class IntroActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
-        exitProcess(0)
+        if (Utils.getStringValue(this@IntroActivity, AppConstants.APP_MODE, "") == AppConstants.DEEPLINK_MODE) {
+
+            if (Utils.getStringValue(this@IntroActivity, AppConstants.IS_DEEPLINK_STEP, "") == "3") {
+                super.onBackPressed()
+            } else {
+                exitProcess(0)
+            }
+        } else {
+
+            finish()
+        }
 
     }
 

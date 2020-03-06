@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/other_container"
     android:layout_width="match_parent"
@@ -62,11 +62,11 @@
         android:id="@+id/other_ivEdit"
         android:layout_width="@dimen/_19sdp"
         android:layout_height="@dimen/_19sdp"
-        android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_15sdp"
         android:contentDescription="@string/logo"
         android:padding="@dimen/_1sdp"
         android:src="@drawable/pencil_icon"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/other_tvUserEmail"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/other_tvUserEmail" />
@@ -81,11 +81,11 @@
         android:background="@color/default_shimmer_color"
         app:layout_constraintTop_toBottomOf="@+id/other_tvUserEmail" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/other_lvList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/other_line" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,7 @@ class WebRequests {
             email: String,
             pass: String,
             mobile: String,
-            status: String
+            udid: String
         ): HashMap<String, String> {
             val map = HashMap<String, String>()
             map["AccountTypeID"] = accounttype
@@ -39,8 +39,9 @@ class WebRequests {
             map["StudentEmailAddress"] = email
             map["StudentPassword"] = pass
             map["StudentMobile"] = mobile
-            map["StatusID"] = status
+            map["StatusID"] = "1"
             map["DeviceID"] = "2"
+            map["UDID"] = udid
 
             return map
         }

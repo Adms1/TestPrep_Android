@@ -1,9 +1,9 @@
 package com.testcraft.testcraft.carouselPkg
 
-import android.support.annotation.FloatRange
-import android.support.annotation.IntRange
 import android.util.Log
 import android.view.Gravity
+import androidx.annotation.FloatRange
+import androidx.annotation.IntRange
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 import java.util.*

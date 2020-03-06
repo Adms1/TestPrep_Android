@@ -17,6 +17,7 @@
         android:paddingTop="@dimen/app_main_header_padding"
         android:paddingBottom="@dimen/app_main_header_padding"
         android:textColor="@color/header_gray"
+        android:layout_marginLeft="@dimen/_10sdp"
         android:textSize="@dimen/app_main_header_size"
         app:layout_constraintLeft_toRightOf="@+id/queinstruction_ivBack"
         app:layout_constraintRight_toRightOf="parent"

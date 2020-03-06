@@ -176,6 +176,13 @@ class Utils {
 //
 //        }
 
+        @SuppressLint("HardwareIds")
+        fun getDeviceId(context: Context): String {
+
+            return Settings.Secure.getString(
+                context.contentResolver, Settings.Secure.ANDROID_ID)
+        }
+
         fun isLocationEnabled(context: Context): Boolean {
             var locationMode = 0
             val locationProviders: String

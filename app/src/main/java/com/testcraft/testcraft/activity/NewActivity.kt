@@ -5,12 +5,12 @@ import android.content.Context
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.NewChooseCoarseAdapter
@@ -97,6 +97,12 @@ class NewActivity : AppCompatActivity() {
 //
 //        }
 
+        if (Utils.getStringValue(this@NewActivity, AppConstants.USER_ID, "")!! == "") {
+            CommonWebCalls.callSignupApi("guest", this@NewActivity, "5", "0",
+                AppConstants.GUEST_FIRSTNAME,
+                AppConstants.GUEST_LASTNAME, "", "", "")
+        }
+
         new_coarse_rvCoarseList.layoutManager = GridLayoutManager(this@NewActivity, 2)
 
         callCourseListApi()
@@ -130,8 +136,8 @@ class NewActivity : AppCompatActivity() {
 
                     } else {
 
-                        Toast.makeText(this@NewActivity, response.body()!!.Msg, Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(this@NewActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+
                     }
                 }
             }

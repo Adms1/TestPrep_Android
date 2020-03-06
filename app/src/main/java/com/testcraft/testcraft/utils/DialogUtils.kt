@@ -9,8 +9,8 @@ import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
-import android.support.v7.app.AlertDialog
 import android.view.Window
+import androidx.appcompat.app.AlertDialog
 import com.testcraft.testcraft.R
 
 class DialogUtils {

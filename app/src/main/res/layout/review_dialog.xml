@@ -27,7 +27,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/_14sdp" />
 
-        <android.support.v7.widget.AppCompatRatingBar
+        <androidx.appcompat.widget.AppCompatRatingBar
             android:id="@+id/tutor_profile_ratingbar"
             style="@style/Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="@dimen/_150sdp"

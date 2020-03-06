@@ -7,22 +7,22 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.annotation.RequiresApi
-import android.support.v4.app.ActionBarDrawerToggle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.IntroActivity.Companion.disconnectFromFacebook
-import com.testcraft.testcraft.activity.ViewSolutionActivity.Companion.curr_index1
-import com.testcraft.testcraft.activity.ViewSolutionActivity.Companion.solution_grppos1
+import com.testcraft.testcraft.activity.ViewSolutionFragment.Companion.curr_index1
+import com.testcraft.testcraft.activity.ViewSolutionFragment.Companion.solution_grppos1
 import com.testcraft.testcraft.adapter.DrawerMenuListAdapter
 import com.testcraft.testcraft.fragments.*
 import com.testcraft.testcraft.models.PackageData
@@ -112,33 +112,39 @@ class DashboardActivity : AppCompatActivity() {
 
 //        drawer_layout.setDrawerListener(mDrawerToggle)
 
-        if (intent != null && intent.hasExtra("testid") && intent.hasExtra("studenttestid")) {
+        if (intent != null && intent.hasExtra("dplinkparams")) {
 
-            val bundle = Bundle()
-            bundle.putString("testid", intent.getStringExtra("testid"))
-            bundle.putString("studenttestid", intent.getStringExtra("studenttestid"))
-            bundle.putString("testname", intent.getStringExtra("testname"))
-            setFragments(bundle)
-
-        } else if (intent != null && intent.hasExtra("tutor_id")) {
-
-            val bundle = Bundle()
-            bundle.putString("tutor_id", intent.getStringExtra("tutor_id"))
-            setFragments(bundle)
+            setFragments(intent.getBundleExtra("dplinkparams"))
 
         } else {
+            if (intent != null && intent.hasExtra("testid") && intent.hasExtra("studenttestid")) {
 
-            dash_ivMarket.setImageResource(R.drawable.blue_list)
-            dash_ivHome.setImageResource(R.drawable.home)
-            dash_ivUser.setImageResource(R.drawable.menu_one)
-            dash_ivSearch.setImageResource(R.drawable.search)
+                val bundle = Bundle()
+                bundle.putString("testid", intent.getStringExtra("testid"))
+                bundle.putString("studenttestid", intent.getStringExtra("studenttestid"))
+                bundle.putString("testname", intent.getStringExtra("testname"))
+                setFragments(bundle)
 
-            dash_tvHome.setTextColor(resources.getColor(R.color.light_gray))
-            dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
-            dash_tvSearch.setTextColor(resources.getColor(R.color.light_gray))
-            dash_tvUser.setTextColor(resources.getColor(R.color.light_gray))
+            } else if (intent != null && intent.hasExtra("tutor_id")) {
 
-            setFragments(null)
+                val bundle = Bundle()
+                bundle.putString("tutor_id", intent.getStringExtra("tutor_id"))
+                setFragments(bundle)
+
+            } else {
+
+                dash_ivMarket.setImageResource(R.drawable.blue_list)
+                dash_ivHome.setImageResource(R.drawable.home)
+                dash_ivUser.setImageResource(R.drawable.menu_one)
+                dash_ivSearch.setImageResource(R.drawable.search)
+
+                dash_tvHome.setTextColor(resources.getColor(R.color.light_gray))
+                dash_tvMarket.setTextColor(resources.getColor(R.color.nfcolor))
+                dash_tvSearch.setTextColor(resources.getColor(R.color.light_gray))
+                dash_tvUser.setTextColor(resources.getColor(R.color.light_gray))
+
+                setFragments(null)
+            }
         }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -205,7 +211,7 @@ class DashboardActivity : AppCompatActivity() {
                 setFragments(null)
             }
 
-            dash_llMarket -> {
+            dash_llMarket    -> {
 
                 CommonWebCalls.callToken(
                     this@DashboardActivity,
@@ -220,7 +226,7 @@ class DashboardActivity : AppCompatActivity() {
                 setFragments(null)
             }
 
-            dash_llExplore -> {
+            dash_llExplore   -> {
 
                 CommonWebCalls.callToken(
                     this@DashboardActivity,
@@ -233,9 +239,10 @@ class DashboardActivity : AppCompatActivity() {
                 AppConstants.isFirst = 3
 
                 setFragments(null)
+
             }
 
-            dash_llProfile -> {
+            dash_llProfile   -> {
 
                 CommonWebCalls.callToken(
                     this@DashboardActivity,
@@ -248,6 +255,7 @@ class DashboardActivity : AppCompatActivity() {
                 AppConstants.isFirst = 4
 
                 setFragments(null)
+
             }
         }
     }
@@ -326,7 +334,7 @@ class DashboardActivity : AppCompatActivity() {
                         .addOnCompleteListener(context as DashboardActivity) {
                             // ...
 
-                            Utils.setStringValue(context!!, "is_login", "false")
+                            Utils.setStringValue(context!!, AppConstants.IS_LOGIN, "false")
 
                             val intent = Intent(context, IntroActivity::class.java)
                             context!!.startActivity(intent)
@@ -341,7 +349,6 @@ class DashboardActivity : AppCompatActivity() {
                 }).show()
         }
 
-
         @SuppressLint("SetTextI18n")
         fun setFragments(bundle: Bundle?) {
 
@@ -351,7 +358,7 @@ class DashboardActivity : AppCompatActivity() {
             ivSort!!.visibility = View.GONE
 
             when (AppConstants.isFirst) {
-                0 -> {
+                0  -> {
 
                     fragment = MarketPlaceFragment()
 
@@ -386,7 +393,7 @@ class DashboardActivity : AppCompatActivity() {
                         .commitNowAllowingStateLoss()
 
                 }
-                1 -> {
+                1  -> {
 
                     fragment = ChooseMarketPlaceFragment()
 
@@ -418,7 +425,7 @@ class DashboardActivity : AppCompatActivity() {
 
                 }
 
-                3 -> {
+                3  -> {
 
                     fragment = ExploreFragment()
 
@@ -452,7 +459,7 @@ class DashboardActivity : AppCompatActivity() {
                         .commitNowAllowingStateLoss()
 
                 }
-                4 -> {
+                4  -> {
 
                     fragment = OtherFragment()
 
@@ -486,7 +493,7 @@ class DashboardActivity : AppCompatActivity() {
                         .commitNowAllowingStateLoss()
 
                 }
-                5 -> {
+                5  -> {
 
                     fragment =
                         MyPaymentFragment()
@@ -502,7 +509,7 @@ class DashboardActivity : AppCompatActivity() {
                         .commitNowAllowingStateLoss()
 
                 }
-                6 -> {
+                6  -> {
 
                     fragment =
                         ChangePasswordFragment()
@@ -523,7 +530,7 @@ class DashboardActivity : AppCompatActivity() {
                         .commitNowAllowingStateLoss()
 
                 }
-                7 -> {
+                7  -> {
 
                     fragment =
                         ChangePasswordFragment()
@@ -544,7 +551,7 @@ class DashboardActivity : AppCompatActivity() {
                         .commitNowAllowingStateLoss()
 
                 }
-                8 -> {
+                8  -> {
 
                     fragment = UpdateProfileActivity()
 
@@ -560,14 +567,14 @@ class DashboardActivity : AppCompatActivity() {
                         .commitNowAllowingStateLoss()
 
                 }
-                9 -> {
+                9  -> {
 
                     testid = bundle!!.getString("testid")!!
                     studenttestid = bundle.getString("studenttestid")!!
                     testque = bundle.getString("totalque")!!
                     testname = bundle.getString("testname")!!
 
-                    fragment = ViewSolutionActivity()
+                    fragment = ViewSolutionFragment()
 
                     llBottom!!.visibility = View.VISIBLE
 
@@ -576,7 +583,7 @@ class DashboardActivity : AppCompatActivity() {
                     bundle6.putString("studenttestid", studenttestid)
                     bundle6.putString("totalque", testque)
 
-                    (fragment as ViewSolutionActivity).arguments = bundle6
+                    (fragment as ViewSolutionFragment).arguments = bundle6
 
                     main_header!!.text = testname
                     btnBack!!.visibility = View.VISIBLE
@@ -594,8 +601,7 @@ class DashboardActivity : AppCompatActivity() {
                     testname = bundle.getString("testname")!!
 //                    iscompetitive = bundle.getString("isCompetitive")!!
 
-                    fragment =
-                        TestReviewFragment()
+                    fragment = TestReviewFragment()
 
                     llBottom!!.visibility = View.VISIBLE
 
@@ -649,8 +655,7 @@ class DashboardActivity : AppCompatActivity() {
 //                    pkgid = bundle!!.getString("pkgid")!!
 //                    pname = bundle.getString("pname")!!
 
-                    fragment =
-                        TestListFragment()
+                    fragment = TestListFragment()
 
                     llBottom!!.visibility = View.VISIBLE
 
@@ -700,8 +705,7 @@ class DashboardActivity : AppCompatActivity() {
                     minprice = bundle.getString("minprice")!!
                     search_name = bundle.getString("search_name")!!
 
-                    fragment =
-                        TutorDetailFragment()
+                    fragment = TutorDetailFragment()
 
                     val bundle7 = Bundle()
                     bundle7.putString("type", ptype)
@@ -760,8 +764,7 @@ class DashboardActivity : AppCompatActivity() {
                     pkgid = bundle!!.getString("pkgid")!!
                     pname = bundle.getString("come_from")!!
 
-                    fragment =
-                        PackageDetailFragment()
+                    fragment = PackageDetailFragment()
 
                     llBottom!!.visibility = View.VISIBLE
 
@@ -918,13 +921,20 @@ class DashboardActivity : AppCompatActivity() {
             bundle.putString("testname", testname)
 
             setFragments(bundle)
-        } else if (AppConstants.isFirst == 10) {
 
-            AppConstants.isFirst = 12
+        } else if (AppConstants.isFirst == 10) {
+            if (Utils.getStringValue(this@DashboardActivity, AppConstants.IS_DEEPLINK_STEP, "") == "2" || Utils.getStringValue(this@DashboardActivity, AppConstants.IS_DEEPLINK_STEP, "") == "3") {
+
+                AppConstants.isFirst = 0
+                setFragments(null)
+
+            } else {
+                AppConstants.isFirst = 12
 //            val bundle4 = Bundle()
 //            bundle4.putString("pkgid", pkgid)
 //            bundle4.putString("pname", pname)
-            setFragments(null)
+                setFragments(null)
+            }
         } else if (AppConstants.isFirst == 11) {
 
             AppConstants.isFirst = 1

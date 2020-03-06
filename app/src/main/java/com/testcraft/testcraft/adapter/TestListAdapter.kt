@@ -4,20 +4,23 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
+import com.testcraft.testcraft.activity.DeeplinkTestActivity
+import com.testcraft.testcraft.activity.IntroActivity
 import com.testcraft.testcraft.activity.QuestionInstructionActivity
 import com.testcraft.testcraft.models.TestListModel
 import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
 import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
+import com.testcraft.testcraft.utils.Utils
 
 @SuppressLint("SetTextI18n")
 class TestListAdapter(
@@ -67,21 +70,27 @@ class TestListAdapter(
             when (dataList[p1].StatusName) {
 
                 "Analyse" -> {
-                    AppConstants.isFirst = 10
-                    val bundle = Bundle()
-                    bundle.putString("testid", dataList[p1].TestID.toString())
-                    bundle.putString("studenttestid", dataList[p1].StudentTestID.toString())
-                    bundle.putString("testname", dataList[p1].TestName)
-                    bundle.putString("isCompetitive", dataList[p1].IsCompetetive)
+                    if (Utils.getStringValue(context, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
 
-                    //                bundle.putString("pkgid", pkgid)
-                    //                bundle.putString("pname", name)
-                    setFragments(bundle)
+                        AppConstants.isFirst = 10
+                        val bundle = Bundle()
+                        bundle.putString("testid", dataList[p1].TestID.toString())
+                        bundle.putString("studenttestid", dataList[p1].StudentTestID.toString())
+                        bundle.putString("testname", dataList[p1].TestName)
+                        bundle.putString("isCompetitive", dataList[p1].IsCompetetive)
 
-                    //                val intent = Intent(context, TestReviewActivity::class.java)
-                    //                intent.putExtra("testid", dataList[p1].TestID.toString())
-                    //                intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
-                    //                context.startActivity(intent)
+                        //                bundle.putString("pkgid", pkgid)
+                        //                bundle.putString("pname", name)
+                        setFragments(bundle)
+
+                        //                val intent = Intent(context, TestReviewActivity::class.java)
+                        //                intent.putExtra("testid", dataList[p1].TestID.toString())
+                        //                intent.putExtra("studenttestid", dataList[p1].StudentTestID.toString())
+                        //                context.startActivity(intent)
+                    } else {
+                        val intent = Intent(context, IntroActivity::class.java)
+                        context.startActivity(intent)
+                    }
                 }
 
                 "Resume" -> {
@@ -103,7 +112,12 @@ class TestListAdapter(
                     intent.putExtra("totalhintused", dataList[p1].NumberOfHintUsed)
                     intent.putExtra("que_instruction", dataList[p1].TestInstruction)
                     context.startActivity(intent)
-                    (context as DashboardActivity).finish()
+
+                    if (Utils.getStringValue(context, AppConstants.APP_MODE, "") == AppConstants.DEEPLINK_MODE) {
+                        (context as DeeplinkTestActivity).finish()
+                    } else {
+                        (context as DashboardActivity).finish()
+                    }
                 }
 
                 "Start Test" -> {

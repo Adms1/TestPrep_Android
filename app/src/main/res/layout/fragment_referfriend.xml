@@ -117,7 +117,6 @@
         android:gravity="center_vertical"
         android:paddingTop="@dimen/_7sdp"
         android:paddingBottom="@dimen/_7sdp"
-        android:text="User1234test"
         android:textSize="@dimen/regular_text_size"
         app:layout_constraintTop_toBottomOf="@+id/referfrd_tvText3" />
 

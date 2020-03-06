@@ -11,9 +11,10 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.utils.AppConstants
@@ -35,13 +36,16 @@ class SplashActivity : AppCompatActivity() {
 
     var connectivity: Connectivity? = null
 
+    var deepLink: Uri? = null
+    var deeplinkcode = ""
+
     override fun onResume() {
         super.onResume()
         val filter = IntentFilter()
         filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
         registerReceiver(connectivity, filter)
 
-        forceUpdate()
+//        forceUpdate()
 
     }
 
@@ -63,6 +67,58 @@ class SplashActivity : AppCompatActivity() {
 
         connectivity = Connectivity()
 
+        FirebaseDynamicLinks.getInstance()
+            .getDynamicLink(intent)
+            .addOnSuccessListener(this) { pendingDynamicLinkData ->
+                // Get deep link from result (may be null if no link is found)
+
+                if (pendingDynamicLinkData != null) {
+                    deepLink = pendingDynamicLinkData.link
+                    deeplinkcode = pendingDynamicLinkData.link!!.getQueryParameter("id")!!
+
+                    Utils.setStringValue(
+                        this@SplashActivity,
+                        AppConstants.APP_MODE,
+                        AppConstants.DEEPLINK_MODE
+                    )
+
+                    Utils.setStringValue(this@SplashActivity, AppConstants.IS_DEEPLINK_STEP, "1")
+                    Utils.setStringValue(this@SplashActivity, AppConstants.DEEPLINK_CODE, deeplinkcode)
+
+                    Log.d("dplink", "" + pendingDynamicLinkData.link)
+
+                } else {
+
+                    if (Utils.getStringValue(this@SplashActivity, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
+
+                        if (Utils.getStringValue(this@SplashActivity, AppConstants.APP_MODE, "") == AppConstants.GUEST_MODE) {
+
+                            Utils.setStringValue(this@SplashActivity, AppConstants.APP_MODE, AppConstants.GUEST_MODE)
+
+                        } else {
+                            Utils.setStringValue(
+                                this@SplashActivity,
+                                AppConstants.APP_MODE,
+                                AppConstants.NORMAL_MODE
+                            )
+                        }
+                    }
+
+                    Log.d("dplink", "no link")
+
+                }
+
+                forceUpdate()
+
+                // Handle the deep link. For example, open the linked
+                // content, or apply promotional credit to the user's
+                // account.
+                // ...
+
+                // ...
+            }
+            .addOnFailureListener(this) { e -> Log.w("dplink", "fail link", e) }
+
 //        forceUpdate()
 
     }
@@ -76,11 +132,11 @@ class SplashActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         val currentVersion = packageInfo!!.versionName
-        ForceUpdateAsync(currentVersion, this).execute()
+        ForceUpdateAsync(deeplinkcode, currentVersion, this).execute()
 
     }
 
-    class ForceUpdateAsync(private val currentVersion: String, private val context: Context) :
+    class ForceUpdateAsync(private val dplinkid: String, private val currentVersion: String, private val context: Context) :
         AsyncTask<String?, String?, JSONObject>() {
         private var latestVersion: String? = null
 
@@ -115,6 +171,28 @@ class SplashActivity : AppCompatActivity() {
                         )
 
                         Utils.setStringValue(context, AppConstants.isInstall, "true")
+
+                        if (Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
+                            Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.GUEST_MODE)
+                        }
+
+
+                    } else {
+                        if (Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
+
+                            if (Utils.getStringValue(context, AppConstants.APP_MODE, "") == AppConstants.GUEST_MODE) {
+
+                                Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.GUEST_MODE)
+
+                            } else {
+                                Utils.setStringValue(
+                                    context,
+                                    AppConstants.APP_MODE,
+                                    AppConstants.NORMAL_MODE
+                                )
+                            }
+                        }
+
                     }
 
                     Handler().postDelayed(
@@ -123,35 +201,78 @@ class SplashActivity : AppCompatActivity() {
                          * want to show case your app logo / company
                          */
                         {
-
                             AppConstants.isFirst = 0
 
                             if (!DialogUtils.isNetworkConnected(context)) {
                                 exitProcess(0)
 
                             } else {
-                                if (Utils.getStringValue(context, "is_login", "") == "true") {
-                                    // This method will be executed once the timer is over
-                                    // Start your app main activity
 
-                                    if (Utils.getStringValue(context, isPrefrence, "") == "1") {
+                                if (Utils.getStringValue(
+                                        context,
+                                        AppConstants.APP_MODE,
+                                        ""
+                                    ) != AppConstants.DEEPLINK_MODE
+                                ) {
 
-                                        Utils.setStringValue(context, "is_login", "true")
+                                    if (Utils.getStringValue(
+                                            context,
+                                            AppConstants.IS_LOGIN,
+                                            ""
+                                        ) == "true"
+                                    ) {
+                                        // This method will be executed once the timer is over
+                                        // Start your app main activity
 
-                                        val i = Intent(context, DashboardActivity::class.java)
-                                        context.startActivity(i)
+                                        if (Utils.getStringValue(context, isPrefrence, "") == "1") {
+
+                                            Utils.setStringValue(
+                                                context,
+                                                AppConstants.IS_LOGIN,
+                                                "true"
+                                            )
+
+                                            val i = Intent(context, DashboardActivity::class.java)
+                                            context.startActivity(i)
+
+                                        } else {
+
+                                            val i = Intent(context, NewActivity::class.java)
+                                            context.startActivity(i)
+
+                                        }
 
                                     } else {
-
                                         val i = Intent(context, NewActivity::class.java)
                                         context.startActivity(i)
 
                                     }
 
                                 } else {
-                                    val i = Intent(context, IntroActivity::class.java)
-                                    context.startActivity(i)
 
+                                    if (Utils.getStringValue(
+                                            context,
+                                            AppConstants.IS_DEEPLINK_STEP,
+                                            ""
+                                        ) == "1"
+                                    ) {
+                                        val i = Intent(context, DeeplinkEntryActivity::class.java)
+                                        context.startActivity(i)
+
+                                    } else if (Utils.getStringValue(
+                                            context,
+                                            AppConstants.IS_DEEPLINK_STEP,
+                                            ""
+                                        ) == "2" || Utils.getStringValue(
+                                            context,
+                                            AppConstants.IS_DEEPLINK_STEP,
+                                            ""
+                                        ) == "3"
+                                    ) {
+
+                                        val i = Intent(context, DeeplinkTestActivity::class.java)
+                                        context.startActivity(i)
+                                    }
                                 }
                             }
                             (context as SplashActivity).finish()
@@ -237,13 +358,13 @@ class SplashActivity : AppCompatActivity() {
 //
 //                                if (Utils.getStringValue(
 //                                        context,
-//                                        "is_login",
+//                                        AppConstants.IS_LOGIN,
 //                                        ""
 //                                    ) == "true"
 //                                ) {
 //                                    // This method will be executed once the timer is over
 //                                    // Start your app main activity
-//                                    Utils.setStringValue(context, "is_login", "true")
+//                                    Utils.setStringValue(context, AppConstants.IS_LOGIN, "true")
 //
 //                                    val i = Intent(context, NewActivity::class.java)
 //                                    startActivity(i)
@@ -278,13 +399,13 @@ class SplashActivity : AppCompatActivity() {
 //
 //                            if (Utils.getStringValue(
 //                                    context,
-//                                    "is_login",
+//                                    AppConstants.IS_LOGIN,
 //                                    ""
 //                                ) == "true"
 //                            ) {
 //                                // This method will be executed once the timer is over
 //                                // Start your app main activity
-//                                Utils.setStringValue(context, "is_login", "true")
+//                                Utils.setStringValue(context, AppConstants.IS_LOGIN, "true")
 //
 //                                val i = Intent(context, NewActivity::class.java)
 //                                startActivity(i)

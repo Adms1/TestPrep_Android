@@ -2,12 +2,12 @@ package com.testcraft.testcraft.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.ViewInvoiceActivity
 import com.testcraft.testcraft.adapter.MyPackageAdapter
@@ -178,7 +178,7 @@ class MyPackagesFragment : Fragment() {
 //                        var per = (pendingcount.toFloat()/totalcount.toFloat())*100
                         Log.d("percentage", "" + final)
 
-   //                        my_packages_ivProgress.maxValue = totalcount.toFloat()
+                        my_packages_ivProgress.setProgress(final, true)
 
                         my_packages_tvPendingCount.text = pendingcount.toString()
                         my_packages_tvTotalCount.text = totalcount.toString()

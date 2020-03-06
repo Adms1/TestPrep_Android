@@ -7,13 +7,13 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.NewSelectBoardAdapter
@@ -390,6 +390,12 @@ class PrefrenceActivity : AppCompatActivity() {
 
         AppConstants.isFirst = 0
         Utils.setStringValue(this@PrefrenceActivity, AppConstants.isPrefrence, "1")
+
+        if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
+            Utils.setStringValue(this@PrefrenceActivity, AppConstants.IS_LOGIN, "true")
+        } else {
+            Utils.setStringValue(this@PrefrenceActivity, AppConstants.IS_LOGIN, "false")
+        }
 
         if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "") == "") {
             if (Utils.getStringValue(

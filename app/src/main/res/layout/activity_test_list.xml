@@ -69,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/test_tvKnowheader"
         tools:ignore="ContentDescription" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/test_table_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/test_ivBack"
@@ -134,7 +134,7 @@
         app:layout_constraintTop_toTopOf="@+id/test_header"
         tools:ignore="ContentDescription" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/test_rvPkgList"
         android:layout_width="match_parent"
         android:layout_height="0dp"

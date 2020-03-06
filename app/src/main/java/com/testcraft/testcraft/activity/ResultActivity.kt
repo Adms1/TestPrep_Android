@@ -6,9 +6,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.models.AnswerModel
@@ -16,6 +17,7 @@ import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
 import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
+import com.testcraft.testcraft.utils.Utils
 import kotlinx.android.synthetic.main.activity_result.*
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
@@ -38,6 +40,23 @@ class ResultActivity : AppCompatActivity() {
         val filter = IntentFilter()
         filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
         registerReceiver(connectivity, filter)
+
+        if (Utils.getStringValue(this@ResultActivity, AppConstants.APP_MODE, "") != AppConstants.NORMAL_MODE) {
+
+            Utils.setStringValue(this@ResultActivity, AppConstants.IS_DEEPLINK_STEP, "3")
+
+            result_btnDashboard.visibility = View.GONE
+            result_tvReports.visibility = View.GONE
+            result_tvReginView.visibility = View.VISIBLE
+
+        } else {
+
+            result_btnDashboard.visibility = View.VISIBLE
+            result_tvReports.visibility = View.VISIBLE
+            result_tvReginView.visibility = View.GONE
+
+        }
+
     }
 
     override fun onStop() {
@@ -74,21 +93,51 @@ class ResultActivity : AppCompatActivity() {
 //            }
 //        }
 
+        if (Utils.getStringValue(this@ResultActivity, AppConstants.APP_MODE, "") != AppConstants.NORMAL_MODE) {
+
+            if (Utils.getStringValue(this@ResultActivity, AppConstants.IS_LOGIN, "") == "true") {
+
+                result_btnDashboard.visibility = View.VISIBLE
+                result_tvReports.visibility = View.VISIBLE
+                result_tvReginView.visibility = View.GONE
+
+            } else {
+
+                Utils.setStringValue(this@ResultActivity, AppConstants.IS_DEEPLINK_STEP, "3")
+
+                result_btnDashboard.visibility = View.GONE
+                result_tvReports.visibility = View.GONE
+                result_tvReginView.visibility = View.VISIBLE
+            }
+
+        } else {
+
+            result_btnDashboard.visibility = View.VISIBLE
+            result_tvReports.visibility = View.VISIBLE
+            result_tvReginView.visibility = View.GONE
+
+        }
+
         result_tvMarks.text = """Marks : ${intent.getStringExtra("display_totalmarks")}"""
 
         result_tvHeading.text = intent.getStringExtra("testname")
 
         result_btnDashboard.setOnClickListener {
+            if (Utils.getStringValue(this@ResultActivity, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
+                CommonWebCalls.callToken(
+                    this@ResultActivity,
+                    "1",
+                    "",
+                    ActionIdData.C2202,
+                    ActionIdData.T2202
+                )
 
-            CommonWebCalls.callToken(
-                this@ResultActivity,
-                "1",
-                "",
-                ActionIdData.C2202,
-                ActionIdData.T2202
-            )
+                onBackPressed()
+            } else {
 
-            onBackPressed()
+                val intent = Intent(this@ResultActivity, IntroActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         if (intent.getStringExtra("marks") <= "0") {
@@ -96,6 +145,7 @@ class ResultActivity : AppCompatActivity() {
             result_tvViewAnswer.setTextColor(resources.getColor(R.color.pink))
             result_tvReports.setTextColor(resources.getColor(R.color.pink))
             result_btnDashboard.setTextColor(resources.getColor(R.color.pink))
+            result_tvReginView.setTextColor(resources.getColor(R.color.pink))
             result_tvHeader.text = "Better luck next time"
             dialog_queinfo_tvResult.text = "FAIL"
         } else {
@@ -103,15 +153,16 @@ class ResultActivity : AppCompatActivity() {
             result_tvViewAnswer.setTextColor(resources.getColor(R.color.green))
             result_tvReports.setTextColor(resources.getColor(R.color.green))
             result_btnDashboard.setTextColor(resources.getColor(R.color.green))
+            result_tvReginView.setTextColor(resources.getColor(R.color.green))
             result_tvHeader.text = "Congratulations"
             dialog_queinfo_tvResult.text = "PASS"
         }
 
-        result_tvViewAnswer.setOnClickListener {
-            //            val intent = Intent(this@ResultActivity, ViewSolutionActivity::class.java)
-//            intent.putExtra("testid", testid)
-//            intent.putExtra("studenttestid", studenttestid)
-//            startActivity(intent)
+        result_tvReginView.setOnClickListener {
+
+            val intent = Intent(this@ResultActivity, IntroActivity::class.java)
+            startActivity(intent)
+
         }
 
         result_tvReports.setOnClickListener {
@@ -133,6 +184,7 @@ class ResultActivity : AppCompatActivity() {
             intent1.putExtra("testname", result_tvHeading.text.toString())
             startActivity(intent1)
             finish()
+
         }
 
         result_ivBack.setOnClickListener {
@@ -142,10 +194,17 @@ class ResultActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        AppConstants.isFirst = 1
-        val intent = Intent(this@ResultActivity, DashboardActivity::class.java)
-        startActivity(intent)
-        finish()
+
+        if (Utils.getStringValue(this@ResultActivity, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
+
+            AppConstants.isFirst = 1
+            val intent = Intent(this@ResultActivity, DashboardActivity::class.java)
+            startActivity(intent)
+            finish()
+
+        } else {
+
+        }
     }
 
 }

@@ -1,13 +1,56 @@
 {
-  "installed": {
-    "client_id": "1019001765891-m5260dl112gco2g1f6j0bsrajmvdq8uo.apps.googleusercontent.com",
+  "project_info": {
+    "project_number": "1019001765891",
+    "firebase_url": "https://test-craft-261610.firebaseio.com",
     "project_id": "test-craft-261610",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "redirect_uris": [
-      "urn:ietf:wg:oauth:2.0:oob",
-      "http://localhost"
-    ]
-  }
+    "storage_bucket": "test-craft-261610.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019001765891:android:e1c7a6b83ecae751284e36",
+        "android_client_info": {
+          "package_name": "com.testcraft.testcraft"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019001765891-23ra8md26iva96hr1mdc4lncqigsojnj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.testcraft.testcraft",
+            "certificate_hash": "6f1e283f576177902200d95963bc673a2319ef7a"
+          }
+        },
+        {
+          "client_id": "1019001765891-e501nm1vpe8t35te6j8u7roat85bpcfi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwMxfGDDQW_ceegpEO4RIsZgXiF82qmGY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019001765891-e501nm1vpe8t35te6j8u7roat85bpcfi.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1019001765891-of9s52hilme0ei89a6e0n19mmrf4354d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tc.testcraft",
+                "app_store_id": "1491298929"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
 }
