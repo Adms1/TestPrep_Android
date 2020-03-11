@@ -198,47 +198,53 @@ class DashboardActivity : AppCompatActivity() {
 
             dash_llDashboard -> {
 
-                CommonWebCalls.callToken(
-                    this@DashboardActivity,
-                    "1",
-                    "",
-                    ActionIdData.C810,
-                    ActionIdData.T810
-                )
+                if (AppConstants.isFirst != 1) {
+                    CommonWebCalls.callToken(
+                        this@DashboardActivity,
+                        "1",
+                        "",
+                        ActionIdData.C810,
+                        ActionIdData.T810
+                    )
 
-                AppConstants.isFirst = 1
+                    AppConstants.isFirst = 1
 
-                setFragments(null)
+                    setFragments(null)
+                }
             }
 
             dash_llMarket    -> {
 
-                CommonWebCalls.callToken(
-                    this@DashboardActivity,
-                    "1",
-                    "",
-                    ActionIdData.C813,
-                    ActionIdData.T813
-                )
+                if (AppConstants.isFirst != 0) {
+                    CommonWebCalls.callToken(
+                        this@DashboardActivity,
+                        "1",
+                        "",
+                        ActionIdData.C813,
+                        ActionIdData.T813
+                    )
 
-                AppConstants.isFirst = 0
+                    AppConstants.isFirst = 0
 
-                setFragments(null)
+                    setFragments(null)
+                }
             }
 
             dash_llExplore   -> {
 
-                CommonWebCalls.callToken(
-                    this@DashboardActivity,
-                    "1",
-                    "",
-                    ActionIdData.C811,
-                    ActionIdData.T811
-                )
+                if (AppConstants.isFirst != 3) {
+                    CommonWebCalls.callToken(
+                        this@DashboardActivity,
+                        "1",
+                        "",
+                        ActionIdData.C811,
+                        ActionIdData.T811
+                    )
 
-                AppConstants.isFirst = 3
+                    AppConstants.isFirst = 3
 
-                setFragments(null)
+                    setFragments(null)
+                }
 
             }
 
@@ -389,7 +395,6 @@ class DashboardActivity : AppCompatActivity() {
                     tvProfile!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
-//                .addToBackStack(null)
                         .commitNowAllowingStateLoss()
 
                 }
@@ -964,7 +969,6 @@ class DashboardActivity : AppCompatActivity() {
 
             AppConstants.isFirst = 0
             setFragments(null)
-
 
         } else if (AppConstants.isFirst == 15) {
 

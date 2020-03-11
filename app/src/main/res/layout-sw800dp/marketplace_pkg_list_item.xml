@@ -45,7 +45,7 @@
         <TextView
             android:id="@+id/package_item_tvPkgname"
             android:layout_width="0dp"
-            android:layout_height="@dimen/_26sdp"
+            android:layout_height="@dimen/_32sdp"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginLeft="@dimen/_5sdp"
             android:ellipsize="end"

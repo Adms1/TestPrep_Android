@@ -286,7 +286,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:hint="Mobile Number*"
+                android:hint="Mobile Number"
                 android:imeOptions="actionDone"
                 android:inputType="phone"
                 android:maxLength="10"

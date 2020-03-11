@@ -9,31 +9,31 @@ class AppConstants {
     // Google 2
     // Fb 3
 
-       companion object {
+    companion object {
 
 //        var PAYMENT_REQUEST = "https://biz.traknpay.in/v2/paymentrequest"
 
 //        LIVE
 
-//        var BASE_URL = "https://webservice.testcraft.in/WebService.asmx/"
-//        var IMAGE_BASE_URL = "https://testcraft.in/upload/"
-//        var EXPHINT_IMAGE_BASE_URL = "https://testcraft.in/"
-//        var PAYMENT_REQUEST = "https://testcraft.in/MobilePayment.aspx?"
-//        var INVOICE_URL = "https://testcraft.in/InvoiceDetail.aspx?ID="
-//        var SUMMARY_REPORT_URL = "https://webservice.testcraft.in/TestSummaryReport.aspx?"
-//        var SUBJECT_SUMMARY_REPORT_URL =
-//         "https://webservice.testcraft.in/SubjectSummaryReport.aspx?"
+        var BASE_URL = "https://webservice.testcraft.in/WebService.asmx/"
+        var IMAGE_BASE_URL = "https://testcraft.in/upload/"
+        var EXPHINT_IMAGE_BASE_URL = "https://testcraft.in/"
+        var PAYMENT_REQUEST = "https://testcraft.in/MobilePayment.aspx?"
+        var INVOICE_URL = "https://testcraft.in/InvoiceDetail.aspx?ID="
+        var SUMMARY_REPORT_URL = "https://webservice.testcraft.in/TestSummaryReport.aspx?"
+        var SUBJECT_SUMMARY_REPORT_URL =
+            "https://webservice.testcraft.in/SubjectSummaryReport.aspx?"
 //
 //          LOCAL
 
-           var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
-           var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
-           var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
-           var PAYMENT_REQUEST = "http://demo.testcraft.in/MobilePayment.aspx?"
-           var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
-           var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
-           var SUBJECT_SUMMARY_REPORT_URL =
-               "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
+//        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
+//        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
+//        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
+//        var PAYMENT_REQUEST = "http://demo.testcraft.in/MobilePayment.aspx?"
+//        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
+//        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
+//        var SUBJECT_SUMMARY_REPORT_URL =
+//            "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
 
 //        USER DATA
 
@@ -48,18 +48,18 @@ class AppConstants {
         var OTP = ""
         var user_profile = ""
 
-           var GUEST_FIRSTNAME = "Guest"
-           var GUEST_LASTNAME = "User"
+        var GUEST_FIRSTNAME = "Guest"
+        var GUEST_LASTNAME = "User"
 
-           var APP_MODE = "NOMODE"
-           var DEEPLINK_MODE = "DEEPLINK"
-           var GUEST_MODE = "GUEST"
-           var NORMAL_MODE = "NORMAL"
+        var APP_MODE = "NOMODE"
+        var DEEPLINK_MODE = "DEEPLINK"
+        var GUEST_MODE = "GUEST"
+        var NORMAL_MODE = "NORMAL"
 
         var isPrefrence = "0"
-           var IS_LOGIN = "false"
-           var IS_DEEPLINK_STEP = "1"
-           var DEEPLINK_CODE = ""
+        var IS_LOGIN = "false"
+        var IS_DEEPLINK_STEP = "1"
+        var DEEPLINK_CODE = ""
 
         var COURSE_FLOW = ""
         var COURSE_FLOW_ARRAY: ArrayList<String> = ArrayList()

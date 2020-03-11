@@ -94,6 +94,8 @@ class DeeplinkTestListAdapter(
 
                         } else {
 
+                            Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.NORMAL_MODE)
+
                             AppConstants.isFirst = 10
                             val bundle = Bundle()
                             bundle.putString("testid", dataList[p1].TestID.toString())

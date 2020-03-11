@@ -203,10 +203,10 @@ class UpdateProfileActivity : Fragment() {
             }
         }
 
-//        if (TextUtils.isEmpty(signup_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(signup_etMobile.text.toString()).matches()) {
-//            signup_etMobile.error = "Please enter valid mobile number"
-//            isvalid = false
-//        }
+        if (TextUtils.isEmpty(signup_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(signup_etMobile.text.toString()).matches()) {
+            signup_etMobile.error = "Please enter valid mobile number"
+            isvalid = false
+        }
 
         return isvalid
 
