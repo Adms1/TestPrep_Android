@@ -39,7 +39,10 @@ class ReferfriendFragment : Fragment() {
             share.type = "text/plain"
             share.putExtra(
                 Intent.EXTRA_TEXT,
-                "IOS: itms-apps://itunes.apple.com/app/id1491298929?ls=1 && Android: https://play.google.com/store/apps/details?id=com.testcraft.testcraft&hl=en & Code = " + referfrd_etCode.text
+                "Join me on TestCraft, a Test preparation platform.  You get to take a FREE TEST by using my Code : " + referfrd_etCode.text + ".\n" +
+                        "Click on below link:\n" +
+                        "IOS: itms-apps://itunes.apple.com/app/id1491298929?ls=1\n" +
+                        "Android: https://play.google.com/store/apps/details?id=com.testcraft.testcraft&hl=en "
             )
             startActivity(Intent.createChooser(share, "Share Text"))
         }

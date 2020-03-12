@@ -113,6 +113,7 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
                     )
 
                     val intent = Intent(context, NewActivity::class.java)
+                    intent.putExtra("comeadater", "changeprefrence")
                     context.startActivity(intent)
                 }
 

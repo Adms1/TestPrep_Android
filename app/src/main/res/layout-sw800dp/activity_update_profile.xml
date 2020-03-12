@@ -7,37 +7,6 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <RelativeLayout
-        android:id="@+id/rlLogo"
-        android:layout_width="@dimen/_90sdp"
-        android:layout_height="@dimen/_90sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/signup_ivLogo"
-            android:layout_width="@dimen/_90sdp"
-            android:layout_height="@dimen/_90sdp"
-            android:contentDescription="@string/logo"
-            android:src="@drawable/person_placeholder" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/signup_ivPencil"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:contentDescription="@string/logo"
-            android:src="@drawable/edit_icon"
-            android:visibility="gone" />
-
-    </RelativeLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,30 +18,30 @@
         app:layout_constraintTop_toBottomOf="@+id/rlLogo">
 
         <ImageView
-            android:id="@+id/signup_ivf"
+            android:id="@+id/update_ivf"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/signup_llFname"
+            app:layout_constraintBottom_toBottomOf="@+id/update_llFname"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/signup_llFname"
+            app:layout_constraintTop_toTopOf="@+id/update_llFname"
             app:srcCompat="@drawable/person_new"
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/signup_llFname"
+            android:id="@+id/update_llFname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Blue"
-            app:layout_constraintLeft_toRightOf="@+id/signup_ivf"
+            app:layout_constraintLeft_toRightOf="@+id/update_ivf"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signup_etFname"
+                android:id="@+id/update_etFname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -88,31 +57,31 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
-            android:id="@+id/signup_ivl"
+            android:id="@+id/update_ivl"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/signup_llLname"
+            app:layout_constraintBottom_toBottomOf="@+id/update_llLname"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/signup_llLname"
+            app:layout_constraintTop_toTopOf="@+id/update_llLname"
             app:srcCompat="@drawable/person_new"
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/signup_llLname"
+            android:id="@+id/update_llLname"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Blue"
-            app:layout_constraintLeft_toRightOf="@+id/signup_ivl"
+            app:layout_constraintLeft_toRightOf="@+id/update_ivl"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signup_llFname">
+            app:layout_constraintTop_toBottomOf="@+id/update_llFname">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signup_etLname"
+                android:id="@+id/update_etLname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -130,31 +99,31 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
-            android:id="@+id/signup_ive"
+            android:id="@+id/update_ive"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/signup_llEmail"
+            app:layout_constraintBottom_toBottomOf="@+id/update_llEmail"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/signup_llEmail"
+            app:layout_constraintTop_toTopOf="@+id/update_llEmail"
             app:srcCompat="@drawable/email"
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/signup_llEmail"
+            android:id="@+id/update_llEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Blue"
-            app:layout_constraintLeft_toRightOf="@+id/signup_ive"
+            app:layout_constraintLeft_toRightOf="@+id/update_ive"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/signup_llLname">
+            app:layout_constraintTop_toBottomOf="@id/update_llLname">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signup_etEmail"
+                android:id="@+id/update_etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -171,117 +140,32 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
-            android:id="@+id/signup_ivp"
+            android:id="@+id/update_ivm"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/signup_llPassword"
+            app:layout_constraintBottom_toBottomOf="@+id/update_llMobile"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/signup_llPassword"
-            app:srcCompat="@drawable/password_new"
-            tools:ignore="ContentDescription" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/signup_llPassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:visibility="gone"
-            app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Blue"
-            app:layout_constraintLeft_toRightOf="@+id/signup_ivp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/signup_llEmail">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signup_etPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_25sdp"
-                android:layout_marginRight="@dimen/_25sdp"
-                android:hint="@string/password"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:paddingTop="@dimen/_7sdp"
-                android:paddingBottom="@dimen/_10sdp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/normal_text_size" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!--<ImageView-->
-        <!--android:layout_width="@dimen/_20sdp"-->
-        <!--android:layout_height="@dimen/_20sdp"-->
-        <!--app:srcCompat="@drawable/password_new"-->
-        <!--android:layout_marginLeft="@dimen/_15sdp"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/signup_llCPassword"-->
-        <!--android:layout_marginTop="@dimen/_5sdp"-->
-        <!--android:visibility="gone"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/signup_llCPassword"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--android:id="@+id/signup_ivcp"/>-->
-
-        <!--<com.google.android.material.textfield.TextInputLayout-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Blue"-->
-        <!--app:layout_constraintTop_toBottomOf="@id/signup_llPassword"-->
-        <!--android:layout_marginTop="@dimen/_8sdp"-->
-        <!--android:visibility="gone"-->
-        <!--app:layout_constraintLeft_toRightOf="@+id/signup_ivcp"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--android:id="@+id/signup_llCPassword">-->
-
-        <!--<com.google.android.material.textfield.TextInputEditText-->
-        <!--android:id="@+id/signup_etCPassword"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:hint="@string/cpassword"-->
-        <!--android:textColor="@color/black"-->
-        <!--android:layout_marginLeft="@dimen/_10sdp"-->
-        <!--android:layout_marginRight="@dimen/_25sdp"-->
-        <!--android:textSize="@dimen/normal_text_size"-->
-        <!--android:inputType="textPassword"-->
-        <!--android:maxLines="1"-->
-        <!--android:imeOptions="actionNext"-->
-        <!--android:paddingTop="@dimen/_7sdp"-->
-        <!--android:paddingBottom="@dimen/_7sdp"/>-->
-
-        <!--</com.google.android.material.textfield.TextInputLayout>-->
-
-        <ImageView
-            android:id="@+id/signup_ivm"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/signup_llMobile"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/signup_llMobile"
+            app:layout_constraintTop_toTopOf="@+id/update_llMobile"
             app:srcCompat="@drawable/phone"
             tools:ignore="ContentDescription" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/signup_llMobile"
+            android:id="@+id/update_llMobile"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
             app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Blue"
-            app:layout_constraintBottom_toTopOf="@+id/signup_btnSignup"
-            app:layout_constraintLeft_toRightOf="@+id/signup_ivm"
+            app:layout_constraintLeft_toRightOf="@+id/update_ivm"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/signup_llPassword"
+            app:layout_constraintTop_toBottomOf="@id/update_llEmail"
             app:layout_constraintVertical_bias="0.028">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/signup_etMobile"
+                android:id="@+id/update_etMobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -299,7 +183,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/signup_btnSignup"
+            android:id="@+id/update_btnUpdate"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -312,22 +196,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/_11sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signup_llMobile" />
-
-        <TextView
-            android:id="@+id/signup_btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
-            android:gravity="center"
-            android:text="@string/sign_in"
-            android:textSize="@dimen/small_text_size"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/signup_btnSignup" />
+            app:layout_constraintTop_toBottomOf="@+id/update_llMobile" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

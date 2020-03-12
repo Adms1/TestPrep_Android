@@ -394,8 +394,8 @@ class DashboardActivity : AppCompatActivity() {
                     tvExplore!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
                     tvProfile!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
 
-                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
-                        .commitNowAllowingStateLoss()
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!, "marketplace").addToBackStack(null)
+                        .commitAllowingStateLoss()
 
                 }
                 1  -> {
@@ -426,7 +426,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
 
                 }
 
@@ -461,7 +461,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
 
                 }
                 4  -> {
@@ -495,7 +495,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
 
                 }
                 5  -> {
@@ -511,7 +511,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
 
                 }
                 6  -> {
@@ -532,7 +532,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
 
                 }
                 7  -> {
@@ -553,7 +553,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
 
                 }
                 8  -> {
@@ -569,7 +569,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
 
                 }
                 9  -> {
@@ -596,7 +596,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
 
                 }
                 10 -> {
@@ -624,7 +624,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
 
                 }
                 11 -> {
@@ -652,7 +652,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
 
                 }
                 12 -> {
@@ -685,7 +685,7 @@ class DashboardActivity : AppCompatActivity() {
                     tvProfile!!.setTextColor(context!!.resources.getColor(R.color.light_gray))
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
 
                 }
                 13 -> {
@@ -761,7 +761,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
 
                 }
                 14 -> {
@@ -843,7 +843,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
                 }
                 17 -> {
 
@@ -858,7 +858,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
                 }
                 18 -> {
 
@@ -873,13 +873,13 @@ class DashboardActivity : AppCompatActivity() {
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-                        .commitNowAllowingStateLoss()
+                        .commitAllowingStateLoss()
                 }
             }
 
 //            fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)
-//                .commitNowAllowingStateLoss()
+//                .commitAllowingStateLoss()
 
         }
     }

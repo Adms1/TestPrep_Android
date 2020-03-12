@@ -217,7 +217,14 @@ class TestReviewFragment : Fragment() {
                         rlRank.visibility = View.VISIBLE
 
                         review_tvRank.visibility = View.VISIBLE
-                        review_tvRank.text = "AIR : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString
+
+                        if (response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString != "") {
+                            review_tvRank.text =
+                                "AIR : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString
+                        } else {
+                            review_tvRank.text =
+                                "Internal Rank : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("InternalRank").asString
+                        }
 
                     } else {
                         review_ivInfo.visibility = View.GONE

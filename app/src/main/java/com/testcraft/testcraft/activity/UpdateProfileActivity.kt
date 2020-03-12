@@ -14,7 +14,7 @@ import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
-import kotlinx.android.synthetic.main.activity_signup.*
+import kotlinx.android.synthetic.main.activity_update_profile.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,20 +56,20 @@ class UpdateProfileActivity : Fragment() {
         CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C3400, ActionIdData.T3400)
 
         userid = Utils.getStringValue(activity!!, AppConstants.USER_ID, "").toString()
-        signup_etFname.setText(Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, ""))
-        signup_etLname.setText(Utils.getStringValue(activity!!, AppConstants.LAST_NAME, ""))
-        signup_etEmail.setText(Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, ""))
+        update_etFname.setText(Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, ""))
+        update_etLname.setText(Utils.getStringValue(activity!!, AppConstants.LAST_NAME, ""))
+        update_etEmail.setText(Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, ""))
 
-        signup_etEmail.isFocusable = false
-        signup_etMobile.isFocusable = false
+        update_etEmail.isFocusable = false
+        update_etMobile.isFocusable = false
 
-        signup_etPassword.setText(Utils.getStringValue(activity!!, AppConstants.USER_PASSWORD, ""))
+//        update_etPassword.setText(Utils.getStringValue(activity!!, AppConstants.USER_PASSWORD, ""))
 
-        signup_etMobile.setText(Utils.getStringValue(activity!!, AppConstants.USER_MOBILE, ""))
+        update_etMobile.setText(Utils.getStringValue(activity!!, AppConstants.USER_MOBILE, ""))
 
-        signup_btnSignup.text = getString(R.string.update)
+//        update_btnSignup.text = getString(R.string.update)
 
-        signup_btnSignup.setOnClickListener {
+        update_btnUpdate.setOnClickListener {
 
             CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C3401, ActionIdData.T3401)
 
@@ -78,7 +78,7 @@ class UpdateProfileActivity : Fragment() {
             }
         }
 
-//        signup_ivBack.setOnClickListener { onBackPressed() }
+//        update_ivBack.setOnClickListener { onBackPressed() }
     }
 
     fun callSignupApi() {
@@ -93,11 +93,11 @@ class UpdateProfileActivity : Fragment() {
             WebRequests.addSignupParams(
                 Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "")!!,
                 Utils.getStringValue(activity!!, AppConstants.USER_ID, "")!!,
-                signup_etFname.text.toString(),
-                signup_etLname.text.toString(),
-                signup_etEmail.text.toString(),
-                signup_etPassword.text.toString(),
-                signup_etMobile.text.toString(),
+                update_etFname.text.toString(),
+                update_etLname.text.toString(),
+                update_etEmail.text.toString(),
+                Utils.getStringValue(activity!!, AppConstants.USER_PASSWORD, "")!!,
+                update_etMobile.text.toString(),
                 Utils.getStringValue(activity!!, AppConstants.USER_STATUSID, "")!!)
         )
 
@@ -185,28 +185,20 @@ class UpdateProfileActivity : Fragment() {
 
         var isvalid = true
 
-        if (TextUtils.isEmpty(signup_etFname.text.toString()) || signup_etFname.text.toString().trim().isEmpty()) {
-            signup_etFname.error = "first name must not be null"
+        if (TextUtils.isEmpty(update_etFname.text.toString()) || update_etFname.text.toString().trim().isEmpty()) {
+            update_etFname.error = "first name must not be null"
             isvalid = false
         }
 
-        if (TextUtils.isEmpty(signup_etLname.text.toString()) || signup_etLname.text.toString().trim().isEmpty()) {
-            signup_etLname.error = "last name must not be null"
+        if (TextUtils.isEmpty(update_etLname.text.toString()) || update_etLname.text.toString().trim().isEmpty()) {
+            update_etLname.error = "last name must not be null"
             isvalid = false
         }
 
-        if (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") == "1") {
-
-            if (TextUtils.isEmpty(signup_etPassword.text.toString())) {
-                signup_etPassword.error = "password must not be null"
-                isvalid = false
-            }
-        }
-
-        if (TextUtils.isEmpty(signup_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(signup_etMobile.text.toString()).matches()) {
-            signup_etMobile.error = "Please enter valid mobile number"
-            isvalid = false
-        }
+//        if (TextUtils.isEmpty(update_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(update_etMobile.text.toString()).matches()) {
+//            update_etMobile.error = "Please enter valid mobile number"
+//            isvalid = false
+//        }
 
         return isvalid
 

@@ -586,12 +586,12 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     ansList!!.visibility = View.GONE
 
                                     when (movies[0].TestQuestion[0].Answer) {
-                                        "1" -> {
+                                        "1"  -> {
                                             queTab_rbTrue.isChecked = true
                                             queTab_rbFalse.isChecked = false
 
                                         }
-                                        "0" -> {
+                                        "0"  -> {
                                             queTab_rbFalse.isChecked = true
                                             queTab_rbTrue.isChecked = false
                                         }
@@ -860,6 +860,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 if (response.body()!!.get("Status").asString == "true") {
 
+                    if (attemptDialog!!.isShowing) {
+                        attemptDialog!!.dismiss()
+                    }
+
                     val intent = Intent(this@NewTabQuestionActivity, ResultActivity::class.java)
                     intent.putExtra("testid", testid)
                     intent.putExtra("testname", testname)
@@ -893,6 +897,13 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+
+                Toast.makeText(
+                    this@NewTabQuestionActivity,
+                    "submit fail",
+                    Toast.LENGTH_LONG
+                ).show()
+
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()
             }
@@ -1046,11 +1057,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                         ansList!!.visibility = View.GONE
 
                                         when (movies[q_grppos1].TestQuestion[curr_index].Answer) {
-                                            "1" -> {
+                                            "1"  -> {
                                                 queTab_rbTrue.isChecked = true
                                                 queTab_rbFalse.isChecked = false
                                             }
-                                            "0" -> {
+                                            "0"  -> {
                                                 queTab_rbFalse.isChecked = true
                                                 queTab_rbTrue.isChecked = false
                                             }
@@ -1155,11 +1166,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                             ansList!!.visibility = View.GONE
 
                                             when (movies[q_grppos1].TestQuestion[curr_index].Answer) {
-                                                "1" -> {
+                                                "1"  -> {
                                                     queTab_rbTrue.isChecked = true
                                                     queTab_rbFalse.isChecked = false
                                                 }
-                                                "0" -> {
+                                                "0"  -> {
                                                     queTab_rbFalse.isChecked = true
                                                     queTab_rbTrue.isChecked = false
                                                 }
@@ -1693,7 +1704,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint("SetJavaScriptEnabled", "WrongConstant")
     fun clicks() {
 
         queTab_ivReview.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -2271,14 +2282,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         attemptDialog = Dialog(this@NewTabQuestionActivity)
 
+        attemptDialog!!.setContentView(R.layout.dialog_que_attempt_report)
+        attemptDialog!!.setCanceledOnTouchOutside(false)
+
+        val btnCancel: TextView = attemptDialog!!.findViewById(R.id.attempt_btnClose)
+        val btnOk: TextView = attemptDialog!!.findViewById(R.id.attempt_tvOK)
+        val rvList: RecyclerView = attemptDialog!!.findViewById(R.id.attempt_rvList)
+
         if (!attemptDialog!!.isShowing) {
-
-            attemptDialog!!.setContentView(R.layout.dialog_que_attempt_report)
-            attemptDialog!!.setCanceledOnTouchOutside(false)
-
-            val btnCancel: TextView = attemptDialog!!.findViewById(R.id.attempt_btnClose)
-            val btnOk: TextView = attemptDialog!!.findViewById(R.id.attempt_tvOK)
-            val rvList: RecyclerView = attemptDialog!!.findViewById(R.id.attempt_rvList)
 
             rvList.layoutManager =
                 LinearLayoutManager(
@@ -2287,84 +2298,84 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     false
                 )
 
-            callAttempReport(rvList)
+//            callAttempReport()
 
-            btnCancel.setOnClickListener {
+            continuetime = 0
 
-                if (queTab_tvTimer.text.toString().equals("00:00:00", true)) {
+            DialogUtils.showDialog(this@NewTabQuestionActivity)
 
-                    getType("continue", 0, curr_index)
+            val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-                    DialogUtils.createConfirmDialog1(
-                        this@NewTabQuestionActivity,
-                        "Submit",
-                        "Your test time is over",
+            val call = apiService.attemptReport(studenttestid)
+            call.enqueue(object : Callback<AttemptModel> {
+                override fun onResponse(call: Call<AttemptModel>, response: Response<AttemptModel>) {
 
-                        DialogInterface.OnClickListener { dialog, which ->
+                    DialogUtils.dismissDialog()
 
-                            callSubmitAPI()
+                    if (response.body()!!.Status == "true") {
 
-                        }).show()
-                    attemptDialog!!.dismiss()
+                        rvList.adapter =
+                            QuestionAttemptAdapter(
+                                this@NewTabQuestionActivity,
+                                "test",
+                                response.body()!!.data
+                            )
 
-                } else {
-                    attemptDialog!!.dismiss()
-                }
-            }
+                        attemptDialog!!.show()
 
-            btnOk.setOnClickListener {
-
-                stopTimer()
-
-                var ansstr = ""
-
-                for (i in 0 until ansArr.size) {
-                    ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
-
+                    }
                 }
 
-                Log.d("ansstr", ansstr)
-
-                callSubmitAPI()
-            }
+                override fun onFailure(call: Call<AttemptModel>, t: Throwable) {
+                    Log.e("", t.toString())
+                    DialogUtils.dismissDialog()
+                }
+            })
 
         } else {
             attemptDialog!!.dismiss()
         }
-    }
 
-    fun callAttempReport(rvlist: RecyclerView) {
+        btnCancel.setOnClickListener {
 
-        continuetime = 0
+            if (queTab_tvTimer.text.toString().equals("00:00:00", true)) {
 
-        DialogUtils.showDialog(this@NewTabQuestionActivity)
+                getType("continue", 0, curr_index)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
+                DialogUtils.createConfirmDialog1(
+                    this@NewTabQuestionActivity,
+                    "Submit",
+                    "Your test time is over",
 
-        val call = apiService.attemptReport(studenttestid)
-        call.enqueue(object : Callback<AttemptModel> {
-            override fun onResponse(call: Call<AttemptModel>, response: Response<AttemptModel>) {
+                    DialogInterface.OnClickListener { dialog, which ->
 
-                DialogUtils.dismissDialog()
+                        callSubmitAPI()
 
-                if (response.body()!!.Status == "true") {
+                    }).show()
+                attemptDialog!!.dismiss()
 
-                    rvlist.adapter =
-                        QuestionAttemptAdapter(
-                            this@NewTabQuestionActivity,
-                            "test",
-                            response.body()!!.data
-                        )
+            } else {
+                attemptDialog!!.dismiss()
+            }
+        }
 
-                    attemptDialog!!.show()
+        btnOk.setOnClickListener {
 
-                }
+            stopTimer()
+
+            var ansstr = ""
+
+            for (i in 0 until ansArr.size) {
+                ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
+
             }
 
-            override fun onFailure(call: Call<AttemptModel>, t: Throwable) {
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
+            Log.d("ansstr", ansstr)
+
+            callSubmitAPI()
+        }
+
+//        fun callAttempReport() {
+//        }
     }
 }

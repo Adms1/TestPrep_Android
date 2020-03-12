@@ -3,6 +3,7 @@ package com.testcraft.testcraft.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,9 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
+import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
+import com.testcraft.testcraft.activity.IntroActivity
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.utils.*
 
@@ -94,28 +97,32 @@ class MyPackageAdapter(
 
             CommonWebCalls.callToken(context, "1", "", ActionIdData.C1101, ActionIdData.T1101)
 
-            DialogUtils.createConfirmDialog(
-                context,
-                "",
-                "Are you sure you want to buy this package?",
-                "Yes",
-                "No",
-                DialogInterface.OnClickListener { dialog, which ->
+            if (Utils.getStringValue(context, AppConstants.IS_LOGIN, "") == "true") {
+                DialogUtils.createConfirmDialog(
+                    context,
+                    "",
+                    "Are you sure you want to buy this package?",
+                    "Yes",
+                    "No",
+                    DialogInterface.OnClickListener { dialog, which ->
 
-                    if (DialogUtils.isNetworkConnected(context)) {
+                        if (DialogUtils.isNetworkConnected(context)) {
 
-                        PackagePurchase.callAddToCart("freetest", dataList[p1].TestPackageID, context, "")
+                            PackagePurchase.callAddToCart("freetest", dataList[p1].TestPackageID, context, "")
 
-                    } else {
-                        Utils.ping(context, AppConstants.NETWORK_MSG)
-                    }
+                        } else {
+                            Utils.ping(context, AppConstants.NETWORK_MSG)
+                        }
 
-                },
-                DialogInterface.OnClickListener { dialog, which ->
-                    dialog.dismiss()
+                    },
+                    DialogInterface.OnClickListener { dialog, which ->
+                        dialog.dismiss()
 
-
-                }).show()
+                    }).show()
+            } else {
+                val intent = Intent(context, IntroActivity::class.java)
+                (context as DashboardActivity).startActivity(intent)
+            }
         }
 
         p0.mainll.setOnClickListener {
@@ -155,7 +162,6 @@ class MyPackageAdapter(
 //                intent1.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
 //                context.startActivity(intent1)
 //                (context as DashboardActivity).finish()
-
 
 //                val intent = Intent(context, TestListActivity::class.java)
 //                intent.putExtra("pkgid", dataList[p1].StudentTestPackageID.toString())
@@ -197,6 +203,7 @@ class MyPackageAdapter(
         var tutor: TextView = itemView.findViewById(R.id.item_my_package_tutor)
         var ivComplete: ImageView = itemView.findViewById(R.id.main_package_select)
         var name: TextView = itemView.findViewById(R.id.item_my_package_name)
+
         //        var short_name: TextView = itemView.findViewById(R.id.item_my_package_name_short)
         var mainll: ConstraintLayout = itemView.findViewById(R.id.item_my_package_main)
         var price: TextView = itemView.findViewById(R.id.item_my_package_price)

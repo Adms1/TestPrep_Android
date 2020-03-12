@@ -45,9 +45,17 @@ class ResultActivity : AppCompatActivity() {
 
             Utils.setStringValue(this@ResultActivity, AppConstants.IS_DEEPLINK_STEP, "3")
 
-            result_btnDashboard.visibility = View.GONE
-            result_tvReports.visibility = View.GONE
-            result_tvReginView.visibility = View.VISIBLE
+            if (Utils.getStringValue(this@ResultActivity, AppConstants.IS_LOGIN, "") == "true") {
+
+                result_btnDashboard.visibility = View.VISIBLE
+                result_tvReports.visibility = View.VISIBLE
+                result_tvReginView.visibility = View.GONE
+
+            } else {
+                result_btnDashboard.visibility = View.GONE
+                result_tvReports.visibility = View.GONE
+                result_tvReginView.visibility = View.VISIBLE
+            }
 
         } else {
 
@@ -95,6 +103,8 @@ class ResultActivity : AppCompatActivity() {
 
         if (Utils.getStringValue(this@ResultActivity, AppConstants.APP_MODE, "") != AppConstants.NORMAL_MODE) {
 
+            Utils.setStringValue(this@ResultActivity, AppConstants.IS_DEEPLINK_STEP, "3")
+
             if (Utils.getStringValue(this@ResultActivity, AppConstants.IS_LOGIN, "") == "true") {
 
                 result_btnDashboard.visibility = View.VISIBLE
@@ -102,9 +112,6 @@ class ResultActivity : AppCompatActivity() {
                 result_tvReginView.visibility = View.GONE
 
             } else {
-
-                Utils.setStringValue(this@ResultActivity, AppConstants.IS_DEEPLINK_STEP, "3")
-
                 result_btnDashboard.visibility = View.GONE
                 result_tvReports.visibility = View.GONE
                 result_tvReginView.visibility = View.VISIBLE

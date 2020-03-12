@@ -45,8 +45,8 @@ class AppConstants {
         var USER_MOBILE = "usermobile"
         var USER_ACCOUNT_TYPE = "userlogintype"
         var USER_STATUSID = "userstatusid"
-        var OTP = ""
-        var user_profile = ""
+        var OTP = "otp"
+        var user_profile = "userprofile"
 
         var GUEST_FIRSTNAME = "Guest"
         var GUEST_LASTNAME = "User"
@@ -59,7 +59,7 @@ class AppConstants {
         var isPrefrence = "0"
         var IS_LOGIN = "false"
         var IS_DEEPLINK_STEP = "1"
-        var DEEPLINK_CODE = ""
+        var DEEPLINK_CODE = "000"
 
         var COURSE_FLOW = ""
         var COURSE_FLOW_ARRAY: ArrayList<String> = ArrayList()
@@ -97,14 +97,14 @@ class AppConstants {
         var FILTER_FROM_PRICE = "0"
         var FILTER_TO_PRICE = "5000"
 
-        var MIN_PRICE = ""
-        var MAX_PRICE = ""
+        var MIN_PRICE = "0"
+        var MAX_PRICE = "0000"
 
         var isFirst = 0
         var isInstall = "true"
 
-        var PKG_ID = ""
-        var PKG_NAME = ""
+        var PKG_ID = "0"
+        var PKG_NAME = "xyz"
 
         var NETWORK_MSG = "The network is not reachable."
 

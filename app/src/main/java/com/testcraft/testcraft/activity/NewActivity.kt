@@ -2,6 +2,7 @@ package com.testcraft.testcraft.activity
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
@@ -97,10 +98,20 @@ class NewActivity : AppCompatActivity() {
 //
 //        }
 
-        if (Utils.getStringValue(this@NewActivity, AppConstants.USER_ID, "")!! == "") {
-            CommonWebCalls.callSignupApi("guest", this@NewActivity, "5", "0",
-                AppConstants.GUEST_FIRSTNAME,
-                AppConstants.GUEST_LASTNAME, "", "", "")
+        if (!intent.hasExtra("comeadater")) {
+
+            if (Utils.getStringValue(this@NewActivity, AppConstants.USER_ID, "")!! == "") {
+                CommonWebCalls.callSignupApi("guest", this@NewActivity, "5", "0",
+                    AppConstants.GUEST_FIRSTNAME,
+                    AppConstants.GUEST_LASTNAME, "", "", "")
+            } else {
+
+                if (Utils.getStringValue(this@NewActivity, AppConstants.isPrefrence, "")!! != "") {
+                    val i = Intent(this@NewActivity, DashboardActivity::class.java)
+                    startActivity(i)
+                }
+
+            }
         }
 
         new_coarse_rvCoarseList.layoutManager = GridLayoutManager(this@NewActivity, 2)
@@ -131,7 +142,8 @@ class NewActivity : AppCompatActivity() {
 
                     if (response.body()!!.Status == "true") {
 
-                        chooseCoarseAdapter = NewChooseCoarseAdapter(this@NewActivity, response.body()!!.data)
+                        chooseCoarseAdapter =
+                            NewChooseCoarseAdapter(this@NewActivity, response.body()!!.data)
                         new_coarse_rvCoarseList.adapter = chooseCoarseAdapter
 
                     } else {
