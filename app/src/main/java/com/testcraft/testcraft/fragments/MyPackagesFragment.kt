@@ -55,46 +55,16 @@ class MyPackagesFragment : Fragment() {
             }
         }
 
-        my_packages_ivReport.setOnClickListener {
+//        my_packages_ivReport.setOnClickListener {
 
-            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1701, ActionIdData.T1701)
-
-            if (iscompetitive == "1") {
-                val intent = Intent(context, ViewInvoiceActivity::class.java)
-                intent.putExtra("header", "Knowledge Gap")
-                intent.putExtra(
-                    "url",
-                    AppConstants.SUBJECT_SUMMARY_REPORT_URL + "IsCompetitive=1&CourseID=" + subid.toString() + "&StudentID=" + Utils.getStringValue(
-                        activity!!,
-                        AppConstants.USER_ID,
-                        "0"
-                    )!!
-                )
-
-                startActivity(intent)
-
-            } else {
-                val intent = Intent(context, ViewInvoiceActivity::class.java)
-                intent.putExtra("header", "Knowledge Gap")
-                intent.putExtra(
-                    "url",
-                    AppConstants.SUBJECT_SUMMARY_REPORT_URL + "IsCompetitive=0&StandardID=" + stdid + "&SubjectID=" + subid.toString() + "&StudentID=" + Utils.getStringValue(
-                        activity!!,
-                        AppConstants.USER_ID,
-                        "0"
-                    )!!
-                )
-                startActivity(intent)
-            }
-
-            //            val intent = Intent(context, ViewInvoiceActivity::class.java)
+        //            val intent = Intent(context, ViewInvoiceActivity::class.java)
 //            intent.putExtra("header", "Knowledge Gap")
 //            intent.putExtra(
 //                "url",
 //                "http://webservice.testcraft.in/TestPackageSummaryReport.aspx?STPID=" + AppConstants.PKG_ID
 //            )
 //            startActivity(intent)
-        }
+//        }
 
 //        my_packages_ivBack.setOnClickListener { onBackPressed() }
 
@@ -107,7 +77,80 @@ class MyPackagesFragment : Fragment() {
 
         DialogUtils.showDialog(activity!!)
 
+        my_packages_tvTotalCount.setOnClickListener { onKnowledgegapClick() }
+        my_packages_ivTotalTest.setOnClickListener { onKnowledgegapClick() }
+
+        my_packages_ivPendingTest.setOnClickListener { onsummaryreportClick() }
+        my_packages_tvPendingCount.setOnClickListener { onsummaryreportClick() }
+
         callMyPackagesApi()
+    }
+
+    fun onKnowledgegapClick() {
+
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1701, ActionIdData.T1701)
+
+        if (iscompetitive == "1") {
+            val intent = Intent(context, ViewInvoiceActivity::class.java)
+            intent.putExtra("header", "Knowledge Gap")
+            intent.putExtra(
+                "url",
+                AppConstants.SUBJECT_SUMMARY_REPORT_URL + "IsCompetitive=1&CourseID=" + subid.toString() + "&StudentID=" + Utils.getStringValue(
+                    activity!!,
+                    AppConstants.USER_ID,
+                    "0"
+                )!!
+            )
+
+            startActivity(intent)
+
+        } else {
+            val intent = Intent(context, ViewInvoiceActivity::class.java)
+            intent.putExtra("header", "Knowledge Gap")
+            intent.putExtra(
+                "url",
+                AppConstants.SUBJECT_SUMMARY_REPORT_URL + "IsCompetitive=0&StandardID=" + stdid + "&SubjectID=" + subid.toString() + "&StudentID=" + Utils.getStringValue(
+                    activity!!,
+                    AppConstants.USER_ID,
+                    "0"
+                )!!
+            )
+            startActivity(intent)
+        }
+    }
+
+    fun onsummaryreportClick() {
+
+        CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1701, ActionIdData.T1701)
+
+        if (iscompetitive == "1") {
+            val intent = Intent(context, ViewInvoiceActivity::class.java)
+            intent.putExtra("header", "Summary Report")
+            intent.putExtra(
+                "url",
+                AppConstants.ALL_SUMMARY_REPORT_URL + "IsCompetitive=1&CourseID=" + subid.toString() + "&StudentID=" + Utils.getStringValue(
+                    activity!!,
+                    AppConstants.USER_ID,
+                    "0"
+                )!! + "&StandardID=0&SubjectID=0"
+            )
+
+            startActivity(intent)
+
+        } else {
+            val intent = Intent(context, ViewInvoiceActivity::class.java)
+            intent.putExtra("header", "Summary Report")
+            intent.putExtra(
+                "url",
+                AppConstants.ALL_SUMMARY_REPORT_URL + "IsCompetitive=0&StandardID=" + stdid + "&SubjectID=" + subid.toString() + "&StudentID=" + Utils.getStringValue(
+                    activity!!,
+                    AppConstants.USER_ID,
+                    "0"
+                )!! + "&CourseID=0"
+            )
+            startActivity(intent)
+        }
+
     }
 
     fun callMyPackagesApi() {
@@ -164,13 +207,13 @@ class MyPackagesFragment : Fragment() {
 //                        per = DecimalFormat("##.##").format(per).toFloat()
 
                         final = when {
-                            per > 0 -> {
+                            per > 0   -> {
                                 100 - per
                             }
                             per == 0F -> {
                                 100.0F
                             }
-                            else -> {
+                            else      -> {
                                 0F
                             }
                         }
@@ -179,9 +222,10 @@ class MyPackagesFragment : Fragment() {
                         Log.d("percentage", "" + final)
 
                         my_packages_ivProgress.setProgress(final, true)
+                        my_packages_tvProgress!!.text = "$completecount/$totalcount"
 
-                        my_packages_tvPendingCount.text = pendingcount.toString()
-                        my_packages_tvTotalCount.text = totalcount.toString()
+//                        my_packages_tvPendingCount.text = pendingcount.toString()
+//                        my_packages_tvTotalCount.text = totalcount.toString()
 
                         val pkgArr = response.body()!!.data[0].PackageList
                         my_packages_rvList.adapter = MyPackageAdapter(activity!!, pkgArr, "my_pkgs")

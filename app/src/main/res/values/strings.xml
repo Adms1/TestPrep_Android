@@ -136,6 +136,8 @@
     <string name="forgotpass_instruction">Please enter your registered mobile number to reset your password.</string>
     <string name="strengths_weekness"><![CDATA[Strengths & Weekness]]></string>
     <string name="register_view_solution"><![CDATA[Register & View Solution]]></string>
+    <string name="knowledge_gap">Knowledge Gap</string>
+    <string name="summary_report">Summary Report</string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>

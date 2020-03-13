@@ -898,9 +898,15 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
+//                Toast.makeText(
+//                    this@NewTabQuestionActivity,
+//                    "submit fail",
+//                    Toast.LENGTH_LONG
+//                ).show()
+
                 Toast.makeText(
                     this@NewTabQuestionActivity,
-                    "submit fail",
+                    "submit fail" + t.message,
                     Toast.LENGTH_LONG
                 ).show()
 

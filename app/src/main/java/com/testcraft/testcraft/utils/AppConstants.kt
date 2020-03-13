@@ -15,25 +15,26 @@ class AppConstants {
 
 //        LIVE
 
-        var BASE_URL = "https://webservice.testcraft.in/WebService.asmx/"
-        var IMAGE_BASE_URL = "https://testcraft.in/upload/"
-        var EXPHINT_IMAGE_BASE_URL = "https://testcraft.in/"
-        var PAYMENT_REQUEST = "https://testcraft.in/MobilePayment.aspx?"
-        var INVOICE_URL = "https://testcraft.in/InvoiceDetail.aspx?ID="
-        var SUMMARY_REPORT_URL = "https://webservice.testcraft.in/TestSummaryReport.aspx?"
-        var SUBJECT_SUMMARY_REPORT_URL =
-            "https://webservice.testcraft.in/SubjectSummaryReport.aspx?"
+//        var BASE_URL = "https://webservice.testcraft.in/WebService.asmx/"
+//        var IMAGE_BASE_URL = "https://testcraft.in/upload/"
+//        var EXPHINT_IMAGE_BASE_URL = "https://testcraft.in/"
+//        var PAYMENT_REQUEST = "https://testcraft.in/MobilePayment.aspx?"
+//        var INVOICE_URL = "https://testcraft.in/InvoiceDetail.aspx?ID="
+//        var SUMMARY_REPORT_URL = "https://webservice.testcraft.in/TestSummaryReport.aspx?"
+//        var SUBJECT_SUMMARY_REPORT_URL = "https://webservice.testcraft.in/SubjectSummaryReport.aspx?"
+//        var ALL_SUMMARY_REPORT_URL = "http://webservice.testcraft.in/AllTestSummaryReport.aspx?"
 //
 //          LOCAL
 
-//        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
-//        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
-//        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
-//        var PAYMENT_REQUEST = "http://demo.testcraft.in/MobilePayment.aspx?"
-//        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
-//        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
-//        var SUBJECT_SUMMARY_REPORT_URL =
-//            "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
+        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
+        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
+        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
+        var PAYMENT_REQUEST = "http://demo.testcraft.in/MobilePayment.aspx?"
+        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
+        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
+        var SUBJECT_SUMMARY_REPORT_URL =
+            "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
+        var ALL_SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/AllTestSummaryReport.aspx?"
 
 //        USER DATA
 
@@ -58,6 +59,11 @@ class AppConstants {
 
         var isPrefrence = "0"
         var IS_LOGIN = "false"
+
+        /* 1 - select dplink lang
+         * 2 - dplink test list
+         * 3 - dplink result screen
+         * 4 - no step */
         var IS_DEEPLINK_STEP = "1"
         var DEEPLINK_CODE = "000"
 

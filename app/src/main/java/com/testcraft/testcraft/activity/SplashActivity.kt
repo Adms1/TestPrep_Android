@@ -14,6 +14,8 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.facebook.FacebookSdk
+import com.facebook.applinks.AppLinkData
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
@@ -56,7 +58,7 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        FacebookSdk.sdkInitialize(this)
 //        changeStatusbarColor(context)
 
         // In Activity's onCreate() for instance
@@ -66,6 +68,13 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         connectivity = Connectivity()
+
+        AppLinkData.fetchDeferredAppLinkData(this
+        ) {
+            // Process app link data
+
+//            Log.d("fbdplink", "got it" + AppLinks)
+        }
 
         FirebaseDynamicLinks.getInstance()
             .getDynamicLink(intent)
@@ -132,11 +141,11 @@ class SplashActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         val currentVersion = packageInfo!!.versionName
-        ForceUpdateAsync(deeplinkcode, currentVersion, this).execute()
+        ForceUpdateAsync(currentVersion, this).execute()
 
     }
 
-    class ForceUpdateAsync(private val dplinkid: String, private val currentVersion: String, private val context: Context) :
+    class ForceUpdateAsync(private val currentVersion: String, private val context: Context) :
         AsyncTask<String?, String?, JSONObject>() {
         private var latestVersion: String? = null
 
@@ -172,28 +181,29 @@ class SplashActivity : AppCompatActivity() {
 
                         Utils.setStringValue(context, AppConstants.isInstall, "true")
 
-                        if (Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
-                            Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.GUEST_MODE)
-                        }
+//                        if (Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
+//                            Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.GUEST_MODE)
+//                        }
 
-
-                    } else {
-                        if (Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
-
-                            if (Utils.getStringValue(context, AppConstants.APP_MODE, "") == AppConstants.GUEST_MODE) {
-
-                                Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.GUEST_MODE)
-
-                            } else {
-                                Utils.setStringValue(
-                                    context,
-                                    AppConstants.APP_MODE,
-                                    AppConstants.NORMAL_MODE
-                                )
-                            }
-                        }
 
                     }
+//                    else {
+//                        if (Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
+//
+//                            if (Utils.getStringValue(context, AppConstants.APP_MODE, "") == AppConstants.GUEST_MODE) {
+//
+//                                Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.GUEST_MODE)
+//
+//                            } else {
+//                                Utils.setStringValue(
+//                                    context,
+//                                    AppConstants.APP_MODE,
+//                                    AppConstants.NORMAL_MODE
+//                                )
+//                            }
+//                        }
+
+//                    }
 
                     Handler().postDelayed(
                         /* Runnable

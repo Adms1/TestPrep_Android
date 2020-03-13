@@ -171,9 +171,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
+                <!--                <data-->
+                <!--                    android:host="testcraft.in/data?id="-->
+                <!--                    android:scheme="https" />-->
+
                 <data
-                    android:host="testcraft.in/data?id="
+                    android:host="testcraft.in"
+                    android:pathPrefix="/data"
                     android:scheme="https" />
+
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

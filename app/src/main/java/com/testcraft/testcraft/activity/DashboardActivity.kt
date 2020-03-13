@@ -930,6 +930,8 @@ class DashboardActivity : AppCompatActivity() {
         } else if (AppConstants.isFirst == 10) {
             if (Utils.getStringValue(this@DashboardActivity, AppConstants.IS_DEEPLINK_STEP, "") == "2" || Utils.getStringValue(this@DashboardActivity, AppConstants.IS_DEEPLINK_STEP, "") == "3") {
 
+                Utils.setStringValue(this@DashboardActivity, AppConstants.IS_DEEPLINK_STEP, "4")
+
                 AppConstants.isFirst = 0
                 setFragments(null)
 

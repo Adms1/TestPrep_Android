@@ -83,27 +83,48 @@
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_marginRight="@dimen/_5sdp"
                         android:padding="@dimen/_2sdp"
+                        android:visibility="gone"
                         android:src="@drawable/diagram"
                         tools:ignore="ContentDescription" />
 
-                    <com.ramijemli.percentagechartview.PercentageChartView
-                        android:id="@+id/my_packages_ivProgress"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/my_packages_llProgress"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_130sdp"
                         android:layout_below="@+id/my_packages_tvReport"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        app:pcv_animDuration="800"
-                        app:pcv_animInterpolator="anticipate_overshoot"
-                        app:pcv_backgroundBarColor="@color/default_shimmer_color"
-                        app:pcv_backgroundBarThickness="@dimen/_5sdp"
-                        app:pcv_mode="ring"
-                        app:pcv_orientation="clockwise"
-                        app:pcv_progressBarThickness="@dimen/_5sdp"
-                        app:pcv_progressColor="@color/green"
-                        app:pcv_startAngle="270"
-                        app:pcv_textColor="@color/gray"
-                        app:pcv_textSize="@dimen/_35sdp"
-                        app:pcv_textStyle="bold" />
+                        android:layout_marginTop="@dimen/_20sdp">
+
+                        <com.ramijemli.percentagechartview.PercentageChartView
+                            android:id="@+id/my_packages_ivProgress"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:pcv_animDuration="800"
+                            app:pcv_animInterpolator="anticipate_overshoot"
+                            app:pcv_backgroundBarColor="@color/default_shimmer_color"
+                            app:pcv_backgroundBarThickness="@dimen/_5sdp"
+                            app:pcv_mode="ring"
+                            app:pcv_orientation="clockwise"
+                            app:pcv_progressBarThickness="@dimen/_5sdp"
+                            app:pcv_progressColor="@color/green"
+                            app:pcv_startAngle="270"
+                            app:pcv_textColor="@color/white"
+                            app:pcv_textSize="@dimen/_35sdp"
+                            app:pcv_textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/my_packages_tvProgress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:text="3/5"
+                            android:textSize="@dimen/_25sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <!--<com.emredavarci.circleprogressbar.CircleProgressBar-->
                     <!--android:id="@+id/my_packages_ivProgress"-->
@@ -124,80 +145,91 @@
                     <!--app:layout_constraintRight_toRightOf="parent"-->
                     <!--cpb:progressTextColor="#f9916b"/>-->
 
-                    <TextView
-                        android:id="@+id/my_packages_tvTotalCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/my_packages_ivProgress"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_toEndOf="@+id/my_packages_ivTotalTest"
-                        android:layout_toRightOf="@+id/my_packages_ivTotalTest"
-                        android:textSize="@dimen/normal_header_size" />
-
-                    <TextView
-                        android:id="@+id/my_packages_tvTotalTest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/my_packages_tvTotalCount"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:layout_toEndOf="@+id/my_packages_ivTotalTest"
-                        android:layout_toRightOf="@+id/my_packages_ivTotalTest"
-                        android:gravity="center"
-                        android:singleLine="true"
-                        android:text="Available Test"
-                        android:textSize="@dimen/extra_small_size" />
-
-                    <ImageView
-                        android:id="@+id/my_packages_ivTotalTest"
-                        android:layout_width="@dimen/_25sdp"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/_30sdp"
-                        android:layout_below="@+id/my_packages_ivProgress"
-                        android:layout_marginStart="@dimen/_15sdp"
-                        android:layout_marginLeft="@dimen/_15sdp"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:src="@drawable/total_test"
-                        tools:ignore="ContentDescription" />
+                        android:layout_below="@id/my_packages_llProgress"
+                        android:layout_margin="@dimen/_10sdp">
 
-                    <TextView
-                        android:id="@+id/my_packages_tvPendingCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/my_packages_ivProgress"
-                        android:layout_toEndOf="@+id/my_packages_ivPendingTest"
-                        android:layout_toRightOf="@+id/my_packages_ivPendingTest"
-                        android:textSize="@dimen/normal_header_size" />
+                        <ImageView
+                            android:id="@+id/my_packages_ivTotalTest"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="match_parent"
+                            android:onClick="onClickk"
+                            android:src="@drawable/diagram"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/my_packages_tvTotalCount"
+                            tools:ignore="ContentDescription" />
 
-                    <TextView
-                        android:id="@+id/my_packages_tvPendingTest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/my_packages_tvPendingCount"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginEnd="@dimen/_15sdp"
-                        android:layout_marginRight="@dimen/_15sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:singleLine="true"
-                        android:text="Pending Test"
-                        android:textSize="@dimen/extra_small_size" />
+                        <TextView
+                            android:id="@+id/my_packages_tvTotalCount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:maxLines="2"
+                            android:onClick="onClickk"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingRight="@dimen/_10sdp"
+                            android:text="@string/knowledge_gap"
+                            android:textSize="@dimen/regular_text_size"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/my_packages_ivTotalTest"
+                            app:layout_constraintRight_toLeftOf="@+id/my_packages_ivPendingTest"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/my_packages_ivPendingTest"
-                        android:layout_width="@dimen/_25sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_below="@+id/my_packages_ivProgress"
-                        android:layout_marginTop="@dimen/_3sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:layout_toStartOf="@+id/my_packages_tvPendingTest"
-                        android:layout_toLeftOf="@+id/my_packages_tvPendingTest"
-                        android:src="@drawable/pending_test"
-                        tools:ignore="ContentDescription" />
+                        <!--                    <TextView-->
+                        <!--                        android:id="@+id/my_packages_tvTotalTest"-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:layout_below="@+id/my_packages_tvTotalCount"-->
+                        <!--                        android:layout_marginStart="@dimen/_10sdp"-->
+                        <!--                        android:layout_marginLeft="@dimen/_10sdp"-->
+                        <!--                        android:layout_marginBottom="@dimen/_5sdp"-->
+                        <!--                        android:layout_toEndOf="@+id/my_packages_ivTotalTest"-->
+                        <!--                        android:layout_toRightOf="@+id/my_packages_ivTotalTest"-->
+                        <!--                        android:gravity="center"-->
+                        <!--                        android:singleLine="true"-->
+                        <!--                        android:textSize="@dimen/_7sdp" />-->
+
+                        <ImageView
+                            android:id="@+id/my_packages_ivPendingTest"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/pending_test"
+                            app:layout_constraintLeft_toRightOf="@+id/my_packages_tvTotalCount"
+                            app:layout_constraintRight_toLeftOf="@+id/my_packages_tvPendingCount"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/my_packages_tvPendingCount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:maxLines="2"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:paddingRight="@dimen/_10sdp"
+                            android:text="@string/summary_report"
+                            android:textSize="@dimen/regular_text_size"
+                            app:layout_constraintBottom_toBottomOf="@+id/my_packages_ivPendingTest"
+                            app:layout_constraintLeft_toRightOf="@+id/my_packages_ivPendingTest"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/my_packages_ivPendingTest" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!--                    <TextView-->
+                    <!--                        android:id="@+id/my_packages_tvPendingTest"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_below="@+id/my_packages_tvPendingCount"-->
+                    <!--                        android:layout_alignParentEnd="true"-->
+                    <!--                        android:layout_alignParentRight="true"-->
+                    <!--                        android:layout_marginEnd="@dimen/_15sdp"-->
+                    <!--                        android:layout_marginRight="@dimen/_15sdp"-->
+                    <!--                        android:layout_marginBottom="@dimen/_5sdp"-->
+                    <!--                        android:singleLine="true"-->
+                    <!--                        android:text="@string/summary_report"-->
+                    <!--                        android:textSize="@dimen/_7sdp" />-->
+
 
                 </RelativeLayout>
 
