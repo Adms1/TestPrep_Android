@@ -69,7 +69,7 @@
         android:gravity="center_vertical"
         android:paddingTop="@dimen/_7sdp"
         android:paddingBottom="@dimen/_7sdp"
-        android:text="Share the code, you and your friends gets free test when they used your code!"
+        android:text="Share the code, your friends gets free test when they used your code!"
         android:textSize="@dimen/regular_text_size"
         app:layout_constraintLeft_toRightOf="@+id/referfrd_ivBack"
         app:layout_constraintRight_toRightOf="parent"

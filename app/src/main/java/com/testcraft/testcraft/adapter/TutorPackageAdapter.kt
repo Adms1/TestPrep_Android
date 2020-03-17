@@ -25,6 +25,8 @@ class TutorPackageAdapter(
 ) :
     RecyclerView.Adapter<TutorPackageAdapter.viewholder>() {
 
+    private var isLoadingAdded = false
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
         return viewholder(
@@ -34,7 +36,9 @@ class TutorPackageAdapter(
     }
 
     override fun getItemCount(): Int {
+
         return dataList.size
+
     }
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
@@ -65,7 +69,6 @@ class TutorPackageAdapter(
             bundle.putString("come_from", "mypackage")
             DashboardActivity.setFragments(bundle)
 
-
 //            val intent = Intent(context, PackageDetailActivity::class.java)
 //            intent.putExtra("pkgid", dataList[p1].TestPackageID)
 //            intent.putExtra("tutor_id", dataList[p1].TutorID)
@@ -85,5 +88,56 @@ class TutorPackageAdapter(
         var sub: TextView = itemView.findViewById(R.id.item_tutor_package_subject)
         var clMain: ConstraintLayout = itemView.findViewById(R.id.item_tutor_package_main)
     }
+
+    /*helper method*/
+    open fun add(r: PackageData.PackageDataList?): Unit {
+        dataList.add(r!!)
+        notifyItemInserted(dataList.size - 1)
+    }
+
+    fun addAll(moveResults: List<PackageData.PackageDataList?>) {
+        for (result in moveResults) {
+            add(result)
+        }
+    }
+
+    fun remove(r: PackageData.PackageDataList?) {
+        val position: Int = dataList.indexOf(r)
+        if (position > -1) {
+            dataList.removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
+
+    fun clear() {
+        isLoadingAdded = false
+        while (itemCount > 0) {
+            remove(getItem(0))
+        }
+    }
+
+    fun isEmpty(): Boolean {
+        return itemCount == 0
+    }
+
+//    fun addLoadingFooter() {
+//        isLoadingAdded = true
+//        add(PackageData.PackageDataList())
+//    }
+
+    fun removeLoadingFooter() {
+        isLoadingAdded = false
+        val position: Int = dataList.size - 1
+        val result: PackageData.PackageDataList? = getItem(position)
+        if (result != null) {
+            dataList.removeAt(position)
+            notifyItemRemoved(position)
+        }
+    }
+
+    fun getItem(position: Int): PackageData.PackageDataList? {
+        return dataList[position]
+    }
+
 }
 

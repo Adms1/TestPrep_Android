@@ -119,17 +119,18 @@ class PackageDetailFragment : Fragment() {
 
         package_detail_btnAddTocart.setOnClickListener {
 
-            if (Utils.getStringValue(activity!!, AppConstants.IS_LOGIN, "") == "true") {
+            if (package_detail_btnAddTocart.text.equals("Buy")) {
+                if (Utils.getStringValue(activity!!, AppConstants.IS_LOGIN, "") == "true") {
 
-                CommonWebCalls.callToken(
-                    activity!!,
-                    "1",
-                    "",
-                    ActionIdData.C1101,
-                    ActionIdData.T1101
-                )
+                    CommonWebCalls.callToken(
+                        activity!!,
+                        "1",
+                        "",
+                        ActionIdData.C1101,
+                        ActionIdData.T1101
+                    )
 
-                //            val dialog = Dialog(activity)
+                    //            val dialog = Dialog(activity)
 //            dialog.setContentView(R.layout.dialog_verify_number)
 //            dialog.setCanceledOnTouchOutside(false)
 //            dialog.setCancelable(false)
@@ -158,33 +159,33 @@ class PackageDetailFragment : Fragment() {
 //
 //            dialog.show()`    
 
-                DialogUtils.createConfirmDialog(
-                    activity!!,
-                    "",
-                    "Are you sure you want to buy this package?",
-                    "Yes",
-                    "No",
-                    DialogInterface.OnClickListener { dialog, which ->
+                    DialogUtils.createConfirmDialog(
+                        activity!!,
+                        "",
+                        "Are you sure you want to buy this package?",
+                        "Yes",
+                        "No",
+                        DialogInterface.OnClickListener { dialog, which ->
 
-                        if (DialogUtils.isNetworkConnected(activity!!)) {
+                            if (DialogUtils.isNetworkConnected(activity!!)) {
 
 //            if (isVersionCodeUpdated) {
 
 //                        if(!purchaseCoin.equals("free", true)) {
 
-                            if (validation_id == "1" || validation_id == "0") {
-                                PackagePurchase.callAddToCart("freetest",
-                                    oldpkgid,
-                                    activity!!,
-                                    package_detail_etPcode.text.toString()
-                                )
-                            } else {
-                                PackagePurchase.callAddToCart("freetest",
-                                    oldpkgid,
-                                    activity!!,
-                                    ""
-                                )
-                            }
+                                if (validation_id == "1" || validation_id == "0") {
+                                    PackagePurchase.callAddToCart("freetest",
+                                        oldpkgid,
+                                        activity!!,
+                                        package_detail_etPcode.text.toString()
+                                    )
+                                } else {
+                                    PackagePurchase.callAddToCart("freetest",
+                                        oldpkgid,
+                                        activity!!,
+                                        ""
+                                    )
+                                }
 
 //                        }else{
 //                            callAddTestPackageApi(intent.getStringExtra("pkgid"))
@@ -194,20 +195,29 @@ class PackageDetailFragment : Fragment() {
 //                Utils.openVersionDialogCharge(this@CoinActivity)
 //
 //            }
+                            } else {
+                                Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                            }
 
-                        } else {
-                            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-                        }
+                        },
+                        DialogInterface.OnClickListener { dialog, which ->
+                            dialog.dismiss()
 
-                    },
-                    DialogInterface.OnClickListener { dialog, which ->
-                        dialog.dismiss()
+                        }).show()
+                } else {
 
-                    }).show()
+                    val intent = Intent(activity!!, IntroActivity::class.java)
+                    startActivity(intent)
+
+                }
+
             } else {
 
-                val intent = Intent(activity!!, IntroActivity::class.java)
-                startActivity(intent)
+                PackagePurchase.callAddToCart("freetest",
+                    oldpkgid,
+                    activity!!,
+                    ""
+                )
 
             }
         }
@@ -443,11 +453,26 @@ class PackageDetailFragment : Fragment() {
 
 //                            package_detail_tvlpricetxt.visibility = View.GONE
 
-                            package_detail_tvsprice.text =
-                                response.body()!!.get("data")
-                                    .asJsonObject.get("TestPackageSalePrice").asString
+                            if (response.body()!!.get("data").asJsonObject.get("TestPackageSalePrice").asString.equals(
+                                    response.body()!!.get("data").asJsonObject.get("TestPackageListPrice").asString,
+                                    true
+                                )
+                            ) {
+                                package_detail_tvsprice.text =
+                                    response.body()!!.get("data")
+                                        .asJsonObject.get("TestPackageSalePrice").asString
 
-                            package_detail_tvlprice.text = ""
+                                package_detail_tvlprice.text = ""
+                            } else {
+                                package_detail_tvsprice.text =
+                                    response.body()!!.get("data")
+                                        .asJsonObject.get("TestPackageSalePrice").asString
+
+                                package_detail_tvlprice.text =
+                                    response.body()!!.get("data")
+                                        .asJsonObject.get("TestPackageListPrice").asString.trim()
+
+                            }
                         }
 
 //                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

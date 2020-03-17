@@ -14,8 +14,8 @@ android {
         applicationId "com.testcraft.testcraft"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 16
-        versionName "2.6"
+        versionCode 18
+        versionName "2.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 //        multiDexEnabled true
 
@@ -112,5 +112,6 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-dynamic-links:19.1.0'
     implementation 'com.facebook.android:facebook-applinks:4.42.0'
-
+    compile 'com.parse.bolts:bolts-tasks:1.4.0'
+    compile 'com.parse.bolts:bolts-applinks:1.4.0'
 }

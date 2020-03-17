@@ -69,12 +69,24 @@ class SplashActivity : AppCompatActivity() {
 
         connectivity = Connectivity()
 
-        AppLinkData.fetchDeferredAppLinkData(this
-        ) {
-            // Process app link data
+        AppLinkData.fetchDeferredAppLinkData(this, getString(R.string.facebook_app_id)) { appLinkData ->
 
-//            Log.d("fbdplink", "got it" + AppLinks)
+            if (appLinkData != null) {
+                deepLink = appLinkData.targetUri
+                deeplinkcode = deepLink!!.getQueryParameter("id")!!
+
+                Log.d("SplashActivity", "fblink: $deepLink")
+
+                openfromDplink("fb", deeplinkcode)
+
+            }
+
         }
+
+//        val intent = intent
+//        val action = intent.action
+//        val data = intent.data
+//        Log.d("SplashActivity", "fblinkdata: $data")
 
         FirebaseDynamicLinks.getInstance()
             .getDynamicLink(intent)
@@ -83,41 +95,13 @@ class SplashActivity : AppCompatActivity() {
 
                 if (pendingDynamicLinkData != null) {
                     deepLink = pendingDynamicLinkData.link
-                    deeplinkcode = pendingDynamicLinkData.link!!.getQueryParameter("id")!!
-
-                    Utils.setStringValue(
-                        this@SplashActivity,
-                        AppConstants.APP_MODE,
-                        AppConstants.DEEPLINK_MODE
-                    )
-
-                    Utils.setStringValue(this@SplashActivity, AppConstants.IS_DEEPLINK_STEP, "1")
-                    Utils.setStringValue(this@SplashActivity, AppConstants.DEEPLINK_CODE, deeplinkcode)
+                    deeplinkcode = deepLink!!.getQueryParameter("id")!!
 
                     Log.d("dplink", "" + pendingDynamicLinkData.link)
 
-                } else {
-
-                    if (Utils.getStringValue(this@SplashActivity, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
-
-                        if (Utils.getStringValue(this@SplashActivity, AppConstants.APP_MODE, "") == AppConstants.GUEST_MODE) {
-
-                            Utils.setStringValue(this@SplashActivity, AppConstants.APP_MODE, AppConstants.GUEST_MODE)
-
-                        } else {
-                            Utils.setStringValue(
-                                this@SplashActivity,
-                                AppConstants.APP_MODE,
-                                AppConstants.NORMAL_MODE
-                            )
-                        }
-                    }
-
-                    Log.d("dplink", "no link")
+                    openfromDplink("firebase", deeplinkcode)
 
                 }
-
-                forceUpdate()
 
                 // Handle the deep link. For example, open the linked
                 // content, or apply promotional credit to the user's
@@ -128,7 +112,51 @@ class SplashActivity : AppCompatActivity() {
             }
             .addOnFailureListener(this) { e -> Log.w("dplink", "fail link", e) }
 
-//        forceUpdate()
+        if (deeplinkcode == "") {
+            forceUpdate()
+        }
+
+    }
+
+    fun openfromDplink(come: String, dplinkcode: String) {
+
+        if (dplinkcode != "") {
+
+            Utils.setStringValue(
+                this@SplashActivity,
+                AppConstants.APP_MODE,
+                AppConstants.DEEPLINK_MODE
+            )
+
+            Utils.setStringValue(this@SplashActivity, AppConstants.IS_DEEPLINK_STEP, "1")
+            Utils.setStringValue(this@SplashActivity, AppConstants.DEEPLINK_CODE, dplinkcode)
+
+        } else {
+
+            if (Utils.getStringValue(this@SplashActivity, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
+
+                if (Utils.getStringValue(this@SplashActivity, AppConstants.APP_MODE, "") == AppConstants.GUEST_MODE) {
+
+                    Utils.setStringValue(this@SplashActivity, AppConstants.APP_MODE, AppConstants.GUEST_MODE)
+
+                } else {
+                    Utils.setStringValue(
+                        this@SplashActivity,
+                        AppConstants.APP_MODE,
+                        AppConstants.NORMAL_MODE
+                    )
+                }
+            }
+
+            Log.d("dplink", "no link")
+
+        }
+
+        Log.d("comefromlink", "no link" + come)
+
+        if (deeplinkcode == "") {
+            forceUpdate()
+        }
 
     }
 
@@ -184,7 +212,6 @@ class SplashActivity : AppCompatActivity() {
 //                        if (Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
 //                            Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.GUEST_MODE)
 //                        }
-
 
                     }
 //                    else {

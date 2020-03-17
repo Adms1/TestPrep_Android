@@ -165,6 +165,8 @@ class CommonWebCalls {
                                                 (context as ResultActivity).finish()
                                             } else if (Utils.getStringValue(context, AppConstants.IS_DEEPLINK_STEP, "") == "2") {
                                                 (context as DeeplinkTestActivity).finish()
+                                            } else {
+                                                (context as DashboardActivity).finish()
                                             }
                                         } else {
                                             val intent = Intent(context, NewActivity::class.java)

@@ -188,6 +188,8 @@ class LoginActivity : AppCompatActivity() {
                                 response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray[0].asJsonObject["SubjectID"].asString
                             )
 
+                            AppConstants.isFirst = 0
+
                             val mIntent = Intent(this@LoginActivity, DashboardActivity::class.java)
                             mIntent.putExtra("subject_id", "")
                             startActivity(mIntent)

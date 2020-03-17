@@ -450,7 +450,9 @@ class IntroActivity : AppCompatActivity() {
                             Utils.setStringValue(this@IntroActivity, AppConstants.APP_MODE, AppConstants.NORMAL_MODE)
 
                             if (Utils.getStringValue(this@IntroActivity, AppConstants.IS_DEEPLINK_STEP, "") == "2" || Utils.getStringValue(this@IntroActivity, AppConstants.IS_DEEPLINK_STEP, "") == "3") {
+
                                 finish()
+
                             } else {
                                 if (response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray.size() > 0) {
 

@@ -3,7 +3,6 @@ package com.testcraft.testcraft.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
-import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
-import com.testcraft.testcraft.activity.IntroActivity
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.utils.*
 
@@ -97,7 +94,7 @@ class MyPackageAdapter(
 
             CommonWebCalls.callToken(context, "1", "", ActionIdData.C1101, ActionIdData.T1101)
 
-            if (Utils.getStringValue(context, AppConstants.IS_LOGIN, "") == "true") {
+//            if (Utils.getStringValue(context, AppConstants.IS_LOGIN, "") == "true") {
                 DialogUtils.createConfirmDialog(
                     context,
                     "",
@@ -119,10 +116,10 @@ class MyPackageAdapter(
                         dialog.dismiss()
 
                     }).show()
-            } else {
-                val intent = Intent(context, IntroActivity::class.java)
-                (context as DashboardActivity).startActivity(intent)
-            }
+//            } else {
+//                val intent = Intent(context, IntroActivity::class.java)
+//                (context as DashboardActivity).startActivity(intent)
+//            }
         }
 
         p0.mainll.setOnClickListener {

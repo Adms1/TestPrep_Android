@@ -9,8 +9,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.devs.readmoreoption.ReadMoreOption
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
@@ -35,6 +37,19 @@ class TutorProfileFragment : Fragment() {
 
     var tutorid = ""
     var readMoreOption: ReadMoreOption? = null
+
+    var mLayoutManager: LinearLayoutManager? = null
+
+    var rv: RecyclerView? = null
+    var progressBar: ProgressBar? = null
+
+    private val PAGE_START = 1
+    var isLoadingg = false
+    private var isLastPage = false
+
+    // limiting to 5 for this tutorial, since total pages in actual API is very large. Feel free to modify.
+    private val TOTAL_PAGES = 5
+    private var currentPage = PAGE_START
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,10 +83,14 @@ class TutorProfileFragment : Fragment() {
             .expandAnimation(true)
             .build()
 
-        tutor_item_rvCuratorList.layoutManager =
-            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
-        tutor_item_rvCuratorList.isNestedScrollingEnabled = false
+        mLayoutManager = LinearLayoutManager(activity!!)
+        tutor_item_rvCuratorList.layoutManager = mLayoutManager
+
+//        tutor_item_rvCuratorList.layoutManager =
+//            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+
+//        tutor_item_rvCuratorList.isNestedScrollingEnabled = false
 
         tutor_profile_ivCart.setOnClickListener {
             val intent = Intent(activity!!, CartActivity::class.java)
@@ -120,7 +139,6 @@ class TutorProfileFragment : Fragment() {
             Utils.ping(activity!!, AppConstants.NETWORK_MSG)
         }
 
-        DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.getTutorProfile(tutorid)
@@ -128,8 +146,6 @@ class TutorProfileFragment : Fragment() {
             override fun onResponse(call: Call<TutorModel>, response: Response<TutorModel>) {
 
                 if (response.body() != null) {
-
-                    DialogUtils.dismissDialog()
 
                     if (response.body()!!.Status == "true") {
 
@@ -178,7 +194,6 @@ class TutorProfileFragment : Fragment() {
             override fun onFailure(call: Call<TutorModel>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
-                DialogUtils.dismissDialog()
             }
         })
     }
@@ -198,9 +213,12 @@ class TutorProfileFragment : Fragment() {
 
                 if (response.body() != null) {
 
-                    DialogUtils.dismissDialog()
-
                     if (response.body()!!.Status == "true") {
+
+                        isLoadingg = false
+
+                        if (currentPage == TOTAL_PAGES)
+                            isLastPage = true
 
                         tutor_item_rvCuratorList.adapter =
                             TutorPackageAdapter(activity!!, response.body()!!.data)
@@ -216,6 +234,9 @@ class TutorProfileFragment : Fragment() {
 //                        ).show()
                     }
                 }
+
+                DialogUtils.dismissDialog()
+
             }
 
             override fun onFailure(call: Call<PackageData>, t: Throwable) {
@@ -225,5 +246,4 @@ class TutorProfileFragment : Fragment() {
             }
         })
     }
-
 }
