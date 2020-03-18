@@ -14,10 +14,10 @@ android {
         applicationId "com.testcraft.testcraft"
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 18
-        versionName "2.8"
+        versionCode 16
+        versionName "2.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        multiDexEnabled true
+        multiDexEnabled true
 
         vectorDrawables.useSupportLibrary = true
     }
@@ -98,7 +98,7 @@ dependencies {
     implementation 'com.ramijemli.percentagechartview:percentagechartview:0.3.1'
 //    Mint.initAndStartSession(this.getApplication(), "e460283d");
     implementation 'org.jsoup:jsoup:1.11.3'
-//    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:multidex:1.0.3'
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
@@ -112,6 +112,10 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-dynamic-links:19.1.0'
     implementation 'com.facebook.android:facebook-applinks:4.42.0'
-    compile 'com.parse.bolts:bolts-tasks:1.4.0'
-    compile 'com.parse.bolts:bolts-applinks:1.4.0'
+    implementation 'com.parse.bolts:bolts-tasks:1.4.0'
+    implementation 'com.parse.bolts:bolts-applinks:1.4.0'
+
+    implementation 'com.google.firebase:firebase-messaging:20.1.2'
+    // Add the Firebase SDK for Google Analytics
+//    implementation 'com.google.firebase:firebase-analytics:17.2.3'
 }

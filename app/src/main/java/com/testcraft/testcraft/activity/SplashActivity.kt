@@ -13,10 +13,15 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.FacebookSdk
 import com.facebook.applinks.AppLinkData
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.utils.AppConstants
@@ -66,6 +71,24 @@ class SplashActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
 
         setContentView(R.layout.activity_splash)
+
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult?> {
+                override fun onComplete(@NonNull task: Task<InstanceIdResult?>) {
+                    if (!task.isSuccessful) {
+                        Log.w("splash notification", "getInstanceId failed", task.exception)
+                        return
+                    }
+
+                    // Get new Instance ID token
+                    val token: String = task.result!!.token
+
+                    // Log and toast
+                    val msg = "splash notification$token"
+                    Log.d("splash notification", msg)
+//                    Toast.makeText(this@SplashActivity, msg, Toast.LENGTH_SHORT).show()
+                }
+            })
 
         connectivity = Connectivity()
 
