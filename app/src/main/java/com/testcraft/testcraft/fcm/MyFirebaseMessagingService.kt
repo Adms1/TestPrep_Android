@@ -1,8 +1,11 @@
 package com.testcraft.testcraft.fcm
 
+import android.app.Notification
 import android.util.Log
+import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.testcraft.testcraft.R
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -27,6 +30,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: ${remoteMessage.from}")
 
+//        Log.d(TAG, "Message From " + remoteMessage.from) //sender ID
+//        Log.d(TAG, "Notification Title " + remoteMessage.notification!!.title) //notification title
+//        Log.d(TAG, "Notification Body " + remoteMessage.notification!!.body) //notification body
+
         // Check if message contains a data payload.
         remoteMessage.data.isNotEmpty().let {
             Log.d(TAG, "Message data payload: " + remoteMessage.data)
@@ -34,11 +41,34 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         // Check if message contains a notification payload.
         remoteMessage.notification?.let {
+
+//            val params =
+//                remoteMessage.data
+//            val `object` = JSONObject(params)
+//            Log.e("JSON_OBJECT", `object`.toString())
+
             Log.d(TAG, "Message Notification Body: ${it.body}")
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
+
+//        val notification: Notification = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            Notification.Builder(this, "")
+//                .setContentTitle(remoteMessage.notification!!.title)
+//                .setContentText(remoteMessage.notification!!.body)
+//                .setSmallIcon(R.drawable.logo)
+//                .build()
+//        } else {
+        val notification: Notification = Notification.Builder(this)
+            .setContentTitle(remoteMessage.notification!!.title)
+            .setContentText(remoteMessage.notification!!.body)
+            .setSmallIcon(R.drawable.logo)
+            .build()
+//        }
+        val manager =
+            NotificationManagerCompat.from(applicationContext)
+        manager.notify(123, notification)
     }
     // [END receive_message]
 
@@ -85,6 +115,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      */
     private fun sendNotification(messageBody: String) {
 //        val intent = Intent(this, NewActivity::class.java)
+//
 //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 //        val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
 //            PendingIntent.FLAG_ONE_SHOT)

@@ -224,6 +224,8 @@ class CommonWebCalls {
                                 }
                             }
 
+                            callFCMToken(context)
+
                             Log.d("websize", response.body()!!.get("Msg").asString)
 
                         } else {
@@ -303,6 +305,43 @@ class CommonWebCalls {
             })
         }
 
+        fun callFCMToken(context: Context) {
+
+            if (!DialogUtils.isNetworkConnected(context)) {
+                Utils.ping(context, AppConstants.NETWORK_MSG)
+            }
+
+            DialogUtils.showDialog(context)
+
+            val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+            val call =
+                apiService.setFCMToken(Utils.getStringValue(context, AppConstants.USER_ID, "0")!!, Utils.getStringValue(context, AppConstants.FCM_TOKEN, "")!!)
+
+            call.enqueue(object : Callback<JsonObject> {
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body() != null) {
+
+//                        Toast.makeText(
+//                                context,
+//                                response.body()!!["Msg"].asString,
+//                                Toast.LENGTH_LONG
+//                            )
+//                            .show()
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    // Log error here since request failed
+                    Log.e("", t.toString())
+                    DialogUtils.dismissDialog()
+                }
+            })
+
+        }
 
     }
 

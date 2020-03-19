@@ -4,7 +4,14 @@ import android.app.Application
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.util.Log
+import androidx.annotation.NonNull
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 import com.splunk.mint.Mint
+import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.Utils
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 class CustomFontApp : Application() {
@@ -25,6 +32,27 @@ class CustomFontApp : Application() {
         Mint.initAndStartSession(this, "e460283d")
 
         registerConnectivityReceiver()
+
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(object : OnCompleteListener<InstanceIdResult?> {
+                override fun onComplete(@NonNull task: Task<InstanceIdResult?>) {
+                    if (!task.isSuccessful) {
+                        Log.w("splash notification", "getInstanceId failed", task.exception)
+                        return
+                    }
+
+                    // Get new Instance ID token
+                    val token: String = task.result!!.token
+
+                    // Log and toast
+//                    val msg = "splash notification - $token"
+
+                    Utils.setStringValue(this@CustomFontApp, AppConstants.FCM_TOKEN, token)
+
+                    Log.d("fcm token", token)
+//                    Toast.makeText(this@SplashActivity, msg, Toast.LENGTH_SHORT).show()
+                }
+            })
 
         CalligraphyConfig.initDefault(
             CalligraphyConfig.Builder()

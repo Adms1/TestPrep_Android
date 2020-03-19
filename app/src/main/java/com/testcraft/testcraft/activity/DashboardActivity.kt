@@ -159,6 +159,13 @@ class DashboardActivity : AppCompatActivity() {
 
         }
 
+        dashboard_ivNotification.setOnClickListener {
+
+            val intent = Intent(this@DashboardActivity, NotificationActivity::class.java)
+            startActivity(intent)
+
+        }
+
 //        dashboard_ivLogout.setOnClickListener { signOut() }
 
 //        init()

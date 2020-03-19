@@ -33,6 +33,7 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
+import com.testcraft.testcraft.utils.CommonWebCalls.Companion.callFCMToken
 import kotlinx.android.synthetic.main.activity_intro.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -553,6 +554,8 @@ class IntroActivity : AppCompatActivity() {
                         )
 
 //                        LoginManager.getInstance().logOut()
+                        callFCMToken(this@IntroActivity)
+
 
                     } else {
 

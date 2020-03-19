@@ -19,6 +19,7 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
+import com.testcraft.testcraft.utils.CommonWebCalls.Companion.callFCMToken
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -243,6 +244,8 @@ class LoginActivity : AppCompatActivity() {
                             AppConstants.USER_STATUSID,
                             response.body()!!["data"].asJsonArray[0].asJsonObject["StatusID"].asString
                         )
+
+                        callFCMToken(this@LoginActivity)
 
                     } else {
                         Toast.makeText(

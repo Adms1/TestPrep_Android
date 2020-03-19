@@ -30,7 +30,7 @@
         android:textColor="@color/header_gray"
         android:textSize="@dimen/normal_header_size"
         app:layout_constraintLeft_toRightOf="@+id/dashboard_ivBack"
-        app:layout_constraintRight_toLeftOf="@+id/dashboard_rlFilter"
+        app:layout_constraintRight_toLeftOf="@+id/dashboard_ivNotification"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -65,6 +65,17 @@
         android:src="@drawable/sort_down"
         app:layout_constraintBottom_toBottomOf="@+id/dashboard_header"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dashboard_header"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/dashboard_ivNotification"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:padding="@dimen/_7sdp"
+        android:src="@drawable/notification"
+        app:layout_constraintBottom_toBottomOf="@+id/dashboard_header"
+        app:layout_constraintRight_toLeftOf="@id/dashboard_rlFilter"
         app:layout_constraintTop_toTopOf="@+id/dashboard_header"
         tools:ignore="ContentDescription" />
 

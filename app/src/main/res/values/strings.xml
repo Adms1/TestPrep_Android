@@ -2,6 +2,8 @@
 
     <string name="version_name">Ver.No 2.820200317</string>
 
+    <string name="default_notification_channel_id" translatable="false">default</string>
+
     <string name="app_name">TestCraft</string>
     <string name="title_activity_main2">TestcraftDemo</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

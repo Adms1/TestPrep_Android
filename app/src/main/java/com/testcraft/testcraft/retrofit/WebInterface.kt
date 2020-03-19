@@ -251,5 +251,9 @@ interface WebInterface {
     @POST("Get_DeepLink")
     fun getDplinkSubject(@Field("DeeplinkGUID") dplink_guid: String, @Field("StudentID") student_id: String): Call<DeepLinkModel>
 
+    @FormUrlEncoded
+    @POST("Add_Student_Token")
+    fun setFCMToken(@Field("StudentID") student_id: String, @Field("TokenID") token_id: String): Call<JsonObject>
+
 
 }
