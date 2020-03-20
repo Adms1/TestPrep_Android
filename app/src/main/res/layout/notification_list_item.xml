@@ -12,21 +12,36 @@
         android:layout_height="match_parent"
         android:padding="@dimen/_5sdp">
 
+        <ImageView
+            android:id="@+id/noti_item_ivImag"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:src="@drawable/pp_1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/noti_item_tvTitle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp"
             android:text="Notification Title"
             android:textColor="@color/black"
             android:textSize="@dimen/normal_header_size"
+            app:layout_constraintLeft_toRightOf="@+id/noti_item_ivImag"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/noti_item_tvDesc"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp"
             android:text="Notification Description Notification Description Notification Description Notification Description Notification Description"
             android:textSize="@dimen/small_text_size"
+            app:layout_constraintLeft_toRightOf="@+id/noti_item_ivImag"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/noti_item_tvTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

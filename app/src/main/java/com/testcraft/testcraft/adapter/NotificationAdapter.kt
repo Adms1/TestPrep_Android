@@ -26,7 +26,6 @@ class NotificationAdapter(val context: Context) :
     }
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
-
     }
 
     class viewholder(itemView: View) : RecyclerView.ViewHolder(itemView)

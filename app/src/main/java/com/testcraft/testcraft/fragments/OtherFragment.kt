@@ -36,25 +36,37 @@ class OtherFragment : Fragment() {
 
         CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C3300, ActionIdData.T3300)
 
-        if (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") == "1") {
-//            menuList.add("Edit Profile")
-            menuList.add("My Payments")
-            menuList.add("Change Password")
-            menuList.add("Change Preference")
-            menuList.add("Refer a Friend")
-//            menuList.add("Redeem Coupon")
-            menuList.add("Privacy Policy")
-            menuList.add("Contact Us")
-//            menuList.add("Logout")
-        } else {
-//            menuList.add("Edit Profile")
-            menuList.add("My Payments")
-            menuList.add("Change Preference")
-            menuList.add("Refer a Friend")
-//            menuList.add("Redeem Coupon")
-            menuList.add("Privacy Policy")
-            menuList.add("Contact Us")
-//            menuList.add("Logout")
+        when (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "")) {
+            "1"  -> {
+                //            menuList.add("Edit Profile")
+                menuList.add("My Payments")
+                menuList.add("Change Password")
+                menuList.add("Change Preference")
+                menuList.add("Refer a Friend")
+                //            menuList.add("Redeem Coupon")
+                menuList.add("Privacy Policy")
+                menuList.add("Contact Us")
+                //            menuList.add("Logout")
+            }
+            "5"  -> {
+                //            menuList.add("Edit Profile")
+                menuList.add("Change Preference")
+                menuList.add("Refer a Friend")
+                //            menuList.add("Redeem Coupon")
+                menuList.add("Privacy Policy")
+                menuList.add("Contact Us")
+                //            menuList.add("Logout")
+            }
+            else -> {
+                //            menuList.add("Edit Profile")
+                menuList.add("My Payments")
+                menuList.add("Change Preference")
+                menuList.add("Refer a Friend")
+                //            menuList.add("Redeem Coupon")
+                menuList.add("Privacy Policy")
+                menuList.add("Contact Us")
+                //            menuList.add("Logout")
+            }
         }
 //        menuList.add("Logout")
 
