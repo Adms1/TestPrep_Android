@@ -446,42 +446,50 @@ class IntroActivity : AppCompatActivity() {
 
                         Utils.setStringValue(this@IntroActivity, AppConstants.IS_LOGIN, "true")
 
-                        if (Utils.getStringValue(this@IntroActivity, AppConstants.APP_MODE, "") == AppConstants.DEEPLINK_MODE || Utils.getStringValue(this@IntroActivity, AppConstants.APP_MODE, "") == AppConstants.GUEST_MODE) {
+                        if(email != response.body()!!["data"].asJsonArray[0].asJsonObject["StudentEmailAddress"].asString){
 
-                            Utils.setStringValue(this@IntroActivity, AppConstants.APP_MODE, AppConstants.NORMAL_MODE)
+                            AppConstants.isFirst = 1
+                            val intent = Intent(this@IntroActivity, DashboardActivity::class.java)
+                            startActivity(intent)
+                        }else {
 
-                            if (Utils.getStringValue(this@IntroActivity, AppConstants.IS_DEEPLINK_STEP, "") == "2" || Utils.getStringValue(this@IntroActivity, AppConstants.IS_DEEPLINK_STEP, "") == "3") {
+                            if (Utils.getStringValue(this@IntroActivity, AppConstants.APP_MODE, "") == AppConstants.DEEPLINK_MODE || Utils.getStringValue(this@IntroActivity, AppConstants.APP_MODE, "") == AppConstants.GUEST_MODE) {
 
-                                finish()
+                                Utils.setStringValue(this@IntroActivity, AppConstants.APP_MODE, AppConstants.NORMAL_MODE)
 
+                                if (Utils.getStringValue(this@IntroActivity, AppConstants.IS_DEEPLINK_STEP, "") == "2" || Utils.getStringValue(this@IntroActivity, AppConstants.IS_DEEPLINK_STEP, "") == "3") {
+
+                                    finish()
+
+                                } else {
+                                    if (response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray.size() > 0) {
+
+                                        AppConstants.isFirst = 0
+
+                                        val mIntent = Intent(this@IntroActivity, DashboardActivity::class.java)
+                                        mIntent.putExtra("subject_id", "")
+                                        startActivity(mIntent)
+                                        finish()
+
+                                    } else {
+                                        val intent = Intent(this@IntroActivity, NewActivity::class.java)
+                                        startActivity(intent)
+                                    }
+                                }
                             } else {
                                 if (response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray.size() > 0) {
-
-                                    AppConstants.isFirst = 0
 
                                     val mIntent =
                                         Intent(this@IntroActivity, DashboardActivity::class.java)
                                     mIntent.putExtra("subject_id", "")
                                     startActivity(mIntent)
                                     finish()
+
                                 } else {
+
                                     val intent = Intent(this@IntroActivity, NewActivity::class.java)
                                     startActivity(intent)
                                 }
-                            }
-                        } else {
-                            if (response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray.size() > 0) {
-
-                                val mIntent =
-                                    Intent(this@IntroActivity, DashboardActivity::class.java)
-                                mIntent.putExtra("subject_id", "")
-                                startActivity(mIntent)
-                                finish()
-
-                            } else {
-
-                                val intent = Intent(this@IntroActivity, NewActivity::class.java)
-                                startActivity(intent)
                             }
                         }
 

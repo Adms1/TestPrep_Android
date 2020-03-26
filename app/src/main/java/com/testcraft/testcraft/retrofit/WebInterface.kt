@@ -253,7 +253,6 @@ interface WebInterface {
 
     @FormUrlEncoded
     @POST("Add_Student_Token")
-    fun setFCMToken(@Field("StudentID") student_id: String, @Field("TokenID") token_id: String): Call<JsonObject>
-
+    fun setFCMToken(@Field("StudentID") student_id: String, @Field("TokenID") token_id: String, @Field("DeviceID") device_id: String): Call<JsonObject>
 
 }

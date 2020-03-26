@@ -74,6 +74,7 @@
         android:layout_height="@dimen/_30sdp"
         android:padding="@dimen/_7sdp"
         android:src="@drawable/notification"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/dashboard_header"
         app:layout_constraintRight_toLeftOf="@id/dashboard_rlFilter"
         app:layout_constraintTop_toTopOf="@+id/dashboard_header"

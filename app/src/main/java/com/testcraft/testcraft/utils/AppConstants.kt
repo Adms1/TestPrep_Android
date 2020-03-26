@@ -33,8 +33,7 @@ class AppConstants {
 //        var PAYMENT_REQUEST = "http://demo.testcraft.in/MobilePayment.aspx?"
 //        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
 //        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
-//        var SUBJECT_SUMMARY_REPORT_URL =
-//            "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
+//        var SUBJECT_SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
 //        var ALL_SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/AllTestSummaryReport.aspx?"
 
 //        USER DATA

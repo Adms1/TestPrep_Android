@@ -206,18 +206,34 @@ class PackageDetailFragment : Fragment() {
                         }).show()
                 } else {
 
-                    val intent = Intent(activity!!, IntroActivity::class.java)
-                    startActivity(intent)
+                    if (validation_id == "1" || validation_id == "0") {
+                        PackagePurchase.callAddToCart("freetest",
+                            oldpkgid,
+                            activity!!,
+                            package_detail_etPcode.text.toString()
+                        )
+                    }else {
+                        val intent = Intent(activity!!, IntroActivity::class.java)
+                        startActivity(intent)
+                    }
 
                 }
 
             } else {
 
-                PackagePurchase.callAddToCart("freetest",
-                    oldpkgid,
-                    activity!!,
-                    ""
-                )
+                if (validation_id == "1" || validation_id == "0") {
+                    PackagePurchase.callAddToCart("freetest",
+                        oldpkgid,
+                        activity!!,
+                        package_detail_etPcode.text.toString()
+                    )
+                } else {
+                    PackagePurchase.callAddToCart("freetest",
+                        oldpkgid,
+                        activity!!,
+                        ""
+                    )
+                }
 
             }
         }
@@ -632,10 +648,12 @@ class PackageDetailFragment : Fragment() {
 
                 if (response.body()!!.get("Status").asString == "true") {
 
+                    package_detail_btnAddTocart.text = "Start Test"
                     package_detail_tvValid!!.setTextColor(resources.getColor(R.color.green))
 
                 } else {
 
+                    package_detail_btnAddTocart.text = "Buy"
                     package_detail_tvValid!!.setTextColor(resources.getColor(R.color.red))
                 }
             }

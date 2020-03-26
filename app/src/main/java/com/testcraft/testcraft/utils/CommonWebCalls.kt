@@ -166,6 +166,8 @@ class CommonWebCalls {
                                             } else if (Utils.getStringValue(context, AppConstants.IS_DEEPLINK_STEP, "") == "2") {
                                                 (context as DeeplinkTestActivity).finish()
                                             } else {
+
+//                                                AppConstants.isF?irst =
                                                 (context as DashboardActivity).finish()
                                             }
                                         } else {
@@ -315,8 +317,7 @@ class CommonWebCalls {
 
             val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-            val call =
-                apiService.setFCMToken(Utils.getStringValue(context, AppConstants.USER_ID, "0")!!, Utils.getStringValue(context, AppConstants.FCM_TOKEN, "")!!)
+            val call = apiService.setFCMToken(Utils.getStringValue(context, AppConstants.USER_ID, "0")!!, Utils.getStringValue(context, AppConstants.FCM_TOKEN, "")!!, "2")
 
             call.enqueue(object : Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
