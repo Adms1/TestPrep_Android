@@ -40,7 +40,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_150sdp"
                 android:padding="@dimen/_5sdp"
-                android:src="@drawable/free_test"
                 android:visibility="gone"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -55,7 +54,7 @@
                 android:layout_marginRight="@dimen/_15sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
                 android:padding="@dimen/_8sdp"
-                android:src="@drawable/right_arrow"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/mp_view_pager"
                 app:layout_constraintRight_toRightOf="@+id/mp_view_pager"
                 tools:ignore="ContentDescription" />

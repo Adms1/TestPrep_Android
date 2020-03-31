@@ -49,6 +49,8 @@ class MarketPlaceFragment : Fragment() {
 
     internal var lblSelectedIndex: TextView? = null
 
+    var free_test_banner = ""
+
     companion object {
         var rv: RecyclerView? = null
     }
@@ -729,6 +731,8 @@ class MarketPlaceFragment : Fragment() {
 
                         val mSingleDataList = response.body()!!.data.SingleTestPackage
                         val freeTestList = response.body()!!.data.FreeTestPackage
+
+                        Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.BannerList[0].BannerURL).into(mp_view_pager)
 
                         Log.d("dsize", "" + mDataList!!.size)
 
