@@ -8,13 +8,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.testcraft.testcraft.R
-import com.testcraft.testcraft.activity.CoinActivity
-import com.testcraft.testcraft.activity.DashboardActivity
-import com.testcraft.testcraft.activity.NewActivity
-import com.testcraft.testcraft.activity.ViewInvoiceActivity
+import com.testcraft.testcraft.activity.*
 import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
+import com.testcraft.testcraft.utils.Utils
 
 class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
     RecyclerView.Adapter<OtherListAdapter.Viewholder>() {
@@ -168,6 +166,36 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
                     )
 
                     DashboardActivity.signOut()
+                }
+
+                "Sign in" -> {
+
+                    IntroActivity.disconnectFromFacebook()
+
+                    DashboardActivity.mGoogleSignInClient!!.signOut()
+                        .addOnCompleteListener(DashboardActivity.context as DashboardActivity) {
+                            // ...
+
+                            val intent = Intent(DashboardActivity.context, IntroActivity::class.java)
+                            context.startActivity(intent)
+                        }
+
+                }
+
+                "Sign out" -> {
+
+                    IntroActivity.disconnectFromFacebook()
+
+                    Utils.clearPrefrence(context)
+
+                    DashboardActivity.mGoogleSignInClient!!.signOut()
+                        .addOnCompleteListener(DashboardActivity.context as DashboardActivity) {
+                            // ...
+
+                            val intent = Intent(DashboardActivity.context, IntroActivity::class.java)
+                            context.startActivity(intent)
+                        }
+
                 }
 
             }

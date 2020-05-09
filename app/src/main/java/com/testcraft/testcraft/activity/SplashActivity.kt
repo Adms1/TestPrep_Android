@@ -163,11 +163,13 @@ class SplashActivity : AppCompatActivity() {
     fun forceUpdate() {
         val packageManager = this.packageManager
         var packageInfo: PackageInfo? = null
+
         try {
             packageInfo = packageManager.getPackageInfo(packageName, 0)
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
+
         val currentVersion = packageInfo!!.versionName
         ForceUpdateAsync(currentVersion, this).execute()
 
@@ -280,7 +282,7 @@ class SplashActivity : AppCompatActivity() {
                                         }
 
                                     } else {
-                                        val i = Intent(context, NewActivity::class.java)
+                                        val i = Intent(context, IntroActivity::class.java)
                                         context.startActivity(i)
 
                                     }

@@ -1,11 +1,19 @@
 package com.testcraft.testcraft.utils
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.google.gson.JsonObject
+import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.*
+import com.testcraft.testcraft.models.VerifyMobileData
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import retrofit2.Call
@@ -161,14 +169,18 @@ class CommonWebCalls {
                                     "intro"    -> {
 
                                         if (Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.NORMAL_MODE) {
-                                            if (Utils.getStringValue(context, AppConstants.IS_DEEPLINK_STEP, "") == "3") {
-                                                (context as ResultActivity).finish()
-                                            } else if (Utils.getStringValue(context, AppConstants.IS_DEEPLINK_STEP, "") == "2") {
-                                                (context as DeeplinkTestActivity).finish()
-                                            } else {
+                                            if(Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.GUEST_MODE) {
+                                                if (Utils.getStringValue(context, AppConstants.IS_DEEPLINK_STEP, "") == "3") {
+                                                    (context as ResultActivity).finish()
+                                                } else if (Utils.getStringValue(context, AppConstants.IS_DEEPLINK_STEP, "") == "2") {
+                                                    (context as DeeplinkTestActivity).finish()
+                                                } else {
 
 //                                                AppConstants.isF?irst =
-                                                (context as DashboardActivity).finish()
+                                                    (context as DashboardActivity).finish()
+                                                }
+                                            }else{
+                                                (context as IntroActivity).finish()
                                             }
                                         } else {
                                             val intent = Intent(context, NewActivity::class.java)
@@ -195,13 +207,15 @@ class CommonWebCalls {
                                                 (context as OtpActivity).finish()
 
                                             }
+
+                                            Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.NORMAL_MODE)
+
                                         } else {
                                             Utils.setStringValue(
                                                 context, AppConstants.OTP,
                                                 response.body()!!["data"].asJsonArray[0].asJsonObject["OTP"].asString
                                             )
                                         }
-                                        Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.NORMAL_MODE)
 
                                         Utils.setStringValue(context, AppConstants.IS_LOGIN, "true")
 
@@ -213,6 +227,29 @@ class CommonWebCalls {
                                             Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.NORMAL_MODE)
                                         } else {
                                             Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.GUEST_MODE)
+                                        }
+
+                                        if (Utils.getStringValue(context, AppConstants.USER_MOBILE, "") == "") {
+
+                                            val phndialog = Dialog(context)
+                                            phndialog.setContentView(R.layout.dialog_phone_number)
+                                            phndialog.setCanceledOnTouchOutside(false)
+
+                                            val phoneet: EditText =
+                                                phndialog.findViewById(R.id.phone)
+                                            val btnv: TextView = phndialog.findViewById(R.id.vbtn)
+
+                                            btnv.setOnClickListener {
+                                                if (TextUtils.isEmpty(phoneet.text.toString()) || !Patterns.PHONE.matcher(phoneet.text.toString()).matches() || phoneet.length() < 10
+                                                ) {
+                                                    phoneet.error =
+                                                        "Please enter valid mobile number"
+                                                } else {
+                                                    callVerifyAccountApi(context, phoneet.text.toString())
+                                                }
+                                            }
+
+                                            phndialog.show()
                                         }
 
                                     }
@@ -317,7 +354,8 @@ class CommonWebCalls {
 
             val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-            val call = apiService.setFCMToken(Utils.getStringValue(context, AppConstants.USER_ID, "0")!!, Utils.getStringValue(context, AppConstants.FCM_TOKEN, "")!!, "2")
+            val call =
+                apiService.setFCMToken(Utils.getStringValue(context, AppConstants.USER_ID, "0")!!, Utils.getStringValue(context, AppConstants.FCM_TOKEN, "")!!, "2")
 
             call.enqueue(object : Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -344,6 +382,63 @@ class CommonWebCalls {
 
         }
 
-    }
+        fun callVerifyAccountApi(context: Context, phone: String) {
 
+            if (!DialogUtils.isNetworkConnected(context)) {
+                Utils.ping(context, AppConstants.NETWORK_MSG)
+            }
+
+            DialogUtils.showDialog(context)
+
+            val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+            val call = apiService.checkMobile(phone)
+
+            call.enqueue(object : Callback<VerifyMobileData> {
+                override fun onResponse(call: Call<VerifyMobileData>, response: Response<VerifyMobileData>) {
+
+                    if (response.body() != null) {
+
+                        DialogUtils.dismissDialog()
+
+                        if (response.body()!!.Status == "true") {
+
+                            Utils.setStringValue(
+                                context,
+                                AppConstants.OTP,
+                                response.body()!!.data[0].OTP
+                            )
+
+                            val intent = Intent(context, OtpActivity::class.java)
+                            intent.putExtra("mobile_number", phone)
+                            intent.putExtra("otp", response.body()!!.data[0].OTP)
+                            intent.putExtra("come_from", "prefrence")
+                            intent.putExtra("first_name", Utils.getStringValue(context, AppConstants.FIRST_NAME, ""))
+                            intent.putExtra("last_name", Utils.getStringValue(context, AppConstants.LAST_NAME, ""))
+                            intent.putExtra("email", Utils.getStringValue(context, AppConstants.USER_EMAIL, ""))
+                            intent.putExtra("password", "")
+                            intent.putExtra("account_type", "5")
+                            (context as NewActivity).startActivity(intent)
+
+                        } else {
+                            Toast.makeText(
+                                context,
+                                response.body()!!.Msg,
+                                Toast.LENGTH_LONG
+                            ).show()
+
+//                    Log.d("loginresponse", response.body()!!.asString)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<VerifyMobileData>, t: Throwable) {
+                    // Log error here since request failed
+                    Log.e("", t.toString())
+                    DialogUtils.dismissDialog()
+                }
+            })
+        }
+
+    }
 }

@@ -38,34 +38,29 @@ class OtherFragment : Fragment() {
 
         when (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "")) {
             "1"  -> {
-                //            menuList.add("Edit Profile")
                 menuList.add("My Payments")
-                menuList.add("Change Password")
+//                menuList.add("Change Password")
                 menuList.add("Change Preference")
                 menuList.add("Refer a Friend")
-                //            menuList.add("Redeem Coupon")
                 menuList.add("Privacy Policy")
                 menuList.add("Contact Us")
-                //            menuList.add("Logout")
+                menuList.add("Sign out")
             }
             "5"  -> {
-                //            menuList.add("Edit Profile")
-                menuList.add("Change Preference")
-                menuList.add("Refer a Friend")
-                //            menuList.add("Redeem Coupon")
-                menuList.add("Privacy Policy")
-                menuList.add("Contact Us")
-                //            menuList.add("Logout")
-            }
-            else -> {
-                //            menuList.add("Edit Profile")
                 menuList.add("My Payments")
                 menuList.add("Change Preference")
                 menuList.add("Refer a Friend")
-                //            menuList.add("Redeem Coupon")
                 menuList.add("Privacy Policy")
                 menuList.add("Contact Us")
-                //            menuList.add("Logout")
+                menuList.add("Sign out")
+            }
+            else -> {
+                menuList.add("My Payments")
+                menuList.add("Change Preference")
+                menuList.add("Refer a Friend")
+                menuList.add("Privacy Policy")
+                menuList.add("Contact Us")
+                menuList.add("Sign out")
             }
         }
 //        menuList.add("Logout")
@@ -86,13 +81,13 @@ class OtherFragment : Fragment() {
 //            startActivity(intent)
         }
 
-        if (Utils.getStringValue(activity!!, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
+//        if (Utils.getStringValue(activity!!, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
 
-            other_ivEdit.visibility = View.VISIBLE
-
-        } else {
-            other_ivEdit.visibility = View.GONE
-        }
+//            other_ivEdit.visibility = View.VISIBLE
+//
+//        } else {
+//            other_ivEdit.visibility = View.GONE
+//        }
 
         other_lvList.layoutManager =
             LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
@@ -130,7 +125,11 @@ class OtherFragment : Fragment() {
                 ""
             )
 
-        other_tvUserEmail.text = Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, "")
+        if(Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") == "5"){
+            other_tvUserEmail.text = Utils.getStringValue(activity!!, AppConstants.USER_MOBILE, "")
+        }else {
+            other_tvUserEmail.text = Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, "")
+        }
 
     }
 }

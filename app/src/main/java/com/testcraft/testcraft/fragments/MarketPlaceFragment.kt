@@ -1,21 +1,27 @@
 package com.testcraft.testcraft.fragments
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
+import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity
@@ -24,12 +30,14 @@ import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.testid
 import com.testcraft.testcraft.activity.FilterActivity
 import com.testcraft.testcraft.activity.NewActivity
+import com.testcraft.testcraft.activity.OtpActivity
 import com.testcraft.testcraft.adapter.MyPackageAdapter
 import com.testcraft.testcraft.carouselPkg.CarouselParameters
 import com.testcraft.testcraft.carouselPkg.CarouselView1
 import com.testcraft.testcraft.carouselPkg.Metrics
 import com.testcraft.testcraft.models.GetMarketPlaceData
 import com.testcraft.testcraft.models.PackageData
+import com.testcraft.testcraft.models.VerifyMobileData
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
@@ -73,6 +81,31 @@ class MarketPlaceFragment : Fragment() {
 
         DashboardActivity.main_header!!.text = "Market Place"
         DashboardActivity.btnBack!!.visibility = View.GONE
+
+        if (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") != "2"
+            && Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") != "3") {
+
+            if(Utils.getStringValue(activity!!, AppConstants.USER_MOBILE, "") == "") {
+                val phndialog = Dialog(activity!!)
+                phndialog.setContentView(R.layout.dialog_phone_number)
+                phndialog.setCanceledOnTouchOutside(false)
+
+                val phoneet: EditText =
+                    phndialog.findViewById(R.id.phone)
+                val btnv: TextView = phndialog.findViewById(R.id.vbtn)
+
+                btnv.setOnClickListener {
+                    if (TextUtils.isEmpty(phoneet.text.toString()) || !Patterns.PHONE.matcher(phoneet.text.toString()).matches() || phoneet.length() < 10
+                    ) {
+                        phoneet.error = "Please enter valid mobile number"
+                    } else {
+                        callVerifyAccountApi(phoneet.text.toString())
+                    }
+                }
+
+                phndialog.show()
+            }
+        }
 
         return vieww
     }
@@ -1006,6 +1039,64 @@ class MarketPlaceFragment : Fragment() {
 //            return 0.6f
 //        }
 
+    }
+
+    fun callVerifyAccountApi(phone: String) {
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+        }
+
+        DialogUtils.showDialog(activity!!)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.checkMobile(phone)
+
+        call.enqueue(object : Callback<VerifyMobileData> {
+            override fun onResponse(call: Call<VerifyMobileData>, response: Response<VerifyMobileData>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.Status == "true") {
+
+                        Utils.setStringValue(
+                            activity!!,
+                            AppConstants.OTP,
+                            response.body()!!.data[0].OTP
+                        )
+
+                        val intent = Intent(context, OtpActivity::class.java)
+                        intent.putExtra("mobile_number", phone)
+                        intent.putExtra("otp", response.body()!!.data[0].OTP)
+                        intent.putExtra("come_from", "prefrence")
+                        intent.putExtra("first_name", Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, ""))
+                        intent.putExtra("last_name", Utils.getStringValue(activity!!, AppConstants.LAST_NAME, ""))
+                        intent.putExtra("email", Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, ""))
+                        intent.putExtra("password", "")
+                        intent.putExtra("account_type", "5")
+                        (context as DashboardActivity).startActivity(intent)
+
+                    } else {
+                        Toast.makeText(
+                            context,
+                            response.body()!!.Msg,
+                            Toast.LENGTH_LONG
+                        ).show()
+
+//                    Log.d("loginresponse", response.body()!!.asString)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<VerifyMobileData>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
     }
 
 }

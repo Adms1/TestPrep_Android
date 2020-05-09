@@ -29,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.gson.JsonObject
+import com.testcraft.testcraft.PhoneLoginActivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
@@ -186,7 +187,7 @@ class IntroActivity : AppCompatActivity() {
                 ActionIdData.T203
             )
 
-            val intent = Intent(this@IntroActivity, SignupActivity::class.java)
+            val intent = Intent(this@IntroActivity, PhoneLoginActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -413,7 +414,6 @@ class IntroActivity : AppCompatActivity() {
             Log.w("googlesignin", "signInResult:failed code=" + e.statusCode)
 //            updateUI(null)
         }
-
     }
 
     fun callCheckEmailApi(
@@ -451,6 +451,7 @@ class IntroActivity : AppCompatActivity() {
                             AppConstants.isFirst = 1
                             val intent = Intent(this@IntroActivity, DashboardActivity::class.java)
                             startActivity(intent)
+
                         }else {
 
                             if (Utils.getStringValue(this@IntroActivity, AppConstants.APP_MODE, "") == AppConstants.DEEPLINK_MODE || Utils.getStringValue(this@IntroActivity, AppConstants.APP_MODE, "") == AppConstants.GUEST_MODE) {
@@ -716,9 +717,6 @@ class IntroActivity : AppCompatActivity() {
             } else {
                 exitProcess(0)
             }
-        } else {
-
-            finish()
         }
 
     }

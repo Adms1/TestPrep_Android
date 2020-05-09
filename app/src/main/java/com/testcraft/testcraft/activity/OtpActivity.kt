@@ -80,6 +80,10 @@ class OtpActivity : AppCompatActivity() {
                 ActionIdData.T401
             )
 
+            if (otp_etOtp.value.toString() != "") {
+                otp_etOtp.value = ""
+            }
+
             Toast.makeText(
                 this@OtpActivity,
                 "OTP has been sent to your registered mobile number",
@@ -159,23 +163,34 @@ class OtpActivity : AppCompatActivity() {
 
                         if (intent.getStringExtra("come_from") == "signup") {
 
-                            if (Utils.getStringValue(this@OtpActivity, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
+                            if (intent.getStringExtra("student_id") == "0") {
 
-                                CommonWebCalls.callSignupApi("otp", this@OtpActivity, "1", "0", intent.getStringExtra("first_name"),
-                                    intent.getStringExtra("last_name"),
+                                CommonWebCalls.callSignupApi("otp", this@OtpActivity,
+                                    "5",
+                                    "0",
+                                    "guest",
+                                    "user",
                                     intent.getStringExtra("email"),
                                     intent.getStringExtra("password"),
                                     intent.getStringExtra("mobile_number"))
                             } else {
 
-                                CommonWebCalls.callSignupApi("otp", this@OtpActivity, "1", Utils.getStringValue(this@OtpActivity, AppConstants.USER_ID, "")!!, intent.getStringExtra("first_name"),
-                                    intent.getStringExtra("last_name"),
-                                    intent.getStringExtra("email"),
-                                    intent.getStringExtra("password"),
-                                    intent.getStringExtra("mobile_number"))
+                                if(Utils.getStringValue(this@OtpActivity, AppConstants.isPrefrence, "") == "1") {
+
+                                    Utils.setStringValue(
+                                        this@OtpActivity,
+                                        AppConstants.IS_LOGIN,
+                                        "true"
+                                    )
+
+                                    val i = Intent(this@OtpActivity, DashboardActivity::class.java)
+                                    startActivity(i)
+                                }else{
+                                    val i = Intent(this@OtpActivity, NewActivity::class.java)
+                                    startActivity(i)
+                                }
                             }
 
-//                            callSignupApi()
                         } else {
                             callupdateApi()
                         }
@@ -199,9 +214,14 @@ class OtpActivity : AppCompatActivity() {
 
                     Utils.setStringValue(this@OtpActivity, AppConstants.IS_LOGIN, "true")
 
-                    val intent = Intent(this@OtpActivity, NewActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    if(Utils.getStringValue(this@OtpActivity, AppConstants.isPrefrence, "") == "1") {
+
+                        val i = Intent(this@OtpActivity, DashboardActivity::class.java)
+                        startActivity(i)
+                    }else{
+                        val i = Intent(this@OtpActivity, NewActivity::class.java)
+                        startActivity(i)
+                    }
                 }
             }
         }
@@ -235,7 +255,6 @@ class OtpActivity : AppCompatActivity() {
                     if (response.body()!!["Status"].asString == "true") {
 
                         otp = response.body()!!.get("data").asString
-                        otp_etOtp.value = ""
 
                         Utils.setStringValue(this@OtpActivity, AppConstants.OTP, otp)
 

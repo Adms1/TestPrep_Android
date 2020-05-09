@@ -33,6 +33,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_10sdp"
             android:isIndicator="false"
+            android:stepSize="0.1"
             android:numStars="5" />
 
         <EditText

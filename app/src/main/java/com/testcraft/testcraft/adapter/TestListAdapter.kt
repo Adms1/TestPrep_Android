@@ -70,7 +70,7 @@ class TestListAdapter(
             when (dataList[p1].StatusName) {
 
                 "Analyse" -> {
-                    if (Utils.getStringValue(context, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
+                    if (Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
 
                         AppConstants.isFirst = 10
                         val bundle = Bundle()

@@ -129,6 +129,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         )
 
                         val intent = Intent(this@ForgotPasswordActivity, OtpActivity::class.java)
+
                         intent.putExtra("mobile_number", forgot_pass_etEmail.text.toString())
                         intent.putExtra(
                             "otp",

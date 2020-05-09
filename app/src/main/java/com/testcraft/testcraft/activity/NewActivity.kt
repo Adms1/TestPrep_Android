@@ -6,12 +6,17 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.view.WindowManager
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.gson.JsonObject
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.NewChooseCoarseAdapter
@@ -30,6 +35,7 @@ class NewActivity : AppCompatActivity() {
     private var chooseCoarseAdapter: NewChooseCoarseAdapter? = null
 
     var dialog: Dialog? = null
+    var phndialog: Dialog? = null
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -42,6 +48,29 @@ class NewActivity : AppCompatActivity() {
         val filter = IntentFilter()
         filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
         registerReceiver(connectivity, filter)
+
+//        if (!phndialog!!.isShowing) {
+//            if (Utils.getStringValue(this@NewActivity, AppConstants.USER_MOBILE, "") == "") {
+//
+//                phndialog!!.setContentView(R.layout.dialog_phone_number)
+//                phndialog!!.setCanceledOnTouchOutside(false)
+//
+//                val phoneet: EditText = phndialog!!.findViewById(R.id.phone)
+//                val btnv: TextView = phndialog!!.findViewById(R.id.vbtn)
+//
+//                btnv.setOnClickListener {
+//                    if (TextUtils.isEmpty(phoneet.text.toString()) || !Patterns.PHONE.matcher(phoneet.text.toString()).matches() || phoneet.length() < 10
+//                    ) {
+//                        phoneet.error = "Please enter valid mobile number"
+//                    } else {
+//                        callVerifyAccountApi(phoneet.text.toString())
+//                    }
+//                }
+//
+//                phndialog!!.show()
+//            }
+//        }
+
     }
 
     override fun onStop() {
@@ -66,6 +95,8 @@ class NewActivity : AppCompatActivity() {
         connectivity = Connectivity()
 
         CommonWebCalls.callToken(this@NewActivity, "1", "", ActionIdData.C600, ActionIdData.T600)
+
+        phndialog = Dialog(this@NewActivity)
 
 //        if (Utils.getStringValue(this@NewActivity, AppConstants.USER_MOBILE, "")!! == "") {
 //
@@ -100,18 +131,47 @@ class NewActivity : AppCompatActivity() {
 
         if (!intent.hasExtra("comeadater")) {
 
-            if (Utils.getStringValue(this@NewActivity, AppConstants.USER_ID, "")!! == "") {
-                CommonWebCalls.callSignupApi("guest", this@NewActivity, "5", "0",
-                    AppConstants.GUEST_FIRSTNAME,
-                    AppConstants.GUEST_LASTNAME, "", "", "")
-            } else {
+//            if (Utils.getStringValue(this@NewActivity, AppConstants.USER_ID, "")!! == "") {
+//                CommonWebCalls.callSignupApi("guest", this@NewActivity, "5", "0",
+//                    AppConstants.GUEST_FIRSTNAME,
+//                    AppConstants.GUEST_LASTNAME, "", "", "")
+
+//            } else {
 
                 if (Utils.getStringValue(this@NewActivity, AppConstants.isPrefrence, "")!! != "") {
                     val i = Intent(this@NewActivity, DashboardActivity::class.java)
                     startActivity(i)
+                }else{
+
+                    if (Utils.getStringValue(this@NewActivity, AppConstants.USER_ACCOUNT_TYPE, "") != "2"
+                        && Utils.getStringValue(this@NewActivity, AppConstants.USER_ACCOUNT_TYPE, "") != "3") {
+
+                        if (Utils.getStringValue(this@NewActivity, AppConstants.USER_MOBILE, "") == "") {
+
+                            val phndialog = Dialog(this@NewActivity)
+                            phndialog.setContentView(R.layout.dialog_phone_number)
+                            phndialog.setCanceledOnTouchOutside(false)
+
+                            val phoneet: EditText =
+                                phndialog.findViewById(R.id.phone)
+                            val btnv: TextView = phndialog.findViewById(R.id.vbtn)
+
+                            btnv.setOnClickListener {
+                                if (TextUtils.isEmpty(phoneet.text.toString()) || !Patterns.PHONE.matcher(phoneet.text.toString()).matches() || phoneet.length() < 10
+                                ) {
+                                    phoneet.error = "Please enter valid mobile number"
+                                } else {
+                                    CommonWebCalls.callVerifyAccountApi(this@NewActivity, phoneet.text.toString())
+                                }
+                            }
+
+                            phndialog.show()
+                        }
+                    }
                 }
 
-            }
+//            }
+
         }
 
         new_coarse_rvCoarseList.layoutManager = GridLayoutManager(this@NewActivity, 2)
@@ -142,8 +202,7 @@ class NewActivity : AppCompatActivity() {
 
                     if (response.body()!!.Status == "true") {
 
-                        chooseCoarseAdapter =
-                            NewChooseCoarseAdapter(this@NewActivity, response.body()!!.data)
+                        chooseCoarseAdapter = NewChooseCoarseAdapter(this@NewActivity, response.body()!!.data)
                         new_coarse_rvCoarseList.adapter = chooseCoarseAdapter
 
                     } else {

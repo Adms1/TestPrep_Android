@@ -25,7 +25,6 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.models.QuestionResponse
 import java.io.File
 
-
 class Utils {
 
     companion object {

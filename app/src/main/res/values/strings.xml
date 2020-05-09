@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="version_name">Ver.No 3.020200331</string>
+    <string name="version_name">Ver.No 3.120200509</string>
 
     <string name="default_notification_channel_id" translatable="false">default</string>
 
@@ -36,7 +36,6 @@
         <font color="#9A9A9A">ALREADY HAVE AN ACCOUNT?</font>
         <font color="#10A8DD">SIGN IN</font>
     </string>
-
     <string name="sign_up">
         <font color="#9A9A9A">DON\'T HAVE AN ACCOUNT?</font>
         <font color="#10A8DD">SIGN UP</font>
@@ -81,7 +80,7 @@
     <string name="cancel">Cancel</string>
     <string name="try_again">Try Again</string>
     <string name="your_preferences">Your Preferences</string>
-    <string name="continue_with_email">Continue with Email</string>
+    <string name="continue_with_email">Continue with Phone</string>
     <string name="dashboard">Dashboard</string>
     <string name="market_place">Market Place</string>
     <string name="explore">Explore</string>
@@ -134,7 +133,12 @@
     </string>
     <string name="applycoupon">Apply Coupon</string>
     <string name="apply">Apply</string>
-    <string name="signup_terms"><![CDATA[I agree to all Terms & Conditions]]></string>
+<!--    <string name="signup_terms"><![CDATA[I agree to all Terms & Conditions]]></string>-->
+    <string name="signup_terms">
+        <font color="#9A9A9A">I agree to all</font>
+        <font color="#10A8DD"><![CDATA[Terms & Conditions.]]></font>
+        <font color="#9A9A9A">An SMS may be sent to authenticate your account, and message and data rates may apply.</font>
+    </string>
     <string name="forgotpass_instruction">Please enter your registered mobile number to reset your password.</string>
     <string name="strengths_weekness"><![CDATA[Strengths & Weekness]]></string>
     <string name="register_view_solution"><![CDATA[Register & View Solution]]></string>

@@ -41,7 +41,7 @@ class ResultActivity : AppCompatActivity() {
         filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
         registerReceiver(connectivity, filter)
 
-        if (Utils.getStringValue(this@ResultActivity, AppConstants.APP_MODE, "") != AppConstants.NORMAL_MODE) {
+        if (Utils.getStringValue(this@ResultActivity, AppConstants.APP_MODE, "") == AppConstants.DEEPLINK_MODE) {
 
             Utils.setStringValue(this@ResultActivity, AppConstants.IS_DEEPLINK_STEP, "3")
 

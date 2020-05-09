@@ -4,7 +4,7 @@ import java.util.*
 
 class AppConstants {
 
-    //Signup
+    // Signup
     // normal signup 1
     // Google 2
     // Fb 3
@@ -24,7 +24,7 @@ class AppConstants {
         var SUBJECT_SUMMARY_REPORT_URL =
             "https://webservice.testcraft.in/SubjectSummaryReport.aspx?"
         var ALL_SUMMARY_REPORT_URL = "http://webservice.testcraft.in/AllTestSummaryReport.aspx?"
-//
+
 //          LOCAL
 
 //        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"

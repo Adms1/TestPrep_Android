@@ -177,7 +177,7 @@ class TutorReviewActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+//        super.onBackPressed()
 
         AppConstants.isFirst = 15
         val intent = Intent(this@TutorReviewActivity, DashboardActivity::class.java)

@@ -27,7 +27,7 @@ interface WebInterface {
     //    http://webservice.testcraft.in/WebService.asmx/SP_Check_Student_Duplicate_Mobile
     @FormUrlEncoded
     @POST("SP_Check_Student_Duplicate_Mobile")
-    fun checkMobile(@Field("Mobile") mobile: String): Call<JsonObject>
+    fun checkMobile(@Field("Mobile") mobile: String): Call<VerifyMobileData>
 
     @FormUrlEncoded
     @POST("Update_Student")
