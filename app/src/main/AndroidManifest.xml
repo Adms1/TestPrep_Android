@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Always required on api < 21, needed to keep a wake lock while your job is running -->
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required on api < 21 if you are using setRequiredNetworkType(int) -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required on all api levels if you are using setPersisted(true) -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <supports-screens
@@ -32,7 +31,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity | GoogleAppIndexingWarning">
-        <activity android:name=".PhoneLoginActivity"></activity>
+        <activity android:name=".activity.SubscriptionActivity"></activity>
+        <activity android:name=".PhoneLoginActivity" />
         <activity android:name=".activity.NotificationActivity" />
         <!--
      Set custom default icon. This is used when no icon is set for incoming notification messages.

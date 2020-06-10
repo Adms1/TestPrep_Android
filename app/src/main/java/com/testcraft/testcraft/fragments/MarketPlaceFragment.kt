@@ -24,13 +24,10 @@ import androidx.viewpager.widget.PagerAdapter
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
-import com.testcraft.testcraft.activity.DashboardActivity
+import com.testcraft.testcraft.activity.*
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.rlFilter
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.testid
-import com.testcraft.testcraft.activity.FilterActivity
-import com.testcraft.testcraft.activity.NewActivity
-import com.testcraft.testcraft.activity.OtpActivity
 import com.testcraft.testcraft.adapter.MyPackageAdapter
 import com.testcraft.testcraft.carouselPkg.CarouselParameters
 import com.testcraft.testcraft.carouselPkg.CarouselView1
@@ -159,6 +156,13 @@ class MarketPlaceFragment : Fragment() {
         AppConstants.FILTER_BOARD_ID = "0"
         AppConstants.FILTER_FROM_PRICE = "0"
         AppConstants.FILTER_TO_PRICE = "5000"
+
+        img_subscription.setOnClickListener {
+
+            val intent = Intent(activity!!, SubscriptionActivity::class.java)
+            startActivity(intent)
+
+        }
 
         mp_view_pager.setOnClickListener {
 
@@ -764,8 +768,10 @@ class MarketPlaceFragment : Fragment() {
 
                         val mSingleDataList = response.body()!!.data.SingleTestPackage
                         val freeTestList = response.body()!!.data.FreeTestPackage
+                        val subscriptionList = response.body()!!.data.Subscription
 
                         Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.BannerList[0].BannerURL).into(mp_view_pager)
+                        Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.Subscription[0].BannerURL).into(img_subscription)
 
                         Log.d("dsize", "" + mDataList!!.size)
 
@@ -818,6 +824,12 @@ class MarketPlaceFragment : Fragment() {
                             mp_view_pager.visibility = View.GONE
                             main_freetest_item_tvSeeall.visibility = View.GONE
 
+                        }
+
+                        if(subscriptionList.size > 0){
+                            img_subscription.visibility = View.VISIBLE
+                        }else{
+                            img_subscription.visibility = View.GONE
                         }
 
                         if (mDataList!!.size > 0) {

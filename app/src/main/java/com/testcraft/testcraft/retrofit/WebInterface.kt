@@ -212,6 +212,10 @@ interface WebInterface {
     fun checkout(@Field("StudentID") student_id: String, @Field("CouponCode") ccode: String): Call<JsonObject>
 
     @FormUrlEncoded
+    @POST("CheckOut")
+    fun subscription_checkout(@Field("StudentID") student_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
     @POST("Insert_IssueReport")
     fun reportIssue(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
@@ -254,5 +258,30 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Add_Student_Token")
     fun setFCMToken(@Field("StudentID") student_id: String, @Field("TokenID") token_id: String, @Field("DeviceID") device_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Insert_StudentSubscription_Temp")
+    fun insertSubscriptionSubject(@Field("StudentID") student_id: String, @Field("CourseID") course_id: String,
+                                  @Field("BoardID") board_id: String,  @Field("StandardID") std_id: String,
+                                  @Field("TypeID") type_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Get_StudentSubscriptionTemp")
+    fun getStudentSubscription(@Field("StudentID") student_id: String): Call<GetSubscriptionModel>
+
+    @FormUrlEncoded
+    @POST("Get_ContentCountTemp")
+    fun getSubscriptionCount(@Field("StudentID") student_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Confirm_StudentSubscription")
+    fun getSubscriptionConfirm(@Field("StudentID") student_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Remove_StudentSubscription_Temp")
+    fun removeSubscriptionSubject(@Field("StudentID") student_id: String, @Field("CourseID") course_id: String,
+                                  @Field("BoardID") board_id: String,  @Field("StandardID") std_id: String,
+                                  @Field("TypeID") type_id: String): Call<JsonObject>
+
 
 }

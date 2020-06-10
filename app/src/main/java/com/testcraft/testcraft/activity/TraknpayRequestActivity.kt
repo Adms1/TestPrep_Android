@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.webkit.JavascriptInterface
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -238,9 +239,9 @@ class TraknpayRequestActivity : AppCompatActivity() {
 //        webSettings.setLightTouchEnabled(true);
 
         webSettings.builtInZoomControls = true
-//        webView.setWebChromeClient(new WebChromeClient());
+        webView.setWebChromeClient(WebChromeClient());
         webView.webViewClient = WebViewClient()
-//        webView.postUrl(AppConstants.PAYMENT_REQUEST, postData.toByteArray())
+        webView.postUrl(AppConstants.PAYMENT_REQUEST, postData.toByteArray())
 
         val uri = Uri.parse(AppConstants.PAYMENT_REQUEST)
             .buildUpon()
@@ -264,8 +265,8 @@ class TraknpayRequestActivity : AppCompatActivity() {
             .appendQueryParameter("hash", hash)
             .build().toString()
 
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-        startActivity(browserIntent)
+//        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+//        startActivity(browserIntent)
 
 //        Log.d("url", "" + webView.postUrl(AppConstants.PAYMENT_REQUEST, postData.toByteArray()))
 

@@ -14,6 +14,7 @@ class GetMarketPlaceData {
         var SingleTestPackage: ArrayList<PackageData.PackageDataList> = ArrayList()
 
         var BannerList: ArrayList<bannerurl> = ArrayList()
+        var Subscription: ArrayList<bannerurl> = ArrayList()
 
         class bannerurl {
             var BannerURL = ""

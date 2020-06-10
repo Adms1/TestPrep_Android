@@ -133,7 +133,7 @@
     </string>
     <string name="applycoupon">Apply Coupon</string>
     <string name="apply">Apply</string>
-<!--    <string name="signup_terms"><![CDATA[I agree to all Terms & Conditions]]></string>-->
+    <!--    <string name="signup_terms"><![CDATA[I agree to all Terms & Conditions]]></string>-->
     <string name="signup_terms">
         <font color="#9A9A9A">I agree to all</font>
         <font color="#10A8DD"><![CDATA[Terms & Conditions.]]></font>
@@ -144,6 +144,7 @@
     <string name="register_view_solution"><![CDATA[Register & View Solution]]></string>
     <string name="knowledge_gap">Knowledge Gap</string>
     <string name="summary_report">Summary Report</string>
+    <string name="subscription">Subscription</string>
 
     <array name="array_dot_active">
         <item>@color/colorPrimary</item>

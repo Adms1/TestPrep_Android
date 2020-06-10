@@ -21,7 +21,7 @@ import com.testcraft.testcraft.utils.Utils
 
 class NewChooseCoarseAdapter(
     val context: Context,
-    val dataList: ArrayList<PackageData.PackageDataList>
+    val dataList: ArrayList<PackageData.PackageDataList>, val come: String
 ) :
     RecyclerView.Adapter<NewChooseCoarseAdapter.viewholder>() {
 
@@ -76,6 +76,7 @@ class NewChooseCoarseAdapter(
 
             val intent = Intent(context, PrefrenceActivity::class.java)
             intent.putExtra("examtype", dataList[p1].CourseTypeID.toString())
+            intent.putExtra("comefrom", come)
             context.startActivity(intent)
             (context as NewActivity).finish()
             notifyDataSetChanged()

@@ -32,6 +32,7 @@ import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_prefrence.*
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.dialog_phone_number.*
+import kotlinx.android.synthetic.main.fragment_package_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,6 +42,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 class PrefrenceActivity : AppCompatActivity() {
 
     var chooseCoarseAdapter: NewSelectSubjectAdapter? = null
+    var comefrom = ""
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
@@ -63,6 +65,8 @@ class PrefrenceActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        comefrom = intent.getStringExtra("comefrom")
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
@@ -388,6 +392,7 @@ class PrefrenceActivity : AppCompatActivity() {
     }
 
     fun callNextButton() {
+
         CommonWebCalls.callToken(
             this@PrefrenceActivity,
             "1",
@@ -442,10 +447,16 @@ class PrefrenceActivity : AppCompatActivity() {
                 Utils.setStringValue(this@PrefrenceActivity, AppConstants.SUBJECT_ID, subIds)
 
                 if (subIds != "") {
-                    val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
-                    mIntent.putExtra("subject_id", subIds)
-                    startActivity(mIntent)
-                    finish()
+
+                    if(comefrom == "subscription"){
+                        callInsertSubscriptionSubject()
+                    }else {
+
+                        val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
+                        mIntent.putExtra("subject_id", subIds)
+                        startActivity(mIntent)
+                        finish()
+                    }
                 } else {
 
                     DialogUtils.createConfirmDialog1(this@PrefrenceActivity,
@@ -477,12 +488,59 @@ class PrefrenceActivity : AppCompatActivity() {
                         }).show()
 
                 } else {
-                    val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
-                    mIntent.putExtra("subject_id", "")
-                    startActivity(mIntent)
-                    finish()
+
+                    if(comefrom == "subscription"){
+                        callInsertSubscriptionSubject()
+                    }else {
+
+                        val mIntent = Intent(this@PrefrenceActivity, DashboardActivity::class.java)
+                        mIntent.putExtra("subject_id", "")
+                        startActivity(mIntent)
+                        finish()
+                    }
                 }
             }
         }
     }
+
+    fun callInsertSubscriptionSubject(){
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        var board = ""
+        var cource = ""
+        var std = ""
+        if(Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_TYPE_ID, "0")!! == "1"){
+            board =  Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "0")!!
+            cource = "0"
+            std = Utils.getStringValue(this@PrefrenceActivity, AppConstants.STANDARD_ID, "0")!!
+        }else{
+            std = "0"
+            board = "0"
+            cource =  Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "0")!!
+        }
+
+        val call = apiService.insertSubscriptionSubject(
+            Utils.getStringValue(this@PrefrenceActivity, AppConstants.USER_ID, "0")!!,
+            cource,
+            board,
+            std,
+            Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_TYPE_ID, "0")!!
+        )
+
+        call.enqueue(object : Callback<JsonObject> {
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                val mIntent = Intent(this@PrefrenceActivity, SubscriptionActivity::class.java)
+                startActivity(mIntent)
+                finish()
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+            }
+        })
+    }
+
 }

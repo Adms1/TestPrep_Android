@@ -37,6 +37,8 @@ class NewActivity : AppCompatActivity() {
     var dialog: Dialog? = null
     var phndialog: Dialog? = null
 
+    var comefrom = ""
+
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
     }
@@ -138,39 +140,40 @@ class NewActivity : AppCompatActivity() {
 
 //            } else {
 
-                if (Utils.getStringValue(this@NewActivity, AppConstants.isPrefrence, "")!! != "") {
-                    val i = Intent(this@NewActivity, DashboardActivity::class.java)
-                    startActivity(i)
-                }else{
+            if (Utils.getStringValue(this@NewActivity, AppConstants.isPrefrence, "")!! != "") {
+                val i = Intent(this@NewActivity, DashboardActivity::class.java)
+                startActivity(i)
+            } else {
 
-                    if (Utils.getStringValue(this@NewActivity, AppConstants.USER_ACCOUNT_TYPE, "") != "2"
-                        && Utils.getStringValue(this@NewActivity, AppConstants.USER_ACCOUNT_TYPE, "") != "3") {
+                if (Utils.getStringValue(this@NewActivity, AppConstants.USER_ACCOUNT_TYPE, "") != "2"
+                    && Utils.getStringValue(this@NewActivity, AppConstants.USER_ACCOUNT_TYPE, "") != "3") {
 
-                        if (Utils.getStringValue(this@NewActivity, AppConstants.USER_MOBILE, "") == "") {
+                    if (Utils.getStringValue(this@NewActivity, AppConstants.USER_MOBILE, "") == "") {
 
-                            val phndialog = Dialog(this@NewActivity)
-                            phndialog.setContentView(R.layout.dialog_phone_number)
-                            phndialog.setCanceledOnTouchOutside(false)
+                        val phndialog = Dialog(this@NewActivity)
+                        phndialog.setContentView(R.layout.dialog_phone_number)
+                        phndialog.setCanceledOnTouchOutside(false)
 
-                            val phoneet: EditText =
-                                phndialog.findViewById(R.id.phone)
-                            val btnv: TextView = phndialog.findViewById(R.id.vbtn)
+                        val phoneet: EditText =
+                            phndialog.findViewById(R.id.phone)
+                        val btnv: TextView = phndialog.findViewById(R.id.vbtn)
 
-                            btnv.setOnClickListener {
-                                if (TextUtils.isEmpty(phoneet.text.toString()) || !Patterns.PHONE.matcher(phoneet.text.toString()).matches() || phoneet.length() < 10
-                                ) {
-                                    phoneet.error = "Please enter valid mobile number"
-                                } else {
-                                    CommonWebCalls.callVerifyAccountApi(this@NewActivity, phoneet.text.toString())
-                                }
+                        btnv.setOnClickListener {
+                            if (TextUtils.isEmpty(phoneet.text.toString()) || !Patterns.PHONE.matcher(phoneet.text.toString()).matches() || phoneet.length() < 10
+                            ) {
+                                phoneet.error = "Please enter valid mobile number"
+                            } else {
+                                CommonWebCalls.callVerifyAccountApi(this@NewActivity, phoneet.text.toString())
                             }
-
-                            phndialog.show()
                         }
+
+                        phndialog.show()
                     }
                 }
+            }
+        }else {
 
-//            }
+            comefrom = intent.getStringExtra("comeadater")
 
         }
 
@@ -202,7 +205,7 @@ class NewActivity : AppCompatActivity() {
 
                     if (response.body()!!.Status == "true") {
 
-                        chooseCoarseAdapter = NewChooseCoarseAdapter(this@NewActivity, response.body()!!.data)
+                        chooseCoarseAdapter = NewChooseCoarseAdapter(this@NewActivity, response.body()!!.data, comefrom)
                         new_coarse_rvCoarseList.adapter = chooseCoarseAdapter
 
                     } else {
