@@ -165,6 +165,7 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
                         ActionIdData.T3304
                     )
 
+                    AppConstants.isFirst = 0
                     DashboardActivity.signOut()
                 }
 

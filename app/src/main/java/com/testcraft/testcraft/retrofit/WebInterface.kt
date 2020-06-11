@@ -212,7 +212,7 @@ interface WebInterface {
     fun checkout(@Field("StudentID") student_id: String, @Field("CouponCode") ccode: String): Call<JsonObject>
 
     @FormUrlEncoded
-    @POST("CheckOut")
+    @POST("SubscriptionCheckOut")
     fun subscription_checkout(@Field("StudentID") student_id: String): Call<JsonObject>
 
     @FormUrlEncoded

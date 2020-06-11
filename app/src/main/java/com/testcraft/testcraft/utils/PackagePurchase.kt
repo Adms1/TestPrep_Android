@@ -124,7 +124,7 @@ class PackagePurchase {
 
                                 val browserIntent = Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=$stuGUID&type=2")
+                                    Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=$stuGUID&type=2&subcription=0")
                                 )
 
                                 browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

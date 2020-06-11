@@ -184,7 +184,7 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
 
                         val browserIntent = Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=$stuGUID&type=2")
+                            Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID="+ Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
                         )
 
                         browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -228,6 +228,9 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
                 if (response.body()!!.get("data").asJsonObject != null) {
+
+                    subscription_cvPrice.visibility = View.VISIBLE
+
                     subscription_tvPoints.text =
                         "• " + response.body()!!.get("data").asJsonObject.get("Question").asString +
                                 " enriched question bank with explanation and hints \n\n• " +
@@ -294,9 +297,9 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
-                Utils.ping(this@SubscriptionActivity, response.body()!!.get("Msg").asString)
+//                Utils.ping(this@SubscriptionActivity, response.body()!!.get("Msg").asString)
+                callCheckout()
 
-                onBackPressed()
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
