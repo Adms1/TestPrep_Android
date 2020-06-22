@@ -141,6 +141,7 @@ class MarketPlaceFragment : Fragment() {
         main_pkg_item_tvChange.setOnClickListener {
 
             val intent = Intent(activity, NewActivity::class.java)
+            intent.putExtra("comeadater", "changeprefrence")
             startActivity(intent)
             activity!!.finish()
         }

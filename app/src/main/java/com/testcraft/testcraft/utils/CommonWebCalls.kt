@@ -183,6 +183,7 @@ class CommonWebCalls {
                                                 (context as IntroActivity).finish()
                                             }
                                         } else {
+
                                             val intent = Intent(context, NewActivity::class.java)
                                             context.startActivity(intent)
                                             (context as IntroActivity).finish()
@@ -191,7 +192,6 @@ class CommonWebCalls {
                                         Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.NORMAL_MODE)
 
                                         Utils.setStringValue(context, AppConstants.IS_LOGIN, "true")
-
 
                                     }
                                     "otp"      -> {

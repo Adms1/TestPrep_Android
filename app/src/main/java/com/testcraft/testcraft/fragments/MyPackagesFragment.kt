@@ -9,8 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.testcraft.testcraft.R
+import com.testcraft.testcraft.activity.CreateTestActivity
+import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.ViewInvoiceActivity
 import com.testcraft.testcraft.adapter.MyPackageAdapter
+import com.testcraft.testcraft.adapter.SelfTestAdapter
+import com.testcraft.testcraft.models.GetSelfTest
 import com.testcraft.testcraft.models.MyPackageModel
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
@@ -26,6 +30,8 @@ class MyPackagesFragment : Fragment() {
     private var subid = 0
     private var stdid = ""
     private var iscompetitive = ""
+    private var boardid = ""
+    private var subname = ""
 
     var bundle: Bundle? = null
 
@@ -46,6 +52,8 @@ class MyPackagesFragment : Fragment() {
         bundle = this.arguments
         subid = bundle!!.getInt("sub_id", 0)
         stdid = bundle!!.getString("std_id", "")
+        subname = bundle!!.getString("sub_name", "")
+        boardid = bundle!!.getString("board_id", "")
 
         if (bundle!!.containsKey("isCompetitive")) {
             iscompetitive = if (bundle!!.getBoolean("isCompetitive", false)) {
@@ -66,12 +74,29 @@ class MyPackagesFragment : Fragment() {
 //            startActivity(intent)
 //        }
 
-//        my_packages_ivBack.setOnClickListener { onBackPressed() }
+        my_packages_ivCreateTest.setOnClickListener {
+
+            val intent = Intent(context, CreateTestActivity::class.java)
+
+            if(iscompetitive == "1"){
+                intent.putExtra("coursetypeid", "2")
+            }else{
+                intent.putExtra("coursetypeid", "1")
+            }
+
+            intent.putExtra("boardid", boardid)
+            intent.putExtra("courseid", "")
+            intent.putExtra("subid", subid.toString())
+            intent.putExtra("stdid", stdid)
+            intent.putExtra("subname", subname)
+            startActivity(intent)
+            (context as DashboardActivity).finish()
+        }
 
 //        my_packages_header.text = bundle!!.getString("sub_name")
 
-        my_packages_rvList.layoutManager =
-            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+        my_packages_rvList.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+        my_create_rvList.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
         my_packages_rvList.isNestedScrollingEnabled = false
 
@@ -86,6 +111,7 @@ class MyPackagesFragment : Fragment() {
 //        my_packages_tvPendingCount.setOnClickListener { onsummaryreportClick() }
 
         callMyPackagesApi()
+        callgetMyTest()
     }
 
     fun onKnowledgegapClick() {
@@ -188,6 +214,8 @@ class MyPackagesFragment : Fragment() {
                         var completecount = 0
                         var startCount = 0
 
+//                        boardid = response.body()!!.data[0].BoardID
+
                         for (i in 0 until summaryArr.size) {
                             totalcount += summaryArr[i].count
 
@@ -245,4 +273,57 @@ class MyPackagesFragment : Fragment() {
             }
         })
     }
+
+    fun callgetMyTest() {
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+        }
+
+        DialogUtils.showDialog(activity!!)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val hashmap = HashMap<String, String>()
+        hashmap["StudentID"] = Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!
+        hashmap["CourseID"] = "0"
+        hashmap["BoardID"] = boardid
+        hashmap["StandardID"] = stdid
+        hashmap["SubjectID"] = subid.toString()
+
+        if(iscompetitive == "1"){
+            hashmap["TypeID"] = "2"
+        }else{
+            hashmap["TypeID"] = "1"
+        }
+
+        val call = apiService.callGetSelfTest(hashmap)
+
+        call.enqueue(object : Callback<GetSelfTest> {
+
+            override fun onResponse(
+                call: Call<GetSelfTest>,
+                response: Response<GetSelfTest>
+            ) {
+
+                if (response.body() != null) {
+
+                    if (response.body()!!.Status == "true") {
+
+                        DialogUtils.dismissDialog()
+
+                        my_create_rvList.adapter = SelfTestAdapter(activity!!, response.body()!!.data)
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<GetSelfTest>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
 }

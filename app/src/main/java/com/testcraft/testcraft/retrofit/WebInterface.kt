@@ -283,5 +283,20 @@ interface WebInterface {
                                   @Field("BoardID") board_id: String,  @Field("StandardID") std_id: String,
                                   @Field("TypeID") type_id: String): Call<JsonObject>
 
+    @FormUrlEncoded
+    @POST("Create_SelfTest")
+    fun callCreateTest(@FieldMap hasmap: HashMap<String, String>): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Get_ChapterList")
+    fun callChapterList(@FieldMap hasmap: HashMap<String, String>): Call<GetChapterList>
+
+    @FormUrlEncoded
+    @POST("Get_SelfTestList")
+    fun callGetSelfTest(@FieldMap hasmap: HashMap<String, String>): Call<GetSelfTest>
+
+    @FormUrlEncoded
+    @POST("Get_SelfTest_QueLimit_Board")
+    fun callGetQueLimit(@FieldMap hasmap: HashMap<String, String>): Call<JsonObject>
 
 }

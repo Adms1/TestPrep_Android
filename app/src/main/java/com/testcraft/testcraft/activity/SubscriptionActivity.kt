@@ -58,11 +58,6 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
 
         iinterface = this
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
@@ -162,60 +157,63 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
         })
     }
 
-    fun callCheckout() {
-
-        if (!DialogUtils.isNetworkConnected(this@SubscriptionActivity)) {
-            Utils.ping(this@SubscriptionActivity, AppConstants.NETWORK_MSG)
-        }
-
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call =
-            apiService.subscription_checkout(Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!!)
-
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-
-                if (response.body() != null) {
-
-                    DialogUtils.dismissDialog()
-
-                    if (response.body()!!["Status"].asString == "true") {
-
-                        val browserIntent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID="+ Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
-                        )
-
-                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        browserIntent.setPackage("com.android.chrome")
-                        try {
-                            startActivity(browserIntent)
-                        } catch (ex: ActivityNotFoundException) {
-                            // Chrome browser presumably not installed so allow user to choose instead
-                            browserIntent.setPackage(null)
-                            startActivity(browserIntent)
-                        }
-
-                    } else {
-
-                        Toast.makeText(
-                            this@SubscriptionActivity,
-                            response.body()!!["Msg"].toString().replace("\"", ""),
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
-    }
+//    fun callCheckout() {
+//
+//        if (!DialogUtils.isNetworkConnected(this@SubscriptionActivity)) {
+//            Utils.ping(this@SubscriptionActivity, AppConstants.NETWORK_MSG)
+//        }
+//
+//        val apiService = WebClient.getClient().create(WebInterface::class.java)
+//
+//        val call =
+//            apiService.subscription_checkout(Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!!)
+//
+//        call.enqueue(object : Callback<JsonObject> {
+//            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+//
+//                if (response.body() != null) {
+//
+//                    DialogUtils.dismissDialog()
+//
+//                    if (response.body()!!["Status"].asString == "true") {
+//
+//                        Log.d("url", Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID="+ Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
+//                            .toString())
+//
+//                        val browserIntent = Intent(
+//                            Intent.ACTION_VIEW,
+//                            Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID="+ Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
+//                        )
+//
+//                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        browserIntent.setPackage("com.android.chrome")
+//                        try {
+//                            startActivity(browserIntent)
+//                        } catch (ex: ActivityNotFoundException) {
+//                            // Chrome browser presumably not installed so allow user to choose instead
+//                            browserIntent.setPackage(null)
+//                            startActivity(browserIntent)
+//                        }
+//
+//                    } else {
+//
+//                        Toast.makeText(
+//                            this@SubscriptionActivity,
+//                            response.body()!!["Msg"].toString().replace("\"", ""),
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+//                // Log error here since request failed
+//                Log.e("", t.toString())
+//                DialogUtils.dismissDialog()
+//            }
+//        })
+//    }
 
     fun callGetSubscriptionCount() {
         val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -297,8 +295,24 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
-//                Utils.ping(this@SubscriptionActivity, response.body()!!.get("Msg").asString)
-                callCheckout()
+                Log.d("url", Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID="+ Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
+                    .toString())
+
+                val browserIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID="+ Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
+                )
+
+                browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                browserIntent.setPackage("com.android.chrome")
+                try {
+                    startActivity(browserIntent)
+                } catch (ex: ActivityNotFoundException) {
+                    // Chrome browser presumably not installed so allow user to choose instead
+                    browserIntent.setPackage(null)
+                    startActivity(browserIntent)
+                }
+
 
             }
 

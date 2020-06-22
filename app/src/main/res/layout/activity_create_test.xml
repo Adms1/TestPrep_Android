@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/createtest_ivBack"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:padding="@dimen/_9sdp"
+        app:layout_constraintTop_toTopOf="@+id/createtest_tvHeading"
+        app:layout_constraintBottom_toBottomOf="@+id/createtest_tvHeading"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:srcCompat="@drawable/back_button"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/createtest_tvHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/_7sdp"
+        android:paddingBottom="@dimen/_7sdp"
+        android:text="Create Test"
+        android:textColor="@color/header_gray"
+        android:textSize="@dimen/normal_header_size"
+        app:layout_constraintLeft_toRightOf="@+id/createtest_ivBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/createtest_btnCreate"
+        app:layout_constraintTop_toBottomOf="@+id/createtest_tvHeading">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/createtest_tvTestname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:text="Test Name"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/normal_header_size"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/createtest_etTestname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:background="@drawable/blue_white_ring_bg"
+                android:hint="Enter Test Name"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:padding="@dimen/_8sdp"
+                android:textSize="@dimen/normal_text_size"
+                app:layout_constraintTop_toBottomOf="@+id/createtest_tvTestname" />
+
+            <TextView
+                android:id="@+id/createtest_tvMarks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="Total Questions"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/normal_header_size"
+                app:layout_constraintLeft_toRightOf="@+id/createtest_tvDuration"
+                app:layout_constraintTop_toBottomOf="@id/createtest_etTestname"
+                app:layout_constraintLeft_toLeftOf="@id/createtest_etMarks"/>
+
+            <EditText
+                android:id="@+id/createtest_etMarks"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/blue_white_ring_bg"
+                android:hint="Enter total questions"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="@dimen/_8sdp"
+                android:textSize="@dimen/normal_text_size"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="@dimen/_15sdp"
+                app:layout_constraintLeft_toRightOf="@id/createtest_etDuration"
+                app:layout_constraintTop_toBottomOf="@+id/createtest_tvMarks" />
+
+            <TextView
+                android:id="@+id/createtest_tvDuration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Duration (min)"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/normal_header_size"
+                app:layout_constraintTop_toTopOf="@id/createtest_tvMarks"
+                app:layout_constraintLeft_toLeftOf="@id/createtest_etDuration"
+                app:layout_constraintTop_toBottomOf="@id/createtest_etTestname" />
+
+            <EditText
+                android:id="@+id/createtest_etDuration"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:background="@drawable/blue_white_ring_bg"
+                android:hint="Enter Duration"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLines="1"
+                android:padding="@dimen/_8sdp"
+                android:textSize="@dimen/normal_text_size"
+                app:layout_constraintRight_toLeftOf="@id/createtest_etMarks"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createtest_tvDuration" />
+
+            <TextView
+                android:id="@+id/createtest_tvMM"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:text=": min"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/normal_text_size"
+                android:visibility="gone"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/createtest_etDuration"
+                app:layout_constraintTop_toTopOf="@id/createtest_etDuration" />
+
+            <TextView
+                android:id="@+id/createtest_tvChapters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="Chapters"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/normal_header_size"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/createtest_etDuration" />
+
+            <ImageView
+                android:id="@+id/createtest_ivSelect"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_margin="@dimen/_10sdp"
+                android:src="@drawable/add_subscription"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/normal_text_size"
+                app:layout_constraintBottom_toBottomOf="@id/createtest_tvChapters"
+                app:layout_constraintLeft_toRightOf="@id/createtest_tvChapters"
+                app:layout_constraintTop_toTopOf="@id/createtest_tvChapters" />
+
+            <TextView
+                android:id="@+id/createtest_tvQtype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="Question Type"
+                android:visibility="gone"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/normal_header_size"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/createtest_tvChapters" />
+
+            <Spinner
+                android:id="@+id/createtest_spQtype"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:background="@drawable/custom_spinner"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/normal_header_size"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/createtest_tvQtype" />
+
+            <EditText
+                android:id="@+id/createtest_etQnumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:background="@drawable/blue_white_ring_bg"
+                android:hint="Enter Question Number"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLines="1"
+                android:visibility="gone"
+                android:padding="@dimen/_8sdp"
+                android:textSize="@dimen/normal_text_size"
+                app:layout_constraintTop_toBottomOf="@+id/createtest_spQtype" />
+
+            <Button
+                android:id="@+id/createtest_btnAddType"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/blue_gradient_bg"
+                android:text="Add"
+                android:visibility="gone"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/app_all_btn_text_size"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/createtest_etQnumber"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <co.lujun.androidtagview.TagContainerLayout
+                android:id="@+id/createtest_tagQtype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                app:container_enable_drag="false"
+                app:horizontal_interval="10dp"
+                app:vertical_interval="10dp"
+                app:tag_clickable="false"
+                app:tag_theme="none"
+                app:tag_enable_cross="false"
+                app:container_max_lines="0"
+                app:tag_cross_color="@color/colorPrimary"
+                app:container_border_color="@color/white"
+                app:container_background_color="@color/white"
+                app:tag_text_color="@color/colorPrimary"
+                app:tag_border_color="@color/colorPrimary"
+                app:tag_background_color="@color/white"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createtest_btnAddType"/>
+
+            <TextView
+                android:id="@+id/createtest_tvDifficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:text="Difficulty"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/normal_header_size"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/createtest_tagQtype" />
+
+            <Spinner
+                android:id="@+id/createtest_spDifficulty"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:background="@drawable/blue_white_ring_bg"
+                android:text="Difficulty"
+                android:visibility="gone"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/normal_header_size"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/createtest_tvDifficulty" />
+
+            <TextView
+                android:id="@+id/createtest_tvRemark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:text="Remark"
+                android:visibility="gone"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/normal_header_size"
+                app:layout_constraintTop_toBottomOf="@id/createtest_spDifficulty" />
+
+            <EditText
+                android:id="@+id/createtest_etRemark"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_15sdp"
+                android:background="@drawable/blue_white_ring_bg"
+                android:gravity="top"
+                android:hint="Enter remark"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLines="4"
+                android:visibility="gone"
+                android:padding="@dimen/_8sdp"
+                android:textSize="@dimen/normal_text_size"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createtest_tvRemark" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/createtest_btnCreate"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_all_btn_height"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:background="@drawable/blue_gradient_bg"
+        android:text="Create Test"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/app_all_btn_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:id="@+id/createtest_llSelect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#90000000"
+        android:visibility="gone">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="@dimen/_250sdp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/createtest_tvChapHeaders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="Chapters"
+                android:textColor="@color/colorPrimary"
+                android:gravity="center"
+                android:textSize="@dimen/normal_header_size"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/createtest_rvChapter"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="@dimen/_20sdp"
+                android:background="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/createtest_btnSelect"
+                app:layout_constraintTop_toBottomOf="@+id/createtest_tvChapHeaders" />
+
+            <Button
+                android:id="@+id/createtest_btnSelect"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/app_all_btn_height"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/login_round_bg"
+                android:text="Select"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/app_all_btn_text_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/createtest_btnClose" />
+
+            <Button
+                android:id="@+id/createtest_btnClose"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/app_all_btn_height"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/gray_bg"
+                android:text="Close"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/app_all_btn_text_size"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/createtest_btnSelect"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

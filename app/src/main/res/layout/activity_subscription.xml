@@ -171,7 +171,7 @@
 
     <Button
         android:id="@+id/subscription_btnConfirm"
-        android:layout_width="@dimen/_100sdp"
+        android:layout_width="@dimen/_130sdp"
         android:layout_height="@dimen/_35sdp"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/_20sdp"
@@ -183,7 +183,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:textColor="@color/white"
         android:textSize="@dimen/_13sdp" />
 

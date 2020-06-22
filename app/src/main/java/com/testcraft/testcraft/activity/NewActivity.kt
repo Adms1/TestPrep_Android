@@ -141,8 +141,10 @@ class NewActivity : AppCompatActivity() {
 //            } else {
 
             if (Utils.getStringValue(this@NewActivity, AppConstants.isPrefrence, "")!! != "") {
+
                 val i = Intent(this@NewActivity, DashboardActivity::class.java)
                 startActivity(i)
+
             } else {
 
                 if (Utils.getStringValue(this@NewActivity, AppConstants.USER_ACCOUNT_TYPE, "") != "2"

@@ -131,7 +131,23 @@ class DashboardActivity : AppCompatActivity() {
                 bundle.putString("tutor_id", intent.getStringExtra("tutor_id"))
                 setFragments(bundle)
 
-            } else {
+            } else if(intent.hasExtra("createtest")){
+
+                AppConstants.isFirst = 11
+                val bundle = Bundle()
+                bundle.putInt("sub_id", intent.getIntExtra("sub_id",0))
+                bundle.putString("board_id", intent.getStringExtra("board_id"))
+                bundle.putString("std_id", intent.getStringExtra("std_id"))
+                bundle.putString("sub_name", intent.getStringExtra("sub_name"))
+                if(intent.getStringExtra("isCompetitive") == "1"){
+                    bundle.putBoolean("isCompetitive", false)
+                }else{
+                    bundle.putBoolean("isCompetitive", true)
+                }
+
+                setFragments(bundle)
+
+            }else {
 
                 dash_ivMarket.setImageResource(R.drawable.blue_list)
                 dash_ivHome.setImageResource(R.drawable.home)
@@ -638,6 +654,7 @@ class DashboardActivity : AppCompatActivity() {
 
                     subid = bundle!!.getInt("sub_id", 0)
                     stdid = bundle.getString("std_id", "")
+                    boardid = bundle.getString("board_id", "")
                     subname = bundle.getString("sub_name")!!
                     isCompetitive = bundle.getBoolean("isCompetitive", false)
 
@@ -648,6 +665,7 @@ class DashboardActivity : AppCompatActivity() {
                     val bundle3 = Bundle()
                     bundle3.putInt("sub_id", subid)
                     bundle3.putString("std_id", stdid)
+                    bundle3.putString("board_id", boardid)
                     bundle3.putString("sub_name", subname)
                     bundle3.putBoolean("isCompetitive", isCompetitive)
 
@@ -961,6 +979,7 @@ class DashboardActivity : AppCompatActivity() {
             bundle3.putInt("sub_id", subid)
             bundle3.putString("std_id", stdid)
             bundle3.putString("sub_name", subname)
+            bundle3.putString("board_id", boardid)
             bundle3.putBoolean("isCompetitive", isCompetitive)
             setFragments(bundle3)
 

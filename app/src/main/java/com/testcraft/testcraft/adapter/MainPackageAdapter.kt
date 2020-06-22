@@ -116,6 +116,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
             AppConstants.isFirst = 11
             val bundle = Bundle()
             bundle.putInt("sub_id", list[p1].ID)
+            bundle.putString("board_id", list[p1].BoardID)
             bundle.putString("std_id", list[p1].StandardID)
             bundle.putString("sub_name", list[p1].Name)
             bundle.putBoolean("isCompetitive", list[p1].isCompetitive)

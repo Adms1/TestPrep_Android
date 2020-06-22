@@ -388,6 +388,7 @@ class PrefrenceActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val intent = Intent(this@PrefrenceActivity, NewActivity::class.java)
+        intent.putExtra("comeadater", "changeprefrence")
         startActivity(intent)
     }
 

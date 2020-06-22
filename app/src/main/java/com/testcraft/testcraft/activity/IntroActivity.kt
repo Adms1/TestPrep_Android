@@ -478,10 +478,10 @@ class IntroActivity : AppCompatActivity() {
                                     }
                                 }
                             } else {
+
                                 if (response.body()!!["data"].asJsonArray[0].asJsonObject["Preference"].asJsonArray.size() > 0) {
 
-                                    val mIntent =
-                                        Intent(this@IntroActivity, DashboardActivity::class.java)
+                                    val mIntent = Intent(this@IntroActivity, DashboardActivity::class.java)
                                     mIntent.putExtra("subject_id", "")
                                     startActivity(mIntent)
                                     finish()
@@ -568,12 +568,15 @@ class IntroActivity : AppCompatActivity() {
 
                     } else {
 
-                        if (Utils.getStringValue(this@IntroActivity, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
-
-                            CommonWebCalls.callSignupApi("intro", this@IntroActivity, logintype, "0", fname, lname, email, pass, phone)
-                        } else {
+                        if (Utils.getStringValue(this@IntroActivity, AppConstants.APP_MODE, "") == AppConstants.DEEPLINK_MODE) {
 
                             CommonWebCalls.callSignupApi("intro", this@IntroActivity, logintype, Utils.getStringValue(this@IntroActivity, AppConstants.USER_ID, "")!!, fname, lname, email, pass, phone)
+
+                        } else {
+
+                            Utils.setStringValue(this@IntroActivity, AppConstants.APP_MODE, AppConstants.NORMAL_MODE)
+                            CommonWebCalls.callSignupApi("intro", this@IntroActivity, logintype, "0", fname, lname, email, pass, phone)
+
                         }
 
 //                        callSignupApi(

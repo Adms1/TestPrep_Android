@@ -29,10 +29,16 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:screenOrientation="portrait"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity | GoogleAppIndexingWarning">
-        <activity android:name=".activity.SubscriptionActivity"></activity>
+
+        <activity android:name=".activity.CreateTestActivity" android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".activity.SubscriptionActivity" />
+
         <activity android:name=".PhoneLoginActivity" />
+
         <activity android:name=".activity.NotificationActivity" />
         <!--
      Set custom default icon. This is used when no icon is set for incoming notification messages.
@@ -60,85 +66,64 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".activity.DeeplinkTestActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.DeeplinkEntryActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.StrengthWeeknessActivity"
-            android:screenOrientation="portrait" /> <!-- Define your service, make sure to add the permision! -->
+        <activity android:name=".activity.DeeplinkTestActivity" />
+
+        <activity android:name=".activity.DeeplinkEntryActivity" />
+
+        <activity android:name=".activity.StrengthWeeknessActivity" /> <!-- Define your service, make sure to add the permision! -->
+
         <service
             android:name=".NetworkSchedulerService"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" /> <!-- <receiver -->
+
         <!-- android:name=".Connectivity" -->
         <!-- android:enabled="true"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.net.conn.CONNECTIVITY_CHANGE" /> -->
         <!-- </intent-filter> -->
         <!-- </receiver> -->
-        <activity
-            android:name=".activity.ApplyCouponActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".activity.ViewInvoiceActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.QuestionInstructionActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.ResultActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.CartActivity"
-            android:screenOrientation="portrait" /> <!-- <activity -->
+
+        <activity android:name=".activity.ApplyCouponActivity" android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".activity.ViewInvoiceActivity" android:launchMode="singleTop" />
+
+        <activity android:name=".activity.QuestionInstructionActivity" android:launchMode="singleTop" />
+
+        <activity android:name=".activity.ResultActivity" android:launchMode="singleTop" />
+
+        <activity android:name=".activity.CartActivity" /> <!-- <activity -->
+
         <!-- android:name=".activity.CheckEmailActivity" -->
         <!-- android:screenOrientation="portrait" /> -->
-        <activity
-            android:name=".activity.FilterActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" /> <!-- <activity -->
+
+        <activity android:name=".activity.FilterActivity" android:launchMode="singleTop" /> <!-- <activity -->
+
         <!-- android:name=".fragments.TutorPackagesActivity" -->
         <!-- android:screenOrientation="portrait" /> -->
-        <activity
-            android:name=".activity.TutorReviewActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.IntroActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.PrefrenceActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.NewActivity"
-            android:screenOrientation="portrait" /> <!-- <activity -->
+
+        <activity android:name=".activity.TutorReviewActivity" android:launchMode="singleTop" />
+
+        <activity android:name=".activity.IntroActivity" android:launchMode="singleTop" />
+
+        <activity android:name=".activity.PrefrenceActivity" />
+
+        <activity android:name=".activity.NewActivity"/> <!-- <activity -->
+
         <!-- android:name=".activity.SelectPackageActivity" -->
         <!-- android:screenOrientation="portrait" /> -->
-        <activity
-            android:name=".activity.PaymentSuccessScreen"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".activity.TraknpayRequestActivity"
-            android:screenOrientation="portrait">
+
+        <activity android:name=".activity.PaymentSuccessScreen" android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".activity.TraknpayRequestActivity">
             <intent-filter>
                 <action android:name="com.scytec.datamobile.vd.gui.android.AppPreferenceActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity> <!-- <activity android:name=".activity.TabwiseQuestionActivity" android:screenOrientation="portrait"/> -->
-        <activity
-            android:name=".sectionmodule.NewTabQuestionActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" /> <!-- <activity -->
+
+        <activity android:name=".sectionmodule.NewTabQuestionActivity" android:launchMode="singleTop" /> <!-- <activity -->
         <!-- android:name=".activity.SelectStandardActivity" -->
         <!-- android:screenOrientation="portrait" /> -->
         <!-- <activity -->
@@ -147,20 +132,18 @@
         <!-- <activity -->
         <!-- android:name=".activity.SelectBoardActivity" -->
         <!-- android:screenOrientation="portrait" /> -->
-        <activity
-            android:name=".activity.ForgotPasswordActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
+
+        <activity android:name=".activity.ForgotPasswordActivity" android:launchMode="singleTop" />
+
         <activity
             android:name=".activity.OtpActivity"
             android:configChanges="keyboardHidden"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
+
         <activity
             android:name=".activity.DashboardActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -173,19 +156,18 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.SignupActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".activity.SplashActivity"
-            android:screenOrientation="portrait">
+
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="com.testcraft.testcraft" />
 
@@ -214,10 +196,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.CoinActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" /> <!-- <action android:name="android.intent.action.MAIN"/> -->
+
+        <activity android:name=".activity.CoinActivity" android:windowSoftInputMode="adjustPan" /> <!-- <action android:name="android.intent.action.MAIN"/> -->
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -225,12 +206,9 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name="com.facebook.CustomTabActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
+            android:label="@string/app_name" />
+
+        <activity android:name="com.facebook.CustomTabActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -244,6 +222,7 @@
         <meta-data
             android:name="com.facebook.sdk.CodelessDebugLogEnabled"
             android:value="true" />
+
     </application>
 
 </manifest>
