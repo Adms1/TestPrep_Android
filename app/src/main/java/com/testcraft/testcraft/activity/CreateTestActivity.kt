@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +17,7 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.CreatetestQtypeAdapter
 import com.testcraft.testcraft.adapter.SelectSubjectAdapter
+import com.testcraft.testcraft.adapter.TemplateAdapter
 import com.testcraft.testcraft.interfaces.ChapterListInterface
 import com.testcraft.testcraft.models.CreateTestQTypeModel
 import com.testcraft.testcraft.models.GetChapterList
@@ -24,7 +27,6 @@ import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
 import kotlinx.android.synthetic.main.activity_create_test.*
-import okhttp3.internal.toNonNegativeInt
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,13 +35,18 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
     var qtypeArr: ArrayList<GetChapterList.GetChapterData> = ArrayList()
+    var templateArr: ArrayList<GetChapterList.GetChapterData> = ArrayList()
     var mainQtypeArr: ArrayList<CreateTestQTypeModel> = ArrayList()
+
+    var templateAdapter: TemplateAdapter? = null
 
     var chapterInterface: ChapterListInterface? = null
 
+    var template_id = ""
+
     var coursetypeid = ""
     var boardid = ""
-    var courseid = ""
+    //    var courseid = ""
     var subid = ""
     var stdid = ""
     var subname = ""
@@ -62,11 +69,44 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         chapterInterface = this
 
         coursetypeid = intent.getStringExtra("coursetypeid")
-        boardid = intent.getStringExtra("boardid")
-        courseid = intent.getStringExtra("courseid")
-        subid = intent.getStringExtra("subid")
-        stdid = intent.getStringExtra("stdid")
-        subname = intent.getStringExtra("subname")
+        boardid = intent.getStringExtra("board_id")
+//        courseid = intent.getStringExtra("courseid")
+        subid = intent.getStringExtra("sub_id")
+        stdid = intent.getStringExtra("std_id")
+        subname = intent.getStringExtra("sub_name")
+
+        createtest_tvHeading.text = "Create Test ($subname)"
+
+        if (coursetypeid == "1") {
+
+            createtest_tvChapters.text = "Chapters"
+            createtest_spTemplate.visibility = View.GONE
+            createtest_tvTemplate.visibility = View.GONE
+
+            callChapterList()
+        } else {
+
+            createtest_tvMarks.visibility = View.GONE
+            createtest_etMarks.visibility = View.GONE
+            createtest_tvChapters.visibility = View.GONE
+            createtest_ivSelect.visibility = View.GONE
+            createtest_tagQtype.visibility = View.GONE
+            createtest_tvChapters.text = "Subjects"
+            createtest_spTemplate.visibility = View.VISIBLE
+            createtest_tvTemplate.visibility = View.VISIBLE
+
+            callSubjects()
+            callTemplate()
+        }
+
+        createtest_spTemplate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) { // Get the value selected by the user
+                // e.g. to store it as a field or immediately call a method
+                template_id = templateArr.get(position).ID.toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
 
         createtest_ivBack.setOnClickListener {
             onBackPressed()
@@ -74,6 +114,14 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         createtest_ivSelect.setOnClickListener {
             createtest_llSelect.visibility = View.VISIBLE
+
+            try {
+                val imm: InputMethodManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+            } catch (e: Exception) { // TODO: handle exception
+
+            }
         }
 
         createtest_btnCreate.setOnClickListener {
@@ -87,9 +135,17 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
                     } else {
                         createtest_etDuration.error = "Max. durations is 180 minutes"
                     }
-
                 }
+            } else {
+                if (isValid()) {
+                    if ((createtest_etDuration.text.toString()).toInt() <= 180) {
 
+                        callCreateCompetitiveTest()
+
+                    } else {
+                        createtest_etDuration.error = "Max. durations is 180 minutes"
+                    }
+                }
             }
         }
 
@@ -131,19 +187,33 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         })
 
 //        AddQType()
-        callChapterList()
 
     }
 
     override fun onBackPressed() {
 
         val intent = Intent(this@CreateTestActivity, DashboardActivity::class.java)
-        intent.putExtra("createtest", "true")
-        intent.putExtra("sub_id", subid.toInt())
-        intent.putExtra("board_id", boardid)
-        intent.putExtra("std_id", stdid)
-        intent.putExtra("sub_name", subname)
-        intent.putExtra("isCompetitive", coursetypeid)
+        if (coursetypeid == "1") {
+            intent.putExtra("createtest", "true")
+            intent.putExtra("coursetypeid", coursetypeid)
+
+            intent.putExtra("board_id", boardid)
+            intent.putExtra("sub_id", subid.toInt())
+            intent.putExtra("std_id", stdid)
+            intent.putExtra("sub_name", subname)
+            intent.putExtra("isCompetitive", false)
+
+        } else {
+            intent.putExtra("createtest", "true")
+            intent.putExtra("coursetypeid", coursetypeid)
+
+            intent.putExtra("board_id", "0")
+            intent.putExtra("sub_id", subid.toInt())
+            intent.putExtra("std_id", "0")
+            intent.putExtra("sub_name", subname)
+            intent.putExtra("isCompetitive", true)
+
+        }
         startActivity(intent)
 
     }
@@ -162,15 +232,23 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
             isvalid = false
         }
 
-        if (TextUtils.isEmpty(createtest_etMarks.text.toString()) || createtest_etMarks.text.toString() == "0") {
-            createtest_etMarks.error = "Please enter total questions"
-            isvalid = false
-        }
+        if (coursetypeid == "1") {
+            if (TextUtils.isEmpty(createtest_etMarks.text.toString()) || createtest_etMarks.text.toString() == "0") {
+                createtest_etMarks.error = "Please enter total questions"
+                isvalid = false
+            }
 
-        if (qtypeArr.size <= 0) {
-            isvalid = false
-            Toast.makeText(this@CreateTestActivity, "Please select Chapters", Toast.LENGTH_SHORT).show()
+            if (qtypeArr.size <= 0) {
+                isvalid = false
+                Toast.makeText(this@CreateTestActivity, "Please select Chapters", Toast.LENGTH_SHORT).show()
+            }
         }
+//        } else {
+//            if (qtypeArr.size <= 0) {
+//                isvalid = false
+//                Toast.makeText(this@CreateTestActivity, "Please select Subjects", Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
         return isvalid
 
@@ -233,7 +311,7 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         var chapid = ""
         for (i in 0 until qtypeArr.size) {
-            chapid += qtypeArr[i].ID
+            chapid = chapid + qtypeArr[i].ID + ","
         }
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
@@ -257,7 +335,7 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         hashmap["Hint"] = ""
         hashmap["Duration"] = createtest_etDuration.text.toString()
         hashmap["DifficultyLevelIDs"] = "1,2,3,4"
-        hashmap["ChapterID"] = chapid.substring(chapid.length - 1)
+        hashmap["ChapterID"] = chapid.substring(0, chapid.length - 1)
         hashmap["QueCount"] = createtest_etMarks.text.toString()
 
         val call = apiService.callCreateTest(hashmap)
@@ -277,7 +355,8 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
                         intent.putExtra("board_id", boardid)
                         intent.putExtra("std_id", stdid)
                         intent.putExtra("sub_name", subname)
-                        intent.putExtra("isCompetitive", coursetypeid)
+                        intent.putExtra("coursetypeid", coursetypeid)
+                        intent.putExtra("isCompetitive", false)
                         startActivity(intent)
 
                     } else {
@@ -347,11 +426,105 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         })
     }
 
+    fun callSubjects() {
+
+        if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
+            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+        }
+
+        DialogUtils.showDialog(this@CreateTestActivity)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val hashmap = HashMap<String, String>()
+        hashmap["CourseID"] = subid
+
+        val call = apiService.callCreateTestSubject(hashmap)
+
+        call.enqueue(object : Callback<GetChapterList> {
+            override fun onResponse(call: Call<GetChapterList>, response: Response<GetChapterList>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.Status == "true") {
+
+                        createtest_rvChapter.adapter =
+                            SelectSubjectAdapter(this@CreateTestActivity, response.body()!!.data, chapterInterface!!)
+
+                    } else {
+                        Toast.makeText(
+                            this@CreateTestActivity,
+                            response.body()!!.Msg,
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<GetChapterList>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+    fun callTemplate() {
+
+        if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
+            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+        }
+
+        DialogUtils.showDialog(this@CreateTestActivity)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val hashmap = HashMap<String, String>()
+        hashmap["CourseID"] = subid
+
+        val call = apiService.callTemplate(hashmap)
+
+        call.enqueue(object : Callback<GetChapterList> {
+            override fun onResponse(call: Call<GetChapterList>, response: Response<GetChapterList>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!.Status == "true") {
+
+                        templateArr = response.body()!!.data
+
+                        templateAdapter =
+                            TemplateAdapter(this@CreateTestActivity, response.body()!!.data)
+                        createtest_spTemplate.adapter = templateAdapter
+                    } else {
+                        Toast.makeText(
+                            this@CreateTestActivity,
+                            response.body()!!.Msg,
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<GetChapterList>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
+    }
+
     fun callQueLimit() {
 
         var chapid = ""
         for (i in 0 until qtypeArr.size) {
-            chapid += qtypeArr[i].ID
+            chapid = chapid + qtypeArr[i].ID + ","
         }
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
@@ -363,10 +536,18 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val hashmap = HashMap<String, String>()
-        hashmap["BoardID"] = boardid
-        hashmap["StandardID"] = stdid
-        hashmap["SubjectID"] = subid
-        hashmap["ChapterID"] = chapid
+        if (coursetypeid == "1") {
+            hashmap["BoardID"] = boardid
+            hashmap["StandardID"] = stdid
+            hashmap["SubjectID"] = subid
+            hashmap["ChapterID"] = chapid.substring(0, chapid.length - 1)
+        } else {
+
+            hashmap["BoardID"] = subid
+            hashmap["StandardID"] = "0"
+            hashmap["SubjectID"] = "0"
+            hashmap["ChapterID"] = chapid.substring(0, chapid.length - 1)
+        }
 
         val call = apiService.callGetQueLimit(hashmap)
 
@@ -381,9 +562,15 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
                         quelimit = response.body()!!.get("data").asInt
 
-                        if((createtest_etMarks.text.toString()).toInt() <= response.body()!!.get("data").asInt) {
-                            callCreateBoardTest()
-                        }else{
+                        if ((createtest_etMarks.text.toString()).toInt() <= response.body()!!.get("data").asInt) {
+
+                            if (coursetypeid == "1") {
+                                callCreateBoardTest()
+                            } else {
+                                callCreateCompetitiveTest()
+                            }
+
+                        } else {
                             Toast.makeText(this@CreateTestActivity, "Question limit according to your selection is $quelimit", Toast.LENGTH_SHORT).show()
                         }
 
@@ -408,7 +595,79 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
                 DialogUtils.dismissDialog()
             }
         })
+    }
 
+    fun callCreateCompetitiveTest() {
+
+        var chapid = ""
+        for (i in 0 until qtypeArr.size) {
+            chapid = chapid + qtypeArr[i].ID + ","
+        }
+
+        if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
+            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+        }
+
+        DialogUtils.showDialog(this@CreateTestActivity)
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val hashmap = HashMap<String, String>()
+        hashmap["UserID"] =
+            Utils.getStringValue(this@CreateTestActivity, AppConstants.USER_ID, "0")!!
+        hashmap["CourseID"] = subid
+        hashmap["BoardID"] = "0"
+        hashmap["StandardID"] = "0"
+        hashmap["SubjectID"] = "0"
+        hashmap["TypeID"] = coursetypeid
+        hashmap["TestName"] = createtest_etTestname.text.toString()
+        hashmap["desc"] = ""
+        hashmap["Hint"] = ""
+        hashmap["Duration"] = createtest_etDuration.text.toString()
+        hashmap["DifficultyLevelIDs"] = "1,2,3,4"
+        hashmap["TopicID"] = ""
+//        hashmap["QueCount"] = createtest_etMarks.text.toString()
+        hashmap["TemplateID"] = template_id
+
+        val call = apiService.callCompetitiveCreateTest(hashmap)
+
+        call.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body() != null) {
+
+                    DialogUtils.dismissDialog()
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        val intent = Intent(this@CreateTestActivity, DashboardActivity::class.java)
+
+                        intent.putExtra("createtest", "true")
+                        intent.putExtra("sub_id", subid.toInt())
+                        intent.putExtra("board_id", "")
+                        intent.putExtra("std_id", "0")
+                        intent.putExtra("sub_name", subname)
+                        intent.putExtra("isCompetitive", true)
+                        intent.putExtra("coursetypeid", coursetypeid)
+                        startActivity(intent)
+
+                    } else {
+                        Toast.makeText(
+                            this@CreateTestActivity,
+                            response.body()!!["Msg"].asString,
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+                DialogUtils.dismissDialog()
+            }
+        })
     }
 
     override fun getSelectedChapter(list: ArrayList<GetChapterList.GetChapterData>) {

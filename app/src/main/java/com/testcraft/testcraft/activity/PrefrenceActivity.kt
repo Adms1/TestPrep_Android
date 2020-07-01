@@ -532,9 +532,23 @@ class PrefrenceActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
-                val mIntent = Intent(this@PrefrenceActivity, SubscriptionActivity::class.java)
-                startActivity(mIntent)
-                finish()
+                if(response.body()!!.get("Status").asString == "true") {
+                    val mIntent = Intent(this@PrefrenceActivity, SubscriptionActivity::class.java)
+                    startActivity(mIntent)
+                    finish()
+                }else{
+                    DialogUtils.createConfirmDialog1(
+                        this@PrefrenceActivity,
+                        "OK",
+                        response.body()!!.get("Msg").asString,
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            val mIntent = Intent(this@PrefrenceActivity, SubscriptionActivity::class.java)
+                            startActivity(mIntent)
+                            finish()
+
+                        }).show()
+                }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {

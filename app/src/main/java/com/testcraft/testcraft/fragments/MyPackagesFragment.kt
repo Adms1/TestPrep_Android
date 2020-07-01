@@ -80,15 +80,21 @@ class MyPackagesFragment : Fragment() {
 
             if(iscompetitive == "1"){
                 intent.putExtra("coursetypeid", "2")
+
+                intent.putExtra("board_id", "")
+                intent.putExtra("sub_id", subid.toString())
+                intent.putExtra("std_id", "")
+                intent.putExtra("sub_name", subname)
+
             }else{
                 intent.putExtra("coursetypeid", "1")
+
+                intent.putExtra("board_id", boardid)
+                intent.putExtra("sub_id", subid.toString())
+                intent.putExtra("std_id", stdid)
+                intent.putExtra("sub_name", subname)
             }
 
-            intent.putExtra("boardid", boardid)
-            intent.putExtra("courseid", "")
-            intent.putExtra("subid", subid.toString())
-            intent.putExtra("stdid", stdid)
-            intent.putExtra("subname", subname)
             startActivity(intent)
             (context as DashboardActivity).finish()
         }
@@ -286,15 +292,19 @@ class MyPackagesFragment : Fragment() {
 
         val hashmap = HashMap<String, String>()
         hashmap["StudentID"] = Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!
-        hashmap["CourseID"] = "0"
-        hashmap["BoardID"] = boardid
-        hashmap["StandardID"] = stdid
-        hashmap["SubjectID"] = subid.toString()
 
         if(iscompetitive == "1"){
             hashmap["TypeID"] = "2"
+            hashmap["CourseID"] = subid.toString()
+            hashmap["BoardID"] = "0"
+            hashmap["StandardID"] = "0"
+            hashmap["SubjectID"] = "0"
         }else{
             hashmap["TypeID"] = "1"
+            hashmap["CourseID"] = "0"
+            hashmap["BoardID"] = boardid
+            hashmap["StandardID"] = stdid
+            hashmap["SubjectID"] = subid.toString()
         }
 
         val call = apiService.callGetSelfTest(hashmap)

@@ -288,6 +288,10 @@ interface WebInterface {
     fun callCreateTest(@FieldMap hasmap: HashMap<String, String>): Call<JsonObject>
 
     @FormUrlEncoded
+    @POST("Create_SelfTest_CE")
+    fun callCompetitiveCreateTest(@FieldMap hasmap: HashMap<String, String>): Call<JsonObject>
+
+    @FormUrlEncoded
     @POST("Get_ChapterList")
     fun callChapterList(@FieldMap hasmap: HashMap<String, String>): Call<GetChapterList>
 
@@ -298,5 +302,13 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Get_SelfTest_QueLimit_Board")
     fun callGetQueLimit(@FieldMap hasmap: HashMap<String, String>): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Get_Course_Subject_List")
+    fun callCreateTestSubject(@FieldMap hasmap: HashMap<String, String>): Call<GetChapterList>
+
+    @FormUrlEncoded
+    @POST("Get_Course_SectionTemplate_List")
+    fun callTemplate(@FieldMap hasmap: HashMap<String, String>): Call<GetChapterList>
 
 }

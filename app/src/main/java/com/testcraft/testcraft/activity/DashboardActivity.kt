@@ -135,15 +135,18 @@ class DashboardActivity : AppCompatActivity() {
 
                 AppConstants.isFirst = 11
                 val bundle = Bundle()
-                bundle.putInt("sub_id", intent.getIntExtra("sub_id",0))
-                bundle.putString("board_id", intent.getStringExtra("board_id"))
-                bundle.putString("std_id", intent.getStringExtra("std_id"))
-                bundle.putString("sub_name", intent.getStringExtra("sub_name"))
-                if(intent.getStringExtra("isCompetitive") == "1"){
+
+                if(intent.getStringExtra("coursetypeid") == "1"){
                     bundle.putBoolean("isCompetitive", false)
                 }else{
                     bundle.putBoolean("isCompetitive", true)
                 }
+
+                    bundle.putInt("sub_id", intent.getIntExtra("sub_id",0))
+                    bundle.putString("board_id", intent.getStringExtra("board_id"))
+                    bundle.putString("std_id", intent.getStringExtra("std_id"))
+                    bundle.putString("sub_name", intent.getStringExtra("sub_name"))
+//                    bundle.putBoolean("isCompetitive", intent.getBooleanExtra("isCompetitive", false))
 
                 setFragments(bundle)
 
