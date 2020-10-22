@@ -903,6 +903,21 @@ class DashboardActivity : AppCompatActivity() {
 //                .addToBackStack(null)
                         .commitAllowingStateLoss()
                 }
+                19 -> {
+
+                    fragment = MySubscriptionFragment()
+
+                    llBottom!!.visibility = View.VISIBLE
+
+                    btnBack!!.visibility = View.VISIBLE
+//                    btnLogout!!.visibility = View.GONE
+
+                    main_header!!.text = "My Subscription"
+
+                    fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
+//                .addToBackStack(null)
+                        .commitAllowingStateLoss()
+                }
             }
 
 //            fragManager!!.beginTransaction().replace(R.id.container, fragment!!)

@@ -97,6 +97,10 @@ interface WebInterface {
     fun getMyPayment(@Field("StudentID") boardid: String): Call<PackageData>
 
     @FormUrlEncoded
+    @POST("Get_Student_SubcriptionPaymentTransaction_List")
+    fun getMySubscription(@Field("StudentID") boardid: String): Call<PackageData>
+
+    @FormUrlEncoded
     @POST("Add_StudentTestPackage")
     fun addTestPackage(@Field("StudentID") stuid: String, @Field("TestPackageID") pkgid: String): Call<JsonObject>
 

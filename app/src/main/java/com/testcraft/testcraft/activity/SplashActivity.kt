@@ -20,7 +20,6 @@ import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.AppConstants.Companion.isPrefrence
 import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
@@ -263,7 +262,7 @@ class SplashActivity : AppCompatActivity() {
                                         // This method will be executed once the timer is over
                                         // Start your app main activity
 
-                                        if (Utils.getStringValue(context, isPrefrence, "") == "1") {
+//                                        if (Utils.getStringValue(context, isPrefrence, "") == "1") {
 
                                             Utils.setStringValue(
                                                 context,
@@ -271,15 +270,15 @@ class SplashActivity : AppCompatActivity() {
                                                 "true"
                                             )
 
-                                            val i = Intent(context, DashboardActivity::class.java)
-                                            context.startActivity(i)
+                                        val i = Intent(context, DashboardActivity::class.java)
+                                        context.startActivity(i)
 
-                                        } else {
+//                                        } else {
 
-                                            val i = Intent(context, NewActivity::class.java)
-                                            context.startActivity(i)
+//                                            val i = Intent(context, NewActivity::class.java)
+//                                            context.startActivity(i)
 
-                                        }
+//                                        }
 
                                     } else {
                                         val i = Intent(context, IntroActivity::class.java)
