@@ -1,21 +1,16 @@
 package com.testcraft.testcraft.activity
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
-import android.util.Patterns
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -30,9 +25,6 @@ import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_prefrence.*
-import kotlinx.android.synthetic.main.activity_signup.*
-import kotlinx.android.synthetic.main.dialog_phone_number.*
-import kotlinx.android.synthetic.main.fragment_package_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -405,7 +397,8 @@ class PrefrenceActivity : AppCompatActivity() {
         AppConstants.isFirst = 0
         Utils.setStringValue(this@PrefrenceActivity, AppConstants.isPrefrence, "1")
 
-        if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
+        if (Utils.getStringValue(this@PrefrenceActivity, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE ||
+            Utils.getStringValue(this@PrefrenceActivity, AppConstants.APP_MODE, "") == "") {
             Utils.setStringValue(this@PrefrenceActivity, AppConstants.IS_LOGIN, "true")
         } else {
             Utils.setStringValue(this@PrefrenceActivity, AppConstants.IS_LOGIN, "false")

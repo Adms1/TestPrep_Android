@@ -130,21 +130,21 @@ class ResultActivity : AppCompatActivity() {
         result_tvHeading.text = intent.getStringExtra("testname")
 
         result_btnDashboard.setOnClickListener {
-            if (Utils.getStringValue(this@ResultActivity, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
-                CommonWebCalls.callToken(
-                    this@ResultActivity,
-                    "1",
-                    "",
-                    ActionIdData.C2202,
-                    ActionIdData.T2202
-                )
+//            if (Utils.getStringValue(this@ResultActivity, AppConstants.APP_MODE, "") == AppConstants.NORMAL_MODE) {
+//                CommonWebCalls.callToken(
+//                    this@ResultActivity,
+//                    "1",
+//                    "",
+//                    ActionIdData.C2202,
+//                    ActionIdData.T2202
+//                )
 
-                onBackPressed()
-            } else {
-
-                val intent = Intent(this@ResultActivity, IntroActivity::class.java)
-                startActivity(intent)
-            }
+            onBackPressed()
+//            } else {
+//
+//                val intent = Intent(this@ResultActivity, IntroActivity::class.java)
+//                startActivity(intent)
+//            }
         }
 
         if (intent.getStringExtra("marks") <= "0") {

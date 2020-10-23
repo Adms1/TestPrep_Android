@@ -149,7 +149,7 @@
 
                 <data
                     android:host="testcraft.in/data"
-                    android:scheme="https" />
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity

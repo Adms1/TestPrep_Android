@@ -814,7 +814,7 @@ class MarketPlaceFragment : Fragment() {
 
                         if (freeTestList.size > 0) {
 
-                            mp_view_pager.visibility = View.VISIBLE
+                            mp_view_pager.visibility = View.GONE
                             main_freetest_item_tvSeeall.visibility = View.GONE
 
 //                            myViewPagerAdapter = MyViewPagerAdapter(freeTestList)

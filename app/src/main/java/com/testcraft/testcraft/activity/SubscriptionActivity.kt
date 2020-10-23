@@ -6,8 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.JsonObject
@@ -20,7 +18,6 @@ import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.PackagePurchase.Companion.stuGUID
 import com.testcraft.testcraft.utils.Utils
 import kotlinx.android.synthetic.main.activity_subscription.*
 import retrofit2.Call
@@ -295,22 +292,28 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
-                Log.d("url", Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID="+ Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
-                    .toString())
+                if (response.body() != null) {
 
-                val browserIntent = Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID="+ Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
-                )
+                    if (response.body()!!["Status"].asString == "true") {
 
-                browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                browserIntent.setPackage("com.android.chrome")
-                try {
-                    startActivity(browserIntent)
-                } catch (ex: ActivityNotFoundException) {
-                    // Chrome browser presumably not installed so allow user to choose instead
-                    browserIntent.setPackage(null)
-                    startActivity(browserIntent)
+                        Log.d("url", Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
+                            .toString())
+
+                        val browserIntent = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
+                        )
+
+                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        browserIntent.setPackage("com.android.chrome")
+                        try {
+                            startActivity(browserIntent)
+                        } catch (ex: ActivityNotFoundException) {
+                            // Chrome browser presumably not installed so allow user to choose instead
+                            browserIntent.setPackage(null)
+                            startActivity(browserIntent)
+                        }
+                    }
                 }
 
 
