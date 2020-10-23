@@ -152,7 +152,7 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
                     intent.putExtra("header", "Privacy Policy")
                     intent.putExtra(
                         "url",
-                        "https://testcraft.in/PrivacyPolicyMobile.aspx"
+                        "http://testcraft.in/PrivacyPolicyMobile.aspx"
                     )
 
                     context.startActivity(intent)

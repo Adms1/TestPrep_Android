@@ -945,7 +945,8 @@ class DashboardActivity : AppCompatActivity() {
 
             Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
 
-        } else if (AppConstants.isFirst == 5 || AppConstants.isFirst == 6 || AppConstants.isFirst == 8 || AppConstants.isFirst == 16 || AppConstants.isFirst == 17 || AppConstants.isFirst == 18) {
+        } else if (AppConstants.isFirst == 5 || AppConstants.isFirst == 6 || AppConstants.isFirst == 8 ||
+            AppConstants.isFirst == 16 || AppConstants.isFirst == 17 || AppConstants.isFirst == 18 || AppConstants.isFirst == 19) {
 
             AppConstants.isFirst = 4
             setFragments(null)

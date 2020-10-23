@@ -15,26 +15,26 @@ class AppConstants {
 
 //        LIVE
 
-//        var BASE_URL = "https://webservice.testcraft.in/WebService.asmx/"
-//        var IMAGE_BASE_URL = "https://testcraft.in/upload/"
-//        var EXPHINT_IMAGE_BASE_URL = "https://testcraft.in/"
-//        var PAYMENT_REQUEST = "https://testcraft.in/MobilePayment.aspx?"
-//        var INVOICE_URL = "https://testcraft.in/InvoiceDetail.aspx?ID="
-//        var SUMMARY_REPORT_URL = "https://webservice.testcraft.in/TestSummaryReport.aspx?"
-//        var SUBJECT_SUMMARY_REPORT_URL =
-//            "https://webservice.testcraft.in/SubjectSummaryReport.aspx?"
-//        var ALL_SUMMARY_REPORT_URL = "http://webservice.testcraft.in/AllTestSummaryReport.aspx?"
+        var BASE_URL = "https://webservice.testcraft.in/WebService.asmx/"
+        var IMAGE_BASE_URL = "http://testcraft.in/upload/"
+        var EXPHINT_IMAGE_BASE_URL = "http://testcraft.in/"
+        var PAYMENT_REQUEST = "http://testcraft.in/MobilePayment.aspx?"
+        var INVOICE_URL = "http://testcraft.in/InvoiceDetail.aspx?ID="
+        var SUMMARY_REPORT_URL = "https://webservice.testcraft.in/TestSummaryReport.aspx?"
+        var SUBJECT_SUMMARY_REPORT_URL =
+            "https://webservice.testcraft.in/SubjectSummaryReport.aspx?"
+        var ALL_SUMMARY_REPORT_URL = "https://webservice.testcraft.in/AllTestSummaryReport.aspx?"
 
 //          LOCAL
 
-        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
-        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
-        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
-        var PAYMENT_REQUEST = "http://demo.testcraft.in/MobilePayment.aspx?"
-        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
-        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
-        var SUBJECT_SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
-        var ALL_SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/AllTestSummaryReport.aspx?"
+//        var BASE_URL = "http://demowebservice.testcraft.in/webservice.asmx/"
+//        var IMAGE_BASE_URL = "http://demo.testcraft.in/upload/"
+//        var EXPHINT_IMAGE_BASE_URL = "http://demo.testcraft.in/"
+//        var PAYMENT_REQUEST = "http://demo.testcraft.in/MobilePayment.aspx?"
+//        var INVOICE_URL = "http://demo.testcraft.in/InvoiceDetail.aspx?ID="
+//        var SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/TestSummaryReport.aspx?"
+//        var SUBJECT_SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/SubjectSummaryReport.aspx?"
+//        var ALL_SUMMARY_REPORT_URL = "http://demowebservice.testcraft.in/AllTestSummaryReport.aspx?"
 
 //        USER DATA
 
@@ -74,15 +74,15 @@ class AppConstants {
 
 //        PAYMENT LOCAL
 
-        var API_KEY = "535ee616-a161-4e16-88ed-a338582e841a"
-        var SECRET_KEY = "531553f8d6b906aa3342948a3c535ca301de9d5d"
-        var PAYMENT_MODE = "TEST"
+//        var API_KEY = "535ee616-a161-4e16-88ed-a338582e841a"
+//        var SECRET_KEY = "531553f8d6b906aa3342948a3c535ca301de9d5d"
+//        var PAYMENT_MODE = "TEST"
 
 //        PAYMENT LIVE
 
-//        var API_KEY = "0cda5f4f-d803-4316-8562-c75a72fe99c0"
-//        var SECRET_KEY = "10ad507bb768b574c3d6ff2bc6694b04386b9c8f"
-//        var PAYMENT_MODE = "LIVE"
+        var API_KEY = "0cda5f4f-d803-4316-8562-c75a72fe99c0"
+        var SECRET_KEY = "10ad507bb768b574c3d6ff2bc6694b04386b9c8f"
+        var PAYMENT_MODE = "LIVE"
 
         var QUE_NUMBER = 0
         var QUE_NUMBER1 = 0

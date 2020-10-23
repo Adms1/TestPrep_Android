@@ -103,7 +103,7 @@ class SignupActivity : AppCompatActivity() {
                 intent.putExtra("header", "Terms & Conditions")
                 intent.putExtra(
                     "url",
-                    "https://testcraft.in/TCTerms.aspx"
+                    "http://testcraft.in/TCTerms.aspx"
                 )
                 startActivity(intent)
             }
