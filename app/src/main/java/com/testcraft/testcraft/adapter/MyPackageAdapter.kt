@@ -146,6 +146,7 @@ class MyPackageAdapter(
 
                 AppConstants.PKG_ID = dataList[p1].StudentTestPackageID.toString()
                 AppConstants.PKG_NAME = dataList[p1].TestPackageName
+                AppConstants.IS_SELF_TEST = "false"
 
                 AppConstants.isFirst = 12
 //                val bundle = Bundle()

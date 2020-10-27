@@ -18,9 +18,11 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.CreatetestQtypeAdapter
 import com.testcraft.testcraft.adapter.SelectSubjectAdapter
 import com.testcraft.testcraft.adapter.TemplateAdapter
+import com.testcraft.testcraft.adapter.TemplateSectionAdapter
 import com.testcraft.testcraft.interfaces.ChapterListInterface
 import com.testcraft.testcraft.models.CreateTestQTypeModel
 import com.testcraft.testcraft.models.GetChapterList
+import com.testcraft.testcraft.models.TemplateSectionModel
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
@@ -39,6 +41,7 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
     var mainQtypeArr: ArrayList<CreateTestQTypeModel> = ArrayList()
 
     var templateAdapter: TemplateAdapter? = null
+    var templateSectionAdapter: TemplateSectionAdapter? = null
 
     var chapterInterface: ChapterListInterface? = null
 
@@ -82,6 +85,7 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
             createtest_tvChapters.text = "Chapters"
             createtest_spTemplate.visibility = View.GONE
             createtest_tvTemplate.visibility = View.GONE
+            createtest_clSection.visibility = View.GONE
 
             callChapterList()
         } else {
@@ -94,6 +98,7 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
             createtest_tvChapters.text = "Subjects"
             createtest_spTemplate.visibility = View.VISIBLE
             createtest_tvTemplate.visibility = View.VISIBLE
+            createtest_clSection.visibility = View.VISIBLE
 
             callSubjects()
             callTemplate()
@@ -102,7 +107,8 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         createtest_spTemplate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) { // Get the value selected by the user
                 // e.g. to store it as a field or immediately call a method
-                template_id = templateArr.get(position).ID.toString()
+                template_id = templateArr[position].ID
+                callSectionList(template_id)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -516,6 +522,58 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
                 // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()
+            }
+        })
+    }
+
+    fun callSectionList(tempid: String) {
+
+        if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
+            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+        }
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val hashmap = HashMap<String, String>()
+        hashmap["TemplateID"] = tempid
+
+        val call = apiService.callTemplateSection(hashmap)
+
+        call.enqueue(object : Callback<TemplateSectionModel> {
+            override fun onResponse(call: Call<TemplateSectionModel>, response: Response<TemplateSectionModel>) {
+
+                if (response.body() != null) {
+
+                    if (response.body()!!.Status == "true") {
+
+                        var total = 0.0
+
+                        createtest_rvSection.layoutManager =
+                            LinearLayoutManager(this@CreateTestActivity, LinearLayoutManager.VERTICAL, false)
+
+                        for (i in 0 until response.body()!!.data.size) {
+                            total += response.body()!!.data[i].Marks.toDouble() * response.body()!!.data[i].NoOfQue.toDouble()
+                        }
+                        createtest_total.text = total.toString()
+
+                        templateSectionAdapter =
+                            TemplateSectionAdapter(this@CreateTestActivity, response.body()!!.data)
+                        createtest_rvSection.adapter = templateSectionAdapter
+
+                    } else {
+                        Toast.makeText(
+                            this@CreateTestActivity,
+                            response.body()!!.Msg,
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<TemplateSectionModel>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
             }
         })
     }

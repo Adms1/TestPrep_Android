@@ -315,4 +315,8 @@ interface WebInterface {
     @POST("Get_Course_SectionTemplate_List")
     fun callTemplate(@FieldMap hasmap: HashMap<String, String>): Call<GetChapterList>
 
+    @FormUrlEncoded
+    @POST("Get_Template_Detail ")
+    fun callTemplateSection(@FieldMap hasmap: HashMap<String, String>): Call<TemplateSectionModel>
+
 }

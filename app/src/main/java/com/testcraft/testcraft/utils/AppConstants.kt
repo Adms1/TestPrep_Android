@@ -113,6 +113,7 @@ class AppConstants {
 
         var PKG_ID = "0"
         var PKG_NAME = "xyz"
+        var IS_SELF_TEST = "false"
 
         var NETWORK_MSG = "The network is not reachable."
 

@@ -52,6 +52,7 @@ class SelfTestAdapter(val context: Context, var datalist: ArrayList<GetSelfTest.
 
                 AppConstants.PKG_ID = datalist[p1].StudentTestPackageID.toString()
                 AppConstants.PKG_NAME = datalist[p1].TestPackageName
+            AppConstants.IS_SELF_TEST = "true"
 
                 AppConstants.isFirst = 12
 

@@ -101,14 +101,19 @@ class MyPackagesFragment : Fragment() {
 
 //        my_packages_header.text = bundle!!.getString("sub_name")
 
-        my_packages_rvList.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
-        my_create_rvList.layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+        my_packages_rvList.layoutManager =
+            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+        my_create_rvList.layoutManager =
+            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
         my_packages_rvList.isNestedScrollingEnabled = false
 
         DialogUtils.showDialog(activity!!)
 
-        my_packages_ivReport.setOnClickListener { onKnowledgegapClick() }
+//        my_packages_ivReport.setOnClickListener { onKnowledgegapClick() }
+        my_packages_tvReport.setOnClickListener { onKnowledgegapClick() }
+//        my_packages_ivPendingTest.setOnClickListener { onsummaryreportClick() }
+        my_packages_tvSummartreport.setOnClickListener { onsummaryreportClick() }
 
 //        my_packages_ivTotalTest.setOnClickListener { onKnowledgegapClick() }
 //        my_packages_ivTotalTest.setOnClickListener { onKnowledgegapClick() }
@@ -258,10 +263,10 @@ class MyPackagesFragment : Fragment() {
                         Log.d("percentage", "" + final)
 
                         my_packages_ivProgress.setProgress(final, true)
-//                        my_packages_tvProgress!!.text = "$completecount/$totalcount"
+                        my_packages_tvProgress!!.text = "$completecount/$totalcount"
 
-                        my_packages_tvPendingCount.text = pendingcount.toString()
-                        my_packages_tvTotalCount.text = totalcount.toString()
+//                        my_packages_tvPendingCount.text = pendingcount.toString()
+//                        my_packages_tvTotalCount.text = totalcount.toString()
 
                         val pkgArr = response.body()!!.data[0].PackageList
                         my_packages_rvList.adapter = MyPackageAdapter(activity!!, pkgArr, "my_pkgs")

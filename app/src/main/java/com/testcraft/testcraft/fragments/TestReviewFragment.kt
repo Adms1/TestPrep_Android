@@ -83,6 +83,14 @@ class TestReviewFragment : Fragment() {
 
 //        }
 
+        if (AppConstants.IS_SELF_TEST == "true") {
+            review_tvRank.visibility = View.VISIBLE
+            rlRank.visibility = View.VISIBLE
+        } else {
+            review_tvRank.visibility = View.GONE
+            rlRank.visibility = View.GONE
+        }
+
         review_ivInfo.setOnClickListener {
             callSubjectwisemarks()
         }
