@@ -169,6 +169,14 @@ interface WebInterface {
     ): Call<MyPackageModel>
 
     @FormUrlEncoded
+    @POST("Get_StudentTestPackage_By_Subject_2")
+    fun getMyPackages2(
+        @Field("StudentID") stuid: String, @Field("SubjectID") subjectid: String, @Field(
+            "StandardID") standardid: String, @Field("IsCompetitive") iscompetitive: String,
+        @Field("BoardID") boardid: String, @Field("CourseID") courseid: String
+    ): Call<MyPackageModel>
+
+    @FormUrlEncoded
     @POST("Get_Course_List")
     fun getExamList(@Field("CourseTypeID") coursetype: String): Call<PackageData>
 

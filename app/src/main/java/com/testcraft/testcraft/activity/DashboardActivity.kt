@@ -998,7 +998,11 @@ class DashboardActivity : AppCompatActivity() {
             bundle3.putInt("sub_id", subid)
             bundle3.putString("std_id", stdid)
             bundle3.putString("sub_name", subname)
+//            if(isCompetitive){
+//                bundle3.putString("board_id", )
+//            }else {
             bundle3.putString("board_id", boardid)
+//            }
             bundle3.putBoolean("isCompetitive", isCompetitive)
             setFragments(bundle3)
 

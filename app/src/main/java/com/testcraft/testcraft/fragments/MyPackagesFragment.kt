@@ -202,10 +202,18 @@ class MyPackagesFragment : Fragment() {
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getMyPackages(
-            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
-            subid.toString(), stdid, iscompetitive
-        )
+        val call: Call<MyPackageModel>?
+        if (bundle!!.getBoolean("isCompetitive", false)) {
+            call = apiService.getMyPackages2(
+                Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
+                subid.toString(), stdid, iscompetitive, "0", subid.toString()
+            )
+        } else {
+            call = apiService.getMyPackages2(
+                Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
+                subid.toString(), stdid, iscompetitive, boardid, "0"
+            )
+        }
 
         call.enqueue(object : Callback<MyPackageModel> {
 
