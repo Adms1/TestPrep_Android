@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="version_name">Ver.No 3.220201028</string>
+    <string name="version_name">Ver.No 3.320201029</string>
 
     <string name="default_notification_channel_id" translatable="false">default</string>
 
