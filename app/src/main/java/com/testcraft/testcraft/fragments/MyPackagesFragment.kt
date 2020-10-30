@@ -86,7 +86,32 @@ class MyPackagesFragment : Fragment() {
                 intent.putExtra("std_id", "")
                 intent.putExtra("sub_name", subname)
 
-            }else{
+            } else {
+                intent.putExtra("coursetypeid", "1")
+
+                intent.putExtra("board_id", boardid)
+                intent.putExtra("sub_id", subid.toString())
+                intent.putExtra("std_id", stdid)
+                intent.putExtra("sub_name", subname)
+            }
+
+            startActivity(intent)
+            (context as DashboardActivity).finish()
+        }
+
+        my_create_pkgs.setOnClickListener {
+
+            val intent = Intent(context, CreateTestActivity::class.java)
+
+            if (iscompetitive == "1") {
+                intent.putExtra("coursetypeid", "2")
+
+                intent.putExtra("board_id", "")
+                intent.putExtra("sub_id", subid.toString())
+                intent.putExtra("std_id", "")
+                intent.putExtra("sub_name", subname)
+
+            } else {
                 intent.putExtra("coursetypeid", "1")
 
                 intent.putExtra("board_id", boardid)

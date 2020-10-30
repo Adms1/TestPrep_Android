@@ -306,7 +306,7 @@
                 android:layout_marginRight="@dimen/_25sdp"
                 android:hint="@string/mobile"
                 android:imeOptions="actionDone"
-                android:inputType="phone"
+                android:inputType="number"
                 android:maxLength="10"
                 android:maxLines="1"
                 android:paddingTop="@dimen/_7sdp"

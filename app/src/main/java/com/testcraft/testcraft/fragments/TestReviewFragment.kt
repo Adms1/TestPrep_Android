@@ -216,7 +216,7 @@ class TestReviewFragment : Fragment() {
                         response.body()!!.get("data").asJsonArray[0].asJsonObject.get("IsCompetetive").asInt
 
                     review_tvPercentage.text =
-                        "percentage : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("percentage").asString + "%"
+                        "Percentage : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("percentage").asString + "%"
                     review_tvPercentile.text =
                         "Percentile : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Percentile").asString
 

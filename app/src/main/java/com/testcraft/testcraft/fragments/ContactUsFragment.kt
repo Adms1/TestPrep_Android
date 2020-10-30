@@ -138,6 +138,11 @@ class ContactUsFragment : Fragment() {
             isvalid = false
         }
 
+        if (contactus_etMobile.text.toString().length != 10) {
+            contactus_etMobile.error = "Please enter valid mobile number"
+            isvalid = false
+        }
+
         return isvalid
 
     }

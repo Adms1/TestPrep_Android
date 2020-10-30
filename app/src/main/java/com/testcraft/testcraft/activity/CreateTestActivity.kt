@@ -104,6 +104,41 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
             callTemplate()
         }
 
+//        createtest_etTestname.setOnClickListener {
+//            if (createtest_llSelect.visibility == View.VISIBLE) {
+//                createtest_etTestname.setEnabled(false)
+//
+//                createtest_etTestname.isClickable=false
+//                createtest_etTestname.isFocusable=false
+//                createtest_etTestname.isFocusableInTouchMode=false
+//            } else {
+//                createtest_etTestname.setEnabled(true)
+//
+//                createtest_etTestname.isClickable=true
+//                createtest_etTestname.isFocusable=true
+//                createtest_etTestname.isFocusableInTouchMode=true
+//
+//            }
+//        }
+////
+//        createtest_etDuration.setOnClickListener {
+//            if (createtest_llSelect.visibility == View.VISIBLE) {
+//                createtest_etDuration.isFocusable = false
+//            } else {
+//                createtest_etDuration.isFocusable = true
+//            }
+//        }
+//
+//        createtest_etMarks.setOnClickListener {
+//            if (createtest_llSelect.visibility == View.VISIBLE) {
+//
+//                createtest_etMarks.isFocusable = false
+//            } else {
+//
+//                createtest_etMarks.isFocusable = true
+//            }
+//        }
+
         createtest_spTemplate.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) { // Get the value selected by the user
                 // e.g. to store it as a field or immediately call a method
