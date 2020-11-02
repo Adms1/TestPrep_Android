@@ -110,6 +110,7 @@ class IntroActivity : AppCompatActivity() {
 
         callbackManager = CallbackManager.Factory.create()
         fb.setReadPermissions(listOf(EMAIL))
+//        loginManager.logInWithReadPermissions(this@IntroActivity, listOf(EMAIL));
 
         layouts = intArrayOf(R.drawable.slider_logo, R.drawable.slider_logo, R.drawable.slider_logo)
 

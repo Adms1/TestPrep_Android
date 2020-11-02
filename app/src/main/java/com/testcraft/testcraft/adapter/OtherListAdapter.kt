@@ -191,13 +191,16 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 
                     IntroActivity.disconnectFromFacebook()
 
+                    AppConstants.isFirst = 0
+
                     Utils.clearPrefrence(context)
 
                     DashboardActivity.mGoogleSignInClient!!.signOut()
                         .addOnCompleteListener(DashboardActivity.context as DashboardActivity) {
                             // ...
 
-                            val intent = Intent(DashboardActivity.context, IntroActivity::class.java)
+                            val intent =
+                                Intent(DashboardActivity.context, IntroActivity::class.java)
                             context.startActivity(intent)
                         }
 

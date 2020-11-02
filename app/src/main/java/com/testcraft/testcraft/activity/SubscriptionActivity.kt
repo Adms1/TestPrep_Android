@@ -101,6 +101,11 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
     }
 
     override fun onBackPressed() {
+
+        AppConstants.isFirst = 0
+
+        val intent = Intent(this@SubscriptionActivity, DashboardActivity::class.java)
+        startActivity(intent)
         finish()
     }
 

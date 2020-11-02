@@ -67,6 +67,7 @@ class ViewInvoiceActivity : AppCompatActivity() {
             invoice_view.settings.builtInZoomControls = true
             invoice_view.settings.useWideViewPort = true
 
+//            invoice_view.isHorizontalScrollBarEnabled = true
             invoice_view.settings.javaScriptEnabled = true
             invoice_view.settings.cacheMode = WebSettings.LOAD_NO_CACHE
             invoice_view.loadUrl(url)
