@@ -1,7 +1,10 @@
 package com.testcraft.testcraft.activity
 
-import android.content.*
-import android.net.Uri
+import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.IntentFilter
+import android.graphics.Paint
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -239,6 +242,11 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
 
                     subscription_tvPrice.text =
                         "₹ " + response.body()!!.get("data").asJsonObject.get("Price").asString
+                    subscription_tvListPrice.text =
+                        "₹ " + response.body()!!.get("data").asJsonObject.get("ListPrice").asString
+                    subscription_tvListPrice.paintFlags =
+                        subscription_tvListPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    Utils.setFont(this@SubscriptionActivity, "fonts/Inter-Bold.ttf", subscription_tvPrice)
 
                 } else {
 
@@ -301,27 +309,33 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-                        Log.d("url", Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
-                            .toString())
-
-                        val browserIntent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
-                        )
-
-                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        browserIntent.setPackage("com.android.chrome")
-                        try {
-                            startActivity(browserIntent)
-                        } catch (ex: ActivityNotFoundException) {
-                            // Chrome browser presumably not installed so allow user to choose instead
-                            browserIntent.setPackage(null)
-                            startActivity(browserIntent)
-                        }
+//                        if (response.body()!!["data"].asJsonArray[0].asJsonObject["IsFree"].asString == "0") {
+//                            Log.d("url", Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
+//                                .toString())
+//
+//                            val browserIntent = Intent(
+//                                Intent.ACTION_VIEW,
+//                                Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!! + "&subcription=1")
+//                            )
+//
+//                            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                            browserIntent.setPackage("com.android.chrome")
+//                            try {
+//                                startActivity(browserIntent)
+//                            } catch (ex: ActivityNotFoundException) {
+//                                // Chrome browser presumably not installed so allow user to choose instead
+//                                browserIntent.setPackage(null)
+//                                startActivity(browserIntent)
+//                            }
+//                        } else {
+                        AppConstants.isFirst = 0
+                        val intent =
+                            Intent(this@SubscriptionActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish()
+//                        }
                     }
                 }
-
-
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
