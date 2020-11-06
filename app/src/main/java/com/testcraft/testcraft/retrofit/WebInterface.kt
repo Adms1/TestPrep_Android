@@ -225,7 +225,12 @@ interface WebInterface {
 
     @FormUrlEncoded
     @POST("SubscriptionCheckOut")
-    fun subscription_checkout(@Field("StudentID") student_id: String): Call<JsonObject>
+    fun subscription_checkout(@Field("PaymentAmount") payment_amount: String,
+                              @Field("PaymentTransactionID") payment_trans_id: String, @Field("StudentID") student_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Update_Subscription_Payment_Request")
+    fun updatesubscriptionPayment(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
     @FormUrlEncoded
     @POST("Insert_IssueReport")

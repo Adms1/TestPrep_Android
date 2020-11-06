@@ -27,7 +27,12 @@ class MySubscriptionAdapter(val context: Context, val dataList: ArrayList<Packag
 
         p0.date.text = "Date : " + dataList[p1].PaymentDate
         p0.id.text = "Package : " + dataList[p1].PackageName
-        p0.amount.text = "₹ " + dataList[p1].PaymentAmount.toString()
+
+        if (dataList[p1].IsFree == "1") {
+            p0.amount.text = "Free"
+        } else {
+            p0.amount.text = "₹ " + dataList[p1].PaymentAmount.toString()
+        }
 
     }
 

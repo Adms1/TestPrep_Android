@@ -33,6 +33,8 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
     var connectivity: Connectivity? = null
     var iinterface: SubscriptionInterface? = null
 
+    var price = ""
+
     companion object {
         var subscriptionSubjectArr: ArrayList<String> = ArrayList()
     }
@@ -240,8 +242,15 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
                                 response.body()!!.get("data").asJsonObject.get("TestPackage").asString +
                                 " curated papers by expert TC curators \n\n• Discounts on tests created by reputed curators"
 
-                    subscription_tvPrice.text =
-                        "₹ " + response.body()!!.get("data").asJsonObject.get("Price").asString
+                    price = response.body()!!.get("data").asJsonObject.get("Price").asString
+
+                    if (response.body()!!.get("data").asJsonObject.get("Price").asString == "0") {
+                        subscription_tvPrice.text = "Free"
+                    } else {
+                        subscription_tvPrice.text =
+                            "₹ " + response.body()!!.get("data").asJsonObject.get("Price").asString
+                    }
+
                     subscription_tvListPrice.text =
                         "₹ " + response.body()!!.get("data").asJsonObject.get("ListPrice").asString
                     subscription_tvListPrice.paintFlags =
@@ -298,13 +307,15 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
     fun callGetSubscriptionConfirm() {
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getSubscriptionConfirm(
+        DialogUtils.showDialog(this@SubscriptionActivity)
+        val call = apiService.subscription_checkout(price, "0",
             Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<JsonObject> {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
+                DialogUtils.dismissDialog()
                 if (response.body() != null) {
 
                     if (response.body()!!["Status"].asString == "true") {
@@ -328,11 +339,8 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
 //                                startActivity(browserIntent)
 //                            }
 //                        } else {
-                        AppConstants.isFirst = 0
-                        val intent =
-                            Intent(this@SubscriptionActivity, DashboardActivity::class.java)
-                        startActivity(intent)
-                        finish()
+
+                        updatepayment(response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString)
 //                        }
                     }
                 }
@@ -340,6 +348,48 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
+                DialogUtils.dismissDialog()
+                Log.e("", t.toString())
+            }
+        })
+    }
+
+    fun updatepayment(orderid: String) {
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        DialogUtils.showDialog(this@SubscriptionActivity)
+
+        val hashmap: HashMap<String, String> = HashMap()
+        hashmap["PaymentOrderID"] = orderid
+        hashmap["StudentID"] =
+            Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!!
+        hashmap["ExternalTransactionID"] = "2"
+        hashmap["ExternalTransactionStatus"] = "success"
+
+        val call = apiService.updatesubscriptionPayment(hashmap)
+
+        call.enqueue(object : Callback<JsonObject> {
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                DialogUtils.dismissDialog()
+                if (response.body() != null) {
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        AppConstants.isFirst = 0
+                        val intent =
+                            Intent(this@SubscriptionActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                DialogUtils.dismissDialog()
                 Log.e("", t.toString())
             }
         })
