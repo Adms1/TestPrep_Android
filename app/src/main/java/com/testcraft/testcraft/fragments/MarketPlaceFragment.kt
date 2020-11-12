@@ -23,10 +23,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
-import com.testcraft.testcraft.activity.*
+import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.rlFilter
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.testid
+import com.testcraft.testcraft.activity.FilterActivity
+import com.testcraft.testcraft.activity.NewActivity
+import com.testcraft.testcraft.activity.OtpActivity
 import com.testcraft.testcraft.adapter.MyPackageAdapter
 import com.testcraft.testcraft.carouselPkg.CarouselParameters
 import com.testcraft.testcraft.carouselPkg.CarouselView1
@@ -159,8 +162,20 @@ class MarketPlaceFragment : Fragment() {
 
         img_subscription.setOnClickListener {
 
-            val intent = Intent(activity!!, SubscriptionActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(activity!!, SubscriptionActivity::class.java)
+//            startActivity(intent)
+
+// click event for show-dismiss bottom sheet
+
+//        if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+//            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//            btn_bottom_sheet.setText("Close sheet");
+//        } else {
+//            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+//            btn_bottom_sheet.setText("Expand sheet");
+//        }
+            val bottomSheetFragment = MarketPlaceBottomSheetFragment()
+            bottomSheetFragment.show(activity!!.supportFragmentManager, bottomSheetFragment.tag)
 
         }
 

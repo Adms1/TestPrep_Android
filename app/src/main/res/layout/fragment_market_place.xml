@@ -15,7 +15,6 @@
             android:id="@+id/main_pkg_item_mainll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_20sdp"
             android:visibility="visible">
 
             <TextView
@@ -62,8 +61,7 @@
             <ImageView
                 android:id="@+id/img_subscription"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
-                android:padding="@dimen/_5sdp"
+                android:layout_height="@dimen/_370sdp"
                 android:visibility="gone"
                 android:scaleType="fitXY"
                 app:layout_constraintLeft_toLeftOf="parent"

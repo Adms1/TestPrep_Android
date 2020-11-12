@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_dialog"
+    android:clipToPadding="true"
+    android:paddingLeft="@dimen/_15sdp"
+    android:paddingRight="@dimen/_15sdp"
+    android:paddingBottom="32dp"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="16dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/bottomsheet_tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:text="Choose Package"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_15sdp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/bottomsheet_spCourseType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/spinner_bg"
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_tvHeader" />
+
+    <View
+        android:id="@+id/bottomsheet_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_spCourseType" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/bottomsheet_spBoard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/spinner_bg"
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_line" />
+
+    <View
+        android:id="@+id/bottomsheet_line1"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_spBoard" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/bottomsheet_spStd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/spinner_bg"
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_line1" />
+
+    <View
+        android:id="@+id/bottomsheet_line2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_spStd" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/bottomsheet_spCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/spinner_bg"
+        app:layout_constraintTop_toBottomOf="@+id/bottomsheet_line1" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/bottomsheet_llAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_white_ring_bg"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/bottomsheet_tvPaynow"
+        app:layout_constraintTop_toBottomOf="@id/bottomsheet_spCourse">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/bottomsheet_tvAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/blue_white_ring_bg"
+            android:gravity="center"
+            android:padding="@dimen/_8sdp"
+            android:text="For Only ₹299"
+            android:textColor="@color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/bottomsheet_tvListAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/blue_white_ring_bg"
+            android:gravity="center"
+            android:padding="@dimen/_8sdp"
+            android:text="Free"
+            android:textColor="@color/colorPrimary" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/bottomsheet_tvPaynow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="@dimen/_8sdp"
+        android:text="Pay Now!"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/bottomsheet_llAmount"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bottomsheet_spCourse" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
