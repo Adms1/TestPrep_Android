@@ -46,10 +46,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 @SuppressLint("SetTextI18n")
-class MarketPlaceFragment : Fragment() {
+class MarketPlaceFragment : Fragment(), MarketPlaceBottomSheetFragment.Companion.ItemClickListener {
 
     private var mDataList: ArrayList<PackageData.PackageDataList>? = ArrayList()
     private var tutorList: ArrayList<PackageData.PackageDataList>? = ArrayList()
+
+    var bottomSheetFragment: MarketPlaceBottomSheetFragment? = null
 
     //    private var myViewPagerAdapter: MyViewPagerAdapter? = null
     private var layouts: IntArray? = null
@@ -174,8 +176,8 @@ class MarketPlaceFragment : Fragment() {
 //            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 //            btn_bottom_sheet.setText("Expand sheet");
 //        }
-            val bottomSheetFragment = MarketPlaceBottomSheetFragment()
-            bottomSheetFragment.show(activity!!.supportFragmentManager, bottomSheetFragment.tag)
+            bottomSheetFragment = MarketPlaceBottomSheetFragment()
+            bottomSheetFragment!!.show(activity!!.supportFragmentManager, bottomSheetFragment!!.tag)
 
         }
 
@@ -1124,6 +1126,10 @@ class MarketPlaceFragment : Fragment() {
                 DialogUtils.dismissDialog()
             }
         })
+    }
+
+    override fun onItemClick(item: String?) {
+        bottomSheetFragment!!.dismiss()
     }
 
 }
