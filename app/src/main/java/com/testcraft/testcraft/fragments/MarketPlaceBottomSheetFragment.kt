@@ -8,11 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
-import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.adapter.CourseSpinnerAdapter
 import com.testcraft.testcraft.adapter.CoursetypeSpinnerAdapter
 import com.testcraft.testcraft.adapter.StdSpinnerAdapter
@@ -45,9 +43,12 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        bottomsheet_tvPaynow.setOnClickListener {
-//            callInsertSubscriptionSubject()
-//        }
+        Utils.setFont(activity!!, "fonts/Inter-SemiBold.ttf", bottomsheet_tvHeader)
+
+
+        bottomsheet_tvPaynow.setOnClickListener {
+            callGetSubscriptionConfirm()
+        }
 
         bottomsheet_spCourseType.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -57,7 +58,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                     if (strCourseType != 0) {
 
-                        if (strCourseType == 1) {
+                        if (strCourseType == 1 && strBoard != "0") {
                             bottomsheet_spStd.visibility = View.VISIBLE
                         } else {
                             bottomsheet_spStd.visibility = View.GONE
@@ -70,7 +71,6 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                         bottomsheet_spStd.visibility = View.GONE
                         bottomsheet_spBoard.visibility = View.GONE
                     }
-
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -82,10 +82,16 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                     // e.g. to store it as a field or immediately call a method
 
                     if (courseList.size > 0) {
+
                         strBoard = courseList[position].CourseID
 
-                        callStandardList(strCourseType)
+                        callStandardList(strBoard)
 
+                        if (strCourseType == 2) {
+                            if (strBoard != "0") {
+                                callInsertSubscriptionSubject()
+                            }
+                        }
                     }
                 }
 
@@ -99,6 +105,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                     strStd = stdList[position].StandardID
 
+                    callInsertSubscriptionSubject()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -126,7 +133,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                     val packageData = PackageData.PackageDataList(0, "")
                     packageData.CourseTypeID = 0
-                    packageData.CourseTypeName = "Select Course Type"
+                    packageData.CourseTypeName = "Select Exam"
                     courseTypeList.add(packageData)
 
                     if (response.body()!!.Status == "true") {
@@ -139,7 +146,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                     } else {
 
-                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
 
                     }
                 }
@@ -176,15 +183,15 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                     if (response.body()!!.Status == "true") {
 
-//                        if(strCourseType == 1) {
-//                            packageData.CourseID = "0"
-//                            packageData.CourseName = "Select Board"
-//                            courseList.add(packageData)
-//                        }else{
-//                            packageData.CourseID = "0"
-//                            packageData.CourseName = "Select Course"
-//                            courseList.add(packageData)
-//                        }
+                        if (strCourseType == 1) {
+                            packageData.CourseID = "0"
+                            packageData.CourseName = "Select Board"
+                            courseList.add(packageData)
+                        } else {
+                            packageData.CourseID = "0"
+                            packageData.CourseName = "Select Course"
+                            courseList.add(packageData)
+                        }
 
                         for (i in 0 until response.body()!!.data.size) {
                             courseList.add(response.body()!!.data[i])
@@ -192,12 +199,12 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                         bottomsheet_spBoard.adapter =
                             CourseSpinnerAdapter(activity!!, courseList)
 
-                        callSubscriptionPrice()
+//                        callSubscriptionPrice()
 
 
                     } else {
 
-                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
 
                     }
                 }
@@ -211,9 +218,17 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
         })
     }
 
-    fun callStandardList(courseId: Int) {
+    fun callStandardList(courseId: String) {
 
         stdList = ArrayList()
+
+        if (strCourseType == 1) {
+            if (courseId == "0") {
+                bottomsheet_spStd.visibility = View.GONE
+            } else {
+                bottomsheet_spStd.visibility = View.VISIBLE
+            }
+        }
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
             Utils.ping(activity!!, AppConstants.NETWORK_MSG)
@@ -231,11 +246,6 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                     DialogUtils.dismissDialog()
 
-//                    val packageData = PackageData.PackageDataList(0, "")
-//                    packageData.StandardID = "0"
-//                    packageData.StandardName = "Select Standard"
-//                    stdList.add(packageData)
-
                     if (response.body()!!.Status == "true") {
 
                         for (i in 0 until response.body()!!.data.size) {
@@ -243,11 +253,11 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                         }
                         bottomsheet_spStd.adapter = StdSpinnerAdapter(activity!!, stdList)
 
-                        callSubscriptionPrice()
+//                        callSubscriptionPrice()
 
                     } else {
 
-                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
 
                     }
                 }
@@ -273,6 +283,9 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                 if (response.body()!!.get("data").asJsonObject != null) {
 
+                    bottomsheet_tvPaynow.visibility = View.VISIBLE
+                    bottomsheet_llAmount.visibility = View.VISIBLE
+
                     bottomsheet_tvListAmount.paintFlags =
                         bottomsheet_tvListAmount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     Utils.setFont(activity!!, "fonts/Inter-Bold.ttf", bottomsheet_tvAmount)
@@ -288,13 +301,14 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                     bottomsheet_tvListAmount.text =
                         "₹" + response.body()!!.get("data").asJsonObject.get("ListPrice").asString
 
-                }
-//                else {
+                } else {
 //
+                    bottomsheet_tvPaynow.visibility = View.GONE
+                    bottomsheet_llAmount.visibility = View.GONE
 //                    bottomsheet_tvAmount.text =  "₹" + response.body()!!.get("data").asJsonObject.get("Price").asString
 //                    bottomsheet_tvListAmount.text = "₹ " + response.body()!!.get("data").asJsonObject.get("ListPrice").asString
 //
-//                }
+                }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -355,8 +369,10 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-                        AppConstants.isFirst = 1
-                        setFragments(null)
+//                        AppConstants.isFirst = 1
+//                        setFragments(null)
+                        MarketPlaceFragment.sheetClose()
+
 
                     }
                 }
@@ -401,8 +417,13 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                 if (response.body()!!.get("Status").asString == "true") {
 
-                    callGetSubscriptionConfirm()
+                    callSubscriptionPrice()
+//                    callGetSubscriptionConfirm()
+
                 } else {
+
+                    bottomsheet_tvPaynow.visibility = View.GONE
+                    bottomsheet_llAmount.visibility = View.GONE
 
                     DialogUtils.createConfirmDialog1(
                         activity!!,
@@ -413,6 +434,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                             dialog.dismiss()
 
                         }).show()
+
                 }
             }
 
@@ -423,9 +445,4 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
         })
     }
 
-    companion object {
-        interface ItemClickListener {
-            fun onItemClick(item: String?)
-        }
-    }
 }

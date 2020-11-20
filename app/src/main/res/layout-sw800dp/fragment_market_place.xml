@@ -89,7 +89,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@color/white"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/img_subscription">
+                app:layout_constraintTop_toBottomOf="@+id/rltutorCoverflow">
 
                 <TextView
                     android:id="@+id/main_pkg_item_tvCategory"
@@ -134,7 +134,7 @@
             <RelativeLayout
                 android:id="@+id/rlCoverflow1"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_205sdp"
+                android:layout_height="@dimen/_250sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_10sdp"
@@ -161,7 +161,7 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/rlCoverflow"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_205sdp" />
+                    android:layout_height="@dimen/_250sdp" />
 
             </RelativeLayout>
 
@@ -173,7 +173,7 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rlCoverflow1">
+                app:layout_constraintTop_toBottomOf="@+id/img_subscription">
 
                 <TextView
                     android:id="@+id/main_pkg_item_tvTutor"
@@ -205,7 +205,7 @@
             <RelativeLayout
                 android:id="@+id/rltutorCoverflow"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_10sdp"
@@ -214,10 +214,18 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlTutor">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTutor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:nestedScrollingEnabled="false" />
+
                 <com.testcraft.testcraft.carouselPkg.CarouselView1
                     android:id="@+id/carousel1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:visibility="gone"
                     android:layout_centerInParent="true" />
 
             </RelativeLayout>
@@ -228,7 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/rltutorCoverflow">
+                app:layout_constraintTop_toBottomOf="@+id/rlCoverflow1">
 
                 <TextView
                     android:id="@+id/main_pkg_item_tvSingleTest"
@@ -264,7 +272,6 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:background="@drawable/carousel_bg"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlSingleTest" />
 

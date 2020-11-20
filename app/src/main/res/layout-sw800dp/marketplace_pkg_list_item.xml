@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mall"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/blue_gray_bg"
     android:paddingLeft="@dimen/_5sdp"
     android:paddingRight="@dimen/_5sdp"
-    android:paddingBottom="@dimen/_5sdp">
+    android:paddingBottom="@dimen/_5sdp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_5sdp"
+    app:cardElevation="@dimen/_5sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,16 +21,16 @@
 
         <RelativeLayout
             android:id="@+id/package_item_rlImage"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_130sdp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/package_item_ivImage"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_60sdp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 android:src="@drawable/pp_1" />
 
             <TextView
@@ -44,42 +46,41 @@
 
         <TextView
             android:id="@+id/package_item_tvPkgname"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_32sdp"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:includeFontPadding="false"
             android:maxLines="2"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintLeft_toRightOf="@+id/package_item_rlImage"
-            app:layout_constraintRight_toLeftOf="@id/package_item_tvPrice"
-            app:layout_constraintTop_toTopOf="@+id/package_item_rlImage" />
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintTop_toBottomOf="@+id/package_item_tvSub" />
 
         <TextView
             android:id="@+id/package_item_tvSub"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/package_item_tvPkgname"
-            app:layout_constraintRight_toRightOf="@id/package_item_tvPkgname"
-            app:layout_constraintTop_toBottomOf="@+id/package_item_tvPkgname" />
+            app:layout_constraintTop_toBottomOf="@+id/package_item_rlImage" />
 
         <TextView
             android:id="@+id/package_item_tvCreated"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
             android:textAlignment="gravity"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/package_item_tvPkgname"
-            app:layout_constraintRight_toRightOf="@id/package_item_tvPrice"
+            android:textSize="@dimen/_15sdp"
             app:layout_constraintTop_toBottomOf="@+id/package_item_tvSub" />
 
         <TextView
@@ -101,6 +102,7 @@
             android:maxLines="1"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_10sdp"
+            android:visibility="gone"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/package_item_tvPkgname" />
 
@@ -108,98 +110,102 @@
             android:id="@+id/package_item_tvDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:ellipsize="end"
             android:includeFontPadding="false"
             android:maxLines="1"
-            android:text="This package contains following test:"
+            android:text="Contains following test"
+            android:textColor="@color/black"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
-            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
-            app:layout_constraintTop_toBottomOf="@+id/package_item_rlImage" />
+            app:layout_constraintTop_toBottomOf="@+id/package_item_tvPkgname" />
 
         <TextView
             android:id="@+id/package_item_tv1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:includeFontPadding="false"
             android:maxLines="1"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
-            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
             app:layout_constraintTop_toBottomOf="@+id/package_item_tvDesc" />
 
         <TextView
             android:id="@+id/package_item_tv2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:includeFontPadding="false"
             android:maxLines="1"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
-            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
             app:layout_constraintTop_toBottomOf="@+id/package_item_tv1" />
 
         <TextView
             android:id="@+id/package_item_tv3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:includeFontPadding="false"
             android:maxLines="1"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
-            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
             app:layout_constraintTop_toBottomOf="@+id/package_item_tv2" />
 
         <TextView
             android:id="@+id/package_item_tv4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:includeFontPadding="false"
             android:maxLines="1"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
-            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/package_item_tv3" />
 
         <TextView
             android:id="@+id/package_item_tv5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:includeFontPadding="false"
             android:maxLines="1"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
-            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/package_item_tv4" />
 
         <TextView
             android:id="@+id/package_item_tv6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_10sdp"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:includeFontPadding="false"
             android:maxLines="1"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintLeft_toLeftOf="@+id/package_item_rlImage"
-            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/package_item_tv5" />
 
         <TextView
@@ -209,11 +215,11 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:padding="@dimen/_5sdp"
-            android:text="View Detail..."
-            android:textColor="@color/colorPrimaryDark"
+            android:text="View more..."
+            android:textColor="@color/gray"
             android:textSize="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="@id/package_item_tvPricetitle"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/package_item_tv6" />
 
         <!--    <TextView-->
@@ -303,7 +309,7 @@
         <!--    </RelativeLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
 
 
     <!--<?xml version="1.0" encoding="utf-8"?>-->

@@ -16,7 +16,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +31,7 @@ import com.testcraft.testcraft.activity.FilterActivity
 import com.testcraft.testcraft.activity.NewActivity
 import com.testcraft.testcraft.activity.OtpActivity
 import com.testcraft.testcraft.adapter.MyPackageAdapter
+import com.testcraft.testcraft.adapter.TutorAdapter
 import com.testcraft.testcraft.carouselPkg.CarouselParameters
 import com.testcraft.testcraft.carouselPkg.CarouselView1
 import com.testcraft.testcraft.carouselPkg.Metrics
@@ -46,12 +47,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 @SuppressLint("SetTextI18n")
-class MarketPlaceFragment : Fragment(), MarketPlaceBottomSheetFragment.Companion.ItemClickListener {
+class MarketPlaceFragment : Fragment() {
 
     private var mDataList: ArrayList<PackageData.PackageDataList>? = ArrayList()
     private var tutorList: ArrayList<PackageData.PackageDataList>? = ArrayList()
-
-    var bottomSheetFragment: MarketPlaceBottomSheetFragment? = null
 
     //    private var myViewPagerAdapter: MyViewPagerAdapter? = null
     private var layouts: IntArray? = null
@@ -62,6 +61,15 @@ class MarketPlaceFragment : Fragment(), MarketPlaceBottomSheetFragment.Companion
 
     companion object {
         var rv: RecyclerView? = null
+
+        var bottomSheetFragment: MarketPlaceBottomSheetFragment? = null
+
+        fun sheetClose() {
+            AppConstants.isFirst = 1
+            setFragments(null)
+
+            bottomSheetFragment!!.dismiss()
+        }
     }
 
     var carousel: CarouselView1? = null
@@ -140,6 +148,9 @@ class MarketPlaceFragment : Fragment(), MarketPlaceBottomSheetFragment.Companion
         rv = view.findViewById(R.id.rvPkgs)
 
         main_pkg_item_rvSingleTest.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+        rvTutor.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
         main_pkg_item_tvChange.setOnClickListener {
@@ -806,6 +817,8 @@ class MarketPlaceFragment : Fragment(), MarketPlaceBottomSheetFragment.Companion
                             carousel1!!.adapter =
                                 TutorPageAdapter(5, 330, 160, activity!!, tutorList!!)
 
+                            rvTutor.adapter = TutorAdapter(activity!!, tutorList!!)
+
                         } else {
 
                             main_pkg_item_rlTutor.visibility = View.GONE
@@ -908,7 +921,7 @@ class MarketPlaceFragment : Fragment(), MarketPlaceBottomSheetFragment.Companion
             val created: TextView = view.findViewById(R.id.package_item_tvCreated)
             val price: TextView = view.findViewById(R.id.package_item_tvPrice)
             val mainll: TextView = view.findViewById(R.id.package_item_tvDetail)
-            val mainll1: ConstraintLayout = view.findViewById(R.id.mall)
+            val mainll1: CardView = view.findViewById(R.id.mall)
 
             val t1: TextView = view.findViewById(R.id.package_item_tv1)
             val t2: TextView = view.findViewById(R.id.package_item_tv2)
@@ -919,7 +932,7 @@ class MarketPlaceFragment : Fragment(), MarketPlaceBottomSheetFragment.Companion
 
             if (arrList.size > 0) {
                 pkgname.text = arrList[position].TestPackageName
-                sub.text = arrList[position].SubjectName
+                sub.text = arrList[position].SubjectName + " by " + arrList[position].TutorName
 //                created.text = "By " + arrList[position].TutorName
                 created.text =
                     Html.fromHtml("By " + "<font color=\"#3ea7e0\">" + arrList[position].TutorName + "</font>")
@@ -1127,9 +1140,4 @@ class MarketPlaceFragment : Fragment(), MarketPlaceBottomSheetFragment.Companion
             }
         })
     }
-
-    override fun onItemClick(item: String?) {
-        bottomSheetFragment!!.dismiss()
-    }
-
 }
