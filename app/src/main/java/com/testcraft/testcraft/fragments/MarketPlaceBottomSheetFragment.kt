@@ -44,7 +44,8 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Utils.setFont(activity!!, "fonts/Inter-SemiBold.ttf", bottomsheet_tvHeader)
-
+        Utils.setFont(activity!!, "fonts/Inter-SemiBold.ttf", bottomsheet_tvText)
+        Utils.setFont(activity!!, "fonts/Inter-SemiBold.ttf", bottomsheet_tvListAmount)
 
         bottomsheet_tvPaynow.setOnClickListener {
             callGetSubscriptionConfirm()
@@ -70,7 +71,13 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                         bottomsheet_spStd.visibility = View.GONE
                         bottomsheet_spBoard.visibility = View.GONE
+                        bottomsheet_llAmount.visibility = View.GONE
+                        bottomsheet_tvPaynow.visibility = View.GONE
                     }
+
+                    bottomsheet_llAmount.visibility = View.GONE
+                    bottomsheet_tvPaynow.visibility = View.GONE
+
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -83,6 +90,8 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                     if (courseList.size > 0) {
 
+//                        if(strBoard != "0") {
+
                         strBoard = courseList[position].CourseID
 
                         callStandardList(strBoard)
@@ -92,6 +101,10 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                                 callInsertSubscriptionSubject()
                             }
                         }
+//                        }else {
+//                            bottomsheet_llAmount.visibility = View.GONE
+//                            bottomsheet_tvPaynow.visibility = View.GONE
+//                        }
                     }
                 }
 
@@ -372,7 +385,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 //                        AppConstants.isFirst = 1
 //                        setFragments(null)
                         MarketPlaceFragment.sheetClose()
-
+                        Utils.ping(activity!!, "Successfully subscribe")
 
                     }
                 }

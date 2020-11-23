@@ -133,10 +133,8 @@
             <RelativeLayout
                 android:id="@+id/rlCoverflow1"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_250sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_height="@dimen/_270sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_10sdp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/main_pkg_item_rlCategory">
@@ -160,7 +158,7 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/rlCoverflow"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_250sdp" />
+                    android:layout_height="@dimen/_265sdp" />
 
             </RelativeLayout>
 

@@ -19,8 +19,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_my_package_image"
             android:layout_width="@dimen/_55sdp"
-            android:layout_height="@dimen/_55sdp"
-            android:layout_centerInParent="true" />
+            android:layout_height="@dimen/_55sdp" />
 
         <TextView
             android:id="@+id/item_my_package_name_short"
@@ -45,43 +44,41 @@
 
     </RelativeLayout>
 
-
     <TextView
         android:id="@+id/item_my_package_name"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_height="@dimen/_34sdp"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_10sdp"
         android:ellipsize="end"
         android:maxLines="2"
         android:textColor="@color/black"
-        android:textSize="@dimen/_11sdp"
+        android:textSize="@dimen/_13sdp"
         app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
-        app:layout_constraintRight_toLeftOf="@+id/item_my_package_price"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintRight_toLeftOf="@+id/item_my_package_btnNext"
+        app:layout_constraintTop_toBottomOf="@+id/item_my_package_subject" />
 
     <TextView
         android:id="@+id/item_my_package_subject"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:textSize="@dimen/_10sdp"
+        android:textSize="@dimen/_11sdp"
         app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
-        app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
-        app:layout_constraintRight_toLeftOf="@+id/item_my_package_btnNext"
-        app:layout_constraintTop_toBottomOf="@+id/item_my_package_name" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/item_my_package_tutor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:textSize="@dimen/_10sdp"
+        android:textSize="@dimen/_11sdp"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
         app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
         app:layout_constraintRight_toLeftOf="@+id/item_my_package_btnNext"
-        app:layout_constraintTop_toBottomOf="@+id/item_my_package_subject" />
+        app:layout_constraintTop_toBottomOf="@+id/item_my_package_name" />
 
     <TextView
         android:id="@+id/item_my_package_price"
@@ -92,8 +89,8 @@
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="@+id/item_my_package_name"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/item_my_package_name" />
+        app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
+        app:layout_constraintTop_toBottomOf="@+id/item_my_package_name" />
 
     <TextView
         android:id="@+id/item_my_package_test"

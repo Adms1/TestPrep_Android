@@ -64,15 +64,18 @@ class MyPackageAdapter(
 
             p0.price.text = dataList[p1].TestPackageSalePrice
 
-            p0.subject.text = dataList[p1].SubjectName
+            p0.subject.text = dataList[p1].SubjectName + " | " + dataList[p1].TutorName
 
             p0.test.visibility = View.GONE
+            p0.ivArrow.visibility = View.GONE
 
         } else if (come_from == "my_pkgs") {
 
             p0.price.visibility = View.GONE
             p0.subject.visibility = View.GONE
+
             p0.test.visibility = View.VISIBLE
+            p0.ivArrow.visibility = View.VISIBLE
 
             if (dataList[p1].NumberOfTest == "1") {
 
@@ -208,6 +211,7 @@ class MyPackageAdapter(
         var btnStart: Button = itemView.findViewById(R.id.item_my_package_btnAddTocart)
         var test: TextView = itemView.findViewById(R.id.item_my_package_test)
         var image: ImageView = itemView.findViewById(R.id.item_my_package_image)
+        var ivArrow: ImageView = itemView.findViewById(R.id.item_my_package_btnNext)
 
 //        var std: TextView = itemView.findViewById(R.id.package_item_tvStd)
     }

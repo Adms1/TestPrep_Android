@@ -65,6 +65,7 @@ class MarketPlaceFragment : Fragment() {
         var bottomSheetFragment: MarketPlaceBottomSheetFragment? = null
 
         fun sheetClose() {
+
             AppConstants.isFirst = 1
             setFragments(null)
 
@@ -128,7 +129,7 @@ class MarketPlaceFragment : Fragment() {
 
         rlCoverflow!!.setPadding(30, 0, 30, 0)
         rlCoverflow!!.clipToPadding = false
-        rlCoverflow!!.pageMargin = 10
+        rlCoverflow!!.pageMargin = 20
 
 //        AppConstants.ON_BACK = 1
 
@@ -151,7 +152,7 @@ class MarketPlaceFragment : Fragment() {
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
         rvTutor.layoutManager =
-            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
 
         main_pkg_item_tvChange.setOnClickListener {
 
@@ -942,19 +943,19 @@ class MarketPlaceFragment : Fragment() {
                 if(arrList[position].TestList != null) {
                     if (arrList[position].TestList.size > 0) {
                         if (arrList[position].TestList[0].Name != "") {
-                            t1.text = "\u2022 " + arrList[position].TestList[0].Name
+                            t1.text = arrList[position].TestList[0].Name
                         } else {
                             t1.text = ""
                         }
 
                         if (arrList[position].TestList[1].Name != "") {
-                            t2.text = "\u2022 " + arrList[position].TestList[1].Name
+                            t2.text = arrList[position].TestList[1].Name
                         } else {
                             t2.text = ""
                         }
 
                         if (arrList[position].TestList[2].Name != "") {
-                            t3.text = "\u2022 " + arrList[position].TestList[2].Name
+                            t3.text = arrList[position].TestList[2].Name
                         } else {
                             t3.text = ""
                         }
