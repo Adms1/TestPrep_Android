@@ -83,13 +83,13 @@ class TestReviewFragment : Fragment() {
 
 //        }
 
-        if (AppConstants.IS_SELF_TEST == "true") {
-            review_tvRank.visibility = View.VISIBLE
-            rlRank.visibility = View.VISIBLE
-        } else {
-            review_tvRank.visibility = View.GONE
-            rlRank.visibility = View.GONE
-        }
+//        if (AppConstants.IS_SELF_TEST == "true") {
+//            review_tvRank.visibility = View.VISIBLE
+//            rlRank.visibility = View.VISIBLE
+//        } else {
+//            review_tvRank.visibility = View.GONE
+//            rlRank.visibility = View.GONE
+//        }
 
         review_ivInfo.setOnClickListener {
             callSubjectwisemarks()
@@ -220,29 +220,38 @@ class TestReviewFragment : Fragment() {
                     review_tvPercentile.text =
                         "Percentile : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Percentile").asString
 
-                    if (isCompetitive == 1) {
-                        review_ivInfo.visibility = View.VISIBLE
-                        rlRank.visibility = View.VISIBLE
-
-                        review_tvRank.visibility = View.VISIBLE
-
-                        if (response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString != "N/A" && response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString != "") {
-                            review_tvRank.text =
-                                "AIR : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString
-                        } else {
-                            review_tvRank.text =
-                                "Internal Rank : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("InternalRank").asString
-                        }
-
-                    } else {
-
-                        review_tvRank.text =
-                            "Internal Rank : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("InternalRank").asString
+                    if (AppConstants.IS_SELF_TEST == "true") {
 
                         review_ivInfo.visibility = View.GONE
                         rlRank.visibility = View.GONE
-                        review_tvRank.visibility = View.VISIBLE
+                        review_tvRank.visibility = View.GONE
+                        review_tvPercentile.visibility = View.GONE
 
+                    } else {
+                        if (isCompetitive == 1) {
+                            review_ivInfo.visibility = View.VISIBLE
+                            rlRank.visibility = View.VISIBLE
+
+                            review_tvRank.visibility = View.VISIBLE
+
+                            if (response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString != "N/A" && response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString != "") {
+                                review_tvRank.text =
+                                    "AIR : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString
+                            } else {
+                                review_tvRank.text =
+                                    "Internal Rank : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("InternalRank").asString
+                            }
+
+                        } else {
+
+                            review_tvRank.text =
+                                "Internal Rank : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("InternalRank").asString
+
+                            review_ivInfo.visibility = View.GONE
+                            rlRank.visibility = View.GONE
+                            review_tvRank.visibility = View.VISIBLE
+
+                        }
                     }
 
                     review_tvCorrect.text =

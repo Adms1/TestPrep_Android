@@ -260,6 +260,12 @@ class MyPackagesFragment : Fragment() {
 
 //                        boardid = response.body()!!.data[0].BoardID
 
+                        if (response.body()!!.data[0].isSubscription == "0") {
+                            card_view2.visibility = View.GONE
+                        } else {
+                            card_view2.visibility = View.VISIBLE
+                        }
+
                         for (i in 0 until summaryArr.size) {
                             totalcount += summaryArr[i].count
 

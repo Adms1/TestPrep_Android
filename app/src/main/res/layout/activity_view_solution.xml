@@ -170,7 +170,6 @@
                                         android:layout_marginBottom="@dimen/_5sdp"
                                         android:background="@drawable/gray_ring_bg"
                                         android:gravity="top"
-                                        android:hint="Enter your answer here"
                                         android:maxLines="1"
                                         android:padding="@dimen/_5sdp"
                                         android:textSize="@dimen/_12sdp"

@@ -12,6 +12,7 @@ class MyPackageModel {
         var BannerIcon = ""
         var StandardName = ""
         var StandardID = ""
+        var isSubscription = ""
         var BoardID = ""
         var isCompetitive = false
         var PackageList: ArrayList<PackageData.PackageDataList> = ArrayList()
