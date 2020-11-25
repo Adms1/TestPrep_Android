@@ -88,23 +88,24 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) { // Get the value selected by the user
                     // e.g. to store it as a field or immediately call a method
 
+                    bottomsheet_llAmount.visibility = View.GONE
+                    bottomsheet_tvPaynow.visibility = View.GONE
+
                     if (courseList.size > 0) {
 
 //                        if(strBoard != "0") {
 
                         strBoard = courseList[position].CourseID
 
-                        callStandardList(strBoard)
+
 
                         if (strCourseType == 2) {
                             if (strBoard != "0") {
                                 callInsertSubscriptionSubject()
                             }
+                        } else {
+                            callStandardList(strBoard)
                         }
-//                        }else {
-//                            bottomsheet_llAmount.visibility = View.GONE
-//                            bottomsheet_tvPaynow.visibility = View.GONE
-//                        }
                     }
                 }
 
@@ -115,6 +116,9 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) { // Get the value selected by the user
                     // e.g. to store it as a field or immediately call a method
+
+                    bottomsheet_llAmount.visibility = View.GONE
+                    bottomsheet_tvPaynow.visibility = View.GONE
 
                     strStd = stdList[position].StandardID
 

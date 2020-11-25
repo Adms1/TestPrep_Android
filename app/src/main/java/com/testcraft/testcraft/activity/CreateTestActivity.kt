@@ -80,6 +80,8 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         createtest_tvHeading.text = "Create Test ($subname)"
 
+//        createtest_rvSection.isNestedScrollingEnabled = false
+
         if (coursetypeid == "1") {
 
             createtest_tvChapters.text = "Chapters"
@@ -263,18 +265,18 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         var isvalid = true
 
-        if (TextUtils.isEmpty(createtest_etTestname.text.toString())) {
+        if (TextUtils.isEmpty(createtest_etTestname.text.toString()) || createtest_etTestname.text.toString().trim().isEmpty()) {
             createtest_etTestname.error = "Please enter test name"
             isvalid = false
         }
 
-        if (TextUtils.isEmpty(createtest_etDuration.text.toString()) || createtest_etDuration.text.toString() == "0") {
+        if (TextUtils.isEmpty(createtest_etDuration.text.toString()) || Integer.parseInt(createtest_etDuration.text.toString()) <= 0) {
             createtest_etDuration.error = "Please enter duration"
             isvalid = false
         }
 
         if (coursetypeid == "1") {
-            if (TextUtils.isEmpty(createtest_etMarks.text.toString()) || createtest_etMarks.text.toString() == "0") {
+            if (TextUtils.isEmpty(createtest_etMarks.text.toString()) || Integer.parseInt(createtest_etMarks.text.toString()) <= 0) {
                 createtest_etMarks.error = "Please enter total questions"
                 isvalid = false
             }

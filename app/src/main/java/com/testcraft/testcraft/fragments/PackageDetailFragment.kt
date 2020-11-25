@@ -496,6 +496,13 @@ class PackageDetailFragment : Fragment() {
                             response.body()!!.get("data").asJsonObject.get("TestPackageDescription")
                                 .asString
 
+                        if (response.body()!!.get("data").asJsonObject.get("TestPackageDescription")
+                                .asString == "") {
+                            package_detail_tvDesctitle.visibility = View.GONE
+                        } else {
+                            package_detail_tvDesctitle.visibility = View.VISIBLE
+                        }
+
 //                        } else {
 //                            package_detail_tvDesc.text =
 //                                Html.fromHtml(response.body()!!.get("data").asJsonObject.get("TestPackageDescription").asString)

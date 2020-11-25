@@ -52,6 +52,7 @@
         android:layout_marginLeft="@dimen/_10sdp"
         android:ellipsize="end"
         android:maxLines="2"
+        android:layout_marginTop="@dimen/_3sdp"
         android:textColor="@color/black"
         android:textSize="@dimen/_13sdp"
         app:layout_constraintLeft_toRightOf="@+id/item_rlImage"

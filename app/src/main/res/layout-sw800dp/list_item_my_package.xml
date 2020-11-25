@@ -54,6 +54,7 @@
         android:maxLines="2"
         android:textColor="@color/black"
         android:textSize="@dimen/_13sdp"
+        android:layout_marginTop="@dimen/_3sdp"
         app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
         app:layout_constraintRight_toLeftOf="@+id/item_my_package_btnNext"
         app:layout_constraintTop_toBottomOf="@+id/item_my_package_subject" />

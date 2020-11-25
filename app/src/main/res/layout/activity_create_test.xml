@@ -36,6 +36,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ScrollView
+            android:id="@+id/createtest_scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/createtest_btnCreate"
@@ -460,15 +461,16 @@
             android:layout_height="@dimen/app_all_btn_height"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_50sdp"
             android:layout_marginRight="@dimen/_30sdp"
             android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/blue_gradient_bg"
             android:text="Create Test"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/app_all_btn_text_size"
             android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/createtest_scroll"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
