@@ -100,7 +100,8 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
             createtest_tvChapters.text = "Subjects"
             createtest_spTemplate.visibility = View.VISIBLE
             createtest_tvTemplate.visibility = View.VISIBLE
-            createtest_clSection.visibility = View.VISIBLE
+            createtest_btnCreate.visibility = View.GONE
+//            createtest_clSection.visibility = View.VISIBLE
 
             callSubjects()
             callTemplate()
@@ -539,15 +540,34 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
                     if (response.body()!!.Status == "true") {
 
-                        templateArr = response.body()!!.data
+                        if (response.body()!!.data.size > 0) {
 
-                        templateAdapter =
-                            TemplateAdapter(this@CreateTestActivity, response.body()!!.data)
-                        createtest_spTemplate.adapter = templateAdapter
+                            createtest_clSection.visibility = View.VISIBLE
+                            createtest_btnCreate.visibility = View.VISIBLE
+
+                            templateArr = response.body()!!.data
+
+                            templateAdapter =
+                                TemplateAdapter(this@CreateTestActivity, response.body()!!.data)
+                            createtest_spTemplate.adapter = templateAdapter
+                        } else {
+                            createtest_clSection.visibility = View.GONE
+                            createtest_btnCreate.visibility = View.GONE
+
+                            Toast.makeText(
+                                this@CreateTestActivity,
+                                "No template found...",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                     } else {
+
+                        createtest_clSection.visibility = View.GONE
+                        createtest_btnCreate.visibility = View.GONE
+
                         Toast.makeText(
                             this@CreateTestActivity,
-                            response.body()!!.Msg,
+                            "No template found...",
                             Toast.LENGTH_LONG
                         ).show()
 

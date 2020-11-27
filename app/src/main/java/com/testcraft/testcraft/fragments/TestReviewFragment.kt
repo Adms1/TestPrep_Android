@@ -255,11 +255,11 @@ class TestReviewFragment : Fragment() {
                     }
 
                     review_tvCorrect.text =
-                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Correct").asString + "    Correct"
+                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Correct").asString
                     review_tvIncorrect.text =
-                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Wrong").asString + "    Incorrect"
+                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("Wrong").asString
                     review_tvUnanswered.text =
-                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("UnAnswered").asString + "    Unanswered"
+                        response.body()!!.get("data").asJsonArray[0].asJsonObject.get("UnAnswered").asString
                     review_ivCorrect.text =
                         response.body()!!.get("data").asJsonArray[0].asJsonObject.get("TotalGetMarks").asString + "\n______\n" + response.body()!!.get(
                             "data"

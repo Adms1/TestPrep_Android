@@ -52,6 +52,12 @@ class TestListFragment : Fragment() {
 
 //        test_header.text = intent.getStringExtra("pname")
 
+        if (AppConstants.IS_SELF_TEST == "true") {
+            test_ivInstruction.visibility = View.GONE
+        } else {
+            test_ivInstruction.visibility = View.VISIBLE
+        }
+
         CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1900, ActionIdData.T1900)
 
         test_rvPkgList.layoutManager =
