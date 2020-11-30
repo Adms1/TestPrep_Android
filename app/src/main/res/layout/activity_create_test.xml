@@ -372,14 +372,14 @@
 
                 <co.lujun.androidtagview.TagContainerLayout
                     android:id="@+id/createtest_tagQtype"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     app:container_background_color="@color/white"
                     app:container_border_color="@color/white"
                     app:container_enable_drag="false"
-                    app:container_max_lines="0"
                     android:layout_margin="0dp"
+                    app:tag_max_length="50"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

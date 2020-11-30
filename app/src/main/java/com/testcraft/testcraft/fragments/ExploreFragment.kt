@@ -25,6 +25,9 @@ import retrofit2.Response
 
 class ExploreFragment : Fragment() {
 
+    private var call1: Call<PackageData>? = null
+    private var call2: Call<JsonObject>? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,9 +71,11 @@ class ExploreFragment : Fragment() {
             }
         }
 
-        callSubjectListApi()
+        if (getView() != null) {
+            callSubjectListApi()
 
-        callGetHistoryApi()
+            callGetHistoryApi()
+        }
 
     }
 
@@ -85,8 +90,8 @@ class ExploreFragment : Fragment() {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getExplore()
-        call.enqueue(object : Callback<PackageData> {
+        call1 = apiService.getExplore()
+        call1!!.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
                 if (response.body() != null) {
@@ -188,7 +193,7 @@ class ExploreFragment : Fragment() {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getSearchHistory(
+        call2 = apiService.getSearchHistory(
             Utils.getStringValue(
                 activity!!,
                 AppConstants.USER_ID,
@@ -196,7 +201,7 @@ class ExploreFragment : Fragment() {
             )!!
         )
 
-        call.enqueue(object : Callback<JsonObject> {
+        call2!!.enqueue(object : Callback<JsonObject> {
             override fun onResponse(
                 call: Call<JsonObject>,
                 response: Response<JsonObject>
@@ -232,5 +237,11 @@ class ExploreFragment : Fragment() {
                 DialogUtils.dismissDialog()
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        call1!!.cancel()
+        call2!!.cancel()
     }
 }

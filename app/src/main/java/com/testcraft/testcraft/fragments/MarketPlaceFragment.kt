@@ -59,6 +59,8 @@ class MarketPlaceFragment : Fragment() {
 
     var free_test_banner = ""
 
+    private var call: Call<GetMarketPlaceData>? = null
+
     companion object {
         var rv: RecyclerView? = null
 
@@ -487,7 +489,9 @@ class MarketPlaceFragment : Fragment() {
             carousel1!!.smoothScrollToPosition((5 - 1) / 2)
         }
 
-        callFilterListApi()
+        if (getView() != null) {
+            callFilterListApi()
+        }
 //        callTutorsListApi()
     }
 
@@ -767,7 +771,7 @@ class MarketPlaceFragment : Fragment() {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getPackage(
+        call = apiService.getPackage(
             WebRequests.getPackageParams(
                 Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "0")!!,
                 Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!,
@@ -776,7 +780,7 @@ class MarketPlaceFragment : Fragment() {
                 Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!
             )
         )
-        call.enqueue(object : Callback<GetMarketPlaceData> {
+        call!!.enqueue(object : Callback<GetMarketPlaceData> {
             override fun onResponse(
                 call: Call<GetMarketPlaceData>,
                 response: Response<GetMarketPlaceData>
@@ -1140,5 +1144,12 @@ class MarketPlaceFragment : Fragment() {
                 DialogUtils.dismissDialog()
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (call != null && call!!.isExecuted) {
+            call!!.cancel()
+        }
     }
 }
