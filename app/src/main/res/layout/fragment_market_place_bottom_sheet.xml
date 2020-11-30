@@ -29,9 +29,7 @@
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/bottomsheet_spCourseType"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"
+        android:layout_height="@dimen/_40sdp"
         android:background="@drawable/spinner_bg"
         app:layout_constraintTop_toBottomOf="@+id/bottomsheet_tvHeader" />
 
@@ -47,10 +45,8 @@
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/bottomsheet_spBoard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:paddingTop="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_10sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:visibility="invisible"
         android:background="@drawable/spinner_bg"
         app:layout_constraintTop_toBottomOf="@+id/bottomsheet_line" />
 
@@ -61,13 +57,14 @@
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginRight="@dimen/_5sdp"
         android:background="@color/gray"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@+id/bottomsheet_spBoard" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/bottomsheet_spStd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:layout_height="@dimen/_40sdp"
+        android:visibility="invisible"
         android:background="@drawable/spinner_bg"
         app:layout_constraintTop_toBottomOf="@+id/bottomsheet_line1" />
 
@@ -78,13 +75,14 @@
         android:layout_marginLeft="@dimen/_5sdp"
         android:layout_marginRight="@dimen/_5sdp"
         android:background="@color/gray"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@+id/bottomsheet_spStd" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/bottomsheet_spCourse"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:layout_height="@dimen/_40sdp"
+        android:visibility="invisible"
         android:paddingTop="@dimen/_10sdp"
         android:paddingBottom="@dimen/_10sdp"
         android:background="@drawable/spinner_bg"
@@ -99,7 +97,7 @@
         android:layout_margin="@dimen/_10sdp"
         android:gravity="center"
         android:padding="@dimen/_8sdp"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/bottomsheet_tvPaynow"
@@ -139,7 +137,7 @@
         android:paddingRight="@dimen/_20sdp"
         android:paddingBottom="@dimen/_8sdp"
         android:text="Pay Now!"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/bottomsheet_llAmount"

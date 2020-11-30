@@ -61,22 +61,27 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                         if (strCourseType == 1 && strBoard != "0") {
                             bottomsheet_spStd.visibility = View.VISIBLE
+                            bottomsheet_line2.visibility = View.VISIBLE
                         } else {
-                            bottomsheet_spStd.visibility = View.GONE
+                            bottomsheet_spStd.visibility = View.INVISIBLE
+                            bottomsheet_line2.visibility = View.INVISIBLE
                         }
                         bottomsheet_spBoard.visibility = View.VISIBLE
+                        bottomsheet_line1.visibility = View.VISIBLE
 
                         callCourseListApi(strCourseType)
                     } else {
 
-                        bottomsheet_spStd.visibility = View.GONE
-                        bottomsheet_spBoard.visibility = View.GONE
-                        bottomsheet_llAmount.visibility = View.GONE
-                        bottomsheet_tvPaynow.visibility = View.GONE
+                        bottomsheet_spStd.visibility = View.INVISIBLE
+                        bottomsheet_line2.visibility = View.INVISIBLE
+                        bottomsheet_spBoard.visibility = View.INVISIBLE
+                        bottomsheet_line1.visibility = View.INVISIBLE
+                        bottomsheet_llAmount.visibility = View.INVISIBLE
+                        bottomsheet_tvPaynow.visibility = View.INVISIBLE
                     }
 
-                    bottomsheet_llAmount.visibility = View.GONE
-                    bottomsheet_tvPaynow.visibility = View.GONE
+                    bottomsheet_llAmount.visibility = View.INVISIBLE
+                    bottomsheet_tvPaynow.visibility = View.INVISIBLE
 
                 }
 
@@ -88,8 +93,8 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) { // Get the value selected by the user
                     // e.g. to store it as a field or immediately call a method
 
-                    bottomsheet_llAmount.visibility = View.GONE
-                    bottomsheet_tvPaynow.visibility = View.GONE
+                    bottomsheet_llAmount.visibility = View.INVISIBLE
+                    bottomsheet_tvPaynow.visibility = View.INVISIBLE
 
                     if (courseList.size > 0) {
 
@@ -117,8 +122,8 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) { // Get the value selected by the user
                     // e.g. to store it as a field or immediately call a method
 
-                    bottomsheet_llAmount.visibility = View.GONE
-                    bottomsheet_tvPaynow.visibility = View.GONE
+                    bottomsheet_llAmount.visibility = View.INVISIBLE
+                    bottomsheet_tvPaynow.visibility = View.INVISIBLE
 
                     strStd = stdList[position].StandardID
 
@@ -241,9 +246,11 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
         if (strCourseType == 1) {
             if (courseId == "0") {
-                bottomsheet_spStd.visibility = View.GONE
+                bottomsheet_spStd.visibility = View.INVISIBLE
+                bottomsheet_line2.visibility = View.INVISIBLE
             } else {
                 bottomsheet_spStd.visibility = View.VISIBLE
+                bottomsheet_line2.visibility = View.VISIBLE
             }
         }
 
@@ -320,8 +327,8 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                 } else {
 //
-                    bottomsheet_tvPaynow.visibility = View.GONE
-                    bottomsheet_llAmount.visibility = View.GONE
+                    bottomsheet_tvPaynow.visibility = View.INVISIBLE
+                    bottomsheet_llAmount.visibility = View.INVISIBLE
 //                    bottomsheet_tvAmount.text =  "₹" + response.body()!!.get("data").asJsonObject.get("Price").asString
 //                    bottomsheet_tvListAmount.text = "₹ " + response.body()!!.get("data").asJsonObject.get("ListPrice").asString
 //
@@ -439,8 +446,8 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                 } else {
 
-                    bottomsheet_tvPaynow.visibility = View.GONE
-                    bottomsheet_llAmount.visibility = View.GONE
+                    bottomsheet_tvPaynow.visibility = View.INVISIBLE
+                    bottomsheet_llAmount.visibility = View.INVISIBLE
 
                     DialogUtils.createConfirmDialog1(
                         activity!!,

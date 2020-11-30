@@ -626,6 +626,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
     var waitTimer: CountDownTimer? = null
     var milliLeft: Long = 0
+    var isTestOver = false
 
     private fun stopTimer() {
         if (waitTimer != null) {
@@ -653,7 +654,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         super.onResume()
 
         if (shouldExecuteOnResume!!) {
-            timerResume()
+            if (!isTestOver) {
+                timerResume()
+            }
         } else {
             shouldExecuteOnResume = true
         }
@@ -846,6 +849,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     fun callSubmitAPI() {
 
         continuetime = 0
+        isTestOver = true
         stopTimer()
 
         DialogUtils.showDialog(this@NewTabQuestionActivity)

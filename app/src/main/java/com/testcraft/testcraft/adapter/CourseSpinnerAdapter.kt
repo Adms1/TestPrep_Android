@@ -28,9 +28,9 @@ class CourseSpinnerAdapter(val context: Context, var listItemsTxt: ArrayList<Pac
 
         // setting adapter item height programatically.
 
-        val params = view.layoutParams
-        params.height = 60
-        view.layoutParams = params
+//        val params = view.layoutParams
+//        params.height = 60
+//        view.layoutParams = params
 
         vh.label.text = listItemsTxt[position].CourseName
         return view
