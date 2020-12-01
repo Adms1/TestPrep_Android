@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.testcraft.testcraft.Connectivity
@@ -107,8 +108,13 @@ class QuestionInstructionActivity : AppCompatActivity() {
 //            queinstruction_wb.settings.cacheMode = WebSettings.LOAD_NO_CACHE
 //            queinstruction_wb.loadDataWithBaseURL("", que_instruction, "text/html", "UTF-8", "")
 
-        queinstruction_wb.text = intent.getStringExtra("que_instruction")
-
+//        queinstruction_wb.text = Html.fromHtml(intent.getStringExtra("que_instruction"), Html.FROM_HTML_MODE_COMPACT)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            queinstruction_wb.text =
+                Html.fromHtml(intent.getStringExtra("que_instruction"), Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            queinstruction_wb.text = Html.fromHtml(intent.getStringExtra("que_instruction"))
+        }
 //        } else {
 //
 //            queinstruction_wb.visibility = View.GONE

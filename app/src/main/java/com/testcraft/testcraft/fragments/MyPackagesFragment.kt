@@ -301,6 +301,21 @@ class MyPackagesFragment : Fragment() {
 //                        var per = (pendingcount.toFloat()/totalcount.toFloat())*100
                         Log.d("percentage", "" + final)
 
+                        when {
+                            final < 40          -> {
+                                my_packages_ivProgress.progressColor =
+                                    resources.getColor(R.color.red)
+                            }
+                            final in 40.0..60.0 -> {
+                                my_packages_ivProgress.progressColor =
+                                    resources.getColor(R.color.yellow)
+                            }
+                            else                -> {
+                                my_packages_ivProgress.progressColor =
+                                    resources.getColor(R.color.green)
+                            }
+                        }
+
                         my_packages_ivProgress.setProgress(final, true)
                         my_packages_tvProgress!!.text = "$completecount/$totalcount"
 
