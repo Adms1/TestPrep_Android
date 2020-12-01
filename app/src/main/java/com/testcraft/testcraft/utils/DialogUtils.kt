@@ -54,7 +54,10 @@ class DialogUtils {
             builder.setPositiveButton(positiveBtnTxt, positiveClickListener)
             builder.setNegativeButton(nagativeBtnTxt, negativeClickListener)
 
-            return builder.create()
+            val dialog: AlertDialog = builder.create()
+            dialog.window.setBackgroundDrawableResource(R.drawable.white_ring_bg)
+
+            return dialog
 
         }
 

@@ -14,7 +14,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/risk_blue"
+        android:src="@drawable/risk_blue"
         tools:ignore="ContentDescription" />
 
     <TextView

@@ -67,7 +67,7 @@
                         android:ellipsize="end"
                         android:gravity="center"
                         android:singleLine="true"
-                        android:text="Test Completion"
+                        android:text="My Performance"
                         app:layout_constraintTop_toTopOf="parent"
                         android:textColor="@color/header_gray"
                         android:textSize="@dimen/_13sdp" />

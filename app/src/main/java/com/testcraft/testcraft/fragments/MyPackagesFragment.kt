@@ -302,11 +302,11 @@ class MyPackagesFragment : Fragment() {
                         Log.d("percentage", "" + final)
 
                         when {
-                            final < 40          -> {
+                            final <= 40         -> {
                                 my_packages_ivProgress.progressColor =
                                     resources.getColor(R.color.red)
                             }
-                            final in 40.0..60.0 -> {
+                            final in 41.0..60.0 -> {
                                 my_packages_ivProgress.progressColor =
                                     resources.getColor(R.color.yellow)
                             }

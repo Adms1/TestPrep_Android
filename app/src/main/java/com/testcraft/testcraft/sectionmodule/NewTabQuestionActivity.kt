@@ -2293,6 +2293,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         attemptDialog = Dialog(this@NewTabQuestionActivity)
 
         attemptDialog!!.setContentView(R.layout.dialog_que_attempt_report)
+        attemptDialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         attemptDialog!!.setCanceledOnTouchOutside(false)
 
         val btnCancel: TextView = attemptDialog!!.findViewById(R.id.attempt_btnClose)
