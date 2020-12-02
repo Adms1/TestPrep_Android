@@ -225,14 +225,14 @@ class TestReviewFragment : Fragment() {
                     if (AppConstants.IS_SELF_TEST == "true") {
 
                         review_ivInfo.visibility = View.GONE
-                        rlRank.visibility = View.GONE
+//                        rlRank.visibility = View.GONE
                         review_tvRank.visibility = View.GONE
                         review_tvPercentile.visibility = View.GONE
 
                     } else {
                         if (isCompetitive == 1) {
                             review_ivInfo.visibility = View.VISIBLE
-                            rlRank.visibility = View.VISIBLE
+//                            rlRank.visibility = View.VISIBLE
 
                             review_tvRank.visibility = View.VISIBLE
 
@@ -250,7 +250,7 @@ class TestReviewFragment : Fragment() {
                                 "Internal Rank : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("InternalRank").asString
 
                             review_ivInfo.visibility = View.GONE
-                            rlRank.visibility = View.GONE
+//                            rlRank.visibility = View.GONE
                             review_tvRank.visibility = View.VISIBLE
 
                         }

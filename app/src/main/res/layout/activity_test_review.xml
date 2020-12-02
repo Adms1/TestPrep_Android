@@ -244,8 +244,7 @@
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/weak_strength_button"
-            android:elevation="@dimen/_2sdp"
-            android:visibility="gone">
+            android:elevation="@dimen/_2sdp">
 
             <TextView
                 android:id="@+id/review_tvWeak"
