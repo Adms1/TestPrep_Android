@@ -62,7 +62,6 @@
                 android:id="@+id/img_subscription"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_370sdp"
-                android:visibility="gone"
                 android:scaleType="fitXY"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

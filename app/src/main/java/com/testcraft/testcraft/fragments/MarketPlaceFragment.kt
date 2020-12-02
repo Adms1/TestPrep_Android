@@ -599,7 +599,7 @@ class MarketPlaceFragment : Fragment() {
 
             if (mDataList[position].Icon != "") {
                 Picasso.get()
-                    .load(AppConstants.IMAGE_BASE_URL + mDataList[position].Icon)
+                    .load(AppConstants.IMAGE_BASE_URL + mDataList[position].Icon).placeholder(R.drawable.person_placeholder)
                     .into(holder.title)
             }
 
@@ -804,8 +804,11 @@ class MarketPlaceFragment : Fragment() {
                         val subscriptionList = response.body()!!.data.Subscription
 
 //                        Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.BannerList[0].BannerURL).into(mp_view_pager)
-                        Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.Subscription[0].BannerURL).into(img_subscription)
-
+                        if (response.body()!!.data.Subscription.size > 0) {
+                            Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.Subscription[0].BannerURL).placeholder(R.mipmap.progressicn).into(img_subscription)
+                        } else {
+                            img_subscription.visibility = View.GONE
+                        }
                         Log.d("dsize", "" + mDataList!!.size)
 
 //                        mAdapter!!.setData(mDataList!!)

@@ -58,7 +58,7 @@ class MyPackageAdapter(
             p0.btnStart.visibility = View.GONE
         }
 
-        Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).into(p0.image)
+        Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).placeholder(R.mipmap.progressicn).into(p0.image)
 
         if (come_from == "market_place") {
 

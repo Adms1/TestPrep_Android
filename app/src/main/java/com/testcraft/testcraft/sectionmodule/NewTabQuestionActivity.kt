@@ -807,9 +807,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             DialogUtils.createConfirmDialog(
                 this@NewTabQuestionActivity,
-                "Resume?",
-                "Are you sure you want to resume a test?",
-                "OK",
+                "Leave?",
+                "Are you sure you wish to leave the test?",
+                "Yes",
                 "Cancel",
                 DialogInterface.OnClickListener { dialog, which ->
 

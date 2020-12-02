@@ -108,7 +108,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
 //                p0.ll.setImageDrawable(context.resources.getDrawable(R.drawable.pp_2))
 //            }
 
-        Picasso.get().load(AppConstants.IMAGE_BASE_URL + list[p1].BannerIcon).into(p0.ll)
+        Picasso.get().load(AppConstants.IMAGE_BASE_URL + list[p1].BannerIcon).placeholder(R.mipmap.progressicn).into(p0.ll)
 //        }
 
         p0.ll.setOnClickListener {
