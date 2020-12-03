@@ -13,6 +13,7 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.SWAdapter
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
+import com.testcraft.testcraft.utils.DialogUtils
 import kotlinx.android.synthetic.main.activity_strength_weekness.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -89,6 +90,8 @@ class StrengthWeeknessActivity : AppCompatActivity() {
 
     fun callStudentAnalysis() {
 
+        DialogUtils.showDialog(this@StrengthWeeknessActivity)
+
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call = apiService.studentAnalysis(studenttestid)
@@ -96,6 +99,7 @@ class StrengthWeeknessActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
+                DialogUtils.dismissDialog()
                 if (response.body()!!.get("Status").asString == "true") {
 
                     val arr: ArrayList<String> = ArrayList()
@@ -149,6 +153,7 @@ class StrengthWeeknessActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
+                DialogUtils.dismissDialog()
                 Log.e("", t.toString())
             }
         })
