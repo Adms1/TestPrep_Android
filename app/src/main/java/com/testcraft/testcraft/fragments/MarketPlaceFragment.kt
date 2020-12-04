@@ -805,7 +805,8 @@ class MarketPlaceFragment : Fragment() {
 
 //                        Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.BannerList[0].BannerURL).into(mp_view_pager)
                         if (response.body()!!.data.Subscription.size > 0) {
-                            Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.Subscription[0].BannerURL).placeholder(R.mipmap.progressicn).into(img_subscription)
+                            Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.Subscription[0].BannerURL)
+                                .placeholder(R.mipmap.progress_icn).into(img_subscription)
                         } else {
                             img_subscription.visibility = View.GONE
                         }
