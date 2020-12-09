@@ -87,7 +87,7 @@
                         app:pcv_progressBarThickness="@dimen/_10sdp"
                         app:pcv_progressColor="@color/green"
                         app:pcv_startAngle="270"
-                        app:pcv_textColor="@color/gray"
+                        app:pcv_textColor="@color/white"
                         app:pcv_textSize="@dimen/_35sdp"
                         app:pcv_textStyle="bold" />
 
@@ -99,7 +99,6 @@
                         android:background="@color/white"
                         android:gravity="center"
                         android:padding="@dimen/_10sdp"
-                        android:visibility="gone"
                         android:textSize="@dimen/_30sdp"
                         app:layout_constraintBottom_toBottomOf="@+id/my_packages_ivProgress"
                         app:layout_constraintLeft_toLeftOf="parent"

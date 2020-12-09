@@ -317,7 +317,8 @@ class MyPackagesFragment : Fragment() {
                         }
 
                         my_packages_ivProgress.setProgress(final, true)
-                        my_packages_tvProgress!!.text = "$completecount/$totalcount"
+//                        my_packages_tvProgress!!.text = "$completecount/$totalcount"
+                        my_packages_tvProgress!!.text = response.body()!!.data[0].Performance + "%"
 
 //                        my_packages_tvPendingCount.text = pendingcount.toString()
 //                        my_packages_tvTotalCount.text = totalcount.toString()
