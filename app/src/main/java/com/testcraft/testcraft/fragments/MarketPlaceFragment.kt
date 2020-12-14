@@ -639,7 +639,7 @@ class MarketPlaceFragment : Fragment() {
 //        object : ViewPager.OnPageChangeListener {
 //
 //            override fun onPageSelected(position: Int) {
-////            addBottomDots(position)
+//            addBottomDots(position)
 //                /*Based on the page position change the button text*/
 //
 //                AppConstants.isFirst = 13
