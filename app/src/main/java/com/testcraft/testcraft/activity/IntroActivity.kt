@@ -35,12 +35,12 @@ import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import com.testcraft.testcraft.utils.CommonWebCalls.Companion.callFCMToken
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_intro.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import kotlin.system.exitProcess
@@ -64,8 +64,8 @@ class IntroActivity : AppCompatActivity() {
         AppEventsLogger.newLogger(this@IntroActivity).logEvent("sentFriendRequest")
     }
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
     }
 
 //    var connectivity: Connectivity? = null

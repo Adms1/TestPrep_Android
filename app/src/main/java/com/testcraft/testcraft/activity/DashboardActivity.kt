@@ -28,15 +28,15 @@ import com.testcraft.testcraft.fragments.*
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.utils.*
 import com.testcraft.testcraft.utils.Utils.Companion.clearPrefrence
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_dashboard.*
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import kotlin.system.exitProcess
 
 @Suppress("DEPRECATION")
 class DashboardActivity : AppCompatActivity() {
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
     }
 
     internal lateinit var mDrawerToggle: ActionBarDrawerToggle
@@ -931,7 +931,7 @@ class DashboardActivity : AppCompatActivity() {
 
         if (currentFocus != null) {
             val keyboard = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            keyboard.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+            keyboard.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         }
 
         if (AppConstants.isFirst == 0) {

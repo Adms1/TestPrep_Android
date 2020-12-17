@@ -19,19 +19,19 @@ import com.testcraft.testcraft.utils.AppConstants.Companion.GUEST_LASTNAME
 import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_deeplink_entry.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.*
 
 class DeeplinkEntryActivity : AppCompatActivity() {
 
     var list: ArrayList<String> = ArrayList()
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

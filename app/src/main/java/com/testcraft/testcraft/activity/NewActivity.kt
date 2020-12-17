@@ -16,7 +16,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.gson.JsonObject
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.NewChooseCoarseAdapter
@@ -24,11 +23,11 @@ import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_new.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class NewActivity : AppCompatActivity() {
 
@@ -39,8 +38,8 @@ class NewActivity : AppCompatActivity() {
 
     var comefrom = ""
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
     }
 
     var connectivity: Connectivity? = null

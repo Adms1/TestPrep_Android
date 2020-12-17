@@ -28,11 +28,11 @@ import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_create_test.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
@@ -49,6 +49,7 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
     var coursetypeid = ""
     var boardid = ""
+
     //    var courseid = ""
     var subid = ""
     var stdid = ""
@@ -56,8 +57,8 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
     var quelimit = 0
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

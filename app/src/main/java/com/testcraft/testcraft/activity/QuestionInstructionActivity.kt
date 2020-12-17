@@ -15,8 +15,8 @@ import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.Utils
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_question_instruction.*
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class QuestionInstructionActivity : AppCompatActivity() {
 
@@ -35,8 +35,8 @@ class QuestionInstructionActivity : AppCompatActivity() {
 
     var come_from = ""
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
     }
 
     var connectivity: Connectivity? = null

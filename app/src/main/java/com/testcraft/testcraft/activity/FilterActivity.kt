@@ -17,8 +17,8 @@ import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.Utils
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_filter.*
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
@@ -29,8 +29,8 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
     var coursetypeid = "1"
     var filtertypeid = ""
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
     }
 
     var connectivity: Connectivity? = null

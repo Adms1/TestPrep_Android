@@ -22,11 +22,11 @@ import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.io.UnsupportedEncodingException
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -36,13 +36,14 @@ import kotlin.experimental.and
 class TraknpayRequestActivity : AppCompatActivity() {
 
     private val TAG = "TNPRequestDebugTag"
+
     //        var transid = ""
     var pkgname = ""
     var pkgprice = ""
 //    private var extras: Bundle? = null
 
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
     }
 
     var connectivity: Connectivity? = null
@@ -239,7 +240,7 @@ class TraknpayRequestActivity : AppCompatActivity() {
 //        webSettings.setLightTouchEnabled(true);
 
         webSettings.builtInZoomControls = true
-        webView.setWebChromeClient(WebChromeClient());
+        webView.webChromeClient = WebChromeClient()
         webView.webViewClient = WebViewClient()
         webView.postUrl(AppConstants.PAYMENT_REQUEST, postData.toByteArray())
 

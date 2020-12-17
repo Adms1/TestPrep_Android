@@ -12,7 +12,9 @@ import com.google.firebase.iid.InstanceIdResult
 import com.splunk.mint.Mint
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.Utils
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig
+import io.github.inflationx.calligraphy3.CalligraphyConfig
+import io.github.inflationx.calligraphy3.CalligraphyInterceptor
+import io.github.inflationx.viewpump.ViewPump
 
 class CustomFontApp : Application() {
 
@@ -54,12 +56,20 @@ class CustomFontApp : Application() {
                 }
             })
 
-        CalligraphyConfig.initDefault(
-            CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Inter-Regular.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        )
+//        CalligraphyConfig.initDefault(
+//            CalligraphyConfig.Builder()
+//                .setDefaultFontPath("fonts/Inter-Regular.ttf")
+//                .setFontAttrId(R.attr.fontPath)
+//                .build()
+//        )
+
+        ViewPump.init(ViewPump.builder()
+            .addInterceptor(CalligraphyInterceptor(
+                CalligraphyConfig.Builder()
+                    .setDefaultFontPath("fonts/Inter-Regular.ttf")
+                    .setFontAttrId(R.attr.fontPath)
+                    .build()))
+            .build())
 
     }
 

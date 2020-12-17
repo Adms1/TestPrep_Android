@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.utils.DialogUtils
+import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_view_invoice.*
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 
 class ViewInvoiceActivity : AppCompatActivity() {
 
@@ -34,8 +34,8 @@ class ViewInvoiceActivity : AppCompatActivity() {
 //        unregisterReceiver(connectivity)
 //    }
 //
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase))
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
     }
 
     @SuppressLint("SetJavaScriptEnabled")
