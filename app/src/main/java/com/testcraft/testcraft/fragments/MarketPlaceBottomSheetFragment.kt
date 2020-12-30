@@ -1,7 +1,10 @@
 package com.testcraft.testcraft.fragments
 
+import android.content.ActivityNotFoundException
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +17,7 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.CourseSpinnerAdapter
 import com.testcraft.testcraft.adapter.CoursetypeSpinnerAdapter
 import com.testcraft.testcraft.adapter.StdSpinnerAdapter
+import com.testcraft.testcraft.models.GetSubscriptionModel
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
@@ -34,6 +38,8 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
     var courseList: ArrayList<PackageData.PackageDataList> = ArrayList()
     var stdList: ArrayList<PackageData.PackageDataList> = ArrayList()
 
+    var isFree: Boolean = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -48,7 +54,12 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
         Utils.setFont(activity!!, "fonts/Inter-SemiBold.ttf", bottomsheet_tvListAmount)
 
         bottomsheet_tvPaynow.setOnClickListener {
-            callGetSubscriptionConfirm()
+
+//            if(isFree){
+//                callGetSubscriptionConfirm()
+//            }else {
+            callInsertSubscriptionConfirm()
+//            }
         }
 
         bottomsheet_spCourseType.onItemSelectedListener =
@@ -102,11 +113,9 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                         strBoard = courseList[position].CourseID
 
-
-
                         if (strCourseType == 2) {
                             if (strBoard != "0") {
-                                callInsertSubscriptionSubject()
+                                callGetSubscriptionPrice()
                             }
                         } else {
                             callStandardList(strBoard)
@@ -127,7 +136,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                     strStd = stdList[position].StandardID
 
-                    callInsertSubscriptionSubject()
+                    callGetSubscriptionPrice()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -326,7 +335,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                         "₹" + response.body()!!.get("data").asJsonObject.get("ListPrice").asString
 
                 } else {
-//
+
                     bottomsheet_tvPaynow.visibility = View.INVISIBLE
                     bottomsheet_llAmount.visibility = View.INVISIBLE
 //                    bottomsheet_tvAmount.text =  "₹" + response.body()!!.get("data").asJsonObject.get("Price").asString
@@ -410,7 +419,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
         })
     }
 
-    fun callInsertSubscriptionSubject() {
+    fun callGetSubscriptionPrice() {
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         var board = ""
@@ -427,13 +436,12 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
             cource = strBoard
         }
 
-        val call = apiService.insertSubscriptionSubject(
+        val call = apiService.getSubscriptionPrice(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
             cource,
             board,
             std,
-            strCourseType.toString()
-        )
+            strCourseType.toString())
 
         call.enqueue(object : Callback<JsonObject> {
 
@@ -441,7 +449,11 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                 if (response.body()!!.get("Status").asString == "true") {
 
-                    callSubscriptionPrice()
+                    bottomsheet_tvPaynow.visibility = View.VISIBLE
+                    bottomsheet_llAmount.visibility = View.VISIBLE
+
+                    checkFreeTrial(response.body()!!.get("data").asJsonObject.get("Price").asString, response.body()!!.get("data").asJsonObject.get("ListPrice").asString)
+//                    callSubscriptionPrice()
 //                    callGetSubscriptionConfirm()
 
                 } else {
@@ -463,6 +475,139 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+            }
+        })
+    }
+
+    fun callInsertSubscriptionConfirm() {
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        var board = ""
+        var cource = ""
+        var std = ""
+        var free = "0"
+
+        free = if (isFree) {
+            "1"
+        } else {
+            "0"
+        }
+
+        if (strCourseType == 1) {
+            board = strBoard
+            cource = "0"
+            std = strStd
+        } else {
+            std = "0"
+            board = "0"
+            cource = strBoard
+        }
+
+        val call = apiService.insertSubscriptionSubject(
+            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
+            cource,
+            board,
+            std,
+            strCourseType.toString(), free)
+
+        call.enqueue(object : Callback<JsonObject> {
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+//                if (response.body()!!.get("Status").asString == "true") {
+
+//                callGetSubscriptionConfirm()
+//                    callSubscriptionPrice()
+
+                if (isFree) {
+                    callGetSubscriptionConfirm()
+                } else {
+                    val browserIntent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!! + "&type=2&subcription=1")
+                    )
+
+                    browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    browserIntent.setPackage("com.android.chrome")
+                    try {
+                        startActivity(browserIntent)
+                    } catch (ex: ActivityNotFoundException) {
+                        // Chrome browser presumably not installed so allow user to choose instead
+                        browserIntent.setPackage(null)
+                        startActivity(browserIntent)
+                    }
+                }
+
+//                } else {
+
+//                    bottomsheet_tvPaynow.visibility = View.INVISIBLE
+//                    bottomsheet_llAmount.visibility = View.INVISIBLE
+//
+//                    DialogUtils.createConfirmDialog1(
+//                        activity!!,
+//                        "OK",
+//                        response.body()!!.get("Msg").asString,
+//                        DialogInterface.OnClickListener { dialog, which ->
+//
+//                            dialog.dismiss()
+//
+//                        }).show()
+
+//                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+            }
+        })
+    }
+
+    fun checkFreeTrial(price: String, listprice: String) {
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.checkSubscription(
+            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
+
+        call.enqueue(object : Callback<GetSubscriptionModel> {
+
+            override fun onResponse(call: Call<GetSubscriptionModel>, response: Response<GetSubscriptionModel>) {
+
+                if (response.body()!!.Status == "true") {
+
+                    isFree = true
+                    bottomsheet_tvPaynow.text = "Subscribe"
+
+                    bottomsheet_tvListAmount.paintFlags =
+                        bottomsheet_tvListAmount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    Utils.setFont(activity!!, "fonts/Inter-Bold.ttf", bottomsheet_tvAmount)
+
+                    if (listprice == "0") {
+                        bottomsheet_tvAmount.text = " Free"
+                    } else {
+                        bottomsheet_tvAmount.text = listprice
+                    }
+
+                    bottomsheet_tvListAmount.text = "₹$price"
+
+                } else {
+
+                    isFree = false
+                    bottomsheet_tvPaynow.text = "Pay Now!"
+
+                    bottomsheet_tvListAmount.paintFlags =
+                        bottomsheet_tvListAmount.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    Utils.setFont(activity!!, "fonts/Inter-Bold.ttf", bottomsheet_tvAmount)
+
+//                    bottomsheet_tvAmount.text =  "₹" + response.body()!!.get("data").asJsonObject.get("Price").asString
+                    bottomsheet_tvAmount.text = "₹$price"
+
+                }
+            }
+
+            override fun onFailure(call: Call<GetSubscriptionModel>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
             }

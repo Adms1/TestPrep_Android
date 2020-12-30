@@ -519,7 +519,7 @@ class PrefrenceActivity : AppCompatActivity() {
             cource,
             board,
             std,
-            Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_TYPE_ID, "0")!!
+            Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_TYPE_ID, "0")!!, "0"
         )
 
         call.enqueue(object : Callback<JsonObject> {

@@ -316,13 +316,17 @@ class MyPackagesFragment : Fragment() {
                             }
                         }
 
-                        my_packages_ivProgress.setProgress(final, true)
 //                        my_packages_tvProgress!!.text = "$completecount/$totalcount"
 
                         if (response.body()!!.data[0].Performance != "") {
+                            my_packages_ivProgress.setProgress(response.body()!!.data[0].Performance.toFloat(), true)
+
+
                             my_packages_tvProgress!!.text =
                                 response.body()!!.data[0].Performance + "%"
                         } else {
+                            my_packages_ivProgress.setProgress(0f, true)
+
                             my_packages_tvProgress!!.text = "0" + "%"
                         }
 

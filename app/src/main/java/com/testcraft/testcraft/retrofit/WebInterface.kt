@@ -279,8 +279,18 @@ interface WebInterface {
     @FormUrlEncoded
     @POST("Insert_StudentSubscription_Temp")
     fun insertSubscriptionSubject(@Field("StudentID") student_id: String, @Field("CourseID") course_id: String,
-                                  @Field("BoardID") board_id: String,  @Field("StandardID") std_id: String,
-                                  @Field("TypeID") type_id: String): Call<JsonObject>
+                                  @Field("BoardID") board_id: String, @Field("StandardID") std_id: String,
+                                  @Field("TypeID") type_id: String, @Field("IsFree") isfree: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Get_Subcription_Course_Price")
+    fun getSubscriptionPrice(@Field("StudentID") student_id: String, @Field("CourseID") course_id: String,
+                             @Field("BoardID") board_id: String, @Field("StandardID") std_id: String,
+                             @Field("TypeID") type_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Check_Subcription_FreeTrial")
+    fun checkSubscription(@Field("StudentID") student_id: String): Call<GetSubscriptionModel>
 
     @FormUrlEncoded
     @POST("Get_StudentSubscriptionTemp")
