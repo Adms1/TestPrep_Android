@@ -84,6 +84,12 @@
         <activity
             android:name=".activity.ViewInvoiceActivity"
             android:launchMode="singleTop" />
+
+        <activity
+            android:name=".activity.ViewInvoiceSecondActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.QuestionInstructionActivity"
             android:launchMode="singleTop" />

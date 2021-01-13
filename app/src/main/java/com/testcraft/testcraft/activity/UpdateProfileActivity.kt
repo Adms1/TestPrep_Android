@@ -60,7 +60,7 @@ class UpdateProfileActivity : Fragment() {
         update_etLname.setText(Utils.getStringValue(activity!!, AppConstants.LAST_NAME, ""))
         update_etEmail.setText(Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, ""))
 
-        update_etEmail.isFocusable = false
+//        update_etEmail.isFocusable = false
         update_etMobile.isFocusable = false
 
 //        update_etPassword.setText(Utils.getStringValue(activity!!, AppConstants.USER_PASSWORD, ""))

@@ -16,7 +16,7 @@ import com.testcraft.testcraft.utils.DialogUtils
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_view_invoice.*
 
-class ViewInvoiceActivity : AppCompatActivity() {
+class ViewInvoiceSecondActivity : AppCompatActivity() {
 
     var url = ""
 
@@ -46,12 +46,6 @@ class ViewInvoiceActivity : AppCompatActivity() {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 
-//        if(intent.getStringExtra("header") == "Summary Report"){
-//            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-//        }else {
-//            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-//        }
-
         setContentView(R.layout.activity_view_invoice)
 
 //        connectivity = Connectivity()
@@ -60,7 +54,7 @@ class ViewInvoiceActivity : AppCompatActivity() {
 
         if (intent.hasExtra("url")) {
 
-            DialogUtils.showDialog(this@ViewInvoiceActivity)
+            DialogUtils.showDialog(this@ViewInvoiceSecondActivity)
             invoice_view.webViewClient = MyWebViewClient()
 
             invoice_view.visibility = View.VISIBLE

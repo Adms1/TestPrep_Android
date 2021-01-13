@@ -5,19 +5,19 @@
     android:background="@android:color/transparent"
     android:gravity="center">
 
-    <!--<TextView-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:textColor="@color/white"-->
-    <!--android:textSize="12sp"-->
-    <!--android:text="Loading"/>-->
+    <ImageView
+        android:id="@+id/imgprogress"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_centerInParent="true"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+    <!--    <ProgressBar-->
+    <!--        style="?android:attr/progressBarStyleLarge"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_centerInParent="true" />-->
 
 
 </RelativeLayout>

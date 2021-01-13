@@ -10,7 +10,10 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.view.Window
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
+import com.facebook.FacebookSdk.getApplicationContext
 import com.testcraft.testcraft.R
 
 class DialogUtils {
@@ -55,17 +58,22 @@ class DialogUtils {
             builder.setNegativeButton(nagativeBtnTxt, negativeClickListener)
 
             val dialog: AlertDialog = builder.create()
-            dialog.window.setBackgroundDrawableResource(R.drawable.white_ring_bg)
+            dialog.window!!.setBackgroundDrawableResource(R.drawable.white_ring_bg)
 
             return dialog
 
         }
 
         fun showDialog(context: Context) {
+
             if (dialog == null) {
                 dialog = Dialog(context)
                 dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
                 dialog!!.setContentView(R.layout.progressbar_dialog)
+
+                val imgpro: ImageView = dialog!!.findViewById(R.id.imgprogress)
+                Glide.with(getApplicationContext()).load(R.drawable.giphy).into(imgpro)
+
                 dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog!!.setCanceledOnTouchOutside(false)
                 dialog!!.setCancelable(false)

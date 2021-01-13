@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.CreateTestActivity
 import com.testcraft.testcraft.activity.DashboardActivity
-import com.testcraft.testcraft.activity.ViewInvoiceActivity
+import com.testcraft.testcraft.activity.ViewInvoiceSecondActivity
 import com.testcraft.testcraft.adapter.MyPackageAdapter
 import com.testcraft.testcraft.adapter.SelfTestAdapter
 import com.testcraft.testcraft.models.GetSelfTest
@@ -155,7 +155,7 @@ class MyPackagesFragment : Fragment() {
         CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1701, ActionIdData.T1701)
 
         if (iscompetitive == "1") {
-            val intent = Intent(context, ViewInvoiceActivity::class.java)
+            val intent = Intent(context, ViewInvoiceSecondActivity::class.java)
             intent.putExtra("header", "Knowledge Gap")
             intent.putExtra(
                 "url",
@@ -169,7 +169,7 @@ class MyPackagesFragment : Fragment() {
             startActivity(intent)
 
         } else {
-            val intent = Intent(context, ViewInvoiceActivity::class.java)
+            val intent = Intent(context, ViewInvoiceSecondActivity::class.java)
             intent.putExtra("header", "Knowledge Gap")
             intent.putExtra(
                 "url",
@@ -188,7 +188,7 @@ class MyPackagesFragment : Fragment() {
         CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1701, ActionIdData.T1701)
 
         if (iscompetitive == "1") {
-            val intent = Intent(context, ViewInvoiceActivity::class.java)
+            val intent = Intent(context, ViewInvoiceSecondActivity::class.java)
             intent.putExtra("header", "Summary Report")
             intent.putExtra(
                 "url",
@@ -202,7 +202,7 @@ class MyPackagesFragment : Fragment() {
             startActivity(intent)
 
         } else {
-            val intent = Intent(context, ViewInvoiceActivity::class.java)
+            val intent = Intent(context, ViewInvoiceSecondActivity::class.java)
             intent.putExtra("header", "Summary Report")
             intent.putExtra(
                 "url",
