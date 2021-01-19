@@ -195,6 +195,11 @@ class UpdateProfileActivity : Fragment() {
             isvalid = false
         }
 
+        if (TextUtils.isEmpty(update_etEmail.text.toString()) || update_etLname.text.toString().trim().isEmpty()) {
+            update_etEmail.error = "email must not be null"
+            isvalid = false
+        }
+
 //        if (TextUtils.isEmpty(update_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(update_etMobile.text.toString()).matches()) {
 //            update_etMobile.error = "Please enter valid mobile number"
 //            isvalid = false

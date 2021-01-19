@@ -121,7 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:text="Knowlwdge\nGap"
+                        android:text="Knowledge\nGap"
                         android:textColor="@color/black"
                         android:textSize="@dimen/normal_text_size"
                         app:layout_constraintLeft_toRightOf="@+id/my_packages_ivReport"

@@ -74,7 +74,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:visibility="gone"
         android:textSize="@dimen/_11sdp"
         app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
         app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
@@ -110,7 +109,7 @@
         android:maxLines="1"
         android:textSize="@dimen/_11sdp"
         app:layout_constraintLeft_toLeftOf="@+id/item_my_package_name"
-        app:layout_constraintTop_toBottomOf="@+id/item_my_package_price" />
+        app:layout_constraintTop_toBottomOf="@+id/item_my_package_tutor" />
 
     <ImageView
         android:id="@+id/item_my_package_btnNext"
@@ -118,7 +117,8 @@
         android:layout_height="@dimen/_30sdp"
         android:padding="@dimen/_9sdp"
         android:rotation="-90"
-        app:layout_constraintBottom_toTopOf="@+id/item_my_package_line"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_my_package_line"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/down_arrow"

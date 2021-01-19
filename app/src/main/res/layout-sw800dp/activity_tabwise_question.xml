@@ -386,6 +386,7 @@
                         android:layout_marginEnd="@dimen/_20sdp"
                         android:layout_marginRight="@dimen/_20sdp"
                         android:padding="@dimen/_3sdp"
+                        android:visibility="gone"
                         android:src="@drawable/trash"
                         app:layout_constraintBottom_toBottomOf="@+id/queTab_btnNextt"
                         app:layout_constraintRight_toLeftOf="@+id/queTab_btnNextt"

@@ -41,6 +41,12 @@ class MyPackageAdapter(
         p0.name.text = dataList[p1].TestPackageName
         p0.tutor.text = "By " + dataList[p1].TutorName
 
+        if (p1 == dataList.size - 1) {
+            p0.ivLine.visibility = View.GONE
+        } else {
+            p0.ivLine.visibility = View.VISIBLE
+        }
+
         if (dataList[p1].NumberOfComletedTest == dataList[p1].NumberOfTest) {
             p0.ivComplete.visibility = View.VISIBLE
         } else {
@@ -66,6 +72,7 @@ class MyPackageAdapter(
 
             p0.subject.text = dataList[p1].SubjectName + " | " + dataList[p1].TutorName
 
+            p0.tutor.visibility = View.INVISIBLE
             p0.test.visibility = View.GONE
             p0.ivArrow.visibility = View.GONE
 
@@ -212,6 +219,7 @@ class MyPackageAdapter(
         var test: TextView = itemView.findViewById(R.id.item_my_package_test)
         var image: ImageView = itemView.findViewById(R.id.item_my_package_image)
         var ivArrow: ImageView = itemView.findViewById(R.id.item_my_package_btnNext)
+        var ivLine: View = itemView.findViewById(R.id.item_my_package_line)
 
 //        var std: TextView = itemView.findViewById(R.id.package_item_tvStd)
     }

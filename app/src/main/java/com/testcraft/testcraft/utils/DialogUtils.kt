@@ -72,7 +72,7 @@ class DialogUtils {
                 dialog!!.setContentView(R.layout.progressbar_dialog)
 
                 val imgpro: ImageView = dialog!!.findViewById(R.id.imgprogress)
-                Glide.with(getApplicationContext()).load(R.drawable.giphy).into(imgpro)
+                Glide.with(getApplicationContext()).load(R.drawable.progress_gif).into(imgpro)
 
                 dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 dialog!!.setCanceledOnTouchOutside(false)

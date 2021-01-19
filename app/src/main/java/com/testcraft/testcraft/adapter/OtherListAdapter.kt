@@ -31,7 +31,7 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 
         p0.text.setOnClickListener {
             when (dataList[p1]) {
-                "Edit Profile"    -> {
+                "Edit Profile" -> {
 
                     CommonWebCalls.callToken(
                         context,
@@ -52,11 +52,11 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 //                    val intent = Intent(activity, UpdateProfileActivity::class.java)
 //                    startActivity(intent)
                 }
-                "My subscription" -> {
+                "My Subscription" -> {
                     AppConstants.isFirst = 19
                     DashboardActivity.setFragments(null)
                 }
-                "My Payments"     -> {
+                "My Payments" -> {
 
                     CommonWebCalls.callToken(
                         context,
@@ -187,7 +187,7 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 
                 }
 
-                "Sign out" -> {
+                "Sign Out" -> {
 
                     IntroActivity.disconnectFromFacebook()
 

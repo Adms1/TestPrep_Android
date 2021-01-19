@@ -211,7 +211,7 @@
             android:paddingTop="@dimen/_7sdp"
             android:paddingRight="@dimen/_10sdp"
             android:paddingBottom="@dimen/_7sdp"
-            android:text="My Packages"
+            android:text="Packages"
             android:textColor="@color/black"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintTop_toBottomOf="@+id/tutor_profile_tvDesc" />

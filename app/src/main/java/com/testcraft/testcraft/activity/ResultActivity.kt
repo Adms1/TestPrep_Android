@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_result.*
 class ResultActivity : AppCompatActivity() {
 
     var resultArr: ArrayList<AnswerModel> = ArrayList()
-//    var marksCounter = 0
+    var marksCounter = 0.0
 
     var testid = ""
     var studenttestid = ""
@@ -81,6 +81,7 @@ class ResultActivity : AppCompatActivity() {
 
         connectivity = Connectivity()
 
+        marksCounter = intent.getStringExtra("marks").toDouble()
         testid = intent.getStringExtra("testid")
         studenttestid = intent.getStringExtra("studenttestid")
 
@@ -147,7 +148,7 @@ class ResultActivity : AppCompatActivity() {
 //            }
         }
 
-        if (intent.getStringExtra("marks") <= "0") {
+        if (marksCounter <= 0) {
             result_card.background = resources.getDrawable(R.drawable.pink_bg)
             result_tvViewAnswer.setTextColor(resources.getColor(R.color.pink))
             result_tvReports.setTextColor(resources.getColor(R.color.pink))

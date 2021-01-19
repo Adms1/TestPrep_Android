@@ -168,8 +168,8 @@ class OtpActivity : AppCompatActivity() {
                                 CommonWebCalls.callSignupApi("otp", this@OtpActivity,
                                     "5",
                                     "0",
-                                    "guest",
-                                    "user",
+                                    "Guest",
+                                    "User",
                                     intent.getStringExtra("email"),
                                     intent.getStringExtra("password"),
                                     intent.getStringExtra("mobile_number"))
