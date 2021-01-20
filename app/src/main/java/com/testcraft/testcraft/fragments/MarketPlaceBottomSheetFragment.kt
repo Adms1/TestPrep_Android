@@ -55,9 +55,9 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
         bottomsheet_tvPaynow.setOnClickListener {
 
-//            if(isFree){
-//                callGetSubscriptionConfirm()
-//            }else {
+//            if (strStd == "0") {
+//                Utils.ping(activity!!, "Please select Standard")
+//            } else {
             callInsertSubscriptionConfirm()
 //            }
         }
@@ -131,12 +131,22 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) { // Get the value selected by the user
                     // e.g. to store it as a field or immediately call a method
 
-                    bottomsheet_llAmount.visibility = View.INVISIBLE
-                    bottomsheet_tvPaynow.visibility = View.INVISIBLE
+//                    bottomsheet_llAmount.visibility = View.INVISIBLE
+//                    bottomsheet_tvPaynow.visibility = View.INVISIBLE
 
                     strStd = stdList[position].StandardID
 
-                    callGetSubscriptionPrice()
+                    if (strStd == "0") {
+                        bottomsheet_llAmount.visibility = View.INVISIBLE
+                        bottomsheet_tvPaynow.visibility = View.INVISIBLE
+
+                    } else {
+                        bottomsheet_llAmount.visibility = View.VISIBLE
+                        bottomsheet_tvPaynow.visibility = View.VISIBLE
+
+                        callGetSubscriptionPrice()
+                    }
+
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -279,6 +289,11 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                     DialogUtils.dismissDialog()
 
+                    val packageData = PackageData.PackageDataList(0, "")
+                    packageData.StandardID = "0"
+                    packageData.StandardName = "Select Standard"
+                    stdList.add(packageData)
+
                     if (response.body()!!.Status == "true") {
 
                         for (i in 0 until response.body()!!.data.size) {
@@ -355,8 +370,9 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         DialogUtils.showDialog(activity!!)
-        val call = apiService.subscription_checkout(bottomsheet_tvAmount.text.toString(), "0",
-            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
+        val call =
+            apiService.subscription_checkout(bottomsheet_tvListAmount.text.toString().replace("₹", ""), "0",
+                Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<JsonObject> {
 
@@ -388,7 +404,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
         val hashmap: HashMap<String, String> = HashMap()
         hashmap["PaymentOrderID"] = orderid
         hashmap["StudentID"] = Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!
-        hashmap["ExternalTransactionID"] = "2"
+        hashmap["ExternalTransactionID"] = "0"
         hashmap["ExternalTransactionStatus"] = "success"
 
         val call = apiService.updatesubscriptionPayment(hashmap)
@@ -516,46 +532,46 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
-//                if (response.body()!!.get("Status").asString == "true") {
+                if (response.body()!!.get("Status").asString == "true") {
 
 //                callGetSubscriptionConfirm()
 //                    callSubscriptionPrice()
 
-                if (isFree) {
-                    callGetSubscriptionConfirm()
-                } else {
-                    val browserIntent = Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!! + "&type=2&subcription=1")
-                    )
+                    if (isFree) {
+                        callGetSubscriptionConfirm()
+                    } else {
+                        val browserIntent = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!! + "&type=2&subcription=1")
+                        )
 
-                    browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    browserIntent.setPackage("com.android.chrome")
-                    try {
-                        startActivity(browserIntent)
-                    } catch (ex: ActivityNotFoundException) {
-                        // Chrome browser presumably not installed so allow user to choose instead
-                        browserIntent.setPackage(null)
-                        startActivity(browserIntent)
+                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        browserIntent.setPackage("com.android.chrome")
+                        try {
+                            startActivity(browserIntent)
+                        } catch (ex: ActivityNotFoundException) {
+                            // Chrome browser presumably not installed so allow user to choose instead
+                            browserIntent.setPackage(null)
+                            startActivity(browserIntent)
+                        }
                     }
+
+                } else {
+
+                    bottomsheet_tvPaynow.visibility = View.INVISIBLE
+                    bottomsheet_llAmount.visibility = View.INVISIBLE
+
+                    DialogUtils.createConfirmDialog1(
+                        activity!!,
+                        "OK",
+                        response.body()!!.get("Msg").asString,
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            dialog.dismiss()
+
+                        }).show()
+//
                 }
-
-//                } else {
-
-//                    bottomsheet_tvPaynow.visibility = View.INVISIBLE
-//                    bottomsheet_llAmount.visibility = View.INVISIBLE
-//
-//                    DialogUtils.createConfirmDialog1(
-//                        activity!!,
-//                        "OK",
-//                        response.body()!!.get("Msg").asString,
-//                        DialogInterface.OnClickListener { dialog, which ->
-//
-//                            dialog.dismiss()
-//
-//                        }).show()
-
-//                }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {

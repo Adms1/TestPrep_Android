@@ -135,15 +135,14 @@ class MyPackagesFragment : Fragment() {
 
         DialogUtils.showDialog(activity!!)
 
-//        my_packages_ivReport.setOnClickListener { onKnowledgegapClick() }
+        my_packages_ivReport.setOnClickListener { onKnowledgegapClick() }
         my_packages_tvReport.setOnClickListener { onKnowledgegapClick() }
-//        my_packages_ivPendingTest.setOnClickListener { onsummaryreportClick() }
+        my_packages_ivPendingTest.setOnClickListener { onsummaryreportClick() }
         my_packages_tvSummartreport.setOnClickListener { onsummaryreportClick() }
 
 //        my_packages_ivTotalTest.setOnClickListener { onKnowledgegapClick() }
 //        my_packages_ivTotalTest.setOnClickListener { onKnowledgegapClick() }
 
-//        my_packages_ivPendingTest.setOnClickListener { onsummaryreportClick() }
 //        my_packages_tvPendingCount.setOnClickListener { onsummaryreportClick() }
 
         callMyPackagesApi()

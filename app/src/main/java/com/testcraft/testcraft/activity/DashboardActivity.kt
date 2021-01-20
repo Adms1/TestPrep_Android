@@ -490,13 +490,13 @@ class DashboardActivity : AppCompatActivity() {
                         .commitAllowingStateLoss()
 
                 }
-                4  -> {
+                4 -> {
 
                     fragment = OtherFragment()
 
                     llBottom!!.visibility = View.VISIBLE
 
-                    main_header!!.text = "Other"
+                    main_header!!.text = "My Profile"
                     btnBack!!.visibility = View.GONE
 //                    btnLogout!!.visibility = View.GONE
 

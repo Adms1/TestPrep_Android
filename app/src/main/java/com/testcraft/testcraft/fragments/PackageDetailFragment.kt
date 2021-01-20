@@ -460,8 +460,11 @@ class PackageDetailFragment : Fragment() {
                             package_detail_btnAddTocart.text = "Buy"
 
                             if (testList!!.size() == 1) {
-                                package_detail_etPcode!!.visibility = View.VISIBLE
-                                package_detail_btnPcode!!.visibility = View.VISIBLE
+//                                package_detail_etPcode!!.visibility = View.VISIBLE
+//                                package_detail_btnPcode!!.visibility = View.VISIBLE
+                                package_detail_etPcode!!.visibility = View.GONE
+                                package_detail_btnPcode!!.visibility = View.GONE
+
                             } else {
                                 package_detail_etPcode!!.visibility = View.GONE
                                 package_detail_btnPcode!!.visibility = View.GONE

@@ -32,13 +32,23 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity | GoogleAppIndexingWarning">
-        <activity android:name=".activity.CompetitiveCreateTestActivity"></activity>
+
+        <activity
+            android:name=".activity.CompetitiveCreateTestActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CreateTestActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.SubscriptionActivity" />
-        <activity android:name=".PhoneLoginActivity" />
-        <activity android:name=".activity.NotificationActivity" />
+        <activity
+            android:name=".activity.SubscriptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PhoneLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NotificationActivity"
+            android:screenOrientation="portrait" />
         <!--
      Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more.
@@ -65,9 +75,15 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".activity.DeeplinkTestActivity" />
-        <activity android:name=".activity.DeeplinkEntryActivity" />
-        <activity android:name=".activity.StrengthWeeknessActivity" /> <!-- Define your service, make sure to add the permision! -->
+        <activity
+            android:name=".activity.DeeplinkTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.DeeplinkEntryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.StrengthWeeknessActivity"
+            android:screenOrientation="portrait" /> <!-- Define your service, make sure to add the permision! -->
         <service
             android:name=".NetworkSchedulerService"
             android:exported="true"
@@ -80,9 +96,11 @@
         <!-- </receiver> -->
         <activity
             android:name=".activity.ApplyCouponActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.ViewInvoiceActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
 
         <activity
@@ -92,23 +110,30 @@
 
         <activity
             android:name=".activity.QuestionInstructionActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.ResultActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
-        <activity android:name=".activity.CartActivity" /> <!-- <activity -->
+        <activity
+            android:name=".activity.CartActivity"
+            android:screenOrientation="portrait" /> <!-- <activity -->
         <!-- android:name=".activity.CheckEmailActivity" -->
         <!-- android:screenOrientation="portrait" /> -->
         <activity
             android:name=".activity.FilterActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" /> <!-- <activity -->
         <!-- android:name=".fragments.TutorPackagesActivity" -->
         <!-- android:screenOrientation="portrait" /> -->
         <activity
             android:name=".activity.TutorReviewActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.IntroActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity android:name=".activity.PrefrenceActivity" />
         <activity android:name=".activity.NewActivity" /> <!-- <activity -->
@@ -116,6 +141,7 @@
         <!-- android:screenOrientation="portrait" /> -->
         <activity
             android:name=".activity.PaymentSuccessScreen"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.TraknpayRequestActivity">
             <intent-filter>
@@ -126,6 +152,7 @@
         </activity> <!-- <activity android:name=".activity.TabwiseQuestionActivity" android:screenOrientation="portrait"/> -->
         <activity
             android:name=".sectionmodule.NewTabQuestionActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" /> <!-- <activity -->
         <!-- android:name=".activity.SelectStandardActivity" -->
         <!-- android:screenOrientation="portrait" /> -->
@@ -137,15 +164,18 @@
         <!-- android:screenOrientation="portrait" /> -->
         <activity
             android:name=".activity.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" />
         <activity
             android:name=".activity.OtpActivity"
             android:configChanges="keyboardHidden"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.DashboardActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -161,10 +191,12 @@
         <activity
             android:name=".activity.SignupActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 
         <activity android:name=".activity.SplashActivity">

@@ -90,7 +90,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="filter">Filter</string>
-    <string name="other">Other</string>
+    <string name="other">My Profile</string>
     <string name="enter_verification_code">Enter Verification Code</string>
     <string name="resend_code">
         <font color="#9A9A9A">Did not receive the code?</font>

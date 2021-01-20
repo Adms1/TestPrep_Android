@@ -30,6 +30,12 @@ class SelfTestAdapter(val context: Context, var datalist: ArrayList<GetSelfTest.
         Picasso.get().load(AppConstants.IMAGE_BASE_URL + datalist[p1].Icon).into(p0.image)
         p0.name.text = datalist[p1].TestPackageName
 
+        if (p1 == datalist.size - 1) {
+            p0.ivLine.visibility = View.GONE
+        } else {
+            p0.ivLine.visibility = View.VISIBLE
+        }
+
         if (datalist[p1].NumberOfComletedTest == datalist[p1].NumberOfTest) {
             p0.ivComplete.visibility = View.VISIBLE
         } else {
@@ -71,6 +77,7 @@ class SelfTestAdapter(val context: Context, var datalist: ArrayList<GetSelfTest.
         var mainll: ConstraintLayout = itemView.findViewById(R.id.mytest_item_main)
         var test: TextView = itemView.findViewById(R.id.mytest_item_test)
         var image: ImageView = itemView.findViewById(R.id.mytest_item_image)
+        var ivLine: View = itemView.findViewById(R.id.mytest_item_line)
 
     }
 }

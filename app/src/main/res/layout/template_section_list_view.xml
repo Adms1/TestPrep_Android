@@ -23,7 +23,7 @@
             android:layout_weight="0.25"
             android:paddingLeft="@dimen/_5sdp"
             android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="@dimen/_12sdp" />
 
         <TextView
             android:id="@+id/section_list_tvQtype"
@@ -32,7 +32,7 @@
             android:layout_weight="0.2"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="@dimen/_12sdp" />
 
         <TextView
             android:id="@+id/section_list_tvNo"
@@ -41,7 +41,7 @@
             android:layout_weight="0.15"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="@dimen/_12sdp" />
 
         <TextView
             android:id="@+id/section_list_tvMarks"
@@ -50,7 +50,7 @@
             android:layout_weight="0.2"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="@dimen/_12sdp" />
 
         <TextView
             android:id="@+id/section_list_tvTotal"
@@ -59,7 +59,7 @@
             android:layout_weight="0.2"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="@dimen/_12sdp" />
 
     </LinearLayout>
 

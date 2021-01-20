@@ -3,6 +3,7 @@ package com.testcraft.testcraft.activity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -195,8 +196,10 @@ class UpdateProfileActivity : Fragment() {
             isvalid = false
         }
 
-        if (TextUtils.isEmpty(update_etEmail.text.toString()) || update_etLname.text.toString().trim().isEmpty()) {
-            update_etEmail.error = "email must not be null"
+        if (TextUtils.isEmpty(update_etEmail.text.toString()) || !Patterns.EMAIL_ADDRESS.matcher(
+                update_etEmail.text.toString()
+            ).matches()) {
+            update_etEmail.error = "Please enter valid email"
             isvalid = false
         }
 

@@ -165,6 +165,7 @@
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:layout_marginRight="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_1sdp"
                     android:visibility="gone"
                     android:background="@drawable/login_btn_bg"
                     app:layout_constraintTop_toBottomOf="@id/createtest_spTemplate">
@@ -186,7 +187,7 @@
                             android:gravity="center"
                             android:text="Section"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_14sdp" />
+                            android:textSize="@dimen/_12sdp" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -195,7 +196,7 @@
                             android:gravity="center"
                             android:text="Q.Type"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_14sdp" />
+                            android:textSize="@dimen/_12sdp" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -204,7 +205,7 @@
                             android:gravity="center"
                             android:text="No."
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_14sdp" />
+                            android:textSize="@dimen/_12sdp" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -213,7 +214,7 @@
                             android:gravity="center"
                             android:text="Marks"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_14sdp" />
+                            android:textSize="@dimen/_12sdp" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -222,7 +223,7 @@
                             android:gravity="center"
                             android:text="Total"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/_14sdp" />
+                            android:textSize="@dimen/_12sdp" />
 
                     </LinearLayout>
 
@@ -259,7 +260,7 @@
                             android:gravity="left"
                             android:text="Total"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_14sdp" />
+                            android:textSize="@dimen/_12sdp" />
 
                         <TextView
                             android:id="@+id/createtest_total"
@@ -269,7 +270,7 @@
                             android:layout_weight="0.5"
                             android:gravity="right"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_14sdp" />
+                            android:textSize="@dimen/_12sdp" />
 
                     </LinearLayout>
 
