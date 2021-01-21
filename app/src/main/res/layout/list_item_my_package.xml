@@ -14,7 +14,7 @@
         android:layout_height="@dimen/_55sdp"
         app:layout_constraintBottom_toBottomOf="@+id/item_my_package_test"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/item_my_package_name">
+        app:layout_constraintTop_toTopOf="@+id/item_my_package_subject">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_my_package_image"

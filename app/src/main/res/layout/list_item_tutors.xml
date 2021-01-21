@@ -79,14 +79,15 @@
         android:layout_marginRight="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_10sdp"
         android:padding="@dimen/_9sdp"
-        android:rotation="180"
+        android:rotation="-90"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back_button"
+        app:srcCompat="@drawable/down_arrow"
         tools:ignore="ContentDescription" />
 
     <View
+        android:id="@+id/tutor_item_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/thin_line"
         android:layout_marginLeft="@dimen/_20sdp"

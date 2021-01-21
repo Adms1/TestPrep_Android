@@ -61,8 +61,15 @@ class UpdateProfileActivity : Fragment() {
         update_etLname.setText(Utils.getStringValue(activity!!, AppConstants.LAST_NAME, ""))
         update_etEmail.setText(Utils.getStringValue(activity!!, AppConstants.USER_EMAIL, ""))
 
-//        update_etEmail.isFocusable = false
-        update_etMobile.isFocusable = false
+        if (Utils.getStringValue(
+                activity!!,
+                AppConstants.USER_ACCOUNT_TYPE, "") == "5") {
+//            update_etEmail.isFocusable = true
+            update_etMobile.isFocusable = false
+        } else {
+            update_etEmail.isFocusable = false
+//            update_etMobile.isFocusable = true
+        }
 
 //        update_etPassword.setText(Utils.getStringValue(activity!!, AppConstants.USER_PASSWORD, ""))
 
@@ -196,17 +203,26 @@ class UpdateProfileActivity : Fragment() {
             isvalid = false
         }
 
-        if (TextUtils.isEmpty(update_etEmail.text.toString()) || !Patterns.EMAIL_ADDRESS.matcher(
-                update_etEmail.text.toString()
-            ).matches()) {
-            update_etEmail.error = "Please enter valid email"
-            isvalid = false
+        if (Utils.getStringValue(
+                activity!!,
+                AppConstants.USER_ACCOUNT_TYPE, "") == "5") {
+            if (TextUtils.isEmpty(update_etEmail.text.toString()) || !Patterns.EMAIL_ADDRESS.matcher(
+                    update_etEmail.text.toString()
+                ).matches()) {
+                update_etEmail.error = "Please enter valid email"
+                isvalid = false
+            }
         }
 
-//        if (TextUtils.isEmpty(update_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(update_etMobile.text.toString()).matches()) {
-//            update_etMobile.error = "Please enter valid mobile number"
-//            isvalid = false
-//        }
+        if (Utils.getStringValue(
+                activity!!,
+                AppConstants.USER_ACCOUNT_TYPE, "") != "5") {
+
+            if (TextUtils.isEmpty(update_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(update_etMobile.text.toString()).matches()) {
+                update_etMobile.error = "Please enter valid mobile number"
+                isvalid = false
+            }
+        }
 
         return isvalid
 

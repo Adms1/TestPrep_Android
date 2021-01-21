@@ -93,6 +93,9 @@ class FilterAdapter(
                         str = mModelList[position].TutorName
                     }
                     "exam" -> {
+
+                        AppConstants.FILTER_TUTOR_ID = ""
+
                         strID = mModelList[position].CourseID
                         str = mModelList[position].CourseName
 

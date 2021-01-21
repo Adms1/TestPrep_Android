@@ -11,6 +11,7 @@ class MyPackageModel {
         var Name = ""
         var BannerIcon = ""
         var StandardName = ""
+        var ExpirationDate = ""
         var StandardID = ""
         var isSubscription = ""
         var BoardID = ""

@@ -48,8 +48,8 @@
             android:background="@drawable/gray_ring_bg"
             android:gravity="top"
             android:hint="Enter your review here..."
+            android:inputType="textMultiLine"
             android:importantForAutofill="no"
-            android:inputType="text"
             android:padding="@dimen/_5sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp" />

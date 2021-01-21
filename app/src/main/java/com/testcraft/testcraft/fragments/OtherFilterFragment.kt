@@ -204,12 +204,42 @@ class OtherFilterFragment : Fragment(), filterInterface {
             AppConstants.FILTER_FROM_PRICE = min
             AppConstants.FILTER_TO_PRICE = max
 
-            if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
+            if ((AppConstants.FILTER_TUTOR_ID == "" && AppConstants.FILTER_TUTOR_ID == "0") || (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_BOARD_ID != "0")) {
+                if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
 
-                if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_BOARD_ID != "0") {
+                    if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_BOARD_ID != "0") {
 
-                    if (AppConstants.FILTER_STANDARD_ID != "" && AppConstants.FILTER_STANDARD_ID != "0") {
+                        if (AppConstants.FILTER_STANDARD_ID != "" && AppConstants.FILTER_STANDARD_ID != "0") {
 
+                            val bundle = Bundle()
+                            bundle.putString("type", "filter")
+                            if (filtertypeid == "1") {
+                                bundle.putString("pname1", "Packages")
+                            } else {
+                                bundle.putString("pname1", "Single Test")
+                            }
+                            bundle.putString("filtertypeid", filtertypeid)
+                            bundle.putString("course_type", AppConstants.FILTER_COURSE_TYPE_ID)
+                            bundle.putString("boardid", AppConstants.FILTER_BOARD_ID)
+                            bundle.putString("stdid", AppConstants.FILTER_STANDARD_ID)
+                            bundle.putString("subid", AppConstants.FILTER_SUBJECT_ID)
+                            bundle.putString("tutorid", AppConstants.FILTER_TUTOR_ID)
+                            bundle.putString("search_name", "")
+                            bundle.putString("maxprice", max)
+                            bundle.putString("minprice", min)
+                            setFragments(bundle)
+                            activity!!.finish()
+
+                        } else {
+                            Toast.makeText(activity, "Please Select Standard", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    } else {
+                        Toast.makeText(activity, "Please Select Board", Toast.LENGTH_SHORT).show()
+                    }
+
+                } else {
+                    if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_STANDARD_ID != "0") {
                         val bundle = Bundle()
                         bundle.putString("type", "filter")
                         if (filtertypeid == "1") {
@@ -230,37 +260,29 @@ class OtherFilterFragment : Fragment(), filterInterface {
                         activity!!.finish()
 
                     } else {
-                        Toast.makeText(activity, "Please Select Standard", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(activity, "Please Select Course", Toast.LENGTH_SHORT).show()
                     }
-                } else {
-                    Toast.makeText(activity, "Please Select Board", Toast.LENGTH_SHORT).show()
-                }
 
+                }
             } else {
-                if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_STANDARD_ID != "0") {
-                    val bundle = Bundle()
-                    bundle.putString("type", "filter")
-                    if (filtertypeid == "1") {
-                        bundle.putString("pname1", "Packages")
-                    } else {
-                        bundle.putString("pname1", "Single Test")
-                    }
-                    bundle.putString("filtertypeid", filtertypeid)
-                    bundle.putString("course_type", AppConstants.FILTER_COURSE_TYPE_ID)
-                    bundle.putString("boardid", AppConstants.FILTER_BOARD_ID)
-                    bundle.putString("stdid", AppConstants.FILTER_STANDARD_ID)
-                    bundle.putString("subid", AppConstants.FILTER_SUBJECT_ID)
-                    bundle.putString("tutorid", AppConstants.FILTER_TUTOR_ID)
-                    bundle.putString("search_name", "")
-                    bundle.putString("maxprice", max)
-                    bundle.putString("minprice", min)
-                    setFragments(bundle)
-                    activity!!.finish()
-
+                val bundle = Bundle()
+                bundle.putString("type", "filter")
+                if (filtertypeid == "1") {
+                    bundle.putString("pname1", "Packages")
                 } else {
-                    Toast.makeText(activity, "Please Select Course", Toast.LENGTH_SHORT).show()
+                    bundle.putString("pname1", "Single Test")
                 }
+                bundle.putString("filtertypeid", filtertypeid)
+                bundle.putString("course_type", AppConstants.FILTER_COURSE_TYPE_ID)
+                bundle.putString("boardid", AppConstants.FILTER_BOARD_ID)
+                bundle.putString("stdid", AppConstants.FILTER_STANDARD_ID)
+                bundle.putString("subid", AppConstants.FILTER_SUBJECT_ID)
+                bundle.putString("tutorid", AppConstants.FILTER_TUTOR_ID)
+                bundle.putString("search_name", "")
+                bundle.putString("maxprice", max)
+                bundle.putString("minprice", min)
+                setFragments(bundle)
+                activity!!.finish()
 
             }
 //            val intent = Intent(context, TutorDetailActivity::class.java)

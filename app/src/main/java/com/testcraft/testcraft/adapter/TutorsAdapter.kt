@@ -33,6 +33,12 @@ class TutorsAdapter(val context: Context, val dataList: ArrayList<PackageData.Pa
     }
 
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
+
+        if (p1 == dataList.size - 1) {
+            p0.ivLine.visibility = View.GONE
+        } else {
+            p0.ivLine.visibility = View.VISIBLE
+        }
 //        if (dataList[p1].Icon == null) {
 //
 //            p0.image.setImageDrawable(context.resources.getDrawable(R.drawable.gray_bg))
@@ -92,6 +98,7 @@ class TutorsAdapter(val context: Context, val dataList: ArrayList<PackageData.Pa
         var next: ImageView = itemView.findViewById(R.id.tutor_item_btnNext)
         var std: TextView = itemView.findViewById(R.id.tutor_item_tvStd)
         var clMain: ConstraintLayout = itemView.findViewById(R.id.tutor_clMain)
+        var ivLine: View = itemView.findViewById(R.id.tutor_item_line)
     }
 }
 
