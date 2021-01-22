@@ -219,7 +219,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_25sdp"
                 android:layout_marginRight="@dimen/_25sdp"
-                android:hint="Comment"
+                android:hint="Comments"
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:maxLines="1"

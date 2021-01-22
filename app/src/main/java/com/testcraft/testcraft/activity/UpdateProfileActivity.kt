@@ -218,9 +218,11 @@ class UpdateProfileActivity : Fragment() {
                 activity!!,
                 AppConstants.USER_ACCOUNT_TYPE, "") != "5") {
 
-            if (TextUtils.isEmpty(update_etMobile.text.toString()) || !android.util.Patterns.PHONE.matcher(update_etMobile.text.toString()).matches()) {
-                update_etMobile.error = "Please enter valid mobile number"
-                isvalid = false
+            if (!update_etMobile.text!!.isEmpty()) {
+                if (update_etMobile.length() < 10) {
+                    update_etMobile.error = "Please enter valid mobile number"
+                    isvalid = false
+                }
             }
         }
 

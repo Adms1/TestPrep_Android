@@ -524,14 +524,14 @@ class DashboardActivity : AppCompatActivity() {
                         .commitAllowingStateLoss()
 
                 }
-                5  -> {
+                5 -> {
 
                     fragment =
                         MyPaymentFragment()
 
                     llBottom!!.visibility = View.VISIBLE
 
-                    main_header!!.text = "My Payments"
+                    main_header!!.text = "Packages"
                     btnBack!!.visibility = View.VISIBLE
 //                    btnLogout!!.visibility = View.GONE
 
@@ -912,7 +912,7 @@ class DashboardActivity : AppCompatActivity() {
                     btnBack!!.visibility = View.VISIBLE
 //                    btnLogout!!.visibility = View.GONE
 
-                    main_header!!.text = "My Subscription"
+                    main_header!!.text = "Subscriptions"
 
                     fragManager!!.beginTransaction().replace(R.id.container, fragment!!)
 //                .addToBackStack(null)

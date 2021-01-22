@@ -38,8 +38,8 @@ class OtherFragment : Fragment() {
 
         when (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "")) {
             "1" -> {
-                menuList.add("My Payments")
-                menuList.add("My Subscription")
+                menuList.add("Packages")
+                menuList.add("Subscriptions")
                 menuList.add("Change Preference")
 //                menuList.add("Refer a Friend")
                 menuList.add("Privacy Policy")
@@ -47,8 +47,8 @@ class OtherFragment : Fragment() {
                 menuList.add("Sign Out")
             }
             "5" -> {
-                menuList.add("My Payments")
-                menuList.add("My Subscription")
+                menuList.add("Packages")
+                menuList.add("Subscriptions")
                 menuList.add("Change Preference")
 //                menuList.add("Refer a Friend")
                 menuList.add("Privacy Policy")
@@ -56,8 +56,8 @@ class OtherFragment : Fragment() {
                 menuList.add("Sign Out")
             }
             else -> {
-                menuList.add("My Payments")
-                menuList.add("My Subscription")
+                menuList.add("Packages")
+                menuList.add("Subscriptions")
                 menuList.add("Change Preference")
 //                menuList.add("Refer a Friend")
                 menuList.add("Privacy Policy")

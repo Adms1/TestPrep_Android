@@ -1,6 +1,7 @@
 package com.testcraft.testcraft.adapter
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.*
-import com.testcraft.testcraft.utils.ActionIdData
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.CommonWebCalls
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 
 class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
     RecyclerView.Adapter<OtherListAdapter.Viewholder>() {
@@ -52,11 +50,11 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 //                    val intent = Intent(activity, UpdateProfileActivity::class.java)
 //                    startActivity(intent)
                 }
-                "My Subscription" -> {
+                "Subscriptions" -> {
                     AppConstants.isFirst = 19
                     DashboardActivity.setFragments(null)
                 }
-                "My Payments" -> {
+                "Packages" -> {
 
                     CommonWebCalls.callToken(
                         context,
@@ -189,20 +187,32 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 
                 "Sign Out" -> {
 
-                    IntroActivity.disconnectFromFacebook()
+                    DialogUtils.createConfirmDialog(context, "Sign Out?",
+                        "Are you sure you want to sign out?",
+                        "OK", "Cancel",
 
-                    AppConstants.isFirst = 0
+                        DialogInterface.OnClickListener { dialog, which ->
 
-                    Utils.clearPrefrence(context)
+                            IntroActivity.disconnectFromFacebook()
 
-                    DashboardActivity.mGoogleSignInClient!!.signOut()
-                        .addOnCompleteListener(DashboardActivity.context as DashboardActivity) {
-                            // ...
+                            AppConstants.isFirst = 0
 
-                            val intent =
-                                Intent(DashboardActivity.context, IntroActivity::class.java)
-                            context.startActivity(intent)
-                        }
+                            Utils.clearPrefrence(context)
+
+                            DashboardActivity.mGoogleSignInClient!!.signOut()
+                                .addOnCompleteListener(DashboardActivity.context as DashboardActivity) {
+                                    // ...
+
+                                    val intent =
+                                        Intent(DashboardActivity.context, IntroActivity::class.java)
+                                    context.startActivity(intent)
+                                }
+                        },
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            dialog.dismiss()
+
+                        }).show()
 
                 }
 
