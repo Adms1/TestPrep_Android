@@ -23,6 +23,8 @@ import retrofit2.Response
 
 class ChooseMarketPlaceFragment : Fragment() {
 
+    private var call: Call<MyPackageModel>? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -57,14 +59,14 @@ class ChooseMarketPlaceFragment : Fragment() {
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getMyPackages(
+        call = apiService.getMyPackages(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
             "",
             "",
             ""
         )
 
-        call.enqueue(object : Callback<MyPackageModel> {
+        call!!.enqueue(object : Callback<MyPackageModel> {
             override fun onResponse(
                 call: Call<MyPackageModel>,
                 response: Response<MyPackageModel>
@@ -103,4 +105,12 @@ class ChooseMarketPlaceFragment : Fragment() {
             }
         })
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (call != null && call!!.isExecuted) {
+            call!!.cancel()
+        }
+    }
+
 }

@@ -234,24 +234,34 @@ class TestReviewFragment : Fragment() {
                             review_ivInfo.visibility = View.VISIBLE
 //                            rlRank.visibility = View.VISIBLE
 
-                            review_tvRank.visibility = View.VISIBLE
-
-                            if (response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString != "N/A" && response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString != "") {
-                                review_tvRank.text =
-                                    "AIR : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString
+                            if (response.body()!!.get("data").asJsonArray[0].asJsonObject.get("percentage").asString == "0") {
+                                review_tvRank.visibility = View.GONE
                             } else {
-                                review_tvRank.text =
-                                    "Internal Rank : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("InternalRank").asString
+                                review_tvRank.visibility = View.VISIBLE
+
+                                if (response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString != "N/A" && response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString != "") {
+                                    review_tvRank.text =
+                                        "AIR : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("AIR").asString
+                                } else {
+                                    review_tvRank.text =
+                                        "Internal Rank : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("InternalRank").asString
+                                }
                             }
 
                         } else {
 
-                            review_tvRank.text =
-                                "Internal Rank : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("InternalRank").asString
+                            if (response.body()!!.get("data").asJsonArray[0].asJsonObject.get("percentage").asString == "0") {
+                                review_tvRank.visibility = View.GONE
+                            } else {
+                                review_tvRank.visibility = View.VISIBLE
+
+                                review_tvRank.text =
+                                    "Internal Rank : " + response.body()!!.get("data").asJsonArray[0].asJsonObject.get("InternalRank").asString
+
+                            }
 
                             review_ivInfo.visibility = View.GONE
 //                            rlRank.visibility = View.GONE
-                            review_tvRank.visibility = View.VISIBLE
 
                         }
                     }

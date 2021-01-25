@@ -806,7 +806,7 @@ class MarketPlaceFragment : Fragment() {
 //                        Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.BannerList[0].BannerURL).into(mp_view_pager)
                         if (response.body()!!.data.Subscription.size > 0) {
                             Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.Subscription[0].BannerURL)
-                                .placeholder(R.mipmap.progress_icn).into(img_subscription)
+                                .placeholder(R.drawable.prog).into(img_subscription)
                         } else {
                             img_subscription.visibility = View.GONE
                         }
@@ -865,9 +865,9 @@ class MarketPlaceFragment : Fragment() {
 
                         }
 
-                        if(subscriptionList.size > 0){
+                        if (subscriptionList.size > 0) {
                             img_subscription.visibility = View.VISIBLE
-                        }else{
+                        } else {
                             img_subscription.visibility = View.GONE
                         }
 

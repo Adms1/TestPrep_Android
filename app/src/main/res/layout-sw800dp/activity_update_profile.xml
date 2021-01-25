@@ -177,7 +177,7 @@
                 android:maxLines="1"
                 android:paddingTop="@dimen/_7sdp"
                 android:paddingBottom="@dimen/_7sdp"
-                android:textColor="@color/gray"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_11sdp" />
 
         </com.google.android.material.textfield.TextInputLayout>

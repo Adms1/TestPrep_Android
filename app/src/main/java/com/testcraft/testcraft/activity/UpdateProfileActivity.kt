@@ -66,8 +66,14 @@ class UpdateProfileActivity : Fragment() {
                 AppConstants.USER_ACCOUNT_TYPE, "") == "5") {
 //            update_etEmail.isFocusable = true
             update_etMobile.isFocusable = false
+            update_etMobile.isEnabled = false
+            update_etMobile.isCursorVisible = false
+            update_etMobile.keyListener = null
         } else {
             update_etEmail.isFocusable = false
+            update_etEmail.isEnabled = false
+            update_etEmail.isCursorVisible = false
+            update_etEmail.keyListener = null
 //            update_etMobile.isFocusable = true
         }
 

@@ -222,7 +222,7 @@
             android:textSize="@dimen/_11sdp"
             android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/package_item_tv6" />
 
         <!--    <TextView-->

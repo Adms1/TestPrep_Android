@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.ViewInvoiceActivity
 import com.testcraft.testcraft.models.PackageData
-import com.testcraft.testcraft.utils.AppConstants
 
 class MySubscriptionAdapter(val context: Context, val dataList: ArrayList<PackageData.PackageDataList>) :
     RecyclerView.Adapter<MySubscriptionAdapter.viewholder>() {
@@ -42,7 +41,7 @@ class MySubscriptionAdapter(val context: Context, val dataList: ArrayList<Packag
             val intent = Intent(context, ViewInvoiceActivity::class.java)
             intent.putExtra(
                 "url",
-                AppConstants.INVOICE_URL + dataList[p1].InvoiceGUID
+                "http://testcraft.in/SubcriptionInvoiceDetail.aspx?ID=" + dataList[p1].InvoiceGUID
 //                "https://docs.google.com/viewer?embedded=true&url=" + AppConstants.INVOICE_URL + dataList[p1].InvoiceGUID
             )
             intent.putExtra("header", "Invoice")
