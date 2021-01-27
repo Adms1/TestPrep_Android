@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="@dimen/_25sdp"
-        android:text="No Payments found"
+        android:text="No Packages Purchased"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/_16sdp"
         android:visibility="gone"

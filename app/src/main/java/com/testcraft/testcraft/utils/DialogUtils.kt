@@ -1,6 +1,5 @@
 package com.testcraft.testcraft.utils
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
@@ -90,7 +89,7 @@ class DialogUtils {
         }
 
         fun createConfirmDialog1(
-            context: Activity,
+            context: Context,
             positiveBtnTxt: String,
             titleId: String,
             positiveClickListener: DialogInterface.OnClickListener

@@ -300,6 +300,7 @@ class DashboardActivity : AppCompatActivity() {
         var subname = ""
         //        var pkgid = ""
         var pname = ""
+        var isExpire = ""
         var isCompetitive = false
 
         var main_header: TextView? = null
@@ -660,6 +661,7 @@ class DashboardActivity : AppCompatActivity() {
                     boardid = bundle.getString("board_id", "")
                     subname = bundle.getString("sub_name")!!
                     isCompetitive = bundle.getBoolean("isCompetitive", false)
+                    isExpire = bundle.getString("isExpired", "")
 
                     fragment = MyPackagesFragment()
 
@@ -671,6 +673,7 @@ class DashboardActivity : AppCompatActivity() {
                     bundle3.putString("board_id", boardid)
                     bundle3.putString("sub_name", subname)
                     bundle3.putBoolean("isCompetitive", isCompetitive)
+                    bundle3.putString("isExpire", isExpire)
 
                     (fragment as MyPackagesFragment).arguments = bundle3
 

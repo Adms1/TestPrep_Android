@@ -124,6 +124,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
             bundle.putString("std_id", list[p1].StandardID)
             bundle.putString("sub_name", list[p1].Name)
             bundle.putBoolean("isCompetitive", list[p1].isCompetitive)
+            bundle.putString("isExpired", list[p1].IsExpired)
             setFragments(bundle)
 
 //            val intent1 = Intent(context, DashboardActivity::class.java)

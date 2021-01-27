@@ -72,6 +72,9 @@ class OtpActivity : AppCompatActivity() {
 
         otp_tvResend.setOnClickListener {
 
+            otp_tvResend.isClickable = false
+            otp_tvResend.postDelayed(Runnable { otp_tvResend.isClickable = true }, 2000)
+
             CommonWebCalls.callToken(
                 this@OtpActivity,
                 "1",
@@ -95,6 +98,9 @@ class OtpActivity : AppCompatActivity() {
         }
 
         otp_btnSubmit.setOnClickListener {
+
+            otp_btnSubmit.isClickable = false
+            otp_btnSubmit.postDelayed(Runnable { otp_btnSubmit.isClickable = true }, 2000)
 
             if (intent.getStringExtra("come_from") == "forgot password") {
 
@@ -216,8 +222,12 @@ class OtpActivity : AppCompatActivity() {
 
                     if(Utils.getStringValue(this@OtpActivity, AppConstants.isPrefrence, "") == "1") {
 
+                        AppConstants.isFirst = 0
+
                         val i = Intent(this@OtpActivity, DashboardActivity::class.java)
                         startActivity(i)
+                        finish()
+
                     }else{
                         val i = Intent(this@OtpActivity, NewActivity::class.java)
                         startActivity(i)
@@ -248,6 +258,8 @@ class OtpActivity : AppCompatActivity() {
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
+//                otp_tvResend.isClickable = true
+
                 if (response.body() != null) {
 
                     DialogUtils.dismissDialog()
@@ -274,6 +286,8 @@ class OtpActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+
+//                otp_tvResend.isClickable = true
                 // Log error here since request failed
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()

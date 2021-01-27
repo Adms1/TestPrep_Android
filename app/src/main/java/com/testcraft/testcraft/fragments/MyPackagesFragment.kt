@@ -1,6 +1,10 @@
 package com.testcraft.testcraft.fragments
 
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.CreateTestActivity
 import com.testcraft.testcraft.activity.DashboardActivity
@@ -32,6 +37,7 @@ class MyPackagesFragment : Fragment() {
     private var iscompetitive = ""
     private var boardid = ""
     private var subname = ""
+    private var isExpired = ""
 
     var bundle: Bundle? = null
 
@@ -54,6 +60,7 @@ class MyPackagesFragment : Fragment() {
         stdid = bundle!!.getString("std_id", "")
         subname = bundle!!.getString("sub_name", "")
         boardid = bundle!!.getString("board_id", "")
+        isExpired = bundle!!.getString("isExpire", "")
 
         if (bundle!!.containsKey("isCompetitive")) {
             iscompetitive = if (bundle!!.getBoolean("isCompetitive", false)) {
@@ -76,27 +83,43 @@ class MyPackagesFragment : Fragment() {
 
         my_packages_ivCreateTest.setOnClickListener {
 
-            val intent = Intent(context, CreateTestActivity::class.java)
+            if (isExpired != "1") {
+                val intent = Intent(context, CreateTestActivity::class.java)
 
-            if(iscompetitive == "1"){
-                intent.putExtra("coursetypeid", "2")
+                if (iscompetitive == "1") {
+                    intent.putExtra("coursetypeid", "2")
 
-                intent.putExtra("board_id", "")
-                intent.putExtra("sub_id", subid.toString())
-                intent.putExtra("std_id", "")
-                intent.putExtra("sub_name", subname)
+                    intent.putExtra("board_id", "")
+                    intent.putExtra("sub_id", subid.toString())
+                    intent.putExtra("std_id", "")
+                    intent.putExtra("sub_name", subname)
 
+                } else {
+                    intent.putExtra("coursetypeid", "1")
+
+                    intent.putExtra("board_id", boardid)
+                    intent.putExtra("sub_id", subid.toString())
+                    intent.putExtra("std_id", stdid)
+                    intent.putExtra("sub_name", subname)
+                }
+
+                startActivity(intent)
+                (context as DashboardActivity).finish()
             } else {
-                intent.putExtra("coursetypeid", "1")
+                DialogUtils.createConfirmDialog(activity!!, "Alert",
+                    "Your Subscription Has Expired..",
+                    "Pay Later", "Pay Now",
 
-                intent.putExtra("board_id", boardid)
-                intent.putExtra("sub_id", subid.toString())
-                intent.putExtra("std_id", stdid)
-                intent.putExtra("sub_name", subname)
+                    DialogInterface.OnClickListener { dialog, which ->
+
+                        dialog.dismiss()
+                    },
+                    DialogInterface.OnClickListener { dialog, which ->
+
+                        callInsertSubscriptionConfirm(activity!!)
+
+                    }).show()
             }
-
-            startActivity(intent)
-            (context as DashboardActivity).finish()
         }
 
         my_create_pkgs.setOnClickListener {
@@ -250,6 +273,11 @@ class MyPackagesFragment : Fragment() {
 
                     if (response.body()!!.Status == "true") {
 
+                        new_stdid = response.body()!!.data[0].StandardID
+                        new_boardid = response.body()!!.data[0].BoardID
+                        new_iscompetitive = response.body()!!.data[0].isCompetitive
+                        new_courseid = response.body()!!.data[0].ID.toString()
+
                         val summaryArr = response.body()!!.data[0].TestSummary
 
                         var totalcount = 0
@@ -339,7 +367,8 @@ class MyPackagesFragment : Fragment() {
 //                        my_packages_tvTotalCount.text = totalcount.toString()
 
                         val pkgArr = response.body()!!.data[0].PackageList
-                        my_packages_rvList.adapter = MyPackageAdapter(activity!!, pkgArr, "my_pkgs")
+                        my_packages_rvList.adapter =
+                            MyPackageAdapter(activity!!, pkgArr, "my_pkgs", "1")
 //                        my_packages_rvList.adapter = TestPackagesAdapter(activity!!, pkgArr)
 
                         DialogUtils.dismissDialog()
@@ -397,7 +426,8 @@ class MyPackagesFragment : Fragment() {
 
                         DialogUtils.dismissDialog()
 
-                        my_create_rvList.adapter = SelfTestAdapter(activity!!, response.body()!!.data)
+                        my_create_rvList.adapter =
+                            SelfTestAdapter(activity!!, response.body()!!.data, isExpired)
 
                     }
                 }
@@ -409,6 +439,84 @@ class MyPackagesFragment : Fragment() {
                 DialogUtils.dismissDialog()
             }
         })
+    }
+
+    companion object {
+
+        private var new_stdid = ""
+        private var new_boardid = ""
+        private var new_courseid = ""
+        private var new_iscompetitive = false
+
+        fun callInsertSubscriptionConfirm(activity: Context) {
+            val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+            var board = ""
+            var cource = ""
+            var std = ""
+            var typeid = ""
+
+            if (!new_iscompetitive) {
+                typeid = "1"
+                board = new_boardid
+                cource = "0"
+                std = new_stdid
+            } else {
+                typeid = "2"
+                std = "0"
+                board = "0"
+                cource = new_courseid
+            }
+
+            val call = apiService.insertSubscriptionSubject(
+                Utils.getStringValue(activity, AppConstants.USER_ID, "0")!!,
+                cource,
+                board,
+                std,
+                typeid, "0")
+
+            call.enqueue(object : Callback<JsonObject> {
+
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                    if (response.body()!!.get("Status").asString == "true") {
+
+                        val browserIntent = Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(activity, AppConstants.USER_ID, "0")!! + "&type=2&subcription=1")
+                        )
+
+                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        browserIntent.setPackage("com.android.chrome")
+                        try {
+                            activity.startActivity(browserIntent)
+                        } catch (ex: ActivityNotFoundException) {
+                            // Chrome browser presumably not installed so allow user to choose instead
+                            browserIntent.setPackage(null)
+                            activity.startActivity(browserIntent)
+                        }
+
+                    } else {
+
+                        DialogUtils.createConfirmDialog1(
+                            activity,
+                            "OK",
+                            response.body()!!.get("Msg").asString,
+                            DialogInterface.OnClickListener { dialog, which ->
+
+                                dialog.dismiss()
+
+                            }).show()
+//
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    // Log error here since request failed
+                    Log.e("", t.toString())
+                }
+            })
+        }
     }
 
 }

@@ -239,6 +239,7 @@ class PackageDetailFragment : Fragment() {
         }
 
         callTestPackageDetailApi()
+        callgetDiscountPercentage()
     }
 
     fun chargeBtnLogic() {
@@ -675,5 +676,40 @@ class PackageDetailFragment : Fragment() {
         })
     }
 
+    fun callgetDiscountPercentage() {
 
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.callGetDiscount(oldpkgid,
+            Utils.getStringValue(
+                activity!!,
+                AppConstants.USER_ID,
+                "0"
+            )!!)
+
+        call.enqueue(object : Callback<JsonObject> {
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body()!!.get("Status").asString == "true") {
+
+                    package_detail_ivtlogo.visibility = View.VISIBLE
+                    package_detail_tvDiscount.visibility = View.VISIBLE
+
+                    package_detail_tvDiscount.text =
+                        "Discount " + response.body()!!.get("data").asString
+
+                } else {
+
+                    package_detail_ivtlogo.visibility = View.GONE
+                    package_detail_tvDiscount.visibility = View.GONE
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+            }
+        })
+    }
 }

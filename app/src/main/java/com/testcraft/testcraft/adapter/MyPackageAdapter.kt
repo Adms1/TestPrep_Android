@@ -15,13 +15,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
+import com.testcraft.testcraft.fragments.MyPackagesFragment.Companion.callInsertSubscriptionConfirm
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.utils.*
 
 @SuppressLint("SetTextI18n")
 class MyPackageAdapter(
     val context: Context,
-    val dataList: ArrayList<PackageData.PackageDataList>, val come_from: String
+    val dataList: ArrayList<PackageData.PackageDataList>, val come_from: String, val isExpired: String
 ) : RecyclerView.Adapter<MyPackageAdapter.viewholder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
@@ -105,27 +106,27 @@ class MyPackageAdapter(
             CommonWebCalls.callToken(context, "1", "", ActionIdData.C1101, ActionIdData.T1101)
 
 //            if (Utils.getStringValue(context, AppConstants.IS_LOGIN, "") == "true") {
-                DialogUtils.createConfirmDialog(
-                    context,
-                    "",
-                    "Are you sure you want to buy this package?",
-                    "Yes",
-                    "No",
-                    DialogInterface.OnClickListener { dialog, which ->
+            DialogUtils.createConfirmDialog(
+                context,
+                "",
+                "Are you sure you want to buy this package?",
+                "Yes",
+                "No",
+                DialogInterface.OnClickListener { dialog, which ->
 
-                        if (DialogUtils.isNetworkConnected(context)) {
+                    if (DialogUtils.isNetworkConnected(context)) {
 
-                            PackagePurchase.callAddToCart("freetest", dataList[p1].TestPackageID, context, "")
+                        PackagePurchase.callAddToCart("freetest", dataList[p1].TestPackageID, context, "")
 
-                        } else {
-                            Utils.ping(context, AppConstants.NETWORK_MSG)
-                        }
+                    } else {
+                        Utils.ping(context, AppConstants.NETWORK_MSG)
+                    }
 
-                    },
-                    DialogInterface.OnClickListener { dialog, which ->
-                        dialog.dismiss()
+                },
+                DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
 
-                    }).show()
+                }).show()
 //            } else {
 //                val intent = Intent(context, IntroActivity::class.java)
 //                (context as DashboardActivity).startActivity(intent)
@@ -152,17 +153,18 @@ class MyPackageAdapter(
 
             } else if (come_from == "my_pkgs") {
 
-                CommonWebCalls.callToken(context, "1", "", ActionIdData.C1702, ActionIdData.T1702)
+                if (isExpired != "1") {
+                    CommonWebCalls.callToken(context, "1", "", ActionIdData.C1702, ActionIdData.T1702)
 
-                AppConstants.PKG_ID = dataList[p1].StudentTestPackageID.toString()
-                AppConstants.PKG_NAME = dataList[p1].TestPackageName
-                AppConstants.IS_SELF_TEST = "false"
+                    AppConstants.PKG_ID = dataList[p1].StudentTestPackageID.toString()
+                    AppConstants.PKG_NAME = dataList[p1].TestPackageName
+                    AppConstants.IS_SELF_TEST = "false"
 
-                AppConstants.isFirst = 12
+                    AppConstants.isFirst = 12
 //                val bundle = Bundle()
 //                bundle.putString("pkgid", dataList[p1].StudentTestPackageID.toString())
 //                bundle.putString("pname", dataList[p1].TestPackageName)
-                setFragments(null)
+                    setFragments(null)
 
 //                val intent1 = Intent(context, DashboardActivity::class.java)
 //                intent1.putExtra("pkgid", dataList[p1].StudentTestPackageID.toString())
@@ -175,6 +177,21 @@ class MyPackageAdapter(
 //                intent.putExtra("pkgid", dataList[p1].StudentTestPackageID.toString())
 //                intent.putExtra("pname", dataList[p1].TestPackageName)
 //                context.startActivity(intent)
+                } else {
+                    DialogUtils.createConfirmDialog(context, "Alert",
+                        "Your Subscription Has Expired..",
+                        "Pay Later", "Pay Now",
+
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            dialog.dismiss()
+                        },
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            callInsertSubscriptionConfirm(context)
+
+                        }).show()
+                }
             }
 
         }

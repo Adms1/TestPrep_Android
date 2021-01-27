@@ -1,6 +1,7 @@
 package com.testcraft.testcraft.adapter
 
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity
+import com.testcraft.testcraft.fragments.MyPackagesFragment.Companion.callInsertSubscriptionConfirm
 import com.testcraft.testcraft.models.GetSelfTest
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.DialogUtils
 
-class SelfTestAdapter(val context: Context, var datalist: ArrayList<GetSelfTest.GetSelfData>) : RecyclerView.Adapter<SelfTestAdapter.viewholder>() {
+class SelfTestAdapter(val context: Context, var datalist: ArrayList<GetSelfTest.GetSelfData>, val isExpired: String) :
+    RecyclerView.Adapter<SelfTestAdapter.viewholder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): viewholder {
 
@@ -56,14 +60,29 @@ class SelfTestAdapter(val context: Context, var datalist: ArrayList<GetSelfTest.
 
         p0.mainll.setOnClickListener {
 
+            if (isExpired != "1") {
                 AppConstants.PKG_ID = datalist[p1].StudentTestPackageID.toString()
                 AppConstants.PKG_NAME = datalist[p1].TestPackageName
-            AppConstants.IS_SELF_TEST = "true"
+                AppConstants.IS_SELF_TEST = "true"
 
                 AppConstants.isFirst = 12
 
                 DashboardActivity.setFragments(null)
+            } else {
+                DialogUtils.createConfirmDialog(context, "Alert",
+                    "Your Subscription Has Expired..",
+                    "Pay Later", "Pay Now",
 
+                    DialogInterface.OnClickListener { dialog, which ->
+
+                        dialog.dismiss()
+                    },
+                    DialogInterface.OnClickListener { dialog, which ->
+
+                        callInsertSubscriptionConfirm(context)
+
+                    }).show()
+            }
         }
 
     }

@@ -19,6 +19,7 @@ import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
+import kotlinx.android.synthetic.main.activity_otp.*
 import kotlinx.android.synthetic.main.activity_phone_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,6 +42,11 @@ class PhoneLoginActivity : AppCompatActivity() {
 
         phonelogin_btnSignup.setOnClickListener {
 
+            phonelogin_btnSignup.isClickable = false
+            phonelogin_btnSignup.postDelayed(Runnable {
+                phonelogin_btnSignup.isClickable = true
+            }, 2000)
+
             CommonWebCalls.callToken(
                 this@PhoneLoginActivity,
                 "1",
@@ -54,7 +60,7 @@ class PhoneLoginActivity : AppCompatActivity() {
 
 //                if (phonelogin_cbTerms.isChecked) {
 
-                    callVerifyAccountApi(phonelogin_etPhone.text.toString())
+                callVerifyAccountApi(phonelogin_etPhone.text.toString())
 
 //                } else {
 //                    Utils.ping(this@PhoneLoginActivity, "Select Terms & Conditions")

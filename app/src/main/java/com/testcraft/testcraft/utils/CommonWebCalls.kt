@@ -9,7 +9,6 @@ import android.util.Patterns
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.*
@@ -169,7 +168,7 @@ class CommonWebCalls {
                                     "intro"    -> {
 
                                         if (Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.NORMAL_MODE) {
-                                            if(Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.GUEST_MODE) {
+                                            if (Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.GUEST_MODE) {
                                                 if (Utils.getStringValue(context, AppConstants.IS_DEEPLINK_STEP, "") == "3") {
                                                     (context as ResultActivity).finish()
                                                 } else if (Utils.getStringValue(context, AppConstants.IS_DEEPLINK_STEP, "") == "2") {
@@ -177,9 +176,13 @@ class CommonWebCalls {
                                                 } else {
 
 //                                                AppConstants.isF?irst =
+//                                                    if(Utils.getStringValue(context, AppConstants.USER_ACCOUNT_TYPE, "") == "3"){
+//
+//                                                    }else {
                                                     (context as DashboardActivity).finish()
+//                                                    }
                                                 }
-                                            }else{
+                                            } else {
                                                 (context as IntroActivity).finish()
                                             }
                                         } else {

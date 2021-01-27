@@ -844,7 +844,7 @@ class MarketPlaceFragment : Fragment() {
                             main_pkg_item_tvSSeeall.visibility = View.VISIBLE
 
                             main_pkg_item_rvSingleTest.adapter =
-                                MyPackageAdapter(activity!!, mSingleDataList, "market_place")
+                                MyPackageAdapter(activity!!, mSingleDataList, "market_place", "1")
                         } else {
                             main_pkg_item_rvSingleTest.visibility = View.GONE
                             main_pkg_item_tvSingleTest.visibility = View.GONE

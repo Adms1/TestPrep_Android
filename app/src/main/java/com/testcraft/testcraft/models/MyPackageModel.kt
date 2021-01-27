@@ -19,6 +19,7 @@ class MyPackageModel {
         var isCompetitive = false
         var PackageList: ArrayList<PackageData.PackageDataList> = ArrayList()
         var TestSummary: ArrayList<testSummary> = ArrayList()
+        var IsExpired = ""
 
     }
 

@@ -339,7 +339,16 @@ interface WebInterface {
     fun callTemplate(@FieldMap hasmap: HashMap<String, String>): Call<GetChapterList>
 
     @FormUrlEncoded
-    @POST("Get_Template_Detail ")
+    @POST("Get_Template_Detail")
     fun callTemplateSection(@FieldMap hasmap: HashMap<String, String>): Call<TemplateSectionModel>
+
+    @FormUrlEncoded
+    @POST("Check_StudentSubscription_By_Package")
+    fun callGetDiscount(@Field("PackageID") pkg_id: String, @Field("StudentID") stu_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Check_Email_Mobile_By_Type_New")
+    fun callCheckDuplicate(@Field("StudentID") stu_id: String, @Field("TypeID") type_id: String,
+                           @Field("Email") email: String, @Field("Mobile") phone: String): Call<JsonObject>
 
 }

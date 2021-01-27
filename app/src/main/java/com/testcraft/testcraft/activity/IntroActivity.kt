@@ -217,9 +217,9 @@ class IntroActivity : AppCompatActivity() {
 //                    var last_name = jsonObject.getString("last_name");
 //                    var birthday = jsonObject.getString("birthday") // 01/31/1980 format
 
-                    if(email != "") {
+                    if (email != "") {
                         callCheckEmailApi("3", fname, lname, email, "", "")
-                    }else{
+                    } else {
                         Utils.ping(this@IntroActivity, "Email Not Found.!! Please add email in your FB Account")
                     }
 //                    callSignupApi("3", name, "", email, "", "")
@@ -243,7 +243,7 @@ class IntroActivity : AppCompatActivity() {
 
                 Log.d("fbsignin", "signInResult:failed code=cancel")
 
-                finish()
+//                finish()
             }
 
             override fun onError(e: FacebookException) {

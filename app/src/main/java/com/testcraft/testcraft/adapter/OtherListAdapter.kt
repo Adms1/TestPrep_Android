@@ -206,6 +206,7 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
                                     val intent =
                                         Intent(DashboardActivity.context, IntroActivity::class.java)
                                     context.startActivity(intent)
+                                    (context as DashboardActivity).finish()
                                 }
                         },
                         DialogInterface.OnClickListener { dialog, which ->

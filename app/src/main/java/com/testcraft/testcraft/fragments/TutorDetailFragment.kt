@@ -368,7 +368,8 @@ class TutorDetailFragment : Fragment() {
                                 tutor_packages_rvPopularPkg.adapter = pkgAdapter
 
                             } else {
-                                singleAdapter = MyPackageAdapter(activity!!, data, "market_place")
+                                singleAdapter =
+                                    MyPackageAdapter(activity!!, data, "market_place", "1")
                                 tutor_packages_rvPopularPkg.adapter = singleAdapter
 
                             }
@@ -457,7 +458,7 @@ class TutorDetailFragment : Fragment() {
 
             } else if (type == "single") {
 
-                singleAdapter = MyPackageAdapter(activity!!, modelList, "market_place")
+                singleAdapter = MyPackageAdapter(activity!!, modelList, "market_place", "1")
                 tutor_packages_rvPopularPkg.adapter = singleAdapter
                 singleAdapter!!.notifyDataSetChanged()
 
@@ -490,7 +491,7 @@ class TutorDetailFragment : Fragment() {
 
             } else if (type == "single") {
 
-                singleAdapter = MyPackageAdapter(activity!!, modelList, "market_place")
+                singleAdapter = MyPackageAdapter(activity!!, modelList, "market_place", "1")
                 tutor_packages_rvPopularPkg.adapter = singleAdapter
                 singleAdapter!!.notifyDataSetChanged()
 

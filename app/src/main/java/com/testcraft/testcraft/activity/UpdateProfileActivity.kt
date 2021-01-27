@@ -88,7 +88,7 @@ class UpdateProfileActivity : Fragment() {
             CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C3401, ActionIdData.T3401)
 
             if (isValid()) {
-                callSignupApi()
+                callCheckDuplicate()
             }
         }
 
@@ -233,6 +233,40 @@ class UpdateProfileActivity : Fragment() {
         }
 
         return isvalid
+
+    }
+
+    fun callCheckDuplicate() {
+
+        var isvalid = true
+
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call = apiService.callCheckDuplicate(Utils.getStringValue(
+            activity!!,
+            AppConstants.USER_ID,
+            "0"
+        )!!, Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "")!!, update_etEmail.text.toString(),
+            update_etMobile.text.toString())
+
+        call.enqueue(object : Callback<JsonObject> {
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body()!!.get("Status").asString == "true") {
+
+                    callSignupApi()
+                } else {
+
+                    Utils.ping(activity!!, response.body()!!.get("Msg").asString)
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+            }
+        })
 
     }
 

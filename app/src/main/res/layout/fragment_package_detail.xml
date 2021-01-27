@@ -127,6 +127,35 @@
                     app:layout_constraintLeft_toRightOf="@+id/package_detail_tvsprice"
                     app:layout_constraintTop_toTopOf="@+id/package_detail_tvsprice" />
 
+                <ImageView
+                    android:id="@+id/package_detail_ivtlogo"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:src="@mipmap/logo"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toRightOf="@+id/package_detail_llImage"
+                    app:layout_constraintTop_toBottomOf="@+id/package_detail_tvpricetxt" />
+
+                <TextView
+                    android:id="@+id/package_detail_tvDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:textSize="@dimen/_12sdp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/package_detail_ivtlogo"
+                    app:layout_constraintLeft_toRightOf="@+id/package_detail_ivtlogo"
+                    app:layout_constraintTop_toTopOf="@+id/package_detail_ivtlogo" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
