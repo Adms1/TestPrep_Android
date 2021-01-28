@@ -61,6 +61,12 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         filterInterface = this
 
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
+        }
+
         price_filter_etMin.text = "₹ " + AppConstants.FILTER_FROM_PRICE
         price_filter_etMax.text = "₹ " + AppConstants.FILTER_TO_PRICE
 
@@ -376,10 +382,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         var filterArray: ArrayList<PackageData.PackageDataList> = ArrayList()
 
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-        }
-
+//        if (!DialogUtils.isNetworkConnected(activity!!)) {
+////            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(activity!!)
+//            DialogUtils.dismissDialog()
+//        }
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
@@ -434,9 +441,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         var filterArray: ArrayList<PackageData.PackageDataList> = ArrayList()
 
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-        }
+//        if (!DialogUtils.isNetworkConnected(activity!!)) {
+////            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(activity!!)
+//            DialogUtils.dismissDialog()
+//        }
 
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -515,9 +524,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         var filterArray: ArrayList<PackageData.PackageDataList> = ArrayList()
 
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-        }
+//        if (!DialogUtils.isNetworkConnected(activity!!)) {
+////            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(activity!!)
+//            DialogUtils.dismissDialog()
+//        }
 
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -574,9 +585,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         var filterArray: ArrayList<PackageData.PackageDataList> = ArrayList()
 
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-        }
+//        if (!DialogUtils.isNetworkConnected(activity!!)) {
+////            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(activity!!)
+//            DialogUtils.dismissDialog()
+//        }
 
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)

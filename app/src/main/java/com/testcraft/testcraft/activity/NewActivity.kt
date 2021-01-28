@@ -190,7 +190,9 @@ class NewActivity : AppCompatActivity() {
     fun callCourseListApi() {
 
         if (!DialogUtils.isNetworkConnected(this@NewActivity)) {
-            Utils.ping(this@NewActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@NewActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@NewActivity)

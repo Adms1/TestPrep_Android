@@ -196,7 +196,11 @@ class PackageDetailFragment : Fragment() {
 //
 //            }
                             } else {
-                                Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//                                Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+
+                                DialogUtils.NetworkDialog(activity!!)
+                                DialogUtils.dismissDialog()
+
                             }
 
                         },
@@ -309,7 +313,9 @@ class PackageDetailFragment : Fragment() {
 
     fun generateTrackNPayRequest(context: Context, coin: String) {
         if (!DialogUtils.isNetworkConnected(context)) {
-            Utils.ping(context, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(context)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(context)
@@ -396,7 +402,9 @@ class PackageDetailFragment : Fragment() {
     fun callTestPackageDetailApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(activity!!)
@@ -581,9 +589,10 @@ class PackageDetailFragment : Fragment() {
     fun callAddTestPackageApi(pkgid: String) {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
         }
-
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 

@@ -48,7 +48,9 @@ class DeeplinkTestActivity : AppCompatActivity() {
     private fun calldplinkTestListApi() {
 
         if (!DialogUtils.isNetworkConnected(this@DeeplinkTestActivity)) {
-            Utils.ping(this@DeeplinkTestActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@DeeplinkTestActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@DeeplinkTestActivity)

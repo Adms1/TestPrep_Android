@@ -24,7 +24,10 @@ import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.models.TutorModel
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.*
+import com.testcraft.testcraft.utils.ActionIdData
+import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.CommonWebCalls
+import com.testcraft.testcraft.utils.DialogUtils
 import kotlinx.android.synthetic.main.fragment_tutor_profile.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -136,7 +139,9 @@ class TutorProfileFragment : Fragment() {
     fun callTutorPrfile() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
         }
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -200,9 +205,11 @@ class TutorProfileFragment : Fragment() {
 
     fun callSmilarPkgs() {
 
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-        }
+//        if (!DialogUtils.isNetworkConnected(activity!!)) {
+////            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(activity!!)
+//            DialogUtils.dismissDialog()
+//        }
 
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)

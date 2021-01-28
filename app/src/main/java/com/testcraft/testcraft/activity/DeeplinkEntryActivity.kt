@@ -61,9 +61,10 @@ class DeeplinkEntryActivity : AppCompatActivity() {
 
         fun getDeeplinkSubject(context: Context) {
             if (!DialogUtils.isNetworkConnected(context)) {
-                Utils.ping(context, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                DialogUtils.NetworkDialog(context)
+                DialogUtils.dismissDialog()
             }
-
             DialogUtils.showDialog(context)
             val apiService = WebClient.getClient().create(WebInterface::class.java)
 

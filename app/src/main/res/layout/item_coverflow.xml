@@ -9,7 +9,7 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_110sdp"
-        android:background="@drawable/pp_1"
+        android:background="@drawable/pp_2"
         android:scaleType="fitXY"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -23,11 +23,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginRight="@dimen/_130sdp"
         android:gravity="left"
         android:maxLines="3"
-        android:text="GSEB(Gujarati Medium) 11th (Science)"
         android:textColor="@android:color/white"
         android:textSize="@dimen/_14sdp"
         app:layout_constraintRight_toRightOf="parent"
@@ -43,12 +42,10 @@
         android:layout_marginLeft="@dimen/_10sdp"
         android:gravity="center"
         android:maxLines="1"
-        android:text=""
         android:textColor="@android:color/white"
         android:textSize="@dimen/_14sdp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/choosemp_tvstandardname" />
-
 
     <TextView
         android:id="@+id/choosemp_tvTest"

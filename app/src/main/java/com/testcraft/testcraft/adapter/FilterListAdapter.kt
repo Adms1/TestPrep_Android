@@ -78,7 +78,7 @@ class FilterListAdapter(
                 }
             }
             "Price" -> {
-                if (AppConstants.FILTER_TO_PRICE.toInt() != 5000 && AppConstants.FILTER_FROM_PRICE.toInt() != 0) {
+                if (AppConstants.FILTER_TO_PRICE.toInt() != 5000 || AppConstants.FILTER_FROM_PRICE.toInt() != 0) {
                     p0.select.visibility = View.VISIBLE
                 } else {
                     p0.select.visibility = View.INVISIBLE

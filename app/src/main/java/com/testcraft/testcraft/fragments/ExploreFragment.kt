@@ -83,9 +83,11 @@ class ExploreFragment : Fragment() {
 
         var filterArray: ArrayList<PackageData.PackageDataList> = ArrayList()
 
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-        }
+//        if (!DialogUtils.isNetworkConnected(activity!!)) {
+////            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(activity!!)
+//            DialogUtils.dismissDialog()
+//        }
 
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -131,7 +133,9 @@ class ExploreFragment : Fragment() {
     fun callAddHitoryApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(activity!!)
@@ -187,7 +191,9 @@ class ExploreFragment : Fragment() {
     fun callGetHistoryApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(activity!!)

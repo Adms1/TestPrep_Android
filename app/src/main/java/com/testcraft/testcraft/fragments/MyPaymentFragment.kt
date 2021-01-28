@@ -79,7 +79,9 @@ class MyPaymentFragment : Fragment() {
     fun callPaymentListApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(activity!!)

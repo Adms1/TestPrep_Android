@@ -242,7 +242,9 @@ class MyPackagesFragment : Fragment() {
     fun callMyPackagesApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(activity!!)
@@ -368,7 +370,7 @@ class MyPackagesFragment : Fragment() {
 
                         val pkgArr = response.body()!!.data[0].PackageList
                         my_packages_rvList.adapter =
-                            MyPackageAdapter(activity!!, pkgArr, "my_pkgs", "1")
+                            MyPackageAdapter(activity!!, pkgArr, "my_pkgs", isExpired)
 //                        my_packages_rvList.adapter = TestPackagesAdapter(activity!!, pkgArr)
 
                         DialogUtils.dismissDialog()
@@ -386,9 +388,12 @@ class MyPackagesFragment : Fragment() {
 
     fun callgetMyTest() {
 
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-        }
+//        if (!DialogUtils.isNetworkConnected(activity!!)) {
+////            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//
+//            DialogUtils.NetworkDialog(activity!!)
+//            DialogUtils.dismissDialog()
+//        }
 
         DialogUtils.showDialog(activity!!)
 
@@ -397,13 +402,13 @@ class MyPackagesFragment : Fragment() {
         val hashmap = HashMap<String, String>()
         hashmap["StudentID"] = Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!
 
-        if(iscompetitive == "1"){
+        if (iscompetitive == "1") {
             hashmap["TypeID"] = "2"
             hashmap["CourseID"] = subid.toString()
             hashmap["BoardID"] = "0"
             hashmap["StandardID"] = "0"
             hashmap["SubjectID"] = "0"
-        }else{
+        } else {
             hashmap["TypeID"] = "1"
             hashmap["CourseID"] = "0"
             hashmap["BoardID"] = boardid

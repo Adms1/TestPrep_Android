@@ -331,8 +331,9 @@ class IntroActivity : AppCompatActivity() {
         if (v == intro_btnFb) {
 
             if (!DialogUtils.isNetworkConnected(this@IntroActivity)) {
-                Utils.ping(this@IntroActivity, AppConstants.NETWORK_MSG)
-
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                DialogUtils.NetworkDialog(this@IntroActivity)
+                DialogUtils.dismissDialog()
             } else {
 
                 fb.performClick()
@@ -344,8 +345,9 @@ class IntroActivity : AppCompatActivity() {
     private fun signIn() {
 
         if (!DialogUtils.isNetworkConnected(this@IntroActivity)) {
-            Utils.ping(this@IntroActivity, AppConstants.NETWORK_MSG)
-
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@IntroActivity)
+            DialogUtils.dismissDialog()
         } else {
 
             val signInIntent = mGoogleSignInClient!!.signInIntent
@@ -427,7 +429,9 @@ class IntroActivity : AppCompatActivity() {
     ) {
 
         if (!DialogUtils.isNetworkConnected(this@IntroActivity)) {
-            Utils.ping(this@IntroActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@IntroActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@IntroActivity)
@@ -613,7 +617,9 @@ class IntroActivity : AppCompatActivity() {
     ) {
 
         if (!DialogUtils.isNetworkConnected(this@IntroActivity)) {
-            Utils.ping(this@IntroActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@IntroActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@IntroActivity)

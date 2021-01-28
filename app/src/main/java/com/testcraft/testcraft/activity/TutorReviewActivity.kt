@@ -115,7 +115,9 @@ class TutorReviewActivity : AppCompatActivity() {
                 if (ratingbar.rating != 0f) {
 
                     if (!DialogUtils.isNetworkConnected(this@TutorReviewActivity)) {
-                        Utils.ping(this@TutorReviewActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                        DialogUtils.NetworkDialog(this@TutorReviewActivity)
+                        DialogUtils.dismissDialog()
                     }
 
                     DialogUtils.showDialog(this@TutorReviewActivity)
@@ -191,6 +193,8 @@ class TutorReviewActivity : AppCompatActivity() {
 
         if (!DialogUtils.isNetworkConnected(this@TutorReviewActivity)) {
             Utils.ping(this@TutorReviewActivity, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(this@TutorReviewActivity)
+//            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@TutorReviewActivity)

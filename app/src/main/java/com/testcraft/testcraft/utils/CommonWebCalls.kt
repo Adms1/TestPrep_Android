@@ -100,7 +100,9 @@ class CommonWebCalls {
         ) {
 
             if (!DialogUtils.isNetworkConnected(context)) {
-                Utils.ping(context, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                DialogUtils.NetworkDialog(context)
+                DialogUtils.dismissDialog()
             }
 
             val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -296,7 +298,9 @@ class CommonWebCalls {
         fun callReportIssue(context: Context, issueType: String, typename: String, qid: String) {
 
             if (!DialogUtils.isNetworkConnected(context)) {
-                Utils.ping(context, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                DialogUtils.NetworkDialog(context)
+                DialogUtils.dismissDialog()
             }
 
             DialogUtils.showDialog(context)
@@ -350,7 +354,9 @@ class CommonWebCalls {
         fun callFCMToken(context: Context) {
 
             if (!DialogUtils.isNetworkConnected(context)) {
-                Utils.ping(context, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                DialogUtils.NetworkDialog(context)
+                DialogUtils.dismissDialog()
             }
 
             DialogUtils.showDialog(context)
@@ -388,7 +394,9 @@ class CommonWebCalls {
         fun callVerifyAccountApi(context: Context, phone: String) {
 
             if (!DialogUtils.isNetworkConnected(context)) {
-                Utils.ping(context, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                DialogUtils.NetworkDialog(context)
+                DialogUtils.dismissDialog()
             }
 
             DialogUtils.showDialog(context)

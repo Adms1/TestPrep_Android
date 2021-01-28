@@ -8,7 +8,6 @@ import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.os.Build
 import android.telephony.TelephonyManager
-import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.Utils
 
 class Connectivity : BroadcastReceiver() {
@@ -234,7 +233,10 @@ class Connectivity : BroadcastReceiver() {
             if (activeNetwork != null && activeNetwork.isConnected) {
                 isConnectedFast(context)
             } else {
-                Utils.ping(context, AppConstants.NETWORK_MSG)
+//                Utils.ping(context, AppConstants.NETWORK_MSG)
+
+//                    DialogUtils.NetworkDialog(context)
+
             }
         } catch (e: Exception) {
 

@@ -205,6 +205,8 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 
                                     val intent =
                                         Intent(DashboardActivity.context, IntroActivity::class.java)
+                                    intent.flags =
+                                        Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     context.startActivity(intent)
                                     (context as DashboardActivity).finish()
                                 }

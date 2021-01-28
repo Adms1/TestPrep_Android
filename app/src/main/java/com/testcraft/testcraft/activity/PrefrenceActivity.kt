@@ -172,9 +172,11 @@ class PrefrenceActivity : AppCompatActivity() {
 
     fun callCourseTypeList() {
 
-        if (!DialogUtils.isNetworkConnected(this@PrefrenceActivity)) {
-            Utils.ping(this@PrefrenceActivity, AppConstants.NETWORK_MSG)
-        }
+//        if (!DialogUtils.isNetworkConnected(this@PrefrenceActivity)) {
+////            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(this@PrefrenceActivity)
+//            DialogUtils.dismissDialog()
+//        }
 
         DialogUtils.showDialog(this@PrefrenceActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -231,9 +233,11 @@ class PrefrenceActivity : AppCompatActivity() {
 
     fun callSubjectList(stdId: String) {
 
-        if (!DialogUtils.isNetworkConnected(this@PrefrenceActivity)) {
-            Utils.ping(this@PrefrenceActivity, AppConstants.NETWORK_MSG)
-        }
+//        if (!DialogUtils.isNetworkConnected(this@PrefrenceActivity)) {
+////            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(this@PrefrenceActivity)
+//            DialogUtils.dismissDialog()
+//        }
 
         DialogUtils.showDialog(this@PrefrenceActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -316,9 +320,11 @@ class PrefrenceActivity : AppCompatActivity() {
 
     fun callStandardList(courseId: Int) {
 
-        if (!DialogUtils.isNetworkConnected(this@PrefrenceActivity)) {
-            Utils.ping(this@PrefrenceActivity, AppConstants.NETWORK_MSG)
-        }
+//        if (!DialogUtils.isNetworkConnected(this@PrefrenceActivity)) {
+////            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(this@PrefrenceActivity)
+//            DialogUtils.dismissDialog()
+//        }
 
         DialogUtils.showDialog(this@PrefrenceActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)

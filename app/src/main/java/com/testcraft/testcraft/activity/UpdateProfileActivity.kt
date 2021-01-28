@@ -97,10 +97,6 @@ class UpdateProfileActivity : Fragment() {
 
     fun callSignupApi() {
 
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-        }
-
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
         val call = apiService.updateProfile(
@@ -239,6 +235,12 @@ class UpdateProfileActivity : Fragment() {
     fun callCheckDuplicate() {
 
         var isvalid = true
+
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
+        }
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 

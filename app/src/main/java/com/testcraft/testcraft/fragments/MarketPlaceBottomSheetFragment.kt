@@ -158,7 +158,9 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
     fun callCourseTypeList() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(activity!!)
@@ -206,9 +208,10 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
         courseList = ArrayList()
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
         }
-
         DialogUtils.showDialog(activity!!)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
@@ -274,7 +277,9 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(activity!!)

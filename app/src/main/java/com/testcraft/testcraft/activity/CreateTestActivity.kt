@@ -360,7 +360,9 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         }
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
-            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@CreateTestActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@CreateTestActivity)
@@ -426,7 +428,9 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
     fun callChapterList() {
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
-            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@CreateTestActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@CreateTestActivity)
@@ -473,9 +477,11 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
     fun callSubjects() {
 
-        if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
-            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
-        }
+//        if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
+////            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(this@CreateTestActivity)
+//            DialogUtils.dismissDialog()
+//        }
 
         DialogUtils.showDialog(this@CreateTestActivity)
 
@@ -520,7 +526,9 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
     fun callTemplate() {
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
-            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@CreateTestActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@CreateTestActivity)
@@ -587,7 +595,9 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
     fun callSectionList(tempid: String) {
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
-            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@CreateTestActivity)
+            DialogUtils.dismissDialog()
         }
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -644,7 +654,9 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         }
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
-            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@CreateTestActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@CreateTestActivity)
@@ -721,7 +733,9 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         }
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
-            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@CreateTestActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@CreateTestActivity)

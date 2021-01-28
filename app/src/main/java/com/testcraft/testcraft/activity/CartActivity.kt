@@ -56,7 +56,9 @@ class CartActivity : AppCompatActivity() {
 
     private fun getCart() {
         if (!DialogUtils.isNetworkConnected(this@CartActivity)) {
-            Utils.ping(this@CartActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@CartActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@CartActivity)
@@ -116,7 +118,9 @@ class CartActivity : AppCompatActivity() {
     fun callCheckout() {
 
         if (!DialogUtils.isNetworkConnected(this@CartActivity)) {
-            Utils.ping(this@CartActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@CartActivity)
+            DialogUtils.dismissDialog()
         }
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)

@@ -45,7 +45,7 @@ class ChangePasswordFragment : Fragment() {
         CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C3500, ActionIdData.T3500)
 
         bundle = this.arguments
-        come = bundle!!.getString("come_from")
+        come = bundle!!.getString("come_from")!!
 
         if (come == "other") {
 
@@ -140,7 +140,9 @@ class ChangePasswordFragment : Fragment() {
     fun callChangePasswordlApi() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
-            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(activity!!)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(activity!!)

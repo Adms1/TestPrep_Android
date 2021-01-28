@@ -95,8 +95,9 @@ class SignupActivity : AppCompatActivity() {
         signup_tvTerms.setOnClickListener {
 
             if (!DialogUtils.isNetworkConnected(this@SignupActivity)) {
-                Utils.ping(this@SignupActivity, AppConstants.NETWORK_MSG)
-
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                DialogUtils.NetworkDialog(this@SignupActivity)
+                DialogUtils.dismissDialog()
             } else {
 
                 val intent = Intent(this@SignupActivity, ViewInvoiceActivity::class.java)
@@ -187,7 +188,9 @@ class SignupActivity : AppCompatActivity() {
     fun callVerifyAccountApi() {
 
         if (!DialogUtils.isNetworkConnected(this@SignupActivity)) {
-            Utils.ping(this@SignupActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@SignupActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@SignupActivity)

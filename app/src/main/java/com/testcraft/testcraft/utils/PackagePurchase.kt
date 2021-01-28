@@ -26,7 +26,9 @@ class PackagePurchase {
         fun callAddToCart(come_from: String, pkgid: String, context: Context, ccode: String) {
 
             if (!DialogUtils.isNetworkConnected(context)) {
-                Utils.ping(context, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                DialogUtils.NetworkDialog(context)
+                DialogUtils.dismissDialog()
             }
 
             DialogUtils.showDialog(context)
@@ -84,7 +86,9 @@ class PackagePurchase {
         fun callCheckout(come_from: String, context: Context, ccode: String) {
 
             if (!DialogUtils.isNetworkConnected(context)) {
-                Utils.ping(context, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                DialogUtils.NetworkDialog(context)
+                DialogUtils.dismissDialog()
             }
 
             val apiService = WebClient.getClient().create(WebInterface::class.java)
@@ -183,8 +187,11 @@ class PackagePurchase {
         }
 
         fun updatePaymentStatus(come_from: String, transaction_status: String, order_id: String, context: Context) {
+
             if (!DialogUtils.isNetworkConnected(context)) {
-                Utils.ping(context, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                DialogUtils.NetworkDialog(context)
+                DialogUtils.dismissDialog()
             }
 
             DialogUtils.showDialog(context)

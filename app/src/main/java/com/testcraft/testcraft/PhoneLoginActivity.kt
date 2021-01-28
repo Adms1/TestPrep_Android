@@ -87,8 +87,9 @@ class PhoneLoginActivity : AppCompatActivity() {
         phonelogin_tvTerms.setOnClickListener {
 
             if (!DialogUtils.isNetworkConnected(this@PhoneLoginActivity)) {
-                Utils.ping(this@PhoneLoginActivity, AppConstants.NETWORK_MSG)
-
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+                DialogUtils.NetworkDialog(this@PhoneLoginActivity)
+                DialogUtils.dismissDialog()
             } else {
 
                 val intent = Intent(this@PhoneLoginActivity, ViewInvoiceActivity::class.java)
@@ -116,7 +117,9 @@ class PhoneLoginActivity : AppCompatActivity() {
     fun callVerifyAccountApi(phone: String) {
 
         if (!DialogUtils.isNetworkConnected(this@PhoneLoginActivity)) {
-            Utils.ping(this@PhoneLoginActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@PhoneLoginActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@PhoneLoginActivity)

@@ -3,7 +3,6 @@ package com.testcraft.testcraft.activity
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -14,9 +13,7 @@ import com.testcraft.testcraft.adapter.ApplyCouponAdapter
 import com.testcraft.testcraft.models.CouponModel
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
-import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_apply_coupon.*
 import retrofit2.Call
@@ -51,9 +48,10 @@ class ApplyCouponActivity : AppCompatActivity() {
 
     private fun getCoupons() {
         if (!DialogUtils.isNetworkConnected(this@ApplyCouponActivity)) {
-            Utils.ping(this@ApplyCouponActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@ApplyCouponActivity)
+            DialogUtils.dismissDialog()
         }
-
         DialogUtils.showDialog(this@ApplyCouponActivity)
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 

@@ -104,7 +104,9 @@ class ForgotPasswordActivity : AppCompatActivity() {
     fun callForgotPasswordlApi() {
 
         if (!DialogUtils.isNetworkConnected(this@ForgotPasswordActivity)) {
-            Utils.ping(this@ForgotPasswordActivity, AppConstants.NETWORK_MSG)
+//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
+            DialogUtils.NetworkDialog(this@ForgotPasswordActivity)
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@ForgotPasswordActivity)
