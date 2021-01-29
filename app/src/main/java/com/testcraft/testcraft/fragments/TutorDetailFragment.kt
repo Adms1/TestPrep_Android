@@ -1,12 +1,17 @@
 package com.testcraft.testcraft.fragments
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -114,122 +119,7 @@ class TutorDetailFragment : Fragment() {
 //            startActivity(intent)
 //        }
 
-        when (filtypeid) {
-
-            "0" -> {
-
-                rlFilter!!.visibility = View.VISIBLE
-
-                minprice = bundle!!.getString("minprice")!!
-                maxprice = bundle!!.getString("maxprice")!!
-
-                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
-                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
-
-//                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-
-                tutor_packages_rvPopularPkg.layoutManager =
-                    LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-
-
-                callFilterListApi("", filtypeid)
-
-            }
-
-            "1" -> {
-
-                rlFilter!!.visibility = View.VISIBLE
-
-                minprice = bundle!!.getString("minprice")!!
-                maxprice = bundle!!.getString("maxprice")!!
-
-                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
-                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
-
-                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-
-                callFilterListApi("", filtypeid)
-
-            }
-            "filter" -> {
-
-                rlFilter!!.visibility = View.VISIBLE
-
-                minprice = bundle!!.getString("minprice")!!
-                maxprice = bundle!!.getString("maxprice")!!
-
-                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
-                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
-
-                if (ptype == "single") {
-
-                    tutor_packages_rvPopularPkg.layoutManager =
-                        LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-
-                } else {
-                    tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-                }
-
-                callFilterListApi("", filtypeid)
-
-            }
-            "-1" -> {
-
-                rlFilter!!.visibility = View.GONE
-
-                minprice = bundle!!.getString("minprice")!!
-                maxprice = bundle!!.getString("maxprice")!!
-
-                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
-                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
-
-                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
-
-                callFilterListApi(bundle!!.getString("search_name")!!, filtypeid)
-
-            }
-            "2" -> {
-
-                CommonWebCalls.callToken(
-                    activity!!,
-                    "1",
-                    "",
-                    ActionIdData.C2700,
-                    ActionIdData.T2700
-                )
-
-                rlFilter!!.visibility = View.GONE
-                tutor_detail_ivNoPkg.visibility = View.GONE
-
-                minprice = bundle!!.getString("minprice")!!
-                maxprice = bundle!!.getString("maxprice")!!
-
-                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
-                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
-
-                tutor_packages_rvPopularPkg.layoutManager =
-                    LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
-
-                tutorAdapter = TutorsAdapter(activity!!, data)
-
-                tutor_packages_rvPopularPkg.adapter = tutorAdapter
-
-            }
-            "3" -> {
-                rlFilter!!.visibility = View.VISIBLE
-
-                minprice = bundle!!.getString("minprice")!!
-                maxprice = bundle!!.getString("maxprice")!!
-
-                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
-                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
-
-                tutor_packages_rvPopularPkg.layoutManager =
-                    LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
-
-                callFilterListApi("", filtypeid)
-            }
-        }
+        getFilterType()
 
         ivSort!!.setOnClickListener {
 
@@ -294,11 +184,147 @@ class TutorDetailFragment : Fragment() {
 //
 //    }
 
+    fun getFilterType() {
+        when (filtypeid) {
+
+            "0" -> {
+
+                rlFilter!!.visibility = View.VISIBLE
+
+                minprice = bundle!!.getString("minprice")!!
+                maxprice = bundle!!.getString("maxprice")!!
+
+                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
+
+//                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+
+                tutor_packages_rvPopularPkg.layoutManager =
+                    LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+
+                callFilterListApi("", filtypeid)
+
+            }
+
+            "1"      -> {
+
+                rlFilter!!.visibility = View.VISIBLE
+
+                minprice = bundle!!.getString("minprice")!!
+                maxprice = bundle!!.getString("maxprice")!!
+
+                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
+
+                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+
+                callFilterListApi("", filtypeid)
+
+            }
+            "filter" -> {
+
+                rlFilter!!.visibility = View.VISIBLE
+
+                minprice = bundle!!.getString("minprice")!!
+                maxprice = bundle!!.getString("maxprice")!!
+
+                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
+
+                if (ptype == "single") {
+
+                    tutor_packages_rvPopularPkg.layoutManager =
+                        LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+                } else {
+                    tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+                }
+
+                callFilterListApi("", filtypeid)
+
+            }
+            "-1"     -> {
+
+                rlFilter!!.visibility = View.GONE
+
+                minprice = bundle!!.getString("minprice")!!
+                maxprice = bundle!!.getString("maxprice")!!
+
+                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
+
+                tutor_packages_rvPopularPkg.layoutManager = GridLayoutManager(activity!!, 2)
+
+                callFilterListApi(bundle!!.getString("search_name")!!, filtypeid)
+
+            }
+            "2"      -> {
+
+                CommonWebCalls.callToken(
+                    activity!!,
+                    "1",
+                    "",
+                    ActionIdData.C2700,
+                    ActionIdData.T2700
+                )
+
+                rlFilter!!.visibility = View.GONE
+                tutor_detail_ivNoPkg.visibility = View.GONE
+
+                minprice = bundle!!.getString("minprice")!!
+                maxprice = bundle!!.getString("maxprice")!!
+
+                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
+
+                tutor_packages_rvPopularPkg.layoutManager =
+                    LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
+
+                tutorAdapter = TutorsAdapter(activity!!, data)
+
+                tutor_packages_rvPopularPkg.adapter = tutorAdapter
+
+            }
+            "3"      -> {
+                rlFilter!!.visibility = View.VISIBLE
+
+                minprice = bundle!!.getString("minprice")!!
+                maxprice = bundle!!.getString("maxprice")!!
+
+                Utils.setStringValue(activity!!, AppConstants.MIN_PRICE, minprice)
+                Utils.setStringValue(activity!!, AppConstants.MAX_PRICE, maxprice)
+
+                tutor_packages_rvPopularPkg.layoutManager =
+                    LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+
+                callFilterListApi("", filtypeid)
+            }
+        }
+    }
+
     fun callFilterListApi(name: String, type: String) {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
 //            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(activity!!)
+            val netdialog = Dialog(activity!!)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(activity!!)) {
+                    netdialog.dismiss()
+                    getFilterType()
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
             DialogUtils.dismissDialog()
         }
 

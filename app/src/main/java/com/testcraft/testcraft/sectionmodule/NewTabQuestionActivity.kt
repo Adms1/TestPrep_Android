@@ -41,6 +41,7 @@ import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.sectionmodule.ImageViewAdapter.Companion.getPageNumber
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
+import kotlinx.android.synthetic.main.activity_otp.*
 import kotlinx.android.synthetic.main.activity_tabwise_question.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -1777,6 +1778,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         nextButton!!.setOnClickListener {
 
+            nextButton!!.isClickable = false
+            nextButton!!.postDelayed(Runnable { nextButton!!.isClickable = true }, 2000)
+
             if (que_number <= testque.toInt()) {
                 nextButtonClick()
             }
@@ -2038,6 +2042,9 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
         }
 
         queTab_ivSubmit.setOnClickListener {
+
+            queTab_ivSubmit.isClickable = false
+            queTab_ivSubmit.postDelayed(Runnable { queTab_ivSubmit.isClickable = true }, 2000)
 
             CommonWebCalls.callToken(
                 this@NewTabQuestionActivity,

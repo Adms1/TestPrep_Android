@@ -1,10 +1,15 @@
 package com.testcraft.testcraft.activity
 
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.Window
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +26,7 @@ import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_deeplink_entry.*
+import kotlinx.android.synthetic.main.activity_phone_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,7 +68,24 @@ class DeeplinkEntryActivity : AppCompatActivity() {
         fun getDeeplinkSubject(context: Context) {
             if (!DialogUtils.isNetworkConnected(context)) {
 //            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-                DialogUtils.NetworkDialog(context)
+                val netdialog = Dialog(context)
+                netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                netdialog.setContentView(R.layout.dialog_network)
+                netdialog.setCanceledOnTouchOutside(false)
+
+                val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+                btnRetry.setOnClickListener {
+                    if (DialogUtils.isNetworkConnected(context)) {
+                        netdialog.dismiss()
+                        getDeeplinkSubject(context)
+                    }
+                }
+
+                netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                netdialog.setCanceledOnTouchOutside(false)
+                netdialog.setCancelable(false)
+                netdialog.show()
                 DialogUtils.dismissDialog()
             }
             DialogUtils.showDialog(context)

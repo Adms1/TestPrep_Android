@@ -1,13 +1,19 @@
 package com.testcraft.testcraft
 
+import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.os.Build
 import android.telephony.TelephonyManager
+import android.view.Window
+import android.widget.TextView
+import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
 
 class Connectivity : BroadcastReceiver() {
@@ -236,6 +242,24 @@ class Connectivity : BroadcastReceiver() {
 //                Utils.ping(context, AppConstants.NETWORK_MSG)
 
 //                    DialogUtils.NetworkDialog(context)
+                val netdialog = Dialog(context)
+                netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                netdialog.setContentView(R.layout.dialog_network)
+                netdialog.setCanceledOnTouchOutside(false)
+
+                val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+                btnRetry.setOnClickListener {
+                    if (DialogUtils.isNetworkConnected(context)) {
+                        netdialog.dismiss()
+
+                    }
+                }
+
+                netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                netdialog.setCanceledOnTouchOutside(false)
+                netdialog.setCancelable(false)
+                netdialog.show()
 
             }
         } catch (e: Exception) {

@@ -110,7 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_7sdp"
-                    android:text="Weekness"
+                    android:text="Weaknesses"
                     android:textColor="@color/white"
                     android:textSize="@dimen/prefrence_step_txt_size" />
 

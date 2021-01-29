@@ -1,15 +1,20 @@
 package com.testcraft.testcraft.fragments
 
+import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.JsonObject
@@ -124,27 +129,44 @@ class MyPackagesFragment : Fragment() {
 
         my_create_pkgs.setOnClickListener {
 
-            val intent = Intent(context, CreateTestActivity::class.java)
+            if (isExpired != "1") {
+                val intent = Intent(context, CreateTestActivity::class.java)
 
-            if (iscompetitive == "1") {
-                intent.putExtra("coursetypeid", "2")
+                if (iscompetitive == "1") {
+                    intent.putExtra("coursetypeid", "2")
 
-                intent.putExtra("board_id", "")
-                intent.putExtra("sub_id", subid.toString())
-                intent.putExtra("std_id", "")
-                intent.putExtra("sub_name", subname)
+                    intent.putExtra("board_id", "")
+                    intent.putExtra("sub_id", subid.toString())
+                    intent.putExtra("std_id", "")
+                    intent.putExtra("sub_name", subname)
+
+                } else {
+                    intent.putExtra("coursetypeid", "1")
+
+                    intent.putExtra("board_id", boardid)
+                    intent.putExtra("sub_id", subid.toString())
+                    intent.putExtra("std_id", stdid)
+                    intent.putExtra("sub_name", subname)
+                }
+
+                startActivity(intent)
+                (context as DashboardActivity).finish()
 
             } else {
-                intent.putExtra("coursetypeid", "1")
+                DialogUtils.createConfirmDialog(activity!!, "Alert",
+                    "Your Subscription Has Expired..",
+                    "Pay Later", "Pay Now",
 
-                intent.putExtra("board_id", boardid)
-                intent.putExtra("sub_id", subid.toString())
-                intent.putExtra("std_id", stdid)
-                intent.putExtra("sub_name", subname)
+                    DialogInterface.OnClickListener { dialog, which ->
+
+                        dialog.dismiss()
+                    },
+                    DialogInterface.OnClickListener { dialog, which ->
+
+                        callInsertSubscriptionConfirm(activity!!)
+
+                    }).show()
             }
-
-            startActivity(intent)
-            (context as DashboardActivity).finish()
         }
 
 //        my_packages_header.text = bundle!!.getString("sub_name")
@@ -243,7 +265,25 @@ class MyPackagesFragment : Fragment() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
 //            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(activity!!)
+            val netdialog = Dialog(activity!!)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(activity!!)) {
+                    netdialog.dismiss()
+                    callMyPackagesApi()
+                    callgetMyTest()
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
             DialogUtils.dismissDialog()
         }
 

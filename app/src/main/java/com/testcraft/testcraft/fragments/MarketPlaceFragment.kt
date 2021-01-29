@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
@@ -12,6 +14,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -766,7 +769,25 @@ class MarketPlaceFragment : Fragment() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
 //            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(activity!!)
+            val netdialog = Dialog(activity!!)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(activity!!)) {
+                    netdialog.dismiss()
+                    callFilterListApi()
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
+
             DialogUtils.dismissDialog()
         }
 

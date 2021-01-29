@@ -384,7 +384,7 @@
                     app:container_border_color="@color/white"
                     app:container_enable_drag="false"
                     android:layout_margin="0dp"
-                    app:tag_max_length="50"
+                    app:tag_max_length="45"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

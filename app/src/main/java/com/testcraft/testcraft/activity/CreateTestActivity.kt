@@ -1,14 +1,19 @@
 package com.testcraft.testcraft.activity
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +35,7 @@ import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_create_test.*
+import kotlinx.android.synthetic.main.activity_phone_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -360,9 +366,25 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         }
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
-//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(this@CreateTestActivity)
-            DialogUtils.dismissDialog()
+//            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+            val netdialog = Dialog(this@CreateTestActivity)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
+                    netdialog.dismiss()
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
+//            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@CreateTestActivity)
@@ -429,7 +451,24 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
 //            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(this@CreateTestActivity)
+            val netdialog = Dialog(this@CreateTestActivity)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
+                    netdialog.dismiss()
+                    callChapterList()
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
             DialogUtils.dismissDialog()
         }
 
@@ -453,8 +492,16 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
                     if (response.body()!!.Status == "true") {
 
+                        var arrList: ArrayList<GetChapterList.GetChapterData> = ArrayList()
+                        val object111 = GetChapterList.GetChapterData()
+                        object111.ID = "0"
+                        object111.Name = "Select All"
+                        object111.isSelected = false
+                        arrList.add(object111)
+                        arrList.addAll(response.body()!!.data)
+
                         createtest_rvChapter.adapter =
-                            SelectSubjectAdapter(this@CreateTestActivity, response.body()!!.data, chapterInterface!!)
+                            SelectSubjectAdapter(this@CreateTestActivity, arrList, chapterInterface!!)
 
                     } else {
                         Toast.makeText(
@@ -527,7 +574,24 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
 //            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(this@CreateTestActivity)
+            val netdialog = Dialog(this@CreateTestActivity)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
+                    netdialog.dismiss()
+                    callTemplate()
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
             DialogUtils.dismissDialog()
         }
 
@@ -595,8 +659,8 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
     fun callSectionList(tempid: String) {
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
-//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(this@CreateTestActivity)
+            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(this@CreateTestActivity)
             DialogUtils.dismissDialog()
         }
 
@@ -654,8 +718,8 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         }
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
-//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(this@CreateTestActivity)
+            Utils.ping(this@CreateTestActivity, AppConstants.NETWORK_MSG)
+//            DialogUtils.NetworkDialog(this@CreateTestActivity)
             DialogUtils.dismissDialog()
         }
 
@@ -734,7 +798,23 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         if (!DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
 //            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(this@CreateTestActivity)
+            val netdialog = Dialog(this@CreateTestActivity)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(this@CreateTestActivity)) {
+                    netdialog.dismiss()
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
             DialogUtils.dismissDialog()
         }
 

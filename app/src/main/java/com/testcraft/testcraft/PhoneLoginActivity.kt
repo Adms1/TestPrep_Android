@@ -1,13 +1,18 @@
 package com.testcraft.testcraft
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.view.Window
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.testcraft.testcraft.activity.IntroActivity
@@ -118,7 +123,24 @@ class PhoneLoginActivity : AppCompatActivity() {
 
         if (!DialogUtils.isNetworkConnected(this@PhoneLoginActivity)) {
 //            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(this@PhoneLoginActivity)
+            val netdialog = Dialog(this@PhoneLoginActivity)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(this@PhoneLoginActivity)) {
+                    netdialog.dismiss()
+                    callVerifyAccountApi(phonelogin_etPhone.text.toString())
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
             DialogUtils.dismissDialog()
         }
 

@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.ExpandableListView
@@ -257,7 +258,29 @@ class ViewSolutionFragment : Fragment(), FilterTypeSelectionInteface {
 
             CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C2402, ActionIdData.T2402)
 
-            getNextQuestion1()
+            if (!DialogUtils.isNetworkConnected(activity!!)) {
+                val netdialog = Dialog(activity!!)
+                netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                netdialog.setContentView(R.layout.dialog_network)
+                netdialog.setCanceledOnTouchOutside(false)
+
+                val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+                btnRetry.setOnClickListener {
+                    if (DialogUtils.isNetworkConnected(activity!!)) {
+                        netdialog.dismiss()
+
+                    }
+                }
+
+                netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                netdialog.setCanceledOnTouchOutside(false)
+                netdialog.setCancelable(false)
+                netdialog.show()
+                DialogUtils.dismissDialog()
+            } else {
+                getNextQuestion1()
+            }
 
         }
 
@@ -311,9 +334,29 @@ class ViewSolutionFragment : Fragment(), FilterTypeSelectionInteface {
 
     fun callSolutionApi() {
 
-//        if (!DialogUtils.isNetworkConnected(activity!!)) {
-//            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-//        }
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+
+            val netdialog = Dialog(activity!!)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(activity!!)) {
+                    netdialog.dismiss()
+                    callSolutionApi()
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
+            DialogUtils.dismissDialog()
+
+        }
 
         DialogUtils.showDialog(activity!!)
 
@@ -427,13 +470,13 @@ class ViewSolutionFragment : Fragment(), FilterTypeSelectionInteface {
                         Log.d("imgcall", "Number of movies received: " + movies.size)
 
                         when {
-                            movies[0].TestQuestion[0].IsCorrect.equals("true", true) -> {
+                            movies[0].TestQuestion[0].IsCorrect.equals("true", true)  -> {
                                 solution_ivAnsimg.setImageResource(R.drawable.wrong)
                             }
                             movies[0].TestQuestion[0].IsCorrect.equals("false", true) -> {
                                 solution_ivAnsimg.setImageResource(R.drawable.correct)
                             }
-                            else -> {
+                            else                                                      -> {
                                 solution_ivAnsimg.setImageResource(0)
 
                             }
@@ -751,7 +794,31 @@ class ViewSolutionFragment : Fragment(), FilterTypeSelectionInteface {
 //                    }
 //                }
 
-        getType("solution", solution_grppos1, curr_index1)
+        if (!DialogUtils.isNetworkConnected(activity!!)) {
+
+            val netdialog = Dialog(activity!!)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(activity!!)) {
+                    netdialog.dismiss()
+                    getType("solution", solution_grppos1, curr_index1)
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
+            DialogUtils.dismissDialog()
+
+        } else {
+            getType("solution", solution_grppos1, curr_index1)
+        }
     }
 
     companion object {

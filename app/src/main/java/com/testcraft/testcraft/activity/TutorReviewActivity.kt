@@ -11,10 +11,8 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RatingBar
+import android.view.Window
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.testcraft.testcraft.Connectivity
@@ -194,7 +192,25 @@ class TutorReviewActivity : AppCompatActivity() {
         if (!DialogUtils.isNetworkConnected(this@TutorReviewActivity)) {
             Utils.ping(this@TutorReviewActivity, AppConstants.NETWORK_MSG)
 //            DialogUtils.NetworkDialog(this@TutorReviewActivity)
-//            DialogUtils.dismissDialog()
+            val netdialog = Dialog(this@TutorReviewActivity)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(this@TutorReviewActivity)) {
+                    netdialog.dismiss()
+                    callGetRating()
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
+            DialogUtils.dismissDialog()
         }
 
         DialogUtils.showDialog(this@TutorReviewActivity)

@@ -1,11 +1,16 @@
 package com.testcraft.testcraft.fragments
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -63,7 +68,24 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
 //            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(activity!!)
+            val netdialog = Dialog(activity!!)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(activity!!)) {
+                    netdialog.dismiss()
+                    getFilterType()
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
             DialogUtils.dismissDialog()
         }
 
@@ -306,7 +328,11 @@ class OtherFilterFragment : Fragment(), filterInterface {
         }
 
 //        callCourseListApi()
+        getFilterType()
 
+    }
+
+    fun getFilterType() {
         when (filter_type) {
 //            "course_type" -> {
 //
@@ -329,7 +355,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 callExamListApi("2")
 
             }
-            "standards" -> {
+            "standards"         -> {
 
                 filterData_rvList.visibility = View.VISIBLE
                 price_ll.visibility = View.GONE
@@ -341,7 +367,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 }
 
             }
-            "tutor" -> {
+            "tutor"             -> {
 
                 filterData_rvList.visibility = View.VISIBLE
                 price_ll.visibility = View.GONE
@@ -349,7 +375,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 callTutorListApi()
 
             }
-            "subjects" -> {
+            "subjects"          -> {
 
                 filterData_rvList.visibility = View.VISIBLE
                 price_ll.visibility = View.GONE
@@ -366,7 +392,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 }
 
             }
-            "price" -> {
+            "price"             -> {
 
                 rangeSeekbar3.setMinValue(0f)
                 rangeSeekbar3.setMaxValue(5000f)

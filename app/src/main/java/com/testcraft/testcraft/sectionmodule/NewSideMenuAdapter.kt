@@ -99,7 +99,6 @@ class NewSideMenuAdapter(
             this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         vieww = infalInflater.inflate(R.layout.question_list_child, null)
 
-
         val textViewChild = vieww!!.findViewById(R.id.queList_tvChild) as RecyclerView
 
 //        textViewChild.setText(answer.toString())

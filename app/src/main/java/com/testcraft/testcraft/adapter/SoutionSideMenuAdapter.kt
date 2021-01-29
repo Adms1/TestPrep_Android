@@ -1,12 +1,17 @@
 package com.testcraft.testcraft.adapter
 
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.BaseExpandableListAdapter
 import android.widget.ExpandableListView
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +22,7 @@ import com.testcraft.testcraft.activity.ViewSolutionFragment.Companion.solution_
 import com.testcraft.testcraft.interfaces.FilterTypeSelectionInteface
 import com.testcraft.testcraft.models.QuestionTypeModel
 import com.testcraft.testcraft.utils.AppConstants
+import com.testcraft.testcraft.utils.DialogUtils
 import java.util.*
 
 class SoutionSideMenuAdapter(
@@ -72,6 +78,10 @@ class SoutionSideMenuAdapter(
         }
 
         val textViewGroup = vieww!!.findViewById(R.id.queList_tvHeader) as TextView
+        val infoGroup = vieww.findViewById(R.id.queList_ivInfo) as ImageView
+
+//        if()
+
         textViewGroup.text = groupTitle
         val mExpandableListView = parent as ExpandableListView
         mExpandableListView.divider = context.resources.getDrawable(R.color.white)
@@ -175,7 +185,30 @@ internal class ImageViewAdapter1(
 
             Log.d("que_number", "" + AppConstants.QUE_NUMBER1)
 
-            filterTypeSelectionInteface.getType("adapter", grpPos, p1)
+            if (!DialogUtils.isNetworkConnected(context)) {
+
+                val netdialog = Dialog(context)
+                netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                netdialog.setContentView(R.layout.dialog_network)
+                netdialog.setCanceledOnTouchOutside(false)
+
+                val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+                btnRetry.setOnClickListener {
+                    if (DialogUtils.isNetworkConnected(context)) {
+                        netdialog.dismiss()
+                        filterTypeSelectionInteface.getType("adapter", grpPos, p1)
+                    }
+                }
+
+                netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                netdialog.setCanceledOnTouchOutside(false)
+                netdialog.setCancelable(false)
+                netdialog.show()
+
+            } else {
+                filterTypeSelectionInteface.getType("adapter", grpPos, p1)
+            }
 
         }
 

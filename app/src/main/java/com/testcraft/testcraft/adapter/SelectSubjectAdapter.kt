@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.interfaces.ChapterListInterface
 import com.testcraft.testcraft.models.GetChapterList
+import com.testcraft.testcraft.utils.Utils
 
 class SelectSubjectAdapter(
     var cotext: Context,
@@ -34,17 +35,46 @@ class SelectSubjectAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
+        if (position == 0) {
+            Utils.setFont(cotext, "fonts/Inter-Bold.ttf", holder.textView)
+        }
+
         holder.textView.text = dataList[position].Name
 
         holder.mainll.setOnClickListener {
 
-            str = ""
+            if (position == 0) {
 
-            dataList[position].isSelected = !dataList[position].isSelected
+                var newArr: ArrayList<GetChapterList.GetChapterData> = ArrayList()
 
-            getchapter.getSelectedChapter(dataList)
+                if (!dataList[0].isSelected) {
+                    for (i in 0 until dataList.size) {
+                        dataList[i].isSelected = true
+                    }
 
-            notifyDataSetChanged()
+                } else {
+                    for (i in 0 until dataList.size) {
+                        dataList[i].isSelected = false
+                    }
+
+                }
+
+                for (i in 1 until dataList.size) {
+                    newArr.add(dataList[i])
+                }
+
+                getchapter.getSelectedChapter(newArr)
+                notifyDataSetChanged()
+
+            } else {
+                str = ""
+
+                dataList[position].isSelected = !dataList[position].isSelected
+
+                getchapter.getSelectedChapter(dataList)
+
+                notifyDataSetChanged()
+            }
         }
 
         if (dataList[position].isSelected) {
@@ -53,13 +83,14 @@ class SelectSubjectAdapter(
             holder.img.background = cotext.resources.getDrawable(R.drawable.login_btn_bg)
 
         } else {
+
             holder.img.setImageDrawable(cotext.resources.getDrawable(R.drawable.white_ring_bg))
             holder.img.background = cotext.resources.getDrawable(R.drawable.gray_ring_bg)
         }
     }
 
     override fun getItemCount(): Int {
-        return dataList.size ?: 0
+        return dataList.size
     }
 
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -70,7 +101,7 @@ class SelectSubjectAdapter(
 
     fun sendArray(): ArrayList<GetChapterList.GetChapterData> {
 
-        return dataList!!
+        return dataList
     }
 
 }

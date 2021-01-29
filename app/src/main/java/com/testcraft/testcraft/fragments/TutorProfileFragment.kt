@@ -1,15 +1,19 @@
 package com.testcraft.testcraft.fragments
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -140,7 +144,25 @@ class TutorProfileFragment : Fragment() {
 
         if (!DialogUtils.isNetworkConnected(activity!!)) {
 //            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(activity!!)
+            val netdialog = Dialog(activity!!)
+            netdialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            netdialog.setContentView(R.layout.dialog_network)
+            netdialog.setCanceledOnTouchOutside(false)
+
+            val btnRetry: TextView = netdialog.findViewById(R.id.network_btnRetry)
+
+            btnRetry.setOnClickListener {
+                if (DialogUtils.isNetworkConnected(activity!!)) {
+                    netdialog.dismiss()
+                    callTutorPrfile()
+                    callSmilarPkgs()
+                }
+            }
+
+            netdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            netdialog.setCanceledOnTouchOutside(false)
+            netdialog.setCancelable(false)
+            netdialog.show()
             DialogUtils.dismissDialog()
         }
 
@@ -166,11 +188,11 @@ class TutorProfileFragment : Fragment() {
                         tutor_profile_tvName.text = response.body()!!.data[0].TutorName
                         tutor_profile_tvEmail.text = response.body()!!.data[0].TutorEmail
                         tutor_profile_tvMobile.text = response.body()!!.data[0].TutorPhoneNumber
-//                        tutor_profile_tvDesc.text = response.body()!!.data[0].TutorDescription + " "
+                        tutor_profile_tvDesc.text = response.body()!!.data[0].TutorDescription + " "
 
                         val strdesc = response.body()!!.data[0].TutorDescription
 
-                        readMoreOption!!.addReadMoreTo(tutor_profile_tvDesc, strdesc)
+//                        readMoreOption!!.addReadMoreTo(tutor_profile_tvDesc, strdesc)
 
                         tutor_profile_tvCount.text =
                             "(" + response.body()!!.data[0].TotalRateCount + ")"

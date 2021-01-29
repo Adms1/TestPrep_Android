@@ -26,6 +26,7 @@
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:padding="@dimen/_3sdp"
+        android:visibility="gone"
         android:src="@drawable/info_icon"
         app:layout_constraintBottom_toBottomOf="@+id/queList_tvHeader"
         app:layout_constraintRight_toRightOf="parent"
