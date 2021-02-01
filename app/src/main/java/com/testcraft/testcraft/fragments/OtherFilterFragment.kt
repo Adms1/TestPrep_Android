@@ -232,7 +232,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
             AppConstants.FILTER_FROM_PRICE = min
             AppConstants.FILTER_TO_PRICE = max
 
-            if ((AppConstants.FILTER_TUTOR_ID == "" && AppConstants.FILTER_TUTOR_ID == "0") || (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_BOARD_ID != "0")) {
+            if ((AppConstants.FILTER_TUTOR_ID == "" || AppConstants.FILTER_TUTOR_ID == "0") || (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_BOARD_ID != "0")) {
                 if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
 
                     if (AppConstants.FILTER_BOARD_ID != "" && AppConstants.FILTER_BOARD_ID != "0") {

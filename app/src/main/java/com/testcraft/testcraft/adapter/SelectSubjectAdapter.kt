@@ -37,6 +37,8 @@ class SelectSubjectAdapter(
 
         if (position == 0) {
             Utils.setFont(cotext, "fonts/Inter-Bold.ttf", holder.textView)
+        } else {
+            Utils.setFont(cotext, "fonts/Inter-Regular.ttf", holder.textView)
         }
 
         holder.textView.text = dataList[position].Name

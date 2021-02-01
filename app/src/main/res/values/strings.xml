@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="version_name">Ver.No 3.820210128</string>
+    <string name="version_name">Ver.No 3.920210129</string>
 
     <string name="default_notification_channel_id" translatable="false">default</string>
 
@@ -140,7 +140,7 @@
         <font color="#9A9A9A">An SMS may be sent to authenticate your account, and message and data rates may apply.</font>
     </string>
     <string name="forgotpass_instruction">Please enter your registered mobile number to reset your password.</string>
-    <string name="strengths_weekness"><![CDATA[Strengths & Weakness]]></string>
+    <string name="strengths_weekness"><![CDATA[Strengths & Weaknesses]]></string>
     <string name="register_view_solution"><![CDATA[Register & View Solution]]></string>
     <string name="knowledge_gap">Knowledge Gap</string>
     <string name="summary_report">Summary Report</string>
