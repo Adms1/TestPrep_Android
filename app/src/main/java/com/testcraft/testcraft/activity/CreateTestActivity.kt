@@ -887,7 +887,9 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         if (list.size > 0) {
             for (i in 0 until list.size) {
                 if (list[i].isSelected) {
-                    qtypeArr.add(list[i])
+                    if (list[i].ID != "0") {
+                        qtypeArr.add(list[i])
+                    }
                 }
             }
         }

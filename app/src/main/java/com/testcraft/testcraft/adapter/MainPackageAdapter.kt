@@ -44,7 +44,7 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
         p0.test.text = """${list[p1].PackageList.size} Packages"""
 
         if (list[p1].ExpirationDate != "") {
-            p0.duedate.text = "Due Date : " + list[p1].ExpirationDate
+            p0.duedate.text = "Expire : " + list[p1].ExpirationDate
         }
 
         //            val intent1 = Intent(context, DashboardActivity::class.java)

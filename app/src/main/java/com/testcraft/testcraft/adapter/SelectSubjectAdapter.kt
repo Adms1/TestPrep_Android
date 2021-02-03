@@ -61,17 +61,18 @@ class SelectSubjectAdapter(
 
                 }
 
-                for (i in 1 until dataList.size) {
-                    newArr.add(dataList[i])
-                }
+//                for (i in 1 until dataList.size) {
+//                    newArr.add(dataList[i])
+//                }
 
-                getchapter.getSelectedChapter(newArr)
+                getchapter.getSelectedChapter(dataList)
                 notifyDataSetChanged()
 
             } else {
                 str = ""
 
                 dataList[position].isSelected = !dataList[position].isSelected
+                dataList[0].isSelected = false
 
                 getchapter.getSelectedChapter(dataList)
 

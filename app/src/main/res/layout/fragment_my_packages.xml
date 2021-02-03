@@ -331,7 +331,7 @@
                         android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:singleLine="true"
-                        android:text="Purchased Packages"
+                        android:text="Packages"
                         android:textColor="@color/black"
                         android:textSize="@dimen/normal_header_size"
                         app:layout_constraintTop_toTopOf="parent" />
