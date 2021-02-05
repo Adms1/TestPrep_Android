@@ -251,7 +251,7 @@
 
                     <TextView
                         android:id="@+id/my_create_header"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_10sdp"
                         android:ellipsize="end"
@@ -260,7 +260,49 @@
                         android:text="My Tests"
                         android:textColor="@color/black"
                         android:textSize="@dimen/normal_header_size"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/my_create_btnpkgs"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/my_create_btnpkgs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@drawable/lightgray_bg"
+                        android:padding="@dimen/_5sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/my_create_header"
+                        app:layout_constraintLeft_toRightOf="@+id/my_create_header"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/my_create_header">
+
+                        <TextView
+                            android:id="@+id/my_create_tvpkgs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:text="Create "
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/_15sdp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/my_packages_ivCpkgs"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/my_packages_ivCpkgs"
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:rotation="-90"
+                            android:src="@drawable/down_arrow"
+                            app:layout_constraintBottom_toBottomOf="@+id/my_create_tvpkgs"
+                            app:layout_constraintLeft_toRightOf="@+id/my_create_tvpkgs"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/my_create_tvpkgs"
+                            tools:ignore="ContentDescription" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:id="@+id/my_create_pkgs"
@@ -271,6 +313,7 @@
                         android:gravity="center_vertical"
                         android:singleLine="true"
                         android:text="Create Tests"
+                        android:visibility="gone"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/normal_header_size"
                         app:layout_constraintBottom_toBottomOf="@+id/my_packages_ivCreateTest"
@@ -287,6 +330,7 @@
                         android:layout_marginTop="@dimen/_3sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
+                        android:visibility="gone"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:src="@drawable/add_subscription"
                         app:layout_constraintLeft_toLeftOf="parent"

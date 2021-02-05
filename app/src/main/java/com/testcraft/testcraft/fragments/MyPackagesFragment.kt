@@ -127,7 +127,7 @@ class MyPackagesFragment : Fragment() {
             }
         }
 
-        my_create_pkgs.setOnClickListener {
+        my_create_btnpkgs.setOnClickListener {
 
             if (isExpired != "1") {
                 val intent = Intent(context, CreateTestActivity::class.java)
