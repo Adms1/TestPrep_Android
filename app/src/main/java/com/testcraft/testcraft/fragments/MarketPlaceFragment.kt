@@ -24,6 +24,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity
@@ -828,8 +831,16 @@ class MarketPlaceFragment : Fragment() {
 
 //                        Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.BannerList[0].BannerURL).into(mp_view_pager)
                         if (response.body()!!.data.Subscription.size > 0) {
-                            Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.Subscription[0].BannerURL)
-                                .placeholder(R.drawable.prog).into(img_subscription)
+//                            Picasso.get().load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.Subscription[0].BannerURL)
+//                                .placeholder(R.drawable.prog).into(img_subscription)
+
+                            Glide.with(activity!!)
+                                .load(AppConstants.IMAGE_BASE_URL + response.body()!!.data.Subscription[0].BannerURL)
+                                .apply(RequestOptions()
+                                    .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                                    .placeholder(R.drawable.prog))
+                                .into(img_subscription)
+
                         } else {
                             img_subscription.visibility = View.GONE
                         }

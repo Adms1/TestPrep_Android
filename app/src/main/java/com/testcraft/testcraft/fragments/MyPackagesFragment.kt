@@ -86,88 +86,17 @@ class MyPackagesFragment : Fragment() {
 //            startActivity(intent)
 //        }
 
-        my_packages_ivCreateTest.setOnClickListener {
-
-            if (isExpired != "1") {
-                val intent = Intent(context, CreateTestActivity::class.java)
-
-                if (iscompetitive == "1") {
-                    intent.putExtra("coursetypeid", "2")
-
-                    intent.putExtra("board_id", "")
-                    intent.putExtra("sub_id", subid.toString())
-                    intent.putExtra("std_id", "")
-                    intent.putExtra("sub_name", subname)
-
-                } else {
-                    intent.putExtra("coursetypeid", "1")
-
-                    intent.putExtra("board_id", boardid)
-                    intent.putExtra("sub_id", subid.toString())
-                    intent.putExtra("std_id", stdid)
-                    intent.putExtra("sub_name", subname)
-                }
-
-                startActivity(intent)
-                (context as DashboardActivity).finish()
-            } else {
-                DialogUtils.createConfirmDialog(activity!!, "Alert",
-                    "Your Subscription Has Expired..",
-                    "Pay Later", "Pay Now",
-
-                    DialogInterface.OnClickListener { dialog, which ->
-
-                        dialog.dismiss()
-                    },
-                    DialogInterface.OnClickListener { dialog, which ->
-
-                        callInsertSubscriptionConfirm(activity!!)
-
-                    }).show()
-            }
+        if (isExpired == "1") {
+            DashboardActivity.tvExpired!!.visibility = View.GONE
+            card_view_expire!!.visibility = View.VISIBLE
+        } else {
+            DashboardActivity.tvExpired!!.visibility = View.GONE
+            card_view_expire!!.visibility = View.GONE
         }
 
-        my_create_btnpkgs.setOnClickListener {
-
-            if (isExpired != "1") {
-                val intent = Intent(context, CreateTestActivity::class.java)
-
-                if (iscompetitive == "1") {
-                    intent.putExtra("coursetypeid", "2")
-
-                    intent.putExtra("board_id", "")
-                    intent.putExtra("sub_id", subid.toString())
-                    intent.putExtra("std_id", "")
-                    intent.putExtra("sub_name", subname)
-
-                } else {
-                    intent.putExtra("coursetypeid", "1")
-
-                    intent.putExtra("board_id", boardid)
-                    intent.putExtra("sub_id", subid.toString())
-                    intent.putExtra("std_id", stdid)
-                    intent.putExtra("sub_name", subname)
-                }
-
-                startActivity(intent)
-                (context as DashboardActivity).finish()
-
-            } else {
-                DialogUtils.createConfirmDialog(activity!!, "Alert",
-                    "Your Subscription Has Expired..",
-                    "Pay Later", "Pay Now",
-
-                    DialogInterface.OnClickListener { dialog, which ->
-
-                        dialog.dismiss()
-                    },
-                    DialogInterface.OnClickListener { dialog, which ->
-
-                        callInsertSubscriptionConfirm(activity!!)
-
-                    }).show()
-            }
-        }
+        card_view_expire!!.setOnClickListener { clickCreateTestwithExpiration() }
+        my_packages_ivCreateTest.setOnClickListener { clickCreateTestwithExpiration() }
+        my_create_btnpkgs.setOnClickListener { clickCreateTestwithExpiration() }
 
 //        my_packages_header.text = bundle!!.getString("sub_name")
 
@@ -192,6 +121,47 @@ class MyPackagesFragment : Fragment() {
 
         callMyPackagesApi()
         callgetMyTest()
+    }
+
+    fun clickCreateTestwithExpiration() {
+        if (isExpired != "1") {
+            val intent = Intent(context, CreateTestActivity::class.java)
+
+            if (iscompetitive == "1") {
+                intent.putExtra("coursetypeid", "2")
+
+                intent.putExtra("board_id", "")
+                intent.putExtra("sub_id", subid.toString())
+                intent.putExtra("std_id", "")
+                intent.putExtra("sub_name", subname)
+
+            } else {
+                intent.putExtra("coursetypeid", "1")
+
+                intent.putExtra("board_id", boardid)
+                intent.putExtra("sub_id", subid.toString())
+                intent.putExtra("std_id", stdid)
+                intent.putExtra("sub_name", subname)
+            }
+
+            startActivity(intent)
+            (context as DashboardActivity).finish()
+
+        } else {
+            DialogUtils.createConfirmDialog(activity!!, "Alert",
+                "Your Subscription Has Expired..",
+                "Pay Later", "Pay Now",
+
+                DialogInterface.OnClickListener { dialog, which ->
+
+                    dialog.dismiss()
+                },
+                DialogInterface.OnClickListener { dialog, which ->
+
+                    callInsertSubscriptionConfirm(activity!!)
+
+                }).show()
+        }
     }
 
     fun onKnowledgegapClick() {
@@ -331,8 +301,10 @@ class MyPackagesFragment : Fragment() {
 
                         if (response.body()!!.data[0].isSubscription == "0") {
                             card_view2.visibility = View.GONE
+
                         } else {
                             card_view2.visibility = View.VISIBLE
+
                         }
 
                         for (i in 0 until summaryArr.size) {

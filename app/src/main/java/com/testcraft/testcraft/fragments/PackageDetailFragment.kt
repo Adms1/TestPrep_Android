@@ -19,6 +19,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.florent37.viewtooltip.ViewTooltip
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
@@ -43,6 +44,8 @@ class PackageDetailFragment : Fragment() {
 
     var validation_id = "0"
 
+    var etName: TextView? = null
+
     var purchaseCoin = ""
     var come = ""
     var oldpkgid = ""
@@ -63,6 +66,8 @@ class PackageDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1100, ActionIdData.T1100)
+
+        etName = view.findViewById(R.id.package_detail_tvPname)
 
         DashboardActivity.main_header!!.text = "Package Details"
         DashboardActivity.btnBack!!.visibility = View.VISIBLE
@@ -101,6 +106,16 @@ class PackageDetailFragment : Fragment() {
                 package_detail_tvValid!!.setTextColor(resources.getColor(R.color.red))
                 package_detail_tvValid!!.text = "Please enter coupon code"
             }
+        }
+
+        package_detail_tvPname.setOnClickListener {
+            ViewTooltip.on(activity!!, package_detail_tvPname)
+                .autoHide(true, 3000)
+                .corner(30)
+                .position(ViewTooltip.Position.BOTTOM)
+                .text(package_detail_tvPname.text.toString())
+                .show()
+
         }
 
         package_detail_createdby.setOnClickListener {

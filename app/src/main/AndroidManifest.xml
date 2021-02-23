@@ -31,8 +31,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:ignore="LockedOrientationActivity | GoogleAppIndexingWarning">
-
+        tools:ignore="LockedOrientationActivity | GoogleAppIndexingWarning"
+        tools:replace="android:icon">
+        <activity android:name=".activity.PaymentViewActivity"></activity>
         <activity
             android:name=".activity.CompetitiveCreateTestActivity"
             android:screenOrientation="portrait" />
@@ -100,22 +101,20 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.ViewInvoiceActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
-
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ViewInvoiceSecondActivity"
             android:launchMode="singleTop"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".activity.QuestionInstructionActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ResultActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CartActivity"
             android:screenOrientation="portrait" /> <!-- <activity -->
@@ -123,18 +122,18 @@
         <!-- android:screenOrientation="portrait" /> -->
         <activity
             android:name=".activity.FilterActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" /> <!-- <activity -->
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" /> <!-- <activity -->
         <!-- android:name=".fragments.TutorPackagesActivity" -->
         <!-- android:screenOrientation="portrait" /> -->
         <activity
             android:name=".activity.TutorReviewActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.IntroActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity android:name=".activity.PrefrenceActivity" />
         <activity android:name=".activity.NewActivity" /> <!-- <activity -->
         <!-- android:name=".activity.SelectPackageActivity" -->
@@ -143,7 +142,7 @@
             android:name=".activity.PaymentSuccessScreen"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.TraknpayRequestActivity">
+        <activity android:name=".activity.TraknpayNewActivity">
             <intent-filter>
                 <action android:name="com.scytec.datamobile.vd.gui.android.AppPreferenceActivity" />
 
@@ -152,8 +151,8 @@
         </activity> <!-- <activity android:name=".activity.TabwiseQuestionActivity" android:screenOrientation="portrait"/> -->
         <activity
             android:name=".sectionmodule.NewTabQuestionActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" /> <!-- <activity -->
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" /> <!-- <activity -->
         <!-- android:name=".activity.SelectStandardActivity" -->
         <!-- android:screenOrientation="portrait" /> -->
         <!-- <activity -->
@@ -164,13 +163,13 @@
         <!-- android:screenOrientation="portrait" /> -->
         <activity
             android:name=".activity.ForgotPasswordActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.OtpActivity"
             android:configChanges="keyboardHidden"
-            android:screenOrientation="portrait"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name=".activity.DashboardActivity"
@@ -198,7 +197,6 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="com.testcraft.testcraft" />
@@ -206,22 +204,26 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.VIEW" /> -->
 
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <category android:name="android.intent.category.BROWSABLE" />-->
 
-<!--                <data-->
-<!--                    android:host="testcraft.in/data"-->
-<!--                    android:scheme="https" />-->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE" /> -->
 
-                <!-- <data -->
-                <!-- android:host="testcraft.in" -->
-                <!-- android:pathPrefix="/data?id=" -->
-                <!-- android:scheme="https" /> -->
 
-<!--            </intent-filter>-->
+            <!-- <data -->
+            <!-- android:host="testcraft.in/data" -->
+            <!-- android:scheme="https" /> -->
+
+
+            <!-- <data -->
+            <!-- android:host="testcraft.in" -->
+            <!-- android:pathPrefix="/data?id=" -->
+            <!-- android:scheme="https" /> -->
+
+
+            <!-- </intent-filter> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

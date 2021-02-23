@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +20,7 @@ import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_payment_success_screen.*
+import kotlinx.android.synthetic.main.fragment_market_place_bottom_sheet.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +30,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
     var transid = ""
     var pkgname = ""
     var pkgprice = ""
+    var comefrom = ""
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
@@ -68,6 +69,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
         pkgname = intent.getStringExtra("pkgname")
         transid = intent.getStringExtra("transactionId")
         pkgprice = intent.getStringExtra("pkgprice")
+        comefrom = intent.getStringExtra("comefrom")
 
         Utils.setFont(this@PaymentSuccessScreen, "fonts/Inter-SemiBold.ttf", tvTransIdTxt)
         Utils.setFont(this@PaymentSuccessScreen, "fonts/Inter-SemiBold.ttf", tvPkgnameTxt)
@@ -104,27 +106,31 @@ class PaymentSuccessScreen : AppCompatActivity() {
             tvTry.text = "OK"
             tvTry.background = resources.getDrawable(R.drawable.light_blue_round_bg)
 
-            updatePaymentStatus("Success")
+            if (comefrom == "package") {
+                updatePaymentStatus("Success")
+            } else {
+                updatepayment("Success")
+            }
 
         } else {
 
-            CommonWebCalls.callToken(
-                this@PaymentSuccessScreen,
-                "1",
-                "",
-                ActionIdData.C1400,
-                ActionIdData.T1400
-            )
-
-            tvCancel.visibility = VISIBLE
-
-            imvSuccessFail!!.setImageResource(R.drawable.payment_fail_icn)
-//            imvSuccessFail!!.background = resources.getDrawable(R.drawable.fail_icon)
-//            Utils.ping(this@PaymentSuccessScreen, "fail")
-            tvMessage.text = "Your last transaction is fail"
-
-            tvTry.text = "Try Again"
-            tvTry.background = resources.getDrawable(R.drawable.google_round_bg)
+//            CommonWebCalls.callToken(
+//                this@PaymentSuccessScreen,
+//                "1",
+//                "",
+//                ActionIdData.C1400,
+//                ActionIdData.T1400
+//            )
+//
+            tvTry.visibility = GONE
+//
+//            imvSuccessFail!!.setImageResource(R.drawable.payment_fail_icn)
+////            imvSuccessFail!!.background = resources.getDrawable(R.drawable.fail_icon)
+////            Utils.ping(this@PaymentSuccessScreen, "fail")
+//            tvMessage.text = "Your last transaction is fail"
+//
+//            tvTry.text = "Try Again"
+//            tvTry.background = resources.getDrawable(R.drawable.google_round_bg)
 
 //            updatePaymentStatus("Failed")
         }
@@ -376,6 +382,51 @@ class PaymentSuccessScreen : AppCompatActivity() {
             }
         })
 
+    }
+
+    fun updatepayment(transaction_status: String) {
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        DialogUtils.showDialog(this@PaymentSuccessScreen)
+
+        val hashmap: HashMap<String, String> = HashMap()
+        hashmap["PaymentOrderID"] = intent.getStringExtra("order_id")!!
+        hashmap["StudentID"] =
+            Utils.getStringValue(this@PaymentSuccessScreen, AppConstants.USER_ID, "0")!!
+        hashmap["ExternalTransactionID"] = intent.getStringExtra("transactionId")
+        hashmap["ExternalTransactionStatus"] = transaction_status
+
+        val call = apiService.updatesubscriptionPayment(hashmap)
+
+        call.enqueue(object : Callback<JsonObject> {
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                DialogUtils.dismissDialog()
+                if (response.body() != null) {
+
+                    if (response.body()!!["Status"].asString == "true") {
+
+                        AppConstants.isFirst = 1
+
+                        val intent =
+                            Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+//                        MarketPlaceFragment.sheetClose()
+//                        Utils.ping(this@PaymentSuccessScreen, "Successfully subscribe")
+
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                DialogUtils.dismissDialog()
+                Log.e("", t.toString())
+            }
+        })
     }
 
 }

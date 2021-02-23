@@ -351,4 +351,13 @@ interface WebInterface {
     fun callCheckDuplicate(@Field("StudentID") stu_id: String, @Field("TypeID") type_id: String,
                            @Field("Email") email: String, @Field("Mobile") phone: String): Call<JsonObject>
 
+    @FormUrlEncoded
+    @POST("Get_AppRating")
+    fun callGetAppRating(@Field("StudentID") stu_id: String): Call<JsonObject>
+
+    @FormUrlEncoded
+    @POST("Insert_AppRating")
+    fun callInsertAppRating(@Field("StudentID") stu_id: String,
+                            @Field("Rating") rating: String, @Field("Remark") remark: String): Call<JsonObject>
+
 }

@@ -37,11 +37,15 @@ class SelectSubjectAdapter(
 
         if (position == 0) {
             Utils.setFont(cotext, "fonts/Inter-Bold.ttf", holder.textView)
+            holder.textView.text = dataList[position].Name
+//            holder.textViewcount.text = ""
+
         } else {
             Utils.setFont(cotext, "fonts/Inter-Regular.ttf", holder.textView)
-        }
+            holder.textView.text = dataList[position].Name + "  (" + dataList[position].Count + ")"
+//            holder.textViewcount.text = "(Q." + dataList[position].Count + ")"
 
-        holder.textView.text = dataList[position].Name
+        }
 
         holder.mainll.setOnClickListener {
 
@@ -98,6 +102,8 @@ class SelectSubjectAdapter(
 
     class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.text_view)
+
+        //        val textViewcount: TextView = view.findViewById(R.id.text_view_count)
         val mainll: RelativeLayout = view.findViewById(R.id.mainrl)
         var img: ImageView = view.findViewById(R.id.imgSelect)
     }

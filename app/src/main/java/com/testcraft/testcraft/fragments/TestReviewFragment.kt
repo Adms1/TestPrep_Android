@@ -8,8 +8,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +25,7 @@ import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
+import com.testcraft.testcraft.utils.Utils
 import kotlinx.android.synthetic.main.activity_test_review.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -181,6 +182,8 @@ class TestReviewFragment : Fragment() {
         }
 
         callSubmitAPI()
+
+        callGetRating()
 
     }
 
@@ -354,5 +357,112 @@ class TestReviewFragment : Fragment() {
         })
     }
 
+    fun OpenAttemptDialog() {
+
+        val ratingdialog = Dialog(activity!!)
+
+        ratingdialog.setContentView(R.layout.dialog_app_rating)
+        ratingdialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        ratingdialog.setCanceledOnTouchOutside(false)
+
+        val btnCancel: TextView = ratingdialog.findViewById(R.id.dialog_apprating_btnDismiss)
+        val btnSubmit: TextView = ratingdialog.findViewById(R.id.dialog_apprating_btnSubmit)
+        val seekbar: SeekBar = ratingdialog.findViewById(R.id.dialog_apprating_progressbar)
+        val ivEmoji: ImageView = ratingdialog.findViewById(R.id.dialog_apprating_emoji)
+        val etReview: EditText = ratingdialog.findViewById(R.id.dialog_apprating_etReview)
+
+        seekbar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int,
+                                           fromUser: Boolean) {
+
+                when {
+                    seekBar.progress == 1 -> {
+                        ivEmoji.setImageDrawable(resources.getDrawable(R.drawable.emoji_one))
+                        etReview.visibility = View.GONE
+                    }
+                    seekbar.progress == 2 -> {
+                        ivEmoji.setImageDrawable(resources.getDrawable(R.drawable.emoji_two))
+                        etReview.visibility = View.GONE
+                    }
+                    seekbar.progress == 3 -> {
+                        ivEmoji.setImageDrawable(resources.getDrawable(R.drawable.emoji_three))
+                        etReview.visibility = View.VISIBLE
+                    }
+                    seekbar.progress == 4 -> {
+                        ivEmoji.setImageDrawable(resources.getDrawable(R.drawable.emoji_four))
+                        etReview.visibility = View.VISIBLE
+                    }
+                    seekbar.progress == 5 -> {
+                        ivEmoji.setImageDrawable(resources.getDrawable(R.drawable.emoji_five))
+                        etReview.visibility = View.VISIBLE
+                    }
+                }
+
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+            }
+        })
+
+        if (!ratingdialog.isShowing) {
+
+            btnSubmit.setOnClickListener {
+                val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+                val call =
+                    apiService.callInsertAppRating(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
+                        seekbar.progress.toString(), etReview.text.toString())
+
+                call.enqueue(object : Callback<JsonObject> {
+
+                    override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                        if (response.body()!!.get("Status").asString == "true") {
+
+                            ratingdialog.dismiss()
+                        } else {
+                            Utils.ping(activity!!, response.body()!!.get("Msg").asString)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                        Log.e("", t.toString())
+                    }
+                })
+
+            }
+
+            btnCancel.setOnClickListener { ratingdialog.dismiss() }
+        }
+
+        ratingdialog.show()
+    }
+
+    fun callGetRating() {
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        val call =
+            apiService.callGetAppRating(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
+
+        call.enqueue(object : Callback<JsonObject> {
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body()!!.get("Status").asString == "true") {
+
+                    OpenAttemptDialog()
+                } else {
+
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                Log.e("", t.toString())
+            }
+        })
+    }
 
 }

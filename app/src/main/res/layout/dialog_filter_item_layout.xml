@@ -18,10 +18,25 @@
         android:layout_toStartOf="@+id/imgSelect"
         android:layout_toLeftOf="@+id/imgSelect"
         android:ellipsize="end"
-        android:maxLines="2"
         android:padding="@dimen/_10sdp"
         android:textSize="@dimen/small_text_size"
         tools:text="TextView" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/text_view_count"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentStart="true"-->
+    <!--        android:layout_alignParentLeft="true"-->
+    <!--        android:layout_toStartOf="@+id/imgSelect"-->
+    <!--        android:layout_below="@id/text_view"-->
+    <!--        android:layout_toLeftOf="@+id/imgSelect"-->
+    <!--        android:ellipsize="end"-->
+    <!--        android:maxLines="1"-->
+    <!--        android:includeFontPadding="false"-->
+    <!--        android:padding="@dimen/_5sdp"-->
+    <!--        android:textSize="@dimen/small_text_size"-->
+    <!--        tools:text="TextView" />-->
 
     <ImageView
         android:id="@+id/imgSelect"
@@ -40,7 +55,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/regular_line"
-        android:layout_below="@+id/text_view"
+        android:layout_below="@+id/text_view_count"
         android:background="@color/default_shimmer_color" />
 
 </RelativeLayout>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/_270sdp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_ring_bg">
+
+    <ImageView
+        android:id="@+id/dialog_apprating_emoji"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:src="@drawable/emoji_one"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dialog_apprating_tvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:maxLines="1"
+        android:text="Do you like the app?"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_20sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_apprating_emoji" />
+
+    <TextView
+        android:id="@+id/dialog_apprating_tvText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:gravity="center"
+        android:text="Use the slider to tell it in the language of Emojis."
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16sdp"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_apprating_tvHeader" />
+
+    <SeekBar
+        android:id="@+id/dialog_apprating_progressbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:max="5"
+        app:layout_constraintLeft_toLeftOf="@+id/dialog_apprating_tvNotreally"
+        app:layout_constraintRight_toRightOf="@+id/dialog_apprating_tvLoveit"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_apprating_tvText" />
+
+    <TextView
+        android:id="@+id/dialog_apprating_tvNotreally"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:maxLines="1"
+        android:text="Not Really"
+        android:textColor="@color/light_gray"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_apprating_progressbar" />
+
+    <TextView
+        android:id="@+id/dialog_apprating_tvLoveit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:maxLines="1"
+        android:text="Love it"
+        android:textColor="@color/header_gray"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_apprating_progressbar" />
+
+    <EditText
+        android:id="@+id/dialog_apprating_etReview"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/gray_ring_bg"
+        android:gravity="top"
+        android:hint="Enter your review here..."
+        android:padding="@dimen/_5sdp"
+        android:textSize="@dimen/_12sdp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="@id/dialog_apprating_tvNotreally"
+        app:layout_constraintRight_toRightOf="@id/dialog_apprating_tvLoveit"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_apprating_tvLoveit" />
+
+    <TextView
+        android:id="@+id/dialog_apprating_btnDismiss"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@drawable/left_gray_corner_bg"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="@dimen/_10sdp"
+        android:text="Dismiss"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/dialog_apprating_btnSubmit"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_apprating_etReview" />
+
+    <TextView
+        android:id="@+id/dialog_apprating_btnSubmit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@drawable/right_blue_conrner_bg"
+        android:gravity="center"
+        android:maxLines="1"
+        android:padding="@dimen/_10sdp"
+        android:text="Submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintLeft_toRightOf="@+id/dialog_apprating_btnDismiss"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_apprating_etReview" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

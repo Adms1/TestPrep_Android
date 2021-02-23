@@ -363,7 +363,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                             queTab_ivHint.visibility = View.GONE
                         }
 
-
                         if (time > 0) {
                             setCountdown(time.toLong() * 1000)
                         } else {
@@ -1207,6 +1206,19 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                                     "question"
                                 )
                             )
+
+                            OpenAttemptDialog()
+
+                        } else if (type == "sidemenu") {
+                            sideList!!.setAdapter(
+                                NewSideMenuAdapter(
+                                    context!!,
+                                    sectionList!!,
+                                    finalArr,
+                                    filterTypeSelectionInteface!!,
+                                    "question"
+                                )
+                            )
                         }
 
 //                    } else if(type == "clear") {
@@ -1628,7 +1640,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                         }
 
                         callSubmitAnswer(
-                            "submit",
+                            "sidemenu",
                             movies[q_grppos1].TestQuestion[curr_index].TestQuestionID,
                             movies[q_grppos1].TestQuestion[curr_index].QuestionID,
                             movies[q_grppos1].TestQuestion[curr_index].QuestionTypeID,
@@ -2064,7 +2076,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 getType("submit", 0, curr_index)
             }
 
-            OpenAttemptDialog()
+//            OpenAttemptDialog()
 
         }
     }
@@ -2167,7 +2179,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                     getType("submit", 0, curr_index)
                 }
 
-                OpenAttemptDialog()
+//                OpenAttemptDialog()
 
             }
         }

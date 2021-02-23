@@ -9,7 +9,6 @@
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_110sdp"
-        android:background="@drawable/pp_2"
         android:scaleType="fitXY"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

@@ -82,6 +82,7 @@ class DashboardActivity : AppCompatActivity() {
         ON_BACK = 0
 
         main_header = findViewById(R.id.dashboard_header)
+        tvExpired = findViewById(R.id.dashboard_tvExpirepkg)
 //        ivCart = findViewById(R.id.dashboard_ivCart)
         ivHome = findViewById(R.id.dash_ivHome)
         ivMarket = findViewById(R.id.dash_ivMarket)
@@ -304,6 +305,8 @@ class DashboardActivity : AppCompatActivity() {
         var isCompetitive = false
 
         var main_header: TextView? = null
+        var tvExpired: TextView? = null
+
         //        var ivCart: ImageView? = null
         var ivHome: ImageView? = null
         var ivMarket: ImageView? = null
@@ -389,6 +392,7 @@ class DashboardActivity : AppCompatActivity() {
 
             rlFilter!!.visibility = View.GONE
             ivSort!!.visibility = View.GONE
+            tvExpired!!.visibility = View.GONE
 
             when (AppConstants.isFirst) {
                 0  -> {

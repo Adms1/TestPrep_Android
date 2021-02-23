@@ -11,6 +11,7 @@
         android:textColor="@color/black"
         android:ellipsize="end"
         android:maxLines="1"
+        android:text="hello\nhi"
         android:paddingLeft="@dimen/_10sdp"
         android:paddingRight="@dimen/_50sdp"
         android:textSize="@dimen/_12sdp"

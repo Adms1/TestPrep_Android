@@ -1,13 +1,11 @@
 package com.testcraft.testcraft.fragments
 
 import android.app.Dialog
-import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +17,7 @@ import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
+import com.testcraft.testcraft.activity.TraknpayNewActivity
 import com.testcraft.testcraft.adapter.CourseSpinnerAdapter
 import com.testcraft.testcraft.adapter.CoursetypeSpinnerAdapter
 import com.testcraft.testcraft.adapter.StdSpinnerAdapter
@@ -410,7 +409,21 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-                        updatepayment(response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString)
+                        val intent = Intent(context, TraknpayNewActivity::class.java)
+                        intent.putExtra("comefrom", "subscription")
+                        intent.putExtra(
+                            "order_id",
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
+                        )
+                        intent.putExtra(
+                            "amount",
+                            response.body()!!["data"].asJsonArray[0].asJsonObject["PaymentAmount"].asString
+                        )
+                        intent.putExtra("pkgid", "123456")
+                        intent.putExtra("pkgname", "abcd")
+//                            intent.putExtra("pkgprice", "111")
+
+                        startActivity(intent)
                     }
                 }
             }
@@ -564,24 +577,25 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 //                callGetSubscriptionConfirm()
 //                    callSubscriptionPrice()
 
-                    if (isFree) {
-                        callGetSubscriptionConfirm()
-                    } else {
-                        val browserIntent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!! + "&type=2&subcription=1")
-                        )
+//                    if (isFree) {
+                    callGetSubscriptionConfirm()
+//                    } else {
 
-                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        browserIntent.setPackage("com.android.chrome")
-                        try {
-                            startActivity(browserIntent)
-                        } catch (ex: ActivityNotFoundException) {
-                            // Chrome browser presumably not installed so allow user to choose instead
-                            browserIntent.setPackage(null)
-                            startActivity(browserIntent)
-                        }
-                    }
+//                        val browserIntent = Intent(
+//                            Intent.ACTION_VIEW,
+//                            Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!! + "&type=2&subcription=1")
+//                        )
+//
+//                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        browserIntent.setPackage("com.android.chrome")
+//                        try {
+//                            startActivity(browserIntent)
+//                        } catch (ex: ActivityNotFoundException) {
+//                            // Chrome browser presumably not installed so allow user to choose instead
+//                            browserIntent.setPackage(null)
+//                            startActivity(browserIntent)
+//                        }
+//                    }
 
                 } else {
 

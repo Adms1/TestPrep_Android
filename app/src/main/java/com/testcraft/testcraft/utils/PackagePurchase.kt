@@ -1,14 +1,14 @@
 package com.testcraft.testcraft.utils
 
 import android.app.Activity
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.activity.QuestionInstructionActivity
+import com.testcraft.testcraft.activity.TraknpayNewActivity
 import com.testcraft.testcraft.models.TestListModel
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
@@ -59,7 +59,7 @@ class PackagePurchase {
 //                        val intent = Intent(activity, CartActivity::class.java)
 //                        startActivity(intent)
 //
-                            callCheckout(come_from, context, ccode)
+                            callCheckout(come_from, pkgid, context, ccode)
 
                         } else {
 
@@ -83,7 +83,7 @@ class PackagePurchase {
         }
 
         //    {"Status":"true","data":[{"PaymentTransactionID":92,"OrderID":"TP190905112816426","PaymentAmount":"100"}],"Msg":"Generate New payment Order ID "}
-        fun callCheckout(come_from: String, context: Context, ccode: String) {
+        fun callCheckout(come_from: String, pkgid: String, context: Context, ccode: String) {
 
             if (!DialogUtils.isNetworkConnected(context)) {
 //            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
@@ -126,44 +126,51 @@ class PackagePurchase {
 //
 //                            Log.d("mobikul-->", intent.toUri(Intent.URI_INTENT_SCHEME))
 
-                                val browserIntent = Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=$stuGUID&type=2&subcription=0")
-                                )
-
-                                browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                browserIntent.setPackage("com.android.chrome")
-                                try {
-                                    context.startActivity(browserIntent)
-                                } catch (ex: ActivityNotFoundException) {
-                                    // Chrome browser presumably not installed so allow user to choose instead
-                                    browserIntent.setPackage(null)
-                                    context.startActivity(browserIntent)
-                                }
+                                //current 08-02-2021
+//                                val browserIntent = Intent(
+//                                    Intent.ACTION_VIEW,
+//                                    Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=$stuGUID&type=2&subcription=0")
+//                                )
+//
+//                                browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                                browserIntent.setPackage("com.android.chrome")
+//                                try {
+//                                    context.startActivity(browserIntent)
+//                                } catch (ex: ActivityNotFoundException) {
+//                                    // Chrome browser presumably not installed so allow user to choose instead
+//                                    browserIntent.setPackage(null)
+//                                    context.startActivity(browserIntent)
+//                                }
+                                //current over
 
 //                            startActivity(browserIntent)
 
-//                            val intent = Intent(context, TraknpayRequestActivity::class.java)
-//                            intent.putExtra(
-//                                "order_id",
-//                                response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
-//                            )
-//                            intent.putExtra(
-//                                "amount",
-//                                response.body()!!["data"].asJsonArray[0].asJsonObject["PaymentAmount"].asString
-//                            )
-//                            intent.putExtra("pkgid", pkgid)
-//                            intent.putExtra("pkgname", package_detail_tvPname.text.toString())
-//                            intent.putExtra("pkgprice", purchaseCoin)
-//                            startActivity(intent)
+                                val intent = Intent(context, TraknpayNewActivity::class.java)
+                                intent.putExtra("comefrom", "package")
+                                intent.putExtra(
+                                    "order_id",
+                                    response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
+                                )
+                                intent.putExtra(
+                                    "amount",
+                                    response.body()!!["data"].asJsonArray[0].asJsonObject["PaymentAmount"].asString
+                                )
+                                intent.putExtra("pkgid", pkgid)
+                                intent.putExtra("pkgname", "abcd")
+//                            intent.putExtra("pkgprice", "111")
 
-//                            (context as DashboardActivity).finish()
+                                startActivity(context, intent, null)
+//                                (context as DashboardActivity).finish()
+
+//                                val intent = Intent(context, PaymentViewActivity::class.java)
+//                                intent.putExtra("url", AppConstants.PAYMENT_REQUEST + "StudentID=$stuGUID&type=2&subcription=0")
+//
+//                                startActivity(context, intent, null)
 
                             } else {
                                 updatePaymentStatus(come_from,
                                     "Success",
-                                    response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
-                                , context)
+                                    response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString, context)
                             }
 
                         } else {
@@ -279,7 +286,6 @@ class PackagePurchase {
 //                                    onBackPressed()
 //                                }, 1500
 
-
 //                            )
 
 //                            callAddTestPackageApi()
@@ -288,7 +294,6 @@ class PackagePurchase {
 
 //                    } else {
 
-
 //                    AppConstants.isFirst = 1
 //
 //                    val intent = Intent(context, DashboardActivity::class.java)
@@ -296,7 +301,6 @@ class PackagePurchase {
 
 //                        Toast.makeText(context, response.body()!!["Msg"].asString, Toast.LENGTH_LONG)
 //                            .show()
-
 
 //                    }
                     }

@@ -10,6 +10,7 @@ class GetChapterList {
 
         var ID = ""
         var Name = ""
+        var Count = ""
         var isSelected = false
 
     }

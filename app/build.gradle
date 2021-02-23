@@ -7,12 +7,13 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.android.application'
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.testcraft.testcraft"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 30
         versionName "4.0"
@@ -57,6 +58,8 @@ dependencies {
 
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigation_version"
+
+    implementation project(":PGSDKVR4")
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.31"
@@ -111,6 +114,14 @@ dependencies {
     //image
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.4.0')
+
+    // Declare the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-crashlytics'
+    implementation 'com.google.firebase:firebase-analytics'
+
     implementation 'com.google.firebase:firebase-dynamic-links:19.1.0'
     implementation 'com.facebook.android:facebook-applinks:4.42.0'
     implementation 'com.parse.bolts:bolts-tasks:1.4.0'
@@ -123,4 +134,6 @@ dependencies {
     implementation 'co.lujun:androidtagview:1.1.7'
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+
+    implementation 'com.github.florent37:viewtooltip:1.2.0'
 }

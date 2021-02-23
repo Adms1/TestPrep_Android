@@ -30,7 +30,7 @@
         android:textColor="@color/header_gray"
         android:textSize="@dimen/normal_header_size"
         app:layout_constraintLeft_toRightOf="@+id/dashboard_ivBack"
-        app:layout_constraintRight_toLeftOf="@+id/dashboard_ivNotification"
+        app:layout_constraintRight_toLeftOf="@+id/dashboard_tvExpirepkg"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -79,6 +79,25 @@
         app:layout_constraintRight_toLeftOf="@id/dashboard_rlFilter"
         app:layout_constraintTop_toTopOf="@+id/dashboard_header"
         tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/dashboard_tvExpirepkg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:background="@drawable/carousel_bg"
+        android:gravity="center"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:text="Expired"
+        android:textColor="@color/red"
+        android:textSize="@dimen/_13sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/dashboard_header"
+        app:layout_constraintRight_toLeftOf="@+id/dashboard_rlFilter"
+        app:layout_constraintTop_toTopOf="@+id/dashboard_header" />
 
     <RelativeLayout
         android:id="@+id/dashboard_rlFilter"

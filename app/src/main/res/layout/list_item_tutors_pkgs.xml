@@ -15,7 +15,7 @@
         android:layout_width="@dimen/_55sdp"
         android:layout_height="@dimen/_55sdp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/item_tutor_package_name">
+        app:layout_constraintTop_toTopOf="@+id/item_tutor_package_subject">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_tutor_package_image"
@@ -54,11 +54,10 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:textColor="@color/black"
-        android:textSize="@dimen/_13sdp"
+        android:textSize="@dimen/_12sdp"
         app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
-        app:layout_constraintRight_toLeftOf="@+id/item_tutor_package_price"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/item_tutor_package_subject" />
 
     <TextView
         android:id="@+id/item_tutor_package_subject"
@@ -69,7 +68,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/item_tutor_package_name"
         app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
         app:layout_constraintRight_toLeftOf="@+id/item_tutor_package_btnNext"
-        app:layout_constraintTop_toBottomOf="@+id/item_tutor_package_name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/item_tutor_package_price"
@@ -77,10 +76,10 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:maxLines="1"
-        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/_11sdp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/item_tutor_package_name" />
+        android:layout_marginLeft="@dimen/_10sdp"
+        app:layout_constraintLeft_toRightOf="@+id/item_rlImage"
+        app:layout_constraintTop_toBottomOf="@+id/item_tutor_package_name" />
 
     <!--    <TextView-->
     <!--        android:id="@+id/item_tutor_package_price"-->
@@ -123,7 +122,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_30sdp"
         android:background="@color/light_white"
-        app:layout_constraintTop_toBottomOf="@+id/item_rlImage" />
+        app:layout_constraintTop_toBottomOf="@+id/item_tutor_package_price" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
