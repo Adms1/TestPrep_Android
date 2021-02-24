@@ -167,7 +167,7 @@ class PhoneLoginActivity : AppCompatActivity() {
 
                         Utils.setStringValue(this@PhoneLoginActivity, AppConstants.APP_MODE, AppConstants.NORMAL_MODE)
 
-                        if(response.body()!!.data[0].StudentID.toString() != "0") {
+                        if (response.body()!!.data[0].StudentID.toString() != "0") {
                             if (response.body()!!.data[0].Preference.size > 0) {
 
                                 Utils.setStringValue(this@PhoneLoginActivity, AppConstants.isPrefrence, "1")
@@ -248,6 +248,7 @@ class PhoneLoginActivity : AppCompatActivity() {
                         intent.putExtra("password", response.body()!!.data[0].StudentPassword)
                         intent.putExtra("account_type", response.body()!!.data[0].AccountTypeID.toString())
                         startActivity(intent)
+                        finish()
 
                     } else {
                         Toast.makeText(

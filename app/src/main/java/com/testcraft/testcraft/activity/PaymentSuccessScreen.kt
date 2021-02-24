@@ -142,7 +142,13 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
             // close this activity
 //            finish()
-            onBackPressed()
+
+            AppConstants.isFirst = 1
+
+            val intent = Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
+            startActivity(intent)
+            finish()
+//            onBackPressed()
         }
 
         tvTry.setOnClickListener {

@@ -292,7 +292,7 @@
                         android:id="@+id/my_create_header"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
                         android:ellipsize="end"
                         android:gravity="center_vertical"
                         android:singleLine="true"
@@ -300,8 +300,9 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/normal_header_size"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/my_create_btnpkgs"
                         app:layout_constraintRight_toLeftOf="@+id/my_create_btnpkgs"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="@+id/my_create_btnpkgs" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/my_create_btnpkgs"
@@ -310,10 +311,11 @@
                         android:layout_marginRight="@dimen/_10sdp"
                         android:background="@drawable/lightgray_bg"
                         android:padding="@dimen/_5sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/my_create_header"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
                         app:layout_constraintLeft_toRightOf="@+id/my_create_header"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/my_create_header">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
                             android:id="@+id/my_create_tvpkgs"
@@ -382,10 +384,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:layout_marginRight="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_5sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/my_packages_ivCreateTest" />
+                        app:layout_constraintTop_toBottomOf="@+id/my_create_btnpkgs" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.Connectivity
+import com.testcraft.testcraft.PhoneLoginActivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
@@ -121,6 +122,7 @@ class OtpActivity : AppCompatActivity() {
                         AppConstants.isFirst = 7
 
                         val intent = Intent(this@OtpActivity, DashboardActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                         intent.putExtra("come_from", "otp")
                         startActivity(intent)
                         finish()
@@ -174,8 +176,8 @@ class OtpActivity : AppCompatActivity() {
                                 CommonWebCalls.callSignupApi("otp", this@OtpActivity,
                                     "5",
                                     "0",
-                                    "Guest",
-                                    "User",
+                                    "",
+                                    "",
                                     intent.getStringExtra("email"),
                                     intent.getStringExtra("password"),
                                     intent.getStringExtra("mobile_number"))
@@ -190,10 +192,14 @@ class OtpActivity : AppCompatActivity() {
                                     )
 
                                     val i = Intent(this@OtpActivity, DashboardActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     startActivity(i)
+                                    finish()
                                 }else{
                                     val i = Intent(this@OtpActivity, NewActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     startActivity(i)
+                                    finish()
                                 }
                             }
 
@@ -225,12 +231,15 @@ class OtpActivity : AppCompatActivity() {
                         AppConstants.isFirst = 0
 
                         val i = Intent(this@OtpActivity, DashboardActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(i)
                         finish()
 
                     }else{
                         val i = Intent(this@OtpActivity, NewActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(i)
+                        finish()
                     }
                 }
             }
@@ -517,6 +526,14 @@ class OtpActivity : AppCompatActivity() {
                 DialogUtils.dismissDialog()
             }
         })
+
+    }
+
+    override fun onBackPressed() {
+
+        val intent = Intent(this@OtpActivity, PhoneLoginActivity::class.java)
+        startActivity(intent)
+        finish()
 
     }
 

@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
         android:max="5"
+        android:progress="3"
         app:layout_constraintLeft_toLeftOf="@+id/dialog_apprating_tvNotreally"
         app:layout_constraintRight_toRightOf="@+id/dialog_apprating_tvLoveit"
         app:layout_constraintTop_toBottomOf="@+id/dialog_apprating_tvText" />

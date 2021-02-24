@@ -10,11 +10,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.testcraft.testcraft.R
+import com.testcraft.testcraft.TestInstructionActivity
 import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.activity.DeeplinkTestActivity
 import com.testcraft.testcraft.activity.IntroActivity
-import com.testcraft.testcraft.activity.QuestionInstructionActivity
 import com.testcraft.testcraft.models.TestListModel
 import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
 import com.testcraft.testcraft.utils.ActionIdData
@@ -121,7 +121,7 @@ class TestListAdapter(
                 }
 
                 "Start Test" -> {
-                    val intent = Intent(context, QuestionInstructionActivity::class.java)
+                    val intent = Intent(context, TestInstructionActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
 
                     intent.putExtra("isComeFrom", "testlist")

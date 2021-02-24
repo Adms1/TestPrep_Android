@@ -126,6 +126,7 @@ class MyPackagesFragment : Fragment() {
     fun clickCreateTestwithExpiration() {
         if (isExpired != "1") {
             val intent = Intent(context, CreateTestActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
 
             if (iscompetitive == "1") {
                 intent.putExtra("coursetypeid", "2")

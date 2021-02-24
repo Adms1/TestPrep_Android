@@ -29,13 +29,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.squareup.picasso.Picasso
 import com.testcraft.testcraft.R
-import com.testcraft.testcraft.activity.DashboardActivity
+import com.testcraft.testcraft.activity.*
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.rlFilter
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.testid
-import com.testcraft.testcraft.activity.FilterActivity
-import com.testcraft.testcraft.activity.NewActivity
-import com.testcraft.testcraft.activity.OtpActivity
 import com.testcraft.testcraft.adapter.MyPackageAdapter
 import com.testcraft.testcraft.adapter.TutorAdapter
 import com.testcraft.testcraft.carouselPkg.CarouselParameters
@@ -97,13 +94,21 @@ class MarketPlaceFragment : Fragment() {
 
         activity!!.window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
+        if (Utils.getStringValue(activity!!, AppConstants.FIRST_NAME, "") == "" ||
+            Utils.getStringValue(activity!!, AppConstants.LAST_NAME, "") == "") {
+
+            val intent = Intent(activity!!, ForceUpdateProfileActivity::class.java)
+            startActivity(intent)
+
+        }
+
         DashboardActivity.main_header!!.text = "Market Place"
         DashboardActivity.btnBack!!.visibility = View.GONE
 
         if (Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") != "2"
             && Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "") != "3") {
 
-            if(Utils.getStringValue(activity!!, AppConstants.USER_MOBILE, "") == "") {
+            if (Utils.getStringValue(activity!!, AppConstants.USER_MOBILE, "") == "") {
                 val phndialog = Dialog(activity!!)
                 phndialog.setContentView(R.layout.dialog_phone_number)
                 phndialog.setCanceledOnTouchOutside(false)

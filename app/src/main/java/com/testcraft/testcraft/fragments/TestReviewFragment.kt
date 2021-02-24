@@ -410,6 +410,9 @@ class TestReviewFragment : Fragment() {
         if (!ratingdialog.isShowing) {
 
             btnSubmit.setOnClickListener {
+
+//                if(seekbar.progress > 1) {
+
                 val apiService = WebClient.getClient().create(WebInterface::class.java)
 
                 val call =
@@ -432,6 +435,11 @@ class TestReviewFragment : Fragment() {
                         Log.e("", t.toString())
                     }
                 })
+//                }
+//                else {
+
+//                    Utils.ping(activity!!, "Please ")
+//                }
 
             }
 
