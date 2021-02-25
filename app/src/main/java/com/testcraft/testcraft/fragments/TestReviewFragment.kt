@@ -378,26 +378,20 @@ class TestReviewFragment : Fragment() {
                 when {
                     seekBar.progress == 1 -> {
                         ivEmoji.setImageDrawable(resources.getDrawable(R.drawable.emoji_one))
-                        etReview.visibility = View.GONE
                     }
                     seekbar.progress == 2 -> {
                         ivEmoji.setImageDrawable(resources.getDrawable(R.drawable.emoji_two))
-                        etReview.visibility = View.GONE
                     }
                     seekbar.progress == 3 -> {
                         ivEmoji.setImageDrawable(resources.getDrawable(R.drawable.emoji_three))
-                        etReview.visibility = View.VISIBLE
                     }
                     seekbar.progress == 4 -> {
                         ivEmoji.setImageDrawable(resources.getDrawable(R.drawable.emoji_four))
-                        etReview.visibility = View.VISIBLE
                     }
                     seekbar.progress == 5 -> {
                         ivEmoji.setImageDrawable(resources.getDrawable(R.drawable.emoji_five))
-                        etReview.visibility = View.VISIBLE
                     }
                 }
-
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -411,36 +405,51 @@ class TestReviewFragment : Fragment() {
 
             btnSubmit.setOnClickListener {
 
+                if (btnSubmit.text == "Submit") {
+
 //                if(seekbar.progress > 1) {
 
-                val apiService = WebClient.getClient().create(WebInterface::class.java)
+                    val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-                val call =
-                    apiService.callInsertAppRating(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
-                        seekbar.progress.toString(), etReview.text.toString())
+                    val call =
+                        apiService.callInsertAppRating(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
+                            seekbar.progress.toString(), etReview.text.toString())
 
-                call.enqueue(object : Callback<JsonObject> {
+                    call.enqueue(object : Callback<JsonObject> {
 
-                    override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                        override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
-                        if (response.body()!!.get("Status").asString == "true") {
+                            if (response.body()!!.get("Status").asString == "true") {
 
-                            ratingdialog.dismiss()
-                        } else {
-                            Utils.ping(activity!!, response.body()!!.get("Msg").asString)
+//                                DialogUtils.createConfirmDialog1(activity!!,
+//                                    "OK",
+//                                    response.body()!!.get("Msg").asString,
+//                                    DialogInterface.OnClickListener { dialog, which ->
+//
+                                ratingdialog.dismiss()
+//
+//                                    }).show()
+
+                                Utils.ping(activity!!, response.body()!!.get("Msg").asString)
+
+                            } else {
+                                Utils.ping(activity!!, response.body()!!.get("Msg").asString)
+                            }
                         }
-                    }
 
-                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                        Log.e("", t.toString())
-                    }
-                })
+                        override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                            Log.e("", t.toString())
+                        }
+                    })
 //                }
 //                else {
 
 //                    Utils.ping(activity!!, "Please ")
 //                }
-
+                } else {
+                    etReview.visibility = View.VISIBLE
+                    btnSubmit.text = "Submit"
+                }
             }
 
             btnCancel.setOnClickListener { ratingdialog.dismiss() }
@@ -462,6 +471,7 @@ class TestReviewFragment : Fragment() {
                 if (response.body()!!.get("Status").asString == "true") {
 
                     OpenAttemptDialog()
+
                 } else {
 
                 }

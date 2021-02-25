@@ -1,13 +1,11 @@
 package com.testcraft.testcraft.fragments
 
 import android.app.Dialog
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +19,7 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.CreateTestActivity
 import com.testcraft.testcraft.activity.DashboardActivity
+import com.testcraft.testcraft.activity.TraknpayNewActivity
 import com.testcraft.testcraft.activity.ViewInvoiceSecondActivity
 import com.testcraft.testcraft.adapter.MyPackageAdapter
 import com.testcraft.testcraft.adapter.SelfTestAdapter
@@ -29,6 +28,7 @@ import com.testcraft.testcraft.models.MyPackageModel
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
+import kotlinx.android.synthetic.main.fragment_market_place_bottom_sheet.*
 import kotlinx.android.synthetic.main.fragment_my_packages.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -464,6 +464,7 @@ class MyPackagesFragment : Fragment() {
         private var new_stdid = ""
         private var new_boardid = ""
         private var new_courseid = ""
+        private var listprice = ""
         private var new_iscompetitive = false
 
         fun callInsertSubscriptionConfirm(activity: Context) {
@@ -499,20 +500,22 @@ class MyPackagesFragment : Fragment() {
 
                     if (response.body()!!.get("Status").asString == "true") {
 
-                        val browserIntent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(activity, AppConstants.USER_ID, "0")!! + "&type=2&subcription=1")
-                        )
+//                        val browserIntent = Intent(
+//                            Intent.ACTION_VIEW,
+//                            Uri.parse(AppConstants.PAYMENT_REQUEST + "StudentID=" + Utils.getStringValue(activity, AppConstants.USER_ID, "0")!! + "&type=2&subcription=1")
+//                        )
+//
+//                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        browserIntent.setPackage("com.android.chrome")
+//                        try {
+//                            activity.startActivity(browserIntent)
+//                        } catch (ex: ActivityNotFoundException) {
+//                            // Chrome browser presumably not installed so allow user to choose instead
+//                            browserIntent.setPackage(null)
+//                            activity.startActivity(browserIntent)
+//                        }
 
-                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        browserIntent.setPackage("com.android.chrome")
-                        try {
-                            activity.startActivity(browserIntent)
-                        } catch (ex: ActivityNotFoundException) {
-                            // Chrome browser presumably not installed so allow user to choose instead
-                            browserIntent.setPackage(null)
-                            activity.startActivity(browserIntent)
-                        }
+                        callGetSubscriptionConfirm(activity)
 
                     } else {
 
@@ -535,6 +538,112 @@ class MyPackagesFragment : Fragment() {
                 }
             })
         }
+
+        fun callGetSubscriptionConfirm(activity: Context) {
+            val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+            DialogUtils.showDialog(activity)
+            val call =
+                apiService.subscription_checkout(listprice.toString().replace("₹", ""), "0",
+                    Utils.getStringValue(activity, AppConstants.USER_ID, "0")!!)
+
+            call.enqueue(object : Callback<JsonObject> {
+
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                    DialogUtils.dismissDialog()
+                    if (response.body() != null) {
+
+                        if (response.body()!!["Status"].asString == "true") {
+
+                            val intent = Intent(activity, TraknpayNewActivity::class.java)
+                            intent.putExtra("comefrom", "subscription")
+                            intent.putExtra(
+                                "order_id",
+                                response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
+                            )
+                            intent.putExtra(
+                                "amount",
+                                response.body()!!["data"].asJsonArray[0].asJsonObject["PaymentAmount"].asString
+                            )
+                            intent.putExtra("pkgid", "")
+                            intent.putExtra("pkgname", "")
+//                            intent.putExtra("pkgprice", "111")
+
+                            activity.startActivity(intent)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    // Log error here since request failed
+                    DialogUtils.dismissDialog()
+                    Log.e("", t.toString())
+                }
+            })
+        }
+    }
+
+    fun callGetSubscriptionPrice() {
+        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
+        var board = ""
+        var cource = ""
+        var std = ""
+        var courcetype = ""
+
+        if (!new_iscompetitive) {
+            board = new_boardid
+            cource = "0"
+            std = new_stdid
+            courcetype = "1"
+        } else {
+            std = "0"
+            board = "0"
+            cource = new_courseid
+            courcetype = "2"
+        }
+
+        val call = apiService.getSubscriptionPrice(
+            Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
+            cource,
+            board,
+            std,
+            courcetype)
+
+        call.enqueue(object : Callback<JsonObject> {
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                if (response.body()!!.get("Status").asString == "true") {
+
+                    listprice = response.body()!!.get("data").asJsonObject.get("ListPrice").asString
+//                    callSubscriptionPrice()
+//                    callGetSubscriptionConfirm()
+
+                } else {
+
+                    bottomsheet_tvPaynow.visibility = View.INVISIBLE
+                    bottomsheet_llAmount.visibility = View.INVISIBLE
+
+                    DialogUtils.createConfirmDialog1(
+                        activity!!,
+                        "OK",
+                        response.body()!!.get("Msg").asString,
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            dialog.dismiss()
+
+                        }).show()
+
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                // Log error here since request failed
+                Log.e("", t.toString())
+            }
+        })
     }
 
 }

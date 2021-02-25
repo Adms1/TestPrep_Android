@@ -409,21 +409,25 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-                        val intent = Intent(context, TraknpayNewActivity::class.java)
-                        intent.putExtra("comefrom", "subscription")
-                        intent.putExtra(
-                            "order_id",
-                            response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
-                        )
-                        intent.putExtra(
-                            "amount",
-                            response.body()!!["data"].asJsonArray[0].asJsonObject["PaymentAmount"].asString
-                        )
-                        intent.putExtra("pkgid", "123456")
-                        intent.putExtra("pkgname", "abcd")
+                        if (isFree) {
+                            updatepayment(response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString)
+                        } else {
+                            val intent = Intent(context, TraknpayNewActivity::class.java)
+                            intent.putExtra("comefrom", "subscription")
+                            intent.putExtra(
+                                "order_id",
+                                response.body()!!["data"].asJsonArray[0].asJsonObject["OrderID"].asString
+                            )
+                            intent.putExtra(
+                                "amount",
+                                response.body()!!["data"].asJsonArray[0].asJsonObject["PaymentAmount"].asString
+                            )
+                            intent.putExtra("pkgid", "")
+                            intent.putExtra("pkgname", "")
 //                            intent.putExtra("pkgprice", "111")
 
-                        startActivity(intent)
+                            startActivity(intent)
+                        }
                     }
                 }
             }
