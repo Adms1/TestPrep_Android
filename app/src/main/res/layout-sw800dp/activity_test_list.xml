@@ -41,7 +41,7 @@
         android:textColor="@color/header_gray"
         android:textSize="@dimen/_13sdp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/test_ivInstruction"
         app:layout_constraintTop_toBottomOf="@+id/test_header" />
 
     <ImageView
@@ -52,6 +52,7 @@
         android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginRight="@dimen/_15sdp"
         android:src="@drawable/info_icon"
+        android:visibility="gone"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/test_tvKnowheader"
         tools:ignore="ContentDescription" />

@@ -1454,11 +1454,11 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                         when (movies[q_grppos1].TestQuestion[curr_index].Answer) {
 
-                            "1"  -> {
+                            "1" -> {
                                 queTab_rbTrue.isChecked = true
                                 queTab_rbFalse.isChecked = false
                             }
-                            "0"  -> {
+                            "0" -> {
                                 queTab_rbFalse.isChecked = true
                                 queTab_rbTrue.isChecked = false
                             }
@@ -2070,6 +2070,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 reportdialog!!.dismiss()
             }
 
+            if (attemptDialog != null && attemptDialog!!.isShowing) {
+                attemptDialog!!.dismiss()
+            }
+
             if (queTab_ivReview.isChecked) {
                 getType("submit", 1, curr_index)
             } else {
@@ -2171,6 +2175,10 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
                 if (reportdialog != null && reportdialog!!.isShowing) {
                     reportdialog!!.dismiss()
+                }
+
+                if (attemptDialog != null && attemptDialog!!.isShowing) {
+                    attemptDialog!!.dismiss()
                 }
 
                 if (queTab_ivReview.isChecked) {
@@ -2301,25 +2309,26 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
     fun OpenAttemptDialog() {
 
-        CommonWebCalls.callToken(
-            this@NewTabQuestionActivity,
-            "1",
-            "",
-            ActionIdData.C2200,
-            ActionIdData.T2200
-        )
-
         attemptDialog = Dialog(this@NewTabQuestionActivity)
 
-        attemptDialog!!.setContentView(R.layout.dialog_que_attempt_report)
-        attemptDialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        attemptDialog!!.setCanceledOnTouchOutside(false)
-
-        val btnCancel: TextView = attemptDialog!!.findViewById(R.id.attempt_btnClose)
-        val btnOk: TextView = attemptDialog!!.findViewById(R.id.attempt_tvOK)
-        val rvList: RecyclerView = attemptDialog!!.findViewById(R.id.attempt_rvList)
+        attemptDialog!!.dismiss()
 
         if (!attemptDialog!!.isShowing) {
+            CommonWebCalls.callToken(
+                this@NewTabQuestionActivity,
+                "1",
+                "",
+                ActionIdData.C2200,
+                ActionIdData.T2200
+            )
+
+            attemptDialog!!.setContentView(R.layout.dialog_que_attempt_report)
+            attemptDialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            attemptDialog!!.setCanceledOnTouchOutside(false)
+
+            val btnCancel: TextView = attemptDialog!!.findViewById(R.id.attempt_btnClose)
+            val btnOk: TextView = attemptDialog!!.findViewById(R.id.attempt_tvOK)
+            val rvList: RecyclerView = attemptDialog!!.findViewById(R.id.attempt_rvList)
 
             rvList.layoutManager =
                 LinearLayoutManager(
@@ -2362,47 +2371,46 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
                 }
             })
 
+            btnCancel.setOnClickListener {
+
+                if (queTab_tvTimer.text.toString().equals("00:00:00", true)) {
+
+                    getType("continue", 0, curr_index)
+
+                    DialogUtils.createConfirmDialog1(
+                        this@NewTabQuestionActivity,
+                        "Submit",
+                        "Your test time is over",
+
+                        DialogInterface.OnClickListener { dialog, which ->
+
+                            callSubmitAPI()
+
+                        }).show()
+                    attemptDialog!!.dismiss()
+
+                } else {
+                    attemptDialog!!.dismiss()
+                }
+            }
+
+            btnOk.setOnClickListener {
+
+                stopTimer()
+
+                var ansstr = ""
+
+                for (i in 0 until ansArr.size) {
+                    ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
+
+                }
+
+                Log.d("ansstr", ansstr)
+
+                callSubmitAPI()
+            }
         } else {
             attemptDialog!!.dismiss()
-        }
-
-        btnCancel.setOnClickListener {
-
-            if (queTab_tvTimer.text.toString().equals("00:00:00", true)) {
-
-                getType("continue", 0, curr_index)
-
-                DialogUtils.createConfirmDialog1(
-                    this@NewTabQuestionActivity,
-                    "Submit",
-                    "Your test time is over",
-
-                    DialogInterface.OnClickListener { dialog, which ->
-
-                        callSubmitAPI()
-
-                    }).show()
-                attemptDialog!!.dismiss()
-
-            } else {
-                attemptDialog!!.dismiss()
-            }
-        }
-
-        btnOk.setOnClickListener {
-
-            stopTimer()
-
-            var ansstr = ""
-
-            for (i in 0 until ansArr.size) {
-                ansstr = ansstr + ansArr[i].qid + "|" + ansArr[i].ansid + ","
-
-            }
-
-            Log.d("ansstr", ansstr)
-
-            callSubmitAPI()
         }
 
 //        fun callAttempReport() {

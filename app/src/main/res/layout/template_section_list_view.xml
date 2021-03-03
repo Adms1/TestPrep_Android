@@ -2,11 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingTop="@dimen/_10sdp"
-    android:paddingBottom="@dimen/_10sdp"
-    app:layout_constraintTop_toTopOf="parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/section_list_llHeader"
@@ -14,13 +10,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="1"
+        android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/section_list_tvSection"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
+            android:layout_weight="0.35"
             android:paddingLeft="@dimen/_5sdp"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp" />
@@ -29,25 +26,25 @@
             android:id="@+id/section_list_tvQtype"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
+            android:layout_weight="0.25"
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp" />
 
-        <TextView
-            android:id="@+id/section_list_tvNo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.15"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12sdp" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/section_list_tvNo"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_weight="0.15"-->
+        <!--            android:gravity="center"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:textSize="@dimen/_12sdp" />-->
 
         <TextView
             android:id="@+id/section_list_tvMarks"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
+            android:layout_weight="0.25"
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp" />
@@ -56,7 +53,7 @@
             android:id="@+id/section_list_tvTotal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.2"
+            android:layout_weight="0.15"
             android:gravity="center"
             android:textColor="@color/black"
             android:textSize="@dimen/_12sdp" />
@@ -68,6 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
         android:background="@color/gray_line"
+        android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintTop_toBottomOf="@+id/section_list_llHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

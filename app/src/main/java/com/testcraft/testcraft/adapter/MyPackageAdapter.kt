@@ -40,7 +40,7 @@ class MyPackageAdapter(
     override fun onBindViewHolder(p0: viewholder, p1: Int) {
 
         p0.name.text = dataList[p1].TestPackageName
-        p0.tutor.text = "By " + dataList[p1].TutorName
+//        p0.tutor.text = "By " + dataList[p1].TutorName
 
         if (p1 == dataList.size - 1) {
             p0.ivLine.visibility = View.GONE
@@ -80,10 +80,12 @@ class MyPackageAdapter(
         } else if (come_from == "my_pkgs") {
 
             p0.price.visibility = View.GONE
-            p0.subject.visibility = View.GONE
 
             p0.test.visibility = View.VISIBLE
             p0.ivArrow.visibility = View.VISIBLE
+            p0.tutor.visibility = View.GONE
+
+            p0.subject.text = dataList[p1].TutorName
 
             if (dataList[p1].NumberOfTest == "1") {
 
@@ -179,7 +181,7 @@ class MyPackageAdapter(
 //                context.startActivity(intent)
                 } else {
                     DialogUtils.createConfirmDialog(context, "Alert",
-                        "Your Subscription Has Expired..",
+                        context.getString(R.string.subscription_expire_popup_msg),
                         "Pay Later", "Pay Now",
 
                         DialogInterface.OnClickListener { dialog, which ->

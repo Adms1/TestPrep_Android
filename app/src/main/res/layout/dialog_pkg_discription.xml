@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/white_ring_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/dialog_pkgdescription_mainll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_350sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dialog_pkgdescription_tvHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/_10sdp"
+            android:text="Package Description"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp" />
+
+        <TextView
+            android:id="@+id/dialog_pkgdescription_tvDesc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:padding="@dimen/_10sdp"
+            android:text="@color/black" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/dialog_pkgdescription_btnClose"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_below="@+id/dialog_pkgdescription_mainll"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_marginRight="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/blue_gradient_bg"
+        android:text="cancel"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13sdp"
+        android:textStyle="bold" />
+
+    <!--    <ImageView-->
+    <!--        android:id="@+id/dialog_pkgdescription_btnClose"-->
+    <!--        android:layout_width="@dimen/_30sdp"-->
+    <!--        android:layout_height="@dimen/_30sdp"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_alignParentRight="true"-->
+    <!--        android:gravity="center"-->
+    <!--        android:src="@drawable/fail_icon"-->
+    <!--        android:textColor="@color/red"-->
+    <!--        android:textSize="@dimen/normal_header_size"-->
+    <!--        tools:ignore="ContentDescription" />-->
+
+</RelativeLayout>

@@ -33,8 +33,8 @@ class TemplateSectionAdapter(
 
         p0.section.text = dataList[p1].SubjectName
         p0.qtype.text = dataList[p1].QuestionTypeName
-        p0.no.text = dataList[p1].NoOfQue
-        p0.marks.text = dataList[p1].Marks
+//        p0.no.text = dataList[p1].NoOfQue
+        p0.marks.text = dataList[p1].NoOfQue + "*" + dataList[p1].Marks
         p0.total.text = (dataList[p1].NoOfQue.toDouble() * dataList[p1].Marks.toDouble()).toString()
 
     }
@@ -43,7 +43,8 @@ class TemplateSectionAdapter(
 
         var section: TextView = itemView.findViewById(R.id.section_list_tvSection)
         var qtype: TextView = itemView.findViewById(R.id.section_list_tvQtype)
-        var no: TextView = itemView.findViewById(R.id.section_list_tvNo)
+
+        //        var no: TextView = itemView.findViewById(R.id.section_list_tvNo)
         var marks: TextView = itemView.findViewById(R.id.section_list_tvMarks)
         var total: TextView = itemView.findViewById(R.id.section_list_tvTotal)
     }

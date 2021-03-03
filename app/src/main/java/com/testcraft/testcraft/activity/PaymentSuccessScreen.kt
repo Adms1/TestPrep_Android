@@ -12,6 +12,7 @@ import android.view.View.GONE
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.facebook.appevents.AppEventsLogger
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
@@ -96,7 +97,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
                 ActionIdData.T1500
             )
 
-            tvCancel.visibility = GONE
+//            tvCancel.visibility = GONE
 
             imvSuccessFail!!.setImageResource(R.drawable.payment_success_icn)
 //            imvSuccessFail!!.background = resources.getDrawable(R.drawable.blue_round)
@@ -232,11 +233,9 @@ class PaymentSuccessScreen : AppCompatActivity() {
 //                                    onBackPressed()
 //                                }, 1500
 
-
 //                            )
 
 //                            callAddTestPackageApi()
-
 
 //                        }
 
@@ -413,15 +412,22 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
                     if (response.body()!!["Status"].asString == "true") {
 
-                        AppConstants.isFirst = 1
+//                        AppConstants.isFirst = 1
 
-                        val intent =
-                            Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
-                        startActivity(intent)
-                        finish()
+//                        val intent =
+//                            Intent(this@PaymentSuccessScreen, DashboardActivity::class.java)
+//                        startActivity(intent)
+//                        finish()
 
 //                        MarketPlaceFragment.sheetClose()
 //                        Utils.ping(this@PaymentSuccessScreen, "Successfully subscribe")
+
+                        val logger = AppEventsLogger.newLogger(this@PaymentSuccessScreen)
+//                        logger.logEvent("Subscription")
+
+                        val params = Bundle()
+                        params.putString("Device_Name", "Android")
+                        logger.logEvent("Subscription_paid", 1.0, params)
 
                     }
                 }

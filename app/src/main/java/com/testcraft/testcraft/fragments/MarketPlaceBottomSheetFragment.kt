@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.AdapterView
 import android.widget.TextView
+import com.facebook.appevents.AppEventsLogger
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
@@ -461,6 +462,12 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                 if (response.body() != null) {
 
                     if (response.body()!!["Status"].asString == "true") {
+
+                        val logger = AppEventsLogger.newLogger(activity!!)
+
+                        val params = Bundle()
+                        params.putString("Device_Name", "Android")
+                        logger.logEvent("Subscription_free", 1.0, params)
 
 //                        AppConstants.isFirst = 1
 //                        setFragments(null)

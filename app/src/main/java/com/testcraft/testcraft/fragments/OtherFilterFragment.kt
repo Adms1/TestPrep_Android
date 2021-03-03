@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
+import com.testcraft.testcraft.activity.FilterActivity.Companion.isFilter
 import com.testcraft.testcraft.adapter.FilterAdapter
 import com.testcraft.testcraft.interfaces.filterInterface
 import com.testcraft.testcraft.models.PackageData
@@ -140,8 +141,17 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         rangeSeekbar3.setOnRangeSeekbarChangeListener { minValue, maxValue ->
 
-            min = minValue.toString()
-            max = maxValue.toString()
+            if (AppConstants.FILTER_FROM_PRICE != "0") {
+                min = AppConstants.FILTER_FROM_PRICE
+            } else {
+                min = minValue.toString()
+            }
+
+            if (AppConstants.FILTER_TO_PRICE != "5000") {
+                max = AppConstants.FILTER_TO_PRICE
+            } else {
+                max = maxValue.toString()
+            }
 
             if (isFirst) {
                 price_filter_etMin.text = "₹ " + AppConstants.FILTER_FROM_PRICE
@@ -196,6 +206,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
 //        })
 
         filter_btnApply.setOnClickListener {
+
+            isFilter = true
 
             Log.d("min_price", "" + Utils.getStringValue(activity!!, AppConstants.MIN_PRICE, "0"))
             Log.d("max_price", "" + Utils.getStringValue(activity!!, AppConstants.MAX_PRICE, "0"))
@@ -253,8 +265,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
                             bundle.putString("subid", AppConstants.FILTER_SUBJECT_ID)
                             bundle.putString("tutorid", AppConstants.FILTER_TUTOR_ID)
                             bundle.putString("search_name", "")
-                            bundle.putString("maxprice", max)
-                            bundle.putString("minprice", min)
+                            bundle.putString("maxprice", AppConstants.FILTER_TO_PRICE)
+                            bundle.putString("minprice", AppConstants.FILTER_FROM_PRICE)
                             setFragments(bundle)
                             activity!!.finish()
 
@@ -282,8 +294,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
                         bundle.putString("subid", AppConstants.FILTER_SUBJECT_ID)
                         bundle.putString("tutorid", AppConstants.FILTER_TUTOR_ID)
                         bundle.putString("search_name", "")
-                        bundle.putString("maxprice", max)
-                        bundle.putString("minprice", min)
+                        bundle.putString("maxprice", AppConstants.FILTER_TO_PRICE)
+                        bundle.putString("minprice", AppConstants.FILTER_FROM_PRICE)
                         setFragments(bundle)
                         activity!!.finish()
 
@@ -307,8 +319,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
                 bundle.putString("subid", AppConstants.FILTER_SUBJECT_ID)
                 bundle.putString("tutorid", AppConstants.FILTER_TUTOR_ID)
                 bundle.putString("search_name", "")
-                bundle.putString("maxprice", max)
-                bundle.putString("minprice", min)
+                bundle.putString("maxprice", AppConstants.FILTER_TO_PRICE)
+                bundle.putString("minprice", AppConstants.FILTER_FROM_PRICE)
                 setFragments(bundle)
                 activity!!.finish()
 

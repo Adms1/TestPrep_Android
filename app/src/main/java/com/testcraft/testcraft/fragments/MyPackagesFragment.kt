@@ -150,7 +150,7 @@ class MyPackagesFragment : Fragment() {
 
         } else {
             DialogUtils.createConfirmDialog(activity!!, "Alert",
-                "Your Subscription Has Expired..",
+                getString(R.string.subscription_expire_popup_msg),
                 "Pay Later", "Pay Now",
 
                 DialogInterface.OnClickListener { dialog, which ->

@@ -259,6 +259,11 @@
         <meta-data
             android:name="com.facebook.sdk.CodelessDebugLogEnabled"
             android:value="true" />
+
+        <meta-data
+            android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
+            android:value="false" />
+
     </application>
 
 </manifest>

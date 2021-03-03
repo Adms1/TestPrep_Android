@@ -5,6 +5,8 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.util.Log
 import androidx.annotation.NonNull
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.iid.FirebaseInstanceId
@@ -27,6 +29,9 @@ class CustomFontApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        FacebookSdk.sdkInitialize(applicationContext)
+        AppEventsLogger.activateApp(this)
 
 //        TypefaceUtil.overrideFont(applicationContext, "SERIF", "fonts/inter_regular.ttf")
 //        Utils.changeStatusbarColor(Activity)

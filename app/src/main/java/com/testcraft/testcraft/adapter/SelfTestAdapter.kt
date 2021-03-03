@@ -70,7 +70,7 @@ class SelfTestAdapter(val context: Context, var datalist: ArrayList<GetSelfTest.
                 DashboardActivity.setFragments(null)
             } else {
                 DialogUtils.createConfirmDialog(context, "Alert",
-                    "Your Subscription Has Expired..",
+                    context.getString(R.string.subscription_expire_popup_msg),
                     "Pay Later", "Pay Now",
 
                     DialogInterface.OnClickListener { dialog, which ->

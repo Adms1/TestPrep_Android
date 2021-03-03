@@ -62,12 +62,10 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingLeft="@dimen/_15sdp"
             android:paddingTop="@dimen/_5sdp"
-            android:paddingRight="@dimen/_5sdp"
             android:paddingBottom="@dimen/_5sdp"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_15sdp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -177,6 +175,7 @@
             android:layout_marginRight="@dimen/_15sdp"
             android:gravity="left"
             android:maxLines="1"
+            android:visibility="gone"
             android:text="Tutor Name"
             android:textColor="@color/light_gray"
             android:textSize="@dimen/extra_small_size"
@@ -192,6 +191,7 @@
             android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="@dimen/normal_text_size"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="@+id/dialog_testinstruction_tvSubject"
             app:layout_constraintRight_toRightOf="@+id/dialog_testinstruction_tvTeacher"
             app:layout_constraintTop_toBottomOf="@+id/dialog_testinstruction_tvTeacher" />

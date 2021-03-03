@@ -424,35 +424,38 @@ class TutorDetailFragment : Fragment() {
         })
     }
 
-    fun setFilterCount() {
+    companion object {
 
-        var filterCount = 0
+        fun setFilterCount() {
 
-        if (AppConstants.FILTER_STANDARD_ID != "0" && AppConstants.FILTER_STANDARD_ID != "") {
-            filterCount += 1
-        }
+            var filterCount = 0
 
-        if (AppConstants.FILTER_BOARD_ID != "0" && AppConstants.FILTER_BOARD_ID != "") {
-            filterCount += 1
-        }
+            if (AppConstants.FILTER_STANDARD_ID != "0" && AppConstants.FILTER_STANDARD_ID != "") {
+                filterCount += 1
+            }
 
-        if (AppConstants.FILTER_SUBJECT_ID != "0" && AppConstants.FILTER_SUBJECT_ID != "") {
-            filterCount += 1
-        }
+            if (AppConstants.FILTER_BOARD_ID != "0" && AppConstants.FILTER_BOARD_ID != "") {
+                filterCount += 1
+            }
 
-        if (AppConstants.FILTER_TUTOR_ID != "0" && AppConstants.FILTER_TUTOR_ID != "") {
-            filterCount += 1
-        }
+            if (AppConstants.FILTER_SUBJECT_ID != "0" && AppConstants.FILTER_SUBJECT_ID != "") {
+                filterCount += 1
+            }
 
-        if (AppConstants.FILTER_FROM_PRICE != "0" || AppConstants.FILTER_TO_PRICE != "5000") {
-            filterCount += 1
-        }
+            if (AppConstants.FILTER_TUTOR_ID != "0" && AppConstants.FILTER_TUTOR_ID != "") {
+                filterCount += 1
+            }
 
-        if (filterCount > 0) {
-            tvFilter!!.visibility = View.VISIBLE
-            tvFilter!!.text = filterCount.toString()
-        } else {
-            tvFilter!!.visibility = View.GONE
+            if (AppConstants.FILTER_FROM_PRICE != "0" || AppConstants.FILTER_TO_PRICE != "5000") {
+                filterCount += 1
+            }
+
+            if (filterCount > 0) {
+                tvFilter!!.visibility = View.VISIBLE
+                tvFilter!!.text = filterCount.toString()
+            } else {
+                tvFilter!!.visibility = View.GONE
+            }
         }
     }
 

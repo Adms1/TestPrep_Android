@@ -11,6 +11,7 @@ import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.FilterListAdapter
 import com.testcraft.testcraft.fragments.OtherFilterFragment
+import com.testcraft.testcraft.fragments.TutorDetailFragment.Companion.setFilterCount
 import com.testcraft.testcraft.interfaces.FilterTypeSelectionInteface
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.utils.ActionIdData
@@ -19,6 +20,7 @@ import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.Utils
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_filter.*
+import kotlinx.android.synthetic.main.fragment_other_filter.*
 
 class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
@@ -28,6 +30,10 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
     var coursetypeid = "1"
     var filtertypeid = ""
+
+    companion object {
+        var isFilter = true
+    }
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
@@ -119,11 +125,106 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
         getType("adapter", 0, 0)
 
+        filter_btnClear.setOnClickListener {
+
+            isFilter = false
+
+            filterTypeArr = ArrayList()
+
+            if (AppConstants.FILTER_COURSE_TYPE_ID == "1") {
+                AppConstants.FILTER_BOARD_ID = ""
+                AppConstants.FILTER_STANDARD_ID = ""
+                AppConstants.FILTER_SUBJECT_ID = ""
+                AppConstants.FILTER_TUTOR_ID = ""
+                AppConstants.FILTER_FROM_PRICE = "0"
+                AppConstants.FILTER_TO_PRICE = "5000"
+
+                coursetypeid = "1"
+
+                val pp11: PackageData.PackageDataList = PackageData.PackageDataList(0, "Boards")
+                pp11.isSelected = false
+                filterTypeArr.add(pp11)
+
+                val pp22: PackageData.PackageDataList = PackageData.PackageDataList(0, "Standard")
+                pp22.isSelected = false
+                filterTypeArr.add(pp22)
+
+                val pp33: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")
+                pp33.isSelected = false
+                filterTypeArr.add(pp33)
+
+                val pp44: PackageData.PackageDataList = PackageData.PackageDataList(0, "Tutor")
+                pp44.isSelected = false
+                filterTypeArr.add(pp44)
+
+                val pp55: PackageData.PackageDataList = PackageData.PackageDataList(0, "Price")
+                pp55.isSelected = false
+                filterTypeArr.add(pp55)
+
+                filterAdapter = FilterListAdapter(
+                    this@FilterActivity,
+                    filterTypeArr,
+                    filterTypeSelectionInteface!!)
+
+                filter_rvList.adapter = filterAdapter
+
+                filterAdapter!!.notifyDataSetChanged()
+
+                val fragment = OtherFilterFragment()
+                val bundle = Bundle()
+                bundle.putString("type", "boards")
+                bundle.putString("coursetype", coursetypeid)
+                bundle.putString("filtertypeid", filtertypeid)
+                fragment.arguments = bundle
+                supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment).commit()
+            } else {
+
+                AppConstants.FILTER_BOARD_ID = ""
+                AppConstants.FILTER_TUTOR_ID = ""
+                AppConstants.FILTER_FROM_PRICE = "0"
+                AppConstants.FILTER_TO_PRICE = "5000"
+                coursetypeid = "2"
+
+                val pp11: PackageData.PackageDataList = PackageData.PackageDataList(0, "Course")
+                pp11.isSelected = true
+                filterTypeArr.add(pp11)
+
+//                val pp3: PackageData.PackageDataList = PackageData.PackageDataList(0, "Subjects")
+//                pp3.isSelected = false
+//                filterTypeArr.add(pp3)
+
+                val pp44: PackageData.PackageDataList = PackageData.PackageDataList(0, "Tutor")
+                pp44.isSelected = false
+                filterTypeArr.add(pp44)
+
+                val pp55: PackageData.PackageDataList = PackageData.PackageDataList(0, "Price")
+                pp55.isSelected = false
+                filterTypeArr.add(pp55)
+
+                filterAdapter!!.notifyDataSetChanged()
+
+                val fragment = OtherFilterFragment()
+                val bundle = Bundle()
+                bundle.putString("type", "competitive_exams")
+                bundle.putString("coursetype", coursetypeid)
+                bundle.putString("filtertypeid", filtertypeid)
+                fragment.arguments = bundle
+                supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment)
+                    .commit()
+
+            }
+
+            setFilterCount()
+
+        }
+
         filter_rgCourseType.setOnCheckedChangeListener { group, checkedId ->
 
-            if (checkedId == R.id.filter_rbBoards) {
+            filterTypeArr = ArrayList()
 
-                filterTypeArr = ArrayList()
+            isFilter = false
+
+            if (checkedId == R.id.filter_rbBoards) {
 
 //                AppConstants.FILTER_STANDARD_ID = Utils.getStringValue(this@FilterActivity, AppConstants.STANDARD_ID, "")!!
 //                AppConstants.FILTER_SUBJECT_ID = Utils.getStringValue(this@FilterActivity, AppConstants.SUBJECT_ID, "")!!
@@ -135,6 +236,9 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 AppConstants.FILTER_STANDARD_ID = ""
                 AppConstants.FILTER_SUBJECT_ID = ""
                 AppConstants.FILTER_TUTOR_ID = ""
+                AppConstants.FILTER_FROM_PRICE = "0"
+                AppConstants.FILTER_TO_PRICE = "5000"
+
                 coursetypeid = "1"
 
 //                Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)
@@ -177,8 +281,6 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
 
             } else if (checkedId == R.id.filter_rbCompetitive) {
 
-                filterTypeArr = ArrayList()
-
 //                AppConstants.FILTER_STANDARD_ID = "111"
 //                AppConstants.FILTER_SUBJECT_ID = "111"
 //                AppConstants.FILTER_TUTOR_ID = "111"
@@ -187,6 +289,10 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 AppConstants.FILTER_COURSE_TYPE_ID = "2"
                 AppConstants.FILTER_BOARD_ID = ""
                 AppConstants.FILTER_TUTOR_ID = ""
+                AppConstants.FILTER_STANDARD_ID = ""
+                AppConstants.FILTER_SUBJECT_ID = ""
+                AppConstants.FILTER_FROM_PRICE = "0"
+                AppConstants.FILTER_TO_PRICE = "5000"
                 coursetypeid = "2"
 
 //                Utils.setStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, coursetypeid)
@@ -223,15 +329,16 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
                 fragment.arguments = bundle
                 supportFragmentManager.beginTransaction().replace(R.id.filter_container, fragment)
                     .commit()
-
             }
+
+//            if(!isFilter){
+            setFilterCount()
+//            }
 
         }
 
         filter_ivBack.setOnClickListener {
-
-            finish()
-
+            onBackPressed()
         }
     }
 
@@ -305,8 +412,39 @@ class FilterActivity : AppCompatActivity(), FilterTypeSelectionInteface {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
+        if (!isFilter) {
+            AppConstants.isFirst = 13
+            val bundle = Bundle()
+            bundle.putString("type", "")
+            bundle.putString("pname1", "Packages")
+            bundle.putString("filtertypeid", "1")
+            bundle.putString(
+                "boardid",
+                Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_ID, "0")!!
+            )
+            bundle.putString(
+                "course_type",
+                Utils.getStringValue(this@FilterActivity, AppConstants.COURSE_TYPE_ID, "1")
+            )
+            bundle.putString(
+                "stdid",
+                Utils.getStringValue(this@FilterActivity, AppConstants.STANDARD_ID, "0")!!
+            )
+            bundle.putString(
+                "subid",
+                Utils.getStringValue(this@FilterActivity, AppConstants.SUBJECT_ID, "0")!!
+            )
+            bundle.putString("tutorid", "")
+            bundle.putString("maxprice", "")
+            bundle.putString("minprice", "")
+            bundle.putString("search_name", "")
+            DashboardActivity.setFragments(bundle)
+
+            finish()
+        } else {
+            finish()
+        }
+
     }
 
 }

@@ -1,7 +1,6 @@
 package com.testcraft.testcraft.fragments
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -29,6 +29,8 @@ import retrofit2.Response
 class TestListFragment : Fragment() {
 
     var bundle: Bundle? = null
+
+    var instructionMsg: String = ""
 //    private var pname = ""
 //    private var pkgid = ""
 
@@ -72,10 +74,31 @@ class TestListFragment : Fragment() {
 
             CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C1902, ActionIdData.T1902)
 
-            callTestPkgInstructionApi()
+            val dialog = Dialog(activity!!)
+
+            if (!dialog.isShowing) {
+
+                dialog.setContentView(R.layout.dialog_pkg_discription)
+                dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                dialog.setCanceledOnTouchOutside(false)
+
+                val header: TextView =
+                    dialog.findViewById(R.id.dialog_pkgdescription_tvDesc)
+                val btnCancel: Button =
+                    dialog.findViewById(R.id.dialog_pkgdescription_btnClose)
+
+                header.text = instructionMsg
+
+                btnCancel.setOnClickListener {
+                    dialog.dismiss()
+                }
+
+                dialog.show()
+            }
         }
 
         callTestListApi()
+        callTestPkgInstructionApi()
     }
 
 //    override fun onResume() {
@@ -145,13 +168,13 @@ class TestListFragment : Fragment() {
 
     fun callTestPkgInstructionApi() {
 
-        if (!DialogUtils.isNetworkConnected(activity!!)) {
+//        if (!DialogUtils.isNetworkConnected(activity!!)) {
 //            Utils.ping(activity!!, AppConstants.NETWORK_MSG)
-            DialogUtils.NetworkDialog(activity!!)
-            DialogUtils.dismissDialog()
-        }
+//            DialogUtils.NetworkDialog(activity!!)
+//            DialogUtils.dismissDialog()
+//        }
 
-        DialogUtils.showDialog(activity!!)
+//        DialogUtils.showDialog(activity!!)
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
@@ -162,29 +185,37 @@ class TestListFragment : Fragment() {
 
                 if (response.body() != null) {
 
-                    DialogUtils.dismissDialog()
+//                    DialogUtils.dismissDialog()
 
                     if (response.body()!!.get("Status").asString == "true") {
 
-                        val msg = response.body()!!.get("data").asString
+                        instructionMsg = response.body()!!.get("data").asString
 
-                        DialogUtils.createConfirmDialog(
-                            activity!!,
-                            "Package Description",
-                            msg,
-                            "OK",
-                            "",
-                            DialogInterface.OnClickListener { dialog, which ->
+                        if (response.body()!!.get("data").asString != "") {
 
-                                dialog.dismiss()
+                            test_ivInstruction.visibility = View.VISIBLE
 
-                            },
+                        } else {
+                            test_ivInstruction.visibility = View.GONE
+                        }
 
-                            DialogInterface.OnClickListener { dialog, which ->
-
-                                dialog.dismiss()
-
-                            }).show()
+//                        DialogUtils.createConfirmDialog(
+//                            activity!!,
+//                            "Package Description",
+//                            msg,
+//                            "OK",
+//                            "",
+//                            DialogInterface.OnClickListener { dialog, which ->
+//
+//                                dialog.dismiss()
+//
+//                            },
+//
+//                            DialogInterface.OnClickListener { dialog, which ->
+//
+//                                dialog.dismiss()
+//
+//                            }).show()
 
                     }
                 }
@@ -193,7 +224,7 @@ class TestListFragment : Fragment() {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 // Log error here since request failed
                 Log.e("", t.toString())
-                DialogUtils.dismissDialog()
+//                DialogUtils.dismissDialog()
             }
         })
     }
