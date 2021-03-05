@@ -30,6 +30,8 @@ class TestListFragment : Fragment() {
 
     var bundle: Bundle? = null
 
+    private var call: Call<JsonObject>? = null
+
     var instructionMsg: String = ""
 //    private var pname = ""
 //    private var pkgid = ""
@@ -178,9 +180,9 @@ class TestListFragment : Fragment() {
 
         val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getPackageInstruction(AppConstants.PKG_ID)
+        call = apiService.getPackageInstruction(AppConstants.PKG_ID)
 
-        call.enqueue(object : Callback<JsonObject> {
+        call!!.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
                 if (response.body() != null) {
@@ -196,6 +198,7 @@ class TestListFragment : Fragment() {
                             test_ivInstruction.visibility = View.VISIBLE
 
                         } else {
+
                             test_ivInstruction.visibility = View.GONE
                         }
 
@@ -228,4 +231,12 @@ class TestListFragment : Fragment() {
             }
         })
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (call != null && call!!.isExecuted) {
+            call!!.cancel()
+        }
+    }
+
 }

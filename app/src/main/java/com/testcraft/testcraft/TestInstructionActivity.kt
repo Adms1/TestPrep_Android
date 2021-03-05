@@ -15,6 +15,7 @@ import com.testcraft.testcraft.utils.CommonWebCalls
 import com.testcraft.testcraft.utils.Utils
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_test_instruction.*
+import kotlinx.android.synthetic.main.activity_test_list.*
 import kotlinx.android.synthetic.main.dialog_question_information.*
 
 class TestInstructionActivity : AppCompatActivity() {
@@ -83,6 +84,15 @@ class TestInstructionActivity : AppCompatActivity() {
         totalhint = intent.getStringExtra("totalhint")!!
         hintused = intent.getStringExtra("totalhintused")!!
         que_instruction = intent.getStringExtra("que_instruction")!!
+
+        if (AppConstants.IS_SELF_TEST == "true") {
+            dialog_testinstruction_tvTeacherName.visibility = View.GONE
+            dialog_testinstruction_tvTeacher.visibility = View.GONE
+        } else {
+            dialog_testinstruction_tvTeacherName.visibility = View.VISIBLE
+            dialog_testinstruction_tvTeacher.visibility = View.VISIBLE
+        }
+
 
         dialog_testinstruction_main_header.text = testname
         dialog_testinstruction_tvHeader.text = testname

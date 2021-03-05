@@ -8,7 +8,7 @@ object SampleAppConstants {
     const val PG_RETURN_URL = "https://biz.traknpay.in/tnp/return_page_android.php"
 
     //Enter the Mode of Payment Here . Allowed Values are "LIVE" or "TEST".
-    const val PG_MODE = "TEST"
+    const val PG_MODE = "LIVE"
 
     //PG_CURRENCY is given by the Payment Gateway. Only "INR" Allowed.
     const val PG_CURRENCY = "INR"
