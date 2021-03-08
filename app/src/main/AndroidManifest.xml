@@ -33,7 +33,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity | GoogleAppIndexingWarning"
         tools:replace="android:icon">
-        <activity android:name=".activity.ForceUpdateProfileActivity"></activity>
+        <activity android:name=".activity.ForceUpdateProfileActivity" />
         <activity android:name=".TestInstructionActivity" />
         <activity android:name=".activity.PaymentViewActivity" />
         <activity

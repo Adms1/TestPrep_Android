@@ -1,2 +1,3 @@
 include ':PGSDKVR4'
+include ':PGSDKVR4'
 include ':app'

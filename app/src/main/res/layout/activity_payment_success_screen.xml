@@ -14,7 +14,6 @@
         app:layout_constraintBottom_toTopOf="@+id/tvMessage"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@drawable/payment_success_icn"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -23,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
         android:gravity="center"
-        android:text="Your transaction has been completed successfully"
         android:textColor="@color/black"
         android:textSize="@dimen/app_main_header_size"
         android:textStyle="bold"

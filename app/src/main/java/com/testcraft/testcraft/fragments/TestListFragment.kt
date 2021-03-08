@@ -155,7 +155,7 @@ class TestListFragment : Fragment() {
                         test_rvPkgList.adapter = TestListAdapter(activity!!, testArr)
 
                     } else {
-                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity!!, "No test found", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

@@ -67,7 +67,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
     var testname = ""
     var testmarks = ""
     var testcourse = ""
-    var testque = ""
+    var testque = "0"
     var testtutor = ""
     var testsubject = ""
     var total_hint = ""

@@ -102,7 +102,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
             imvSuccessFail!!.setImageResource(R.drawable.payment_success_icn)
 //            imvSuccessFail!!.background = resources.getDrawable(R.drawable.blue_round)
 //            Utils.ping(this@PaymentSuccessScreen, "Success")
-            tvMessage.text = "Your transaction has been successfully completed"
+            tvMessage.text = "Your transaction has been successfully completed."
 
             tvTry.text = "OK"
             tvTry.background = resources.getDrawable(R.drawable.light_blue_round_bg)
@@ -123,9 +123,10 @@ class PaymentSuccessScreen : AppCompatActivity() {
 //                ActionIdData.T1400
 //            )
 //
+            tvMessage.text = "Your transaction has been failed."
             tvTry.visibility = GONE
 //
-//            imvSuccessFail!!.setImageResource(R.drawable.payment_fail_icn)
+            imvSuccessFail!!.setImageResource(R.drawable.payment_fail_icn)
 ////            imvSuccessFail!!.background = resources.getDrawable(R.drawable.fail_icon)
 ////            Utils.ping(this@PaymentSuccessScreen, "fail")
 //            tvMessage.text = "Your last transaction is fail"
@@ -134,6 +135,11 @@ class PaymentSuccessScreen : AppCompatActivity() {
 //            tvTry.background = resources.getDrawable(R.drawable.google_round_bg)
 
 //            updatePaymentStatus("Failed")
+            if (comefrom == "package") {
+                updatePaymentStatus("Failed")
+            } else {
+                updatepayment("Failed")
+            }
         }
 
         tvCancel.setOnClickListener {

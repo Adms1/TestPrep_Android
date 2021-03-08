@@ -1,10 +1,7 @@
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
-apply plugin: 'com.android.application'
 
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
@@ -15,8 +12,8 @@ android {
         applicationId "com.testcraft.testcraft"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 31
-        versionName "4.1"
+        versionCode 32
+        versionName "4.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -59,10 +56,10 @@ dependencies {
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigation_version"
 
-    implementation project(":PGSDKVR4")
+    implementation project(':PGSDKVR4')
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.31"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -122,12 +119,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics'
     implementation 'com.google.firebase:firebase-analytics'
 
-    implementation 'com.google.firebase:firebase-dynamic-links:19.1.0'
+    implementation 'com.google.firebase:firebase-dynamic-links:19.1.1'
     implementation 'com.facebook.android:facebook-applinks:4.42.0'
     implementation 'com.parse.bolts:bolts-tasks:1.4.0'
     implementation 'com.parse.bolts:bolts-applinks:1.4.0'
 
-    implementation 'com.google.firebase:firebase-messaging:20.1.2'
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
     // Add the Firebase SDK for Google Analytics
 //    implementation 'com.google.firebase:firebase-analytics:17.2.3'
 

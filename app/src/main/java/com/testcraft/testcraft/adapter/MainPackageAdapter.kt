@@ -45,6 +45,8 @@ class MainPackageAdapter(val context: Context, val list: ArrayList<MyPackageMode
 
         if (list[p1].ExpirationDate != "") {
             p0.duedate.text = "Expire : " + list[p1].ExpirationDate
+        } else {
+            p0.duedate.text = ""
         }
 
         //            val intent1 = Intent(context, DashboardActivity::class.java)
