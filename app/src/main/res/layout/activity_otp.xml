@@ -107,7 +107,7 @@
             android:layout_marginRight="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_60sdp"
             app:cursorVisible="false"
-            app:forceKeyboard="false"
+            app:forceKeyboard="true"
             app:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/otp_tvResend"
             app:layout_constraintLeft_toLeftOf="parent"

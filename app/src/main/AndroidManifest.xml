@@ -177,7 +177,7 @@
             android:name=".activity.DashboardActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -187,8 +187,11 @@
                 <data
                     android:host="testcraft.in/data"
                     android:scheme="http" />
+
             </intent-filter>
+
         </activity>
+
         <activity
             android:name=".activity.SignupActivity"
             android:launchMode="singleTop"

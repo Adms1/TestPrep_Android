@@ -33,7 +33,9 @@ class ExpandableTextView {
                     textView.text = truncatedSpannableString
                     truncatedSpannableString.setSpan(
                         object : ClickableSpan() {
-                            override fun onClick(widget: View?) { // this click event is not firing that's why we are adding click event for text view below.
+
+                            override fun onClick(widget: View) {
+                                TODO("Not yet implemented")
                             }
                         },
                         startIndex,

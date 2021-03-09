@@ -166,8 +166,7 @@ class CoinActivity : AppCompatActivity(), CoinInteface {
         if (AppConstants.API_KEY.length > 5 && AppConstants.SECRET_KEY.length > 5) {
             var amount: Array<String>? = null
             if (purchaseCoin.contains("."))
-                amount = purchaseCoin.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
-                    .toTypedArray()//to check decimal places
+                amount = purchaseCoin.split("\\.".toRegex()).toTypedArray()//to check decimal places
 
             if (purchaseCoin.equals("", ignoreCase = true)) {
                 Utils.ping(

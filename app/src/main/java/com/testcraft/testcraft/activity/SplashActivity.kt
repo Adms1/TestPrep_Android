@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import com.facebook.applinks.AppLinkData
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.testcraft.testcraft.Connectivity
@@ -207,6 +208,13 @@ class SplashActivity : AppCompatActivity() {
                             "",
                             ""
                         )
+
+                        val logger = AppEventsLogger.newLogger(context)
+//                        logger.logEvent("Subscription")
+
+                        val params = Bundle()
+                        params.putString("Device_Name", "Android")
+                        logger.logEvent("Facebook_install", 1.0, params)
 
                         Utils.setStringValue(context, AppConstants.isInstall, "true")
 

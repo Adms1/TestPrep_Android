@@ -197,45 +197,49 @@ class IntroActivity : AppCompatActivity() {
             override fun onSuccess(loginResult: LoginResult) {
                 setResult(RESULT_OK)
 
-                val request: GraphRequest = GraphRequest.newMeRequest(
-                    loginResult.accessToken
-                ) { jsonObject: JSONObject, graphResponse: GraphResponse ->
-                    Log.d("IntroActivity", graphResponse.toString())
+                try {
+                    val request: GraphRequest = GraphRequest.newMeRequest(
+                        loginResult.accessToken
+                    ) { jsonObject: JSONObject, graphResponse: GraphResponse ->
+                        Log.d("IntroActivity", graphResponse.toString())
 
-                    // Application code
-                    val userID = jsonObject.get("id")
-                    val email = jsonObject.getString("email")
-                    val fname = jsonObject.getString("first_name")
-                    val lname = jsonObject.getString("last_name")
+                        // Application code
+                        val userID = jsonObject.get("id")
+                        val email = jsonObject.getString("email")
+                        val fname = jsonObject.getString("first_name")
+                        val lname = jsonObject.getString("last_name")
 
-                    Utils.setStringValue(
-                        this@IntroActivity,
-                        AppConstants.user_profile,
-                        "https://graph.facebook.com/$userID/picture?type=large"
-                    )
+                        Utils.setStringValue(
+                            this@IntroActivity,
+                            AppConstants.user_profile,
+                            "https://graph.facebook.com/$userID/picture?type=large"
+                        )
 
 //                    var last_name = jsonObject.getString("last_name");
 //                    var birthday = jsonObject.getString("birthday") // 01/31/1980 format
 
-                    if (email != "") {
-                        callCheckEmailApi("3", fname, lname, email, "", "")
-                    } else {
-                        Utils.ping(this@IntroActivity, "Email Not Found.!! Please add email in your FB Account")
-                    }
+                        if (email != "") {
+                            callCheckEmailApi("3", fname, lname, email, "", "")
+                        } else {
+                            Utils.ping(this@IntroActivity, "Email Not Found.!! Please add email in your FB Account")
+                        }
 //                    callSignupApi("3", name, "", email, "", "")
 
 //                    if (AccessToken.getCurrentAccessToken() != null) {
 //                        LoginManager.getInstance().logOut()
 //                    }
-                }
+                    }
 
-                val parameters = Bundle()
-                parameters.putString("fields", "id,name,first_name,last_name,email,gender,birthday,picture")
-                request.parameters = parameters
-                request.executeAsync()
+                    val parameters = Bundle()
+                    parameters.putString("fields", "id,name,first_name,last_name,email,gender,birthday,picture")
+                    request.parameters = parameters
+                    request.executeAsync()
 
 //                Log.d("fbsignin", "signInResult:failed code=" + e.statusCode)
 //                finish()
+                } catch (e: Exception) {
+                    Log.e("targetinvocation ===>", "" + e.toString())
+                }
             }
 
             override fun onCancel() {

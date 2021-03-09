@@ -90,14 +90,13 @@ class TutorProfileFragment : Fragment() {
             .expandAnimation(true)
             .build()
 
-
         mLayoutManager = LinearLayoutManager(activity!!)
         tutor_item_rvCuratorList.layoutManager = mLayoutManager
 
 //        tutor_item_rvCuratorList.layoutManager =
 //            LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
 
-//        tutor_item_rvCuratorList.isNestedScrollingEnabled = false
+        tutor_item_rvCuratorList.isNestedScrollingEnabled = false
 
         tutor_profile_ivCart.setOnClickListener {
             val intent = Intent(activity!!, CartActivity::class.java)
