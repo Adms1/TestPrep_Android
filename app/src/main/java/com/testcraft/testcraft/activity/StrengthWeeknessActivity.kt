@@ -12,7 +12,6 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.SWAdapter
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.DialogUtils
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_strength_weekness.*
@@ -92,9 +91,7 @@ class StrengthWeeknessActivity : AppCompatActivity() {
 
         DialogUtils.showDialog(this@StrengthWeeknessActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.studentAnalysis(studenttestid)
+        val call = WebClient.buildService().studentAnalysis(studenttestid)
         call.enqueue(object : Callback<JsonObject> {
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {

@@ -19,15 +19,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.NewChooseCoarseAdapter
-import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_new.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class NewActivity : AppCompatActivity() {
 
@@ -37,6 +35,8 @@ class NewActivity : AppCompatActivity() {
     var phndialog: Dialog? = null
 
     var comefrom = ""
+
+    var myCompositeDisposable: CompositeDisposable? = null
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
@@ -92,6 +92,8 @@ class NewActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_new)
+
+        myCompositeDisposable = CompositeDisposable()
 
         connectivity = Connectivity()
 
@@ -196,37 +198,66 @@ class NewActivity : AppCompatActivity() {
         }
 
         DialogUtils.showDialog(this@NewActivity)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getCourseList()
-        call.enqueue(object : Callback<PackageData> {
-            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
+        myCompositeDisposable?.add(WebClient.buildService().getCourseList()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .retry(2)
+            .subscribe({ response ->
+                DialogUtils.dismissDialog()
 
-                if (response.body() != null) {
+                if (response.Status == "true") {
 
-                    DialogUtils.dismissDialog()
+                    chooseCoarseAdapter =
+                        NewChooseCoarseAdapter(this@NewActivity, response.data, comefrom)
+                    new_coarse_rvCoarseList.adapter = chooseCoarseAdapter
 
-                    if (response.body()!!.Status == "true") {
+                } else {
 
-                        chooseCoarseAdapter = NewChooseCoarseAdapter(this@NewActivity, response.body()!!.data, comefrom)
-                        new_coarse_rvCoarseList.adapter = chooseCoarseAdapter
+                    Toast.makeText(this@NewActivity, response.Msg, Toast.LENGTH_SHORT).show()
 
-                    } else {
-
-                        Toast.makeText(this@NewActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
-
-                    }
                 }
-            }
-
-            override fun onFailure(call: Call<PackageData>, t: Throwable) {
-
+            }, { t ->
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()
 
-                call.clone().enqueue(this)
-            }
-        })
+            }))
+
+//        val call = WebClient.buildService().getCourseList()
+//        call.enqueue(object : Callback<PackageData> {
+//            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
+//
+//                if (response.body() != null) {
+//
+//                    DialogUtils.dismissDialog()
+//
+//                    if (response.body()!!.Status == "true") {
+//
+//                        chooseCoarseAdapter = NewChooseCoarseAdapter(this@NewActivity, response.body()!!.data, comefrom)
+//                        new_coarse_rvCoarseList.adapter = chooseCoarseAdapter
+//
+//                    } else {
+//
+//                        Toast.makeText(this@NewActivity, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
+//
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<PackageData>, t: Throwable) {
+//
+//                Log.e("", t.toString())
+//                DialogUtils.dismissDialog()
+//
+//                call.clone().enqueue(this)
+//            }
+//        })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        myCompositeDisposable!!.clear()
     }
 
 }

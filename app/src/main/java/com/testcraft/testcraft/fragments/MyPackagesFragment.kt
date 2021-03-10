@@ -26,7 +26,6 @@ import com.testcraft.testcraft.adapter.SelfTestAdapter
 import com.testcraft.testcraft.models.GetSelfTest
 import com.testcraft.testcraft.models.MyPackageModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.fragment_market_place_bottom_sheet.*
 import kotlinx.android.synthetic.main.fragment_my_packages.*
@@ -260,16 +259,14 @@ class MyPackagesFragment : Fragment() {
 
         DialogUtils.showDialog(activity!!)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
         val call: Call<MyPackageModel>?
-        if (bundle!!.getBoolean("isCompetitive", false)) {
-            call = apiService.getMyPackages2(
+        call = if (bundle!!.getBoolean("isCompetitive", false)) {
+            WebClient.buildService().getMyPackages2(
                 Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
                 subid.toString(), stdid, iscompetitive, "0", subid.toString()
             )
         } else {
-            call = apiService.getMyPackages2(
+            WebClient.buildService().getMyPackages2(
                 Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
                 subid.toString(), stdid, iscompetitive, boardid, "0"
             )
@@ -410,7 +407,6 @@ class MyPackagesFragment : Fragment() {
 
         DialogUtils.showDialog(activity!!)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val hashmap = HashMap<String, String>()
         hashmap["StudentID"] = Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!
@@ -429,7 +425,7 @@ class MyPackagesFragment : Fragment() {
             hashmap["SubjectID"] = subid.toString()
         }
 
-        val call = apiService.callGetSelfTest(hashmap)
+        val call = WebClient.buildService().callGetSelfTest(hashmap)
 
         call.enqueue(object : Callback<GetSelfTest> {
 
@@ -468,7 +464,6 @@ class MyPackagesFragment : Fragment() {
         private var new_iscompetitive = false
 
         fun callInsertSubscriptionConfirm(activity: Context) {
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
 
             var board = ""
             var cource = ""
@@ -487,7 +482,7 @@ class MyPackagesFragment : Fragment() {
                 cource = new_courseid
             }
 
-            val call = apiService.insertSubscriptionSubject(
+            val call = WebClient.buildService().insertSubscriptionSubject(
                 Utils.getStringValue(activity, AppConstants.USER_ID, "0")!!,
                 cource,
                 board,
@@ -540,11 +535,10 @@ class MyPackagesFragment : Fragment() {
         }
 
         fun callGetSubscriptionConfirm(activity: Context) {
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
 
             DialogUtils.showDialog(activity)
             val call =
-                apiService.subscription_checkout(listprice.toString().replace("₹", ""), "0",
+                WebClient.buildService().subscription_checkout(listprice.toString().replace("₹", ""), "0",
                     Utils.getStringValue(activity, AppConstants.USER_ID, "0")!!)
 
             call.enqueue(object : Callback<JsonObject> {
@@ -585,7 +579,6 @@ class MyPackagesFragment : Fragment() {
     }
 
     fun callGetSubscriptionPrice() {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         var board = ""
         var cource = ""
@@ -604,7 +597,7 @@ class MyPackagesFragment : Fragment() {
             courcetype = "2"
         }
 
-        val call = apiService.getSubscriptionPrice(
+        val call = WebClient.buildService().getSubscriptionPrice(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
             cource,
             board,

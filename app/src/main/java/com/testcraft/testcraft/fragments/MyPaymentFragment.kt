@@ -16,7 +16,6 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.MyPaymentAdapter
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
@@ -107,10 +106,9 @@ class MyPaymentFragment : Fragment() {
         }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call =
-            apiService.getMyPayment(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
+            WebClient.buildService().getMyPayment(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 

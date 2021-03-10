@@ -16,7 +16,6 @@ import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.PhoneLoginActivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_otp.*
@@ -263,9 +262,7 @@ class OtpActivity : AppCompatActivity() {
 
         DialogUtils.showDialog(this@OtpActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getResedOTP(intent.getStringExtra("mobile_number"))
+        val call = WebClient.buildService().getResedOTP(intent.getStringExtra("mobile_number"))
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
@@ -314,11 +311,11 @@ class OtpActivity : AppCompatActivity() {
             DialogUtils.dismissDialog()
         }
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
+
 
         DialogUtils.showDialog(this@OtpActivity)
 
-        val call = apiService.getSignup(
+        val call = WebClient.buildService().getSignup(
             WebRequests.addSignupParams(
                 "1", "0",
                 intent.getStringExtra("first_name"),
@@ -429,8 +426,8 @@ class OtpActivity : AppCompatActivity() {
         }
 
         DialogUtils.showDialog(this@OtpActivity)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-        val call = apiService.updateProfile(
+
+        val call = WebClient.buildService().updateProfile(
             WebRequests.addSignupParams(
                 intent.getStringExtra("account_type"),
                 Utils.getStringValue(this@OtpActivity, AppConstants.USER_ID, "")!!,

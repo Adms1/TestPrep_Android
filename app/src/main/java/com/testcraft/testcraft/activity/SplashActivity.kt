@@ -190,6 +190,7 @@ class SplashActivity : AppCompatActivity() {
                     if (context is SplashActivity) {
                         if (!(context as Activity).isFinishing) {
                             showForceUpdateDialog()
+
                         }
                     }
                 } else {
@@ -210,11 +211,10 @@ class SplashActivity : AppCompatActivity() {
                         )
 
                         val logger = AppEventsLogger.newLogger(context)
-//                        logger.logEvent("Subscription")
 
                         val params = Bundle()
                         params.putString("Device_Name", "Android")
-                        logger.logEvent("Facebook_install", 1.0, params)
+                        logger.logEvent("Facebook_user_install", 1.0, params)
 
                         Utils.setStringValue(context, AppConstants.isInstall, "true")
 

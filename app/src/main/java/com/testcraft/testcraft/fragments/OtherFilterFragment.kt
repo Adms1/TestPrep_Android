@@ -21,7 +21,6 @@ import com.testcraft.testcraft.adapter.FilterAdapter
 import com.testcraft.testcraft.interfaces.filterInterface
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
@@ -426,9 +425,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
 //            DialogUtils.dismissDialog()
 //        }
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getBoardStandardList(AppConstants.FILTER_BOARD_ID)
+        val call = WebClient.buildService().getBoardStandardList(AppConstants.FILTER_BOARD_ID)
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
@@ -486,9 +484,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
 //        }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getBoardStandardSubjectList(
+        val call = WebClient.buildService().getBoardStandardSubjectList(
             AppConstants.FILTER_BOARD_ID,
             AppConstants.FILTER_STANDARD_ID
         )
@@ -569,9 +566,8 @@ class OtherFilterFragment : Fragment(), filterInterface {
 //        }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getExamList(type)
+        val call = WebClient.buildService().getExamList(type)
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
@@ -630,7 +626,6 @@ class OtherFilterFragment : Fragment(), filterInterface {
 //        }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         var fil_courseid = ""
         var fil_boardid = ""
@@ -647,7 +642,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
 
         }
 
-        val call = apiService.getTutorFilterName(
+        val call = WebClient.buildService().getTutorFilterName(
             WebRequests.getTutorFiltername(
                 AppConstants.FILTER_COURSE_TYPE_ID,
                 fil_boardid,
@@ -820,7 +815,7 @@ class OtherFilterFragment : Fragment(), filterInterface {
 //        }
 //
 //        DialogUtils.showDialog(activity!!)
-//        val apiService = WebClient.getClient().create(WebInterface::class.java)
+//
 //
 ////        val call = apiService.getFilterData(
 ////            WebRequests.getFilterParams(

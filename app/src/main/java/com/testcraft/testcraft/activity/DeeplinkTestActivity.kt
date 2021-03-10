@@ -17,7 +17,6 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.DeeplinkTestListAdapter
 import com.testcraft.testcraft.models.TestListModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
@@ -78,9 +77,7 @@ class DeeplinkTestActivity : AppCompatActivity() {
 
         DialogUtils.showDialog(this@DeeplinkTestActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getDplinkTest(
+        val call = WebClient.buildService().getDplinkTest(
             Utils.getStringValue(this@DeeplinkTestActivity, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<TestListModel> {

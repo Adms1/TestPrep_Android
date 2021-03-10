@@ -13,7 +13,6 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_update_profile.*
 import retrofit2.Call
@@ -98,8 +97,8 @@ class UpdateProfileActivity : Fragment() {
     fun callSignupApi() {
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-        val call = apiService.updateProfile(
+
+        val call = WebClient.buildService().updateProfile(
             WebRequests.addSignupParams(
                 Utils.getStringValue(activity!!, AppConstants.USER_ACCOUNT_TYPE, "")!!,
                 Utils.getStringValue(activity!!, AppConstants.USER_ID, "")!!,
@@ -242,9 +241,7 @@ class UpdateProfileActivity : Fragment() {
             DialogUtils.dismissDialog()
         }
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.callCheckDuplicate(Utils.getStringValue(
+        val call = WebClient.buildService().callCheckDuplicate(Utils.getStringValue(
             activity!!,
             AppConstants.USER_ID,
             "0"

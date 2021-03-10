@@ -11,7 +11,6 @@ import com.testcraft.testcraft.activity.QuestionInstructionActivity
 import com.testcraft.testcraft.activity.TraknpayNewActivity
 import com.testcraft.testcraft.models.TestListModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,9 +31,8 @@ class PackagePurchase {
             }
 
             DialogUtils.showDialog(context)
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-            val call = apiService.addToCart(
+            val call = WebClient.buildService().addToCart(
                 Utils.getStringValue(context, AppConstants.USER_ID, "0")!!,
                 pkgid
             )
@@ -91,9 +89,7 @@ class PackagePurchase {
                 DialogUtils.dismissDialog()
             }
 
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-            val call = apiService.checkout(
+            val call = WebClient.buildService().checkout(
                 Utils.getStringValue(context, AppConstants.USER_ID, "0")!!, ccode
             )
 
@@ -203,9 +199,7 @@ class PackagePurchase {
 
             DialogUtils.showDialog(context)
 
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-            val call = apiService.updatePaymentStatusNew(
+            val call = WebClient.buildService().updatePaymentStatusNew(
                 WebRequests.getPaymentStatusParams(
                     Utils.getStringValue(context, AppConstants.USER_ID, "")!!,
                     order_id,

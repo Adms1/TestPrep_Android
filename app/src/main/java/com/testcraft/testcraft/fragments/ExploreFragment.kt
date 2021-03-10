@@ -17,7 +17,6 @@ import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.adapter.RecentSearchAdapter
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.fragment_explore.*
 import retrofit2.Call
@@ -91,9 +90,8 @@ class ExploreFragment : Fragment() {
 //        }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        call1 = apiService.getExplore()
+        call1 = WebClient.buildService().getExplore()
         call1!!.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
@@ -140,9 +138,8 @@ class ExploreFragment : Fragment() {
         }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.addSearchHistory(
+        val call = WebClient.buildService().addSearchHistory(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
             explore_etSearch.text.toString()
         )
@@ -215,9 +212,8 @@ class ExploreFragment : Fragment() {
         }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        call2 = apiService.getSearchHistory(
+        call2 = WebClient.buildService().getSearchHistory(
             Utils.getStringValue(
                 activity!!,
                 AppConstants.USER_ID,

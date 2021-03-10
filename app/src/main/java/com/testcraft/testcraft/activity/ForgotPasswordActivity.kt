@@ -14,15 +14,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_forgot_password.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ForgotPasswordActivity : AppCompatActivity() {
+
+    private var myCompositeDisposable: CompositeDisposable? = null
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
@@ -51,6 +52,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_forgot_password)
 
+        myCompositeDisposable = CompositeDisposable()
 //        connectivity = Connectivity()
 
         CommonWebCalls.callToken(
@@ -93,12 +95,13 @@ class ForgotPasswordActivity : AppCompatActivity() {
         when {
             TextUtils.isEmpty(forgot_pass_etEmail.text.toString()) -> forgot_pass_etEmail.error =
                 "Please Enter Mobile Number"
-            forgot_pass_etEmail.text!!.length != 10 -> forgot_pass_etEmail.error =
+            forgot_pass_etEmail.text!!.length != 10                -> forgot_pass_etEmail.error =
                 "Please enter valid Mobile Number"
-            else -> callForgotPasswordlApi()
+            else                                                   -> {
+                callForgotPasswordlApi()
+            }
 
         }
-
     }
 
     fun callForgotPasswordlApi() {
@@ -111,57 +114,101 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
         DialogUtils.showDialog(this@ForgotPasswordActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
+        myCompositeDisposable?.add(WebClient.buildService().forgotPassword(WebRequests.checkForgotpassParams(forgot_pass_etEmail.text.toString()))
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({ response -> setResponse(response) }, { t -> onFailure(t) }))
 
-        val call =
-            apiService.forgotPassword(WebRequests.checkForgotpassParams(forgot_pass_etEmail.text.toString()))
-        call.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+//        val call =
+//            WebClient.buildService().forgotPassword(WebRequests.checkForgotpassParams(forgot_pass_etEmail.text.toString()))
+//        call.enqueue(object : Callback<JsonObject> {
+//            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+//
+//                if (response.body() != null) {
+//
+//                    DialogUtils.dismissDialog()
+//
+//                    if (response.body()!!["Status"].asString == "true") {
+//
+//                        Utils.setStringValue(
+//                            this@ForgotPasswordActivity,
+//                            AppConstants.USER_ID,
+//                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
+//                        )
+//
+//                        val intent = Intent(this@ForgotPasswordActivity, OtpActivity::class.java)
+//
+//                        intent.putExtra("mobile_number", forgot_pass_etEmail.text.toString())
+//                        intent.putExtra(
+//                            "otp",
+//                            response.body()!!["data"].asJsonArray[0].asJsonObject["OTP"].asString
+//                        )
+//                        intent.putExtra("come_from", "forgot password")
+//                        intent.putExtra("first_name", "")
+//                        intent.putExtra("last_name", "")
+//                        intent.putExtra("email", "")
+//                        intent.putExtra("password", "")
+//                        intent.putExtra("account_type", "1")
+//                        startActivity(intent)
+//
+//                    } else {
+//                        Toast.makeText(
+//                            this@ForgotPasswordActivity,
+//                            response.body()!!["Msg"].asString,
+//                            Toast.LENGTH_SHORT
+//                        )
+//                            .show()
+//                    }
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+//                // Log error here since request failed
+//                Log.e("", t.toString())
+//                DialogUtils.dismissDialog()
+//            }
+//        })
+    }
 
-                if (response.body() != null) {
+    private fun setResponse(response: JsonObject) {
+        DialogUtils.dismissDialog()
 
-                    DialogUtils.dismissDialog()
+        if (response.get("Status").asString == "true") {
 
-                    if (response.body()!!["Status"].asString == "true") {
+            Utils.setStringValue(
+                this@ForgotPasswordActivity, AppConstants.USER_ID, response.get("data").asJsonArray[0].asJsonObject["StudentID"].asString)
 
-                        Utils.setStringValue(
-                            this@ForgotPasswordActivity,
-                            AppConstants.USER_ID,
-                            response.body()!!["data"].asJsonArray[0].asJsonObject["StudentID"].asString
-                        )
+            val intent = Intent(this@ForgotPasswordActivity, OtpActivity::class.java)
 
-                        val intent = Intent(this@ForgotPasswordActivity, OtpActivity::class.java)
+            intent.putExtra("mobile_number", forgot_pass_etEmail.text.toString())
+            intent.putExtra("otp", response.get("data").asJsonArray[0].asJsonObject["OTP"].asString)
+            intent.putExtra("come_from", "forgot password")
+            intent.putExtra("first_name", "")
+            intent.putExtra("last_name", "")
+            intent.putExtra("email", "")
+            intent.putExtra("password", "")
+            intent.putExtra("account_type", "1")
+            startActivity(intent)
 
-                        intent.putExtra("mobile_number", forgot_pass_etEmail.text.toString())
-                        intent.putExtra(
-                            "otp",
-                            response.body()!!["data"].asJsonArray[0].asJsonObject["OTP"].asString
-                        )
-                        intent.putExtra("come_from", "forgot password")
-                        intent.putExtra("first_name", "")
-                        intent.putExtra("last_name", "")
-                        intent.putExtra("email", "")
-                        intent.putExtra("password", "")
-                        intent.putExtra("account_type", "1")
-                        startActivity(intent)
+        } else {
+            Toast.makeText(
+                this@ForgotPasswordActivity,
+                response.get("Msg").asString,
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        }
+    }
 
-                    } else {
-                        Toast.makeText(
-                            this@ForgotPasswordActivity,
-                            response.body()!!["Msg"].asString,
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
-                }
-            }
+    private fun onFailure(t: Throwable) {
+        Log.e("", t.toString())
+        DialogUtils.dismissDialog()
+    }
 
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                // Log error here since request failed
-                Log.e("", t.toString())
-                DialogUtils.dismissDialog()
-            }
-        })
+    override fun onDestroy() {
+        super.onDestroy()
+
+        myCompositeDisposable!!.clear()
     }
 
 }

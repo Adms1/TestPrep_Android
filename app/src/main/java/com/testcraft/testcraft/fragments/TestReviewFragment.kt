@@ -21,7 +21,6 @@ import com.testcraft.testcraft.activity.ViewInvoiceActivity
 import com.testcraft.testcraft.adapter.QuestionAttemptAdapter
 import com.testcraft.testcraft.models.AttemptModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
@@ -203,9 +202,7 @@ class TestReviewFragment : Fragment() {
         sortDialog.setCancelable(true)
         sortDialog.show()
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getAnalyse(studenttestid)
+        val call = WebClient.buildService().getAnalyse(studenttestid)
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
@@ -306,9 +303,7 @@ class TestReviewFragment : Fragment() {
 
     fun callSubjectwisemarks() {
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getSubjectwiseMarks(studenttestid)
+        val call = WebClient.buildService().getSubjectwiseMarks(studenttestid)
         call.enqueue(object : Callback<AttemptModel> {
 
             override fun onResponse(call: Call<AttemptModel>, response: Response<AttemptModel>) {
@@ -409,10 +404,8 @@ class TestReviewFragment : Fragment() {
 
 //                if(seekbar.progress > 1) {
 
-                    val apiService = WebClient.getClient().create(WebInterface::class.java)
-
                     val call =
-                        apiService.callInsertAppRating(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
+                        WebClient.buildService().callInsertAppRating(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
                             seekbar.progress.toString(), etReview.text.toString())
 
                     call.enqueue(object : Callback<JsonObject> {
@@ -459,10 +452,9 @@ class TestReviewFragment : Fragment() {
     }
 
     fun callGetRating() {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call =
-            apiService.callGetAppRating(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
+            WebClient.buildService().callGetAppRating(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<JsonObject> {
 

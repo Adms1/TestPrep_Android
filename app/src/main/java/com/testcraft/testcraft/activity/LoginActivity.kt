@@ -18,7 +18,6 @@ import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.PhoneLoginActivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import com.testcraft.testcraft.utils.CommonWebCalls.Companion.callFCMToken
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
@@ -147,9 +146,7 @@ class LoginActivity : AppCompatActivity() {
 
         DialogUtils.showDialog(this@LoginActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getLogin(
+        val call = WebClient.buildService().getLogin(
             WebRequests.addLoginParams(
                 login_etEmail.text.toString(),
                 login_etPassword.text.toString()

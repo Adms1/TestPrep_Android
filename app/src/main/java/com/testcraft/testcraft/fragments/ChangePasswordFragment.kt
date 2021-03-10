@@ -16,7 +16,6 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity.Companion.setFragments
 import com.testcraft.testcraft.activity.LoginActivity
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_change_password.*
 import retrofit2.Call
@@ -147,9 +146,7 @@ class ChangePasswordFragment : Fragment() {
 
         DialogUtils.showDialog(activity!!)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.changePassword(
+        val call = WebClient.buildService().changePassword(
             WebRequests.changePasswordParams(
                 Utils.getStringValue(activity!!, AppConstants.USER_ID, "")!!,
                 chngepass_etNewpass.text.toString()

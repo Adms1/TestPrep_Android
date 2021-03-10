@@ -30,7 +30,6 @@ import com.testcraft.testcraft.activity.IntroActivity
 import com.testcraft.testcraft.activity.TraknpayRequestActivity
 import com.testcraft.testcraft.adapter.TestTypeAdapter
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.fragment_package_detail.*
 import retrofit2.Call
@@ -340,8 +339,6 @@ class PackageDetailFragment : Fragment() {
 
         DialogUtils.showDialog(context)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
 //        if (isBoolean_permission_phoneState) {
 //            hashMap["IMEINumber"] = Utils.getIMEI(context)
 //        } else {
@@ -357,7 +354,7 @@ class PackageDetailFragment : Fragment() {
 //            hashMap["Longitude"] = ""
 //        }
 
-        val call = apiService.getPayment(
+        val call = WebClient.buildService().getPayment(
             WebRequests.getPaymentParams(
                 "0", Utils.getStringValue(
                     context,
@@ -446,9 +443,8 @@ class PackageDetailFragment : Fragment() {
         }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getPackageDetail(
+        val call = WebClient.buildService().getPackageDetail(
             oldpkgid,
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!
         )
@@ -632,9 +628,8 @@ class PackageDetailFragment : Fragment() {
             DialogUtils.dismissDialog()
         }
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.addTestPackage(
+        val call = WebClient.buildService().addTestPackage(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
             pkgid
         )
@@ -684,9 +679,7 @@ class PackageDetailFragment : Fragment() {
 
     fun callValidateCCode() {
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getValidateCouponCode(
+        val call = WebClient.buildService().getValidateCouponCode(
             Utils.getStringValue(
                 activity!!,
                 AppConstants.USER_ID,
@@ -725,9 +718,7 @@ class PackageDetailFragment : Fragment() {
 
     fun callgetDiscountPercentage() {
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.callGetDiscount(oldpkgid,
+        val call = WebClient.buildService().callGetDiscount(oldpkgid,
             Utils.getStringValue(
                 activity!!,
                 AppConstants.USER_ID,
@@ -744,7 +735,7 @@ class PackageDetailFragment : Fragment() {
                     package_detail_tvDiscount.visibility = View.VISIBLE
 
                     package_detail_tvDiscount.text =
-                        "Discount " + response.body()!!.get("data").asString
+                        "Additional " + response.body()!!.get("data").asString + " Off"
 
                 } else {
 

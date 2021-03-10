@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_force_update_profile.*
@@ -75,8 +74,7 @@ class ForceUpdateProfileActivity : AppCompatActivity() {
     fun callSignupApi() {
 
         DialogUtils.showDialog(this@ForceUpdateProfileActivity)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-        val call = apiService.updateProfile(
+        val call = WebClient.buildService().updateProfile(
             WebRequests.addSignupParams(
                 Utils.getStringValue(this@ForceUpdateProfileActivity, AppConstants.USER_ACCOUNT_TYPE, "")!!,
                 Utils.getStringValue(this@ForceUpdateProfileActivity, AppConstants.USER_ID, "")!!,
@@ -218,9 +216,7 @@ class ForceUpdateProfileActivity : AppCompatActivity() {
             DialogUtils.dismissDialog()
         }
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.callCheckDuplicate(Utils.getStringValue(
+        val call = WebClient.buildService().callCheckDuplicate(Utils.getStringValue(
             this@ForceUpdateProfileActivity,
             AppConstants.USER_ID,
             "0"

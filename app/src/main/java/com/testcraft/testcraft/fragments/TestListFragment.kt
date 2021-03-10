@@ -19,7 +19,6 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.TestListAdapter
 import com.testcraft.testcraft.models.TestListModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_test_list.*
 import retrofit2.Call
@@ -136,9 +135,7 @@ class TestListFragment : Fragment() {
 
         DialogUtils.showDialog(activity!!)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getTestList(
+        val call = WebClient.buildService().getTestList(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
             AppConstants.PKG_ID
         )
@@ -178,9 +175,7 @@ class TestListFragment : Fragment() {
 
 //        DialogUtils.showDialog(activity!!)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        call = apiService.getPackageInstruction(AppConstants.PKG_ID)
+        call = WebClient.buildService().getPackageInstruction(AppConstants.PKG_ID)
 
         call!!.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {

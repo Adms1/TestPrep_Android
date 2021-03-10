@@ -37,7 +37,6 @@ import com.testcraft.testcraft.models.AnswerModel
 import com.testcraft.testcraft.models.AttemptModel
 import com.testcraft.testcraft.models.QuestionTypeModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.sectionmodule.ImageViewAdapter.Companion.getPageNumber
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
@@ -337,9 +336,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             DialogUtils.showDialog(this@NewTabQuestionActivity)
 
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-            val call = apiService.getNewQuestions(testid, studenttestid)
+            val call = WebClient.buildService().getNewQuestions(testid, studenttestid)
 
             call.enqueue(object : Callback<NewQuestionResponse> {
                 @SuppressLint("SetTextI18n")
@@ -854,9 +851,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         DialogUtils.showDialog(this@NewTabQuestionActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.submitTest(studenttestid)
+        val call = WebClient.buildService().submitTest(studenttestid)
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
@@ -931,9 +926,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         var p1 = p11
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.submitAnswer(
+        val call = WebClient.buildService().submitAnswer(
             WebRequests.submitAnswerParams(
                 studenttestid,
                 testqueid,
@@ -2243,9 +2236,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
         DialogUtils.showDialog(this@NewTabQuestionActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.Inserttesthint(
+        val call = WebClient.buildService().Inserttesthint(
             testid,
             movies[q_grppos1].TestQuestion[curr_index].QuestionID.toString()
         )
@@ -2343,9 +2334,7 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             DialogUtils.showDialog(this@NewTabQuestionActivity)
 
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-            val call = apiService.attemptReport(studenttestid)
+            val call = WebClient.buildService().attemptReport(studenttestid)
             call.enqueue(object : Callback<AttemptModel> {
                 override fun onResponse(call: Call<AttemptModel>, response: Response<AttemptModel>) {
 

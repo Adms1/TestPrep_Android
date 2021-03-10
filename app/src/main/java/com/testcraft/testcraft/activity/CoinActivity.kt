@@ -17,7 +17,6 @@ import com.testcraft.testcraft.adapter.CoinAdapter
 import com.testcraft.testcraft.interfaces.CoinInteface
 import com.testcraft.testcraft.models.CoinModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
@@ -27,7 +26,6 @@ import kotlinx.android.synthetic.main.fragment_coin.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 
 class CoinActivity : AppCompatActivity(), CoinInteface {
 
@@ -231,8 +229,6 @@ class CoinActivity : AppCompatActivity(), CoinInteface {
 
         DialogUtils.showDialog(context)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
 //        if (isBoolean_permission_phoneState) {
 //            hashMap["IMEINumber"] = Utils.getIMEI(context)
 //        } else {
@@ -248,7 +244,7 @@ class CoinActivity : AppCompatActivity(), CoinInteface {
 //            hashMap["Longitude"] = ""
 //        }
 
-        val call = apiService.getPayment(
+        val call = WebClient.buildService().getPayment(
             WebRequests.getPaymentParams(
                 "0", Utils.getStringValue(
                     context,

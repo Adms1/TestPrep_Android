@@ -4,34 +4,35 @@ import com.testcraft.testcraft.utils.AppConstants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class WebClient {
+object WebClient {
 
-    companion object {
+    private var interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor()
 
-        private var retrofit: Retrofit? = null
+    var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor)
+        .connectTimeout(100, TimeUnit.SECONDS)
+        .readTimeout(100, TimeUnit.SECONDS).build()
 
-        private var interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor()
+    fun buildService(): WebInterface {
 
-        var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor)
-            .connectTimeout(100, TimeUnit.SECONDS)
-            .readTimeout(100, TimeUnit.SECONDS).build()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        fun getClient(): Retrofit {
+//            if (retrofit == null) {
+        return Retrofit.Builder()
+            .baseUrl(AppConstants.BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+            .create(WebInterface::class.java)
+//            }
 
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
-
-            if (retrofit == null) {
-                retrofit = Retrofit.Builder()
-                    .baseUrl(AppConstants.BASE_URL)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-            }
-
-            return retrofit!!
-        }
     }
+
+//        fun buildService(): WebInterface {
+//            return retrofit!!
+//        }
 }

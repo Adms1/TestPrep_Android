@@ -13,7 +13,6 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
@@ -57,8 +56,8 @@ class ContactUsFragment : Fragment() {
         }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-        val call = apiService.sendEnquiry(
+
+        val call = WebClient.buildService().sendEnquiry(
             contactus_etFname.text.toString(),
             contactus_etLname.text.toString(),
             contactus_etEmail.text.toString(),

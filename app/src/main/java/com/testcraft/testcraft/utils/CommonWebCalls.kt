@@ -14,7 +14,6 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.*
 import com.testcraft.testcraft.models.VerifyMobileData
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,9 +31,7 @@ class CommonWebCalls {
         ) {
 //            DialogUtils.showDialog(context)
 
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-            val call = apiService.getToken(
+            val call = WebClient.buildService().getToken(
                 WebRequests.getAction(
                     type,
                     gameid,
@@ -105,11 +102,10 @@ class CommonWebCalls {
                 DialogUtils.dismissDialog()
             }
 
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
 
             DialogUtils.showDialog(context)
 
-            val call = apiService.getSignup(
+            val call = WebClient.buildService().getSignup(
                 WebRequests.addSignupParams(accType, stuid, fname, lname, email, pass, phone, Utils.getDeviceId(context))
             )
 //            val call = apiService.getSignup(
@@ -305,9 +301,7 @@ class CommonWebCalls {
 
             DialogUtils.showDialog(context)
 
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-            val call = apiService.reportIssue(
+            val call = WebClient.buildService().reportIssue(
                 WebRequests.addreportIssueParams(
                     issueType,
                     typename,
@@ -361,10 +355,8 @@ class CommonWebCalls {
 
             DialogUtils.showDialog(context)
 
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
-
             val call =
-                apiService.setFCMToken(Utils.getStringValue(context, AppConstants.USER_ID, "0")!!, Utils.getStringValue(context, AppConstants.FCM_TOKEN, "")!!, "2")
+                WebClient.buildService().setFCMToken(Utils.getStringValue(context, AppConstants.USER_ID, "0")!!, Utils.getStringValue(context, AppConstants.FCM_TOKEN, "")!!, "2")
 
             call.enqueue(object : Callback<JsonObject> {
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -401,9 +393,7 @@ class CommonWebCalls {
 
             DialogUtils.showDialog(context)
 
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-            val call = apiService.checkMobile(phone)
+            val call = WebClient.buildService().checkMobile(phone)
 
             call.enqueue(object : Callback<VerifyMobileData> {
                 override fun onResponse(call: Call<VerifyMobileData>, response: Response<VerifyMobileData>) {

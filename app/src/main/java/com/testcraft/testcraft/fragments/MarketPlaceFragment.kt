@@ -42,7 +42,6 @@ import com.testcraft.testcraft.models.GetMarketPlaceData
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.models.VerifyMobileData
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.fragment_market_place.*
 import retrofit2.Call
@@ -800,9 +799,8 @@ class MarketPlaceFragment : Fragment() {
         }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        call = apiService.getPackage(
+        call = WebClient.buildService().getPackage(
             WebRequests.getPackageParams(
                 Utils.getStringValue(activity!!, AppConstants.COURSE_TYPE_ID, "0")!!,
                 Utils.getStringValue(activity!!, AppConstants.COURSE_ID, "0")!!,
@@ -1141,9 +1139,7 @@ class MarketPlaceFragment : Fragment() {
 
         DialogUtils.showDialog(activity!!)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.checkMobile(phone)
+        val call = WebClient.buildService().checkMobile(phone)
 
         call.enqueue(object : Callback<VerifyMobileData> {
             override fun onResponse(call: Call<VerifyMobileData>, response: Response<VerifyMobileData>) {

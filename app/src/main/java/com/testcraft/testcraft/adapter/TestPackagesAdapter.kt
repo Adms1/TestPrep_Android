@@ -18,7 +18,6 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -140,9 +139,8 @@ class TestPackagesAdapter(
         }
 
         DialogUtils.showDialog(context)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.addTestPackage(
+        val call = WebClient.buildService().addTestPackage(
             Utils.getStringValue(context, AppConstants.USER_ID, "0")!!,
             pkgid
         )

@@ -17,7 +17,6 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_payment_success_screen.*
@@ -199,9 +198,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
         DialogUtils.showDialog(this@PaymentSuccessScreen)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.updatePaymentStatus(
+        val call = WebClient.buildService().updatePaymentStatus(
             WebRequests.getPaymentStatusParams(
                 Utils.getStringValue(this@PaymentSuccessScreen, AppConstants.USER_ID, "")!!,
                 intent.getStringExtra("order_id"),
@@ -274,9 +271,8 @@ class PaymentSuccessScreen : AppCompatActivity() {
         }
 
 //        DialogUtils.showDialog(this@PaymentSuccessScreen)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.addTestPackage(
+        val call = WebClient.buildService().addTestPackage(
             Utils.getStringValue(this@PaymentSuccessScreen, AppConstants.USER_ID, "0")!!,
             "1"
         )
@@ -319,7 +315,6 @@ class PaymentSuccessScreen : AppCompatActivity() {
 
         DialogUtils.showDialog(context)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
 //        if (isBoolean_permission_phoneState) {
 //            hashMap["IMEINumber"] = Utils.getIMEI(context)
@@ -336,7 +331,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
 //            hashMap["Longitude"] = ""
 //        }
 
-        val call = apiService.checkout(
+        val call = WebClient.buildService().checkout(
             Utils.getStringValue(
                 this@PaymentSuccessScreen,
                 AppConstants.USER_ID,
@@ -396,7 +391,6 @@ class PaymentSuccessScreen : AppCompatActivity() {
     }
 
     fun updatepayment(transaction_status: String) {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         DialogUtils.showDialog(this@PaymentSuccessScreen)
 
@@ -407,7 +401,7 @@ class PaymentSuccessScreen : AppCompatActivity() {
         hashmap["ExternalTransactionID"] = intent.getStringExtra("transactionId")
         hashmap["ExternalTransactionStatus"] = transaction_status
 
-        val call = apiService.updatesubscriptionPayment(hashmap)
+        val call = WebClient.buildService().updatesubscriptionPayment(hashmap)
 
         call.enqueue(object : Callback<JsonObject> {
 

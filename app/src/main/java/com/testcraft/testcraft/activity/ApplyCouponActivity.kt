@@ -12,7 +12,6 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.ApplyCouponAdapter
 import com.testcraft.testcraft.models.CouponModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.DialogUtils
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_apply_coupon.*
@@ -53,9 +52,8 @@ class ApplyCouponActivity : AppCompatActivity() {
             DialogUtils.dismissDialog()
         }
         DialogUtils.showDialog(this@ApplyCouponActivity)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getCoupons()
+        val call = WebClient.buildService().getCoupons()
 
         call.enqueue(object : Callback<CouponModel> {
             override fun onResponse(call: Call<CouponModel>, response: Response<CouponModel>) {

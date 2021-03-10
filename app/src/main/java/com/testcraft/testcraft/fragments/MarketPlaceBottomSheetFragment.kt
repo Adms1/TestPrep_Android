@@ -25,10 +25,12 @@ import com.testcraft.testcraft.adapter.StdSpinnerAdapter
 import com.testcraft.testcraft.models.GetSubscriptionModel
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_market_place_bottom_sheet.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,6 +47,8 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
     var isFree: Boolean = false
 
+    var myCompositeDisposable: CompositeDisposable? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -53,6 +57,8 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        myCompositeDisposable = CompositeDisposable()
 
         Utils.setFont(activity!!, "fonts/Inter-SemiBold.ttf", bottomsheet_tvHeader)
         Utils.setFont(activity!!, "fonts/Inter-SemiBold.ttf", bottomsheet_tvText)
@@ -186,44 +192,35 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getCourseList()
-        call.enqueue(object : Callback<PackageData> {
-            override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
+        myCompositeDisposable?.add(WebClient.buildService().getCourseList()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .retry(2)
+            .subscribe({ response ->
+                DialogUtils.dismissDialog()
 
-                if (response.body() != null) {
+                DialogUtils.dismissDialog()
 
-                    DialogUtils.dismissDialog()
+                val packageData = PackageData.PackageDataList(0, "")
+                packageData.CourseTypeID = 0
+                packageData.CourseTypeName = "Select Exam"
+                courseTypeList.add(packageData)
 
-                    val packageData = PackageData.PackageDataList(0, "")
-                    packageData.CourseTypeID = 0
-                    packageData.CourseTypeName = "Select Exam"
-                    courseTypeList.add(packageData)
+                if (response.Status == "true") {
 
-                    if (response.body()!!.Status == "true") {
-
-                        for (i in 0 until response.body()!!.data.size) {
-                            courseTypeList.add(response.body()!!.data[i])
-                        }
-                        bottomsheet_spCourseType.adapter =
-                            CoursetypeSpinnerAdapter(activity!!, courseTypeList)
-
-                    } else {
-
-//                        Toast.makeText(activity!!, response.body()!!.Msg, Toast.LENGTH_SHORT).show()
-
+                    for (i in 0 until response.data.size) {
+                        courseTypeList.add(response.data[i])
                     }
+                    bottomsheet_spCourseType.adapter =
+                        CoursetypeSpinnerAdapter(activity!!, courseTypeList)
+
                 }
-            }
-
-            override fun onFailure(call: Call<PackageData>, t: Throwable) {
-
+            }, { t ->
                 Log.e("", t.toString())
                 DialogUtils.dismissDialog()
 
-            }
-        })
+            }))
     }
 
     fun callCourseListApi(strcourseType: Int) {
@@ -235,9 +232,8 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
             DialogUtils.dismissDialog()
         }
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getCourseTypeList(strcourseType.toString())
+        val call = WebClient.buildService().getCourseTypeList(strcourseType.toString())
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
@@ -305,9 +301,8 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getBoardStandardList(courseId.toString())
+        val call = WebClient.buildService().getBoardStandardList(courseId.toString())
 
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
@@ -347,10 +342,9 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     fun callSubscriptionPrice() {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call =
-            apiService.getSubscriptionCount(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
+            WebClient.buildService().getSubscriptionCount(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<JsonObject> {
 
@@ -394,11 +388,10 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     fun callGetSubscriptionConfirm() {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         DialogUtils.showDialog(activity!!)
         val call =
-            apiService.subscription_checkout(bottomsheet_tvListAmount.text.toString().replace("₹", ""), "0",
+            WebClient.buildService().subscription_checkout(bottomsheet_tvListAmount.text.toString().replace("₹", ""), "0",
                 Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<JsonObject> {
@@ -442,7 +435,6 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     fun updatepayment(orderid: String) {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         DialogUtils.showDialog(activity!!)
 
@@ -452,7 +444,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
         hashmap["ExternalTransactionID"] = "0"
         hashmap["ExternalTransactionStatus"] = "success"
 
-        val call = apiService.updatesubscriptionPayment(hashmap)
+        val call = WebClient.buildService().updatesubscriptionPayment(hashmap)
 
         call.enqueue(object : Callback<JsonObject> {
 
@@ -487,7 +479,6 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     fun callGetSubscriptionPrice() {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         var board = ""
         var cource = ""
@@ -503,7 +494,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
             cource = strBoard
         }
 
-        val call = apiService.getSubscriptionPrice(
+        val call = WebClient.buildService().getSubscriptionPrice(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
             cource,
             board,
@@ -549,7 +540,6 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     fun callInsertSubscriptionConfirm() {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         var board = ""
         var cource = ""
@@ -572,7 +562,7 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
             cource = strBoard
         }
 
-        val call = apiService.insertSubscriptionSubject(
+        val call = WebClient.buildService().insertSubscriptionSubject(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
             cource,
             board,
@@ -634,9 +624,8 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     fun checkFreeTrial(price: String, listprice: String) {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.checkSubscription(
+        val call = WebClient.buildService().checkSubscription(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<GetSubscriptionModel> {
@@ -680,6 +669,12 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
                 Log.e("", t.toString())
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        myCompositeDisposable!!.clear()
     }
 
 }

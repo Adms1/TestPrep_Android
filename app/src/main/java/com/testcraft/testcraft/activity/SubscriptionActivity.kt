@@ -18,7 +18,6 @@ import com.testcraft.testcraft.adapter.SubscriptionSubjectAdapter
 import com.testcraft.testcraft.interfaces.SubscriptionInterface
 import com.testcraft.testcraft.models.GetSubscriptionModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
@@ -115,9 +114,8 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
     }
 
     fun callGetSubscription() {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getStudentSubscription(
+        val call = WebClient.buildService().getStudentSubscription(
             Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<GetSubscriptionModel> {
@@ -170,7 +168,7 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
 //            Utils.ping(this@SubscriptionActivity, AppConstants.NETWORK_MSG)
 //        }
 //
-//        val apiService = WebClient.getClient().create(WebInterface::class.java)
+//
 //
 //        val call =
 //            apiService.subscription_checkout(Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!!)
@@ -223,9 +221,8 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
 //    }
 
     fun callGetSubscriptionCount() {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getSubscriptionCount(
+        val call = WebClient.buildService().getSubscriptionCount(
             Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<JsonObject> {
@@ -274,9 +271,8 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
     }
 
     fun callRemoveSubscription(cource_type_id: String, cource_id: String, board_id: String, std_id: String) {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.removeSubscriptionSubject(
+        val call = WebClient.buildService().removeSubscriptionSubject(
             Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!!,
             cource_id,
             board_id,
@@ -305,10 +301,9 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
     }
 
     fun callGetSubscriptionConfirm() {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         DialogUtils.showDialog(this@SubscriptionActivity)
-        val call = apiService.subscription_checkout(price, "0",
+        val call = WebClient.buildService().subscription_checkout(price, "0",
             Utils.getStringValue(this@SubscriptionActivity, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<JsonObject> {
@@ -355,7 +350,6 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
     }
 
     fun updatepayment(orderid: String) {
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         DialogUtils.showDialog(this@SubscriptionActivity)
 
@@ -366,7 +360,7 @@ class SubscriptionActivity : AppCompatActivity(), SubscriptionInterface {
         hashmap["ExternalTransactionID"] = "2"
         hashmap["ExternalTransactionStatus"] = "success"
 
-        val call = apiService.updatesubscriptionPayment(hashmap)
+        val call = WebClient.buildService().updatesubscriptionPayment(hashmap)
 
         call.enqueue(object : Callback<JsonObject> {
 

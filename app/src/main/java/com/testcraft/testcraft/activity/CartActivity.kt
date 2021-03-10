@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
@@ -62,10 +61,9 @@ class CartActivity : AppCompatActivity() {
         }
 
         DialogUtils.showDialog(this@CartActivity)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         val call =
-            apiService.getCart(Utils.getStringValue(this@CartActivity, AppConstants.USER_ID, "0")!!)
+            WebClient.buildService().getCart(Utils.getStringValue(this@CartActivity, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<JsonObject> {
             @SuppressLint("SetTextI18n")
@@ -123,9 +121,7 @@ class CartActivity : AppCompatActivity() {
             DialogUtils.dismissDialog()
         }
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.checkout(
+        val call = WebClient.buildService().checkout(
             Utils.getStringValue(this@CartActivity, AppConstants.USER_ID, "0")!!, ""
         )
 
@@ -199,9 +195,7 @@ class CartActivity : AppCompatActivity() {
 
         DialogUtils.showDialog(this@CartActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.updatePaymentStatus(
+        val call = WebClient.buildService().updatePaymentStatus(
             WebRequests.getPaymentStatusParams(
                 Utils.getStringValue(this@CartActivity, AppConstants.USER_ID, "")!!,
                 order_id,

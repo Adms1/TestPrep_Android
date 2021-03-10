@@ -3,6 +3,7 @@ package com.testcraft.testcraft.retrofit
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.models.*
 import com.testcraft.testcraft.sectionmodule.NewQuestionResponse
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -30,12 +31,16 @@ interface WebInterface {
     fun checkMobile(@Field("Mobile") mobile: String): Call<VerifyMobileData>
 
     @FormUrlEncoded
+    @POST("SP_Check_Student_Duplicate_Mobile")
+    fun checkMobile2(@Field("Mobile") mobile: String): Observable<VerifyMobileData>
+
+    @FormUrlEncoded
     @POST("Update_Student")
     fun updateProfile(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
     @FormUrlEncoded
     @POST("Forgot_Password")
-    fun forgotPassword(@FieldMap map: HashMap<String, String>): Call<JsonObject>
+    fun forgotPassword(@FieldMap map: HashMap<String, String>): Observable<JsonObject>
 
     @FormUrlEncoded
     @POST("Change_Password")
@@ -46,7 +51,7 @@ interface WebInterface {
 //    fun AddPrefrence(@FieldMap map: HashMap<String, String>): Call<JsonObject>
 
     @GET("Get_CourseType_List")
-    fun getCourseList(): Call<PackageData>
+    fun getCourseList(): Observable<PackageData>
 
     @FormUrlEncoded
     @POST("Get_Course_List")

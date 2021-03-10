@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.Utils
 import kotlinx.android.synthetic.main.fragment_referfriend.*
@@ -53,10 +52,8 @@ class ReferfriendFragment : Fragment() {
 
     fun callRCode() {
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
         val call =
-            apiService.getRefrenceCode(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
+            WebClient.buildService().getRefrenceCode(Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!)
 
         call.enqueue(object : Callback<JsonObject> {
 

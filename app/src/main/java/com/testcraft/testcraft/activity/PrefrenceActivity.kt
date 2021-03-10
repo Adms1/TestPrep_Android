@@ -22,7 +22,6 @@ import com.testcraft.testcraft.adapter.NewSelectStandardAdapter
 import com.testcraft.testcraft.adapter.NewSelectSubjectAdapter
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_prefrence.*
@@ -179,9 +178,8 @@ class PrefrenceActivity : AppCompatActivity() {
 //        }
 
         DialogUtils.showDialog(this@PrefrenceActivity)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getCourseTypeList(intent.getStringExtra("examtype"))
+        val call = WebClient.buildService().getCourseTypeList(intent.getStringExtra("examtype"))
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 
@@ -240,7 +238,6 @@ class PrefrenceActivity : AppCompatActivity() {
 //        }
 
         DialogUtils.showDialog(this@PrefrenceActivity)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         var call: Call<PackageData>? = null
 
@@ -250,10 +247,10 @@ class PrefrenceActivity : AppCompatActivity() {
                 ""
             ) != "1"
         ) {
-            apiService.getCourseSubjectList(stdId)
+            WebClient.buildService().getCourseSubjectList(stdId)
 
         } else {
-            apiService.getBoardStandardSubjectList(
+            WebClient.buildService().getBoardStandardSubjectList(
                 Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "")!!,
                 stdId
             )
@@ -327,9 +324,8 @@ class PrefrenceActivity : AppCompatActivity() {
 //        }
 
         DialogUtils.showDialog(this@PrefrenceActivity)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getBoardStandardList(courseId.toString())
+        val call = WebClient.buildService().getBoardStandardList(courseId.toString())
 
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
@@ -505,7 +501,6 @@ class PrefrenceActivity : AppCompatActivity() {
     }
 
     fun callInsertSubscriptionSubject(){
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         var board = ""
         var cource = ""
@@ -520,7 +515,7 @@ class PrefrenceActivity : AppCompatActivity() {
             cource =  Utils.getStringValue(this@PrefrenceActivity, AppConstants.COURSE_ID, "0")!!
         }
 
-        val call = apiService.insertSubscriptionSubject(
+        val call = WebClient.buildService().insertSubscriptionSubject(
             Utils.getStringValue(this@PrefrenceActivity, AppConstants.USER_ID, "0")!!,
             cource,
             board,

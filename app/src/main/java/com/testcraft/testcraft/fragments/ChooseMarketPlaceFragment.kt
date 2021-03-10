@@ -17,7 +17,6 @@ import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.adapter.MainPackageAdapter
 import com.testcraft.testcraft.models.MyPackageModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
@@ -81,9 +80,8 @@ class ChooseMarketPlaceFragment : Fragment() {
         }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        call = apiService.getMyPackages(
+        call = WebClient.buildService().getMyPackages(
             Utils.getStringValue(activity!!, AppConstants.USER_ID, "0")!!,
             "",
             "",

@@ -31,7 +31,6 @@ import com.testcraft.testcraft.interfaces.FilterTypeSelectionInteface
 import com.testcraft.testcraft.models.AnswerModel
 import com.testcraft.testcraft.models.QuestionTypeModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.sectionmodule.NewQuestionResponse
 import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_view_solution.*
@@ -360,9 +359,7 @@ class ViewSolutionFragment : Fragment(), FilterTypeSelectionInteface {
 
         DialogUtils.showDialog(activity!!)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getNewQuestions(testid, studenttestid)
+        val call = WebClient.buildService().getNewQuestions(testid, studenttestid)
         call.enqueue(object : Callback<NewQuestionResponse> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(

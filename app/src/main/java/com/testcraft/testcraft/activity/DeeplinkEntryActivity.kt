@@ -17,7 +17,6 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.DeepLinkSubjectAdapter
 import com.testcraft.testcraft.models.DeepLinkModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.AppConstants.Companion.GUEST_FIRSTNAME
 import com.testcraft.testcraft.utils.AppConstants.Companion.GUEST_LASTNAME
@@ -89,10 +88,9 @@ class DeeplinkEntryActivity : AppCompatActivity() {
                 DialogUtils.dismissDialog()
             }
             DialogUtils.showDialog(context)
-            val apiService = WebClient.getClient().create(WebInterface::class.java)
 
             val call =
-                apiService.getDplinkSubject(Utils.getStringValue(context, AppConstants.DEEPLINK_CODE, "")!!, Utils.getStringValue(context, AppConstants.USER_ID, "")!!)
+                WebClient.buildService().getDplinkSubject(Utils.getStringValue(context, AppConstants.DEEPLINK_CODE, "")!!, Utils.getStringValue(context, AppConstants.USER_ID, "")!!)
 
             call.enqueue(object : Callback<DeepLinkModel> {
                 override fun onResponse(call: Call<DeepLinkModel>, response: Response<DeepLinkModel>) {

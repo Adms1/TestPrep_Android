@@ -20,7 +20,6 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.adapter.TutorReviewAdapter
 import com.testcraft.testcraft.models.TutorModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.fragment_tutors_review.*
@@ -119,9 +118,8 @@ class TutorReviewActivity : AppCompatActivity() {
                     }
 
                     DialogUtils.showDialog(this@TutorReviewActivity)
-                    val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-                    val call = apiService.writeRating(
+                    val call = WebClient.buildService().writeRating(
                         WebRequests.writeRatingParams(
                             Utils.getStringValue(
                                 this@TutorReviewActivity,
@@ -214,9 +212,8 @@ class TutorReviewActivity : AppCompatActivity() {
         }
 
         DialogUtils.showDialog(this@TutorReviewActivity)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getTutorRating(tutorid)
+        val call = WebClient.buildService().getTutorRating(tutorid)
         call.enqueue(object : Callback<TutorModel> {
 
             override fun onResponse(call: Call<TutorModel>, response: Response<TutorModel>) {

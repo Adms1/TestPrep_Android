@@ -18,7 +18,6 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
@@ -416,9 +415,8 @@ class TraknpayRequestActivity : AppCompatActivity() {
         }
 
         DialogUtils.showDialog(this@TraknpayRequestActivity)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.addTestPackage(
+        val call = WebClient.buildService().addTestPackage(
             Utils.getStringValue(this@TraknpayRequestActivity, AppConstants.USER_ID, "0")!!,
             "1"
         )

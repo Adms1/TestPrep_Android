@@ -27,7 +27,6 @@ import com.testcraft.testcraft.adapter.TutorPackageAdapter
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.models.TutorModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.CommonWebCalls
@@ -165,9 +164,7 @@ class TutorProfileFragment : Fragment() {
             DialogUtils.dismissDialog()
         }
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.getTutorProfile(tutorid)
+        val call = WebClient.buildService().getTutorProfile(tutorid)
         call.enqueue(object : Callback<TutorModel> {
             override fun onResponse(call: Call<TutorModel>, response: Response<TutorModel>) {
 
@@ -233,9 +230,8 @@ class TutorProfileFragment : Fragment() {
 //        }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
-        val call = apiService.getTutorSimilarPkgs(tutorid)
+        val call = WebClient.buildService().getTutorSimilarPkgs(tutorid)
         call.enqueue(object : Callback<PackageData> {
             override fun onResponse(call: Call<PackageData>, response: Response<PackageData>) {
 

@@ -32,7 +32,6 @@ import com.google.gson.JsonObject
 import com.testcraft.testcraft.PhoneLoginActivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import com.testcraft.testcraft.utils.CommonWebCalls.Companion.callFCMToken
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
@@ -440,9 +439,7 @@ class IntroActivity : AppCompatActivity() {
 
         DialogUtils.showDialog(this@IntroActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.checkEmail(WebRequests.checkEmailParams(email))
+        val call = WebClient.buildService().checkEmail(WebRequests.checkEmailParams(email))
 
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -628,10 +625,8 @@ class IntroActivity : AppCompatActivity() {
 
         DialogUtils.showDialog(this@IntroActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
         val call =
-            apiService.getSignup(
+            WebClient.buildService().getSignup(
                 WebRequests.addSignupParams(
                     accounttype,
                     "0",

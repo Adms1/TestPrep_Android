@@ -29,7 +29,6 @@ import com.testcraft.testcraft.models.CreateTestQTypeModel
 import com.testcraft.testcraft.models.GetChapterList
 import com.testcraft.testcraft.models.TemplateSectionModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import com.testcraft.testcraft.utils.Utils
@@ -389,8 +388,6 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         DialogUtils.showDialog(this@CreateTestActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
         val hashmap = HashMap<String, String>()
         hashmap["UserID"] =
             Utils.getStringValue(this@CreateTestActivity, AppConstants.USER_ID, "0")!!
@@ -407,7 +404,7 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         hashmap["ChapterID"] = chapid.substring(0, chapid.length - 1)
         hashmap["QueCount"] = createtest_etMarks.text.toString()
 
-        val call = apiService.callCreateTest(hashmap)
+        val call = WebClient.buildService().callCreateTest(hashmap)
 
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -474,14 +471,12 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         DialogUtils.showDialog(this@CreateTestActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
         val hashmap = HashMap<String, String>()
         hashmap["BoardID"] = boardid
         hashmap["StandardID"] = stdid
         hashmap["SubjectID"] = subid
 
-        val call = apiService.callChapterList(hashmap)
+        val call = WebClient.buildService().callChapterList(hashmap)
 
         call.enqueue(object : Callback<GetChapterList> {
             override fun onResponse(call: Call<GetChapterList>, response: Response<GetChapterList>) {
@@ -532,12 +527,10 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         DialogUtils.showDialog(this@CreateTestActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
         val hashmap = HashMap<String, String>()
         hashmap["CourseID"] = subid
 
-        val call = apiService.callCreateTestSubject(hashmap)
+        val call = WebClient.buildService().callCreateTestSubject(hashmap)
 
         call.enqueue(object : Callback<GetChapterList> {
             override fun onResponse(call: Call<GetChapterList>, response: Response<GetChapterList>) {
@@ -597,12 +590,10 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         DialogUtils.showDialog(this@CreateTestActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
         val hashmap = HashMap<String, String>()
         hashmap["CourseID"] = subid
 
-        val call = apiService.callTemplate(hashmap)
+        val call = WebClient.buildService().callTemplate(hashmap)
 
         call.enqueue(object : Callback<GetChapterList> {
             override fun onResponse(call: Call<GetChapterList>, response: Response<GetChapterList>) {
@@ -664,12 +655,10 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
             DialogUtils.dismissDialog()
         }
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
         val hashmap = HashMap<String, String>()
         hashmap["TemplateID"] = tempid
 
-        val call = apiService.callTemplateSection(hashmap)
+        val call = WebClient.buildService().callTemplateSection(hashmap)
 
         call.enqueue(object : Callback<TemplateSectionModel> {
             override fun onResponse(call: Call<TemplateSectionModel>, response: Response<TemplateSectionModel>) {
@@ -725,8 +714,6 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         DialogUtils.showDialog(this@CreateTestActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
         val hashmap = HashMap<String, String>()
         if (coursetypeid == "1") {
             hashmap["BoardID"] = boardid
@@ -741,7 +728,7 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
             hashmap["ChapterID"] = chapid.substring(0, chapid.length - 1)
         }
 
-        val call = apiService.callGetQueLimit(hashmap)
+        val call = WebClient.buildService().callGetQueLimit(hashmap)
 
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -820,8 +807,6 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 
         DialogUtils.showDialog(this@CreateTestActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
         val hashmap = HashMap<String, String>()
         hashmap["UserID"] =
             Utils.getStringValue(this@CreateTestActivity, AppConstants.USER_ID, "0")!!
@@ -839,7 +824,7 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
 //        hashmap["QueCount"] = createtest_etMarks.text.toString()
         hashmap["TemplateID"] = template_id
 
-        val call = apiService.callCompetitiveCreateTest(hashmap)
+        val call = WebClient.buildService().callCompetitiveCreateTest(hashmap)
 
         call.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {

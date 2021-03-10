@@ -26,7 +26,6 @@ import com.testcraft.testcraft.adapter.TestPackagesAdapter
 import com.testcraft.testcraft.adapter.TutorsAdapter
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import kotlinx.android.synthetic.main.activity_tutor_detail.*
 import retrofit2.Call
@@ -329,12 +328,11 @@ class TutorDetailFragment : Fragment() {
         }
 
         DialogUtils.showDialog(activity!!)
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
 
         lateinit var call: Call<PackageData>
 
         if (course_type == "1") {
-            call = apiService.getFilterData(
+            call = WebClient.buildService().getFilterData(
                 WebRequests.getFilterParams(
                     course_type,
                     "",
@@ -349,7 +347,7 @@ class TutorDetailFragment : Fragment() {
                 )
             )
         } else {
-            call = apiService.getFilterData(
+            call = WebClient.buildService().getFilterData(
                 WebRequests.getFilterParams(
                     course_type,
                     boardid,

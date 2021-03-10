@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.retrofit.WebInterface
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_signup.*
@@ -195,9 +194,7 @@ class SignupActivity : AppCompatActivity() {
 
         DialogUtils.showDialog(this@SignupActivity)
 
-        val apiService = WebClient.getClient().create(WebInterface::class.java)
-
-        val call = apiService.verifyAccount(
+        val call = WebClient.buildService().verifyAccount(
             signup_etMobile.text.toString(), signup_etEmail.text.toString()
         )
 
