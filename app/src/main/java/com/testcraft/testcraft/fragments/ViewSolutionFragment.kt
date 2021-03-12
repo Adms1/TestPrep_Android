@@ -1,4 +1,4 @@
-package com.testcraft.testcraft.activity
+package com.testcraft.testcraft.fragments
 
 import android.annotation.SuppressLint
 import android.app.Dialog

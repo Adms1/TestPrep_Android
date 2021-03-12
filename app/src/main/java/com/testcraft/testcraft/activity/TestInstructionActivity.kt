@@ -1,4 +1,4 @@
-package com.testcraft.testcraft
+package com.testcraft.testcraft.activity
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,8 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.testcraft.testcraft.activity.DashboardActivity
+import com.testcraft.testcraft.Connectivity
+import com.testcraft.testcraft.R
 import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
 import com.testcraft.testcraft.utils.ActionIdData
 import com.testcraft.testcraft.utils.AppConstants
@@ -93,7 +94,6 @@ class TestInstructionActivity : AppCompatActivity() {
             dialog_testinstruction_tvTeacher.visibility = View.VISIBLE
         }
 
-
         dialog_testinstruction_main_header.text = testname
         dialog_testinstruction_tvHeader.text = testname
         dialog_testinstruction_tvSubjectName.text = testsubject
@@ -102,7 +102,7 @@ class TestInstructionActivity : AppCompatActivity() {
         dialog_testinstruction_tvQue.text = testque
         dialog_testinstruction_tvTeacherName.text = testtutor
 
-        dialog_testinstruction_tvDismiss.setOnClickListener { finish() }
+        dialog_testinstruction_tvDismiss.setOnClickListener { onBackPressed() }
         dialog_testinstruction_tvStartTest.setOnClickListener {
             CommonWebCalls.callToken(
                 this@TestInstructionActivity,

@@ -29,7 +29,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.gson.JsonObject
-import com.testcraft.testcraft.PhoneLoginActivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.utils.*
@@ -204,7 +203,11 @@ class IntroActivity : AppCompatActivity() {
 
                         // Application code
                         val userID = jsonObject.get("id")
-                        val email = jsonObject.getString("email")
+                        var email = ""
+
+                        if (jsonObject.has("email")) {
+                            email = jsonObject.getString("email")
+                        }
                         val fname = jsonObject.getString("first_name")
                         val lname = jsonObject.getString("last_name")
 

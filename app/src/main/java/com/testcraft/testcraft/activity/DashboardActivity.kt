@@ -21,10 +21,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.IntroActivity.Companion.disconnectFromFacebook
-import com.testcraft.testcraft.activity.ViewSolutionFragment.Companion.curr_index1
-import com.testcraft.testcraft.activity.ViewSolutionFragment.Companion.solution_grppos1
 import com.testcraft.testcraft.adapter.DrawerMenuListAdapter
 import com.testcraft.testcraft.fragments.*
+import com.testcraft.testcraft.fragments.ViewSolutionFragment.Companion.curr_index1
+import com.testcraft.testcraft.fragments.ViewSolutionFragment.Companion.solution_grppos1
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.utils.*
 import com.testcraft.testcraft.utils.Utils.Companion.clearPrefrence

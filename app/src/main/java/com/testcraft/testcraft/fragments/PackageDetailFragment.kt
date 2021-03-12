@@ -235,7 +235,7 @@ class PackageDetailFragment : Fragment() {
                             activity!!,
                             package_detail_etPcode.text.toString()
                         )
-                    }else {
+                    } else {
                         val intent = Intent(activity!!, IntroActivity::class.java)
                         startActivity(intent)
                     }

@@ -13,7 +13,7 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.activity.DashboardActivity
 import com.testcraft.testcraft.activity.DeeplinkTestActivity
 import com.testcraft.testcraft.activity.IntroActivity
-import com.testcraft.testcraft.activity.QuestionInstructionActivity
+import com.testcraft.testcraft.activity.TestInstructionActivity
 import com.testcraft.testcraft.models.TestListModel
 import com.testcraft.testcraft.sectionmodule.NewTabQuestionActivity
 import com.testcraft.testcraft.utils.ActionIdData
@@ -142,7 +142,7 @@ class DeeplinkTestListAdapter(
                 }
 
                 "Start Test" -> {
-                    val intent = Intent(context, QuestionInstructionActivity::class.java)
+                    val intent = Intent(context, TestInstructionActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
 
                     intent.putExtra("isComeFrom", "testlist")

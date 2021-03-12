@@ -54,17 +54,6 @@ class MyPackageAdapter(
             p0.ivComplete.visibility = View.GONE
         }
 
-        if (dataList[p1].TestPackageSalePrice.equals("free", true)) {
-
-            p0.btnStart.visibility = View.VISIBLE
-            p0.price.visibility = View.GONE
-
-        } else {
-
-            p0.price.visibility = View.VISIBLE
-            p0.btnStart.visibility = View.GONE
-        }
-
         Picasso.get().load(AppConstants.IMAGE_BASE_URL + dataList[p1].Icon).placeholder(R.mipmap.progressicn).into(p0.image)
 
         if (come_from == "market_place") {
@@ -77,9 +66,22 @@ class MyPackageAdapter(
             p0.test.visibility = View.GONE
             p0.ivArrow.visibility = View.GONE
 
+            if (dataList[p1].TestPackageSalePrice.equals("free", true)) {
+
+                p0.btnStart.visibility = View.VISIBLE
+                p0.price.visibility = View.GONE
+
+            } else {
+
+                p0.price.visibility = View.VISIBLE
+                p0.btnStart.visibility = View.GONE
+            }
+
+
         } else if (come_from == "my_pkgs") {
 
             p0.price.visibility = View.GONE
+            p0.btnStart.visibility = View.GONE
 
             p0.test.visibility = View.VISIBLE
             p0.ivArrow.visibility = View.VISIBLE

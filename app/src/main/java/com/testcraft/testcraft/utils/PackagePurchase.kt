@@ -7,7 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import com.google.gson.JsonObject
-import com.testcraft.testcraft.activity.QuestionInstructionActivity
+import com.testcraft.testcraft.activity.TestInstructionActivity
 import com.testcraft.testcraft.activity.TraknpayNewActivity
 import com.testcraft.testcraft.models.TestListModel
 import com.testcraft.testcraft.retrofit.WebClient
@@ -222,7 +222,7 @@ class PackagePurchase {
                             Utils.setStringValue(context, AppConstants.IS_DEEPLINK_STEP, "2")
                         }
 
-                        val intent = Intent(context, QuestionInstructionActivity::class.java)
+                        val intent = Intent(context, TestInstructionActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
 
                         intent.putExtra("isComeFrom", come_from)

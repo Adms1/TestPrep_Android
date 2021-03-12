@@ -17,8 +17,6 @@
         android:normalScreens="true"
         android:smallScreens="true" />
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
     <application
         android:name=".CustomFontApp"
         android:allowBackup="true"
@@ -33,12 +31,11 @@
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity | GoogleAppIndexingWarning"
         tools:replace="android:icon">
+
         <activity android:name=".activity.ForceUpdateProfileActivity" />
-        <activity android:name=".TestInstructionActivity" />
+        <activity android:name=".activity.TestInstructionActivity" />
         <activity android:name=".activity.PaymentViewActivity" />
-        <activity
-            android:name=".activity.CompetitiveCreateTestActivity"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.CreateTestActivity"
             android:screenOrientation="portrait"
@@ -47,7 +44,7 @@
             android:name=".activity.SubscriptionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PhoneLoginActivity"
+            android:name=".activity.PhoneLoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.NotificationActivity"

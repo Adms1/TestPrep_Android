@@ -1,4 +1,4 @@
-package com.testcraft.testcraft
+package com.testcraft.testcraft.activity
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -16,10 +16,7 @@ import android.view.Window
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.testcraft.testcraft.activity.IntroActivity
-import com.testcraft.testcraft.activity.LoginActivity
-import com.testcraft.testcraft.activity.OtpActivity
-import com.testcraft.testcraft.activity.ViewInvoiceActivity
+import com.testcraft.testcraft.R
 import com.testcraft.testcraft.models.VerifyMobileData
 import com.testcraft.testcraft.retrofit.WebClient.buildService
 import com.testcraft.testcraft.utils.*

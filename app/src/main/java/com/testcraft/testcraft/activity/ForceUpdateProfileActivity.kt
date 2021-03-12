@@ -245,6 +245,13 @@ class ForceUpdateProfileActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        DialogUtils.dismissDialog()
     }
 
 }

@@ -161,7 +161,6 @@ class TutorProfileFragment : Fragment() {
             netdialog.setCanceledOnTouchOutside(false)
             netdialog.setCancelable(false)
             netdialog.show()
-            DialogUtils.dismissDialog()
         }
 
         val call = WebClient.buildService().getTutorProfile(tutorid)

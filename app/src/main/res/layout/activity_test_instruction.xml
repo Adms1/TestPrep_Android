@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/test_ss"
-    tools:context=".TestInstructionActivity">
+    tools:context=".activity.TestInstructionActivity">
 
     <TextView
         android:id="@+id/dialog_testinstruction_main_header"

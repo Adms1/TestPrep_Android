@@ -16,9 +16,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.testcraft.testcraft.R
-import com.testcraft.testcraft.activity.ViewSolutionFragment.Companion.curr_index1
-import com.testcraft.testcraft.activity.ViewSolutionFragment.Companion.sideList
-import com.testcraft.testcraft.activity.ViewSolutionFragment.Companion.solution_grppos1
+import com.testcraft.testcraft.fragments.ViewSolutionFragment.Companion.curr_index1
+import com.testcraft.testcraft.fragments.ViewSolutionFragment.Companion.sideList
+import com.testcraft.testcraft.fragments.ViewSolutionFragment.Companion.solution_grppos1
 import com.testcraft.testcraft.interfaces.FilterTypeSelectionInteface
 import com.testcraft.testcraft.models.QuestionTypeModel
 import com.testcraft.testcraft.utils.AppConstants
