@@ -12,8 +12,8 @@ android {
         applicationId "com.testcraft.testcraft"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 33
-        versionName "4.3"
+        versionCode 34
+        versionName "4.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 

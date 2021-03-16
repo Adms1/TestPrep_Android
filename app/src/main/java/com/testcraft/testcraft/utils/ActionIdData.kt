@@ -5,7 +5,10 @@ class ActionIdData {
     companion object {
 
         var C100 = "100"
-        var T100 = "Splash Screen"
+        var T100 = "App Installs"
+
+        var C101 = "101"
+        var T101 = "Splash Screen"
 
         var C200 = "200"
         var T200 = "Intro Screen"

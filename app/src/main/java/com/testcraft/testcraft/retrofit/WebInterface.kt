@@ -271,7 +271,7 @@ interface WebInterface {
 
     @FormUrlEncoded
     @POST("Get_GuestUser_Test")
-    fun getDplinkTest(@Field("StudentID") student_id: String): Call<TestListModel>
+    fun getDplinkTest(@Field("StudentID") student_id: String): Observable<TestListModel>
 
     @FormUrlEncoded
     @POST("Get_DeepLink")

@@ -14,12 +14,15 @@ import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_force_update_profile.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class ForceUpdateProfileActivity : AppCompatActivity() {
+
+    var compositeDisposable: CompositeDisposable? = null
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
@@ -33,6 +36,8 @@ class ForceUpdateProfileActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_force_update_profile)
+
+        compositeDisposable = CompositeDisposable()
 
         forceprofile_etFname.setText(Utils.getStringValue(this@ForceUpdateProfileActivity, AppConstants.FIRST_NAME, ""))
         forceprofile_etLname.setText(Utils.getStringValue(this@ForceUpdateProfileActivity, AppConstants.LAST_NAME, ""))
@@ -74,6 +79,7 @@ class ForceUpdateProfileActivity : AppCompatActivity() {
     fun callSignupApi() {
 
         DialogUtils.showDialog(this@ForceUpdateProfileActivity)
+
         val call = WebClient.buildService().updateProfile(
             WebRequests.addSignupParams(
                 Utils.getStringValue(this@ForceUpdateProfileActivity, AppConstants.USER_ACCOUNT_TYPE, "")!!,
@@ -203,7 +209,6 @@ class ForceUpdateProfileActivity : AppCompatActivity() {
         }
 
         return isvalid
-
     }
 
     fun callCheckDuplicate() {
@@ -252,6 +257,12 @@ class ForceUpdateProfileActivity : AppCompatActivity() {
         super.onStop()
 
         DialogUtils.dismissDialog()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        compositeDisposable!!.dispose()
     }
 
 }

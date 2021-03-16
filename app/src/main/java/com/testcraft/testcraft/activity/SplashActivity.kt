@@ -20,10 +20,7 @@ import com.facebook.applinks.AppLinkData
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.CommonWebCalls
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import org.json.JSONObject
 import org.jsoup.Jsoup
@@ -222,8 +219,15 @@ class SplashActivity : AppCompatActivity() {
 //                            Utils.setStringValue(context, AppConstants.APP_MODE, AppConstants.GUEST_MODE)
 //                        }
 
-                    }
-//                    else {
+                    } else {
+
+                        CommonWebCalls.callToken(
+                            context,
+                            "1",
+                            "",
+                            ActionIdData.C101,
+                            ActionIdData.T101
+                        )
 //                        if (Utils.getStringValue(context, AppConstants.APP_MODE, "") != AppConstants.DEEPLINK_MODE) {
 //
 //                            if (Utils.getStringValue(context, AppConstants.APP_MODE, "") == AppConstants.GUEST_MODE) {
@@ -239,7 +243,7 @@ class SplashActivity : AppCompatActivity() {
 //                            }
 //                        }
 
-//                    }
+                    }
 
                     Handler().postDelayed(
                         /* Runnable
@@ -272,11 +276,11 @@ class SplashActivity : AppCompatActivity() {
 
 //                                        if (Utils.getStringValue(context, isPrefrence, "") == "1") {
 
-                                            Utils.setStringValue(
-                                                context,
-                                                AppConstants.IS_LOGIN,
-                                                "true"
-                                            )
+                                        Utils.setStringValue(
+                                            context,
+                                            AppConstants.IS_LOGIN,
+                                            "true"
+                                        )
 
                                         val i = Intent(context, DashboardActivity::class.java)
                                         context.startActivity(i)
