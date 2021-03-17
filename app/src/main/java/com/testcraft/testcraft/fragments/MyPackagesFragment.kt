@@ -95,7 +95,12 @@ class MyPackagesFragment : Fragment() {
 
         card_view_expire!!.setOnClickListener { clickCreateTestwithExpiration() }
         my_packages_ivCreateTest.setOnClickListener { clickCreateTestwithExpiration() }
-        my_create_btnpkgs.setOnClickListener { clickCreateTestwithExpiration() }
+        my_create_btnpkgs.setOnClickListener {
+
+            CommonWebCalls.callToken(activity!!, "1", "", ActionIdData.C4300, ActionIdData.T4300)
+
+            clickCreateTestwithExpiration()
+        }
 
 //        my_packages_header.text = bundle!!.getString("sub_name")
 

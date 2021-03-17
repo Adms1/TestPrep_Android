@@ -352,7 +352,7 @@ class TestReviewFragment : Fragment() {
         })
     }
 
-    fun OpenAttemptDialog() {
+    fun OpenAppRatingDialog() {
 
         val ratingdialog = Dialog(activity!!)
 
@@ -399,6 +399,15 @@ class TestReviewFragment : Fragment() {
         if (!ratingdialog.isShowing) {
 
             btnSubmit.setOnClickListener {
+
+                CommonWebCalls.callToken(
+                    activity!!,
+                    "1",
+                    "",
+                    ActionIdData.C4400,
+                    ActionIdData.T4400
+                )
+
 
                 if (btnSubmit.text == "Submit") {
 
@@ -462,7 +471,7 @@ class TestReviewFragment : Fragment() {
 
                 if (response.body()!!.get("Status").asString == "true") {
 
-                    OpenAttemptDialog()
+                    OpenAppRatingDialog()
 
                 } else {
 

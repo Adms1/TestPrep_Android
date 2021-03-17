@@ -29,9 +29,7 @@ import com.testcraft.testcraft.models.CreateTestQTypeModel
 import com.testcraft.testcraft.models.GetChapterList
 import com.testcraft.testcraft.models.TemplateSectionModel
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_create_test.*
 import kotlinx.android.synthetic.main.activity_phone_login.*
@@ -175,6 +173,9 @@ class CreateTestActivity : AppCompatActivity(), ChapterListInterface {
         }
 
         createtest_btnCreate.setOnClickListener {
+
+            CommonWebCalls.callToken(this@CreateTestActivity, "1", "", ActionIdData.C4301, ActionIdData.T4301)
+
             if (coursetypeid == "1") {
 
                 if (isValid()) {

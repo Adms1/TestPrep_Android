@@ -188,6 +188,14 @@ class MarketPlaceFragment : Fragment() {
 
         img_subscription.setOnClickListener {
 
+            CommonWebCalls.callToken(
+                activity!!,
+                "1",
+                "",
+                ActionIdData.C4200,
+                ActionIdData.T4200
+            )
+
 //            val intent = Intent(activity!!, SubscriptionActivity::class.java)
 //            startActivity(intent)
 

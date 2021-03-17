@@ -20,7 +20,7 @@ class ActionIdData {
         var T202 = "Continue with Gmail"
 
         var C203 = "203"
-        var T203 = "Continue with Email"
+        var T203 = "Continue with Mobile"
 
         var C204 = "204"
         var T204 = "Sign In"
@@ -29,13 +29,13 @@ class ActionIdData {
         var T300 = "Registration"
 
         var C301 = "301"
-        var T301 = "Continue Button"
+        var T301 = "Proceed"
 
         var C302 = "302"
         var T302 = "Sign In Link"
 
         var C400 = "400"
-        var T400 = "Verification Code"
+        var T400 = "Verification Code Screen"
 
         var C401 = "401"
         var T401 = "Resend Link"
@@ -44,7 +44,7 @@ class ActionIdData {
         var T402 = "Verify The Code Button"
 
         var C500 = "500"
-        var T500 = "Verified Successfully Screen"
+        var T500 = "New Registration"
 
         var C501 = "501"
         var T501 = "Done Button"
@@ -53,7 +53,7 @@ class ActionIdData {
         var T600 = "Select Exam"
 
         var C601 = "601"
-        var T601 = "State Boards"
+        var T601 = "Boards"
 
         var C602 = "602"
         var T602 = "Competitive Exams"
@@ -83,7 +83,7 @@ class ActionIdData {
         var T802 = "Free Test - View All"
 
         var C803 = "803"
-        var T803 = "Package - View Details"
+        var T803 = "Package - View More"
 
         var C804 = "804"
         var T804 = "Packages - View All"
@@ -110,7 +110,7 @@ class ActionIdData {
         var T811 = "Explore"
 
         var C812 = "812"
-        var T812 = "Other"
+        var T812 = "My Profile"
 
         var C813 = "813"
         var T813 = "Market Place"
@@ -182,7 +182,7 @@ class ActionIdData {
         var T1901 = "Start/Resume"
 
         var C1902 = "1902"
-        var T1902 = "Information"
+        var T1902 = "Package Description"
 
         var C2000 = "2000"
         var T2000 = "Test Start"
@@ -248,7 +248,7 @@ class ActionIdData {
         var T2301 = "View Solutions Button"
 
         var C2302 = "2302"
-        var T2302 = "Test Summary Report Button"
+        var T2302 = "Summary Report"
 
         var C2400 = "2400"
         var T2400 = "View Solutions Screen"
@@ -257,7 +257,7 @@ class ActionIdData {
         var T2401 = "Report an issue"
 
         var C2402 = "2402"
-        var T2402 = "Next Button"
+        var T2402 = "Viewsolution Next Button"
 
         var C2403 = "2403"
         var T2403 = "Questions Status List"
@@ -269,13 +269,13 @@ class ActionIdData {
         var T2500 = "Report an issue Pop-up"
 
         var C2501 = "2501"
-        var T2501 = "Question has a problem"
+        var T2501 = "Viewsolution Question has a problem"
 
         var C2502 = "2502"
-        var T2502 = "Answer has a problem"
+        var T2502 = "Viewsolution Answer has a problem"
 
         var C2503 = "2503"
-        var T2503 = "Hint has a problem"
+        var T2503 = "Viewsolution Explanation has a problem"
 
         var C2504 = "2504"
         var T2504 = "Cancel Button"
@@ -297,6 +297,7 @@ class ActionIdData {
 
         var C2802 = "2802"
         var T2802 = "Tutor\'s Packages"
+
         var C2900 = "2900"
         var T2900 = "Rating Screen"
 
@@ -325,7 +326,7 @@ class ActionIdData {
         var T3301 = "Edit Profile"
 
         var C3302 = "3302"
-        var T3302 = "My Payments"
+        var T3302 = "Packages"
 
         var C3303 = "3303"
         var T3303 = "Change Password"
@@ -396,8 +397,29 @@ class ActionIdData {
         var C4100 = "4100"
         var T4100 = "Generate Password Screen"
 
-        var C4101 = "4101"
-        var T4101 = "Change Password Button"
+        var C4200 = "4200"
+        var T4200 = "Subscribe Now button"
+
+        var C4201 = "4201"
+        var T4201 = "Subscription Pay Button"
+
+        var C4300 = "4300"
+        var T4300 = "Create my test button"
+
+        var C4301 = "4301"
+        var T4301 = "Create test button"
+
+        var C705 = "705"
+        var T705 = "select course"
+
+        var C3306 = "3306"
+        var T3306 = "subscriptions"
+
+        var C3307 = "3307"
+        var T3307 = "contact us"
+
+        var C4400 = "4400"
+        var T4400 = "smiley rating submit button"
 
     }
 

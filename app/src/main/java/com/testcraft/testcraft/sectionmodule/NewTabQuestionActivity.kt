@@ -2158,14 +2158,6 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
 
             "Submit Test" -> {
 
-                CommonWebCalls.callToken(
-                    this@NewTabQuestionActivity,
-                    "1",
-                    "",
-                    ActionIdData.C2010,
-                    ActionIdData.T2010
-                )
-
                 if (reportdialog != null && reportdialog!!.isShowing) {
                     reportdialog!!.dismiss()
                 }
@@ -2384,6 +2376,14 @@ class NewTabQuestionActivity : FragmentActivity(), FilterTypeSelectionInteface {
             }
 
             btnOk.setOnClickListener {
+
+                CommonWebCalls.callToken(
+                    this@NewTabQuestionActivity,
+                    "1",
+                    "",
+                    ActionIdData.C2010,
+                    ActionIdData.T2010
+                )
 
                 stopTimer()
 

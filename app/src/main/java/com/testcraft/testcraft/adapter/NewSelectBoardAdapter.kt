@@ -59,8 +59,6 @@ class NewSelectBoardAdapter(
 
         p0.rlMain.setOnClickListener {
 
-            CommonWebCalls.callToken(context, "1", "", ActionIdData.C701, ActionIdData.T701)
-
             Utils.setStringValue(context, AppConstants.COURSE_ID, dataList[p1].CourseID)
             Utils.setStringValue(context, "course_name", dataList[p1].CourseName)
 
@@ -70,11 +68,13 @@ class NewSelectBoardAdapter(
             p0.title.setTextColor(context.resources.getColor(R.color.nfcolor))
 
             if (Utils.getStringValue(context, AppConstants.COURSE_TYPE_ID, "") == "1") {
+
+                CommonWebCalls.callToken(context, "1", "", ActionIdData.C701, ActionIdData.T701)
+
                 (context as PrefrenceActivity).callStandardList(dataList[p1].CourseID.toInt())
+            } else {
+                CommonWebCalls.callToken(context, "1", "", ActionIdData.C705, ActionIdData.T705)
             }
-//            else {
-//                (context as PrefrenceActivity).callSubjectList(dataList[p1].CourseID.toString())
-//            }
             notifyDataSetChanged()
 
         }

@@ -25,9 +25,7 @@ import com.testcraft.testcraft.adapter.StdSpinnerAdapter
 import com.testcraft.testcraft.models.GetSubscriptionModel
 import com.testcraft.testcraft.models.PackageData
 import com.testcraft.testcraft.retrofit.WebClient
-import com.testcraft.testcraft.utils.AppConstants
-import com.testcraft.testcraft.utils.DialogUtils
-import com.testcraft.testcraft.utils.Utils
+import com.testcraft.testcraft.utils.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -65,6 +63,14 @@ class MarketPlaceBottomSheetFragment : BottomSheetDialogFragment() {
         Utils.setFont(activity!!, "fonts/Inter-SemiBold.ttf", bottomsheet_tvListAmount)
 
         bottomsheet_tvPaynow.setOnClickListener {
+
+            CommonWebCalls.callToken(
+                activity!!,
+                "1",
+                "",
+                ActionIdData.C4201,
+                ActionIdData.T4201
+            )
 
 //            if (strStd == "0") {
 //                Utils.ping(activity!!, "Please select Standard")

@@ -51,6 +51,9 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 //                    startActivity(intent)
                 }
                 "Subscriptions" -> {
+
+                    CommonWebCalls.callToken(context, "1", "", ActionIdData.C3306, ActionIdData.T3306)
+
                     AppConstants.isFirst = 19
                     DashboardActivity.setFragments(null)
                 }
@@ -138,6 +141,8 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
                 }
 
                 "Contact Us" -> {
+
+                    CommonWebCalls.callToken(context, "1", "", ActionIdData.C3307, ActionIdData.T3307)
 
                     AppConstants.isFirst = 16
                     DashboardActivity.setFragments(null)
