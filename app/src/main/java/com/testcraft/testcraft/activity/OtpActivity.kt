@@ -10,21 +10,28 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.gson.JsonObject
 import com.testcraft.testcraft.Connectivity
 import com.testcraft.testcraft.R
 import com.testcraft.testcraft.retrofit.WebClient
 import com.testcraft.testcraft.utils.*
+import com.testcraft.testcraft.utils.SmsBroadcastReceiver.SmsBroadcastReceiverListener
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import kotlinx.android.synthetic.main.activity_otp.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 class OtpActivity : AppCompatActivity() {
 
     var otp = ""
+    private val REQ_USER_CONSENT = 200
+    var smsBroadcastReceiver: SmsBroadcastReceiver? = null
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
@@ -32,16 +39,10 @@ class OtpActivity : AppCompatActivity() {
 
     var connectivity: Connectivity? = null
 
-    override fun onResume() {
-        super.onResume()
-        val filter = IntentFilter()
-        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
-        registerReceiver(connectivity, filter)
-    }
-
     override fun onStop() {
         super.onStop()
         unregisterReceiver(connectivity)
+        unregisterReceiver(smsBroadcastReceiver)
     }
 
     @SuppressLint("SetTextI18n")
@@ -157,17 +158,27 @@ class OtpActivity : AppCompatActivity() {
                         otp_tvInvalid.visibility = View.GONE
 
                         Utils.hideKeyboard(this@OtpActivity)
-                        otp_tvVerificationSuccess.visibility = View.VISIBLE
-                        otp_tvHeading.text = "Awesome!"
+//                        otp_tvVerificationSuccess.visibility = View.VISIBLE
+//                        otp_tvHeading.text = "Awesome!"
+//
+//                        otp_tvInstruction.visibility = View.GONE
+//                        otp_btnSubmit.text = "Done"
+//                        otp_tvResend.visibility = View.GONE
+//                        otp_etOtp.visibility = View.GONE
 
-                        otp_tvInstruction.visibility = View.GONE
-                        otp_btnSubmit.text = "Done"
-                        otp_tvResend.visibility = View.GONE
-                        otp_etOtp.visibility = View.GONE
-
-                        otp_ivLogo.setImageDrawable(resources.getDrawable(R.drawable.success_verification_icn))
+//                        otp_ivLogo.setImageDrawable(resources.getDrawable(R.drawable.success_verification_icn))
 
                         if (intent.getStringExtra("come_from") == "signup") {
+
+                            otp_tvVerificationSuccess.visibility = View.VISIBLE
+                            otp_tvHeading.text = "Awesome!"
+
+                            otp_tvInstruction.visibility = View.GONE
+                            otp_btnSubmit.text = "Done"
+                            otp_tvResend.visibility = View.GONE
+                            otp_etOtp.visibility = View.GONE
+
+                            otp_ivLogo.setImageDrawable(resources.getDrawable(R.drawable.success_verification_icn))
 
                             if (intent.getStringExtra("student_id") == "0") {
 
@@ -181,7 +192,7 @@ class OtpActivity : AppCompatActivity() {
                                     intent.getStringExtra("mobile_number"))
                             } else {
 
-                                if(Utils.getStringValue(this@OtpActivity, AppConstants.isPrefrence, "") == "1") {
+                                if (Utils.getStringValue(this@OtpActivity, AppConstants.isPrefrence, "") == "1") {
 
                                     Utils.setStringValue(
                                         this@OtpActivity,
@@ -193,7 +204,7 @@ class OtpActivity : AppCompatActivity() {
                                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     startActivity(i)
                                     finish()
-                                }else{
+                                } else {
                                     val i = Intent(this@OtpActivity, NewActivity::class.java)
                                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                                     startActivity(i)
@@ -224,7 +235,7 @@ class OtpActivity : AppCompatActivity() {
 
                     Utils.setStringValue(this@OtpActivity, AppConstants.IS_LOGIN, "true")
 
-                    if(Utils.getStringValue(this@OtpActivity, AppConstants.isPrefrence, "") == "1") {
+                    if (Utils.getStringValue(this@OtpActivity, AppConstants.isPrefrence, "") == "1") {
 
                         AppConstants.isFirst = 0
 
@@ -233,7 +244,7 @@ class OtpActivity : AppCompatActivity() {
                         startActivity(i)
                         finish()
 
-                    }else{
+                    } else {
                         val i = Intent(this@OtpActivity, NewActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(i)
@@ -277,6 +288,7 @@ class OtpActivity : AppCompatActivity() {
 
                         Utils.setStringValue(this@OtpActivity, AppConstants.OTP, otp)
 
+                        startSmsUserConsent()
 //                        Toast.makeText(this@OtpActivity, response.body()!!["Msg"].asString, Toast.LENGTH_LONG).show()
 
                     } else {
@@ -533,5 +545,62 @@ class OtpActivity : AppCompatActivity() {
 
     }
 
+    private fun startSmsUserConsent() {
+        val client = SmsRetriever.getClient(this)
+        //We can add sender phone number or leave it blank
+        // I'm adding null here
+        client.startSmsUserConsent(null)
+            .addOnSuccessListener {
+//                Toast.makeText(applicationContext, "On Success", Toast.LENGTH_LONG).show()
+            }
+            .addOnFailureListener {
+//                Toast.makeText(applicationContext, "On OnFailure", Toast.LENGTH_LONG).show()
+            }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQ_USER_CONSENT) {
+            if (resultCode == RESULT_OK && data != null) {
+                //That gives all message to us.
+                // We need to get the code from inside with regex
+                val message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)
+//                Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+//                otp_etOtp.value = String.format("%s - %s", getString(R.string.received_message), message)
+                getOtpFromMessage(message)
+            }
+        }
+    }
+
+    private fun getOtpFromMessage(message: String) {
+        // This will match any 6 digit number in the message
+        val pattern: Pattern = Pattern.compile("(|^)\\d{6}")
+        val matcher: Matcher = pattern.matcher(message)
+        if (matcher.find()) {
+            otp_etOtp.value = matcher.group(0)
+        }
+    }
+
+    private fun registerBroadcastReceiver() {
+        smsBroadcastReceiver = SmsBroadcastReceiver()
+        smsBroadcastReceiver!!.smsBroadcastReceiverListener =
+            object : SmsBroadcastReceiverListener {
+                override fun onSuccess(intent: Intent?) {
+                    startActivityForResult(intent, REQ_USER_CONSENT)
+                }
+
+                override fun onFailure() {}
+            }
+        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+        registerReceiver(smsBroadcastReceiver, intentFilter)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val filter = IntentFilter()
+        filter.addAction("android.net.conn.CONNECTIVITY_CHANGE")
+        registerReceiver(connectivity, filter)
+        registerBroadcastReceiver()
+    }
 
 }

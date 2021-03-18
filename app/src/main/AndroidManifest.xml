@@ -166,10 +166,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.OtpActivity"
-            android:configChanges="keyboardHidden"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.DashboardActivity"
             android:launchMode="singleTop"
@@ -263,6 +261,13 @@
         <meta-data
             android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
             android:value="false" />
+
+        <!--        <receiver android:name=".utils.SmsBroadcastReceiver" android:exported="true"-->
+        <!--            android:permission="com.google.android.gms.auth.api.phone.permission.SEND">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED"/>-->
+        <!--            </intent-filter>-->
+        <!--        </receiver>-->
 
     </application>
 

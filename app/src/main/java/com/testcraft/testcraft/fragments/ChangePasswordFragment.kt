@@ -78,13 +78,13 @@ class ChangePasswordFragment : Fragment() {
 
             } else {
 
-                CommonWebCalls.callToken(
-                    activity!!,
-                    "1",
-                    "",
-                    ActionIdData.C4101,
-                    ActionIdData.T4101
-                )
+//                CommonWebCalls.callToken(
+//                    activity!!,
+//                    "1",
+//                    "",
+//                    ActionIdData.C4101,
+//                    ActionIdData.T4101
+//                )
 
                 if (isValid()) {
                     callChangePasswordlApi()
@@ -112,13 +112,13 @@ class ChangePasswordFragment : Fragment() {
 
                 } else {
 
-                    CommonWebCalls.callToken(
-                        activity!!,
-                        "1",
-                        "",
-                        ActionIdData.C4101,
-                        ActionIdData.T4101
-                    )
+//                    CommonWebCalls.callToken(
+//                        activity!!,
+//                        "1",
+//                        "",
+//                        ActionIdData.C4101,
+//                        ActionIdData.T4101
+//                    )
 
                     if (isValid()) {
                         callChangePasswordlApi()

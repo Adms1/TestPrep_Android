@@ -192,6 +192,14 @@ class OtherListAdapter(val context: Context, val dataList: ArrayList<String>) :
 
                 "Sign Out" -> {
 
+                    CommonWebCalls.callToken(
+                        context,
+                        "1",
+                        "",
+                        ActionIdData.C3304,
+                        ActionIdData.T3304
+                    )
+
                     DialogUtils.createConfirmDialog(context, "Sign Out?",
                         "Are you sure you want to sign out?",
                         "OK", "Cancel",

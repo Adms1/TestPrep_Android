@@ -12,8 +12,8 @@ android {
         applicationId "com.testcraft.testcraft"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 33
-        versionName "4.3"
+        versionCode 35
+        versionName "4.5"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -138,4 +138,6 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
+
+    implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.0'
 }
