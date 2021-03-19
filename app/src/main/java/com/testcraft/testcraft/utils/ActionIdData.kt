@@ -44,7 +44,7 @@ class ActionIdData {
         var T402 = "Verify The Code Button"
 
         var C500 = "500"
-        var T500 = "New Registration"
+        var T500 = "OTP Verified"
 
         var C501 = "501"
         var T501 = "Done Button"
