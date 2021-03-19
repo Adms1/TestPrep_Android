@@ -25,7 +25,7 @@ import com.testcraft.testcraft.utils.AppConstants
 import com.testcraft.testcraft.utils.DialogUtils
 import java.util.*
 
-class SoutionSideMenuAdapter(
+class SolutionSideMenuAdapter(
     val context: Context,
     var header: ArrayList<String>,
     var finalArr: HashMap<String, ArrayList<QuestionTypeModel>>,
@@ -174,7 +174,7 @@ internal class ImageViewAdapter1(
             notifyDataSetChanged()
 
             sideList!!.setAdapter(
-                SoutionSideMenuAdapter(
+                SolutionSideMenuAdapter(
                     context,
                     header,
                     finalArr,
